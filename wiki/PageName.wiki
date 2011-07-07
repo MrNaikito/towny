@@ -1,0 +1,13 @@
+#summary Wiki Front Page.
+
+= Introduction =
+
+Welcome to the Towny wiki.
+
+
+= Derp =
+
+Installation/Setup.
+  * Downloading Towny, Questioner.
+  * Permission Nodes.
+  * Config.yml Setup.
