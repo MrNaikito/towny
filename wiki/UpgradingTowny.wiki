@@ -1,4 +1,4 @@
-#summary Instructions on upgrading Towny.
+#summary Instructions for upgrading Towny.
 
 = Introduction =
 
