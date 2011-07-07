@@ -1,0 +1,174 @@
+#summary Towny Commands Master List
+
+= Introduction to Towny Commands=
+
+  * This list breaks each command down by word. Eg: /resident set perm {on/off}.
+  * For resident commands, the add command would auto-match online players, while add+ requires exact spelling to choose offline players.
+  * Just about every subcommand has it's own help menu. Use /resident set, or a similar cutoff, to show all the options for that command ingame. You can also use /resident set ?, you will probably need to use that in the case where a subcommand actually has a function by itself. Example: /town claim, and /town claim ? would show all it's subcommands.
+  * The { } brackets are used to show variables, or what you need to fill in. The elipse ".." (or shortened elipse) is used to show that you can specify multiple things at once (like inviting 10 residents at once).
+  * The {bleh/blah/bluh} is used to show that the input can be multiple words.
+  * An empty bullet represents that the subcommand itself does something and will not show a help menu.
+
+= Master List =
+
+  * /resident 
+    *    
+    * ?
+    * list
+    * {resident}
+    * friend 
+     * add {resident} .. {resident}
+     * add+ {resident} .. {resident}
+     * remove {resident} .. {resident}
+     * remove+ {resident} .. {resident}
+     * clearlist
+    * set 
+     * perm 
+     * {on/off}
+     * {friend/ally/outsider} {on/off}
+     * {build/destroy/switch/itemuse} {on/off}
+     * {friend/ally/outsider} {build/destroy/switch/itemuse} {on/off}
+     * mode {mode} .. {mode}
+    * delete {resident}
+  
+  * /town 
+    *
+    * ?
+    * {town}
+    * list
+    * leave
+    * here
+    * spawn
+    * spawn {town}
+    * claim 
+      * outpost
+      * {# (radius around current position)}
+      * auto
+    * unclaim
+      * all
+      * {# (radius around current position)}
+    * withdraw {$}
+    * deposit {$}
+    * new 
+      * {townname}
+      * {townname} {mayor}
+    * delete [town name]
+    * add {resident} .. {resident}
+    * add+ {resident} .. {resident}
+    * kick {resident} .. {resident}
+    * kick+ {resident} .. {resident}
+    * assistant 
+      * add {resident} .. {resident}
+      * add+ {resident} .. {resident}
+      * remove {resident} .. {resident}
+      * remove+ {resident} .. {resident}
+    * set 
+      * board {message}
+      * mayor {resident}
+      * homeblock
+      * spawn
+      * perm 
+        * {on/off}
+        * {resident/ally/outsider} {on/off}
+        * {build/destroy/switch/itemuse} {on/off}
+        * {resident/ally/outsider} {build/destroy/switch/itemuse} {on/off}
+      * explosion {on/off}
+      * pvp {on/off}
+      * taxes [$]
+      * plottax [$]
+      * plotprice [$]
+      * name [name] --disabled-- 
+      * public {on/off}
+  
+  * /plot 
+    * claim
+    * unclaim
+    * forsale
+    * {notforsale/nfs}
+  
+  * /nation 
+    *  
+    * ?
+    * list
+    * {nation}
+    * leave
+    * withdraw {$}
+    * deposit {$}
+    * new 
+      * {nationname}
+      * {nationname} {capitaltown}
+    * assistant 
+      * add {resident} .. {resident}
+      * add+ {resident} .. {resident}
+      * remove {resident} .. {resident}
+      * remove+ {resident} .. {resident}
+    * add {town} .. {town}
+    * kick {town} .. {town}
+    * delete {nation}
+    * ally 
+      * add {nation} .. {nation}
+      * remove {nation} .. {nation}
+    * enemy 
+      * add {nation} .. {nation}
+      * remove {nation} .. {nation}
+    * set 
+      * king {resident}
+      * captial {town}
+    * taxes {$}
+    * name {name} --disabled-- 
+    * neutral
+  
+  * /townyworld 
+    * 
+    * ?
+    * list
+    * {world}
+    * set 
+      * claimable {on/off}
+      * pvp {on/off}
+      * usedefault
+    * wildperm {perm} .. {perm}
+    * wildignore {id} .. {id}
+    * wildname {name}
+    * usingtowny {on/off}
+  
+  * /towny 
+    *  
+    * ?
+    * map
+    * prices
+    * top 
+      * money {all/resident/town/nation}
+      * residents {all/town/nation}
+      * land {all/resident/town}
+    * universe
+    * v
+    * war 
+      * stats
+      * scores
+  
+  * /townyadmin 
+    *  
+    * ?
+    * town {town} 
+    * add {resident} .. {resident}
+    * add+ {resident} .. {resident}
+    * war 
+      * toggle
+    * set 
+      * mayor 
+        * {town} {resident}
+        * {town} npc
+      * debugmode {on/off}
+      * devmode {on/off}
+    * givebonus {town} {#}
+    * reload
+    * backup
+    * newday
+    * unclaim
+      * rect {half-length}
+    * tree
+
+----
+
+Source: Original Author, Shade: [http://www.xshade.ca/towny/commands http://www.xshade.ca/towny/commands] with small additions.
