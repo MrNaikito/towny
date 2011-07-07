@@ -52,7 +52,7 @@
     * new 
       * {townname}
       * {townname} {mayor}
-    * delete [town name]
+    * delete {town name}
     * add {resident} .. {resident}
     * add+ {resident} .. {resident}
     * kick {resident} .. {resident}
