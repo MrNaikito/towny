@@ -1,4 +1,3 @@
-#labels Featured
 #sidebar TableOfContents
   * [Commands Commands]
   * [PermissionNodes Permission Nodes]
