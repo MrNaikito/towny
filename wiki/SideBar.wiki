@@ -1,4 +1,3 @@
-#labels Featured
 #sidebar TableOfContents
   * Wiki Home Page
   * Setup and Use
