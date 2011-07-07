@@ -1,0 +1,29 @@
+#summary Instructions on upgrading Towny.
+
+= Introduction =
+
+Here are instructions for upgrading to Towny 0.72:
+
+
+= Upgrade Instructions =
+
+  * Stop your server completely.
+  * Download Towny.jar and save/copy it to your Plugins folder.
+  * Start your server.
+  * Stop your server.
+  * Navigate to /Plugins/Towny/Settings/
+    * Open *config.properties* (unused now) and *config.yml*
+    * Carefully configure config.yml to the settings you used in config.properties.
+    * Save config.yml and optionally, discard config.properties.
+  * *If you use Permissions you MUST configure your [PermissionNodes permission nodes], as they are required for players to be able to build/mine in the wilderness.*
+    * towny.wild.(asterisk) 
+  * or
+    * towny.wild.build
+    * towny.wild.destroy
+    * towny.wild.switch
+    * towny.wild.item_use
+    * towny.wild.{blockid}
+
+
+Your server is ready to use Towny 0.72!
+  
