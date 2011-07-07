@@ -1,0 +1,23 @@
+#summary One-sentence summary of this page.
+
+= Introduction to Permission Nodes =
+
+Add a description of which nodes and when towny uses its nodes.
+
+= Permission Nodes =
+
+  * towny.admin: User is able to use /townyadmin, as well as the ability to build/destroy anywhere. User can also able to make towns or nations when set to admin only.
+
+  * towny.town.new :User is able to create a town (used only when town_creation_admin_only: true)
+  * towny.town.claim : User is able to expand his town with /town claim (used when world is set as unclaimable in /townyworld)
+
+  * towny.nation.new :User is able to create a nation (used only when nation_creation_admin_only: true)
+
+  * towny.wild.build
+  * towny.wild.destroy
+  * towny.wild.switch
+  * towny.wild.item_use
+  * towny.wild.block.{block id} : User is able to edit {block id} in the wild.
+
+  * towny.spawntp :Use /town spawn (use only when allow_town_spawn: false)
+  * towny.publicspawntp : Use "/town spawn {town}" (teleport to other towns) (used only when allow_town_spawn_travel: false)
