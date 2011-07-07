@@ -73,6 +73,7 @@
         * {build/destroy/switch/itemuse} {on/off}
         * {resident/ally/outsider} {build/destroy/switch/itemuse} {on/off}
       * explosion {on/off}
+      * fire {on/off}
       * pvp {on/off}
       * taxes {$}
       * plottax {$}
