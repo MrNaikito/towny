@@ -1,0 +1,7 @@
+#labels Featured
+#sidebar TableOfContents
+  * Wiki Home Page
+  * Setup and Use
+    * [Commands Commands]
+    * [PermissionNodes Permission Nodes]
+    * [UpgradingTowny Upgrade Insructions for Towny 0.72]
