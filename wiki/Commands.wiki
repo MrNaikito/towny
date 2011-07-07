@@ -74,10 +74,10 @@
         * {resident/ally/outsider} {build/destroy/switch/itemuse} {on/off}
       * explosion {on/off}
       * pvp {on/off}
-      * taxes [$]
-      * plottax [$]
-      * plotprice [$]
-      * name [name] --disabled-- 
+      * taxes {$}
+      * plottax {$}
+      * plotprice {$}
+      * name {name} --disabled-- 
       * public {on/off}
   
   * /plot 
