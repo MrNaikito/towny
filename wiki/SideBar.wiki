@@ -1,7 +1,6 @@
 #sidebar TableOfContents
   * [Main Wiki Home Page]
-  * Setup and Use
-    * [Commands Commands]
-    * [PermissionNodes Permission Nodes]
-    * [DefaultConfig Default config.yml]
-    * [UpgradingTowny Upgrade Insructions for Towny 0.72]
+  * [Commands Commands]
+  * [PermissionNodes Permission Nodes]
+  * [DefaultConfig Default config.yml]
+  * [UpgradingTowny Upgrade Insructions for Towny 0.72]
