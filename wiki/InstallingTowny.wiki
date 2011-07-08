@@ -18,7 +18,7 @@ Here are instructions for installing Towny 0.72 for the first time.
     * Enable Essentials if you use it.
     * Enabled use of iConomy set costs in the Economy section.
     * Enable Permissions if you do not want to use the settings that would be overridden in the config.
-    * If you are using GroupManager set using_permissions: true.
+    * If you are using GroupManager set {{{using_permissions: true}}}
     * Enable Questioner (Strongly recommended if you use iConomy)
     * Set wilderness flags only if you are *not* using Permissions.
     * Save config.yml.
