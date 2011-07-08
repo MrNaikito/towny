@@ -264,7 +264,7 @@ unclaimed:
     unclaimed_zone_destroy: false
     unclaimed_zone_item_use: false
     unclaimed_zone_switch: false
-    unclaimed_zone_ignore: 14,15,16,21,50,56,65,66,73,74,89
+    unclaimed_zone_ignore: 14,15,16,17,18,21,50,56,65,66,73,74,89
 
 
 ############################################################
