@@ -4,3 +4,4 @@
   * [PermissionNodes Permission Nodes]
   * [DefaultConfig Default config.yml]
   * [UpgradingTowny Upgrade Insructions for Towny 0.72]
+  * [TownyPerms How To Protect Blocks with Towny]
