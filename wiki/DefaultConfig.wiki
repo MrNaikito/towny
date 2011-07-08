@@ -22,7 +22,7 @@ description: >
 
 commands:
     towny:
-        aliases: [tester]
+        aliases: [t]
     nation:
         aliases: [n, nat]
     nationchat:
