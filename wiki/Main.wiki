@@ -1,4 +1,9 @@
-#sidebar TableOfContents
+#summary Welcome to the Towny Wiki.
+= Welcome to the Towny Wiki =
+
+This page will be fleshed out as more pages are created.
+
   * [Commands Commands]
   * [PermissionNodes Permission Nodes]
   * [UpgradingTowny Upgrade Insructions for Towny 0.72]
+
