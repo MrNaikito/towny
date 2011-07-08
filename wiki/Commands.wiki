@@ -78,7 +78,7 @@
       * taxes {$}
       * plottax {$}
       * plotprice {$}
-      * name {name} --disabled-- 
+      * name {name}
       * public {on/off}
   
   * /plot 
@@ -116,7 +116,7 @@
       * king {resident}
       * captial {town}
     * taxes {$}
-    * name {name} --disabled-- 
+    * name {name}
     * neutral
   
   * /townyworld 
