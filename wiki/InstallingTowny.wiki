@@ -1,0 +1,43 @@
+#summary How to install Towny for the first time.
+
+= Introduction =
+
+Here are instructions for installing Towny 0.72 for the first time.
+
+
+= Install Instructions =
+
+  # Stop your server completely.
+  # Download Towny.jar and save/copy it to your Plugins folder. (Optionally, Download Questioner as well.)
+  # Start your server.
+  # Stop your server.
+  # Navigate to /Plugins/Towny/Settings/
+    * Open *config.yml*
+    * Carefully configure config.yml to your liking. Read the [DefaultConfig Default config.yml] wiki page.
+    * Set townblock size, default 16x16 (Cannot be changed!)
+    * Enable Essentials if you use it.
+    * Enabled use of iConomy set costs in the Economy section.
+    * Enable Permissions if you do not want to use the settings that would be overridden in the config.
+    * Enable Questioner (Strongly recommended if you use iConomy)
+    * Set wilderness flags only if you are *not* using Permissions.
+    * Save config.yml.
+  # *If you use Permissions you MUST configure your [PermissionNodes permission nodes], as they are required for players to be able to build/mine in the wilderness.*
+    * towny.wild.(asterisk) 
+    * *or*
+    * towny.wild.build
+    * towny.wild.destroy
+    * towny.wild.switch
+    * towny.wild.item_use
+    * towny.wild.{blockid}
+  # Depending on how you configured your config.yml you may need to grant these permission nodes:
+    * towny.town.new : User is able to create a town (used only when town_creation_admin_only: true)
+    * towny.town.claim : User is able to expand his town with /town claim (used when world is set as unclaimable in /townyworld)
+    * towny.nation.new : User is able to create a nation (used only when nation_creation_admin_only: true)
+    * towny.spawntp : Use /town spawn (use only when allow_town_spawn: false) 
+    * towny.publicspawntp : Use "/town spawn {town}" (teleport to other towns) (used only when allow_town_spawn_travel: false)
+  # Last but not least grant yourself:
+    * towny.admin
+
+
+Your server is ready to use Towny 0.72!
+  
