@@ -15,7 +15,7 @@ Here are instructions for upgrading to Towny 0.72:
   * Stop your server.
   * Navigate to /Plugins/Towny/Settings/
     * Open *config.properties* (unused now) and *config.yml*
-    * Carefully configure config.yml to the settings you used in config.properties.
+    * Carefully configure config.yml to the settings you used in config.properties, [DefaultConfig using the wiki as a guide.]
     * If you are using Groupmanager set {{{using_permissions: true}}}
     * Save config.yml and optionally, discard config.properties.
   * *If you use Permissions you MUST configure your [PermissionNodes permission nodes], as they are required for players to be able to build/mine in the wilderness.*
