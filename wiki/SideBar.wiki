@@ -1,14 +1,14 @@
 #sidebar TableOfContents
 [Main Wiki Home Page]
 
- *[InstallingTowny Install Towny for the first time]
+ * [InstallingTowny Install Towny for the first time]
 
- *[UpgradingTowny Upgrade Insructions for Towny 0.72]
+ * [UpgradingTowny Upgrade Insructions for Towny 0.72]
 
- *[Commands Commands]
+ * [Commands Commands]
 
- *[PermissionNodes Permission Nodes]
+ * [PermissionNodes Permission Nodes]
 
- *[DefaultConfig Default config.yml]
+ * [DefaultConfig Default config.yml]
 
- *[TownyPerms How To Protect Blocks with Towny]
+ * [TownyPerms How To Protect Blocks with Towny]
