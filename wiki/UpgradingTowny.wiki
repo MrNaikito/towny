@@ -8,7 +8,7 @@ Here are instructions for upgrading to Towny 0.72:
 = Upgrade Instructions =
 
   * Stop your server completely.
-  * Download Towny.jar and save/copy it to your Plugins folder.
+  * Download Towny.jar and save/copy it to your Plugins folder. (Optionally, Download Questioner as well.)
   * Start your server.
   * Stop your server.
   * Navigate to /Plugins/Towny/Settings/
