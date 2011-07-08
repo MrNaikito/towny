@@ -12,4 +12,5 @@ The gods of the land (admins) have the ability to start and end wartime mode. Du
 
   * [Commands Commands]
   * [PermissionNodes Permission Nodes]
+  * [DefaultConfig Default config.yml]
   * [UpgradingTowny Upgrade Insructions for Towny 0.72]
