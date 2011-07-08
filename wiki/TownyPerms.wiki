@@ -38,6 +38,8 @@ For towns the perm line reads RAO, with R representing Residents (players in tha
 
 The other groups are Ally (players from other towns in your nation, and nations your nation is allied with) and Outsiders (players who are not rart of your town or nation.)
 
+[Commands *All commands are found on the Wiki's Commands page.*]
+
 = Protection Additions Found in Towny Advanced =
 
 *New in Towny Advanced (0.72+) are two new protection types, anti-explosion and anti-firespread.*
