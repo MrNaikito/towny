@@ -2,9 +2,9 @@
 #sidebar TableOfContents
 [Main Wiki Home Page]
 
- * [InstallingTowny Install Towny for the first time]
+ * [InstallingTowny Fresh Install]
 
- * [UpgradingTowny Upgrade Insructions for Towny 0.72]
+ * [UpgradingTowny Upgrade Install]
 
  * [Commands Commands]
 
@@ -12,4 +12,4 @@
 
  * [DefaultConfig Default config.yml]
 
- * [TownyPerms How To Protect Blocks with Towny]
+ * [TownyPerms Town/Plot Anti-grief]
