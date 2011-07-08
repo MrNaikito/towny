@@ -23,6 +23,7 @@ Here are instructions for installing Towny 0.72 for the first time.
     * Enable Questioner (Strongly recommended if you use iConomy)
     * Set wilderness flags only if you are *not* using Permissions.
     * Save config.yml.
+    * NOTE: The .csv files are still being used, ignore their entries in the config.yml.
   # *If you use Permissions you MUST configure your [PermissionNodes permission nodes], as they are required for players to be able to build/mine in the wilderness.*
     * towny.wild.(asterisk) 
     * *or*
