@@ -1,6 +1,7 @@
 #labels Featured
 #sidebar TableOfContents
 [Main Wiki Home Page]
+
  * [InstallingTowny Fresh Install]
 
  * [UpgradingTowny Upgrade Install]
