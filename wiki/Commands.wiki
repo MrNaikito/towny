@@ -159,12 +159,12 @@ e#summary Towny Commands Master List
       * neutral
       * townmobs
       * worldmobs
+      * debug
+      * devmode
     * set 
       * mayor 
         * {town} {resident}
         * {town} npc
-      * debugmode {on/off}
-      * devmode {on/off}
     * givebonus {town} {#}
     * reload
     * backup
