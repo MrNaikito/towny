@@ -1,17 +1,18 @@
 #labels Featured
 #sidebar TableOfContents
 [Main Wiki Home Page]
+  * [InstallingTowny Fresh Install]
 
- * [InstallingTowny Fresh Install]
+  * [UpgradingTowny Upgrade Install]
 
- * [UpgradingTowny Upgrade Install]
+  * [UsingDevBuilds Using Dev Builds]
 
- * [http://code.google.com/a/eclipselabs.org/p/towny/source/browse/trunk/Towny.0.71.4/src/ChangeLog.txt Full Changelog]
+  * [http://code.google.com/a/eclipselabs.org/p/towny/source/browse/trunk/Towny.0.71.4/src/ChangeLog.txt Full Changelog]
 
- * [Commands Commands]
+  * [Commands Commands]
 
- * [PermissionNodes Permission Nodes]
+  * [PermissionNodes Permission Nodes]
 
- * [DefaultConfig Default config.yml]
+  * [DefaultConfig Default config.yml]
 
- * [TownyPerms Town/Plot Anti-grief]
+  * [TownyPerms Town/Plot Anti-grief]
