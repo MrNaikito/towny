@@ -36,7 +36,7 @@ For residents the Friend group consists of a player's friend list.
 
 For towns the perm line reads RAO, with R representing Residents (players in that town) and mayors need to use _/t set perm resident blah on/off_ instead of _/t set perm friend blah on/off_. 
 
-The other groups are Ally (players from other towns in your nation, and nations your nation is allied with) and Outsiders (players who are not rart of your town or nation.)
+The other groups are Ally (players from your town, other towns in your nation, and nations your nation is allied with) and Outsiders (players who are not part of your town or nation or nation's allies.)
 
 [Commands *All commands are found on the Wiki's Commands page.*]
 
@@ -45,8 +45,8 @@ The other groups are Ally (players from other towns in your nation, and nations 
 *New in Towny Advanced (0.72+) are two new protection types, anti-explosion and anti-firespread.*
 
 On the town level, a mayor can set these flags using:
-  * /town set explosion {on/off}
-  * /town set fire {on/off}
+  * /town toggle explosion
+  * /town toggle fire
 
 Explosion protection stops all explosions. This stops TNT, TNT cannons and creeper explosions.
 
