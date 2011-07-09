@@ -1,0 +1,12 @@
+#summary Instructions for using Dev Builds
+
+= Instructions for using Dev Builds =
+
+In between releases of Towny are Dev Builds which may or may not be safe for test-server use. Instructions for using Dev Builds of Towny can be found here.
+
+
+= Version 0.71.4RC2 =
+
+Follow instructions for either installing Towny for the [InstallingTowny first time] or as an [UpgradingTowny upgrade install.]
+
+If you are redownloading the Towny.jar file it is important to delete your config.yml and reconfigure the freshly generated one. The config.yml is changing slightly with successive builds, but will stabilize on release of 0.72.
