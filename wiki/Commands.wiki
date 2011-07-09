@@ -84,7 +84,7 @@ e#summary Towny Commands Master List
   * /plot 
     * claim
     * unclaim
-    * forsale
+    * {forsale/fs}
     * {notforsale/nfs}
   
   * /nation 
