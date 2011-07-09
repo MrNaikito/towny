@@ -5,9 +5,9 @@ Default config.yml contained in Dev Build 0.71.4
 {{{
 name: Towny
 main: ca.xshade.bukkit.towny.Towny
-version: 0.71.4
+version: 0.71.4 RC2
 language: english.yml
-last_run_version: 0.71.4
+last_run_version: 0.71.4 RC2
 author: Shade, Modified by FuzzeWuzze. Forked by ElgarL
 website: 
 description: >
@@ -188,19 +188,17 @@ debug_mode: false
 # Spams the player named in dev_name with all messages related to towny.
 dev_mode: false
 dev_name: Shadeness
-# Used to determine if it's the first run.
-first_run: true
+
 logging: true
 
 name_check_regex: '^[a-zA-Z0-9]+[a-zA-Z0-9._-]*$'
 name_filter_regex: '[ /]'
 name_remove_regex: '[^a-zA-Z0-9._-]'
 
-npc_prefix: '[NPC]'
+npc_prefix: 'NPC'
 
 pve_in_non_pvp_towns: true
 reset_log_on_boot: true
-save_on_load: false
 
 # Enables the [~Home] message.
 # If false it will make it harder for enemies to find the home block during a war
@@ -226,6 +224,7 @@ protection:
     # 326 - water bucket
     # 327 - lava bucket
     # 351 - bone/bonemeal
+    # 93/94 - redstone repeater
     item_use_ids: 259,325,326,327,351
 
     # Items which can be blocked or enabled via town/plot flags
@@ -238,7 +237,6 @@ protection:
     # 96 - trap door
     # 25 - noteblock
     # 84 - jukebox
-    # 93/94 - redstone repeater
     switch_ids: 64,69,70,71,72,77,96,25,84,93,94
 
     # Remove living entities within a town's boundaries.
