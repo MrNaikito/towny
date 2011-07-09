@@ -154,9 +154,11 @@ e#summary Towny Commands Master List
     * town {town} 
     * add {resident} .. {resident}
     * add+ {resident} .. {resident}
-    * war 
-      * toggle
+    * toggle
+      * war {on/off}
       * neutral {on/off}
+      * townmobs {on/off}
+      * worldmobs {on/off}
     * set 
       * mayor 
         * {town} {resident}
