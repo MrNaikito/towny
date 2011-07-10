@@ -30,7 +30,12 @@ Here are instructions for installing Towny 0.72 for the first time.
     * towny.wild.destroy
     * towny.wild.switch
     * towny.wild.item_use
-    * towny.wild.{blockid}
+    * towny.wild.block.{block id}.asterisk 
+    * towny.wild.block.{block id}.build 
+    * towny.wild.block.{block id}.destroy 
+    * towny.wild.block.{block id}.switch 
+    * towny.wild.block.{block id}.itemuse
+
   # Depending on how you configured your config.yml you may need to grant these permission nodes:
     * towny.town.new : User is able to create a town (used only when town_creation_admin_only: true)
     * towny.town.claim : User is able to expand his town with /town claim (used when world is set as unclaimable in /townyworld)
