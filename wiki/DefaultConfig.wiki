@@ -1,24 +1,23 @@
 #summary The Default Config.yml
-
-= The Default Config.yml =
-Default config.yml contained in Dev Build 0.71.4
 {{{
 name: Towny
 main: ca.xshade.bukkit.towny.Towny
-version: 0.71.4 RC2
+version: 0.72.0
 language: english.yml
-last_run_version: 0.71.4 RC2
+last_run_version: 0.72.0
 author: Shade, Modified by FuzzeWuzze. Forked by ElgarL
-website: 
+website: http://code.google.com/a/eclipselabs.org/p/towny/
 description: >
     Resident-Town-Nation heirarchy combined with a grid based
     protection system. Including a war event.
+
 
 ############################################################
 # +------------------------------------------------------+ #
 # |                   Towny commands                     | #
 # +------------------------------------------------------+ #
 ############################################################
+
 
 commands:
     towny:
@@ -40,11 +39,13 @@ commands:
     townyworld:
         aliases: [tw]
 
+
 ############################################################
 # +------------------------------------------------------+ #
 # |                     Permissions                      | #
 # +------------------------------------------------------+ #
 ############################################################
+
 
 #  Possible permission nodes
 #
@@ -63,11 +64,14 @@ commands:
 #
 #
 
+
 # these will be moved to permissions nodes at a later date
+
 
 # Allow towns to claim outposts (a townblock not connected to town).
 allow_outposts: true
 allow_resident_plots: true
+
 
 # all the use of /town spawn
 allow_town_spawn: true
@@ -76,13 +80,16 @@ allow_town_spawn_travel: true
 # Respawn the player at his town spawn point when he/she dies.
 town_respawn: false
 
+
 ############################################################
 # +------------------------------------------------------+ #
 # |                 default Town levels                  | #
 # +------------------------------------------------------+ #
 ############################################################
 
+
 # numResidents,namePrefix,namePostfix,mayorPrefix,mayorPostfix,townBlockLimit
+
 
 townLevel:
     - '0,, Ruin,Spirit ,,1'
@@ -95,13 +102,16 @@ townLevel:
     - '24,, (Large City),Duke ,,384'
     - '28,, (Metropolis),Lord ,,448'
 
+
 ############################################################
 # +------------------------------------------------------+ #
 # |                default Nation levels                 | #
 # +------------------------------------------------------+ #
 ############################################################
 
+
 # numResidents,namePrefix,namePostfix,capitalPrefix,capitalPostfix,kingPrefix,kingPostfix
+
 
 nationLevel:
     - '0,Lands of , (Nation),,,Leader ,'
@@ -112,11 +122,14 @@ nationLevel:
     - '60,The , Realm,,,God Emperor ,'
 
 
+
+
 ############################################################
 # +------------------------------------------------------+ #
 # |               Town Claim/new defaults                | #
 # +------------------------------------------------------+ #
 ############################################################
+
 
 # used to limit a town size if the level config files are empty
 default_max_town_blocks: 64
@@ -125,9 +138,11 @@ max_plots_per_resident: 100
 # Maximum number of towns allowed on the server.
 town_limit: 3000
 
+
 # Minimum number of plots any towns home plot must be from the next town.
 # This will prevent someone founding a town right on your doorstep
 min_distance_from_town_homeblock: 5
+
 
 # The maximum townblocks available to a town is (numResidents * ratio).
 # Setting this value to 0 will instead use the level based jump values determined in the town level config.
@@ -139,11 +154,14 @@ town_block_ratio: 16
 town_block_size: 16
 
 
+
+
 ############################################################
 # +------------------------------------------------------+ #
 # |                Global town settings                  | #
 # +------------------------------------------------------+ #
 ############################################################
+
 
 # force_pvp_on is a global flag and overrides any towns flag setting
 force_pvp_on: false
@@ -153,14 +171,17 @@ friendly_fire: true
 health_regen: true
 health_regen_speed: 3000
 
+
 # Enables taxes to be collected daily by town/nation
 # If a town can't pay it's tax then it is kicked from the nation.
 # if a resident can't pay his plot tax he loses his plot.
 # if a resident can't pay his town tax then he is kicked from the town.
 daily_taxes: true
 
+
 nation_creation_admin_only: false
 town_creation_admin_only: false
+
 
 ############################################################
 # +------------------------------------------------------+ #
@@ -168,54 +189,69 @@ town_creation_admin_only: false
 # +------------------------------------------------------+ #
 ############################################################
 
+
 using_essentials: true
 using_iconomy: true
 using_permissions: true
 using_questioner: true
+
 
 database_load: flatfile
 database_save: flatfile
 daily_backups: true
 flatfile_backup: zip
 
+
 # The time taken between each "day". At the start of each day, taxes will be collected.
 # Judged in milliseconds. Default is 24 hours.
 day_interval: 86400000
 
+
 # Lots of messages to tell you what's going on in the server with time taken for events.
 debug_mode: false
+
 
 # Spams the player named in dev_name with all messages related to towny.
 dev_mode: false
 dev_name: Shadeness
 
+
 logging: true
+
 
 name_check_regex: '^[a-zA-Z0-9]+[a-zA-Z0-9._-]*$'
 name_filter_regex: '[ /]'
 name_remove_regex: '[^a-zA-Z0-9._-]'
 
+
 npc_prefix: 'NPC'
+
 
 pve_in_non_pvp_towns: true
 reset_log_on_boot: true
+
 
 # Enables the [~Home] message.
 # If false it will make it harder for enemies to find the home block during a war
 show_town_notifications: true
 
 
+
+
 # The name of the town a resident will automatically join when he first registers.
 default_town_name: ''
 
+
 # Skin regular chat with a player's towny prefix, postfix, and colour.
 modify_chat_name: true
+
 
 ############################################################
 # +------------------------------------------------------+ #
 # |             block/item/mob protection                | #
 # +------------------------------------------------------+ #
 ############################################################
+
 
 protection:
     # Items that can be blocked within towns via town/plot flags
@@ -226,6 +262,7 @@ protection:
     # 351 - bone/bonemeal
     # 93/94 - redstone repeater
     item_use_ids: 259,325,326,327,351
+
 
     # Items which can be blocked or enabled via town/plot flags
     # 64 - wooden door
@@ -238,16 +275,26 @@ protection:
     # 25 - noteblock
     # 84 - jukebox
     switch_ids: 64,69,70,71,72,77,96,25,84,93,94
-
-    # Remove living entities within a town's boundaries.
-    mob_removal: false
+    
     # permitted entities http://jd.bukkit.org/apidocs/org/bukkit/entity/package-summary.html
     # Animals, Chicken, Cow, Creature, Creeper, Flying, Ghast, Giant, Monster, Pig, 
     # PigZombie, Sheep, Skeleton, Slime, Spider, Squid, WaterMob, Wolf, Zombie
-    mob_removal_entities: Monster,WaterMob,Flying,Slime
+
+
+    # Remove living entities within a town's boundaries, if the town has the mob removal flag set.
+    mob_removal_town: false
+    town_mob_removal_entities: Monster,WaterMob,Flying,Slime
+    
+    # Globally remove living entities in all worlds.
+    mob_removal_world: false
+    world_mob_removal_entities: WaterMob,Flying,Slime 
+    
     # The maximum amount of time a mob could be inside a town's boundaries before being sent to the void.
     # Lower values will check all entities more often at the risk of heavier burden and resource use.
+    # NEVER set below 1000 (guestimate)
     mob_removal_speed: 5000
+
+
 
 
 ############################################################
@@ -256,7 +303,9 @@ protection:
 # +------------------------------------------------------+ #
 ############################################################
 
+
 unclaimed:
+
 
     unclaimed_zone_build: false
     unclaimed_zone_destroy: false
@@ -265,18 +314,24 @@ unclaimed:
     unclaimed_zone_ignore: 6,14,15,16,17,18,21,31,37,38,39,40,50,56,65,66,73,74,81,82,83,86,89
 
 
+
+
 ############################################################
 # +------------------------------------------------------+ #
 # |             Default Town/Plot flags                  | #
 # +------------------------------------------------------+ #
 ############################################################
 
+
 # Default permission flags for towns
 # These are copied into the town data file at creation
 
+
 default_perm_flags:
 
+
     # Can allies/outsiders/residents perform certain actions in the town
+
 
     # build - place blocks and other items
     # destroy - break blocks and other items
@@ -295,9 +350,12 @@ default_perm_flags:
     default_town_perm_resident_itemuse: true
     default_town_perm_resident_switch: true
 
+
 # Default permission flags for residents plots within a town
 
+
     # Can allies/friends/outsiders perform certain actions in the town
+
 
     # build - place blocks and other items
     # destroy - break blocks and other items
@@ -317,19 +375,25 @@ default_perm_flags:
     default_resident_perm_outsider_switch: false
 
 
+
+
 ############################################################
 # +------------------------------------------------------+ #
 # |                  Resident settings                   | #
 # +------------------------------------------------------+ #
 ############################################################
 
+
 # player is flagged as inactive after 1 hour (default)
 inactive_after_time: 86400000
+
 
 # if enabled old residents will be kicked and deleted from a town
 # after Two months (default) of not logging in
 delete_old_residents: false
 deleted_after_time: 5184000000
+
+
 
 
 ############################################################
@@ -338,16 +402,21 @@ deleted_after_time: 5184000000
 # +------------------------------------------------------+ #
 ############################################################
 
+
 economy:
+
 
     # Cost to use /town spawn [town]
     price_town_spawn_travel: 10.0
 
+
     price_death: 10.0
     price_death_wartime: 200.0
 
+
     # The daily upkeep to remain neutral during a war. Neutrality will exclude you from a war event, as well as deterring enemies.
     price_nation_neutrality: 100.0
+
 
     # How much it costs to start a nation.
     price_new_nation: 1000.0
@@ -356,16 +425,24 @@ economy:
     # How much it costs to make an outpost. An outpost isn't limited to being on the edge of town.
     price_outpost: 500.0
 
+
     # The price for a town to expand one townblock.
     price_claim_townblock: 25.0
+
 
     # The server's daily charge on each nation. If a nation fails to pay this upkeep
     # all of it's member town are kicked and the Nation is removed.
     price_nation_upkeep: 100.0
 
+
     # The server's daily charge on each town. If a town fails to pay this upkeep
     # all of it's residents are kicked and the town is removed.
     price_town_upkeep: 10.0
+
+
+
+
+
 
 
 
@@ -376,6 +453,7 @@ economy:
 # |                  Wartime settings                    | #
 # +------------------------------------------------------+ #
 ############################################################
+
 
 #This setting allows you disable the ability for a nation to pay to remain neutral during a war.
 wartime_nation_can_be_neutral: true
@@ -388,6 +466,6 @@ wartime_points_town: 10
 wartime_points_townblock: 1
 wartime_remove_on_monarch_death: false
 wartime_town_block_hp: 60
-wartime_town_block_loss_price: 100.0
+wartime_town_block_loss_pri: 100.0
 wartime_warning_delay: 30
 }}}
