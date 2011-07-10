@@ -15,7 +15,7 @@ Here are instructions for upgrading to Towny 0.72:
   * Stop your server.
   * Navigate to /Plugins/Towny/Settings/
     * Open *config.properties* (unused now) and *config.yml*
-    * Carefully configure config.yml to the settings you used in config.properties, [DefaultConfig using the wiki as a guide.]
+    * Carefully configure config.yml to the settings you used in config.properties, [http://code.google.com/a/eclipselabs.org/p/towny/source/browse/trunk/Towny/src/plugin.yml using this as a guide.]
     * If you are using Groupmanager set {{{using_permissions: true}}}
     * NOTE: The .csv files are no longer being used. Instead the entries in config.yml are used.
     * Save config.yml and optionally, discard config.properties.
