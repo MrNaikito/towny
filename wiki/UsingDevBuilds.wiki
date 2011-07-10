@@ -9,4 +9,6 @@ In between releases of Towny are Dev Builds which may or may not be safe for tes
 
 Follow instructions for either installing Towny for the [InstallingTowny first time] or as an [UpgradingTowny upgrade install.]
 
-If you are redownloading the Towny.jar file it is important to delete your config.yml and reconfigure the freshly generated one. The config.yml is changing slightly with successive builds, but will stabilize on release of 0.72.
+If you are redownloading the Towny.jar file it is important to delete your config.yml and reconfigure the freshly generated one. The config.yml is changing slightly with successive builds, but will stabilize on release of 0.72. 
+
+*If you are upgrading from any version of 0.71.4 you must delete your config.yml when you upgrade to 0.72*
