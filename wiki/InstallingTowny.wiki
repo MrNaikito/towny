@@ -14,7 +14,7 @@ Here are instructions for installing Towny 0.72 for the first time.
   # Stop your server.
   # Navigate to /Plugins/Towny/Settings/
     * Open *config.yml*
-    * Carefully configure config.yml to your liking. Read the [DefaultConfig Default config.yml] wiki page.
+    * Carefully configure config.yml to your liking. Read the [http://code.google.com/a/eclipselabs.org/p/towny/source/browse/trunk/Towny/src/plugin.yml Default config.yml] wiki page.
     * Set townblock size, default 16x16 (Cannot be changed!)
     * Enable Essentials if you use it.
     * Enabled use of iConomy set costs in the Economy section.
