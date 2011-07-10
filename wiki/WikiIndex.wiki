@@ -14,6 +14,6 @@
 
   * [PermissionNodes Permission Nodes]
 
-  * [http://code.google.com/a/eclipselabs.org/p/towny/source/browse/trunk/Towny/src/plugin.yml Default config.yml]
+  * [DefaultConfig Default config.yml]
 
   * [TownyPerms Town/Plot Anti-grief]
