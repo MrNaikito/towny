@@ -8,7 +8,7 @@
 
   * [UsingDevBuilds Using Dev Builds]
 
-  * [http://code.google.com/a/eclipselabs.org/p/towny/source/browse/trunk/Towny.0.71.4/src/ChangeLog.txt Full Changelog]
+  * [http://code.google.com/a/eclipselabs.org/p/towny/source/browse/trunk/Towny/src/ChangeLog.txt Full Changelog]
 
   * [Commands Commands]
 
