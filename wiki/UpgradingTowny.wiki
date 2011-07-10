@@ -26,7 +26,12 @@ Here are instructions for upgrading to Towny 0.72:
     * towny.wild.destroy
     * towny.wild.switch
     * towny.wild.item_use
-    * towny.wild.{blockid}
+    * towny.wild.block.{block id}.asterisk 
+    * towny.wild.block.{block id}.build 
+    * towny.wild.block.{block id}.destroy 
+    * towny.wild.block.{block id}.switch 
+    * towny.wild.block.{block id}.itemuse
+
 
 Your server is ready to use Towny 0.72!
 
