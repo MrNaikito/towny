@@ -1,8 +1,8 @@
 name: Towny
 main: ca.xshade.bukkit.towny.Towny
-version: 0.72.0
+version: 0.72.2
 language: english.yml
-last_run_version: 0.72.0
+last_run_version: 0.72.2
 author: Shade, Modified by FuzzeWuzze. Forked by ElgarL
 website: http://code.google.com/a/eclipselabs.org/p/towny/
 description: >
@@ -52,7 +52,7 @@ commands:
 #        towny.wild.destroy
 #        towny.wild.switch
 #        towny.wild.item_use
-#    towny.wild.block.[block id] : User is able to edit [block id] in the wild.
+#    towny.wild.block.[block id].* : User is able to edit [block id] in the wild.
 #    towny.spawntp :Use /town spawn
 #    towny.publicspawntp : Use "/town spawn [town]" (teleport to other towns)
 #

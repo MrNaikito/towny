@@ -315,3 +315,7 @@ V0.71.4 RC2:
     - Depreciated all default prefix/poxfix entries. Now uses the new townLevel and nationLevel entries in config.yml
     - Added new settings for disabling world monster spawns and town control over mob spawns within their walls.
     - Changes to /townyadmin commands for war, neutral, townmobs, worldmobs, devmode and debug. Now use /townyadmin toggle XXX.
+v0.72.1:
+    - Fix an error on new installs where towny would not auto create the data/worlds/XXX.txt files.
+v0.72.2:
+    - Fixed a few typos in the language file.

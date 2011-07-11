@@ -525,6 +525,15 @@ public class TownyFlatFileSource extends TownyDataSource {
 		String line = "";
 		String[] tokens;
 		String path = getWorldFilename(world);
+		
+		// create the world file if it doesn't exist
+		try {
+			FileMgmt.checkFiles(new String[]{path});
+		} catch (IOException e1) {
+			System.out.println("[Towny] Loading Error: Exception while reading file " + path);
+			e1.printStackTrace();
+		}
+		
 		File fileWorld = new File(path);
 		if (fileWorld.exists() && fileWorld.isFile()) {
 			try {
