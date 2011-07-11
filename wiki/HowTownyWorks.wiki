@@ -1,0 +1,68 @@
+#summary How Towny works, mechanics, concepts.
+
+= How Towny Works =
+
+Use this page to learn how Towny works, how various settings affect the gameplay, what you can do to customize Towny to your liking.
+
+<wiki:toc max_depth="2" />
+
+= The Heirarchy =
+
+== Residents ==
+
+Every person who joins your server becomes a resident. Residents have their own [Commands command] {{{/resident}}} which used by itself outputs a Resident Screen, displaying Money, Town, Plots owned and Friends. 
+
+Residents can join towns or choose to start a town of their own. Residents can also be put into one town automatically when they join the server for the first time by setting {{{default_town_name: ''}}} in [DefaultConfig config.yml].
+
+Residents who join towns can claim plots that the Mayor of the town has set for sale. When a resident owns 1 or more plots, they will see a new line on their Resident Screen, showing plots owned and a perm line showing the [TownyPerms plot perms] given on all plots that resident owns.
+
+== Towns ==
+
+A town is a collection of residents (or just one resident) with one resident as the mayor. A town also has a bank which the mayor can withdraw from. A mayor can also have assistants who have the same powers as him/herself. Towns can have taxes that will be taken at the end of each day interval.
+
+== Nations ==
+
+A nation is a collection of towns (or just one town) with one town as the capital. The mayor of that capital is the king. A nation can join the war event, as well as ally other nations. A nation also has it's own bank. It can also tax the towns that belong to it.
+
+= Money =
+
+== Taxes and Upkeep ==
+
+Taxes and Upkeep are two seperate functions with to different results. {{{using_iconomy: true}}} must be set in [DefaultConfig config.yml] in order for Taxes and Upkeep to be applied.
+Taxes and Upkeep are charged at the same time, each 'Towny Day' or each time an admin type /townyadmin newday.
+The time of a 'Towny Day' can be set in [DefaultConfig config.yml] at {{{day_interval: 86400000}}} and by default is 24 real-life hours.
+
+=== Taxes ===
+Taxes are collected on the town level from residents and on the nation level from towns.
+The [DefaultConfig config.yml] has an entry to turn taxation on or off at {{{daily_taxes: true}}}
+
+Town mayors can use two commands to set their taxrates.
+  * /town set taxes {$}
+    * This charges each resident of a town the same amount. Setting it to 10 would charge each resident each 'Towny Day'.
+    * If a resident can't pay his town tax then he is kicked from the town.
+  
+  * /town set plottax {$}
+    * This charges each resident of a town for each plot they own. Setting it to 10 would charge Miner Steve 40 dollars if he owned 4 plots.
+    * If a resident can't pay his plot tax he loses his plot.
+    
+Nation leaders can use one comand to set a tax on their towns.
+  * /nation set taxes {$}
+    * This charges each town that is a member of the nation. Setting it to 100 would charge each town's townbank 100 each 'Towny Day'.
+    * If a town can't pay it's tax then it is kicked from the nation.
+    
+=== Upkeep ===
+Upkeep collection can be set on towns and on nations seperately. Upkeep money is taken from townbanks and nationbanks and removed from the game.
+Upkeep is used by a server admin to remove inactive towns and nations from the server.
+Upkeep is set in [DefaultConfig config.yml] with two flags:
+  * {{{price_nation_upkeep: 100.0}}}
+    * The server's daily charge on each nation. If a nation fails to pay this upkeep, all of it's member towns are kicked and the Nation is removed.
+  * {{{price_town_upkeep: 10.0}}}
+    * The server's daily charge on each town. If a town fails to pay this upkeep, all of it's residents are kicked and the town is removed.
+    
+== Selling Land ==
+Land is sold by Mayors to Residents that are a part of their town. {{{using_iconomy: true}}} must be set in [DefaultConfig config.yml] in order for costs to be applied.
+Mayors have a command used in game to set the cost of all the plots in their town that are for sale.
+  * {{{/town set plotprice {$} }}}
+    * This sets the cost of every plot that is on sale. If it is not set, 
+The server admin can set a default plotprice in [DefaultConfig config.yml] at {{{price_claim_townblock: 25.0}}}, in this example a new town will automatically have a plotprice of 25 dollars.
+To set land for sale 
