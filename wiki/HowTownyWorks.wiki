@@ -19,6 +19,7 @@ Residents who join towns can claim plots that the Mayor of the town has set for 
 == Towns ==
 
 A town is a collection of residents (or just one resident) with one resident as the mayor. A town also has a bank which the mayor can withdraw from. A mayor can also have assistants who have the same powers as him/herself. Towns can have taxes that will be taken at the end of each day interval.
+Towns usually grow outwards from their home block, the townblock the mayor stood in during town creation. Townblocks need to be claimed beside other townblocks, unless the mayor claims an outpost in the wilderness.
 
 == Nations ==
 
@@ -82,6 +83,16 @@ On the town level, a mayor can set these flags using:
 Explosion protection stops all explosions. This stops TNT, TNT cannons and creeper explosions.
 
 Firespread protection stops all fires from spreading, including lava, lightning and lighters. 
+
+== Outposts ==
+Normally townblocks are claimed around the home block, always connected to the town. To claim a townblock out in the wilderness, a mayor or assistant must claim an outpost.
+
+Outposts cannot be claimed too close to other home blocks, just like when a mayor starts a town they cannot be too close. The exact number is set in the [DefaultConfig config.yml] at {{{min_distance_from_town_homeblock: 5}}}. 
+In the default setting an outpost cannot be claimed within 5 townblocks of any other homeblock.
+
+Outposts have two settings in [DefaultConfig config.yml] 
+  * By setting {{{allow_outposts: false}}} you can disable outposts completely.
+  * You can also set the cost of claiming an outpost with {{{price_outpost: 500.0}}}
 
 == Selling Land ==
 Land is sold by Mayors to Residents that are a part of their town. {{{using_iconomy: true}}} must be set in [DefaultConfig config.yml] in order for costs to be applied.
