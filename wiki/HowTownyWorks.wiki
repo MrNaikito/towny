@@ -38,52 +38,6 @@ Each cell is (town_block_size x town_block_size x 128) in size, with 128 being f
 
 Townblocks are claimed by town mayors who can then sell/give individual plots to their town's residents. 
 
-== Towny Perms ==
-
-There are 4 permission-type values, which can be set for personal plots and for town plots as well (town permissions can be set by the mayor and affect plots who are not owned by any player.) The basic command for this is either {{{/res set perm}}} or {{{/t set perm}}} followed by the proper flags for each permission.
-
-Permissions are viewable by typing either {{{/resident}}} for personal plot perms or by typing {{{/town}}} for town permissions.
-
-The 4 permission-types available are Build, Destroy, Switch and Itemuse.
-  * Build allows players to add blocks in your town/plot.
-  * Destroy allows players to remove blocks in your town/plot. 
-  * Switch covers the use of:
-    * wooden and iron doors,
-    * levers,
-    * wooden and stone pressure plates,
-    * buttons,
-    * trapdoors,
-    * noteblocks,
-    * jukeboxes,
-    * redstone repeaters.
-  * Itemuse covers the use of:
-    * water and lava buckets, 
-    * empty buckets,
-    * lighters,
-    * bonemeal.
-   
-Each permission-type has 3 groups which the permission can be set for, these are displayed on your /res perm line as FAO and stand for Friend, Ally, Outsider. 
-
-For residents the Friend group consists of a player's friend list. 
-
-For towns the perm line reads RAO, with R representing Residents (players in that town) and mayors need to use _/t set perm resident blah on/off_ instead of _/t set perm friend blah on/off_. 
-
-The other groups are Ally (players from your town, other towns in your nation, and nations your nation is allied with) and Outsiders (players who are not part of your town or nation or nation's allies.)
-
-[Commands All commands are found on the Wiki's Commands page.]
-
-== Protection Additions Found in Towny Advanced ==
-
-New in Towny Advanced (0.72+) are two new protection types, anti-explosion and anti-firespread.
-
-On the town level, a mayor can set these flags using:
-  * /town toggle explosion
-  * /town toggle fire
-
-Explosion protection stops all explosions. This stops TNT, TNT cannons and creeper explosions.
-
-Firespread protection stops all fires from spreading, including lava, lightning and lighters. 
-
 == Outposts ==
 Normally townblocks are claimed around the home block, always connected to the town. To claim a townblock out in the wilderness, a mayor or assistant must claim an outpost.
 
@@ -106,6 +60,70 @@ The server admin can set a default plotprice in [DefaultConfig config.yml] at {{
 The map in towny displays the grid system of plots. The map can be viewed once using {{{/towny map}}} one time or you can set the map to show every time you move from one block to another:
   * Use {{{/resident set mode map}}} to turn it on.
   * And use {{{/resident set mode reset}}} to turn it off.
+
+= How Towny Lets Players Protect Their Blocks =
+
+Towny's genius is the way it lets players protect themselves. An admin doesn't need to go around protecting land for players, and players can't run rampant claiming massive amounts of land without working for it and building their towns.
+
+The first concept you need to digest are the 4 perm-types and 3 groups. 
+
+== Towny Perms ==
+
+There are 4 permission-type values, which can be set for personal plots and for town plots as well (town permissions can be set by the mayor and affect plots who are not owned by any player.) The basic command for this is either {{{/resident set perm}}} or {{{/town set perm}}} followed by the proper flags for each permission.
+
+Permissions are viewable by typing either {{{/resident}}} for personal plot perms or by typing {{{/town}}} for town permissions.
+
+=== Perm-Types ===
+The 4 permission-types available are Build, Destroy, Switch and Itemuse.
+    
+  * Build allows players to add blocks in your town/plot.  
+    
+  * Destroy allows players to remove blocks in your town/plot. 
+
+  * Switch covers the use of:
+    * wooden and iron doors,
+    * levers,
+    * wooden and stone pressure plates,
+    * buttons,
+    * trapdoors,
+    * noteblocks,
+    * jukeboxes,
+    * redstone repeaters.
+      
+  * Itemuse covers the use of:
+    * water and lava buckets, 
+    * empty buckets,
+    * lighters,
+    * bonemeal.
+   
+=== Perm-Groups ===
+Each permission-type has 3 perm-groups to which the pemissions can be set for, these are displayed on your {{{/resident}}} perm line as FAO and stand for Friend, Ally, Outsider. 
+
+For residents the Friend group consists of a player's friend list.
+
+For towns the perm line reads RAO, with R representing Residents (players in that town) and mayors need to use {{{/t set perm resident blah on/off}}} instead of {{{/t set perm friend blah on/off}}} 
+
+The other groups are:
+  * Ally 
+    * Players from your town, 
+    * other towns in your nation,
+    * and nations your nation is allied with.
+  * Outsiders 
+    * Players who are not part of your town or nation or nation's allies.
+
+[Commands All commands are found on the Wiki's Commands page.]
+
+== Protection Additions Found in Towny Advanced ==
+
+New in Towny Advanced (0.72+) are two new protection types, anti-explosion and anti-firespread.
+
+On the town level, a mayor can set these flags using:
+  * /town toggle explosion
+  * /town toggle fire
+
+Explosion protection stops all explosions. This stops TNT, TNT cannons and creeper explosions.
+
+Firespread protection stops all fires from spreading, including lava, lightning and lighters. 
 
 = Money =
 
