@@ -10,10 +10,10 @@
 
   * [http://code.google.com/a/eclipselabs.org/p/towny/source/browse/trunk/Towny/src/ChangeLog.txt Full Changelog]
 
+  * [HowTownyWorks How Towny Works]
+ 
   * [Commands Commands]
 
   * [PermissionNodes Permission Nodes]
 
   * [DefaultConfig Default config.yml]
-
-  * [TownyPerms Town/Plot Anti-grief]
