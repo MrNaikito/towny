@@ -69,7 +69,7 @@ For towns the perm line reads RAO, with R representing Residents (players in tha
 
 The other groups are Ally (players from your town, other towns in your nation, and nations your nation is allied with) and Outsiders (players who are not part of your town or nation or nation's allies.)
 
-[Commands *All commands are found on the Wiki's Commands page.*]
+[Commands All commands are found on the Wiki's Commands page.]
 
 == Protection Additions Found in Towny Advanced ==
 
@@ -82,6 +82,13 @@ On the town level, a mayor can set these flags using:
 Explosion protection stops all explosions. This stops TNT, TNT cannons and creeper explosions.
 
 Firespread protection stops all fires from spreading, including lava, lightning and lighters. 
+
+== Selling Land ==
+Land is sold by Mayors to Residents that are a part of their town. {{{using_iconomy: true}}} must be set in [DefaultConfig config.yml] in order for costs to be applied.
+Mayors have a command used in game to set the cost of all the plots in their town that are for sale.
+  * {{{/town set plotprice {$} }}}
+    * This sets the cost of every plot that is on sale. If it is not set, 
+The server admin can set a default plotprice in [DefaultConfig config.yml] at {{{price_claim_townblock: 25.0}}}, in this example a new town will automatically have a plotprice of 25 dollars.
 
 == Using the Maps ==
 
@@ -124,10 +131,4 @@ Upkeep is set in [DefaultConfig config.yml] with two flags:
   * {{{price_town_upkeep: 10.0}}}
     * The server's daily charge on each town. If a town fails to pay this upkeep, all of it's residents are kicked and the town is removed.
     
-== Selling Land ==
-Land is sold by Mayors to Residents that are a part of their town. {{{using_iconomy: true}}} must be set in [DefaultConfig config.yml] in order for costs to be applied.
-Mayors have a command used in game to set the cost of all the plots in their town that are for sale.
-  * {{{/town set plotprice {$} }}}
-    * This sets the cost of every plot that is on sale. If it is not set, 
-The server admin can set a default plotprice in [DefaultConfig config.yml] at {{{price_claim_townblock: 25.0}}}, in this example a new town will automatically have a plotprice of 25 dollars.
 
