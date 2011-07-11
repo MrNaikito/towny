@@ -6,6 +6,8 @@ Use this page to learn how Towny works, how various settings affect the gameplay
 
 <wiki:toc max_depth="2" />
 
+----
+
 = The Heirarchy =
 
 == Residents ==
@@ -24,6 +26,8 @@ Towns usually grow outwards from their home block, the townblock the mayor stood
 == Nations ==
 
 A nation is a collection of towns (or just one town) with one town as the capital. The mayor of that capital is the king. A nation can join the war event, as well as ally other nations. A nation also has it's own bank. It can also tax the towns that belong to it.
+
+----
 
 = Plot System of Land Ownership =
 
@@ -60,6 +64,8 @@ The server admin can set a default plotprice in [DefaultConfig config.yml] at {{
 The map in towny displays the grid system of plots. The map can be viewed once using {{{/towny map}}} one time or you can set the map to show every time you move from one block to another:
   * Use {{{/resident set mode map}}} to turn it on.
   * And use {{{/resident set mode reset}}} to turn it off.
+
+----
 
 = How Towny Lets Players Protect Their Blocks =
 
@@ -125,6 +131,8 @@ Explosion protection stops all explosions. This stops TNT, TNT cannons and creep
 
 Firespread protection stops all fires from spreading, including lava, lightning and lighters. 
 
+----
+
 = Money =
 
 == Taxes and Upkeep ==
@@ -160,4 +168,50 @@ Upkeep is set in [DefaultConfig config.yml] with two flags:
   * {{{price_town_upkeep: 10.0}}}
     * The server's daily charge on each town. If a town fails to pay this upkeep, all of it's residents are kicked and the town is removed.
     
+----
 
+= Towny War =
+
+Towny war as it is now is:
+  * A brutal device that induces server-rage-quitting, 
+  * is buggy and,
+  * should probably not be used.
+  
+== Current Towny War ==
+
+*This description may not be accurate! Towny War should really not be used until it's been fixed.*
+
+Fixing and making Towny War more configurable is a very high priority. 
+
+Towny war is activated by a server admin using {{{/townyadmin toggle war}}}, there is a 30 second countdown and then War begins.
+
+During war Nations fight each other. Towns without a nation are not included, cannot score points and cannot have their townblocks griefed.
+
+Nations can also pay a daily Neutrality cost to avoid taking part in a war. The cost of neutrality is set in the [DefaultConfig config.yml] using {{{price_nation_neutrality: 100.0}}}. In this example, a nation would pay 100 dollars from its nationbank each 'Towny Day'.
+
+While war is in effect, each competing town has a health points property attached to it. Normal townblocks have an HP of 60 while Home Blocks have 120 points by default. This can be changed in the config.
+A townblock loses HP by enemy-nation residents standing within the townblock. When a townblock has lost all HP and fallen the town which the attacker belongs to gains one townblock and points to their War Score.
+A Town can be knocked out of a war when their Home Block falls or if their Mayor is killed.
+A Nation can be knocked out of a war if its capital city is knocked out of the war, or if the King is killed.
+
+Points in war given for the following:
+  * A enemy killed: 1
+  * A townblock stolen: 1
+  * A town knocked out of the war: 10
+  * A nation knocked out of the war: 100
+
+Towny war ends when there is only one nation who's Home Block has not been conquered or when the admin toggles war off.
+
+*This description may not be accurate! Towny War should really not be used until it's been fixed.*
+
+Known Towny War Issues: 
+  * War spoils is not calculated correctly, will flood your economy with money.
+  * During Towny war, nations which do not paid for neutrality each day, have all of their towns' townblocks subject to griefing.
+    * Although the townblocks are restored at the end of war, the damage from any griefing is permanent.
+
+Additions to Towny War so far:
+  * Neutrality fixed.
+  * Entries in [DefaultConfig config.yml] added:
+    * {{{wartime_nation_can_be_neutral: true}}} setting to false prevents nations from being neutral during wartime, will turn off a nation's neutrality mid-war if changed.
+  * During war, firespread and explosions protections are turned off, enabling TNT Cannons to be used. PVP can be enabled in all towns by using {{{force_pvp_on: true}}} in the [DefaultConfig config.yml].
+ 
