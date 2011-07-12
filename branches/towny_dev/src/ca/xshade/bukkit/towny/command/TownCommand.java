@@ -861,6 +861,7 @@ public class TownCommand implements CommandExecutor  {
 				town.removeAssistant(member);
 				plugin.deleteCache(member.getName());
 				plugin.getTownyUniverse().getDataSource().saveResident(member);
+				plugin.getTownyUniverse().getDataSource().saveTown(town);
 			} catch (NotRegisteredException e) {
 				remove.add(member);
 			}

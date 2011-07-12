@@ -204,6 +204,8 @@ show_town_notifications: true
 default_town_name: ''
 
 # Skin regular chat with a player's towny prefix, postfix, and colour.
+# You can NOT change this setting and perform a /townyadmin reload.
+# It requires a server restart is setting to false.
 modify_chat_name: true
 
 ############################################################

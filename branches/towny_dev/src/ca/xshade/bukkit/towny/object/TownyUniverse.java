@@ -581,8 +581,34 @@ public class TownyUniverse extends TownyObject {
 			//TownySettings.loadNationLevelConfig(getRootFolder() + FileMgmt.fileSeparator() + "settings" + FileMgmt.fileSeparator() + "nation-levels.csv");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
+			return false;
 		} catch (IOException e) {
 			e.printStackTrace();
+			return false;
+		}
+		
+		System.out.println("[Towny] Database: [Load] " + TownySettings.getLoadDatabase() + " [Save] " + TownySettings.getSaveDatabase());
+		if (!loadDatabase(TownySettings.getLoadDatabase())) {
+			System.out.println("[Towny] Error: Failed to load!");
+			return false;
+		}
+		
+		try {
+			setDataSource(TownySettings.getSaveDatabase());
+			getDataSource().initialize(plugin, this);
+			try {
+				getDataSource().backup();
+			} catch (IOException e) {
+				System.out.println("[Towny] Error: Could not create backup.");
+				e.printStackTrace();
+				return false;
+			}
+			
+			//if (TownySettings.isSavingOnLoad())
+			//	townyUniverse.getDataSource().saveAll();
+		} catch (UnsupportedOperationException e) {
+			System.out.println("[Towny] Error: Unsupported save format!");
+			return false;
 		}
 		
 		
@@ -597,6 +623,13 @@ public class TownyUniverse extends TownyObject {
 		}
 
 		getDataSource().initialize(plugin, this);
+		
+		// make sure all tables are clear before loading
+		worlds.clear();
+		nations.clear();
+		towns.clear();
+		residents.clear();
+		
 		return getDataSource().loadAll();
 	}
 
@@ -818,9 +851,15 @@ public class TownyUniverse extends TownyObject {
 		getDataSource().deleteTown(town);
 		List<Resident> toSave = new ArrayList<Resident>(town.getResidents());
 		try {
+			Nation nation = town.getNation();
+			nation.removeTown(town);
+			getDataSource().saveNation(nation);
 			town.clear();
 		} catch (EmptyNationException e) {
 			removeNation(e.getNation());
+		} catch (NotRegisteredException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		try {
 			town.pay(town.getHoldingBalance(), new WarSpoils());
@@ -834,11 +873,18 @@ public class TownyUniverse extends TownyObject {
 	}
 
 	public void removeResident(Resident resident) {
+
 		getDataSource().deleteResident(resident);
 		try {
+			Town town = resident.getTown();
+			town.removeResident(resident);
+			getDataSource().saveTown(town);
 			resident.clear();
 		} catch (EmptyTownException e) {
 			removeTown(e.getTown());
+		} catch (NotRegisteredException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		String name = resident.getName();
 		residents.remove(name.toLowerCase());

@@ -300,7 +300,13 @@ public class NationCommand implements CommandExecutor  {
 			if (!resident.isMayor())
 				if (!town.hasAssistant(resident))
 					throw new TownyException(TownySettings.getLangString("msg_not_mayor_ass"));
+			
 			nation.removeTown(town);
+			
+			plugin.getTownyUniverse().getDataSource().saveTown(town);
+			plugin.getTownyUniverse().getDataSource().saveNation(nation);
+			plugin.getTownyUniverse().getDataSource().saveNationList();
+			
 			plugin.getTownyUniverse().sendNationMessage(nation, ChatTools.color(String.format(TownySettings.getLangString("msg_nation_town_left"), town.getName())));
 			plugin.getTownyUniverse().sendTownMessage(town, ChatTools.color(String.format(TownySettings.getLangString("msg_town_left_nation"), nation.getName())));
 		} catch (TownyException x) {
@@ -308,8 +314,13 @@ public class NationCommand implements CommandExecutor  {
 			return;
 		} catch (EmptyNationException en) {
 			plugin.getTownyUniverse().removeNation(en.getNation());
+			plugin.getTownyUniverse().getDataSource().saveNationList();
 			plugin.getTownyUniverse().sendGlobalMessage(ChatTools.color(String.format(TownySettings.getLangString("msg_del_nation"), en.getNation().getName())));
 		}
+		
+		
+		
+		
 	}
 	
 	public void nationDelete(Player player, String[] split) {
@@ -576,6 +587,7 @@ public class NationCommand implements CommandExecutor  {
 				nation.removeAssistant(member);
 				plugin.deleteCache(member.getName());
 				plugin.getTownyUniverse().getDataSource().saveResident(member);
+				plugin.getTownyUniverse().getDataSource().saveNation(nation);
 			} catch (NotRegisteredException e) {
 				remove.add(member);
 			}

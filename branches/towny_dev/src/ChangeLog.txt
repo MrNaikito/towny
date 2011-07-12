@@ -319,3 +319,5 @@ v0.72.1:
     - Fix an error on new installs where towny would not auto create the data/worlds/XXX.txt files.
 v0.72.2:
     - Fixed a few typos in the language file.
+    - Changed loading system to now reload ALL Towny data on the '/townyadmin reload' command.
+    - Fixed an error of Nation/Towns/Residents data files not being correctly updated on a change. Fixes the error when using Inactive resident deletion.

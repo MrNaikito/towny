@@ -97,7 +97,9 @@ public class Towny extends JavaPlugin {
 		//System.out.println("[Towny] Towny - create TownyUniverse Object...");
 		townyUniverse = new TownyUniverse(this);
 		//System.out.println("[Towny] Towny - Starting loadSettings...");
-		loadSettings();
+		//loadSettings();
+		
+		load();
 		setupLogger();		
 		
 		// Setup bukkit command interfaces
@@ -112,35 +114,8 @@ public class Towny extends JavaPlugin {
 		getCommand("nationchat").setExecutor(new NationChatCommand(this));
 		
 		
-		System.out.println("[Towny] Database: [Load] " + TownySettings.getLoadDatabase() + " [Save] " + TownySettings.getSaveDatabase());
-		if (!townyUniverse.loadDatabase(TownySettings.getLoadDatabase())) {
-			System.out.println("[Towny] Error: Failed to load!");
-			error = true;
-			getServer().getPluginManager().disablePlugin(this);
-			return;
-		}
-		
-		try {
-			townyUniverse.setDataSource(TownySettings.getSaveDatabase());
-			townyUniverse.getDataSource().initialize(this, townyUniverse);
-			try {
-				townyUniverse.getDataSource().backup();
-			} catch (IOException e) {
-				System.out.println("[Towny] Error: Could not create backup.");
-				e.printStackTrace();
-			}
-			
-			//if (TownySettings.isSavingOnLoad())
-			//	townyUniverse.getDataSource().saveAll();
-		} catch (UnsupportedOperationException e) {
-			System.out.println("[Towny] Error: Unsupported save format!");
-			error = true;
-			getServer().getPluginManager().disablePlugin(this);
-			return;
-		}
-		
-		checkPlugins();
-		load();
+		//checkPlugins();
+		//load();
 		
 		/*
 		if (TownySettings.isFirstRun()) {
@@ -189,6 +164,7 @@ public class Towny extends JavaPlugin {
 		list.add(Towny.class);
 		return list;
 	}
+	
 	private void checkPlugins() {
 		List<String> using = new ArrayList<String>();
 		Plugin test;
@@ -250,7 +226,11 @@ public class Towny extends JavaPlugin {
 		
 		//System.out.println("[Towny] load");
 		
-		townyUniverse.loadSettings();
+		if (!townyUniverse.loadSettings())  {
+			error = true;
+			getServer().getPluginManager().disablePlugin(this);
+		}
+		
 		Coord.setCellSize(TownySettings.getTownBlockSize());
 		TownyIConomyObject.setPlugin(this);
 		//TownyCommand.setUniverse(townyUniverse);
@@ -258,7 +238,10 @@ public class Towny extends JavaPlugin {
 	
 	public void load() {
 		
-		//loadSettings();
+		loadSettings();
+		
+		checkPlugins();
+		
 		if (TownySettings.isForcingPvP())
 			for (Town town : townyUniverse.getTowns())
 				town.setPVP(true);
