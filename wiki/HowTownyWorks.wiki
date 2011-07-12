@@ -186,6 +186,36 @@ Upkeep is set in [DefaultConfig config.yml] with two flags:
     * The server's daily charge on each nation. If a nation fails to pay this upkeep, all of it's member towns are kicked and the Nation is removed.
   * {{{price_town_upkeep: 10.0}}}
     * The server's daily charge on each town. If a town fails to pay this upkeep, all of it's residents are kicked and the town is removed.
+
+----
+
+= Chat =
+
+== Chat Modifications == 
+
+Towny modifies the in-game chat appearance of town mayors and nation leaders only.
+
+Chat modification can be turned on in [DefaultConfig config.yml] at {{{modify_chat_name: false}}}
+
+Mayors chat name appears as blue by default and includes the mayorPrefix and mayorPostfix found in the townLevel section of the config.yml.
+
+Nation Leader's chat name appears as gold by default and includes the kingPrefix and kingPostfix found in the townLevel section of the config.yml.
+
+
+== Chat Modes ==
+
+There are two added chatmodes in Towny, townchat and nationchat.
+
+  * /townchat, /tc
+    * Put in from of text to speak with members of your town only.
+  * /nationchat, /nc
+    * Put in from of text to speak with members of your nation only.
+  * /res set mode tc
+    * Use to speak on townchat by default.
+  * /res set mode nc
+    * Use to speak on nationchat by default.
+  * /res set mode reset
+    * Reset chat mode to default chat.
     
 ----
 
