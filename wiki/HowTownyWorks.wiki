@@ -168,15 +168,18 @@ Town mayors can use two commands to set their taxrates.
   * /town set taxes {$}
     * This charges each resident of a town the same amount. Setting it to 10 would charge each resident each 'Towny Day'.
     * If a resident can't pay his town tax then he is kicked from the town.
+    * A mayor can set a negative tax rate to pay their residents each 'Towny Day', although this is not recommended.
   
   * /town set plottax {$}
     * This charges each resident of a town for each plot they own. Setting it to 10 would charge Miner Steve 40 dollars if he owned 4 plots.
     * If a resident can't pay his plot tax he loses his plot.
+    * A mayor can set a negative tax rate to pay their residents per plot each 'Towny Day', although this is not recommended.
     
 Nation leaders can use one comand to set a tax on their towns.
   * /nation set taxes {$}
     * This charges each town that is a member of the nation. Setting it to 100 would charge each town's townbank 100 each 'Towny Day'.
     * If a town can't pay it's tax then it is kicked from the nation.
+    * A king can set a negative tax rate to pay their towns each 'Towny Day', although this is not recommended.
     
 === Upkeep ===
 Upkeep collection can be set on towns and on nations seperately. Upkeep money is taken from townbanks and nationbanks and removed from the game.
