@@ -415,7 +415,12 @@ public class TownCommand implements CommandExecutor  {
 				if (split.length < 2) {
 					plugin.sendErrorMsg(player, "Eg: /town set taxes 7");
 					return;
-				} else
+				} else {
+					Integer amount = Integer.parseInt(split[1]);
+					if (amount < 0) {
+						plugin.sendErrorMsg(player, TownySettings.getLangString("msg_err_negative_money"));
+						return;
+					}
 					try {
 						town.setTaxes(Integer.parseInt(split[1]));
 						plugin.getTownyUniverse().sendTownMessage(town, String.format(TownySettings.getLangString("msg_town_set_tax"), player.getName(), split[1]));
@@ -423,11 +428,17 @@ public class TownCommand implements CommandExecutor  {
 						plugin.sendErrorMsg(player, TownySettings.getLangString("msg_error_must_be_int"));
 						return;
 					}
+				}
 			} else if (split[0].equalsIgnoreCase("plottax")) {
 				if (split.length < 2) {
 					plugin.sendErrorMsg(player, "Eg: /town set plottax 10");
 					return;
-			} else
+				} else {
+					Integer amount = Integer.parseInt(split[1]);
+					if (amount < 0) {
+						plugin.sendErrorMsg(player, TownySettings.getLangString("msg_err_negative_money"));
+						return;
+					}
 					try {
 						town.setPlotTax(Integer.parseInt(split[1]));
 						plugin.getTownyUniverse().sendTownMessage(town, String.format(TownySettings.getLangString("msg_town_set_plottax"), player.getName(), split[1]));
@@ -435,18 +446,25 @@ public class TownCommand implements CommandExecutor  {
 						plugin.sendErrorMsg(player, TownySettings.getLangString("msg_error_must_be_int"));
 						return;
 					}
+				}
 			} else if (split[0].equalsIgnoreCase("plotprice")) {
 				if (split.length < 2) {
 					plugin.sendErrorMsg(player, "Eg: /town set plotprice 50");
 					return;
-				} else
+				} else {
+					Integer amount = Integer.parseInt(split[1]);
+					if (amount < 0) {
+						plugin.sendErrorMsg(player, TownySettings.getLangString("msg_err_negative_money"));
+						return;
+					}
 					try {
-						town.setPlotPrice(Integer.parseInt(split[1]));
+						town.setPlotPrice(amount);
 						plugin.getTownyUniverse().sendTownMessage(town, String.format(TownySettings.getLangString("msg_town_set_plotprice"), player.getName(), split[1]));
 					} catch (NumberFormatException e) {
 						plugin.sendErrorMsg(player, TownySettings.getLangString("msg_error_must_be_int"));
 						return;
 					}
+				}
 			} else if (split[0].equalsIgnoreCase("name")) {
 				if (split.length < 2) {
 					plugin.sendErrorMsg(player, "Eg: /town set name BillyBobTown");

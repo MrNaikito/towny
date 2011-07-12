@@ -812,28 +812,33 @@ public class NationCommand implements CommandExecutor  {
 					}
 			} else if (split[0].equalsIgnoreCase("capital")) {
 				if (split.length < 2)
-					plugin.sendErrorMsg(player, "Eg: /nation set capital 70");
+					plugin.sendErrorMsg(player, "Eg: /nation set capital {town name}");
 				else
 					try {
 						Town newCapital = plugin.getTownyUniverse().getTown(split[1]);
 						nation.setCapital(newCapital);
 						plugin.updateCache();
 						plugin.getTownyUniverse().sendNationMessage(nation, TownySettings.getNewKingMsg(newCapital.getMayor().getName()));
-					} catch (NumberFormatException e) {
-						plugin.sendErrorMsg(player, TownySettings.getLangString("msg_error_must_be_int"));
 					} catch (TownyException e) {
 						plugin.sendErrorMsg(player, e.getError());
 					}
 			} else if (split[0].equalsIgnoreCase("taxes")) {
 				if (split.length < 2)
 					plugin.sendErrorMsg(player, "Eg: /nation set taxes 70");
-				else
+				else {
+					Integer amount = Integer.parseInt(split[1]);
+					if (amount < 0) {
+						plugin.sendErrorMsg(player, TownySettings.getLangString("msg_err_negative_money"));
+						return;
+					}
+
 					try {
-						nation.setTaxes(Integer.parseInt(split[1]));
+						nation.setTaxes(amount);
 						plugin.getTownyUniverse().sendNationMessage(nation, String.format(TownySettings.getLangString("msg_town_set_nation_tax"), player.getName(), split[1]));
 					} catch (NumberFormatException e) {
 						plugin.sendErrorMsg(player, TownySettings.getLangString("msg_error_must_be_int"));
 					}
+				}
 			} else if (split[0].equalsIgnoreCase("name")) {
 				if (split.length < 2)
 					plugin.sendErrorMsg(player, "Eg: /nation set name Plutoria");
