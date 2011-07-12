@@ -29,7 +29,11 @@
      * {friend/ally/outsider} {on/off}
      * {build/destroy/switch/itemuse} {on/off}
      * {friend/ally/outsider} {build/destroy/switch/itemuse} {on/off}
-     * mode {mode} .. {mode}
+     * mode
+       * map
+       * townchat, tc
+       * nationchat, nc
+       * reset  _(This turns off all modes that are active.)_
     * delete {resident}
     
 == /town ==  
