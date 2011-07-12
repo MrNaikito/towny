@@ -81,7 +81,7 @@ town_respawn: false
 
 townLevel:
     - '0,, Ruin,Spirit ,,1'
-    - '1,, (Settlement),,,16'
+    - '1,, (Settlement),Hermit ,,16'
     - '2,, (Hamlet),Chief ,,32'
     - '6,, (Village),Baron Von ,,96'
     - '10,, (Town),Viscount ,,160'

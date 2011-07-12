@@ -326,12 +326,14 @@ public class Town extends TownBlockOwner implements Walled, ResidentList {
 			return spawn;
 		}
 			
-		else
+		else {
+			this.spawn = null;
 			throw new TownyException("Town has not set a spawn location.");
+		}
 	}
 
 	public boolean hasSpawn() {
-		return spawn != null;
+		return (hasHomeBlock() && spawn != null);
 	}
 
 	public boolean hasHomeBlock() {

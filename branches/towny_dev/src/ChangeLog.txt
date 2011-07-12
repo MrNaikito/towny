@@ -322,3 +322,5 @@ v0.72.2:
     - Changed loading system to now reload ALL Towny data on the '/townyadmin reload' command.
     - Fixed an error of Nation/Towns/Residents data files not being correctly updated on a change. Fixes the error when using Inactive resident deletion.
     - '/town toggle public' now works as intended.
+    - Fixed reading of town and nation level data from the yml. It actually reads it now.
+    - Fixed an error with '/towny unclaim all' causing an error and corrupting a town save file.

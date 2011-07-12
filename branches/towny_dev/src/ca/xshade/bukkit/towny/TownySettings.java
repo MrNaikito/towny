@@ -56,11 +56,12 @@ public class TownySettings {
 	private static final SortedMap<Integer,Map<TownySettings.NationLevel,Object>> configNationLevel = 
 		Collections.synchronizedSortedMap(new TreeMap<Integer,Map<TownySettings.NationLevel,Object>>(Collections.reverseOrder()));
 	
-	
+	/*
 	static {		
 		newTownLevel(0, "", " Town", "Mayor ", "", 16);
 		newNationLevel(0, "", " Nation", "Capital: ", " City", "King ", "");
 	}
+	*/
 	
 	public static void newTownLevel(int numResidents,
 			String namePrefix, String namePostfix,
@@ -101,7 +102,7 @@ public class TownySettings {
 	 * @throws IOException 
 	 */
 	
-	public static void loadTownLevelConfig(String filepath) throws IOException {
+	public static void loadTownLevelConfig() throws IOException {
 
 		String[] tokens;		
 		List<String> lines = (List<String>)config.getProperty("townLevel");
@@ -163,7 +164,7 @@ public class TownySettings {
 	 * @throws IOException 
 	 */
 	
-	public static void loadNationLevelConfig(String filepath) throws IOException {
+	public static void loadNationLevelConfig() throws IOException {
 		
 		String[] tokens;		
 		List<String> lines = (List<String>)config.getProperty("townLevel");
@@ -239,7 +240,7 @@ public class TownySettings {
 	
 	//TODO: more efficient way
 	public static int calcNationLevel(Nation nation) {
-		int n = nation.getNumResidents();
+		int n = nation.getNumResidents();		
 		for (Integer level : configNationLevel.keySet())
 			if (n >= level)
 				return level;
@@ -255,8 +256,11 @@ public class TownySettings {
 				
 			// read the config.yml into memory
 			config = new Configuration(file);
-			config.load();			
+			config.load();
 			
+			// Load Nation & Town level data into maps.
+			loadTownLevelConfig();
+			loadNationLevelConfig();
 		}	
 	}
 	

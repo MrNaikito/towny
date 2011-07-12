@@ -478,7 +478,7 @@ public class Towny extends JavaPlugin {
 			return true;
 		Essentials essentials = (Essentials)test;
 		//essentials.loadClasses();
-		sendDebugMsg("Using Essenitials");
+		sendDebugMsg("Using Essentials");
 		
 		try {
 			@SuppressWarnings("unused")
