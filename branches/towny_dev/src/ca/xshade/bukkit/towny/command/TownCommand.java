@@ -317,7 +317,7 @@ public class TownCommand implements CommandExecutor  {
 				}	
 			} else if (split[0].equalsIgnoreCase("public")) {
 				try {
-					town.setPublic(plugin.parseOnOff(split[1]));
+					town.setPublic(!town.isPublic());
 					plugin.getTownyUniverse().sendTownMessage(town, String.format(TownySettings.getLangString("msg_changed_public"), town.isPublic() ? "Enabled" : "Disabled"));
 					
 				} catch (Exception e) {
