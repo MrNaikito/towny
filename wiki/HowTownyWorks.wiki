@@ -23,9 +23,28 @@ Residents who join towns can claim plots that the Mayor of the town has set for 
 A town is a collection of residents (or just one resident) with one resident as the mayor. A town also has a bank which the mayor can withdraw from. A mayor can also have assistants who have the same powers as him/herself. Towns can have taxes that will be taken at the end of each day interval.
 Towns usually grow outwards from their home block, the townblock the mayor stood in during town creation. Townblocks need to be claimed beside other townblocks, unless the mayor claims an outpost in the wilderness.
 
+== Mayors ==
+
+Mayors run towns and with the help of their assistants, manage a town and its residents.
+
+It is not possible to run two towns unless you are also an admin. An admin can do the following to manage two or more towns:
+
+Example: Admin Bob
+  Admin Bob wants to have a server-town, and his own town. Bob would start by creating his Server Town and setting up taxes, plotprices, permissions. This sort of town should not give residents, allies or outsiders permissions in the Server Town.
+  
+  When Bob finished making his town the way he wants he uses {{{/townyadmin set mayor {townname} npc}}} to place a fake 'npc' resident as mayor of the Server Town.
+  
+  Then Bob leaves Server Town and creates his own town. Using the {{{/townyadmin set mayor {townname} npc}}} command Bob can flip back and forth between towns.
+  
+  Bob doesn't have to leave his town to add players to the Server Town though! He can use {{{/townyadmin town {townname} add {playername} }}} to add players to the Server Town or set {{{default_town_name: 'Server_Town'}}} in [DefaultConfig config.yml].
+
 == Nations ==
 
 A nation is a collection of towns (or just one town) with one town as the capital. The mayor of that capital is the king. A nation can join the war event, as well as ally other nations. A nation also has it's own bank. It can also tax the towns that belong to it.
+
+== Kings==
+
+Kings lead Nations and are the mayor of the capital city.
 
 ----
 
