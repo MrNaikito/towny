@@ -1222,12 +1222,13 @@ public class TownCommand implements CommandExecutor  {
 	public static void checkIfSelectionIsValid(TownBlockOwner owner, List<WorldCoord> selection, boolean attachedToEdge, double blockCost, boolean force) throws TownyException {
 		if (force)
 			return;
+		Town town = (Town)owner;
 		
-		if (attachedToEdge && !isEdgeBlock(owner, selection))
+		if (attachedToEdge && !isEdgeBlock(owner, selection) && !town.getTownBlocks().isEmpty())
 			throw new TownyException(TownySettings.getLangString("msg_err_not_attached_edge"));
 		
 		if (owner instanceof Town) {
-			Town town = (Town)owner;
+			//Town town = (Town)owner;
 			int available = TownySettings.getMaxTownBlocks(town) - town.getTownBlocks().size();
 			plugin.sendDebugMsg("Claim Check Available: " + available);
 			if (available - selection.size() < 0)

@@ -324,3 +324,4 @@ v0.72.2:
     - '/town toggle public' now works as intended.
     - Fixed reading of town and nation level data from the yml. It actually reads it now.
     - Fixed an error with '/towny unclaim all' causing an error and corrupting a town save file.
+    - Fixed '/town claim' when you have previously unclaimed all it wouldn't allow you to claim with an error of not attached to town message.
