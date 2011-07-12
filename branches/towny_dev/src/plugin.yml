@@ -77,18 +77,18 @@ town_respawn: false
 # +------------------------------------------------------+ #
 ############################################################
 
-# numResidents,namePrefix,namePostfix,mayorPrefix,mayorPostfix,townBlockLimit
+# numResidents,namePrefix,namePostfix,mayorPrefix,mayorPostfix,townBlockLimit,upkeepModifier
 
 townLevel:
-    - '0,, Ruin,Spirit ,,1'
-    - '1,, (Settlement),Hermit ,,16'
-    - '2,, (Hamlet),Chief ,,32'
-    - '6,, (Village),Baron Von ,,96'
-    - '10,, (Town),Viscount ,,160'
-    - '14,, (Large Town),Count Von ,,224'
-    - '20,, (City),Earl ,,320'
-    - '24,, (Large City),Duke ,,384'
-    - '28,, (Metropolis),Lord ,,448'
+    - '0,, Ruin,Spirit ,,1,1.0'
+    - '1,, (Settlement),Hermit ,,16,1.0'
+    - '2,, (Hamlet),Chief ,,32,1'
+    - '6,, (Village),Baron Von ,,96,1.0'
+    - '10,, (Town),Viscount ,,160,1'
+    - '14,, (Large Town),Count Von ,,224,1.0'
+    - '20,, (City),Earl ,,320,1.0'
+    - '24,, (Large City),Duke ,,384,1.0'
+    - '28,, (Metropolis),Lord ,,448,1.0'
 
 ############################################################
 # +------------------------------------------------------+ #
@@ -96,15 +96,15 @@ townLevel:
 # +------------------------------------------------------+ #
 ############################################################
 
-# numResidents,namePrefix,namePostfix,capitalPrefix,capitalPostfix,kingPrefix,kingPostfix
+# numResidents,namePrefix,namePostfix,capitalPrefix,capitalPostfix,kingPrefix,kingPostfix,upkeepModifier
 
 nationLevel:
-    - '0,Lands of , (Nation),,,Leader ,'
-    - '10,Federation of , (Nation),,,Count ,'
-    - '20,Dominion of , (Nation),,,Duke ,'
-    - '30,Kingdom of , (Nation),,,King ,'
-    - '40,The , Empire,,,Emperor ,'
-    - '60,The , Realm,,,God Emperor ,'
+    - '0,Lands of , (Nation),,,Leader ,,1.0'
+    - '10,Federation of , (Nation),,,Count ,,1.0'
+    - '20,Dominion of , (Nation),,,Duke ,,1.0'
+    - '30,Kingdom of , (Nation),,,King ,,1.0'
+    - '40,The , Empire,,,Emperor ,,1.0'
+    - '60,The , Realm,,,God Emperor ,,1.0'
 
 
 ############################################################

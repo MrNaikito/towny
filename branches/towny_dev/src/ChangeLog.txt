@@ -326,3 +326,5 @@ v0.72.2:
     - Fixed an error with '/towny unclaim all' causing an error and corrupting a town save file.
     - Fixed '/town claim' when you have previously unclaimed all it wouldn't allow you to claim with an error of not attached to town message.
     - Prevented setting negative plot costs and taxes.
+    - Added a town/nation upkeep modifier to the townLevel and nationLevel settings.
+      You can now adjust the cost for upkeep based upon the level of the town/nation eg. (price_town_upkeep * modifier).
