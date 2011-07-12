@@ -95,17 +95,22 @@ public class TownyUniverse extends TownyObject {
 			dailyTask = getPlugin().getServer().getScheduler().scheduleAsyncRepeatingTask(getPlugin(), new DailyTimerTask(this), MinecraftTools.convertToTicks(timeTillNextDay), MinecraftTools.convertToTicks(TownySettings.getDayInterval()));
 			if (dailyTask == -1)
 				plugin.sendErrorMsg("Could not schedule new day loop.");
-		} else if (!on && isDailyTimerRunning())
+		} else if (!on && isDailyTimerRunning()) {
 			getPlugin().getServer().getScheduler().cancelTask(dailyTask);
+			dailyTask = -1;
+		}
+
 	}
 	
 	public void toggleHealthRegen(boolean on) {
 		if (on && !isHealthRegenRunning()) {
-			dailyTask = getPlugin().getServer().getScheduler().scheduleAsyncRepeatingTask(getPlugin(), new HealthRegenTimerTask(this, plugin.getServer()), 0, MinecraftTools.convertToTicks(TownySettings.getHealthRegenSpeed()));
-			if (dailyTask == -1)
+			healthRegenTask = getPlugin().getServer().getScheduler().scheduleAsyncRepeatingTask(getPlugin(), new HealthRegenTimerTask(this, plugin.getServer()), 0, MinecraftTools.convertToTicks(TownySettings.getHealthRegenSpeed()));
+			if (healthRegenTask == -1)
 				plugin.sendErrorMsg("Could not schedule health regen loop.");
-		} else if (!on && isHealthRegenRunning())
+		} else if (!on && isHealthRegenRunning()) {
 			getPlugin().getServer().getScheduler().cancelTask(healthRegenTask);
+			healthRegenTask = -1;
+		}
 	}
 	
 	public boolean isMobRemovalRunning() {
