@@ -1,7 +1,7 @@
-e#summary Towny Commands Master List
+#summary Towny Commands Master List
 
 = Introduction to Towny Commands=
-
+<wiki:toc max_depth="2" />
   * This list breaks each command down by word. Eg: /resident set perm {on/off}.
   * For resident commands, the add command would auto-match online players, while add+ requires exact spelling to choose offline players.
   * Just about every subcommand has it's own help menu. Use /resident set, or a similar cutoff, to show all the options for that command ingame. You can also use /resident set ?, you will probably need to use that in the case where a subcommand actually has a function by itself. Example: /town claim, and /town claim ? would show all it's subcommands.
@@ -11,6 +11,7 @@ e#summary Towny Commands Master List
 
 = Master List =
 
+== /resident ==
   * /resident 
     *    
     * ?
@@ -30,7 +31,8 @@ e#summary Towny Commands Master List
      * {friend/ally/outsider} {build/destroy/switch/itemuse} {on/off}
      * mode {mode} .. {mode}
     * delete {resident}
-  
+    
+== /town ==  
   * /town 
     *
     * ?
@@ -83,12 +85,14 @@ e#summary Towny Commands Master List
       * public
       * pvp
   
+== /plot ==
   * /plot 
     * claim
     * unclaim
     * {forsale/fs}
     * {notforsale/nfs}
-  
+
+== /nation ==  
   * /nation 
     *  
     * ?
@@ -120,7 +124,8 @@ e#summary Towny Commands Master List
       * neutral {on/off}
       * taxes {$}
       * name {name}
-  
+
+== /townyworld ==  
   * /townyworld 
     * 
     * ?
@@ -134,7 +139,8 @@ e#summary Towny Commands Master List
     * wildignore {id} .. {id}
     * wildname {name}
     * usingtowny {on/off}
-  
+
+== /towny ==  
   * /towny 
     *  
     * ?
@@ -149,7 +155,8 @@ e#summary Towny Commands Master List
     * war 
       * stats
       * scores
-  
+
+== /townyadmin  
   * /townyadmin 
     *  
     * ?
@@ -177,6 +184,17 @@ e#summary Towny Commands Master List
       * rect {half-length}
     * tree
 
+== Chat Commands ==
+  * /townchat, /tc
+    * Put in from of text to speak with members of your town only.
+  * /nationchat, /nc
+    * Put in from of text to speak with members of your nation only.
+  * /res set mode tc
+    * Use to speak on townchat by default.
+  * /res set mode nc
+    * Use to speak on nationchat by default.
+  * /res set mode reset
+    * Reset chat mode to default chat.
 ----
 
 Source: Original Author, Shade: [http://www.xshade.ca/towny/commands http://www.xshade.ca/towny/commands] with small additions.
