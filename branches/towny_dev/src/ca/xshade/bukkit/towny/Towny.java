@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 //import javax.persistence.PersistenceException;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
@@ -57,6 +58,7 @@ import ca.xshade.util.StringMgmt;
 
 import com.earth2me.essentials.Essentials;
 import com.earth2me.essentials.User;
+import com.earth2me.essentials.Teleport;
 import com.iConomy.*;
 import com.nijikokun.bukkit.Permissions.Permissions;
 import com.nijiko.permissions.PermissionHandler;
@@ -222,7 +224,7 @@ public class Towny extends JavaPlugin {
 		System.out.println("[Towny] Version: " + version + " - Mod Disabled");
 	}
 	
-	public void loadSettings() {
+	private void loadSettings() {
 		
 		//System.out.println("[Towny] load");
 		
@@ -313,7 +315,7 @@ public class Towny extends JavaPlugin {
 	}
 	*/
 	
-	public void update() {
+	private void update() {
 		try {
 			List<String> changeLog = JavaUtil.readTextFromJar("/ChangeLog.txt");
 			boolean display = false;
@@ -469,21 +471,32 @@ public class Towny extends JavaPlugin {
 			return modes.contains(mode); 
 	}
 
-	public boolean checkEssentialsTeleport(Player player) {
+	public boolean checkEssentialsTeleport(Player player, Location lctn) {
 		if (!TownySettings.isUsingEssentials() || !TownySettings.isAllowingTownSpawn())
-			return true;
+			return false;
 		
 		Plugin test = getServer().getPluginManager().getPlugin("Essentials");
 		if (test == null)
-			return true;
+			return false;
 		Essentials essentials = (Essentials)test;
 		//essentials.loadClasses();
 		sendDebugMsg("Using Essentials");
 		
 		try {
-			@SuppressWarnings("unused")
 			User user = essentials.getUser(player);
+			
+			if (!user.isTeleportEnabled())
+				return false;
+						
+			if (!user.isJailed()){
+
+				//user.getTeleport();
+				Teleport teleport = user.getTeleport();
+				teleport.teleport(lctn, null);
+
+			}
 			return true;
+			
 		} catch (Exception e) {
 			sendErrorMsg(player, "Error: " + e.getMessage());
 			return false;

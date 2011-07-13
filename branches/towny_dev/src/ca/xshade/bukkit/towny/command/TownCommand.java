@@ -111,32 +111,48 @@ public class TownCommand implements CommandExecutor  {
 			townLeave(player);
 		else if (split[0].equalsIgnoreCase("spawn"))
 			try {
-				if (split.length == 1) {
-					boolean isTownyAdmin = plugin.isTownyAdmin(player);
-					if (!TownySettings.isAllowingTownSpawn() && !isTownyAdmin && !plugin.hasPermission(player, "towny.spawntp"))
-						throw new TownyException(TownySettings.getLangString("msg_err_town_spawn_forbidden"));
-					Resident resident = plugin.getTownyUniverse().getResident(player.getName());
-					if (!isTownyAdmin && TownySettings.isUsingIConomy() && !resident.pay(TownySettings.getTownSpawnTravelPrice()))
-						throw new TownyException(TownySettings.getLangString("msg_err_cant_afford_tp"));
-					if (plugin.checkEssentialsTeleport(player))
-						plugin.getTownyUniverse().townSpawn(player, false);
-				} else {
-					boolean isTownyAdmin = plugin.isTownyAdmin(player);
-					if (!TownySettings.isAllowingPublicTownSpawnTravel() && !isTownyAdmin && !plugin.hasPermission(player, "towny.publicspawntp"))
-						throw new TownyException(TownySettings.getLangString("msg_err_town_spawn_forbidden"));
-					Resident resident = plugin.getTownyUniverse().getResident(player.getName());
-					Town town = plugin.getTownyUniverse().getTown(split[1]);
-					if (!isTownyAdmin && TownySettings.isUsingIConomy() && !resident.pay(TownySettings.getTownSpawnTravelPrice()))
-						throw new TownyException(String.format(TownySettings.getLangString("msg_err_cant_afford_tp_town"),town.getName()));
+				
+				boolean isTownyAdmin = plugin.isTownyAdmin(player);
+				Town town;
+				String notAffordMSG;
+				
+				// Check permission to use spawn travel
+				if (!isTownyAdmin &&
+						(split.length == 1 && !TownySettings.isAllowingTownSpawn() && !plugin.hasPermission(player, "towny.spawntp")) ||
+						(split.length > 1 && !TownySettings.isAllowingPublicTownSpawnTravel() && !plugin.hasPermission(player, "towny.publicspawntp")))
+					throw new TownyException(TownySettings.getLangString("msg_err_town_spawn_forbidden"));
+				
+				Resident resident = plugin.getTownyUniverse().getResident(player.getName());
+				
+				// fetch the spawn location for the teleport
+				// and setup the error message if they can't afford.
+				if (split.length > 1) {
+					town = plugin.getTownyUniverse().getTown(split[1]);
 					if (!isTownyAdmin && !town.isPublic())
 						throw new TownyException(TownySettings.getLangString("msg_err_not_public"));
-					if (plugin.checkEssentialsTeleport(player)) {
-						if (!plugin.isTownyAdmin(player) && TownySettings.isUsingIConomy() && TownySettings.getTownSpawnTravelPrice() != 0)
-							plugin.sendMsg(player, String.format(TownySettings.getLangString("msg_cost_spawn"),
-									TownySettings.getTownSpawnTravelPrice() + TownyIConomyObject.getIConomyCurrency()));
-						player.teleport(town.getSpawn());
-					}
+					notAffordMSG = String.format(TownySettings.getLangString("msg_err_cant_afford_tp_town"),town.getName());
+				} else {
+					town = resident.getTown();
+					notAffordMSG = TownySettings.getLangString("msg_err_cant_afford_tp");
 				}
+				
+				// check payment
+				if (!isTownyAdmin && TownySettings.isUsingIConomy() && !resident.pay(TownySettings.getTownSpawnTravelPrice()))
+					throw new TownyException(notAffordMSG);
+				
+				// if an Admin or essentials teleport isn't being used, use our own.
+				if(isTownyAdmin || !plugin.checkEssentialsTeleport(player, town.getSpawn()))
+						player.teleport(town.getSpawn());
+
+				//show message if we are using iConomy and are charging for spawn travel.
+				if (!isTownyAdmin && TownySettings.isUsingIConomy() && TownySettings.getTownSpawnTravelPrice() != 0)
+					plugin.sendMsg(player, String.format(TownySettings.getLangString("msg_cost_spawn"),
+							TownySettings.getTownSpawnTravelPrice() + TownyIConomyObject.getIConomyCurrency()));
+						
+					
+				//if (plugin.checkEssentialsTeleport(player))
+				//	plugin.getTownyUniverse().townSpawn(player, false);
+				
 			} catch (TownyException e) {
 				plugin.sendErrorMsg(player, e.getMessage());
 			} catch (IConomyException e) {

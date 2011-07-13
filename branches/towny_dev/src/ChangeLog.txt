@@ -329,3 +329,4 @@ v0.72.2:
     - Added a town/nation upkeep modifier to the townLevel and nationLevel settings.
       You can now adjust the cost for upkeep based upon the level of the town/nation eg. (price_town_upkeep * modifier).
     - Fixed Health regen in towns to correctly display in the Admin panel.
+    - Fixed the connection to Essentials for using teleport timers.

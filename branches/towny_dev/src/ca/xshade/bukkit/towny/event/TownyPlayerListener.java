@@ -103,6 +103,8 @@ public class TownyPlayerListener extends PlayerListener {
 				return;
 			}
 		}
+		// fix for minequest causing null block interactions.
+		if (event.getClickedBlock() != null)
 			if (TownySettings.isSwitchId(event.getClickedBlock().getTypeId()) || event.getAction() == Action.PHYSICAL)
 			{
 				//System.out.println("onPlayerInteractEvent: isSwitchId");
