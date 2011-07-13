@@ -14,11 +14,18 @@ Here are instructions for upgrading to Towny 0.72:
   * Start your server.
   * Stop your server.
   * Navigate to /Plugins/Towny/Settings/
-    * Open *config.properties* (unused now) and *config.yml*
-    * Carefully configure config.yml to the settings you used in config.properties, [http://code.google.com/a/eclipselabs.org/p/towny/source/browse/trunk/Towny/src/plugin.yml using this as a guide.]
-    * If you are using Groupmanager set {{{using_permissions: true}}}
-    * NOTE: The .csv files are no longer being used. Instead the entries in config.yml are used.
-    * Save config.yml and optionally, discard config.properties.
+    * Upgrade from pre-0.72
+      * Open *config.properties* (unused now) and *config.yml*
+      * Carefully configure config.yml to the settings you used in config.properties, [http://code.google.com/a/eclipselabs.org/p/towny/source/browse/trunk/Towny/src/plugin.yml using this as a guide.]
+      * If you are using Groupmanager set {{{using_permissions: true}}}
+      * NOTE: The .csv files are no longer being used. Instead the entries in config.yml are used.
+      * Save config.yml and optionally, discard config.properties.
+    * Upgrade from post-0.72 to a new version
+      * Rename your config.yml to oldconfig.yml
+      * Start your server and let the new config.yml generate.
+      * Stop your server and configure config.yml to match your settings in oldconfig.yml.
+      * Make note of any new flags and configure to your liking.
+      * Save config.yml.    
   * *If you use Permissions you MUST configure your [PermissionNodes permission nodes], as they are required for players to be able to build/mine in the wilderness.*
     * towny.wild.(asterisk) 
   * or
@@ -33,7 +40,7 @@ Here are instructions for upgrading to Towny 0.72:
     * towny.wild.block.{block id}.itemuse
 
 
-Your server is ready to use Towny 0.72!
+Your server is ready to use Towny 0.72+!
 
   * Start your server.
   * If you would like to use the updated list of itemIDs ignored in the wilderness (only used if players cannot build/destroy freely in the wild,) use /tw set usingdefault in each world.
