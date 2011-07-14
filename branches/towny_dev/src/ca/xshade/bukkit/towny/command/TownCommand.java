@@ -641,6 +641,9 @@ public class TownCommand implements CommandExecutor  {
 			return;
 		}
 		
+		plugin.getTownyUniverse().getDataSource().saveResident(resident);
+		plugin.getTownyUniverse().getDataSource().saveTown(town);
+		
 		plugin.updateCache();
 		
 		plugin.getTownyUniverse().sendTownMessage(town, String.format(TownySettings.getLangString("msg_left_town"), resident.getName()));
