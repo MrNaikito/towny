@@ -46,6 +46,48 @@ A nation is a collection of towns (or just one town) with one town as the capita
 
 Kings lead Nations and are the mayor of the capital city.
 
+== Configuring Mayor and King Titles, Town and Nation Names ==
+
+Towny gives you the ability to customize the naming scheme applied to Mayors, Kings, Towns, Capital Cities and Nations.
+
+This is done with two sections in the [DefaultConfig config.yml]
+  * townLevel:
+    * The basic layout of the townLevel lines are as follows: 
+    * numResidents,namePrefix,namePostfix,mayorPrefix,mayorPostfix,townBlockLimit,upkeepModifier
+    * A couple example lines from the config:
+      * {{{- '2,, (Hamlet),Chief ,,32,1.0'}}}
+      * {{{- '6,, (Village),Baron Von ,,96,1.1'}}}
+    * These are read as follows:
+      * The first line: When the town of Bob has 2-5 residents they get the following attributes: 
+        * The name Bob is given a postfix and appears as "Bob (Hamlet)",
+        * The mayor of Bob recieves a prefix, he is now "Chief Robert",
+        * The town is given a maximum of 32 townblocks to use,
+        * The town still pays an upkeep equal to the standard.
+      * The second line: When the town of Bob reaches 6 residents the following changes occur:
+        * The name of Bob changes from "Bob (Hamlet)" to "Bob (Village)",
+        * "Chief Robert" becomes "Baron von Robert",
+        * Robert has 96 townblocks at his disposal,
+        * The town of Bob now pays 10% more upkeep than before.   
+      
+  * nationLevel:
+    * The basic layout of the nationLevel lines are as follows:
+    * numResidents,namePrefix,namePostfix,capitalPrefix,capitalPostfix,kingPrefix,kingPostfix,upkeepModifier
+    * A couple example lines from the config:
+      * {{{- '20,Dominion of , (Nation),,,Duke ,1.0'}}}
+      * {{{- '30,Kingdom of , (Nation),,,King ,1.2'}}}
+    * These are read as follows:
+      * The first line: We will pretend that Robert started the nation of "Hotdogs" and has between 20 and 29 residents total in his nation:
+        * The name of the nation receives a prefix and a postfix making it "Dominion of Hotdogs (Nation)",
+        * There is no prefix or postfix attached to the Capital city of Bob,
+        * Robert recieves the title "Duke Robert",
+        * Robert pays the standard upkeep applied to nations.
+      * The second line: Robert has reached 30 residents and the following things change:
+        * The nation is retitled "Kingdom of Hotdogs (Nation)",
+        * There are still no prefix or postfix attached to the Capital city of Bob,
+        * Robert recieves the title "King Robert",
+        * Robert pays 20% more than the standard upkeep, set in the config.yml.
+    
+
 ----
 
 = Plot System of Land Ownership =
