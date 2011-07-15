@@ -172,7 +172,7 @@ public class TownySettings {
 	public static void loadNationLevelConfig() throws IOException {
 		
 		String[] tokens;		
-		List<String> lines = (List<String>)config.getProperty("townLevel");
+		List<String> lines = (List<String>)config.getProperty("nationLevel");
 		
 		//get an Iterator object for list using iterator() method.
 		Iterator<String> itr = lines.iterator();

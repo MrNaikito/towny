@@ -331,3 +331,4 @@ v0.72.2:
     - Fixed Health regen in towns to correctly display in the Admin panel.
     - Fixed the connection to Essentials for using teleport timers.
     - Fixed an error where a player leaving town could sometimes not correctly update the old town data file.
+    - Fixed a typo causing Nation levels to not load.
