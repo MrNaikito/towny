@@ -559,10 +559,32 @@ public class TownyFlatFileSource extends TownyDataSource {
 				line = kvFile.get("pvp");
 				if (line != null)
 					try {
-						world.setPvP(Boolean.parseBoolean(line));
+						world.setPVP(Boolean.parseBoolean(line));
+					} catch (Exception e) {
+					}
+				
+				line = kvFile.get("monsters");
+				if (line != null)
+					try {
+						world.setMobs(Boolean.parseBoolean(line));
 					} catch (Exception e) {
 					}
 					
+				line = kvFile.get("firespread");
+				if (line != null)
+					try {
+						world.setFire(Boolean.parseBoolean(line));
+					} catch (Exception e) {
+					}
+				
+				line = kvFile.get("explosions");
+				if (line != null)
+					try {
+						world.setExpl(Boolean.parseBoolean(line));
+					} catch (Exception e) {
+					}
+				
+				
 				line = kvFile.get("usingDefault");
 				if (line != null)
 					try {
@@ -911,7 +933,7 @@ public class TownyFlatFileSource extends TownyDataSource {
 			fout.write(newLine);
 
 			// PvP
-			fout.write("pvp=" + Boolean.toString(world.isPvP()) + newLine);
+			fout.write("pvp=" + Boolean.toString(world.isPVP()) + newLine);
 			// Claimable
 			fout.write("claimable=" + Boolean.toString(world.isClaimable()) + newLine);
 			// Using Default

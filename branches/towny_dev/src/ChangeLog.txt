@@ -339,3 +339,5 @@ v0.72.2:
     - Added a new setting of 'cheat_protection' to prevent fly and double jump cheats.
     - Remove default_max_town_blocks from the config as it's no longer used. All block settings are now in the townLevel entry.
     - Added config.yml settings for force_explosions_on, force_monsters_on and force_fire_on. These will prevent Mayors toggling the settings.
+    - Added world configs for Forced Fire,Explosions and Monsters.
+    - Moved some townyworld commands the a new toggle command '/townyworld toggle claimable, usingtowny, pvp, explosion, fire and mobs.

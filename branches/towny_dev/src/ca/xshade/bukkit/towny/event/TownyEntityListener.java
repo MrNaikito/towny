@@ -151,7 +151,7 @@ public class TownyEntityListener extends EntityListener {
 			return false;
 		//plugin.sendDebugMsg("is not forcing pvp");
 		// World PvP
-		if (!world.isPvP())
+		if (!world.isPVP())
 			return true;
 		//plugin.sendDebugMsg("world is pvp");
 		return false;

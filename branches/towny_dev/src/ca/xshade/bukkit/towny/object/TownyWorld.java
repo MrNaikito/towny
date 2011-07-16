@@ -12,7 +12,7 @@ import ca.xshade.bukkit.towny.TownySettings;
 
 public class TownyWorld extends TownyObject {
 	private List<Town> towns = new ArrayList<Town>();
-	private boolean isClaimable = true, isPvP = true, usingDefault = true, isUsingTowny = true;
+	private boolean isClaimable = true, isPVP = true, isExpl = true, isFire = true, isMobs = true, usingDefault = true, isUsingTowny = true;
 	private List<Integer> unclaimedZoneIgnoreIds = null;
 	private Boolean unclaimedZoneBuild = null, unclaimedZoneDestroy = null, unclaimedZoneSwitch = null, unclaimedZoneItemUse = null;
 	private String unclaimedZoneName = null;
@@ -132,12 +132,36 @@ public class TownyWorld extends TownyObject {
 		return out;
 	}
 
-	public void setPvP(boolean isPvP) {
-		this.isPvP = isPvP;
+	public void setPVP(boolean isPVP) {
+		this.isPVP = isPVP;
 	}
 
-	public boolean isPvP() {
-		return isPvP;
+	public boolean isPVP() {
+		return isPVP;
+	}
+	
+	public void setExpl(boolean isExpl) {
+		this.isExpl = isExpl;
+	}
+
+	public boolean isExpl() {
+		return isExpl;
+	}
+	
+	public void setFire(boolean isFire) {
+		this.isFire = isFire;
+	}
+
+	public boolean isFire() {
+		return isFire;
+	}
+	
+	public void setMobs(boolean isMobs) {
+		this.isMobs = isMobs;
+	}
+
+	public boolean isMobs() {
+		return isMobs;
 	}
 
 	public void setClaimable(boolean isClaimable) {

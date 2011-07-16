@@ -233,10 +233,14 @@ msg_changed_expl: '&cExplosions in town are now %s.'
 msg_changed_fire: '&cFirespread in town is now %s.'
 msg_changed_mobs: '&cMonster spawns in town are now %s.'
 
+msg_changed_world_setting: '&cWorld %s for %s has been %s.'
+
+
 msg_world_pvp: '&cThis world is PvP only.'
-msg_world_mob: '&cThis world has Monster spawns forced on.'
+msg_world_mobs: '&cThis world has Monster spawns forced on.'
 msg_world_expl: '&cThis world has Explosions forced on.'
 msg_world_fire: '&cThis world has Fire spread forced on.'
+
 msg_reloaded: '&2Towny''s settings were reloaded.'
 msg_give_total: '&bGave %s bonus. (Total: %s)'
 mag_backup_success: '&2Backup successful.'
@@ -249,7 +253,7 @@ msg_set_town_spawn: '&bSuccessfully changed town''s spawn.'
 
 msg_set_perms: '&bSuccessfully changed permissions to %s.'
 msg_set_claim: '&bSuccessfully changed %s''s claimability to %s'
-msg_set_pvp: '&bSuccessfully changed %s''s PvP to %s'
+
 msg_usedefault: '&bThis world (%s) is now using the global default settings.'
 msg_set_wild_perms: '&bSuccessfully changed %s''s wild permissions %s'
 msg_set_wild_ignore: '&bSuccessfully changed %s''s wild ignore blocks to %s'
