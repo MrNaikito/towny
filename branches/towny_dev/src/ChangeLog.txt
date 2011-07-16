@@ -346,3 +346,4 @@ v0.72.2:
     - Removed access to '/town set mayor' command for assistants.
     - Fixed '/res set mode townclaim' attempting to claim the wrong blocks.
     - Added a town hasUpkeep setting for towns. Set to false if using an NPC mayor, or manually alterable by server admins.
+    - Added a 'Mob Spawns' indicator to the '/town' status display.

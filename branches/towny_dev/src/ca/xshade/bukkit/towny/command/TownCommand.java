@@ -92,7 +92,7 @@ public class TownCommand implements CommandExecutor  {
 			} catch (NotRegisteredException x) {
 				plugin.sendErrorMsg(player, TownySettings.getLangString("msg_err_dont_belong_town"));
 			}
-		else if (split[0].equalsIgnoreCase("?") || split[0].equalsIgnoreCase(""))
+		else if (split[0].equalsIgnoreCase("?") || split[0].equalsIgnoreCase("help"))
 			for (String line : output)
 				player.sendMessage(line);
 		else if (split[0].equalsIgnoreCase("here"))
