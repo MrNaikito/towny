@@ -738,7 +738,7 @@ public class TownyUniverse extends TownyObject {
 	public void collectNationTaxes(Nation nation) throws IConomyException {
 		if (nation.getTaxes() > 0)
 			for (Town town : new ArrayList<Town>(nation.getTowns())) {
-				if (town.isCapital())
+				if (town.isCapital() || !town.hasUpkeep())
 					continue;
 				if (!town.pay(nation.getTaxes(), nation)) {
 					try {
@@ -962,10 +962,11 @@ public class TownyUniverse extends TownyObject {
 
 	public void collectTownCosts() throws IConomyException {
 		for (Town town : new ArrayList<Town>(towns.values()))
-			if (!town.pay(TownySettings.getTownUpkeepCost(town))) {
-				removeTown(town);
-				sendGlobalMessage(town.getName() + TownySettings.getLangString("msg_bankrupt_town"));
-			}
+			if (town.hasUpkeep())
+				if (!town.pay(TownySettings.getTownUpkeepCost(town))) {
+					removeTown(town);
+					sendGlobalMessage(town.getName() + TownySettings.getLangString("msg_bankrupt_town"));
+				}
 	}
 	
 	public void collectNationCosts() throws IConomyException {

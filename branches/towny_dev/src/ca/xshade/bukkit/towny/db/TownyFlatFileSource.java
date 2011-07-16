@@ -330,6 +330,14 @@ public class TownyFlatFileSource extends TownyDataSource {
 					} catch (Exception e) {
 						town.setPlotPrice(0);
 					}
+				
+				line = kvFile.get("hasUpkeep");
+				if (line != null)
+					try {
+						town.setHasUpkeep(Boolean.parseBoolean(line));
+					} catch (NumberFormatException nfe) {
+					} catch (Exception e) {
+					}
 
 				line = kvFile.get("taxes");
 				if (line != null)
@@ -841,6 +849,8 @@ public class TownyFlatFileSource extends TownyDataSource {
 			fout.write("plotPrice=" + Integer.toString(town.getPlotPrice()) + newLine);
 			// Plot Tax
 			fout.write("plotTax=" + Integer.toString(town.getPlotTax()) + newLine);
+			// Upkeep
+			fout.write("hasUpkeep=" + Boolean.toString(town.isPVP()) + newLine);
 			// PVP
 			fout.write("pvp=" + Boolean.toString(town.isPVP()) + newLine);
 			// Mobs
@@ -936,6 +946,12 @@ public class TownyFlatFileSource extends TownyDataSource {
 			fout.write("pvp=" + Boolean.toString(world.isPVP()) + newLine);
 			// Claimable
 			fout.write("claimable=" + Boolean.toString(world.isClaimable()) + newLine);
+			// has monster spawns			
+			fout.write("monsters=" + Boolean.toString(world.isMobs()) + newLine);
+			// has firespread enabled
+			fout.write("firespread=" + Boolean.toString(world.isFire()) + newLine);
+			// has explosions enabled
+			fout.write("explosions=" + Boolean.toString(world.isExpl()) + newLine);
 			// Using Default
 			fout.write("usingDefault=" + Boolean.toString(world.isUsingDefault()) + newLine);
 			// Unclaimed Zone Build

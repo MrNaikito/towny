@@ -261,6 +261,8 @@ public class TownyAdminCommand implements CommandExecutor  {
 			} else
 				try {
 					Resident newMayor = null;
+					Town town = plugin.getTownyUniverse().getTown(split[1]);
+					
 					if (split[2].equalsIgnoreCase("npc")) {
 						String name = nextNpcName();
 						plugin.getTownyUniverse().newResident(name);
@@ -272,11 +274,17 @@ public class TownyAdminCommand implements CommandExecutor  {
 						
 						plugin.getTownyUniverse().getDataSource().saveResident(newMayor);
 						plugin.getTownyUniverse().getDataSource().saveResidentList();
+						
+						// set for no upkeep as an NPC mayor is assigned
+						town.setHasUpkeep(false);
 
-					} else
+					} else {
 						newMayor = plugin.getTownyUniverse().getResident(split[2]);
+						
+						//set upkeep again
+						town.setHasUpkeep(true);
+					}
 					
-					Town town = plugin.getTownyUniverse().getTown(split[1]);
 					if (!town.hasResident(newMayor))
 						TownCommand.townAddResident(town, newMayor);
 					// Delete the resident if the old mayor was an NPC.
@@ -288,6 +296,7 @@ public class TownyAdminCommand implements CommandExecutor  {
 						try {
 							town.removeResident(oldMayor);
 							plugin.getTownyUniverse().removeResident(oldMayor);
+							oldMayor.clear();
 						} catch (EmptyTownException e) {
 							// Should never reach here as we are setting a new mayor before removing the old one.
 							e.printStackTrace();
