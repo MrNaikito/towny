@@ -176,7 +176,13 @@ public class TownyFormatter {
 		// Claimable: No | PvP: Off
 		out.add(Colors.Green + "Claimable: " + (world.isClaimable() ? Colors.LightGreen + "Yes" : Colors.Rose + "No")
 				+ Colors.Gray + " | "
-				+ Colors.Green + "PvP: " + (world.isPVP() ? Colors.Rose + "On" : Colors.LightGreen + "Off"));
+				+ Colors.Green + "PvP: " + (world.isPVP() ? Colors.Rose + "On" : Colors.LightGreen + "Off")
+				+ Colors.Gray + " | "
+				+ Colors.Green + "Fire: " + (world.isFire() ? Colors.Rose + "On" : Colors.LightGreen + "Off")
+				+ Colors.Gray + " | "
+				+ Colors.Green + "Explosions: " + (world.isExpl() ? Colors.Rose + "On" : Colors.LightGreen + "Off")
+				+ Colors.Gray + " | "
+				+ Colors.Green + "Mobs: " + (world.isMobs() ? Colors.Rose + "On" : Colors.LightGreen + "Off"));
 		// Using Default Settings: Yes
 		out.add(Colors.Green + "Using Default Settings: " + (world.isUsingDefault() ? Colors.LightGreen + "Yes" : Colors.Rose + "No"));
 		// Wilderness:
@@ -221,7 +227,7 @@ public class TownyFormatter {
 			return getFormattedTownName((Town) obj);
 		else if (obj instanceof Nation)
 			return getFormattedNationName((Nation) obj);
-		System.out.println("just name: " + obj.getName());
+		//System.out.println("just name: " + obj.getName());
 		return obj.getName().replaceAll("_", " ");
 	}
 	

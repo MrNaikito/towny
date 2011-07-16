@@ -41,11 +41,12 @@ public class TownyWorldCommand implements CommandExecutor  {
 		townyworld_help.add(ChatTools.formatCommand("", "/townyworld", "", TownySettings.getLangString("world_help_1")));
 		townyworld_help.add(ChatTools.formatCommand("", "/townyworld", TownySettings.getLangString("world_help_2"), TownySettings.getLangString("world_help_3")));
 		townyworld_help.add(ChatTools.formatCommand("", "/townyworld", "list", TownySettings.getLangString("world_help_4")));
+		townyworld_help.add(ChatTools.formatCommand("", "/townyworld", "toggle",""));
 		townyworld_help.add(ChatTools.formatCommand(TownySettings.getLangString("admin_sing"), "/townyworld", "set [] .. []", ""));
 		
 		townyworld_set.add(ChatTools.formatTitle("/townyworld set"));
 		townyworld_set.add(ChatTools.formatCommand("", "/townyworld set", "wildname [name]", ""));
-		townyworld_set.add(ChatTools.formatCommand("", "/townyworld set", "usingtowny [on/off]", ""));
+		//townyworld_set.add(ChatTools.formatCommand("", "/townyworld set", "usingtowny [on/off]", ""));
 		
 		// if using permissions and it's active disable this command
 		if (!plugin.isPermissions()) {
