@@ -911,6 +911,18 @@ public class TownySettings {
 	public static boolean isForcingPvP() {
 		return getBoolean("FORCE_PVP_ON");
 	}
+	
+	public static boolean isForcingExplosions() {
+		return getBoolean("FORCE_EXPLOSIONS_ON");
+	}
+	
+	public static boolean isForcingMonsters() {
+		return getBoolean("FORCE_MONSTERS_ON");
+	}
+	
+	public static boolean isForcingFire() {
+		return getBoolean("FORCE_FIRE_ON");
+	}
 
 	public static boolean isTownRespawning() {
 		return getBoolean("TOWN_RESPAWN");

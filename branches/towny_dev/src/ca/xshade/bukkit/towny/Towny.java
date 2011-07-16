@@ -244,9 +244,15 @@ public class Towny extends JavaPlugin {
 		
 		checkPlugins();
 		
-		if (TownySettings.isForcingPvP())
-			for (Town town : townyUniverse.getTowns())
-				town.setPVP(true);
+		if (TownySettings.isForcingPvP() || TownySettings.isForcingExplosions() || TownySettings.isForcingMonsters())
+			for (Town town : townyUniverse.getTowns()) {
+				if (TownySettings.isForcingPvP())
+					town.setPVP(true);
+				if (TownySettings.isForcingExplosions())
+					town.setBANG(true);
+				if (TownySettings.isForcingMonsters())
+					town.setFire(true);
+			}
 		
 		townyUniverse.toggleDailyTimer(true);
 		townyUniverse.toggleMobRemoval(TownySettings.isRemovingWorldMobs() || TownySettings.isRemovingTownMobs() );

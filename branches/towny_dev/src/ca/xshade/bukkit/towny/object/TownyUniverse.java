@@ -905,7 +905,7 @@ public class TownyUniverse extends TownyObject {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		String name = resident.getName();
+		//String name = resident.getName();
 		//residents.remove(name.toLowerCase());
 		//plugin.deleteCache(name);
 		//getDataSource().saveResidentList();

@@ -340,6 +340,10 @@ public class TownCommand implements CommandExecutor  {
 				}
 			} else if (split[0].equalsIgnoreCase("explosion")) {
 				try {
+					if (TownySettings.isForcingExplosions()) {
+						town.setBANG(true);
+						throw new Exception(TownySettings.getLangString("msg_world_expl"));
+					}
 					town.setBANG(!town.isBANG());
 					plugin.getTownyUniverse().sendTownMessage(town, String.format(TownySettings.getLangString("msg_changed_expl"), town.isBANG() ? "Enabled" : "Disabled"));
 
@@ -347,6 +351,10 @@ public class TownCommand implements CommandExecutor  {
 				}
 			} else if (split[0].equalsIgnoreCase("fire")) {
 				try {
+					if (TownySettings.isForcingFire()) {
+						town.setFire(true);
+						throw new Exception(TownySettings.getLangString("msg_world_fire"));
+					}
 					town.setFire(!town.isFire());
 					plugin.getTownyUniverse().sendTownMessage(town, String.format(TownySettings.getLangString("msg_changed_fire"), town.isFire() ? "Enabled" : "Disabled"));
 
@@ -354,6 +362,10 @@ public class TownCommand implements CommandExecutor  {
 				}
 			} else if (split[0].equalsIgnoreCase("mobs")) {
 				try {
+					if (TownySettings.isForcingMonsters()) {
+						town.setHasMobs(true);
+						throw new Exception(TownySettings.getLangString("msg_world_mob"));
+					}
 					town.setHasMobs(!town.hasMobs());
 					plugin.getTownyUniverse().sendTownMessage(town, String.format(TownySettings.getLangString("msg_changed_mobs"), !town.hasMobs() ? "Enabled" : "Disabled"));
 

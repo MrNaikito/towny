@@ -140,8 +140,19 @@ town_block_size: 16
 
 # force_pvp_on is a global flag and overrides any towns flag setting
 force_pvp_on: false
+
+# force_explosions_on is a global flag and overrides any towns flag setting
+force_explosions_on: false
+
+# force_monsters_on is a global flag and overrides any towns flag setting
+force_monsters_on: false
+
+# force_fire_on is a global flag and overrides any towns flag setting
+force_fire_on: false
+
 # can residents/Allies harm other residents when in a town with pvp enabled?
 friendly_fire: true
+
 # Players within their town or allied towns will regenerate half a heart after every health_regen_speed milliseconds.
 health_regen: true
 health_regen_speed: 3000
