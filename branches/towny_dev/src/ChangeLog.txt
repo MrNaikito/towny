@@ -344,3 +344,4 @@ v0.72.2:
     - Changed to protect towns not in nations from explosions during a war.
     - Added regex parsing on town and nation renaming.
     - Removed access to '/town set mayor' command for assistants.
+    - Fixed '/res set mode townclaim' attempting to claim the wrong blocks.

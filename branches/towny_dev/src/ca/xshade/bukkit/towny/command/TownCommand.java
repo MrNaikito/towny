@@ -1094,13 +1094,13 @@ public class TownCommand implements CommandExecutor  {
 				if (split.length == 1 && split[0].equalsIgnoreCase("outpost")) {
 					if (TownySettings.isAllowingOutposts()) {
 						selection = new ArrayList<WorldCoord>();
-						selection.add(new WorldCoord(world, Coord.parseCoord(player)));
+						selection.add(new WorldCoord(world, Coord.parseCoord(plugin.getCache(player).getLastLocation())));
 						blockCost = TownySettings.getOutpostCost();
 						attachedToEdge = false;
 					} else
 						throw new TownyException(TownySettings.getLangString("msg_outpost_disable"));
 				} else {
-					selection = selectWorldCoordArea(town, new WorldCoord(world, Coord.parseCoord(player)), split);
+					selection = selectWorldCoordArea(town, new WorldCoord(world, Coord.parseCoord(plugin.getCache(player).getLastLocation())), split);
 					blockCost = TownySettings.getClaimPrice();
 				}
 				
@@ -1158,7 +1158,7 @@ public class TownCommand implements CommandExecutor  {
 				if (split.length == 1 && split[0].equalsIgnoreCase("all"))
 					townUnclaimAll(town);
 				else {
-					selection = selectWorldCoordArea(town, new WorldCoord(world, Coord.parseCoord(player)), split);
+					selection = selectWorldCoordArea(town, new WorldCoord(world, Coord.parseCoord(plugin.getCache(player).getLastLocation())), split);
 					selection = filterOwnedBlocks(town, selection);
 					
 					for (WorldCoord worldCoord : selection)
@@ -1276,6 +1276,8 @@ public class TownCommand implements CommandExecutor  {
 		if (force)
 			return;
 		Town town = (Town)owner;
+		
+		//System.out.print("isEdgeBlock: "+ isEdgeBlock(owner, selection));
 		
 		if (attachedToEdge && !isEdgeBlock(owner, selection) && !town.getTownBlocks().isEmpty())
 			throw new TownyException(TownySettings.getLangString("msg_err_not_attached_edge"));
