@@ -187,6 +187,21 @@ Permissions are viewable by typing either {{{/resident}}} for personal plot perm
       * Players who are not part of your town or nation or nation's allies.
 
   [Commands All commands are found on the Wiki's Commands page.]
+  
+  === Setting perms in-game with commands ===
+  Setting perms for your town's public land or your personal plots is easy! There are two distinct levels of protection provided by towns.
+  
+  First are the town blocks protected because they are part of a town and not owned by anyone. When you enter one of these plots from the wilderness or an owned plot the notification will show "~ Unowned". 
+  Mayors are able to set the permission for unowned plots using the the {{{/town set perm}}} command. A full list of commands is on the [Commands commands] page, here are some examples:
+    * /town set perm {on/off} - This turns on or off all permissions for all perm-types and all perm-groups.
+    * /town set perm ally {on/off} - This turns on or off all perm-types and for the town's allies (Towns in their nation, nations to which their nation is allied with.)
+    * /town set perm resident build {on/off} - This turns on or off all permissions for building done by residents of the town.
+    
+  Second are the town blocks owned personally by a resident of a town. A resident is able to set the permission for unowned plots using the the {{{/resident set perm}}} command. A full list of commands is on the [Commands commands] page, here are some examples:
+    * /resident set perm {on/off} - This turns on or off all permissions for all perm-types and all perm-groups.
+    * /resident set perm friend {on/off} - This turns on or off all permissions for the resident's friend list.
+    * /resident set perm ally {on/off} - This turns on or off all permissions for all perm-types to the resident's ally list. This consists of the resident's fellow townmembers, their nation's fellow towns and their nation's allied nations.
+    * /resident set perm outsider switch {on/off} - This turns on or off permissions for switch use by outsiders.
 
 == Protection Additions Found in Towny Advanced ==
 
