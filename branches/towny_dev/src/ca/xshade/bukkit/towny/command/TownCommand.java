@@ -747,6 +747,7 @@ public class TownCommand implements CommandExecutor  {
 		town.addResident(resident);
 		plugin.deleteCache(resident.getName());
 		plugin.getTownyUniverse().getDataSource().saveResident(resident);
+		plugin.getTownyUniverse().getDataSource().saveTown(town);
 	}
 
 	private static void townInviteResident(Town town, Resident newMember) throws AlreadyRegisteredException {

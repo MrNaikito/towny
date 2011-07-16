@@ -852,13 +852,19 @@ public class TownyUniverse extends TownyObject {
 		getDataSource().saveNationList();
 	}
 
+	////////////////////////////////////////////
+	
+	
 	public void removeTown(Town town) {
 		getDataSource().deleteTown(town);
 		List<Resident> toSave = new ArrayList<Resident>(town.getResidents());
 		try {
-			Nation nation = town.getNation();
-			nation.removeTown(town);
-			getDataSource().saveNation(nation);
+			
+			if (town.hasNation()) {
+				Nation nation = town.getNation();
+				nation.removeTown(town);
+				getDataSource().saveNation(nation);
+			}
 			town.clear();
 		} catch (EmptyNationException e) {
 			removeNation(e.getNation());
@@ -870,10 +876,16 @@ public class TownyUniverse extends TownyObject {
 			town.pay(town.getHoldingBalance(), new WarSpoils());
 		} catch (IConomyException e) {
 		}
+		
+		
+		for (Resident resident : toSave) {
+			removeResident(resident);
+			//getDataSource().saveResident(resident);
+		}
+		
 		towns.remove(town.getName().toLowerCase());
 		plugin.updateCache();
-		for (Resident resident : toSave)
-			getDataSource().saveResident(resident);
+
 		getDataSource().saveTownList();
 	}
 
@@ -881,9 +893,11 @@ public class TownyUniverse extends TownyObject {
 
 		getDataSource().deleteResident(resident);
 		try {
-			Town town = resident.getTown();
-			town.removeResident(resident);
-			getDataSource().saveTown(town);
+			if (resident.hasTown()) {
+				Town town = resident.getTown();
+				town.removeResident(resident);
+				getDataSource().saveTown(town);
+			}
 			resident.clear();
 		} catch (EmptyTownException e) {
 			removeTown(e.getTown());
@@ -892,10 +906,13 @@ public class TownyUniverse extends TownyObject {
 			e.printStackTrace();
 		}
 		String name = resident.getName();
-		residents.remove(name.toLowerCase());
+		//residents.remove(name.toLowerCase());
 		plugin.deleteCache(name);
-		getDataSource().saveResidentList();
+		//getDataSource().saveResidentList();
 	}
+	
+	/////////////////////////////////////////////
+	
 	
 	public void sendUniverseTree(CommandSender sender) {
 		for (String line : getTreeString(0))

@@ -332,3 +332,7 @@ v0.72.2:
     - Fixed the connection to Essentials for using teleport timers.
     - Fixed an error where a player leaving town could sometimes not correctly update the old town data file.
     - Fixed a typo causing Nation levels to not load.
+    - Fixed players leaving towns not causing the town data to be updated.
+    - Fixed players have to relog after leaving a town before they could join another.
+    - Added chests and furnaces to the item_use_id's (now protected by permission flags).
+    - changed the default setting for town mob removal to 'true'.

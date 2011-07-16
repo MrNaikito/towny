@@ -221,10 +221,14 @@ protection:
     # 326 - water bucket
     # 327 - lava bucket
     # 351 - bone/bonemeal
-    # 93/94 - redstone repeater
+    
     item_use_ids: 259,325,326,327,351
 
     # Items which can be blocked or enabled via town/plot flags
+    # 25 - noteblock
+    # 54 - chest
+    # 61 - furnace
+    # 62 - lit furnace
     # 64 - wooden door
     # 69 - lever
     # 70 - stone pressure plate
@@ -232,16 +236,17 @@ protection:
     # 72 - wooden pressure plate
     # 77 - stone button
     # 96 - trap door
-    # 25 - noteblock
     # 84 - jukebox
-    switch_ids: 64,69,70,71,72,77,96,25,84,93,94
+    # 93/94 - redstone repeater
+    
+    switch_ids: 25,54,61,62,64,69,70,71,72,77,96,84,93,94
     
     # permitted entities http://jd.bukkit.org/apidocs/org/bukkit/entity/package-summary.html
     # Animals, Chicken, Cow, Creature, Creeper, Flying, Ghast, Giant, Monster, Pig, 
     # PigZombie, Sheep, Skeleton, Slime, Spider, Squid, WaterMob, Wolf, Zombie
 
     # Remove living entities within a town's boundaries, if the town has the mob removal flag set.
-    mob_removal_town: false
+    mob_removal_town: true
     town_mob_removal_entities: Monster,WaterMob,Flying,Slime
     
     # Globally remove living entities in all worlds.
