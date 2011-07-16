@@ -106,10 +106,7 @@ Towny provides a server admin a hands-off approach to block-protection. Block pr
 
   === Setting How Many Towny Blocks A Town Receives === 
   
-  You can change how many town blocks a town gets to claim. This is done via the [DefaultConfig config.yml] at the townLevel: flag.
-  
-  More information on the townLevel line and how to configure it is [HowTownyWorks#Configuring_Mayor_and_King_Titles,_Town_and_Nation_Names here.]
-
+  You can change how many town blocks a town gets to claim. This is done in two places. Towny checks first in the config.yml at {{{ town_block_ratio: 16 }}} and by default gives a town 16 townblocks per resident.    
 
 == Outposts ==
 Normally townblocks are claimed around the home block, always connected to the town. To claim a townblock out in the wilderness, a mayor or assistant must claim an outpost.
