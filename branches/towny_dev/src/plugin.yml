@@ -257,6 +257,9 @@ protection:
     # Lower values will check all entities more often at the risk of heavier burden and resource use.
     # NEVER set below 1000 (guestimate)
     mob_removal_speed: 5000
+    
+    # Prevent fly and double block jump cheats.
+    cheat_protection: true
 
 
 ############################################################

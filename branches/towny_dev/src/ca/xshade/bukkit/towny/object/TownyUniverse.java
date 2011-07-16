@@ -907,7 +907,7 @@ public class TownyUniverse extends TownyObject {
 		}
 		String name = resident.getName();
 		//residents.remove(name.toLowerCase());
-		plugin.deleteCache(name);
+		//plugin.deleteCache(name);
 		//getDataSource().saveResidentList();
 	}
 	
