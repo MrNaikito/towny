@@ -282,20 +282,28 @@ public class TownyUniverse extends TownyObject {
 		return nations.containsKey(name.toLowerCase());
 	}
 
-	public void renameTown(Town town, String newName) throws AlreadyRegisteredException {
-		if (hasTown(newName))
-			throw new AlreadyRegisteredException("The town " + newName + " is already in use.");
+	public void renameTown(Town town, String newName) throws AlreadyRegisteredException, NotRegisteredException {
+		
+		String filteredName;
+		try {
+			filteredName = checkAndFilterName(newName);
+		} catch (InvalidNameException e) {
+			throw new NotRegisteredException(e.getMessage());
+		}
+		
+		if (hasTown(filteredName))
+			throw new AlreadyRegisteredException("The town " + filteredName + " is already in use.");
 
 		// TODO: Delete/rename any invites.
 
 		String oldName = town.getName();
-		towns.put(newName.toLowerCase(), town);
+		towns.put(filteredName.toLowerCase(), town);
 		//Tidy up old files
 		// Has to be done here else the town no longer exists and the move command may fail.
 		getDataSource().deleteTown(town);
 		
 		towns.remove(oldName.toLowerCase());
-		town.setName(newName);
+		town.setName(filteredName);
 		Town oldTown = new Town(oldName);
 		
 		try {
@@ -307,19 +315,27 @@ public class TownyUniverse extends TownyObject {
 		
 	}
 	
-	public void renameNation(Nation nation, String newName) throws AlreadyRegisteredException {
-		if (hasNation(newName))
-			throw new AlreadyRegisteredException("The nation " + newName + " is already in use.");
+	public void renameNation(Nation nation, String newName) throws AlreadyRegisteredException, NotRegisteredException {
+		
+		String filteredName;
+		try {
+			filteredName = checkAndFilterName(newName);
+		} catch (InvalidNameException e) {
+			throw new NotRegisteredException(e.getMessage());
+		}
+		
+		if (hasNation(filteredName))
+			throw new AlreadyRegisteredException("The nation " + filteredName + " is already in use.");
 
 		// TODO: Delete/rename any invites.
 
 		String oldName = nation.getName();
-		nations.put(newName.toLowerCase(), nation);
+		nations.put(filteredName.toLowerCase(), nation);
 		//Tidy up old files
 		getDataSource().deleteNation(nation);
 				
 		nations.remove(oldName.toLowerCase());
-		nation.setName(newName);
+		nation.setName(filteredName);
 		Nation oldNation = new Nation(oldName);
 		
 		try {
