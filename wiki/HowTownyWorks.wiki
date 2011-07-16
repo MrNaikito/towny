@@ -97,18 +97,18 @@ This is done with two sections in the [DefaultConfig config.yml]
 Towny provides a server admin a hands-off approach to block-protection. Block protection is broken down into plots of land, called townblocks, which by default are 16x16x128 (the full height of the world.) Townblocks are claimed by town mayors who can then sell/give individual plots to their town's residents. 
 
 
-=== Town Block Size ===
+  === Town Block Size ===
 
-You change the townblock size in [DefaultConfig config.yml] at {{{town_block_size: 16}}}. *Changing this value is suggested only when you first install Towny.*
-Doing so after entering data will shift things unwantedly. Using smaller value will allow higher precision,
-at the cost of more work setting up. Also, extremely small values will render the caching done useless.
-Each cell is (town_block_size x town_block_size x 128) in size, with 128 being from bedrock to clouds.
+  You change the townblock size in [DefaultConfig config.yml] at {{{town_block_size: 16}}}. *Changing this value is suggested only when you first install Towny.*
+  Doing so after entering data will shift things unwantedly. Using smaller value will allow higher precision,
+  at the cost of more work setting up. Also, extremely small values will render the caching done useless.
+  Each cell is (town_block_size x town_block_size x 128) in size, with 128 being from bedrock to clouds.
 
-=== Setting How Many Towny Blocks A Town Receives === 
-
-You can change how many town blocks a town gets to claim. This is done via the [DefaultConfig config.yml] at the townLevel: flag.
-
-More information on the townLevel line and how to configure it is [HowTownyWorks#Configuring_Mayor_and_King_Titles,_Town_and_Nation_Names here.]
+  === Setting How Many Towny Blocks A Town Receives === 
+  
+  You can change how many town blocks a town gets to claim. This is done via the [DefaultConfig config.yml] at the townLevel: flag.
+  
+  More information on the townLevel line and how to configure it is [HowTownyWorks#Configuring_Mayor_and_King_Titles,_Town_and_Nation_Names here.]
 
 
 == Outposts ==
@@ -148,45 +148,45 @@ There are 4 permission-type values, which can be set for personal plots and for 
 
 Permissions are viewable by typing either {{{/resident}}} for personal plot perms or by typing {{{/town}}} for town permissions.
 
-=== Perm-Types ===
-The 4 permission-types available are Build, Destroy, Switch and Itemuse.
+  === Perm-Types ===
+  The 4 permission-types available are Build, Destroy, Switch and Itemuse.
     
-  * Build allows players to add blocks in your town/plot.  
+    * Build allows players to add blocks in your town/plot.  
     
-  * Destroy allows players to remove blocks in your town/plot. 
+    * Destroy allows players to remove blocks in your town/plot. 
 
-  * Switch covers the use of:
-    * wooden and iron doors,
-    * levers,
-    * wooden and stone pressure plates,
-    * buttons,
-    * trapdoors,
-    * noteblocks,
-    * jukeboxes,
-    * redstone repeaters.
+    * Switch covers the use of:
+      * wooden and iron doors,
+      * levers,
+      * wooden and stone pressure plates,
+      * buttons,
+      * trapdoors,
+      * noteblocks,
+      * jukeboxes,
+      * redstone repeaters.
       
-  * Itemuse covers the use of:
-    * water and lava buckets, 
-    * empty buckets,
-    * lighters,
-    * bonemeal.
+    * Itemuse covers the use of:
+      * water and lava buckets, 
+      * empty buckets,
+      * lighters,
+      * bonemeal.
    
-=== Perm-Groups ===
-Each permission-type has 3 perm-groups to which the pemissions can be set for, these are displayed on your {{{/resident}}} perm line as FAO and stand for Friend, Ally, Outsider. 
+  === Perm-Groups ===
+  Each permission-type has 3 perm-groups to which the pemissions can be set for, these are displayed on your {{{/resident}}} perm line as FAO and stand for Friend, Ally, Outsider. 
+  
+  For residents the Friend group consists of a player's friend list.
+  
+  For towns the perm line reads RAO, with R representing Residents (players in that town) and mayors need to use {{{/t set perm resident blah on/off}}} instead of {{{/t set perm friend blah on/off}}} 
+  
+  The other groups are:
+    * Ally 
+      * Players from your town, 
+      * other towns in your nation,
+      * and nations your nation is allied with.
+    * Outsiders 
+      * Players who are not part of your town or nation or nation's allies.
 
-For residents the Friend group consists of a player's friend list.
-
-For towns the perm line reads RAO, with R representing Residents (players in that town) and mayors need to use {{{/t set perm resident blah on/off}}} instead of {{{/t set perm friend blah on/off}}} 
-
-The other groups are:
-  * Ally 
-    * Players from your town, 
-    * other towns in your nation,
-    * and nations your nation is allied with.
-  * Outsiders 
-    * Players who are not part of your town or nation or nation's allies.
-
-[Commands All commands are found on the Wiki's Commands page.]
+  [Commands All commands are found on the Wiki's Commands page.]
 
 == Protection Additions Found in Towny Advanced ==
 
@@ -210,32 +210,32 @@ Taxes and Upkeep are two seperate functions with to different results. {{{using_
 Taxes and Upkeep are charged at the same time, each 'Towny Day' or each time an admin type /townyadmin newday.
 The time of a 'Towny Day' can be set in [DefaultConfig config.yml] at {{{day_interval: 86400000}}} and by default is 24 real-life hours.
 
-=== Taxes ===
-Taxes are collected on the town level from residents and on the nation level from towns.
-The [DefaultConfig config.yml] has an entry to turn taxation on or off at {{{daily_taxes: true}}}
+  === Taxes ===
+  Taxes are collected on the town level from residents and on the nation level from towns.
+  The [DefaultConfig config.yml] has an entry to turn taxation on or off at {{{daily_taxes: true}}}
 
-Town mayors can use two commands to set their taxrates.
-  * /town set taxes {$}
-    * This charges each resident of a town the same amount. Setting it to 10 would charge each resident each 'Towny Day'.
-    * If a resident can't pay his town tax then he is kicked from the town.
+  Town mayors can use two commands to set their taxrates.
+    * /town set taxes {$}
+      * This charges each resident of a town the same amount. Setting it to 10 would charge each resident each 'Towny Day'.
+      * If a resident can't pay his town tax then he is kicked from the town.
   
-  * /town set plottax {$}
-    * This charges each resident of a town for each plot they own. Setting it to 10 would charge Miner Steve 40 dollars if he owned 4 plots.
-    * If a resident can't pay his plot tax he loses his plot.
+    * /town set plottax {$}
+      * This charges each resident of a town for each plot they own. Setting it to 10 would charge Miner Steve 40 dollars if he owned 4 plots.
+      * If a resident can't pay his plot tax he loses his plot.
     
-Nation leaders can use one comand to set a tax on their towns.
-  * /nation set taxes {$}
-    * This charges each town that is a member of the nation. Setting it to 100 would charge each town's townbank 100 each 'Towny Day'.
-    * If a town can't pay it's tax then it is kicked from the nation.
+  Nation leaders can use one comand to set a tax on their towns.
+    * /nation set taxes {$}
+      * This charges each town that is a member of the nation. Setting it to 100 would charge each town's townbank 100 each 'Towny Day'.
+      * If a town can't pay it's tax then it is kicked from the nation.
     
-=== Upkeep ===
-Upkeep collection can be set on towns and on nations seperately. Upkeep money is taken from townbanks and nationbanks and removed from the game.
-Upkeep is used by a server admin to remove inactive towns and nations from the server.
-Upkeep is set in [DefaultConfig config.yml] with two flags:
-  * {{{price_nation_upkeep: 100.0}}}
-    * The server's daily charge on each nation. If a nation fails to pay this upkeep, all of it's member towns are kicked and the Nation is removed.
-  * {{{price_town_upkeep: 10.0}}}
-    * The server's daily charge on each town. If a town fails to pay this upkeep, all of it's residents are kicked and the town is removed.
+  === Upkeep ===
+  Upkeep collection can be set on towns and on nations seperately. Upkeep money is taken from townbanks and nationbanks and removed from the game.
+  Upkeep is used by a server admin to remove inactive towns and nations from the server.
+  Upkeep is set in [DefaultConfig config.yml] with two flags:
+    * {{{price_nation_upkeep: 100.0}}}
+      * The server's daily charge on each nation. If a nation fails to pay this upkeep, all of it's member towns are kicked and the Nation is removed.
+    * {{{price_town_upkeep: 10.0}}}
+      * The server's daily charge on each town. If a town fails to pay this upkeep, all of it's residents are kicked and the town is removed.
 
 ----
 
