@@ -279,13 +279,29 @@ public class TownyWorld extends TownyObject {
 	 * Checks the distance from a another town's homeblock.
 	 * 
 	 * @param key
-	 * @return the closest distance to another towns homeblock.
+	 * @return the distance to nearest towns homeblock.
 	 */
 	public int getMinDistanceFromOtherTowns(Coord key) {
+		
+		return getMinDistanceFromOtherTowns(key, null);
+		
+	}
+	
+	/**
+	 * Checks the distance from a another town's homeblock.
+	 * 
+	 * @param key
+	 * @param town {optional}
+	 * @return the closest distance to another towns homeblock.
+	 */
+	public int getMinDistanceFromOtherTowns(Coord key, Town homeTown) {
 		double min = Integer.MAX_VALUE;
 		for (Town town : getTowns())
 			try {
 				Coord townCoord = town.getHomeBlock().getCoord();
+				if (homeTown != null)
+					if (homeTown.getHomeBlock().equals(town.getHomeBlock()))
+						continue;
 				double dist = Math.sqrt(Math.pow(townCoord.getX() - key.getX(), 2) + Math.pow(townCoord.getZ() - key.getZ(), 2));
 				if (dist < min)
 					min = dist;

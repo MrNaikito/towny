@@ -512,7 +512,7 @@ public class TownCommand implements CommandExecutor  {
 						throw new TownyException(TownySettings.getLangString("msg_war_cannot_do"));
 					
 					world = plugin.getTownyUniverse().getWorld(player.getWorld().getName());
-					if (world.getMinDistanceFromOtherTowns(coord) < TownySettings.getMinDistanceFromTownHomeblocks())
+					if (world.getMinDistanceFromOtherTowns(coord, resident.getTown()) < TownySettings.getMinDistanceFromTownHomeblocks())
 						throw new TownyException(TownySettings.getLangString("msg_too_close"));
 					
 					townBlock = plugin.getTownyUniverse().getWorld(player.getWorld().getName()).getTownBlock(coord);
