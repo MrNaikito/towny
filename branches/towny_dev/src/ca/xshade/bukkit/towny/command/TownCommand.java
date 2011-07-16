@@ -429,6 +429,9 @@ public class TownCommand implements CommandExecutor  {
 					return;
 				} else
 					try {
+						if (!resident.isMayor())
+							throw new TownyException(TownySettings.getLangString("msg_not_mayor"));
+						
 						String oldMayor = town.getMayor().getName();
 						Resident newMayor = plugin.getTownyUniverse().getResident(split[1]);
 						town.setMayor(newMayor);
