@@ -332,8 +332,7 @@ v0.72.2:
     - Fixed the connection to Essentials for using teleport timers.
     - Fixed an error where a player leaving town could sometimes not correctly update the old town data file.
     - Fixed a typo causing Nation levels to not load.
-    - Fixed players leaving towns not causing the town data to be updated.
-    - Fixed players have to relog after leaving a town before they could join another.
+    - Fixed players having to relog after leaving a town before they could join another.
     - Added chests and furnaces to the switch_id's (now protected by permission flags).
     - changed the default setting for town mob removal to 'true'.
     - Added a new setting of 'cheat_protection' to prevent fly and double jump cheats.
@@ -345,6 +344,6 @@ v0.72.2:
     - Added regex parsing on town and nation renaming.
     - Removed access to '/town set mayor' command for assistants.
     - Fixed '/res set mode townclaim' attempting to claim the wrong blocks.
-    - Added a town hasUpkeep setting for towns. Set to false if using an NPC mayor, or manually alterable by server admins.
+    - Added a town hasUpkeep setting for towns. Default sets to false if using an NPC mayor, or manually configurable by server admins.
     - Added a 'Mob Spawns' indicator to the '/town' status display.
     - Cleaned up display for /town /ta and /tw.
