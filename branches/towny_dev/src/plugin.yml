@@ -113,8 +113,6 @@ nationLevel:
 # +------------------------------------------------------+ #
 ############################################################
 
-# used to limit a town size if the level config files are empty
-default_max_town_blocks: 64
 # maximum number of plots any single resident can own
 max_plots_per_resident: 100
 # Maximum number of towns allowed on the server.
