@@ -850,7 +850,7 @@ public class TownyFlatFileSource extends TownyDataSource {
 			// Plot Tax
 			fout.write("plotTax=" + Integer.toString(town.getPlotTax()) + newLine);
 			// Upkeep
-			fout.write("hasUpkeep=" + Boolean.toString(town.isPVP()) + newLine);
+			fout.write("hasUpkeep=" + Boolean.toString(town.hasUpkeep()) + newLine);
 			// PVP
 			fout.write("pvp=" + Boolean.toString(town.isPVP()) + newLine);
 			// Mobs
