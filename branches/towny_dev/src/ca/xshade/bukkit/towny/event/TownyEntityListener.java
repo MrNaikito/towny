@@ -102,10 +102,13 @@ public class TownyEntityListener extends EntityListener {
 			loc = block.getLocation();
 			coord = Coord.parseCoord(loc);
 			
+			//TODO: expand to protect neutrals during a war
 			try {
 				TownyWorld townyWorld = plugin.getTownyUniverse().getWorld(loc.getWorld().getName());
 				TownBlock townBlock = townyWorld.getTownBlock(coord);
-				if (!townBlock.getTown().isBANG() || plugin.getTownyUniverse().isWarTime()) {
+				
+				// If explosions are off, or it's wartime and explosions are off and the towns has no nation
+				if (!townBlock.getTown().isBANG() || plugin.getTownyUniverse().isWarTime() && !townBlock.getTown().hasNation() && !townBlock.getTown().isBANG()) {
 					plugin.sendDebugMsg("onEntityExplode: Canceled " + event.getEntity().getEntityId() + " from exploding within "+coord.toString()+".");
 					event.setCancelled(true);
 				}
@@ -115,7 +118,6 @@ public class TownyEntityListener extends EntityListener {
 		}	
 		
 	}
-
 	
 	
 	public boolean preventDamageCall(TownyWorld world, Entity a, Entity b, Player ap, Player bp) {
