@@ -139,6 +139,9 @@
       * claimable {on/off}
       * pvp {on/off}
       * usedefault
+    * toggle
+      * townmobs
+      * worldmobs
     * wildperm {perm} .. {perm}
     * wildignore {id} .. {id}
     * wildname {name}
@@ -172,8 +175,6 @@
     * toggle
       * war
       * neutral
-      * townmobs
-      * worldmobs
       * debug
       * devmode
     * set 
