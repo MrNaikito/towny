@@ -135,17 +135,20 @@
     * ?
     * list
     * {world}
-    * set 
-      * claimable {on/off}
-      * pvp {on/off}
-      * usedefault
     * toggle
+      * claimable
+      * usingtowny
+      * pvp
+      * forcepvp
+      * explosion
+      * fire
       * townmobs
       * worldmobs
-    * wildperm {perm} .. {perm}
-    * wildignore {id} .. {id}
-    * wildname {name}
-    * usingtowny {on/off}
+    * set
+      * wildname {name}
+      * wildperm {perm} .. {perm}
+      * wildignore {id} .. {id}
+      * usedefault
 
 == /towny ==  
   * /towny 
