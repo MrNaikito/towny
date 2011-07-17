@@ -352,3 +352,4 @@ v0.72.2:
       (PvP, town Mob spawns, town Firespread and town Explosions are now configurable per world.)
     - Added '/townyworld toggle' controls for all new world settings.
     - removed pve_in_non_pvp_towns from config.yml as it's no longer needed.
+    - fixed an error in loading which prevented mob removal entities from being updated upon a reload.

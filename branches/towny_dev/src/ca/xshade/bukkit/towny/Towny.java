@@ -261,6 +261,11 @@ public class Towny extends JavaPlugin {
 		
 		SetWorldFlags();
 		
+		//make sure the timers are stopped for a reset
+		townyUniverse.toggleDailyTimer(false);
+		townyUniverse.toggleMobRemoval(false);
+		townyUniverse.toggleHealthRegen(false);
+		
 		/*
 		if (TownySettings.isForcingPvP() || TownySettings.isForcingExplosions() || TownySettings.isForcingMonsters())
 			for (Town town : townyUniverse.getTowns()) {
