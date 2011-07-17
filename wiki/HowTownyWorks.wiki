@@ -8,7 +8,7 @@ Use this page to learn how Towny works, how various settings affect the gameplay
 
 ----
 
-= The Heirarchy =
+= The Hierarchy =
 
 == Residents ==
 
@@ -252,6 +252,10 @@ The time of a 'Towny Day' can be set in [DefaultConfig config.yml] at {{{day_int
       * The server's daily charge on each nation. If a nation fails to pay this upkeep, all of it's member towns are kicked and the Nation is removed.
     * {{{price_town_upkeep: 10.0}}}
       * The server's daily charge on each town. If a town fails to pay this upkeep, all of it's residents are kicked and the town is removed.
+      
+  Upkeep can be modified in the [DefaultConfig config.yml] to affect different-sized towns differently.
+  
+  More information on the townLevel line and how to configure it is [HowTownyWorks#Configuring_Mayor_and_King_Titles,_Town_and_Nation_Names here.]
 
 ----
 
