@@ -163,7 +163,7 @@
       * stats
       * scores
 
-== /townyadmin  
+== /townyadmin  ==
   * /townyadmin 
     *  
     * ?
