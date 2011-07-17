@@ -743,6 +743,7 @@ public class TownySettings {
 		return getInt("protection.MOB_REMOVAL_SPEED");
 	}
 	
+	/*
 	public static boolean isRemovingWorldMobs() {
 		return getBoolean("protection.MOB_REMOVAL_WORLD");
 	}
@@ -750,6 +751,7 @@ public class TownySettings {
 	public static boolean isRemovingTownMobs() {
 		return getBoolean("protection.MOB_REMOVAL_TOWN");
 	}
+	*/
 	
 	public static int getHealthRegenSpeed() {
 		return getInt("HEALTH_REGEN_SPEED");
@@ -870,9 +872,11 @@ public class TownySettings {
 		return getBoolean("DEV_MODE");
 	}
 	
+	/*
 	public static boolean isPvEWithinNonPvPZones() {
 		return getBoolean("PVE_IN_NON_PVP_TOWNS");
 	}
+	*/
 	
 	public static boolean isDeclaringNeutral() {
 		return getBoolean("WARTIME_NATION_CAN_BE_NEUTRAL");
@@ -908,7 +912,9 @@ public class TownySettings {
 		return getString("FLATFILE_BACKUP");
 	}
 	
+	/*
 	public static boolean isForcingPvP() {
+	 
 		return getBoolean("FORCE_PVP_ON");
 	}
 	
@@ -923,6 +929,7 @@ public class TownySettings {
 	public static boolean isForcingFire() {
 		return getBoolean("FORCE_FIRE_ON");
 	}
+	*/
 
 	public static boolean isTownRespawning() {
 		return getBoolean("TOWN_RESPAWN");

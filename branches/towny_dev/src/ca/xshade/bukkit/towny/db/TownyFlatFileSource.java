@@ -571,24 +571,38 @@ public class TownyFlatFileSource extends TownyDataSource {
 					} catch (Exception e) {
 					}
 				
-				line = kvFile.get("monsters");
+				line = kvFile.get("forcepvp");
 				if (line != null)
 					try {
-						world.setMobs(Boolean.parseBoolean(line));
+						world.setForcePVP(Boolean.parseBoolean(line));
+					} catch (Exception e) {
+					}
+				
+				line = kvFile.get("townmobs");
+				if (line != null)
+					try {
+						world.setForceTownMobs(Boolean.parseBoolean(line));
+					} catch (Exception e) {
+					}
+				
+				line = kvFile.get("worldmobs");
+				if (line != null)
+					try {
+						world.setWorldMobs(Boolean.parseBoolean(line));
 					} catch (Exception e) {
 					}
 					
 				line = kvFile.get("firespread");
 				if (line != null)
 					try {
-						world.setFire(Boolean.parseBoolean(line));
+						world.setForceFire(Boolean.parseBoolean(line));
 					} catch (Exception e) {
 					}
 				
 				line = kvFile.get("explosions");
 				if (line != null)
 					try {
-						world.setExpl(Boolean.parseBoolean(line));
+						world.setForceExpl(Boolean.parseBoolean(line));
 					} catch (Exception e) {
 					}
 				
@@ -944,14 +958,18 @@ public class TownyFlatFileSource extends TownyDataSource {
 
 			// PvP
 			fout.write("pvp=" + Boolean.toString(world.isPVP()) + newLine);
+			// Force PvP
+			fout.write("forcepvp=" + Boolean.toString(world.isForcePVP()) + newLine);
 			// Claimable
 			fout.write("claimable=" + Boolean.toString(world.isClaimable()) + newLine);
 			// has monster spawns			
-			fout.write("monsters=" + Boolean.toString(world.isMobs()) + newLine);
+			fout.write("worldmobs=" + Boolean.toString(world.hasWorldMobs()) + newLine);
+			// force town mob spawns			
+			fout.write("forcetownmobs=" + Boolean.toString(world.isForceTownMobs()) + newLine);
 			// has firespread enabled
-			fout.write("firespread=" + Boolean.toString(world.isFire()) + newLine);
+			fout.write("forcefirespread=" + Boolean.toString(world.isForceFire()) + newLine);
 			// has explosions enabled
-			fout.write("explosions=" + Boolean.toString(world.isExpl()) + newLine);
+			fout.write("forceexplosions=" + Boolean.toString(world.isForceExpl()) + newLine);
 			// Using Default
 			fout.write("usingDefault=" + Boolean.toString(world.isUsingDefault()) + newLine);
 			// Unclaimed Zone Build

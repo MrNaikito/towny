@@ -336,7 +336,7 @@ v0.72.2:
     - Added chests and furnaces to the switch_id's (now protected by permission flags).
     - changed the default setting for town mob removal to 'true'.
     - Added a new setting of 'cheat_protection' to prevent fly and double jump cheats.
-    - Removed default_max_town_blocks from the config as it's no longer used. All block settings are now in the townLevel entry.
+    - Removed default_max_town_blocks from the config as it's no longer used. All block settings are now in the townLevel and town_block_ratio entries.
     - Added config.yml settings for force_explosions_on, force_monsters_on and force_fire_on. These will prevent Mayors toggling the settings.
     - Added world configs for Forced Fire,Explosions and Monsters.
     - Moved some townyworld commands the a new toggle command '/townyworld toggle claimable, usingtowny, pvp, explosion, fire and mobs.
@@ -347,4 +347,8 @@ v0.72.2:
     - Added a town hasUpkeep setting for towns. Default sets to false if using an NPC mayor, or manually configurable by server admins.
     - Added a 'Mob Spawns' indicator to the '/town' status display.
     - Cleaned up display for /town /ta and /tw.
-    - '/town set homeblock' no longer gets confused by your own towns homeblock when calculating distance to closest homeblock.
+    - '/town set homeblock' no longer gets confused by your own homeblock when calculating the distance to the closest homeblock.
+    - Moved many config settings to the seperate world data files for individual adjustment.
+      (PvP, town Mob spawns, town Firespread and town Explosions are now configurable per world.)
+    - Added '/townyworld toggle' controls for all new world settings.
+    - removed pve_in_non_pvp_towns from config.yml as it's no longer needed.

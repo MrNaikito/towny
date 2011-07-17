@@ -321,9 +321,9 @@ public class TownCommand implements CommandExecutor  {
 			// TODO: Let admin's call a subfunction of this.
 			if (split[0].equalsIgnoreCase("pvp")) {
 				try {
-					if (TownySettings.isForcingPvP()) {
+					if (town.getWorld().isPVP()) {
 						town.setPVP(true);
-						throw new Exception(TownySettings.getLangString("msg_world_pvp"));
+						throw new TownyException(TownySettings.getLangString("msg_world_pvp"));
 					}
 					town.setPVP(!town.isPVP());
 					plugin.getTownyUniverse().sendTownMessage(town, String.format(TownySettings.getLangString("msg_changed_pvp"), town.isPVP() ? "Enabled" : "Disabled"));
@@ -337,44 +337,48 @@ public class TownCommand implements CommandExecutor  {
 					plugin.getTownyUniverse().sendTownMessage(town, String.format(TownySettings.getLangString("msg_changed_public"), town.isPublic() ? "Enabled" : "Disabled"));
 					
 				} catch (Exception e) {
+					plugin.sendErrorMsg(player, e.getMessage());
 				}
 			} else if (split[0].equalsIgnoreCase("explosion")) {
 				try {
-					if (TownySettings.isForcingExplosions()) {
+					if (town.getWorld().isForceExpl()) {
 						town.setBANG(true);
-						throw new Exception(TownySettings.getLangString("msg_world_expl"));
+						throw new TownyException(TownySettings.getLangString("msg_world_expl"));
 					}
 					town.setBANG(!town.isBANG());
 					plugin.getTownyUniverse().sendTownMessage(town, String.format(TownySettings.getLangString("msg_changed_expl"), town.isBANG() ? "Enabled" : "Disabled"));
 
 				} catch (Exception e) {
+					plugin.sendErrorMsg(player, e.getMessage());
 				}
 			} else if (split[0].equalsIgnoreCase("fire")) {
 				try {
-					if (TownySettings.isForcingFire()) {
+					if (town.getWorld().isForceFire()) {
 						town.setFire(true);
-						throw new Exception(TownySettings.getLangString("msg_world_fire"));
+						throw new TownyException(TownySettings.getLangString("msg_world_fire"));
 					}
 					town.setFire(!town.isFire());
 					plugin.getTownyUniverse().sendTownMessage(town, String.format(TownySettings.getLangString("msg_changed_fire"), town.isFire() ? "Enabled" : "Disabled"));
 
 				} catch (Exception e) {
+					plugin.sendErrorMsg(player, e.getMessage());
 				}
 			} else if (split[0].equalsIgnoreCase("mobs")) {
 				try {
-					if (TownySettings.isForcingMonsters()) {
+					if (town.getWorld().isForceTownMobs()) {
 						town.setHasMobs(true);
-						throw new Exception(TownySettings.getLangString("msg_world_mob"));
+						throw new TownyException(TownySettings.getLangString("msg_world_mobs"));
 					}
 					town.setHasMobs(!town.hasMobs());
-					plugin.getTownyUniverse().sendTownMessage(town, String.format(TownySettings.getLangString("msg_changed_mobs"), !town.hasMobs() ? "Enabled" : "Disabled"));
+					plugin.getTownyUniverse().sendTownMessage(town, String.format(TownySettings.getLangString("msg_changed_mobs"), town.hasMobs() ? "Enabled" : "Disabled"));
 
 				} catch (Exception e) {
+					plugin.sendErrorMsg(player, e.getMessage());
 				}
 			} else {
 				plugin.sendErrorMsg(player, String.format(TownySettings.getLangString("msg_err_invalid_property"), "town"));
 				return;
-			}
+			} 
 
 			plugin.getTownyUniverse().getDataSource().saveTown(town);
 		}
@@ -619,7 +623,7 @@ public class TownCommand implements CommandExecutor  {
 	public void townRename(Player player, Town town, String newName) {
 		try {
 			plugin.getTownyUniverse().renameTown(town, newName);
-			plugin.getTownyUniverse().sendTownMessage(town, String.format(TownySettings.getLangString("msg_town_set_name"), player.getName(), newName));
+			plugin.getTownyUniverse().sendTownMessage(town, String.format(TownySettings.getLangString("msg_town_set_name"), player.getName(), town.getName()));
 		} catch (TownyException e) {
 			plugin.sendErrorMsg(player, e.getError());
 		}

@@ -12,7 +12,7 @@ import ca.xshade.bukkit.towny.TownySettings;
 
 public class TownyWorld extends TownyObject {
 	private List<Town> towns = new ArrayList<Town>();
-	private boolean isClaimable = true, isPVP = true, isExpl = true, isFire = true, isMobs = true, usingDefault = true, isUsingTowny = true;
+	private boolean isClaimable = true, isPVP, isForcePVP, isForceExpl, isForceFire, isForceTownMobs, hasWorldMobs, usingDefault = true, isUsingTowny = true;
 	private List<Integer> unclaimedZoneIgnoreIds = null;
 	private Boolean unclaimedZoneBuild = null, unclaimedZoneDestroy = null, unclaimedZoneSwitch = null, unclaimedZoneItemUse = null;
 	private String unclaimedZoneName = null;
@@ -23,6 +23,13 @@ public class TownyWorld extends TownyObject {
 
 	public TownyWorld(String name) {
 		setName(name);
+		
+		isPVP =  true;
+		isForcePVP = TownySettings.getBoolean("FORCE_PVP_ON");		
+		isForceFire = TownySettings.getBoolean("FORCE_FIRE_ON");
+		isForceTownMobs = TownySettings.getBoolean("FORCE_TOWN_MONSTERS_ON");
+		hasWorldMobs = true;
+		isForceExpl = TownySettings.getBoolean("FORCE_EXPLOSIONS_ON");
 	}
 
 	public List<Town> getTowns() {
@@ -137,31 +144,47 @@ public class TownyWorld extends TownyObject {
 	}
 
 	public boolean isPVP() {
-		return isPVP;
+		return this.isPVP;
 	}
 	
-	public void setExpl(boolean isExpl) {
-		this.isExpl = isExpl;
+	public void setForcePVP(boolean isPVP) {
+		this.isForcePVP = isPVP;
 	}
 
-	public boolean isExpl() {
-		return isExpl;
+	public boolean isForcePVP() {
+		return this.isForcePVP;
 	}
 	
-	public void setFire(boolean isFire) {
-		this.isFire = isFire;
+	public void setForceExpl(boolean isExpl) {
+		this.isForceExpl = isExpl;
 	}
 
-	public boolean isFire() {
-		return isFire;
+	public boolean isForceExpl() {
+		return isForceExpl;
 	}
 	
-	public void setMobs(boolean isMobs) {
-		this.isMobs = isMobs;
+	public void setForceFire(boolean isFire) {
+		this.isForceFire = isFire;
 	}
 
-	public boolean isMobs() {
-		return isMobs;
+	public boolean isForceFire() {
+		return isForceFire;
+	}
+	
+	public void setWorldMobs(boolean hasMobs) {
+		this.hasWorldMobs = hasMobs;
+	}
+
+	public boolean hasWorldMobs() {
+		return this.hasWorldMobs;
+	}
+	
+	public void setForceTownMobs(boolean setMobs) {
+		this.isForceTownMobs = setMobs;
+	}
+
+	public boolean isForceTownMobs() {
+		return isForceTownMobs;
 	}
 
 	public void setClaimable(boolean isClaimable) {

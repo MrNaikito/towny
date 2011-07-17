@@ -163,7 +163,7 @@ msg_friend_remove: '&b%s removed you as a friend.'
 msg_removed: '&bRemoved '
 msg_from_list: 'from your friend list.'
 msg_to_list: 'to your friend list.'
-msg_left_town: '&b%s  left town'
+msg_left_town: '&b%s left town'
 msg_you_left: '&bYou left %s.'
 msg_not_mayor: '&bYou are not the mayor.'
 msg_not_king: '&bYou are not the king.'
@@ -233,7 +233,7 @@ msg_changed_expl: '&cExplosions in town are now %s.'
 msg_changed_fire: '&cFirespread in town is now %s.'
 msg_changed_mobs: '&cMonster spawns in town are now %s.'
 
-msg_changed_world_setting: '&cWorld %s for %s has been %s.'
+msg_changed_world_setting: '&c%s for %s is: %s.'
 
 
 msg_world_pvp: '&cThis world is PvP only.'

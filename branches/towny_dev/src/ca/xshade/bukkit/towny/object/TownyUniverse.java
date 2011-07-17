@@ -296,6 +296,8 @@ public class TownyUniverse extends TownyObject {
 
 		// TODO: Delete/rename any invites.
 
+		List<Resident> toSave = new ArrayList<Resident>(town.getResidents());
+		
 		String oldName = town.getName();
 		towns.put(filteredName.toLowerCase(), town);
 		//Tidy up old files
@@ -307,11 +309,18 @@ public class TownyUniverse extends TownyObject {
 		Town oldTown = new Town(oldName);
 		
 		try {
+			town.pay(town.getHoldingBalance());
 			oldTown.pay(oldTown.getHoldingBalance(), town);
 		} catch (IConomyException e) {
 		}
+		
+		for (Resident resident : toSave) {
+			getDataSource().saveResident(resident);
+		}
+		
 		getDataSource().saveTown(town);
 		getDataSource().saveTownList();
+		getDataSource().saveWorld(town.getWorld());
 		
 	}
 	
@@ -329,6 +338,8 @@ public class TownyUniverse extends TownyObject {
 
 		// TODO: Delete/rename any invites.
 
+		List<Town> toSave = new ArrayList<Town>(nation.getTowns());
+		
 		String oldName = nation.getName();
 		nations.put(filteredName.toLowerCase(), nation);
 		//Tidy up old files
@@ -339,9 +350,15 @@ public class TownyUniverse extends TownyObject {
 		Nation oldNation = new Nation(oldName);
 		
 		try {
+			nation.pay(nation.getHoldingBalance());
 			oldNation.pay(oldNation.getHoldingBalance(), nation);
 		} catch (IConomyException e) {
 		}
+		
+		for (Town town : toSave) {
+			getDataSource().saveTown(town);
+		}
+		
 		getDataSource().saveNation(nation);
 		getDataSource().saveNationList();
 		
@@ -903,6 +920,7 @@ public class TownyUniverse extends TownyObject {
 		plugin.updateCache();
 
 		getDataSource().saveTownList();
+		getDataSource().saveWorld(town.getWorld());
 	}
 
 	public void removeResident(Resident resident) {

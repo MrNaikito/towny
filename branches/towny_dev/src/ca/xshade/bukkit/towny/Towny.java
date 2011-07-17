@@ -143,6 +143,21 @@ public class Towny extends JavaPlugin {
 			}
 		//setupDatabase();
 	}
+	
+	public void SetWorldFlags () {
+		
+		for (Town town : getTownyUniverse().getTowns()) {
+			if (town.getWorld().isForcePVP())
+				town.setPVP(true);
+			if (town.getWorld().isForceExpl())
+				town.setBANG(true);
+			if (town.getWorld().isForceFire())
+				town.setFire(true);
+			if (town.getWorld().isForceTownMobs())
+				town.setHasMobs(true);
+		}
+			
+	}
 
 	/*
 	private void setupDatabase()
@@ -244,18 +259,24 @@ public class Towny extends JavaPlugin {
 		
 		checkPlugins();
 		
+		SetWorldFlags();
+		
+		/*
 		if (TownySettings.isForcingPvP() || TownySettings.isForcingExplosions() || TownySettings.isForcingMonsters())
 			for (Town town : townyUniverse.getTowns()) {
-				if (TownySettings.isForcingPvP())
+				if (town.getWorld().isPVP())
 					town.setPVP(true);
-				if (TownySettings.isForcingExplosions())
+				if (town.getWorld().isExpl())
 					town.setBANG(true);
-				if (TownySettings.isForcingMonsters())
+				if (town.getWorld().isFire())
 					town.setFire(true);
+				if (town.getWorld().hasMobs())
+					town.setHasMobs(true);
 			}
+		*/
 		
 		townyUniverse.toggleDailyTimer(true);
-		townyUniverse.toggleMobRemoval(TownySettings.isRemovingWorldMobs() || TownySettings.isRemovingTownMobs() );
+		townyUniverse.toggleMobRemoval(true);
 		townyUniverse.toggleHealthRegen(TownySettings.hasHealthRegen());
 		updateCache();
 	}

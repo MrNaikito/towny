@@ -178,11 +178,15 @@ public class TownyFormatter {
 				+ Colors.Gray + " | "
 				+ Colors.Green + "PvP: " + (world.isPVP() ? Colors.Rose + "On" : Colors.LightGreen + "Off")
 				+ Colors.Gray + " | "
-				+ Colors.Green + "Fire: " + (world.isFire() ? Colors.Rose + "On" : Colors.LightGreen + "Off")
+				+ Colors.Green + "ForcePvP: " + (world.isForcePVP() ? Colors.Rose + "On" : Colors.LightGreen + "Off")
 				+ Colors.Gray + " | "
-				+ Colors.Green + "Explosions: " + (world.isExpl() ? Colors.Rose + "On" : Colors.LightGreen + "Off")
+				+ Colors.Green + "Fire: " + (world.isForceFire() ? Colors.Rose + "On" : Colors.LightGreen + "Off"));
+		
+		out.add(Colors.Green + "Explosions: " + (world.isForceExpl() ? Colors.Rose + "On" : Colors.LightGreen + "Off")
 				+ Colors.Gray + " | "
-				+ Colors.Green + "Mobs: " + (world.isMobs() ? Colors.Rose + "On" : Colors.LightGreen + "Off"));
+				+ Colors.Green + "World Mobs: " + (world.hasWorldMobs() ? Colors.Rose + "On" : Colors.LightGreen + "Off")
+				+ Colors.Gray + " | "
+				+ Colors.Green + "ForceTownMobs: " + (world.isForceTownMobs() ? Colors.Rose + "On" : Colors.LightGreen + "Off"));
 		// Using Default Settings: Yes
 		out.add(Colors.Green + "Using Default Settings: " + (world.isUsingDefault() ? Colors.LightGreen + "Yes" : Colors.Rose + "No"));
 		// Wilderness:

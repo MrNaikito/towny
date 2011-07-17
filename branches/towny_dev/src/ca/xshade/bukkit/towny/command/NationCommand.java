@@ -894,7 +894,7 @@ public class NationCommand implements CommandExecutor  {
 	public void nationRename(Player player, Nation nation, String newName) {
 		try {
 			plugin.getTownyUniverse().renameNation(nation, newName);
-			plugin.getTownyUniverse().sendNationMessage(nation, String.format(TownySettings.getLangString("msg_nation_set_name"), player.getName(), newName));
+			plugin.getTownyUniverse().sendNationMessage(nation, String.format(TownySettings.getLangString("msg_nation_set_name"), player.getName(), nation.getName()));
 		} catch (TownyException e) {
 			plugin.sendErrorMsg(player, e.getError());
 		}

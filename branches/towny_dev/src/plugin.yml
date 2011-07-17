@@ -60,16 +60,8 @@ commands:
 
 # these will be moved to permissions nodes at a later date
 
-# Allow towns to claim outposts (a townblock not connected to town).
-allow_outposts: true
-allow_resident_plots: true
-
-# all the use of /town spawn
-allow_town_spawn: true
-# Allow regular residents to use /town spawn [town] (TP to other towns).
-allow_town_spawn_travel: true
-# Respawn the player at his town spawn point when he/she dies.
-town_respawn: false
+nation_creation_admin_only: false
+town_creation_admin_only: false
 
 ############################################################
 # +------------------------------------------------------+ #
@@ -134,9 +126,14 @@ town_block_size: 16
 
 ############################################################
 # +------------------------------------------------------+ #
-# |                Global town settings                  | #
+# |             Default new world settings               | #
 # +------------------------------------------------------+ #
 ############################################################
+
+# These flags are only used at the initial setp of a new world.
+
+# Once Towny is running each world can be altered from within game
+# using '/townyworld toggle'
 
 # force_pvp_on is a global flag and overrides any towns flag setting
 force_pvp_on: false
@@ -144,11 +141,20 @@ force_pvp_on: false
 # force_explosions_on is a global flag and overrides any towns flag setting
 force_explosions_on: false
 
+# world_monsters_on is a global flag setting per world.
+world_monsters_on: true
+
 # force_monsters_on is a global flag and overrides any towns flag setting
-force_monsters_on: false
+force_town_monsters_on: false
 
 # force_fire_on is a global flag and overrides any towns flag setting
 force_fire_on: false
+
+############################################################
+# +------------------------------------------------------+ #
+# |                Global town settings                  | #
+# +------------------------------------------------------+ #
+############################################################
 
 # can residents/Allies harm other residents when in a town with pvp enabled?
 friendly_fire: true
@@ -161,10 +167,25 @@ health_regen_speed: 3000
 # If a town can't pay it's tax then it is kicked from the nation.
 # if a resident can't pay his plot tax he loses his plot.
 # if a resident can't pay his town tax then he is kicked from the town.
+# if a town or nation fails to pay it's upkeep it is deleted.
 daily_taxes: true
 
-nation_creation_admin_only: false
-town_creation_admin_only: false
+# Allow towns to claim outposts (a townblock not connected to town).
+allow_outposts: true
+
+# Allow residents to own/purchase plots within a town
+allow_resident_plots: true
+
+# all the use of /town spawn
+allow_town_spawn: true
+# Allow regular residents to use /town spawn [town] (TP to other towns if they are public).
+allow_town_spawn_travel: true
+# Respawn the player at his town spawn point when he/she dies.
+town_respawn: false
+
+# Enables the [~Home] message.
+# If false it will make it harder for enemies to find the home block during a war
+show_town_notifications: true
 
 ############################################################
 # +------------------------------------------------------+ #
@@ -191,26 +212,20 @@ debug_mode: false
 
 # Spams the player named in dev_name with all messages related to towny.
 dev_mode: false
-dev_name: Shadeness
+dev_name: ElgarL
 
+# Record all messages to the towny.log
 logging: true
+
+# If true this will cause the log to be wiped at every startup.
+reset_log_on_boot: true
 
 name_check_regex: '^[a-zA-Z0-9]+[a-zA-Z0-9._-]*$'
 name_filter_regex: '[ /]'
 name_remove_regex: '[^a-zA-Z0-9._-]'
 
+# Not a good idea to change this at the moment.
 npc_prefix: 'NPC'
-
-pve_in_non_pvp_towns: true
-reset_log_on_boot: true
-
-# Enables the [~Home] message.
-# If false it will make it harder for enemies to find the home block during a war
-show_town_notifications: true
-
-
-# The name of the town a resident will automatically join when he first registers.
-default_town_name: ''
 
 # Skin regular chat with a player's towny prefix, postfix, and colour.
 # You can NOT change this setting and perform a /townyadmin reload.
@@ -255,11 +270,11 @@ protection:
     # PigZombie, Sheep, Skeleton, Slime, Spider, Squid, WaterMob, Wolf, Zombie
 
     # Remove living entities within a town's boundaries, if the town has the mob removal flag set.
-    mob_removal_town: true
+
     town_mob_removal_entities: Monster,WaterMob,Flying,Slime
     
-    # Globally remove living entities in all worlds.
-    mob_removal_world: false
+    # Globally remove living entities in all worlds that have their flag set.
+
     world_mob_removal_entities: WaterMob,Flying,Slime 
     
     # The maximum amount of time a mob could be inside a town's boundaries before being sent to the void.
@@ -351,6 +366,9 @@ inactive_after_time: 86400000
 # after Two months (default) of not logging in
 delete_old_residents: false
 deleted_after_time: 5184000000
+
+# The name of the town a resident will automatically join when he first registers.
+default_town_name: ''
 
 
 ############################################################
