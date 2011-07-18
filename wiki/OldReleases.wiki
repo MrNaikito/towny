@@ -1,0 +1,77 @@
+#summary Information on old releases of Towny
+
+= Introduction =
+
+Here you can find information on old releases of Towny.
+
+
+== New in 0.72 ==
+
+0.72 is a very big update to Towny, including but not limited to:
+  * *Anti-Griefing Overhaul:*
+    * Explosions on/off, set by mayors at the Town level using /town toggle explosion
+    * Firespread on/off, set by mayors at the Town level using /town toggle fire 
+    * Itemuse bug, being able to pour water + lava and use lighters when it isn't allowed through plot permissions *Fixed*.
+
+  * *PVP Overhaul:*
+    * PVP attacks from the wilderness into towns without PVP no longer do damage.
+    * There is a global announcement when PVP is enabled in town.
+    * Towny War overhaul begun.  
+
+  * *Plot Perms Overhaul:*
+    * ALL plot permissions on the resident and town level work properly now.
+    * Ally plot perms work properly all the way up to alliances between nations.
+    * Itemuse and Switch IDs updated to prevent:
+      * Lawn-griefing (bonemeal)
+      * Note-griefing (noteblocks)
+      * Delay-griefers	(repeaters)
+      * Record-thieving (jukeboxes)
+      * Hatches and doors!
+    * Town perm line reads 'rao' instead of 'fao'
+
+  * *Mob-removal Overhaul:*
+    * Config.yml has two configurable groups:
+      * {{{town_mob_removal_entities:}}} 
+      * {{{world_mob_removal_entities:}}} 
+    * /town toggle mobs
+      * Allows mayors to turn the entities listed in {{{town_mob_removal_entities:}}} on or off in their town.
+      * Remove monsters or don't and besiege your town to the monster hoard.
+    * /townyadmin toggle townmobs
+      * Allows an admin to toggle use of /t toggle mobs
+      * Force towns to fight the monsters at their front doors!
+    * /townyadmin toggle worldmobs
+      * Allows an admin to turn the entities listed in {{{world_mob_removal_entities:}}} on or off in any world where usingtowny=true.
+      * Remove unwanted mobs such as squid or slimes.      
+  
+  * *Config.yml replaces config.properties.*
+    * Town-levels.csv and Nation-levels.csv integrated, no longer used.
+    * Supports language files.
+    
+  * *New and re-organized commands:*
+    * /town toggle
+      * explosion
+      * fire
+      * mobs
+      * public
+      * pvp
+    * /townyadmin toggle
+      * war 
+      * neutral 
+      * townmobs 
+      * worldmobs 
+      * debug 
+      * devmode
+    * Takes the some of the burden off of /town set, which displays all sub-commands again.
+    * Town and Nation renaming re-enabled with _/town set name_ and _nation set name_.
+
+  * *Nation-invites now checked properly by Questioner,* nation leaders cannot add towns and involuntarily and bankrupt them with high taxes!
+
+  * *Safe to use /townyadmin reload*, edit config.yml without stopping your server.
+  
+  * Fixed /towny map, displays cleaner and doesn't flood chat as much.
+  
+  * Every bug we could find has been fixed.
+  
+  * More! [http://code.google.com/a/eclipselabs.org/p/towny/source/browse/trunk/Towny/src/ChangeLog.txt Click here for a full changelog.]
+
+*0.72.1 - Downloaded 1230 times.*
