@@ -19,3 +19,5 @@
   * [PermissionNodes Permission Nodes]
 
   * [DefaultConfig Default config.yml]
+
+  * [OldReleases Previous Releases]
