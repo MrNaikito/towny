@@ -357,3 +357,4 @@ v0.73.1:
     - Fixed more typo's (a never ending job).
     - Added a debug message on startup to help descover incorrect town/world file configs.
     - Fixed '/town toggle pvp' to correctly watch the forced world pvp, not the pvp setting.
+    - Fixed resident file being deleted when deletign a town. Should only be deleted if through the inactive player timer or is an NPC.
