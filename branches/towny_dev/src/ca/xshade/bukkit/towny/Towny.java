@@ -144,6 +144,16 @@ public class Towny extends JavaPlugin {
 		//setupDatabase();
 	}
 	
+	public boolean isOnline(String playerName) {
+		
+		for (Player player : getServer().getOnlinePlayers())
+			if (player.getName().equalsIgnoreCase(playerName))
+				return true;
+				
+		return false;
+		
+	}
+	
 	public void SetWorldFlags () {
 		
 		for (Town town : getTownyUniverse().getTowns()) {

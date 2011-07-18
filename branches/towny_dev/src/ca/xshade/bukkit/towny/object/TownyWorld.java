@@ -100,10 +100,12 @@ public class TownyWorld extends TownyObject {
 			throw new NotRegisteredException();
 		else {
 			towns.remove(town);
+			/*
 			try {
 				town.setWorld(null);
 			} catch (AlreadyRegisteredException e) {
 			}
+			*/
 		}
 	}
 

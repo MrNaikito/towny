@@ -783,6 +783,9 @@ public class TownyFlatFileSource extends TownyDataSource {
 	@Override
 	public boolean saveWorldList() {
 		try {
+			
+			System.out.print("[Towny] saveWorldList");
+			
 			BufferedWriter fout = new BufferedWriter(new FileWriter(rootFolder + dataFolder + FileMgmt.fileSeparator() + "worlds.txt"));
 			for (TownyWorld world : universe.getWorlds())
 				fout.write(world.getName() + newLine);

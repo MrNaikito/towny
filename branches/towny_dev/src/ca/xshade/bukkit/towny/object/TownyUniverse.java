@@ -141,12 +141,13 @@ public class TownyUniverse extends TownyObject {
 				} catch (NotRegisteredException e) {
 				} catch (AlreadyRegisteredException e) {
 				}
-			getDataSource().saveResidentList();
+			//getDataSource().saveResidentList();
 		} else
 			resident = getResident(player.getName());
 
 		resident.setLastOnline(System.currentTimeMillis());
 		getDataSource().saveResident(resident);
+		getDataSource().saveResidentList();
 
 		try {
 			sendTownBoard(player, resident.getTown());
@@ -891,8 +892,9 @@ public class TownyUniverse extends TownyObject {
 	public void removeTown(Town town) {
 		getDataSource().deleteTown(town);
 		List<Resident> toSave = new ArrayList<Resident>(town.getResidents());
+		TownyWorld world = town.getWorld();
+		
 		try {
-			
 			if (town.hasNation()) {
 				Nation nation = town.getNation();
 				nation.removeTown(town);
@@ -913,36 +915,63 @@ public class TownyUniverse extends TownyObject {
 		
 		for (Resident resident : toSave) {
 			removeResident(resident);
-			//getDataSource().saveResident(resident);
+			getDataSource().saveResident(resident);
 		}
 		
 		towns.remove(town.getName().toLowerCase());
 		plugin.updateCache();
 
 		getDataSource().saveTownList();
-		getDataSource().saveWorld(town.getWorld());
+		getDataSource().saveWorld(world);
 	}
 
 	public void removeResident(Resident resident) {
-
+		
+		Town town =  null;
+		
+		if (resident.hasTown())
+			try {
+				town = resident.getTown();
+			} catch (NotRegisteredException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}	
+			
 		getDataSource().deleteResident(resident);
+		residents.remove(resident.getName().toLowerCase());
 		try {
-			if (resident.hasTown()) {
-				Town town = resident.getTown();
+			if (town != null) {			
 				town.removeResident(resident);
 				getDataSource().saveTown(town);
 			}
 			resident.clear();
 		} catch (EmptyTownException e) {
-			removeTown(e.getTown());
+			removeTown(town);
+
 		} catch (NotRegisteredException e) {
 			// TODO Auto-generated catch block
+			// town not registered
 			e.printStackTrace();
 		}
 		//String name = resident.getName();
 		//residents.remove(name.toLowerCase());
 		//plugin.deleteCache(name);
-		//getDataSource().saveResidentList();
+		getDataSource().saveResidentList();
+	}
+	
+	public void removeResidentList(Resident resident) {
+		
+		String name = resident.getName();
+		try {
+			resident.clear();
+		} catch (EmptyTownException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		residents.remove(name.toLowerCase());
+		plugin.deleteCache(name);
+		getDataSource().saveResidentList();
+		
 	}
 	
 	/////////////////////////////////////////////

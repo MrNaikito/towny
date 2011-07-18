@@ -298,8 +298,9 @@ public class TownyAdminCommand implements CommandExecutor  {
 						try {
 							town.removeResident(oldMayor);
 							plugin.getTownyUniverse().removeResident(oldMayor);
-							oldMayor.clear();
-							plugin.getTownyUniverse().getDataSource().saveResidentList();
+							
+							plugin.getTownyUniverse().removeResidentList(oldMayor);
+							
 						} catch (EmptyTownException e) {
 							// Should never reach here as we are setting a new mayor before removing the old one.
 							e.printStackTrace();
