@@ -9,7 +9,7 @@ Here are instructions for upgrading to Towny 0.73:
 
   * Stop your server completely.
   * Download Towny.jar and save/copy it to your Plugins folder. (Optionally, Download Questioner as well.)
-  * Backup your entire server!
+  * *Backup your entire server!*
   * If you are upgrading from a Dev Build read [UsingDevBuilds here] for possible extra instructions. 
   * Start your server.
   * Stop your server.
@@ -22,9 +22,10 @@ Here are instructions for upgrading to Towny 0.73:
       * Save config.yml and optionally, discard config.properties.
     * Upgrade from post-0.72 to a new version
       * Rename your config.yml to oldconfig.yml
-      * Start your server and let the new config.yml generate.
+      * Delete english.yml
+      * Start your server and let the new config.yml + english.yml generate.
       * Stop your server and configure config.yml to match your settings in oldconfig.yml.
-      * Make note of any new flags and configure to your liking.
+      * Make note of any new flags and configure to your liking. 
       * Save config.yml.    
   * *If you use Permissions you MUST configure your [PermissionNodes permission nodes], as they are required for players to be able to build/mine in the wilderness.*
     * towny.wild.(asterisk) 
@@ -38,7 +39,7 @@ Here are instructions for upgrading to Towny 0.73:
     * towny.wild.block.{block id}.destroy 
     * towny.wild.block.{block id}.switch 
     * towny.wild.block.{block id}.itemuse
-
+  * Note that town settings like PVP, Explosion, Fire may revert to their default off state.
 
 Your server is ready to use Towny 0.73!
 
