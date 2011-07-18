@@ -321,7 +321,7 @@ public class TownCommand implements CommandExecutor  {
 			// TODO: Let admin's call a subfunction of this.
 			if (split[0].equalsIgnoreCase("pvp")) {
 				try {
-					if (town.getWorld().isPVP()) {
+					if (town.getWorld().isForcePVP()) {
 						town.setPVP(true);
 						throw new TownyException(TownySettings.getLangString("msg_world_pvp"));
 					}

@@ -220,7 +220,7 @@ logging: true
 # If true this will cause the log to be wiped at every startup.
 reset_log_on_boot: true
 
-name_check_regex: '^[a-zA-Z0-9]+[a-zA-Z0-9._-]*$'
+name_check_regex: '^[a-zA-Z0-9._-]*$'
 name_filter_regex: '[ /]'
 name_remove_regex: '[^a-zA-Z0-9._-]'
 

@@ -157,6 +157,8 @@ public class Towny extends JavaPlugin {
 	public void SetWorldFlags () {
 		
 		for (Town town : getTownyUniverse().getTowns()) {
+			sendDebugMsg("[Towny] Setting flags for: " + town.getName());
+			
 			if (town.getWorld().isForcePVP())
 				town.setPVP(true);
 			if (town.getWorld().isForceExpl())
