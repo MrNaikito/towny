@@ -334,6 +334,7 @@ public class TownCommand implements CommandExecutor  {
 			player.sendMessage(ChatTools.formatCommand("", "/town toggle", "explosion", ""));
 			player.sendMessage(ChatTools.formatCommand("", "/town toggle", "fire", ""));
 			player.sendMessage(ChatTools.formatCommand("", "/town toggle", "mobs", ""));
+			player.sendMessage(ChatTools.formatCommand("", "/town toggle", "taxpercent", ""));
 		} else {
 			Resident resident;
 			Town town;
@@ -401,6 +402,14 @@ public class TownCommand implements CommandExecutor  {
 					}
 					town.setHasMobs(!town.hasMobs());
 					plugin.getTownyUniverse().sendTownMessage(town, String.format(TownySettings.getLangString("msg_changed_mobs"), town.hasMobs() ? "Enabled" : "Disabled"));
+
+				} catch (Exception e) {
+					plugin.sendErrorMsg(player, e.getMessage());
+				}
+            }else if (split[0].equalsIgnoreCase("taxpercent")) {
+				try {
+					town.setTaxPercentage(!town.isTaxPercentage());
+					plugin.getTownyUniverse().sendTownMessage(town, String.format(TownySettings.getLangString("msg_changed_taxpercent"), town.isTaxPercentage() ? "Enabled" : "Disabled"));
 
 				} catch (Exception e) {
 					plugin.sendErrorMsg(player, e.getMessage());
@@ -486,6 +495,11 @@ public class TownCommand implements CommandExecutor  {
 						plugin.sendErrorMsg(player, TownySettings.getLangString("msg_err_negative_money"));
 						return;
 					}
+                    if(town.isTaxPercentage() && amount > 100)
+                    {
+                        plugin.sendErrorMsg(player, TownySettings.getLangString("msg_err_not_percentage"));
+                        return;
+                    }
 					try {
 						town.setTaxes(Integer.parseInt(split[1]));
 						plugin.getTownyUniverse().sendTownMessage(town, String.format(TownySettings.getLangString("msg_town_set_tax"), player.getName(), split[1]));

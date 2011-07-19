@@ -788,7 +788,17 @@ public class TownyUniverse extends TownyObject {
 					} catch (TownyException e) {
 					}
 					continue;
-				} else if (!resident.pay(town.getTaxes(), town)) {
+				}
+                else if(town.isTaxPercentage())
+                {
+                    double cost = resident.getHoldingBalance() * town.getTaxes()/100;
+                    resident.pay(cost, town);
+					try {
+						sendResidentMessage(resident, TownySettings.getPayedResidentTaxMsg() + cost);
+					} catch (TownyException e) {
+					}
+                }
+                else if (!resident.pay(town.getTaxes(), town)) {
 					sendTownMessage(town, TownySettings.getCouldntPayTaxesMsg(resident, "town"));
 					try {
 						town.removeResident(resident);
