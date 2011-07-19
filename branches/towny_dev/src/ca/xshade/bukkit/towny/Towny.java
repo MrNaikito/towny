@@ -18,6 +18,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.Event.Priority;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import ca.xshade.bukkit.questioner.Questioner;
@@ -200,7 +201,7 @@ public class Towny extends JavaPlugin {
 
 		test = getServer().getPluginManager().getPlugin("Permissions");
 		if (test == null)
-			setSetting("USING_PERMISSIONS", false);
+			setSetting("USING_PERMISSIONS", false, false);
 		else {
 			permissions = (Permissions)test;
 			if (TownySettings.isUsingPermissions())
@@ -209,7 +210,7 @@ public class Towny extends JavaPlugin {
 		
 		test = getServer().getPluginManager().getPlugin("iConomy");
 		if (test == null)
-			setSetting("USING_ICONOMY", false);
+			setSetting("USING_ICONOMY", false, false);
 		else {
 			iconomy = (iConomy)test;
 			if (TownySettings.isUsingIConomy())
@@ -218,13 +219,13 @@ public class Towny extends JavaPlugin {
 		
 		test = getServer().getPluginManager().getPlugin("Essentials");
 		if (test == null)
-			setSetting("USING_ESSENTIALS", false);
+			setSetting("USING_ESSENTIALS", false, false);
 		else if (TownySettings.isUsingEssentials())
 			using.add("Essentials");
 		
 		test = getServer().getPluginManager().getPlugin("Questioner");
 		if (test == null)
-			setSetting("USING_QUESTIONER", false);
+			setSetting("USING_QUESTIONER", false, false);
 		else if (TownySettings.isUsingQuestioner())
 			using.add("Questioner");
 		
@@ -299,28 +300,32 @@ public class Towny extends JavaPlugin {
 	}
 
 	private void registerEvents() {
-		getServer().getPluginManager().registerEvent(Event.Type.PLAYER_JOIN, playerListener, Priority.Normal, this);
-		getServer().getPluginManager().registerEvent(Event.Type.PLAYER_QUIT, playerListener, Priority.Normal, this);
+		
+		final PluginManager pluginManager = getServer().getPluginManager();
+		//final Plugin towny = (Plugin)pluginManager.getPlugin("Towny");
+		
+		pluginManager.registerEvent(Event.Type.PLAYER_JOIN, playerListener, Priority.Normal, this);
+		pluginManager.registerEvent(Event.Type.PLAYER_QUIT, playerListener, Priority.Normal, this);
 		//getServer().getPluginManager().registerEvent(Event.Type.PLAYER_COMMAND_PREPROCESS, playerListener, Priority.Normal, this);
-		getServer().getPluginManager().registerEvent(Event.Type.PLAYER_MOVE, playerListener, Priority.Normal, this);
-		getServer().getPluginManager().registerEvent(Event.Type.PLAYER_TELEPORT, playerListener, Priority.Normal, this);
-		getServer().getPluginManager().registerEvent(Event.Type.PLAYER_CHAT, playerLowListener, Priority.Low, this);
-		getServer().getPluginManager().registerEvent(Event.Type.PLAYER_RESPAWN, playerListener, Priority.Normal, this);
-		getServer().getPluginManager().registerEvent(Event.Type.PLAYER_INTERACT, playerListener, Priority.Normal, this);
+		pluginManager.registerEvent(Event.Type.PLAYER_MOVE, playerListener, Priority.Normal, this);
+		pluginManager.registerEvent(Event.Type.PLAYER_TELEPORT, playerListener, Priority.Normal, this);
+		pluginManager.registerEvent(Event.Type.PLAYER_CHAT, playerLowListener, Priority.Low, this);
+		pluginManager.registerEvent(Event.Type.PLAYER_RESPAWN, playerListener, Priority.Normal, this);
+		pluginManager.registerEvent(Event.Type.PLAYER_INTERACT, playerListener, Priority.Normal, this);
 
-		getServer().getPluginManager().registerEvent(Event.Type.BLOCK_PLACE, blockListener, Priority.Lowest, this);
-		getServer().getPluginManager().registerEvent(Event.Type.BLOCK_BREAK, blockListener, Priority.Lowest, this);
-		getServer().getPluginManager().registerEvent(Event.Type.BLOCK_IGNITE, blockListener, Priority.Lowest, this);
-		getServer().getPluginManager().registerEvent(Event.Type.BLOCK_BURN, blockListener, Priority.Lowest, this);
+		pluginManager.registerEvent(Event.Type.BLOCK_PLACE, blockListener, Priority.Lowest, this);
+		pluginManager.registerEvent(Event.Type.BLOCK_BREAK, blockListener, Priority.Lowest, this);
+		pluginManager.registerEvent(Event.Type.BLOCK_IGNITE, blockListener, Priority.Lowest, this);
+		pluginManager.registerEvent(Event.Type.BLOCK_BURN, blockListener, Priority.Lowest, this);
 		//getServer().getPluginManager().registerEvent(Event.Type.BLOCK_INTERACT, blockListener, Priority.Normal, this);
 
-		getServer().getPluginManager().registerEvent(Event.Type.ENTITY_DAMAGE, entityListener, Priority.Lowest, this);
-		getServer().getPluginManager().registerEvent(Event.Type.ENTITY_EXPLODE, entityListener, Priority.Lowest, this);
-		getServer().getPluginManager().registerEvent(Event.Type.ENTITY_DAMAGE, entityMonitorListener, Priority.Lowest, this);
-		getServer().getPluginManager().registerEvent(Event.Type.ENTITY_DEATH, entityListener, Priority.Lowest, this);
-		getServer().getPluginManager().registerEvent(Event.Type.CREATURE_SPAWN, entityListener, Priority.Lowest, this);
+		pluginManager.registerEvent(Event.Type.ENTITY_DAMAGE, entityListener, Priority.Lowest, this);
+		pluginManager.registerEvent(Event.Type.ENTITY_EXPLODE, entityListener, Priority.Lowest, this);
+		pluginManager.registerEvent(Event.Type.ENTITY_DAMAGE, entityMonitorListener, Priority.Lowest, this);
+		pluginManager.registerEvent(Event.Type.ENTITY_DEATH, entityListener, Priority.Lowest, this);
+		pluginManager.registerEvent(Event.Type.CREATURE_SPAWN, entityListener, Priority.Lowest, this);
 		
-		getServer().getPluginManager().registerEvent(Event.Type.WORLD_LOAD, worldListener, Priority.Normal, this);
+		pluginManager.registerEvent(Event.Type.WORLD_LOAD, worldListener, Priority.Normal, this);
 	}
 	
 	/*
@@ -376,7 +381,7 @@ public class Towny extends JavaPlugin {
 		} catch (IOException e) {
 			sendDebugMsg("Could not read ChangeLog.txt");
 		}
-		setSetting("LAST_RUN_VERSION", getVersion());
+		setSetting("LAST_RUN_VERSION", getVersion(), true);
 	}
 	
 
@@ -577,8 +582,8 @@ public class Towny extends JavaPlugin {
 		return getDataFolder().getPath() + FileMgmt.fileSeparator() + "settings" + FileMgmt.fileSeparator() + "config.yml";
 	}
 	
-	public void setSetting(String root, Object value) {
-			TownySettings.setProperty(root, value);
+	public void setSetting(String root, Object value, boolean saveYML) {
+			TownySettings.setProperty(root, value, saveYML);
 	}
 	
 	public Object getSetting(String root) {

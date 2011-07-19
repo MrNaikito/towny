@@ -805,10 +805,11 @@ public class TownySettings {
 		return getIntArr("protection.ITEM_USE_IDS").contains(id);
 	}
 	
-	public static void setProperty(String root, Object value) {
+	public static void setProperty(String root, Object value, boolean saveYML) {
 		config.setProperty(root.toLowerCase(), value);
 		if (getDebug()) System.out.println("[Towny] Debug: Saving config.yml ");
-		config.save();
+		if (saveYML)
+			config.save();
 	}
 	
 	public static Object getProperty(String root) {
