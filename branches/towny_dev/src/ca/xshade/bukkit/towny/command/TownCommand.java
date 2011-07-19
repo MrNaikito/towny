@@ -161,7 +161,7 @@ public class TownCommand implements CommandExecutor  {
 						if (!user.isTeleportEnabled())
 							//Ess teleport is disabled
 							notUsingESS = true;
-									
+						
 						if (!user.isJailed()){
 							Teleport teleport = user.getTeleport();
 							teleport.teleport(town.getSpawn(), null);
