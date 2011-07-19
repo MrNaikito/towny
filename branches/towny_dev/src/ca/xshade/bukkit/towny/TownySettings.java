@@ -286,6 +286,12 @@ public class TownySettings {
 		}
 	}
 	
+	private static void sendError(String msg) {
+		
+		System.out.println("[Towny] Error could not read " + msg);
+		
+	}
+	
 	///////////////////////////////////
 	
 	// Functions to pull data from the config and language files
@@ -319,10 +325,22 @@ public class TownySettings {
      */
     
     public static String getString(String root){
-        return config.getString(root.toLowerCase());
+    	
+    	String data = config.getString(root.toLowerCase());
+    	if (data == null) {
+    		sendError(root.toLowerCase() + " from config.yml");
+    		return "";
+    	}
+        return data;
     }
     public static String getLangString(String root){
-        return parseSingleLineString(language.getString(root.toLowerCase()));
+    	
+    	String data = language.getString(root.toLowerCase());
+    	if (data == null) {
+    		sendError(root.toLowerCase() + " from " + config.getString("language"));
+    		return "";
+    	}
+        return parseSingleLineString(data);
     }
     
  // read a comma delimited string into an Integer list
