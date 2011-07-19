@@ -569,7 +569,7 @@ public class Towny extends JavaPlugin {
 		//	return groupManager.getHandler().permission(player, node);
 		} else {
 			sendDebugMsg("    Does not have permission.");
-			return false;
+			return player.hasPermission(node);
 		}
 	}
 

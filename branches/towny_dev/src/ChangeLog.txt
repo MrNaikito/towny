@@ -364,3 +364,4 @@ v0.73.1:
     - New '/town toggle taxpercent'. Allows a town to set it's taxes as a percentage of a players wealth rather than a fixed fee.
     - New '/town set taxes $$' to configure the tax rate (fixed or percentage) for a town.
     - Added error trapping to the language file and config file reads. This will prevent data corruption when users fail to follow the correct upgrade procedure.
+    - Added support for Bukkitpermissions (superperms)
