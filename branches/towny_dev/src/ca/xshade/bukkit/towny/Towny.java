@@ -12,7 +12,6 @@ import java.util.logging.Logger;
 //import javax.persistence.PersistenceException;
 
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
@@ -57,9 +56,6 @@ import ca.xshade.util.FileMgmt;
 import ca.xshade.util.JavaUtil;
 import ca.xshade.util.StringMgmt;
 
-import com.earth2me.essentials.Essentials;
-import com.earth2me.essentials.User;
-import com.earth2me.essentials.Teleport;
 import com.iConomy.*;
 import com.nijikokun.bukkit.Permissions.Permissions;
 import com.nijiko.permissions.PermissionHandler;
@@ -520,6 +516,7 @@ public class Towny extends JavaPlugin {
 			return modes.contains(mode); 
 	}
 
+	/*
 	public boolean checkEssentialsTeleport(Player player, Location lctn) {
 		if (!TownySettings.isUsingEssentials() || !TownySettings.isAllowingTownSpawn())
 			return false;
@@ -548,10 +545,12 @@ public class Towny extends JavaPlugin {
 			
 		} catch (Exception e) {
 			sendErrorMsg(player, "Error: " + e.getMessage());
-			return false;
+			// we still retun true here as it is a cooldown
+			return true;
 		}
 		
 	}
+	*/
 	
 	// is permissions active
 	public boolean isPermissions() {

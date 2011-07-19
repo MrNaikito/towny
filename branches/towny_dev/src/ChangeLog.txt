@@ -360,3 +360,4 @@ v0.73.1:
     - Fixed resident file being deleted when deleting a town. Should only be deleted if through the inactive player timer or is an NPC.
     - Fixed a permissions test error on spawn travel. It was failing to abort a teleport to spawn if you didn't have the correct permissions.
     - setting devmode and debug are now temporary settings for the current session only. They will not cause a save of config.yml.
+    - Fixed teleport cooldown (essentials hook) to NOT teleport when in cooldown mode.

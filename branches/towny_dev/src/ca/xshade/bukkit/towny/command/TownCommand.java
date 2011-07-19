@@ -11,6 +11,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
+import com.earth2me.essentials.Essentials;
+import com.earth2me.essentials.Teleport;
+import com.earth2me.essentials.User;
 import com.iConomy.iConomy;
 
 import ca.xshade.bukkit.questioner.Questioner;
@@ -137,22 +140,48 @@ public class TownCommand implements CommandExecutor  {
 					notAffordMSG = TownySettings.getLangString("msg_err_cant_afford_tp");
 				}
 				
-				// check payment
-				if (!isTownyAdmin && TownySettings.isUsingIConomy() && !resident.pay(TownySettings.getTownSpawnTravelPrice()))
+				double travelCost = TownySettings.getTownSpawnTravelPrice();
+				
+				// Check if need/can pay
+				if (!isTownyAdmin && TownySettings.isUsingIConomy() && (resident.getHoldingBalance() < travelCost))
 					throw new TownyException(notAffordMSG);
 				
+				boolean notUsingESS = false;
+				
+				//essentials tests
+				Plugin handle = plugin.getServer().getPluginManager().getPlugin("Essentials");
+				if (!handle.equals(null)) {
+					
+					Essentials essentials = (Essentials)handle;
+					plugin.sendDebugMsg("Using Essentials");
+					
+					try {
+						User user = essentials.getUser(player);
+						
+						if (!user.isTeleportEnabled())
+							//Ess teleport is disabled
+							notUsingESS = true;
+									
+						if (!user.isJailed()){
+							Teleport teleport = user.getTeleport();
+							teleport.teleport(town.getSpawn(), null);
+						}
+					} catch (Exception e) {
+						plugin.sendErrorMsg(player, "Error: " + e.getMessage());
+						// cooldown?
+						return;
+					}
+				}
+				
+				//show message if we are using iConomy and are charging for spawn travel.
+				if (!isTownyAdmin && TownySettings.isUsingIConomy() && resident.pay(travelCost))
+					plugin.sendMsg(player, String.format(TownySettings.getLangString("msg_cost_spawn"),
+							travelCost + TownyIConomyObject.getIConomyCurrency()));
+				
 				// if an Admin or essentials teleport isn't being used, use our own.
-				if(isTownyAdmin || !plugin.checkEssentialsTeleport(player, town.getSpawn()))
+				if(isTownyAdmin || notUsingESS)
 						player.teleport(town.getSpawn());
 
-				//show message if we are using iConomy and are charging for spawn travel.
-				if (!isTownyAdmin && TownySettings.isUsingIConomy() && TownySettings.getTownSpawnTravelPrice() != 0)
-					plugin.sendMsg(player, String.format(TownySettings.getLangString("msg_cost_spawn"),
-							TownySettings.getTownSpawnTravelPrice() + TownyIConomyObject.getIConomyCurrency()));
-						
-					
-				//if (plugin.checkEssentialsTeleport(player))
-				//	plugin.getTownyUniverse().townSpawn(player, false);
 				
 			} catch (TownyException e) {
 				plugin.sendErrorMsg(player, e.getMessage());
