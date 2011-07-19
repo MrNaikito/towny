@@ -88,6 +88,7 @@
       * mobs
       * public
       * pvp
+      * taxpercent
   
 == /plot ==
   * /plot 
