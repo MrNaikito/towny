@@ -146,33 +146,34 @@ public class TownCommand implements CommandExecutor  {
 				if (!isTownyAdmin && TownySettings.isUsingIConomy() && (resident.getHoldingBalance() < travelCost))
 					throw new TownyException(notAffordMSG);
 				
+				//essentials tests
 				boolean notUsingESS = false;
 				
-				//essentials tests
-				Plugin handle = plugin.getServer().getPluginManager().getPlugin("Essentials");
-				if (!handle.equals(null)) {
-					
-					Essentials essentials = (Essentials)handle;
-					plugin.sendDebugMsg("Using Essentials");
-					
-					try {
-						User user = essentials.getUser(player);
+				if (TownySettings.isUsingEssentials()) {
+					Plugin handle = plugin.getServer().getPluginManager().getPlugin("Essentials");
+					if (!handle.equals(null)) {
 						
-						if (!user.isTeleportEnabled())
-							//Ess teleport is disabled
-							notUsingESS = true;
+						Essentials essentials = (Essentials)handle;
+						plugin.sendDebugMsg("Using Essentials");
 						
-						if (!user.isJailed()){
-							Teleport teleport = user.getTeleport();
-							teleport.teleport(town.getSpawn(), null);
+						try {
+							User user = essentials.getUser(player);
+							
+							if (!user.isTeleportEnabled())
+								//Ess teleport is disabled
+								notUsingESS = true;
+							
+							if (!user.isJailed()){
+								Teleport teleport = user.getTeleport();
+								teleport.teleport(town.getSpawn(), null);
+							}
+						} catch (Exception e) {
+							plugin.sendErrorMsg(player, "Error: " + e.getMessage());
+							// cooldown?
+							return;
 						}
-					} catch (Exception e) {
-						plugin.sendErrorMsg(player, "Error: " + e.getMessage());
-						// cooldown?
-						return;
 					}
 				}
-				
 				//show message if we are using iConomy and are charging for spawn travel.
 				if (!isTownyAdmin && TownySettings.isUsingIConomy() && resident.pay(travelCost))
 					plugin.sendMsg(player, String.format(TownySettings.getLangString("msg_cost_spawn"),
