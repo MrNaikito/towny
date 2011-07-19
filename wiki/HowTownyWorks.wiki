@@ -232,9 +232,14 @@ The time of a 'Towny Day' can be set in [DefaultConfig config.yml] at {{{day_int
 
   Town mayors can use two commands to set their taxrates.
     * /town set taxes {$}
-      * This charges each resident of a town the same amount. Setting it to 10 would charge each resident each 'Towny Day'.
-      * If a resident can't pay his town tax then he is kicked from the town.
-  
+      * This can be either a flat rate (ex: 10) or a percentage.
+        * Toggling taxes from flatrate to percentage is done using /town toggle taxpercent
+        * Flatrate:
+          * This charges each resident of a town the same amount. Setting it to 10 would charge each resident each 'Towny Day'.
+          * If a resident can't pay his town tax when using flatrate taxation then he is kicked from the town.
+        * Percentage: 
+          * This charges a player a percentage of their money. If a player has no money left, he pays no taxes and is not kicked from the town.
+
     * /town set plottax {$}
       * This charges each resident of a town for each plot they own. Setting it to 10 would charge Miner Steve 40 dollars if he owned 4 plots.
       * If a resident can't pay his plot tax he loses his plot.
