@@ -1,8 +1,49 @@
 #summary Information on old releases of Towny
+<wiki:toc max_depth="1" />
 
 = Introduction =
 
 Here you can find information on old releases of Towny.
+
+== New in 0.73 ==
+
+  * /ta reload now reloads both the config.yml _and_ the Towny data folder! It really works!
+  
+  * town-Levels and nation-Levels are now read from the config, start customizing your empires!
+    * Also added is an upkeep modifier, make larger towns and nations pay higher upkeeps.
+    
+  * Essentials teleport times work again, set usingEssentials: true in your config.yml
+  
+  * Added chests and furnaces to the switch_id's (now protected by switch perm-type)
+    * Set switch_id's in the config.
+    
+  * Added a new setting of 'cheat_protection' to prevent flying and exploiting client-lag to hop walls.
+  
+  * Added config.yml settings for force_explosions_on, force_monsters_on and force_fire_on. These will prevent Mayors toggling the settings.
+  
+  * Added world configs for Forced Fire, Explosions, Town Mobs and World Mobs into the worldname.txt files.
+    
+  * Moved some townyworld commands the a new toggle command 
+    * /townyworld toggle 
+      * claimable 
+      * usingtowny
+      * pvp
+      * explosion
+      * fire 
+      * townmobs
+      * worldmobs
+ 
+  * Changes to protect towns not in nations from explosions during a war.
+  
+  * Town renaming works!
+    * Added regex parsing on town and nation renaming.
+    * Fixed problem with townfiles holding outdated names and causing errors on the next startup.
+  
+  * '/town set homeblock' no longer gets confused by your own homeblock when calculating the distance to the closest homeblock.
+    
+  * More! [http://code.google.com/a/eclipselabs.org/p/towny/source/browse/trunk/Towny/src/ChangeLog.txt Click here for a full changelog.]
+  
+  *0.73.0 - Downloaded 412 times.*
 
 
 == New in 0.72 ==
