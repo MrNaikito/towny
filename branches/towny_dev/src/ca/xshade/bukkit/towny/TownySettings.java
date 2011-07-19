@@ -807,9 +807,10 @@ public class TownySettings {
 	
 	public static void setProperty(String root, Object value, boolean saveYML) {
 		config.setProperty(root.toLowerCase(), value);
-		if (getDebug()) System.out.println("[Towny] Debug: Saving config.yml ");
-		if (saveYML)
+		if (saveYML) {
+			if (getDebug()) System.out.println("[Towny] Debug: Saving config.yml ");
 			config.save();
+		}
 	}
 	
 	public static Object getProperty(String root) {
