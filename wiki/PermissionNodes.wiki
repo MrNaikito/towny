@@ -24,5 +24,5 @@ Add a description of which nodes and when towny uses its nodes.
   * towny.wild.block.{block id}.switch
   * towny.wild.block.{block id}.itemuse
 
-  * towny.spawntp :Use /town spawn (use only when allow_town_spawn: false)
-  * towny.publicspawntp : Use "/town spawn {town}" (teleport to other towns) (used only when allow_town_spawn_travel: false)
+  * towny.spawntp :Use /town spawn (requires allow_town_spawn: true set in the config.)
+  * towny.publicspawntp : Use "/town spawn {town}" (teleport to other towns) (requires allow_town_spawn_travel: true in set in the config.)
