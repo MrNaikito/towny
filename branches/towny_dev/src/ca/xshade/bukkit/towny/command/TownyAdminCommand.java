@@ -273,7 +273,7 @@ public class TownyAdminCommand implements CommandExecutor  {
 						newMayor = plugin.getTownyUniverse().getResident(name);
 						
 						newMayor.setRegistered(System.currentTimeMillis());
-						newMayor.setLastOnline(1);
+						newMayor.setLastOnline(999999999);
 						
 						plugin.getTownyUniverse().getDataSource().saveResident(newMayor);
 						plugin.getTownyUniverse().getDataSource().saveResidentList();
