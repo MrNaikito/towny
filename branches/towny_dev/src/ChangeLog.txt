@@ -368,3 +368,4 @@ v0.73.1:
 v0.73.2:
     - Minor fix for spawn travel when not using essentials.
     - Fix for NPC's being deleted at a new day
+    - Fixed teleporting when NOT using essentials for non admins.

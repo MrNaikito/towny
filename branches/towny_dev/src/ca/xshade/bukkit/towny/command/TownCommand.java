@@ -179,8 +179,9 @@ public class TownCommand implements CommandExecutor  {
 					plugin.sendMsg(player, String.format(TownySettings.getLangString("msg_cost_spawn"),
 							travelCost + TownyIConomyObject.getIConomyCurrency()));
 				
+				
 				// if an Admin or essentials teleport isn't being used, use our own.
-				if(isTownyAdmin || notUsingESS)
+				if(isTownyAdmin || !notUsingESS)
 						player.teleport(town.getSpawn());
 
 				
