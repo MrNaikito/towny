@@ -296,7 +296,7 @@ public class TownyAdminCommand implements CommandExecutor  {
 											
 					town.setMayor(newMayor);
 					
-					if (oldMayor.getName().startsWith(TownySettings.getNPCPrefix()) && oldMayor.getLastOnline() == 1) {
+					if (oldMayor.isNPC()) {
 						try {
 							town.removeResident(oldMayor);
 							plugin.getTownyUniverse().removeResident(oldMayor);
