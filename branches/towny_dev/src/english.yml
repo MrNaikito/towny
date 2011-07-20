@@ -1,5 +1,5 @@
-name: Towny
-version: 0.02
+﻿name: Towny
+version: 0.03
 language: english
 author: ElgarL
 website:
@@ -336,6 +336,7 @@ msg_err_universe_limit: '&cThe universe cannot hold any more towns.'
 msg_err_too_many_npc: '&cToo many npc''s registered.'
 msg_err_negative_money: '&cNegative money is stupid. Weirdo.'
 msg_err_not_percentage: '&cPercentages must be below 100.'
+msg_not_allowed_join: '&c%s is not permitted to join a town.'
 
 # these messages are only used if town/nation creation is set to admins only
 

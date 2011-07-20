@@ -122,8 +122,8 @@ public class TownCommand implements CommandExecutor  {
 				
 				// Check permission to use spawn travel
 				if (!isTownyAdmin && (
-						(split.length == 1 && (!TownySettings.isAllowingTownSpawn() || !plugin.hasPermission(player, "towny.spawntp"))) ||
-						(split.length > 1 && (!TownySettings.isAllowingPublicTownSpawnTravel() || !plugin.hasPermission(player, "towny.publicspawntp")))))
+						(split.length == 1 && (!TownySettings.isAllowingTownSpawn() || (plugin.isPermissions() && !plugin.hasPermission(player, "towny.spawntp")))) ||
+						(split.length > 1 && (!TownySettings.isAllowingPublicTownSpawnTravel() || (plugin.isPermissions() && !plugin.hasPermission(player, "towny.publicspawntp"))))))
 					throw new TownyException(TownySettings.getLangString("msg_err_town_spawn_forbidden"));
 				
 				Resident resident = plugin.getTownyUniverse().getResident(player.getName());
@@ -605,7 +605,7 @@ public class TownCommand implements CommandExecutor  {
 			if (universe.isWarTime())
 				throw new TownyException(TownySettings.getLangString("msg_war_cannot_do"));
 			
-			if (TownySettings.isTownCreationAdminOnly() && !plugin.isTownyAdmin(player) && !plugin.hasPermission(player, "towny.town.new"))
+			if (!plugin.isTownyAdmin(player) && (TownySettings.isTownCreationAdminOnly() ||  (plugin.isPermissions() && !plugin.hasPermission(player, "towny.town.new"))))
 				throw new TownyException(TownySettings.getNotPermToNewTownLine());
 			
 			if (TownySettings.hasTownLimit() && universe.getTowns().size() >= TownySettings.getTownLimit())
@@ -785,8 +785,14 @@ public class TownCommand implements CommandExecutor  {
 		ArrayList<Resident> remove = new ArrayList<Resident>();
 		for (Resident newMember : invited)
 			try {
-				town.addResidentCheck(newMember);
-				townInviteResident(town, newMember);
+				// only add players with the right permissions.
+				if (plugin.isPermissions() && !plugin.hasPermission(plugin.getServer().getPlayer(newMember.getName()), "towny.town.resident")) {
+					plugin.sendErrorMsg(player, String.format(TownySettings.getLangString("msg_not_allowed_join"), newMember.getName()));
+					remove.add(newMember);
+				} else {
+					town.addResidentCheck(newMember);
+					townInviteResident(town, newMember);
+				}
 			} catch (AlreadyRegisteredException e) {
 				remove.add(newMember);
 				plugin.sendErrorMsg(player, e.getError());
@@ -1013,6 +1019,7 @@ public class TownCommand implements CommandExecutor  {
 				town = specifiedTown;
 			if (!plugin.isTownyAdmin(player) && !resident.isMayor() && !town.hasAssistant(resident))
 				throw new TownyException(TownySettings.getLangString("msg_not_mayor_ass"));
+			
 		} catch (TownyException x) {
 			plugin.sendErrorMsg(player, x.getError());
 			return;
