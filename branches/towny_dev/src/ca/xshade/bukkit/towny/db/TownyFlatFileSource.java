@@ -241,6 +241,9 @@ public class TownyFlatFileSource extends TownyDataSource {
 				else
 					resident.setRegistered(resident.getLastOnline());
 				
+				line = kvFile.get("isNPC");
+				if (line != null)
+					resident.setNPC(Boolean.parseBoolean(line));
 				
 				line = kvFile.get("town");
 				if (line != null)
@@ -819,6 +822,8 @@ public class TownyFlatFileSource extends TownyDataSource {
 			fout.write("lastOnline=" + Long.toString(resident.getLastOnline()) + newLine);
 			// Registered
 			fout.write("registered=" + Long.toString(resident.getRegistered()) + newLine);
+			// isNPC
+			fout.write("isNPC=" + Boolean.toString(resident.isNPC()) + newLine);
 			if (resident.hasTown())
 				fout.write("town=" + resident.getTown().getName() + newLine);
 			// Friends

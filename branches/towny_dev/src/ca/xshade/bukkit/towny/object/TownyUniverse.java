@@ -175,7 +175,7 @@ public class TownyUniverse extends TownyObject {
 	 * @param player
 	 * @param forceTeleport
 	 */
-
+	/*
 	public void townSpawn(Player player, boolean forceTeleport) {
 		try {
 			Resident resident = plugin.getTownyUniverse().getResident(player.getName());
@@ -195,6 +195,7 @@ public class TownyUniverse extends TownyObject {
 				plugin.sendErrorMsg(player, x.getError());
 		}
 	}
+	*/
 	
 	public Location getTownSpawnLocation(Player player) throws TownyException {
 		try {
