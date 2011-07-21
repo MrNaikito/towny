@@ -728,8 +728,11 @@ public class TownyFlatFileSource extends TownyDataSource {
 						}
 					if (tokens.length >= 5)
 						try {
-							townblock.setForSale(Boolean
-									.parseBoolean(tokens[4]));
+							if (tokens[4].trim() != "true")
+								townblock.setForSale(Integer.parseInt(tokens[4]));
+							else
+								townblock.setForSale(town.getPlotPrice());
+
 						} catch (Exception e) {
 						}
 				}
@@ -1073,9 +1076,14 @@ public class TownyFlatFileSource extends TownyDataSource {
 
 						if (resident != null && townblock.hasTown())
 							townblock.setResident(resident);
-
+						
+						//if present set the plot price
 						if (tokens.length >= 3)
-							townblock.setForSale(true); //Automatically assume the townblock is for sale
+							if (tokens[2].trim() != "true")
+								townblock.setForSale(Integer.parseInt(tokens[2]));
+							else
+								townblock.setForSale(town.getPlotPrice());
+						
 					} catch (NumberFormatException e) {
 					} catch (NotRegisteredException e) {
 					}
@@ -1101,7 +1109,7 @@ public class TownyFlatFileSource extends TownyDataSource {
 		for (TownyWorld world : worlds.keySet()) {
 			out += world.getName() + ":";
 			for (TownBlock townBlock : worlds.get(world))
-				out += townBlock.getX() + "," + townBlock.getZ() + (townBlock.isForSale() ? ",true" : "") + ";";
+				out += townBlock.getX() + "," + townBlock.getZ() + (townBlock.isForSale() != -1 ? "," + townBlock.isForSale() : "") + ";";
 			out += "|";
 		}
 

@@ -328,7 +328,7 @@ public class TownyAdminCommand implements CommandExecutor  {
 			Resident owner = townBlock.getResident();
 			if (resident == owner || force) {
 				townBlock.setResident(null);
-				townBlock.setForSale(true);
+				townBlock.setForSale(townBlock.getTown().getPlotPrice());
 				plugin.getTownyUniverse().getDataSource().saveResident(resident);
 				return true;
 			} else

@@ -372,3 +372,4 @@ v0.73.2:
     - Fixed admins teleport. Admins should override teleport settings to be able to teleport to any town by name.
     - Added a new permissions node - towny.town.resident - required to be able to join a town.
     - Fixed a typo causing all mob spawns in towns to be prevented, no matter the town/world setting.
+    - plot price is now configurable at the plot level as well as town. '/plot forsale 100' puts that plot up for 100. If no price is specified it will use the towns plotprice.

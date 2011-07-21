@@ -11,6 +11,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
+import com.earth2me.essentials.Charge;
 import com.earth2me.essentials.Essentials;
 import com.earth2me.essentials.Teleport;
 import com.earth2me.essentials.User;
@@ -165,7 +166,8 @@ public class TownCommand implements CommandExecutor  {
 							
 							if (!user.isJailed()){
 								Teleport teleport = user.getTeleport();
-								teleport.teleport(town.getSpawn(), null);
+								Charge charge = null;
+								teleport.teleport(town.getSpawn(), charge);
 							}
 						} catch (Exception e) {
 							plugin.sendErrorMsg(player, "Error: " + e.getMessage());

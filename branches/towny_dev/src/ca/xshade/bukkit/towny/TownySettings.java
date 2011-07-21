@@ -447,12 +447,12 @@ public class TownySettings {
 		return parseString(String.format(getLangString("MSG_DEL_NATION"), nation.getName()));
 	}
 	
-	public static String[] getBuyResidentPlotMsg(String who, String owner) {
-		return parseString(String.format(getLangString("MSG_BUY_RESIDENT_PLOT"), who, owner));
+	public static String[] getBuyResidentPlotMsg(String who, String owner, Integer price) {
+		return parseString(String.format(getLangString("MSG_BUY_RESIDENT_PLOT"), who, owner, price));
 	}
 	
 	public static String[] getPlotForSaleMsg(String who, WorldCoord worldCoord) {
-		return parseString(String.format(getLangString("MSG_PLOT_FS"), who, worldCoord.toString()));
+		return parseString(String.format(getLangString("MSG_PLOT_FOR_SALE"), who, worldCoord.toString()));
 	}
 	
 	public static String[] getMayorAbondonMsg() {

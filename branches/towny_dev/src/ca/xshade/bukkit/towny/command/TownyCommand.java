@@ -340,7 +340,7 @@ public class TownyCommand implements CommandExecutor {
 						townyMap[y][x] = Colors.White;
 
 					// Registered town block
-					if (townblock.isForSale())
+					if (townblock.isForSale() != -1)
 						townyMap[y][x] += "$";
 					else if (townblock.isHomeBlock())
 						townyMap[y][x] += "H";
