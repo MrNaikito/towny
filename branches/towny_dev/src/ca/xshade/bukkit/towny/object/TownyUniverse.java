@@ -856,7 +856,7 @@ public class TownyUniverse extends TownyObject {
 	}
 	
 	public void clearWarEvent() {
-		getWarEvent().cancleTasks(getPlugin().getServer().getScheduler());
+		getWarEvent().cancelTasks(getPlugin().getServer().getScheduler());
 		setWarEvent(null);
 	}
 	
