@@ -373,3 +373,4 @@ v0.73.2:
     - Added a new permissions node - towny.town.resident - required to be able to join a town.
     - Fixed a typo causing all mob spawns in towns to be prevented, no matter the town/world setting.
     - plot price is now configurable at the plot level as well as town. '/plot forsale 100' puts that plot up for 100. If no price is specified it will use the towns plotprice.
+    - Added permissions prefix and suffix node support. It now applies them to chat.

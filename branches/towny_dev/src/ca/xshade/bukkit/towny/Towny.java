@@ -556,6 +556,50 @@ public class Towny extends JavaPlugin {
 	public boolean isPermissions() {
 		return (TownySettings.isUsingPermissions() && permissions != null);
 	}
+	
+	
+	/** getPermissionNode
+	 * 
+	 * returns the specified prefix/suffix nodes from permissions
+	 * 
+	 * @param resident
+	 * @param node
+	 * @return
+	 */
+	public String getPermissionNode(Resident resident, String node) {
+		
+		sendDebugMsg("Perm Check: Does " + resident.getName() + " have the node '" + node + "'?");
+		if (isPermissions()) {
+			sendDebugMsg("    Permissions installed.");
+			PermissionHandler handler = permissions.getHandler();
+			String string = ""; 
+			Player player = getServer().getPlayer(resident.getName());
+			
+			if (node == "prefix") {
+				//string = handler.getGroupRawPrefix(player.getWorld().getName(), handler.getPrimaryGroup(player.getWorld().getName(), player.getName()));
+				string = string + handler.getUserPrefix(player.getWorld().getName(), player.getName());
+				string = TownySettings.parseSingleLineString(string);
+				sendDebugMsg("Prefix: " + string);
+			}
+			
+			if (node == "suffix") {
+				//string = handler.getGroupRawSuffix(player.getWorld().getName(), handler.getPrimaryGroup(player.getWorld().getName(), player.getName()));
+				string = string + handler.getUserSuffix(player.getWorld().getName(), player.getName());
+				string = TownySettings.parseSingleLineString(string);
+				sendDebugMsg("Suffix: " + string);
+			}
+			
+			
+			return string;
+		// } else if (groupManager != null)
+		//	return groupManager.getHandler().permission(player, node);
+		} else {
+			sendDebugMsg("    Does not have permission.");
+			return "";
+		}		
+		
+		
+	}
 
 	public boolean hasPermission(Player player, String node) {
 		sendDebugMsg("Perm Check: Does " + player.getName() + " have the node '" + node + "'?");
