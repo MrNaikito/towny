@@ -20,7 +20,7 @@ Here are instructions for upgrading to Towny 0.73.1:
       * If you are using Groupmanager set {{{using_permissions: true}}}
       * NOTE: The .csv files are no longer being used. Instead the entries in config.yml are used.
       * Save config.yml and optionally, discard config.properties.
-    * Upgrade from post-0.72 to a new version
+    * Upgrade from post-0.72 to a new version (Extra info for dev builds [UsingDevBuilds here.])
       * Rename your config.yml to oldconfig.yml
       * Delete english.yml
       * Start your server and let the new config.yml + english.yml generate.
