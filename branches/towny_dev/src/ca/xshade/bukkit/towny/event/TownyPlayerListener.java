@@ -214,7 +214,7 @@ public class TownyPlayerListener extends PlayerListener {
 			return;
 		
 	   // Prevent fly/double jump cheats
-		if (TownySettings.getBoolean("protection.cheat_protection"))
+		if (TownySettings.getBoolean("protection.cheat_protection") && !plugin.hasPermission(player, "towny.cheat.bypass"))
 		   if (event.getEventName() != "PLAYER_TELEPORT" && from.getBlock().getRelative(BlockFace.DOWN).getType() == Material.AIR
 				   && !player.isSneaking() && player.getFallDistance() == 0 && player.getVelocity().getY() <= -0.6) {
 			   //plugin.sendErrorMsg(player, "Cheat Detected!");

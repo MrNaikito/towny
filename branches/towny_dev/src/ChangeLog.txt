@@ -375,3 +375,4 @@ v0.73.2:
     - plot price is now configurable at the plot level as well as town. '/plot forsale 100' puts that plot up for 100. If no price is specified it will use the towns plotprice.
     - Added permissions prefix and suffix node support. It now applies them to chat (group prefix, User Prefix, Towny prefix, playername, Towny suffix, Group Suffix, User Suffix).
     - Added saving of the Pitch and Yaw of town spawns.
+    - Added a new permission node 'towny.cheat.bypass'. Disables the anti cheat code for those players with the node.

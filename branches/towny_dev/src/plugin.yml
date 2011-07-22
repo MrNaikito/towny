@@ -69,6 +69,10 @@ permissions:
             towny.wild.*: true
             towny.spawntp: true
             towny.publicspawntp: true
+            towny.cheat.bypass: true
+    towny.cheat.bypass:
+        description: Disables the anti cheat code for players with this node.
+        default: op
     towny.town.*:
         description: User can create a town and claim land.
         default: op
