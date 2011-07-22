@@ -432,13 +432,19 @@ public class TownyFlatFileSource extends TownyDataSource {
 				line = kvFile.get("spawn");
 				if (line != null) {
 					tokens = line.split(",");
-					if (tokens.length == 4)
+					if (tokens.length >= 4)
 						try {
 							World world = plugin.getServerWorld(tokens[0]);
 							double x = Double.parseDouble(tokens[1]);
 							double y = Double.parseDouble(tokens[2]);
 							double z = Double.parseDouble(tokens[3]);
-							town.setSpawn(new Location(world, x, y, z));
+							
+							Location loc = new Location(world, x, y, z);
+							if (tokens.length == 6) {
+								loc.setPitch(Float.parseFloat(tokens[4]));
+								loc.setYaw(Float.parseFloat(tokens[5]));
+							}
+							town.setSpawn(loc);
 						} catch (NumberFormatException e) {
 						} catch (NotRegisteredException e) {
 						} catch (NullPointerException e) {
@@ -908,7 +914,9 @@ public class TownyFlatFileSource extends TownyDataSource {
 				fout.write("spawn=" + town.getSpawn().getWorld().getName() + ","
 						+ Double.toString(town.getSpawn().getX()) + ","
 						+ Double.toString(town.getSpawn().getY()) + ","
-						+ Double.toString(town.getSpawn().getZ()) + newLine);
+						+ Double.toString(town.getSpawn().getZ()) + ","
+						+ Float.toString(town.getSpawn().getPitch()) + ","
+						+ Float.toString(town.getSpawn().getYaw()) + newLine);
 
 			fout.close();
 		} catch (Exception e) {
