@@ -395,8 +395,8 @@ public class TownySettings {
 		return parseString(String.format(getLangString("MSG_NEW_MAYOR"), who));
 	}
 
-	public static String[] getNewKingMsg(String who) {
-		return parseString(String.format(getLangString("MSG_NEW_KING"), who));
+	public static String[] getNewKingMsg(String who, String nation) {
+		return parseString(String.format(getLangString("MSG_NEW_KING"), who, nation));
 	}
 	
 	public static String[] getJoinWarMsg(TownyObject obj) {

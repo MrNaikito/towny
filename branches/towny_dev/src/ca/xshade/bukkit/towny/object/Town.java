@@ -278,7 +278,7 @@ public class Town extends TownBlockOwner implements Walled, ResidentList {
 		return mayor != null;
 	}
 	
-	public void removeResident(Resident resident) throws NotRegisteredException, EmptyTownException {
+	public void removeResident(Resident resident) throws EmptyTownException, NotRegisteredException {
 		if (!hasResident(resident))
 			throw new NotRegisteredException();
 		else {

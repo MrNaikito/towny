@@ -31,6 +31,9 @@ public class DailyTimerTask extends TownyTimerTask {
 				universe.getPlugin().sendDebugMsg("Collecting Nation Costs");
 				universe.collectNationCosts();
 			} catch (IConomyException e) {
+			} catch (TownyException e) {
+				// TODO king exception
+				e.printStackTrace();
 			}
 		}
 		else
@@ -45,6 +48,7 @@ public class DailyTimerTask extends TownyTimerTask {
 					universe.getPlugin().sendMsg("Deleting resident: " + resident.getName());
 					universe.removeResident(resident);
 					universe.removeResidentList(resident);
+
 				}
 		}
 		

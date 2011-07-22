@@ -914,6 +914,7 @@ public class TownyUniverse extends TownyObject {
 			if (town.hasNation()) {
 				Nation nation = town.getNation();
 				nation.removeTown(town);
+					
 				getDataSource().saveNation(nation);
 			}
 			town.clear();
@@ -1025,7 +1026,7 @@ public class TownyUniverse extends TownyObject {
 			removeTownBlock(townBlock);
 	}
 
-	public void collectTownCosts() throws IConomyException {
+	public void collectTownCosts() throws IConomyException, TownyException {
 		for (Town town : new ArrayList<Town>(towns.values()))
 			if (town.hasUpkeep())
 				if (!town.pay(TownySettings.getTownUpkeepCost(town))) {

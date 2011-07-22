@@ -701,6 +701,7 @@ public class TownCommand implements CommandExecutor  {
 			town.removeResident(resident);
 		} catch (EmptyTownException et) {
 			plugin.getTownyUniverse().removeTown(et.getTown());
+
 		} catch (NotRegisteredException x) {
 			plugin.sendErrorMsg(player, x.getError());
 			return;
@@ -866,6 +867,7 @@ public class TownCommand implements CommandExecutor  {
 					// assistants
 					// so there will always be at least one resident.
 				}
+		
 		for (Resident member : remove)
 			kicking.remove(member);
 
