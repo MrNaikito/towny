@@ -133,6 +133,7 @@ public class TownyUniverse extends TownyObject {
 		if (!hasResident(player.getName())) {
 			newResident(player.getName());
 			resident = getResident(player.getName());
+			
 			sendMessage(player, TownySettings.getRegistrationMsg());
 			resident.setRegistered(System.currentTimeMillis());
 			if (!TownySettings.getDefaultTownName().equals(""))
@@ -141,13 +142,17 @@ public class TownyUniverse extends TownyObject {
 				} catch (NotRegisteredException e) {
 				} catch (AlreadyRegisteredException e) {
 				}
-			//getDataSource().saveResidentList();
-		} else
-			resident = getResident(player.getName());
+			
+			getDataSource().saveResident(resident);
+			getDataSource().saveResidentList();
 
-		resident.setLastOnline(System.currentTimeMillis());
-		getDataSource().saveResident(resident);
-		getDataSource().saveResidentList();
+		} else {
+			resident = getResident(player.getName());
+			resident.setLastOnline(System.currentTimeMillis());
+			
+			getDataSource().saveResident(resident);
+		}
+		
 
 		try {
 			sendTownBoard(player, resident.getTown());
