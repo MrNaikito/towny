@@ -124,7 +124,7 @@ admin_panel_3: 'Run the new day code'
 
 msg_block_claim: 'Claim this town block'
 msg_plot_nfs: 'Take down a plot for sale'
-msg_nfs_abr: '&e''fs'' and ''nfs'' are accepted abreviations for ''forsale'' and ''notforsale''.'
+msg_nfs_abr: '&e''fs'' and ''nfs'' are accepted abbreviations for ''forsale'' and ''notforsale''.'
 msg_plot_fs: 'Put this area up for auction.'
 
 ############################################################
@@ -137,7 +137,7 @@ for_sale: '[For Sale: %s]'
 
 msg_buy_resident_plot: '&b%s bought %s''s plot for %s!'
 msg_couldnt_pay_taxes: '&b%s couldn''t pay taxes and was kicked from the %s.'
-msg_couldnt_pay_plot_taxes: '&b%s couldn''t pay taxes and lost ownership over a plot.'
+msg_couldnt_pay_plot_taxes: '&b%s couldn''t pay taxes and lost ownership of a plot.'
 msg_payed_town_tax: '&bPayed town tax of '
 msg_payed_plot_cost: '&bPayed %s for %s plots in %s'
 msg_payed_resident_tax: '&bPayed resident tax of '

@@ -566,6 +566,7 @@ public class Towny extends JavaPlugin {
 	 * @param node
 	 * @return
 	 */
+	@SuppressWarnings("deprecation")
 	public String getPermissionNode(Resident resident, String node) {
 		
 		sendDebugMsg("Perm Check: Does " + resident.getName() + " have the node '" + node + "'?");
@@ -576,7 +577,7 @@ public class Towny extends JavaPlugin {
 			Player player = getServer().getPlayer(resident.getName());
 			
 			if (node == "prefix") {
-				group = handler.getGroupRawPrefix(player.getWorld().getName(), handler.getPrimaryGroup(player.getWorld().getName(), player.getName()));
+				group = handler.getGroupPrefix(player.getWorld().getName(), handler.getGroup(player.getWorld().getName(), player.getName()));
 				user =  handler.getUserPrefix(player.getWorld().getName(), player.getName());
 				if (!group.equals(user))
 					user = group + user;
@@ -585,7 +586,7 @@ public class Towny extends JavaPlugin {
 			}
 			
 			if (node == "suffix") {
-				group = handler.getGroupRawSuffix(player.getWorld().getName(), handler.getPrimaryGroup(player.getWorld().getName(), player.getName()));
+				group = handler.getGroupSuffix(player.getWorld().getName(), handler.getGroup(player.getWorld().getName(), player.getName()));
 				user =  handler.getUserSuffix(player.getWorld().getName(), player.getName());
 				if (!group.equals(user))
 					user = group + user;
