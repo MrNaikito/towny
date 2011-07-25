@@ -264,10 +264,13 @@ public class TownySettings {
 			config = new Configuration(file);
 			config.load();
 			
+			file = null;
+			
 			// Load Nation & Town level data into maps.
 			loadTownLevelConfig();
 			loadNationLevelConfig();
-		}	
+		}
+		
 	}
 	
 	// This will read the language entry in the config.yml to attempt to load custom languages
@@ -282,6 +285,8 @@ public class TownySettings {
 			// read the (language).yml into memory
 			language = new Configuration(file);
 			language.load();
+			
+			file = null;
 				
 		}
 	}

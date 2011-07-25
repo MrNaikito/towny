@@ -578,7 +578,7 @@ public class Towny extends JavaPlugin {
 			
 			if (node == "prefix") {
 				group = handler.getGroupPrefix(player.getWorld().getName(), handler.getGroup(player.getWorld().getName(), player.getName()));
-				user =  handler.getUserPrefix(player.getWorld().getName(), player.getName());
+				//user =  handler.getUserPrefix(player.getWorld().getName(), player.getName());
 				if (!group.equals(user))
 					user = group + user;
 				user = TownySettings.parseSingleLineString(user);
@@ -587,7 +587,7 @@ public class Towny extends JavaPlugin {
 			
 			if (node == "suffix") {
 				group = handler.getGroupSuffix(player.getWorld().getName(), handler.getGroup(player.getWorld().getName(), player.getName()));
-				user =  handler.getUserSuffix(player.getWorld().getName(), player.getName());
+				//user =  handler.getUserSuffix(player.getWorld().getName(), player.getName());
 				if (!group.equals(user))
 					user = group + user;
 				user = TownySettings.parseSingleLineString(user);
