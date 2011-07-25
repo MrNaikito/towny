@@ -704,6 +704,10 @@ public class TownySettings {
 	}
 
 	public static long getMaxInactivePeriod() {
+		return getLong("INACTIVE_AFTER_TIME");
+	}
+	
+	public static long getDeleteTime() {
 		return getLong("DELETED_AFTER_TIME");
 	}
 

@@ -378,3 +378,4 @@ v0.73.2:
     - Added a new permission node 'towny.cheat.bypass'. Disables the anti cheat code for those players with the node.
     - If the capital of a nation is removed due to failure to pay upkeep the town with the highest resident count in that nation will become the Capital.
     - Added ability to update Towny.jar (replacing config.yml and english yml) with the server running.
+    - Added a new permisison node 'towny.top' to restrict access to the towny top commands.

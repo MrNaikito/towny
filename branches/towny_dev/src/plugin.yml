@@ -73,6 +73,9 @@ permissions:
     towny.cheat.bypass:
         description: Disables the anti cheat code for players with this node.
         default: op
+    towny.top:
+        description: User has access to the "/towny top" commands.
+        default: true
     towny.town.*:
         description: User can create a town and claim land.
         default: op
