@@ -376,8 +376,8 @@ public class TownySettings {
 	
     ///////////////////////////////////
     
-	public static String[] getRegistrationMsg() {		
-		return parseString(getLangString("MSG_REGISTRATION"));
+	public static String[] getRegistrationMsg(String name) {		
+		return parseString(String.format(getLangString("MSG_REGISTRATION"), name));
 	}
 
 	public static String[] getNewTownMsg(String who, String town) {

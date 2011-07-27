@@ -134,7 +134,7 @@ public class TownyUniverse extends TownyObject {
 			newResident(player.getName());
 			resident = getResident(player.getName());
 			
-			sendMessage(player, TownySettings.getRegistrationMsg());
+			sendMessage(player, TownySettings.getRegistrationMsg(player.getName()));
 			resident.setRegistered(System.currentTimeMillis());
 			if (!TownySettings.getDefaultTownName().equals(""))
 				try {
