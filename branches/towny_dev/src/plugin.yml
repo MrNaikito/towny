@@ -1,8 +1,8 @@
 ﻿name: Towny
 main: ca.xshade.bukkit.towny.Towny
-version: 0.73.2
+version: 0.73.3 Dev
 language: english.yml
-last_run_version: 0.73.2
+last_run_version: 0.73.3 Dev
 author: Shade, Modified by FuzzeWuzze. Forked by ElgarL
 website: http://code.google.com/a/eclipselabs.org/p/towny/
 description: >

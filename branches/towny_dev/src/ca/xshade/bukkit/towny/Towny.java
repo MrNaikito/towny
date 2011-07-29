@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 
 import org.bukkit.ChatColor;
 import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.Event.Priority;
@@ -474,6 +475,26 @@ public class Towny extends JavaPlugin {
 			} catch (NotRegisteredException e) {
 				deleteCache(player);
 			}
+	}
+	
+	public boolean isWilderness(Block block) {
+		
+		WorldCoord worldCoord;
+		
+		try {
+			worldCoord = new WorldCoord(getTownyUniverse().getWorld(block.getWorld().getName()), Coord.parseCoord(block));
+		} catch (NotRegisteredException e) {
+			// No record so must be Wilderness
+			return true;
+		}
+		
+		try {
+			return worldCoord.getTownBlock().getTown() == null;
+		} catch (NotRegisteredException e) {
+			// Must be wilderness
+			return true;
+		}
+
 	}
 	
 	public boolean isTownyAdmin(Player player) {

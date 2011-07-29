@@ -395,13 +395,17 @@ public class TownyUniverse extends TownyObject {
 	}
 
 	public void sendGlobalMessage(String line) {
-		for (Player player : getOnlinePlayers())
+		for (Player player : getOnlinePlayers()) {
 			player.sendMessage(line);
+			plugin.log("[Global Message] " + player.getName() + ": " + line);
+		}
 	}
 	
 	public void sendMessage(Player player, String[] lines) {
-		for (String line : lines)
+		for (String line : lines) {
 			player.sendMessage(line);
+			plugin.log("[send Message] " + player.getName() + ": " + line);
+		}
 	}
 
 	public Player getPlayer(Resident resident) throws TownyException {
