@@ -14,6 +14,8 @@ Add a description of which nodes and when towny uses its nodes.
 
   * towny.nation.new : User is able to create a nation (used only when nation_creation_admin_only: true)
 
+  * towny.top : Gives users access to /towny top command.
+
   * towny.wild.asterisk
   * towny.wild.build
   * towny.wild.destroy
