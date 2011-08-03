@@ -72,8 +72,8 @@ public class TownyPlayerLowListener extends PlayerListener {
 			Resident resident = plugin.getTownyUniverse().getResident(player.getName());
 			Town town = resident.getTown();
 			String line = Colors.Blue + "[" + town.getName() + "] "
-					+ player.getDisplayName() + ": "
-					+ Colors.White
+					+ player.getDisplayName()
+					+ Colors.White + ": "
 					+ Colors.LightBlue + msg;
 			plugin.getTownyUniverse().sendTownMessage(town, ChatTools.color(line));
 		} catch (NotRegisteredException x) {
@@ -86,8 +86,8 @@ public class TownyPlayerLowListener extends PlayerListener {
 			Resident resident = plugin.getTownyUniverse().getResident(player.getName());
 			Nation nation = resident.getTown().getNation();
 			String line = Colors.Gold + "[" + nation.getName() + "] "
-					+ player.getDisplayName() + ": "
-					+ Colors.White
+					+ player.getDisplayName()
+					+ Colors.White + ": "
 					+ Colors.Yellow + msg;
 			plugin.getTownyUniverse().sendNationMessage(nation, ChatTools.color(line));
 		} catch (NotRegisteredException x) {
