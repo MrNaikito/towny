@@ -1297,7 +1297,7 @@ public class TownCommand implements CommandExecutor  {
 		
 		if (args.length == 0) {
 			
-			// claim with no sub command entered so attempt claim of one plot
+			// claim with no sub command entered so attempt selection of one plot
 			if (pos.getWorld().isClaimable())
 				out.add(pos);
 			else
@@ -1306,7 +1306,7 @@ public class TownCommand implements CommandExecutor  {
 			 int r;
 				if (args[0].equalsIgnoreCase("auto")) {
 					
-					// Attempt to claim outwards until no town blocks remain
+					// Attempt to select outwards until no town blocks remain
 					if (owner instanceof Town) {
 						Town town = (Town)owner;
 						int available = TownySettings.getMaxTownBlocks(town) - town.getTownBlocks().size();
@@ -1317,7 +1317,7 @@ public class TownCommand implements CommandExecutor  {
 						throw new TownyException(TownySettings.getLangString("msg_err_rect_auto"));
 				} else {
 					
-					// if a value was given attempt to claim a radius of plots
+					// if a value was given attempt to select a radius of plots
 					try {
 						r = Integer.parseInt(args[0]);
 					} catch (NumberFormatException e) {
@@ -1330,7 +1330,7 @@ public class TownCommand implements CommandExecutor  {
 				for (int z = pos.getZ() - r; z <= pos.getZ() + r; z++)
 					for (int x = pos.getX() - r; x <= pos.getX() + r; x++)
 						if (pos.getWorld().isClaimable())
-							out.add(new WorldCoord(pos.getWorld(), x, z));
+							out.add(new WorldCoord(pos.getWorld(), x, z));	
 			}
 
 		return out;

@@ -389,3 +389,4 @@ v0.73.3:
     - Removed 'allow_resident_plots' and replaced with a permission node 'towny.town.plot'. This node is required to have access to the plot commands.
     - Blocked creating towns named 'spawn' and renaming towns to 'spawn'. Breaks many other functions if towns are named 'spawn'.
     - Added '/townyadmin nation add [nation] [town]' so admins can force add towns to nations.
+    - Fixed '/townyadmin unclaim'.

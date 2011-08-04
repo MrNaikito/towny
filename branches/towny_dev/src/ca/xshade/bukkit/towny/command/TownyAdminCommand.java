@@ -62,7 +62,7 @@ public class TownyAdminCommand implements CommandExecutor  {
 		
 		ta_unclaim.add(ChatTools.formatTitle("/townyadmin unclaim"));
 		ta_unclaim.add(ChatTools.formatCommand(TownySettings.getLangString("admin_sing"), "/townyadmin unclaim", "", TownySettings.getLangString("townyadmin_help_1")));
-		ta_unclaim.add(ChatTools.formatCommand(TownySettings.getLangString("admin_sing"), "/townyadmin unclaim", "rect [radius]", TownySettings.getLangString("townyadmin_help_2")));
+		ta_unclaim.add(ChatTools.formatCommand(TownySettings.getLangString("admin_sing"), "/townyadmin unclaim", "[radius]", TownySettings.getLangString("townyadmin_help_2")));
 		
 	}
 	
@@ -200,6 +200,7 @@ public class TownyAdminCommand implements CommandExecutor  {
 				List<Town> towns = new ArrayList<Town>();
 				
 				for (WorldCoord worldCoord : selection) {
+					// Store town and resident data for sending messages later.
 					try {
 						Town town = worldCoord.getTownBlock().getTown();
 						if (!towns.contains(town))
@@ -212,7 +213,7 @@ public class TownyAdminCommand implements CommandExecutor  {
 							residents.add(resident);
 					} catch (NotRegisteredException e) {
 					}
-					residentUnclaim(null, worldCoord, true);
+					residentUnclaim(player, worldCoord);
 					TownCommand.townUnclaim(null, worldCoord, true);
 				}
 
@@ -346,22 +347,23 @@ public class TownyAdminCommand implements CommandExecutor  {
 		}
 	}
 	
-	private boolean residentUnclaim(Resident resident, WorldCoord worldCoord, boolean force) throws TownyException {
+	private boolean residentUnclaim(Player player, WorldCoord worldCoord) throws TownyException {
 		if (plugin.getTownyUniverse().isWarTime())
 			throw new TownyException(TownySettings.getLangString("msg_war_cannot_do"));
 		
 		try {
 			TownBlock townBlock = worldCoord.getTownBlock();
 			Resident owner = townBlock.getResident();
-			if (resident == owner || force) {
-				townBlock.setResident(null);
-				townBlock.setForSale(townBlock.getTown().getPlotPrice());
-				plugin.getTownyUniverse().getDataSource().saveResident(resident);
-				return true;
-			} else
-				throw new TownyException(TownySettings.getLangString("msg_not_own_area"));
+
+			townBlock.setResident(null);
+			townBlock.setForSale(townBlock.getTown().getPlotPrice());
+			plugin.getTownyUniverse().getDataSource().saveResident(owner);
+			return true;
+
 		} catch (NotRegisteredException e) {
-			throw new TownyException(TownySettings.getLangString("msg_not_own_place"));
+			// Not a claimed area
+			//plugin.sendErrorMsg(player, e.getError());
+			return false;
 		}
 	}
 	
