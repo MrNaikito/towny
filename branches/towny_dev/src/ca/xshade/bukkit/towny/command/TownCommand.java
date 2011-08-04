@@ -143,6 +143,14 @@ public class TownCommand implements CommandExecutor  {
 					notAffordMSG = TownySettings.getLangString("msg_err_cant_afford_tp");
 				}
 				
+				// Prevent enemies from using spawn travel.
+				if (resident.hasTown())
+					if (town.hasNation() && resident.hasNation())
+						if (town.getNation().hasEnemy(resident.getTown().getNation()))
+							throw new TownyException(TownySettings.getLangString("msg_err_public_spawn_enemy"));
+
+					
+				
 				double travelCost;
 				if (resident.getTown() == town)
 					travelCost = TownySettings.getTownSpawnTravelPrice();
