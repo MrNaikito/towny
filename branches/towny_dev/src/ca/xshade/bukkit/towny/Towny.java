@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 //import javax.persistence.PersistenceException;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -477,6 +478,13 @@ public class Towny extends JavaPlugin {
 			}
 	}
 	
+	/** isWilderness
+	 * 
+	 * returns true if this block is in the wilderness
+	 * 
+	 * @param block
+	 * @return
+	 */
 	public boolean isWilderness(Block block) {
 		
 		WorldCoord worldCoord;
@@ -495,6 +503,27 @@ public class Towny extends JavaPlugin {
 			return true;
 		}
 
+	}
+	
+	/** getTownName
+	 * 
+	 * returns the name of the Town this location lies within
+	 * if no town is registered it returns null
+	 * 
+	 * @param loc
+	 * @return
+	 */
+	public String getTownName(Location loc) {
+		
+		try {
+			WorldCoord worldCoord = new WorldCoord(getTownyUniverse().getWorld(loc.getWorld().getName()), Coord.parseCoord(loc));
+			return worldCoord.getTownBlock().getTown().getName();
+		} catch (NotRegisteredException e) {
+			// No data so return null
+			return null;
+		}
+		
+		
 	}
 	
 	public boolean isTownyAdmin(Player player) {
