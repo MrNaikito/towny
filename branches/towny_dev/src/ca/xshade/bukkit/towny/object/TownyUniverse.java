@@ -13,6 +13,7 @@ import javax.naming.InvalidNameException;
 
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -497,6 +498,54 @@ public class TownyUniverse extends TownyObject {
 		for (Town town : nation.getTowns())
 			players.addAll(getOnlinePlayers(town));
 		return players;
+	}
+	
+	/** isWilderness
+	 * 
+	 * returns true if this block is in the wilderness
+	 * 
+	 * @param block
+	 * @return
+	 */
+	public boolean isWilderness(Block block) {
+		
+		WorldCoord worldCoord;
+		
+		try {
+			worldCoord = new WorldCoord(getWorld(block.getWorld().getName()), Coord.parseCoord(block));
+		} catch (NotRegisteredException e) {
+			// No record so must be Wilderness
+			return true;
+		}
+		
+		try {
+			return worldCoord.getTownBlock().getTown() == null;
+		} catch (NotRegisteredException e) {
+			// Must be wilderness
+			return true;
+		}
+
+	}
+	
+	/** getTownName
+	 * 
+	 * returns the name of the Town this location lies within
+	 * if no town is registered it returns null
+	 * 
+	 * @param loc
+	 * @return
+	 */
+	public String getTownName(Location loc) {
+		
+		try {
+			WorldCoord worldCoord = new WorldCoord(getWorld(loc.getWorld().getName()), Coord.parseCoord(loc));
+			return worldCoord.getTownBlock().getTown().getName();
+		} catch (NotRegisteredException e) {
+			// No data so return null
+			return null;
+		}
+		
+		
 	}
 
 	public List<Resident> getResidents() {
