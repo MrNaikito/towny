@@ -309,7 +309,37 @@ public class Town extends TownBlockOwner implements Walled, ResidentList {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			getPlugin().getTownyUniverse().getDataSource().saveResident(resident); //TODO: BAD!
+			//getPlugin().getTownyUniverse().getDataSource().saveResident(resident); //TODO: BAD!
+		}
+		
+		if (isMayor(resident)) {
+			
+			if (residents.size() > 1) {
+				for (Resident assistant : new ArrayList<Resident>(getAssistants()))
+					if (assistant != resident) {
+						try {
+							setMayor(assistant);
+							continue;
+						} catch (TownyException e) {
+							// Error setting mayor.
+							e.printStackTrace();
+						}
+					}
+				if (isMayor(resident)) {
+					// Still mayor and no assistants so pick a resident to be mayor
+					for (Resident newMayor : new ArrayList<Resident>(getResidents()))
+						if (newMayor != resident) {
+							try {
+								setMayor(newMayor);
+								continue;
+							} catch (TownyException e) {
+								// Error setting mayor.
+								e.printStackTrace();
+							}
+						}
+				}
+			}
+			
 		}
 		
 		if (hasNation() && nation.hasAssistant(resident))
