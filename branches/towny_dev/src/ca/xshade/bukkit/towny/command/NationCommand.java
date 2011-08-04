@@ -375,7 +375,7 @@ public class NationCommand implements CommandExecutor  {
 		
 	}
 
-	public void nationAdd(Player player, Nation nation, List<Town> invited) {
+	public static void nationAdd(Player player, Nation nation, List<Town> invited) {
 		ArrayList<Town> remove = new ArrayList<Town>();
 		for (Town town : invited)
 			try {
@@ -397,7 +397,7 @@ public class NationCommand implements CommandExecutor  {
 			msg = msg.substring(0, msg.length()-2);
 			msg = String.format(TownySettings.getLangString("msg_invited_join_nation"), player.getName(), msg);
 			plugin.getTownyUniverse().sendNationMessage(nation, ChatTools.color(msg));
-			plugin.getTownyUniverse().getDataSource().saveNation(nation);
+			//plugin.getTownyUniverse().getDataSource().saveNation(nation);
 		} else
 			plugin.sendErrorMsg(player, TownySettings.getLangString("msg_invalid_name"));
 	}
@@ -425,11 +425,23 @@ public class NationCommand implements CommandExecutor  {
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}
-		} else
+		} else {
 			
 				nation.addTown(town);
 				plugin.updateCache();
 				plugin.getTownyUniverse().getDataSource().saveTown(town);
+		}
+	}
+	
+	public static void nationAdd(Nation nation, List<Town> towns) throws AlreadyRegisteredException {
+		
+		for (Town town : towns) {
+			nation.addTown(town);
+			plugin.updateCache();
+			plugin.getTownyUniverse().getDataSource().saveTown(town);
+		}
+		plugin.getTownyUniverse().getDataSource().saveNation(nation);
+				
 	}
 	
 	public void nationKick(Player player, String[] names) {

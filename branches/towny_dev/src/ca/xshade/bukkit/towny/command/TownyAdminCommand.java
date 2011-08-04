@@ -11,6 +11,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import ca.xshade.bukkit.towny.AlreadyRegisteredException;
 import ca.xshade.bukkit.towny.EmptyTownException;
 import ca.xshade.bukkit.towny.NotRegisteredException;
 import ca.xshade.bukkit.towny.Towny;
@@ -18,6 +19,7 @@ import ca.xshade.bukkit.towny.TownyException;
 import ca.xshade.bukkit.towny.TownyFormatter;
 import ca.xshade.bukkit.towny.TownySettings;
 import ca.xshade.bukkit.towny.object.Coord;
+import ca.xshade.bukkit.towny.object.Nation;
 import ca.xshade.bukkit.towny.object.Resident;
 import ca.xshade.bukkit.towny.object.Town;
 import ca.xshade.bukkit.towny.object.TownBlock;
@@ -104,6 +106,8 @@ public class TownyAdminCommand implements CommandExecutor  {
 			adminSet(player, StringMgmt.remFirstArg(split));
 		else if (split[0].equalsIgnoreCase("town"))
 			parseAdminTownCommand(player, StringMgmt.remFirstArg(split));
+		else if (split[0].equalsIgnoreCase("nation"))
+			parseAdminNationCommand(player, StringMgmt.remFirstArg(split));
 		else if (split[0].equalsIgnoreCase("toggle"))
 			parseToggleCommand(player, StringMgmt.remFirstArg(split));
 		else if (split[0].equalsIgnoreCase("givebonus"))
@@ -244,6 +248,28 @@ public class TownyAdminCommand implements CommandExecutor  {
 				else if (split[1].equalsIgnoreCase("add+"))
 					TownCommand.townAdd(player, town, StringMgmt.remArgs(split, 2), false);
 			} catch (NotRegisteredException e) {
+				plugin.sendErrorMsg(player, e.getError());
+			}
+	}
+	
+	public void parseAdminNationCommand(Player player, String[] split) {
+		//TODO Make this use the actual town command procedually.
+		
+		if (split.length == 0 || split[0].equalsIgnoreCase("?")) {
+			
+			player.sendMessage(ChatTools.formatTitle("/townyadmin nation"));
+			player.sendMessage(ChatTools.formatCommand(TownySettings.getLangString("admin_sing"), "/townyadmin nation", "[nation]", ""));
+			player.sendMessage(ChatTools.formatCommand(TownySettings.getLangString("admin_sing"), "/townyadmin nation", "[nation] add [] .. []", ""));
+		} else
+			try {
+				Nation nation = plugin.getTownyUniverse().getNation(split[0]);
+				if (split.length == 1)
+					plugin.getTownyUniverse().sendMessage(player, plugin.getTownyUniverse().getStatus(nation));
+				else if (split[1].equalsIgnoreCase("add"))
+					NationCommand.nationAdd(nation, plugin.getTownyUniverse().getTowns(StringMgmt.remArgs(split, 2)));
+			} catch (NotRegisteredException e) {
+				plugin.sendErrorMsg(player, e.getError());
+			} catch (AlreadyRegisteredException e) {
 				plugin.sendErrorMsg(player, e.getError());
 			}
 	}
