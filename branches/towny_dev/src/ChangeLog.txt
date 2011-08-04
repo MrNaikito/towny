@@ -391,3 +391,4 @@ v0.73.3:
     - Added '/townyadmin nation add [nation] [town]' so admins can force add towns to nations.
     - Fixed '/townyadmin unclaim'.
     - Setup name prefix/suffix at login so names display correctly in other list plugins.
+    - Added separate charges for own town spawn travel and public spawn travel (set in config.yml).

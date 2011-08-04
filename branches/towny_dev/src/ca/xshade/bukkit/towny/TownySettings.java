@@ -881,6 +881,10 @@ public class TownySettings {
 		return getDouble("economy.PRICE_TOWN_SPAWN_TRAVEL");
 	}
 	
+	public static double getTownPublicSpawnTravelPrice() {
+		return getDouble("economy.PRICE_TOWN_PUBLIC_SPAWN_TRAVEL");
+	}
+	
 	public static double getBaseSpoilsOfWar() {
 		return getDouble("WARTIME_BASE_SPOILS");
 	}

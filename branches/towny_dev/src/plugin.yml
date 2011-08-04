@@ -446,8 +446,12 @@ default_town_name: ''
 
 economy:
 
+    # Cost to use /town spawn
+    price_town_spawn_travel: 0.0
+    
     # Cost to use /town spawn [town]
-    price_town_spawn_travel: 10.0
+    # This is paid to the town you goto.
+    price_town_public_spawn_travel: 10.0
 
     price_death: 10.0
     price_death_wartime: 200.0

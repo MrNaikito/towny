@@ -143,7 +143,11 @@ public class TownCommand implements CommandExecutor  {
 					notAffordMSG = TownySettings.getLangString("msg_err_cant_afford_tp");
 				}
 				
-				double travelCost = TownySettings.getTownSpawnTravelPrice();
+				double travelCost;
+				if (resident.getTown() == town)
+					travelCost = TownySettings.getTownSpawnTravelPrice();
+				else
+					travelCost = TownySettings.getTownPublicSpawnTravelPrice();
 				
 				// Check if need/can pay
 				if (!isTownyAdmin && TownySettings.isUsingIConomy() && (resident.getHoldingBalance() < travelCost))
@@ -178,7 +182,7 @@ public class TownCommand implements CommandExecutor  {
 					}
 				}
 				//show message if we are using iConomy and are charging for spawn travel.
-				if (!isTownyAdmin && TownySettings.isUsingIConomy() && resident.pay(travelCost))
+				if (!isTownyAdmin && TownySettings.isUsingIConomy() && resident.pay(travelCost, town))
 					plugin.sendMsg(player, String.format(TownySettings.getLangString("msg_cost_spawn"),
 							travelCost + TownyIConomyObject.getIConomyCurrency()));
 				
