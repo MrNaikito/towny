@@ -390,3 +390,4 @@ v0.73.3:
     - Blocked creating towns named 'spawn' and renaming towns to 'spawn'. Breaks many other functions if towns are named 'spawn'.
     - Added '/townyadmin nation add [nation] [town]' so admins can force add towns to nations.
     - Fixed '/townyadmin unclaim'.
+    - Setup name prefix/suffix at login so names display correctly in other list plugins.

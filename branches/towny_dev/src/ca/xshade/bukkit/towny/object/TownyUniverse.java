@@ -162,6 +162,9 @@ public class TownyUniverse extends TownyObject {
 
 		if (isWarTime())
 			getWarEvent().sendScores(player, 3);
+		
+		// Setup the chat prefix/suffix
+		plugin.setDisplayName(player);
 	}
 
 	public void onLogout(Player player) {

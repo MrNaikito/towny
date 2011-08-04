@@ -6,7 +6,6 @@ import org.bukkit.event.player.PlayerListener;
 
 import ca.xshade.bukkit.towny.NotRegisteredException;
 import ca.xshade.bukkit.towny.Towny;
-import ca.xshade.bukkit.towny.TownySettings;
 import ca.xshade.bukkit.towny.object.Nation;
 import ca.xshade.bukkit.towny.object.Resident;
 import ca.xshade.bukkit.towny.object.Town;
@@ -35,24 +34,7 @@ public class TownyPlayerLowListener extends PlayerListener {
 		Player player = event.getPlayer();
 		
 		// Setup the chat prefix BEFORE we speak.
-		if (TownySettings.isUsingChatPrefix()) {
-			try {
-				Resident resident = plugin.getTownyUniverse().getResident(player.getName());
-				String colour, formatedName = "";
-				if (resident.isKing())
-					colour = Colors.Gold;
-				else if (resident.isMayor())
-					colour = Colors.LightBlue;
-				else
-					colour = "";
-				formatedName = colour + plugin.getPermissionNode(resident, "prefix") + plugin.getTownyUniverse().getFormatter().getNamePrefix(resident)
-					+ player.getName() + plugin.getTownyUniverse().getFormatter().getNamePostfix(resident) + plugin.getPermissionNode(resident, "suffix")
-					+ Colors.White;
-				player.setDisplayName(formatedName);
-			} catch (NotRegisteredException e) {
-				plugin.log("Not Registered");
-			}
-		}
+		plugin.setDisplayName(player);
 		
 		if (plugin.hasPlayerMode(player, "tc"))
 			parseTownChatCommand(player, event.getMessage());
@@ -64,8 +46,6 @@ public class TownyPlayerLowListener extends PlayerListener {
 		}
 		event.setCancelled(true);
 	}
-	
-	//TODO: Below is copy pasta :/
 
 	public void parseTownChatCommand(Player player, String msg) {
 		try {
