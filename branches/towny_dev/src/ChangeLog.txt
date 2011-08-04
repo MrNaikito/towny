@@ -387,3 +387,4 @@ v0.73.3:
     - Added getTownName and isWilderness functions to the Towny API (inherit ca.xshade.bukkit.towny.TownyUniverse)
     - If a mayor is deleted due to inactivity a new mayor is chosen from the assistants. If there are no assistants a random resident will be promoted.
     - Removed 'allow_resident_plots' and replaced with a permission node 'towny.town.plot'. This node is required to have access to the plot commands.
+    - Blocked creating towns named 'spawn' and renaming towns to 'spawn'. Breaks many other functions if towns are named 'spawn'.

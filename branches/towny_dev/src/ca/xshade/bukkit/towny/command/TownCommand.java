@@ -107,7 +107,10 @@ public class TownCommand implements CommandExecutor  {
 			if (split.length == 1)
 				plugin.sendErrorMsg(player, TownySettings.getLangString("msg_specify_name"));
 			else if (split.length == 2)
-				newTown(player, split[1], player.getName());
+				if (split[1].toLowerCase() != "spawn")
+					newTown(player, split[1], player.getName());
+				else
+					plugin.sendErrorMsg(player, TownySettings.getLangString("msg_invalid_name"));
 			else
 				// TODO: Check if player is an admin
 				newTown(player, split[1], split[2]);
@@ -552,7 +555,10 @@ public class TownCommand implements CommandExecutor  {
 					return;
 				} else
 					//plugin.sendErrorMsg(player, TownySettings.getLangString("msg_town_rename_disabled"));
-					townRename(player, town, split[1]);
+					if (split[1].toLowerCase() != "spawn")
+						townRename(player, town, split[1]);
+					else
+						plugin.sendErrorMsg(player, TownySettings.getLangString("msg_invalid_name"));
 			} else if (split[0].equalsIgnoreCase("homeblock")) {
 				Coord coord = Coord.parseCoord(player);
 				TownBlock townBlock;
