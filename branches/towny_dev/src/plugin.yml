@@ -85,6 +85,7 @@ permissions:
             towny.town.new: true
             towny.town.claim: true
             towny.town.resident: true
+            towny.town.plot: true
     towny.town.resident:
         description: User is permitted to join towns.
         default: true
@@ -93,6 +94,9 @@ permissions:
         default: true
     towny.town.claim:
         description: User is able to expand with /towny claim
+        default: true
+    towny.town.plot:
+        description: User is able to purchase and own town plots.
         default: true
     towny.nation.new:
         description: User is able to create a nation
@@ -238,9 +242,6 @@ daily_taxes: true
 
 # Allow towns to claim outposts (a townblock not connected to town).
 allow_outposts: true
-
-# Allow residents to own/purchase plots within a town
-allow_resident_plots: true
 
 # all the use of /town spawn
 allow_town_spawn: true

@@ -1096,7 +1096,9 @@ public class TownySettings {
 	}
 	*/
 	
+	/*
 	public static boolean isAllowingResidentPlots() {
 		return getBoolean("ALLOW_RESIDENT_PLOTS");
 	}
+	*/
 }

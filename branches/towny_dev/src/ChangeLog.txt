@@ -386,3 +386,4 @@ v0.73.3:
     - Added a white suffix to town and nation chat to fix a compatability issue with herochat.
     - Added getTownName and isWilderness functions to the Towny API (inherit ca.xshade.bukkit.towny.TownyUniverse)
     - If a mayor is deleted due to inactivity a new mayor is chosen from the assistants. If there are no assistants a random resident will be promoted.
+    - Removed 'allow_resident_plots' and replaced with a permission node 'towny.town.plot'. This node is required to have access to the plot commands.

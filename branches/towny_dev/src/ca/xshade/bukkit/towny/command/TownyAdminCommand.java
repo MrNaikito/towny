@@ -55,6 +55,7 @@ public class TownyAdminCommand implements CommandExecutor  {
 		//TODO: ta_help.add(ChatTools.formatCommand("", "/townyadmin", "npc rename [old name] [new name]", ""));
 		//TODO: ta_help.add(ChatTools.formatCommand("", "/townyadmin", "npc list", ""));
 		ta_help.add(ChatTools.formatCommand("", "/townyadmin", "reload", TownySettings.getLangString("admin_panel_2")));
+		ta_help.add(ChatTools.formatCommand("", "/townyadmin", "backup", ""));
 		ta_help.add(ChatTools.formatCommand("", "/townyadmin", "newday", TownySettings.getLangString("admin_panel_3")));
 		
 		ta_unclaim.add(ChatTools.formatTitle("/townyadmin unclaim"));

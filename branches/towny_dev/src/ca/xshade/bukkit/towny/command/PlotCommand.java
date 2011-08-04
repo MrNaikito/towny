@@ -55,7 +55,12 @@ public class PlotCommand implements CommandExecutor  {
 				for (String line : output)
 					player.sendMessage(line);
 			} else{
-				parsePlotCommand(player, args);
+				try {
+					parsePlotCommand(player, args);
+				} catch (TownyException x) {
+					// No permisisons
+					plugin.sendErrorMsg(player, x.getError());
+				}
 			}
 
 		} else
@@ -65,7 +70,10 @@ public class PlotCommand implements CommandExecutor  {
 		return true;
 	}
 	
-	public void parsePlotCommand(Player player, String[] split) {
+	public void parsePlotCommand(Player player, String[] split) throws TownyException {
+		
+		if (!plugin.isTownyAdmin(player) || (plugin.isPermissions() && !plugin.hasPermission(player, "towny.town.plot")))
+			throw new TownyException(TownySettings.getLangString("msg_err_command_disable"));
 		
 		if (split.length == 0 || split[0].equalsIgnoreCase("?")) {
 			for (String line : output)
