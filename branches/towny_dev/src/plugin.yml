@@ -298,8 +298,7 @@ npc_prefix: 'NPC'
 modify_chat_name: true
 
 # Modify the players name with a prefix/suffix from their group permission nodes.
-# This setting requires modify_chat_name to be true aswell.
-apply_permission_prefix: true
+apply_permissions_prefix: true
 
 ############################################################
 # +------------------------------------------------------+ #

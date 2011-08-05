@@ -382,7 +382,7 @@ v0.73.2:
     - Fixed the welcome message so it correctly uses the player name.
 v0.73.3:
     - Config and english yml's are now written as UTF-8 encoded to allow for easy editing with foreign characters.
-    - Added a depends entry to the config.yml to prevent world.txt corruption if Towny loads before Multiverse.
+    - Added a depends entry to the config.yml to prevent Towny loading before Multiverse and corrupting worlds.txt
     - Added a white suffix to town and nation chat to fix a compatability issue with herochat.
     - Added getTownName and isWilderness functions to the Towny API (inherit ca.xshade.bukkit.towny.TownyUniverse)
     - If a mayor is deleted due to inactivity a new mayor is chosen from the assistants. If there are no assistants a random resident will be promoted.

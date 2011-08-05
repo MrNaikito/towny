@@ -485,7 +485,7 @@ public class Towny extends JavaPlugin {
 	public void setDisplayName (Player player) {
 		
 		// Setup the chat prefix BEFORE we speak.
-		if (TownySettings.isUsingChatPrefix()) {
+		//if (TownySettings.isUsingChatPrefix()) {
 			try {
 				Resident resident = getTownyUniverse().getResident(player.getName());
 				String colour, formatedName = "";
@@ -495,14 +495,14 @@ public class Towny extends JavaPlugin {
 					colour = Colors.LightBlue;
 				else
 					colour = "";
-				formatedName = colour + (TownySettings.isUsingPermsPrefix() ? getPermissionNode(resident, "prefix") : "") + getTownyUniverse().getFormatter().getNamePrefix(resident)
-					+ player.getName() + getTownyUniverse().getFormatter().getNamePostfix(resident) + (TownySettings.isUsingPermsPrefix() ? getPermissionNode(resident, "suffix") : "")
+				formatedName = colour + (TownySettings.isUsingPermsPrefix() ? getPermissionNode(resident, "prefix") : "") + (TownySettings.isUsingChatPrefix() ? getTownyUniverse().getFormatter().getNamePrefix(resident) : "")
+					+ player.getName() + (TownySettings.isUsingChatPrefix() ? getTownyUniverse().getFormatter().getNamePostfix(resident) : "") + (TownySettings.isUsingPermsPrefix() ? getPermissionNode(resident, "suffix") : "")
 					+ Colors.White;
 				player.setDisplayName(formatedName);
 			} catch (NotRegisteredException e) {
 				log("Not Registered");
 			}
-		}		
+		//}		
 	}
 	
 	public void setPlayerMode(Player player, String[] modes) {
