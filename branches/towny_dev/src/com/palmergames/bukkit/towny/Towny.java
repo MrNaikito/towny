@@ -167,7 +167,8 @@ public class Towny extends JavaPlugin {
 						getTownyUniverse().getDataSource().saveWorld(home.getWorld());
 					} catch (TownyException e) {
 						// Error fetching homeblock
-						e.printStackTrace();
+						//e.printStackTrace();
+						System.out.println("[Towny Error] Failed set world for: " + town.getName());
 					}
 				else
 					System.out.println("[Towny Error] Failed to detect world for: " + town.getName());
