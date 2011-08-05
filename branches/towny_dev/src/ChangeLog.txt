@@ -396,3 +396,4 @@ v0.73.3:
     - town claim now tells you if the area is already claimed instead of just the cryptic 'not attached to edge' message.
     - Added 'apply_permission_prefix' to the config.yml allowing better control of what chat modifications Towny applies.
     - Enabled '/townyadmin backup' use from the console.
+    - Added two new config entries for King and Mayor chat colours (colour_king & colour_mayor).

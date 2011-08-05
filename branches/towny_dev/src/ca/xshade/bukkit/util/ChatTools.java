@@ -75,6 +75,10 @@ public class ChatTools {
 
 		return out;
 	}
+	
+	public static String parseSingleLineString(String str) {
+		return str.replaceAll("&", "\u00A7");
+	}
 
 	public static String stripColour(String s) {
 		String out = "";

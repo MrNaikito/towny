@@ -300,6 +300,21 @@ modify_chat_name: true
 # Modify the players name with a prefix/suffix from their group permission nodes.
 apply_permissions_prefix: true
 
+
+# Text colouring
+# --------------
+# Black = &0, Navy = &1, Green = &2, Blue = &3, Red = &4
+# Purple = &5, Gold = &6, LightGray = &7, Gray = &8
+# DarkPurple = &9, LightGreen = &a, LightBlue = &b
+# Rose = &c, LightPurple = &d, Yellow = &e, White = &f
+
+# Chat colours
+
+# King
+colour_king: '&6'
+colour_mayor: '&b'
+
+
 ############################################################
 # +------------------------------------------------------+ #
 # |             block/item/mob protection                | #

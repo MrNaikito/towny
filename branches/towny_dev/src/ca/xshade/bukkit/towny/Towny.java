@@ -490,14 +490,14 @@ public class Towny extends JavaPlugin {
 				Resident resident = getTownyUniverse().getResident(player.getName());
 				String colour, formatedName = "";
 				if (resident.isKing())
-					colour = Colors.Gold;
+					colour = TownySettings.getString("COLOUR_KING");
 				else if (resident.isMayor())
-					colour = Colors.LightBlue;
+					colour = TownySettings.getString("COLOUR_MAYOR");
 				else
 					colour = "";
-				formatedName = colour + (TownySettings.isUsingPermsPrefix() ? getPermissionNode(resident, "prefix") : "") + (TownySettings.isUsingChatPrefix() ? getTownyUniverse().getFormatter().getNamePrefix(resident) : "")
+				formatedName = ChatTools.parseSingleLineString(colour + (TownySettings.isUsingPermsPrefix() ? getPermissionNode(resident, "prefix") : "") + (TownySettings.isUsingChatPrefix() ? getTownyUniverse().getFormatter().getNamePrefix(resident) : "")
 					+ player.getName() + (TownySettings.isUsingChatPrefix() ? getTownyUniverse().getFormatter().getNamePostfix(resident) : "") + (TownySettings.isUsingPermsPrefix() ? getPermissionNode(resident, "suffix") : "")
-					+ Colors.White;
+					+ Colors.White);
 				player.setDisplayName(formatedName);
 			} catch (NotRegisteredException e) {
 				log("Not Registered");
