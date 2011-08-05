@@ -166,7 +166,7 @@ public class TownyEntityListener extends EntityListener {
 			Coord key = Coord.parseCoord(b);
 			TownBlock townblock = world.getTownBlock(key);
 			//plugin.sendDebugMsg("is townblock");
-			if (!townblock.getTown().isPVP())
+			if (!townblock.getTown().isPVP() && !world.isForcePVP())
 				if (bp != null && (ap != null || a instanceof Arrow))
 					return true;
 			/*
