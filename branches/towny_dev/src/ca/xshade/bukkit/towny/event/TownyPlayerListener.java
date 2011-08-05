@@ -107,7 +107,7 @@ public class TownyPlayerListener extends PlayerListener {
 		
 		// prevent players trampling crops
 		
-		if (event.getAction() == Action.PHYSICAL)
+		if ((event.getAction() == Action.PHYSICAL) && (townyWorld.isUsingTowny()))
 		{
 			if ((block.getType() == Material.SOIL) || (block.getType() == Material.CROPS))
 				if (townyWorld.isDisablePlayerTrample()) {
