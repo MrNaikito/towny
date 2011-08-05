@@ -91,6 +91,13 @@ public class TownyAdminCommand implements CommandExecutor  {
 				sender.sendMessage(Colors.strip(line));
 			else if (args[0].equalsIgnoreCase("reload"))
 				reloadTowny(null);
+			else if (args[0].equalsIgnoreCase("backup"))
+				try {
+					plugin.getTownyUniverse().getDataSource().backup();
+					sender.sendMessage(Colors.strip(TownySettings.getLangString("mag_backup_success")));
+				} catch (IOException e) {
+					sender.sendMessage(Colors.strip("Error: " + e.getMessage()));
+				}
 		return true;
 	}
 	
