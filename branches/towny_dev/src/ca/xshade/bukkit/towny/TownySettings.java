@@ -990,6 +990,10 @@ public class TownySettings {
 	public static int getMinDistanceFromTownHomeblocks() {
 		return getInt("MIN_DISTANCE_FROM_TOWN_HOMEBLOCK");
 	}
+	
+	public static int getMaxDistanceBetweenHomeblocks() {
+		return getInt("MAX_DISTANCE_BETWEEN_HOMEBLOCKS");
+	}
 
 	public static int getMaxPlotsPerResident() {
 		return getInt("MAX_PLOTS_PER_RESIDENT");

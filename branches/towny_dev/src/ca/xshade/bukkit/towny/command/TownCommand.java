@@ -583,6 +583,10 @@ public class TownCommand implements CommandExecutor  {
 					if (world.getMinDistanceFromOtherTowns(coord, resident.getTown()) < TownySettings.getMinDistanceFromTownHomeblocks())
 						throw new TownyException(TownySettings.getLangString("msg_too_close"));
 					
+					if (TownySettings.getMaxDistanceBetweenHomeblocks() > 0)
+						if (world.getMinDistanceFromOtherTowns(coord, resident.getTown()) > TownySettings.getMaxDistanceBetweenHomeblocks())
+							throw new TownyException(TownySettings.getLangString("msg_too_far"));
+					
 					townBlock = plugin.getTownyUniverse().getWorld(player.getWorld().getName()).getTownBlock(coord);
 					town.setHomeBlock(townBlock);
 					plugin.sendMsg(player, String.format(TownySettings.getLangString("msg_set_town_home"), coord.toString()));
@@ -643,6 +647,10 @@ public class TownCommand implements CommandExecutor  {
 			
 			if (world.getMinDistanceFromOtherTowns(key) < TownySettings.getMinDistanceFromTownHomeblocks())
 				throw new TownyException(TownySettings.getLangString("msg_too_close"));
+			
+			if (TownySettings.getMaxDistanceBetweenHomeblocks() > 0)
+				if (world.getMinDistanceFromOtherTowns(key) > TownySettings.getMaxDistanceBetweenHomeblocks())
+					throw new TownyException(TownySettings.getLangString("msg_too_far"));
 
 			if (TownySettings.isUsingIConomy() && !resident.pay(TownySettings.getNewTownPrice()))
 				throw new TownyException(String.format(TownySettings.getLangString("msg_no_funds_new_town"), (resident.getName().equals(player.getName()) ? "You" : resident.getName())));

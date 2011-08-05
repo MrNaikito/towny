@@ -397,3 +397,4 @@ v0.73.3:
     - Added 'apply_permission_prefix' to the config.yml allowing better control of what chat modifications Towny applies.
     - Enabled '/townyadmin backup' use from the console.
     - Added two new config entries for King and Mayor chat colours (colour_king & colour_mayor).
+    - Added a max_distance_between_homeblocks setting allowing server operators to control how spaced out towns are created.
