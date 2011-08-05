@@ -156,6 +156,23 @@ public class Towny extends JavaPlugin {
 		for (Town town : getTownyUniverse().getTowns()) {
 			sendDebugMsg("[Towny] Setting flags for: " + town.getName());
 			
+			TownBlock home;
+			
+			if (town.getWorld() == null) {
+				System.out.println("[Towny Error] Detected an error with the world files. Attempting to repair");
+				if (town.hasHomeBlock())
+					try {
+						home = town.getHomeBlock();
+						town.setWorld(home.getWorld());
+					} catch (TownyException e) {
+						// Error fetching homeblock
+						e.printStackTrace();
+					}
+				else
+					System.out.println("[Towny Error] Failed to detect world for: " + town.getName());
+				
+				
+			}
 			//if (town.getWorld().isForcePVP())
 			//	town.setPVP(true);
 			//if (town.getWorld().isForceExpl())

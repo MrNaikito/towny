@@ -400,3 +400,4 @@ v0.73.3:
     - Added a max_distance_between_homeblocks setting allowing server operators to control how spaced out towns are created.
     - Added the ability to disable player and creature trampling of crops (per world).
     - Towns now remember their respective states for fire, explosions, mob spawns and PVP when the World flags are toggled.
+    - Towny will now attempt to repair corrupted world files.
