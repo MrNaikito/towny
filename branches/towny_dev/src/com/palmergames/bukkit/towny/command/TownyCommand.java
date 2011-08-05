@@ -80,6 +80,7 @@ public class TownyCommand implements CommandExecutor {
 		
 		if (sender instanceof Player) {
 			Player player = (Player)sender;
+			System.out.println("[PLAYER_COMMAND] " + player.getName() + ": /" + commandLabel + " " + StringMgmt.join(args));
 			parseTownyCommand(player, args);
 		} else {
 			// Console output

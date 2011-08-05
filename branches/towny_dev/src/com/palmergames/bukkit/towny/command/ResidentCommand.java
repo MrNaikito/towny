@@ -48,7 +48,7 @@ public class ResidentCommand implements CommandExecutor  {
 		
 		if (sender instanceof Player) {
 			Player player = (Player)sender;
-			
+			System.out.println("[PLAYER_COMMAND] " + player.getName() + ": /" + commandLabel + " " + StringMgmt.join(args));
 			if (args == null){
 				for (String line : output)
 					player.sendMessage(line);

@@ -22,6 +22,7 @@ import com.palmergames.bukkit.towny.object.TownyWorld;
 import com.palmergames.bukkit.towny.object.WorldCoord;
 import com.palmergames.bukkit.util.ChatTools;
 import com.palmergames.bukkit.util.Colors;
+import com.palmergames.util.StringMgmt;
 
 /**
  * Send a list of all general towny plot help commands to player
@@ -50,7 +51,7 @@ public class PlotCommand implements CommandExecutor  {
 		
 		if (sender instanceof Player) {
 			Player player = (Player)sender;
-			
+			System.out.println("[PLAYER_COMMAND] " + player.getName() + ": /" + commandLabel + " " + StringMgmt.join(args));
 			if (args == null){
 				for (String line : output)
 					player.sendMessage(line);
