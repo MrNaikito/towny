@@ -623,14 +623,14 @@ public class TownyFlatFileSource extends TownyDataSource {
 					} catch (Exception e) {
 					}
 				
-				line = kvFile.get("playertrample");
+				line = kvFile.get("disableplayertrample");
 				if (line != null)
 					try {
 						world.setDisablePlayerTrample(Boolean.parseBoolean(line));
 					} catch (Exception e) {
 					}
 				
-				line = kvFile.get("creaturetrample");
+				line = kvFile.get("disablecreaturetrample");
 				if (line != null)
 					try {
 						world.setDisableCreatureTrample(Boolean.parseBoolean(line));
@@ -1013,9 +1013,9 @@ public class TownyFlatFileSource extends TownyDataSource {
 			// has explosions enabled
 			fout.write("forceexplosions=" + Boolean.toString(world.isForceExpl()) + newLine);
 			// PlayerTrample
-			fout.write("playertrample=" + Boolean.toString(world.isDisablePlayerTrample()) + newLine);
+			fout.write("disableplayertrample=" + Boolean.toString(world.isDisablePlayerTrample()) + newLine);
 			// CreatureTrample
-			fout.write("creaturetrample=" + Boolean.toString(world.isDisableCreatureTrample()) + newLine);
+			fout.write("disablecreaturetrample=" + Boolean.toString(world.isDisableCreatureTrample()) + newLine);
 			// Using Default
 			fout.write("usingDefault=" + Boolean.toString(world.isUsingDefault()) + newLine);
 			// Unclaimed Zone Build
