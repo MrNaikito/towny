@@ -403,3 +403,4 @@ v0.73.3:
     - Nations who change to a neutral state during a war are now correctly removed from the war.
     - Towny now logs all player issued commands to the server.log
     - Added better control over name/chat modifying - modify_chat: '{permprefix}{townynameprefix}{playername}{townynamepostfix}{permsuffix}'
+    - Added custom titles. Kings can assign titles to their vassals with '/nation set title [resident] title'. The title will be used in place of the townynameprefix.

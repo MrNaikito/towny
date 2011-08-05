@@ -518,7 +518,7 @@ public class Towny extends JavaPlugin {
 				formattedName = TownySettings.getString("MODIFY_CHAT");
 				
 				formattedName = formattedName.replace("{permprefix}", getPermissionNode(resident, "prefix"));
-				formattedName = formattedName.replace("{townynameprefix}", getTownyUniverse().getFormatter().getNamePrefix(resident));
+				formattedName = formattedName.replace("{townynameprefix}", resident.hasTitle() ? resident.getTitle() : getTownyUniverse().getFormatter().getNamePrefix(resident));
 				formattedName = formattedName.replace("{playername}", player.getName());
 				formattedName = formattedName.replace("{modplayername}", player.getDisplayName());
 				formattedName = formattedName.replace("{townynamepostfix}", getTownyUniverse().getFormatter().getNamePostfix(resident));

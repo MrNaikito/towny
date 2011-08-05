@@ -14,9 +14,11 @@ public class Resident extends TownBlockOwner {
 	private Town town;
 	private long lastOnline, registered;
 	private boolean isNPC = false;
+	private String title;
 
 	public Resident(String name) {
 		setName(name);
+		setTitle("");
 		permissions.loadDefault(this);
 	}
 
@@ -34,6 +36,20 @@ public class Resident extends TownBlockOwner {
 
 	public boolean isNPC() {
 		return isNPC;
+	}
+	
+	public void setTitle(String title) {
+		if (title.matches(" "))
+			title = "";
+		this.title = title;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+	
+	public boolean hasTitle() {
+		return !title.isEmpty();
 	}
 
 	public boolean isKing() {
@@ -67,6 +83,7 @@ public class Resident extends TownBlockOwner {
 	public void setTown(Town town) throws AlreadyRegisteredException {
 		if (town == null) {
 			this.town = null;
+			setTitle("");
 			return;
 		}
 		if (this.town == town)
@@ -74,6 +91,7 @@ public class Resident extends TownBlockOwner {
 		if (hasTown())
 			throw new AlreadyRegisteredException();
 		this.town = town;
+		setTitle("");
 	}
 
 	public void setFriends(List<Resident> newFriends) {
@@ -117,6 +135,7 @@ public class Resident extends TownBlockOwner {
 		if (hasTown())
 			try {
 				town.removeResident(this);
+				setTitle("");
 			} catch (NotRegisteredException e) {
 			}
 	}

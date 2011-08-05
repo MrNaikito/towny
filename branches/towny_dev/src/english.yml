@@ -252,6 +252,7 @@ msg_insuf_funds: '&cYou don''t have that much.'
 
 msg_set_town_home: '&bSuccessfully changed town''s home block to %s'
 msg_set_town_spawn: '&bSuccessfully changed town''s spawn.'
+msg_set_title: '&b%s was granted the title of ''%s''.'
 
 msg_set_perms: '&bSuccessfully changed permissions to %s.'
 msg_set_claim: '&bSuccessfully changed %s''s claimability to %s'
