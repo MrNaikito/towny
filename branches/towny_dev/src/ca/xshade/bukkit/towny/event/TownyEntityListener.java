@@ -8,7 +8,6 @@ import org.bukkit.Material;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Creature;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.CreatureSpawnEvent;
@@ -112,11 +111,12 @@ public class TownyEntityListener extends EntityListener {
 			e.printStackTrace();
 		}
 		
+		// Prevent creatures trampling crops
 		if (townyWorld.isUsingTowny())
-			if ((block.getType() == Material.SOIL)) {
-					if (((entity instanceof Creature) && (townyWorld.isDisableCreatureTrample())
-						|| ((entity instanceof HumanEntity) && (townyWorld.isDisablePlayerTrample()))))   
-				event.setCancelled(true);
+			if ((block.getType() == Material.SOIL) || (block.getType() == Material.CROPS)) {
+				if ((entity instanceof Creature) && (townyWorld.isDisableCreatureTrample()))  
+					event.setCancelled(true);
+					return;
 			}
 		
 	}

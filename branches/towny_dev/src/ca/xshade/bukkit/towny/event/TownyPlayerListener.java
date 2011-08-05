@@ -81,6 +81,9 @@ public class TownyPlayerListener extends PlayerListener {
 	@Override
 	public void onPlayerInteract(PlayerInteractEvent event) {
 		
+		//System.out.println("onPlayerInteract2");
+		long start = System.currentTimeMillis();
+				
 		if (event.isCancelled()) {
 			// Fix for bucket bug.
 			if (event.getAction() == Action.RIGHT_CLICK_AIR){
@@ -92,8 +95,26 @@ public class TownyPlayerListener extends PlayerListener {
 			return;
 		}
 		
-		//System.out.println("onPlayerInteract2");
-		long start = System.currentTimeMillis();
+		Block block = event.getPlayer().getLocation().getBlock().getRelative(BlockFace.DOWN);
+		TownyWorld townyWorld = null;
+		
+		try {
+			townyWorld = plugin.getTownyUniverse().getWorld(block.getLocation().getWorld().getName());
+		} catch (NotRegisteredException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		// prevent players trampling crops
+		
+		if (event.getAction() == Action.PHYSICAL)
+		{
+			if ((block.getType() == Material.SOIL) || (block.getType() == Material.CROPS))
+				if (townyWorld.isDisablePlayerTrample()) {
+					event.setCancelled(true);
+					return;
+		    }
+		}
 			
 		if(event.hasItem())
 		{
