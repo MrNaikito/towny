@@ -39,8 +39,11 @@ public class WarTimerTask extends TownyTimerTask {
 				if (resident.hasNation()) {
 					Nation nation = resident.getTown().getNation();
 					plugin.sendDebugMsg("[War]   hasNation");
-					if (nation.isNeutral())
+					if (nation.isNeutral()) {
+						if (warEvent.isWarringNation(nation))
+							warEvent.nationLeave(nation);
 						continue;
+					}
 					plugin.sendDebugMsg("[War]   notNeutral");
 					if (!warEvent.isWarringNation(nation))
 						continue;
