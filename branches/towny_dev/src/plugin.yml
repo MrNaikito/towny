@@ -297,6 +297,13 @@ logging: true
 # If true this will cause the log to be wiped at every startup.
 reset_log_on_boot: true
 
+
+############################################################
+# +------------------------------------------------------+ #
+# |               Filters colour and chat                | #
+# +------------------------------------------------------+ #
+############################################################
+
 name_check_regex: '^[a-zA-Z0-9._-]*$'
 name_filter_regex: '[ /]'
 name_remove_regex: '[^a-zA-Z0-9._-]'
@@ -304,11 +311,15 @@ name_remove_regex: '[^a-zA-Z0-9._-]'
 # Not a good idea to change this at the moment.
 npc_prefix: 'NPC'
 
-# Skin regular chat with a player's towny prefix, postfix, and colour.
-modify_chat_name: true
-
-# Modify the players name with a prefix/suffix from their group permission nodes.
-apply_permissions_prefix: true
+# The format below will specify the changes made to the player name when chatting.
+# keys are
+# {permprefix} - Permission group prefix
+# {townynameprefix} - Towny name prefix taken from the townLevel/nationLevels
+# {playername} - default player name
+# {modplayername} - modified player name (use if Towny is over writing some other plugins changes).
+# {townynamepostfix} - Towny name postfix taken from the townLevel/nationLevels.
+# {permsuffix} - Permission group suffix.
+modify_chat: '{permprefix}{townynameprefix}{playername}{townynamepostfix}{permsuffix}'
 
 
 # Text colouring
@@ -320,7 +331,7 @@ apply_permissions_prefix: true
 
 # Chat colours
 
-# King
+# King/Mayor
 colour_king: '&6'
 colour_mayor: '&b'
 
