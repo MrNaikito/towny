@@ -1355,8 +1355,12 @@ public class TownCommand implements CommandExecutor  {
 		
 		//System.out.print("isEdgeBlock: "+ isEdgeBlock(owner, selection));
 		
-		if (attachedToEdge && !isEdgeBlock(owner, selection) && !town.getTownBlocks().isEmpty())
-			throw new TownyException(TownySettings.getLangString("msg_err_not_attached_edge"));
+		if (attachedToEdge && !isEdgeBlock(owner, selection) && !town.getTownBlocks().isEmpty()) {
+			if (selection.size() == 0)
+				throw new TownyException(TownySettings.getLangString("msg_already_claimed_2"));
+			else
+				throw new TownyException(TownySettings.getLangString("msg_err_not_attached_edge"));
+		}
 		
 		if (owner instanceof Town) {
 			//Town town = (Town)owner;
