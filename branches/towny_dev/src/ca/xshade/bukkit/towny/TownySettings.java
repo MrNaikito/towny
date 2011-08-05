@@ -702,6 +702,10 @@ public class TownySettings {
 	public static boolean isUsingChatPrefix() {
 		return getBoolean("MODIFY_CHAT_NAME");
 	}
+	
+	public static boolean isUsingPermsPrefix() {
+		return getBoolean("APPLY_PERMISSIONS_PREFIX");
+	}
 
 	public static long getMaxInactivePeriod() {
 		return getLong("INACTIVE_AFTER_TIME");

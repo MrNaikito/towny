@@ -394,3 +394,4 @@ v0.73.3:
     - Added separate charges for own town spawn travel and public spawn travel (set in config.yml).
     - Players in Enemy nations can no longer use spawn travel to opposing public towns.
     - town claim now tells you if the area is already claimed instead of just the cryptic 'not attached to edge' message.
+    - Added 'apply_permission_prefix' to the config.yml allowing better control of what chat modifications Towny applies.

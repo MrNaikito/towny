@@ -495,8 +495,8 @@ public class Towny extends JavaPlugin {
 					colour = Colors.LightBlue;
 				else
 					colour = "";
-				formatedName = colour + getPermissionNode(resident, "prefix") + getTownyUniverse().getFormatter().getNamePrefix(resident)
-					+ player.getName() + getTownyUniverse().getFormatter().getNamePostfix(resident) + getPermissionNode(resident, "suffix")
+				formatedName = colour + (TownySettings.isUsingPermsPrefix() ? getPermissionNode(resident, "prefix") : "") + getTownyUniverse().getFormatter().getNamePrefix(resident)
+					+ player.getName() + getTownyUniverse().getFormatter().getNamePostfix(resident) + (TownySettings.isUsingPermsPrefix() ? getPermissionNode(resident, "suffix") : "")
 					+ Colors.White;
 				player.setDisplayName(formatedName);
 			} catch (NotRegisteredException e) {

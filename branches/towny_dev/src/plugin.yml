@@ -295,9 +295,11 @@ name_remove_regex: '[^a-zA-Z0-9._-]'
 npc_prefix: 'NPC'
 
 # Skin regular chat with a player's towny prefix, postfix, and colour.
-# You can NOT change this setting and perform a /townyadmin reload.
-# It requires a server restart is setting to false.
 modify_chat_name: true
+
+# Modify the players name with a prefix/suffix from their group permission nodes.
+# This setting requires modify_chat_name to be true aswell.
+apply_permission_prefix: true
 
 ############################################################
 # +------------------------------------------------------+ #
