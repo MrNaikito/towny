@@ -12,7 +12,7 @@ import ca.xshade.bukkit.towny.TownySettings;
 
 public class TownyWorld extends TownyObject {
 	private List<Town> towns = new ArrayList<Town>();
-	private boolean isClaimable = true, isPVP, isForcePVP, isForceExpl, isForceFire, isForceTownMobs, hasWorldMobs, usingDefault = true, isUsingTowny = true;
+	private boolean isClaimable = true, isPVP, isForcePVP, isForceExpl, isForceFire, isForceTownMobs, hasWorldMobs, isDisablePlayerTrample, isDisableCreatureTrample, usingDefault = true, isUsingTowny = true;
 	private List<Integer> unclaimedZoneIgnoreIds = null;
 	private Boolean unclaimedZoneBuild = null, unclaimedZoneDestroy = null, unclaimedZoneSwitch = null, unclaimedZoneItemUse = null;
 	private String unclaimedZoneName = null;
@@ -28,6 +28,8 @@ public class TownyWorld extends TownyObject {
 		isForcePVP = TownySettings.getBoolean("FORCE_PVP_ON");		
 		isForceFire = TownySettings.getBoolean("FORCE_FIRE_ON");
 		isForceTownMobs = TownySettings.getBoolean("FORCE_TOWN_MONSTERS_ON");
+		isDisablePlayerTrample = TownySettings.getBoolean("DISABLE_PLAYER_CROP_TRAMPLING");
+		isDisableCreatureTrample = TownySettings.getBoolean("DISABLE_CREATURE_CROP_TRAMPLING");
 		hasWorldMobs = true;
 		isForceExpl = TownySettings.getBoolean("FORCE_EXPLOSIONS_ON");
 	}
@@ -171,6 +173,22 @@ public class TownyWorld extends TownyObject {
 
 	public boolean isForceFire() {
 		return isForceFire;
+	}
+	
+	public void setDisablePlayerTrample(boolean isDisablePlayerTrample) {
+		this.isDisablePlayerTrample = isDisablePlayerTrample;
+	}
+
+	public boolean isDisablePlayerTrample() {
+		return isDisablePlayerTrample;
+	}
+	
+	public void setDisableCreatureTrample(boolean isDisableCreatureTrample) {
+		this.isDisableCreatureTrample = isDisableCreatureTrample;
+	}
+
+	public boolean isDisableCreatureTrample() {
+		return isDisableCreatureTrample;
 	}
 	
 	public void setWorldMobs(boolean hasMobs) {

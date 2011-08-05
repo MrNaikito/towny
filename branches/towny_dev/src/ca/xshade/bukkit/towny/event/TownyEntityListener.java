@@ -4,8 +4,11 @@ import java.util.List;
 
 import org.bukkit.block.Block;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.entity.Arrow;
+import org.bukkit.entity.Creature;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.CreatureSpawnEvent;
@@ -13,6 +16,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageByProjectileEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.entity.EntityInteractEvent;
 import org.bukkit.event.entity.EntityListener;
 import org.bukkit.event.entity.EntityExplodeEvent;
 
@@ -88,6 +92,32 @@ public class TownyEntityListener extends EntityListener {
 			
 			plugin.sendDebugMsg("onEntityDamagedByEntity took " + (System.currentTimeMillis() - start) + "ms");
 		}
+		
+	}
+	
+	@Override
+	public void onEntityInteract(EntityInteractEvent event) {
+		
+		if (event.isCancelled())
+			return;
+		
+		Block block = event.getBlock();
+		Entity entity = event.getEntity();
+		TownyWorld townyWorld = null;
+		
+		try {
+			townyWorld = plugin.getTownyUniverse().getWorld(block.getLocation().getWorld().getName());
+		} catch (NotRegisteredException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		if (townyWorld.isUsingTowny())
+			if ((block.getType() == Material.SOIL)) {
+					if (((entity instanceof Creature) && (townyWorld.isDisableCreatureTrample())
+						|| ((entity instanceof HumanEntity) && (townyWorld.isDisablePlayerTrample()))))   
+				event.setCancelled(true);
+			}
 		
 	}
 	

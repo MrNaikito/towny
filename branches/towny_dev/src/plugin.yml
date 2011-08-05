@@ -224,6 +224,12 @@ force_town_monsters_on: false
 # force_fire_on is a global flag and overrides any towns flag setting
 force_fire_on: false
 
+# Disable creatures trampling crops
+disable_creature_crop_trampling: true
+
+# Disable players trampling crops
+disable_player_crop_trampling: true
+
 ############################################################
 # +------------------------------------------------------+ #
 # |                Global town settings                  | #

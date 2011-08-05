@@ -398,3 +398,4 @@ v0.73.3:
     - Enabled '/townyadmin backup' use from the console.
     - Added two new config entries for King and Mayor chat colours (colour_king & colour_mayor).
     - Added a max_distance_between_homeblocks setting allowing server operators to control how spaced out towns are created.
+    - Added the ability to disable player and creature trampling of crops (per world).
