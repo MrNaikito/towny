@@ -370,7 +370,7 @@ public class TownCommand implements CommandExecutor  {
 			if (split[0].equalsIgnoreCase("pvp")) {
 				try {
 					if (town.getWorld().isForcePVP()) {
-						town.setPVP(true);
+						//town.setPVP(true);
 						throw new TownyException(TownySettings.getLangString("msg_world_pvp"));
 					}
 					town.setPVP(!town.isPVP());
@@ -390,7 +390,7 @@ public class TownCommand implements CommandExecutor  {
 			} else if (split[0].equalsIgnoreCase("explosion")) {
 				try {
 					if (town.getWorld().isForceExpl()) {
-						town.setBANG(true);
+						//town.setBANG(true);
 						throw new TownyException(TownySettings.getLangString("msg_world_expl"));
 					}
 					town.setBANG(!town.isBANG());
@@ -402,7 +402,7 @@ public class TownCommand implements CommandExecutor  {
 			} else if (split[0].equalsIgnoreCase("fire")) {
 				try {
 					if (town.getWorld().isForceFire()) {
-						town.setFire(true);
+						//town.setFire(true);
 						throw new TownyException(TownySettings.getLangString("msg_world_fire"));
 					}
 					town.setFire(!town.isFire());
@@ -414,7 +414,7 @@ public class TownCommand implements CommandExecutor  {
 			} else if (split[0].equalsIgnoreCase("mobs")) {
 				try {
 					if (town.getWorld().isForceTownMobs()) {
-						town.setHasMobs(true);
+						//town.setHasMobs(true);
 						throw new TownyException(TownySettings.getLangString("msg_world_mobs"));
 					}
 					town.setHasMobs(!town.hasMobs());

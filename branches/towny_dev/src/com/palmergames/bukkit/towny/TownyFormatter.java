@@ -76,9 +76,11 @@ public class TownyFormatter {
 
 	public List<String> getStatus(Town town) {
 		List<String> out = new ArrayList<String>();
+		
+		TownyWorld world = town.getWorld();
 
 		// ___[ Raccoon City (PvP) ]___
-		out.add(ChatTools.formatTitle(getFormattedName(town) + (town.isPVP() ? Colors.Red + " (PvP)" : "")));
+		out.add(ChatTools.formatTitle(getFormattedName(town) + ((town.isPVP() || world.isForcePVP()) ? Colors.Red + " (PvP)" : "")));
 
 		// Lord: Mayor Quimby
 		// Board: Get your fried chicken
@@ -99,9 +101,9 @@ public class TownyFormatter {
 		
 		// Permissions: B=rao D=--- S=ra-
 		out.add(Colors.Green + "Permissions: " + town.getPermissions().getColourString().replace("f", "r") );
-		out.add(Colors.Green + "Explosions: " + (town.isBANG() ? Colors.Red + "ON" : Colors.LightGreen + "OFF")
-				+ Colors.Green + "  Firespread: " + (town.isFire() ? Colors.Red + "ON" : Colors.LightGreen + "OFF")
-				+ Colors.Green + "  Mob Spawns: " + (town.hasMobs() ? Colors.Red + "ON" : Colors.LightGreen + "OFF")
+		out.add(Colors.Green + "Explosions: " + ((town.isBANG() || world.isForceExpl()) ? Colors.Red + "ON" : Colors.LightGreen + "OFF")
+				+ Colors.Green + "  Firespread: " + ((town.isFire() || world.isForceFire()) ? Colors.Red + "ON" : Colors.LightGreen + "OFF")
+				+ Colors.Green + "  Mob Spawns: " + ((town.hasMobs() || world.isForceTownMobs()) ? Colors.Red + "ON" : Colors.LightGreen + "OFF")
                 + Colors.Green + "  Tax: " + Colors.Red + town.getTaxes() + (town.isTaxPercentage() ? "%" : ""));
 
 		// | Bank: 534 coins

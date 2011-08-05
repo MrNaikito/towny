@@ -174,7 +174,9 @@ public class TownyBlockListener extends BlockListener {
 		try {
 			TownyWorld townyWorld = plugin.getTownyUniverse().getWorld(loc.getWorld().getName());
 			TownBlock townBlock = townyWorld.getTownBlock(coord);
-			if (!townBlock.getTown().isFire() || plugin.getTownyUniverse().isWarTime()) {
+			if (townyWorld.isUsingTowny())
+				if ((!townBlock.getTown().isFire() && !townyWorld.isForceFire())
+						|| (plugin.getTownyUniverse().isWarTime() && !townBlock.getTown().hasNation())) {
 				plugin.sendDebugMsg("onBlockIgnite: Canceled " + block.getTypeId() + " from igniting within "+coord.toString()+".");
 				return true;
 			}

@@ -64,10 +64,10 @@ import com.nijiko.permissions.PermissionHandler;
 /**
  * Towny Plugin for Bukkit
  * 
- * Website: towny.xshade.ca
- * Source: https://github.com/Zren/Towny
+ * Website: http://code.google.com/a/eclipselabs.org/p/towny/
+ * Source: http://code.google.com/a/eclipselabs.org/p/towny/source/browse/
  * 
- * @author Shade
+ * @author Shade, ElgarL
  */
 
 public class Towny extends JavaPlugin {
@@ -156,14 +156,14 @@ public class Towny extends JavaPlugin {
 		for (Town town : getTownyUniverse().getTowns()) {
 			sendDebugMsg("[Towny] Setting flags for: " + town.getName());
 			
-			if (town.getWorld().isForcePVP())
-				town.setPVP(true);
-			if (town.getWorld().isForceExpl())
-				town.setBANG(true);
-			if (town.getWorld().isForceFire())
-				town.setFire(true);
-			if (town.getWorld().isForceTownMobs())
-				town.setHasMobs(true);
+			//if (town.getWorld().isForcePVP())
+			//	town.setPVP(true);
+			//if (town.getWorld().isForceExpl())
+			//	town.setBANG(true);
+			//if (town.getWorld().isForceFire())
+			//	town.setFire(true);
+			//if (town.getWorld().isForceTownMobs())
+			//	town.setHasMobs(true);
 		}
 			
 	}

@@ -155,7 +155,7 @@ public class TownyWorldCommand implements CommandExecutor  {
 				try {
 					world.setPVP(!world.isPVP());
 					plugin.sendMsg(player, String.format(TownySettings.getLangString("msg_changed_world_setting"), "Global PVP" ,world.getName(), world.isPVP() ? "Enabled" : "Disabled"));
-					plugin.SetWorldFlags ();
+					//plugin.SetWorldFlags ();
 					
 				} catch (Exception e) {
 					plugin.sendErrorMsg(player, e.getMessage());
@@ -165,7 +165,7 @@ public class TownyWorldCommand implements CommandExecutor  {
 				try {
 					world.setForcePVP(!world.isForcePVP());
 					plugin.sendMsg(player, String.format(TownySettings.getLangString("msg_changed_world_setting"), "PVP" ,world.getName(), world.isForcePVP() ? "Forced" : "Adjustable"));
-					plugin.SetWorldFlags ();
+					//plugin.SetWorldFlags ();
 					
 				} catch (Exception e) {
 					plugin.sendErrorMsg(player, e.getMessage());
@@ -175,7 +175,7 @@ public class TownyWorldCommand implements CommandExecutor  {
 				try {
 					world.setForceExpl(!world.isForceExpl());
 					plugin.sendMsg(player, String.format(TownySettings.getLangString("msg_changed_world_setting"), "Explosions", world.getName(), world.isForceExpl() ? "Enabled" : "Disabled"));
-					plugin.SetWorldFlags ();
+					//plugin.SetWorldFlags ();
 					
 				} catch (Exception e) {
 					plugin.sendErrorMsg(player, e.getMessage());
@@ -186,7 +186,7 @@ public class TownyWorldCommand implements CommandExecutor  {
 				try {
 					world.setForceFire(!world.isForceFire());
 					plugin.sendMsg(player, String.format(TownySettings.getLangString("msg_changed_world_setting"), "Fire Spread", world.getName(), world.isForceFire() ? "Forced" : "Adjustable"));
-					plugin.SetWorldFlags ();
+					//plugin.SetWorldFlags ();
 					
 				} catch (Exception e) {
 					plugin.sendErrorMsg(player, e.getMessage());
@@ -197,7 +197,7 @@ public class TownyWorldCommand implements CommandExecutor  {
 				try {
 					world.setForceTownMobs(!world.isForceTownMobs());
 					plugin.sendMsg(player, String.format(TownySettings.getLangString("msg_changed_world_setting"), "Town Mob spawns", world.getName(), world.isForceTownMobs() ? "Forced" : "Adjustable"));
-					plugin.SetWorldFlags ();
+					//plugin.SetWorldFlags ();
 					
 				} catch (Exception e) {
 					plugin.sendErrorMsg(player, e.getMessage());
@@ -208,7 +208,7 @@ public class TownyWorldCommand implements CommandExecutor  {
 				try {
 					world.setWorldMobs(!world.hasWorldMobs());
 					plugin.sendMsg(player, String.format(TownySettings.getLangString("msg_changed_world_setting"), "World Mob spawns", world.getName(), world.hasWorldMobs() ? "Enabled" : "Disabled"));
-					plugin.SetWorldFlags ();
+					//plugin.SetWorldFlags ();
 					
 				} catch (Exception e) {
 					plugin.sendErrorMsg(player, e.getMessage());

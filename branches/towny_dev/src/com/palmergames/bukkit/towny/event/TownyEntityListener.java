@@ -112,9 +112,9 @@ public class TownyEntityListener extends EntityListener {
 		}
 		
 		// Prevent creatures trampling crops
-		if (townyWorld.isUsingTowny())
+		if ((townyWorld.isUsingTowny()) && (townyWorld.isDisableCreatureTrample()))
 			if ((block.getType() == Material.SOIL) || (block.getType() == Material.CROPS)) {
-				if ((entity instanceof Creature) && (townyWorld.isDisableCreatureTrample()))  
+				if (entity instanceof Creature)
 					event.setCancelled(true);
 					return;
 			}
@@ -138,7 +138,8 @@ public class TownyEntityListener extends EntityListener {
 				TownBlock townBlock = townyWorld.getTownBlock(coord);
 				
 				// If explosions are off, or it's wartime and explosions are off and the towns has no nation
-				if (!townBlock.getTown().isBANG() || plugin.getTownyUniverse().isWarTime() && !townBlock.getTown().hasNation() && !townBlock.getTown().isBANG()) {
+				if (townyWorld.isUsingTowny()  && !townyWorld.isForceExpl())
+				if (!townBlock.getTown().isBANG() || (plugin.getTownyUniverse().isWarTime() && !townBlock.getTown().hasNation() && !townBlock.getTown().isBANG())) {
 					plugin.sendDebugMsg("onEntityExplode: Canceled " + event.getEntity().getEntityId() + " from exploding within "+coord.toString()+".");
 					event.setCancelled(true);
 				}
@@ -181,7 +182,7 @@ public class TownyEntityListener extends EntityListener {
 	
 	public boolean preventDamagePvP(TownyWorld world, Player a, Player b) {
 		// Universe is only PvP
-		if (world.isPVP())
+		if (world.isForcePVP() || world.isPVP())
 			return false;
 		//plugin.sendDebugMsg("is not forcing pvp");
 		// World PvP
@@ -226,6 +227,7 @@ public class TownyEntityListener extends EntityListener {
 			}
 			
 			//remove from world if set to remove mobs globally
+			if (townyWorld.isUsingTowny())
 			if (!townyWorld.hasWorldMobs() && MobRemovalTimerTask.isRemovingWorldEntity(livingEntity)){
 						plugin.sendDebugMsg("onCreatureSpawn world: Canceled " + event.getCreatureType() + " from spawning within "+coord.toString()+".");
 						event.setCancelled(true);
@@ -235,6 +237,7 @@ public class TownyEntityListener extends EntityListener {
 			try {
 				
 				TownBlock townBlock = townyWorld.getTownBlock(coord);
+				if (townyWorld.isUsingTowny() && !townyWorld.isForceTownMobs())
 				if (!townBlock.getTown().hasMobs() && MobRemovalTimerTask.isRemovingTownEntity(livingEntity)) {
 					plugin.sendDebugMsg("onCreatureSpawn town: Canceled " + event.getCreatureType() + " from spawning within "+coord.toString()+".");
 					event.setCancelled(true);
