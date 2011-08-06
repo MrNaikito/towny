@@ -1,199 +1,285 @@
-#summary Towny Commands Master List
+#summary How Towny works, mechanics, concepts.
 
-= Introduction to Towny Commands=
+= How Towny Works =
+
+Use this page to learn how Towny works, how various settings affect the gameplay, what you can do to customize Towny to your liking.
+
 <wiki:toc max_depth="2" />
-  * This list breaks each command down by word. Eg: /resident set perm {on/off}.
-  * For resident commands, the add command would auto-match online players, while add+ requires exact spelling to choose offline players.
-  * Just about every subcommand has it's own help menu. Use /resident set, or a similar cutoff, to show all the options for that command ingame. You can also use /resident set ?, you will probably need to use that in the case where a subcommand actually has a function by itself. Example: /town claim, and /town claim ? would show all it's subcommands.
-  * The { } brackets are used to show variables, or what you need to fill in. The elipse ".." (or shortened elipse) is used to show that you can specify multiple things at once (like inviting 10 residents at once).
-  * The {bleh/blah/bluh} is used to show that the input can be multiple words.
-  * An empty bullet represents that the subcommand itself does something and will not show a help menu.
 
-= Master List =
+----
 
-== /resident ==
-  * /resident 
-    *    
-    * ?
-    * list
-    * {resident}
-    * friend 
-     * add {resident} .. {resident}
-     * add+ {resident} .. {resident}
-     * remove {resident} .. {resident}
-     * remove+ {resident} .. {resident}
-     * clearlist
-    * set 
-     * perm 
-     * {on/off}
-     * {friend/ally/outsider} {on/off}
-     * {build/destroy/switch/itemuse} {on/off}
-     * {friend/ally/outsider} {build/destroy/switch/itemuse} {on/off}
-     * mode
-       * map
-       * townchat, tc
-       * nationchat, nc
-       * reset  _(This turns off all modes that are active.)_
-    * delete {resident}
-    
-== /town ==  
-  * /town 
-    *
-    * ?
-    * {town}
-    * list
-    * leave
-    * here
-    * spawn
-    * spawn {town}
-    * claim 
-      * outpost
-      * {# (radius around current position)}
-      * auto
-    * unclaim
-      * all
-      * {# (radius around current position)}
-    * withdraw {$}
-    * deposit {$}
-    * new 
-      * {townname}
-      * {townname} {mayor}
-    * delete {town name}
-    * add {resident} .. {resident}
-    * add+ {resident} .. {resident}
-    * kick {resident} .. {resident}
-    * kick+ {resident} .. {resident}
-    * assistant 
-      * add {resident} .. {resident}
-      * add+ {resident} .. {resident}
-      * remove {resident} .. {resident}
-      * remove+ {resident} .. {resident}
-    * set 
-      * board {message}
-      * mayor {resident}
-      * homeblock
-      * spawn
-      * perm 
-        * {on/off}
-        * {resident/ally/outsider} {on/off}
-        * {build/destroy/switch/itemuse} {on/off}
-        * {resident/ally/outsider} {build/destroy/switch/itemuse} {on/off}
-      * taxes {$}
-      * plottax {$}
-      * plotprice {$}
-      * name {name}
-    * toggle
-      * explosion
-      * fire
-      * mobs
-      * public
-      * pvp
-      * taxpercent
+= The Hierarchy =
+
+== Residents ==
+
+Every person who joins your server becomes a resident. Residents have their own [Commands command] {{{/resident}}} which used by itself outputs a Resident Screen, displaying Money, Town, Plots owned and Friends. 
+
+Residents can join towns or choose to start a town of their own. Residents can also be put into one town automatically when they join the server for the first time by setting {{{default_town_name: ''}}} in [DefaultConfig config.yml].
+
+Residents who join towns can claim plots that the Mayor of the town has set for sale. When a resident owns 1 or more plots, they will see a new line on their Resident Screen, showing plots owned and a perm line showing the [HowTownyWorks#Towny_Perms plot perms] given on all plots that resident owns.
+
+== Towns ==
+
+A town is a collection of residents (or just one resident) with one resident as the mayor. A town also has a bank which the mayor can withdraw from. A mayor can also have assistants who have the same powers as him/herself. Towns can have taxes that will be taken at the end of each day interval.
+Towns usually grow outwards from their home block, the townblock the mayor stood in during town creation. Townblocks need to be claimed beside other townblocks, unless the mayor claims an outpost in the wilderness.
+
+== Mayors ==
+
+Mayors run towns and with the help of their assistants, manage a town and its residents.
+
+It is not possible to run two towns unless you are also an admin. An admin can do the following to manage two or more towns:
+
+Example: Admin Bob
+  Admin Bob wants to have a server-town, and his own town. Bob would start by creating his Server Town and setting up taxes, plotprices, permissions. This sort of town should not give residents, allies or outsiders permissions in the Server Town.
   
-== /plot ==
-  * /plot 
-    * claim
-    * unclaim
-    * {forsale/fs}
-    * {notforsale/nfs}
+  When Bob finished making his town the way he wants he uses {{{/townyadmin set mayor {townname} npc}}} to place a fake 'npc' resident as mayor of the Server Town.
+  
+  Then Bob leaves Server Town and creates his own town. Using the {{{/townyadmin set mayor {townname} npc}}} command Bob can flip back and forth between towns.
+  
+  Bob doesn't have to leave his town to add players to the Server Town though! He can use {{{/townyadmin town {townname} add {playername} }}} to add players to the Server Town or set {{{default_town_name: 'Server_Town'}}} in [DefaultConfig config.yml].
 
-== /nation ==  
-  * /nation 
-    *  
-    * ?
-    * list
-    * {nation}
-    * leave
-    * withdraw {$}
-    * deposit {$}
-    * new 
-      * {nationname}
-      * {nationname} {capitaltown}
-    * assistant 
-      * add {resident} .. {resident}
-      * add+ {resident} .. {resident}
-      * remove {resident} .. {resident}
-      * remove+ {resident} .. {resident}
-    * add {town} .. {town}
-    * kick {town} .. {town}
-    * delete {nation}
-    * ally 
-      * add {nation} .. {nation}
-      * remove {nation} .. {nation}
-    * enemy 
-      * add {nation} .. {nation}
-      * remove {nation} .. {nation}
-    * set 
-      * king {resident}
-      * captial {town}
-      * neutral {on/off}
-      * taxes {$}
-      * name {name}
+== Nations ==
 
-== /townyworld ==  
-  * /townyworld 
-    * 
-    * ?
-    * list
-    * {world}
-    * toggle
-      * claimable
-      * usingtowny
-      * pvp
-      * forcepvp
-      * explosion
-      * fire
-      * townmobs
-      * worldmobs
-    * set
-      * wildname {name}
-      * wildperm {perm} .. {perm}
-      * wildignore {id} .. {id}
-      * usedefault
+A nation is a collection of towns (or just one town) with one town as the capital. The mayor of that capital is the king. A nation can join the war event, as well as ally other nations. A nation also has it's own bank. It can also tax the towns that belong to it.
 
-== /towny ==  
-  * /towny 
-    *  
-    * ?
-    * map
-    * prices
-    * top 
-      * money {all/resident/town/nation}
-      * residents {all/town/nation}
-      * land {all/resident/town}
-    * universe
-    * v
-    * war 
-      * stats
-      * scores
+== Kings==
 
-== /townyadmin  ==
-  * /townyadmin 
-    *  
-    * ?
-    * town {town} 
-      * add {resident} .. {resident}
-      * add+ {resident} .. {resident}
-      * remove {resident} .. {resident}
-      * remove+ {resident} .. {resident}
-    * toggle
-      * war
-      * neutral
-      * debug
-      * devmode
-    * set 
-      * mayor 
-        * {town} {resident}
-        * {town} npc
-    * givebonus {town} {#}
-    * reload
-    * backup
-    * newday
-    * unclaim
-      * rect {half-length}
-    * tree
+Kings lead Nations and are the mayor of the capital city.
 
-== Chat Commands ==
+== Configuring Mayor and King Titles, Town and Nation Names ==
+
+Towny gives you the ability to customize the naming scheme applied to Mayors, Kings, Towns, Capital Cities and Nations.
+
+This is done with two sections in the [DefaultConfig config.yml]
+  * townLevel:
+    * The basic layout of the townLevel lines are as follows: 
+    * numResidents,namePrefix,namePostfix,mayorPrefix,mayorPostfix,townBlockLimit,upkeepModifier
+    * A couple example lines from the config:
+      * {{{- '2,, (Hamlet),Chief ,,32,1.0'}}}
+      * {{{- '6,, (Village),Baron Von ,,96,1.1'}}}
+    * These are read as follows:
+      * The first line: When the town of Bob has 2-5 residents they get the following attributes: 
+        * The name Bob is given a postfix and appears as "Bob (Hamlet)",
+        * The mayor of Bob recieves a prefix, he is now "Chief Robert",
+        * The town is given a maximum of 32 townblocks to use,
+        * The town still pays an upkeep equal to the standard.
+      * The second line: When the town of Bob reaches 6 residents the following changes occur:
+        * The name of Bob changes from "Bob (Hamlet)" to "Bob (Village)",
+        * "Chief Robert" becomes "Baron von Robert",
+        * Robert has 96 townblocks at his disposal,
+        * The town of Bob now pays 10% more upkeep than before.   
+      
+  * nationLevel:
+    * The basic layout of the nationLevel lines are as follows:
+    * numResidents,namePrefix,namePostfix,capitalPrefix,capitalPostfix,kingPrefix,kingPostfix,upkeepModifier
+    * A couple example lines from the config:
+      * {{{- '20,Dominion of , (Nation),,,Duke ,1.0'}}}
+      * {{{- '30,Kingdom of , (Nation),,,King ,1.2'}}}
+    * These are read as follows:
+      * The first line: We will pretend that Robert started the nation of "Hotdogs" and has between 20 and 29 residents total in his nation:
+        * The name of the nation receives a prefix and a postfix making it "Dominion of Hotdogs (Nation)",
+        * There is no prefix or postfix attached to the Capital city of Bob,
+        * Robert recieves the title "Duke Robert",
+        * Robert pays the standard upkeep applied to nations.
+      * The second line: Robert has reached 30 residents and the following things change:
+        * The nation is retitled "Kingdom of Hotdogs (Nation)",
+        * There are still no prefix or postfix attached to the Capital city of Bob,
+        * Robert recieves the title "King Robert",
+        * Robert pays 20% more than the standard upkeep, set in the config.yml.
+    
+
+----
+
+= Plot System of Land Ownership =
+
+== Town Blocks == 
+
+Towny provides a server admin a hands-off approach to block-protection. Block protection is broken down into plots of land, called townblocks, which by default are 16x16x128 (the full height of the world.) Townblocks are claimed by town mayors who can then sell/give individual plots to their town's residents. 
+
+
+  === Town Block Size ===
+  You change the townblock size in [DefaultConfig config.yml] at {{{town_block_size: 16}}}. *Changing this value is suggested only when you first install Towny.*
+  Doing so after entering data will shift things unwantedly. Using smaller value will allow higher precision,
+  at the cost of more work setting up. Also, extremely small values will render the caching done useless.
+  Each cell is (town_block_size x town_block_size x 128) in size, with 128 being from bedrock to clouds.
+
+  === Setting How Many Towny Blocks A Town Receives ===   
+  You can change how many town blocks a town gets to claim. This is done in two places. 
+  
+  Towny checks first in the config.yml at {{{ town_block_ratio: 16 }}} and by default gives a town 16 townblocks per resident. 
+  
+  You can override this by setting {{{ town_block_ratio: 0 }}} and using the townLevel section of the [DefaultConfig config.yml] 
+  
+  More information on the townLevel line and how to configure it is [HowTownyWorks#Configuring_Mayor_and_King_Titles,_Town_and_Nation_Names here.]
+
+== Outposts ==
+Normally townblocks are claimed around the home block, always connected to the town. To claim a townblock out in the wilderness, a mayor or assistant must claim an outpost.
+
+Outposts cannot be claimed too close to other home blocks, just like when a mayor starts a town they cannot be too close. The exact number is set in the [DefaultConfig config.yml] at {{{min_distance_from_town_homeblock: 5}}}. 
+In the default setting an outpost cannot be claimed within 5 townblocks of any other homeblock.
+
+Outposts have two settings in [DefaultConfig config.yml] 
+  * By setting {{{allow_outposts: false}}} you can disable outposts completely.
+  * You can also set the cost of claiming an outpost with {{{price_outpost: 500.0}}}
+
+== Selling Land ==
+Land is sold by Mayors to Residents that are a part of their town. {{{using_iconomy: true}}} must be set in [DefaultConfig config.yml] in order for costs to be applied.
+Mayors have a command used in game to set the cost of all the plots in their town that are for sale.
+  * {{{/town set plotprice {$} }}}
+    * This sets the cost of every plot that is on sale. If it is not set, 
+The server admin can set a default plotprice in [DefaultConfig config.yml] at {{{price_claim_townblock: 25.0}}}, in this example a new town will automatically have a plotprice of 25 dollars.
+
+== Using the Maps ==
+
+The map in towny displays the grid system of plots. The map can be viewed once using {{{/towny map}}} one time or you can set the map to show every time you move from one block to another:
+  * Use {{{/resident set mode map}}} to turn it on.
+  * And use {{{/resident set mode reset}}} to turn it off.
+
+----
+
+= How Towny Lets Players Protect Their Blocks =
+
+Towny's genius is the way it lets players protect themselves. An admin doesn't need to go around protecting land for players, and players can't run rampant claiming massive amounts of land without working for it and building their towns.
+
+The first concept you need to digest are the 4 perm-types and 3 groups. 
+
+== Towny Perms ==
+
+There are 4 permission-type values, which can be set for personal plots and for town plots as well (town permissions can be set by the mayor and affect plots who are not owned by any player.) The basic command for this is either {{{/resident set perm}}} or {{{/town set perm}}} followed by the proper flags for each permission.
+
+Permissions are viewable by typing either {{{/resident}}} for personal plot perms or by typing {{{/town}}} for town permissions.
+
+  === Perm-Types ===
+  The 4 permission-types available are Build, Destroy, Switch and Itemuse.
+    
+    * Build allows players to add blocks in your town/plot.  
+    
+    * Destroy allows players to remove blocks in your town/plot. 
+
+    * Switch covers the use of:
+      * wooden and iron doors,
+      * levers,
+      * wooden and stone pressure plates,
+      * buttons,
+      * trapdoors,
+      * noteblocks,
+      * jukeboxes,
+      * redstone repeaters.
+      
+    * Itemuse covers the use of:
+      * water and lava buckets, 
+      * empty buckets,
+      * lighters,
+      * bonemeal.
+   
+  === Perm-Groups ===
+  Each permission-type has 3 perm-groups to which the pemissions can be set for, these are displayed on your {{{/resident}}} perm line as FAO and stand for Friend, Ally, Outsider. 
+  
+  For residents the Friend group consists of a player's friend list.
+  
+  For towns the perm line reads RAO, with R representing Residents (players in that town) and mayors need to use {{{/t set perm resident blah on/off}}} instead of {{{/t set perm friend blah on/off}}} 
+  
+  The other groups are:
+    * Ally 
+      * Players from your town, 
+      * other towns in your nation,
+      * and nations your nation is allied with.
+    * Outsiders 
+      * Players who are not part of your town or nation or nation's allies.
+
+  [Commands All commands are found on the Wiki's Commands page.]
+  
+  === Setting perms in-game with commands ===
+  Setting perms for your town's public land or your personal plots is easy! There are two distinct levels of protection provided by towns.
+  
+  First are the town blocks protected because they are part of a town and not owned by anyone. When you enter one of these plots from the wilderness or an owned plot the notification will show "~ Unowned". 
+  Mayors are able to set the permission for unowned plots using the the {{{/town set perm}}} command. A full list of commands is on the [Commands commands] page, here are some examples:
+    * /town set perm {on/off} - This turns on or off all permissions for all perm-types and all perm-groups.
+    * /town set perm ally {on/off} - This turns on or off all perm-types and for the town's allies (Towns in their nation, nations to which their nation is allied with.)
+    * /town set perm resident build {on/off} - This turns on or off all permissions for building done by residents of the town.
+    
+  Second are the town blocks owned personally by a resident of a town. A resident is able to set the permission for unowned plots using the the {{{/resident set perm}}} command. A full list of commands is on the [Commands commands] page, here are some examples:
+    * /resident set perm {on/off} - This turns on or off all permissions for all perm-types and all perm-groups.
+    * /resident set perm friend {on/off} - This turns on or off all permissions for the resident's friend list.
+    * /resident set perm ally {on/off} - This turns on or off all permissions for all perm-types to the resident's ally list. This consists of the resident's fellow townmembers, their nation's fellow towns and their nation's allied nations.
+    * /resident set perm outsider switch {on/off} - This turns on or off permissions for switch use by outsiders.
+
+== Protection Additions Found in Towny Advanced ==
+
+New in Towny Advanced (0.72+) are two new protection types, anti-explosion and anti-firespread.
+
+On the town level, a mayor can set these flags using:
+  * /town toggle explosion
+  * /town toggle fire
+
+Explosion protection stops all explosions. This stops TNT, TNT cannons and creeper explosions.
+
+Firespread protection stops all fires from spreading, including lava, lightning and lighters. 
+
+----
+
+= Money =
+
+== Taxes and Upkeep ==
+
+Taxes and Upkeep are two seperate functions with to different results. {{{using_iconomy: true}}} must be set in [DefaultConfig config.yml] in order for Taxes and Upkeep to be applied.
+Taxes and Upkeep are charged at the same time, each 'Towny Day' or each time an admin type /townyadmin newday.
+The time of a 'Towny Day' can be set in [DefaultConfig config.yml] at {{{day_interval: 86400000}}} and by default is 24 real-life hours.
+
+  === Taxes ===
+  Taxes are collected on the town level from residents and on the nation level from towns.
+  The [DefaultConfig config.yml] has an entry to turn taxation on or off at {{{daily_taxes: true}}}
+
+  Town mayors can use two commands to set their taxrates.
+    * /town set taxes {$}
+      * This can be either a flat rate (ex: 10) or a percentage.
+        * Toggling taxes from flatrate to percentage is done using /town toggle taxpercent
+        * Flatrate:
+          * This charges each resident of a town the same amount. Setting it to 10 would charge each resident each 'Towny Day'.
+          * If a resident can't pay his town tax when using flatrate taxation then he is kicked from the town.
+        * Percentage: 
+          * This charges a player a percentage of their money. If a player has no money left, he pays no taxes and is not kicked from the town.
+    * /town set plottax {$}
+      * This charges each resident of a town for each plot they own. Setting it to 10 would charge Miner Steve 40 dollars if he owned 4 plots.
+      * If a resident can't pay his plot tax he loses his plot.
+    
+  Nation leaders can use one comand to set a tax on their towns.
+    * /nation set taxes {$}
+      * This charges each town that is a member of the nation. Setting it to 100 would charge each town's townbank 100 each 'Towny Day'.
+      * If a town can't pay it's tax then it is kicked from the nation.
+    
+  === Upkeep ===
+  Upkeep collection can be set on towns and on nations seperately. Upkeep money is taken from townbanks and nationbanks and removed from the game.
+  Upkeep is used by a server admin to remove inactive towns and nations from the server.
+  Upkeep is set in [DefaultConfig config.yml] with two flags:
+    * {{{price_nation_upkeep: 100.0}}}
+      * The server's daily charge on each nation. If a nation fails to pay this upkeep, all of it's member towns are kicked and the Nation is removed.
+    * {{{price_town_upkeep: 10.0}}}
+      * The server's daily charge on each town. If a town fails to pay this upkeep, all of it's residents are kicked and the town is removed.
+      
+  Upkeep can be modified in the [DefaultConfig config.yml] to affect different-sized towns differently.
+  
+  More information on the townLevel line and how to configure it is [HowTownyWorks#Configuring_Mayor_and_King_Titles,_Town_and_Nation_Names here.]
+
+----
+
+= Chat =
+
+== Chat Modifications == 
+
+Towny modifies the in-game chat appearance of town mayors and nation leaders only.
+
+Chat modification can be turned on in [DefaultConfig config.yml] at {{{modify_chat_name: false}}}
+
+Mayors chat name appears as blue by default and includes the mayorPrefix and mayorPostfix found in the townLevel section of the config.yml.
+
+Nation Leader's chat name appears as gold by default and includes the kingPrefix and kingPostfix found in the townLevel section of the config.yml.
+
+
+== Chat Modes ==
+
+There are two added chatmodes in Towny, townchat and nationchat.
+
   * /townchat, /tc
     * Put in from of text to speak with members of your town only.
   * /nationchat, /nc
@@ -204,6 +290,69 @@
     * Use to speak on nationchat by default.
   * /res set mode reset
     * Reset chat mode to default chat.
+
 ----
 
-Source: Original Author, Shade: [http://www.xshade.ca/towny/commands http://www.xshade.ca/towny/commands] with small additions.
+= Multiworld =
+
+Towny has mutliworld support. Each world has a datafile located at /plugins/towny/data/worlds/worldname.txt and each world is listed in /towny/data/worlds.txt.
+
+== World Toggles ==
+Towny can be turned off in a world in-game. While standing in a world type /townyworld toggle usingtowny.
+
+Other toggles:
+  * claimable - Whether townblocks can be claimed by mayors in this world.
+  * pvp - Whether PVP is on in the world.
+  * forcepvp - Used to force pvp on in towns.
+  * explosion - Used to force explosions on in towns.
+  * fire - Used to force firespread on in towns.
+  * townmobs - Used to turn off mobremoval in all towns. Restricted mobs are listed in the config.yml.
+  * worldmobs - Toggles mobremoval in the wilderness. Restricted mobs are listed in the config.yml.
+      
+----
+
+= Towny War =
+
+Towny war as it is now is:
+  * A brutal device that induces server-rage-quitting, 
+  * is buggy and,
+  * should probably not be used.
+  
+== Current Towny War ==
+
+*This description may not be accurate! Towny War should really not be used until it's been fixed.*
+
+Fixing and making Towny War more configurable is a very high priority. 
+
+Towny war is activated by a server admin using {{{/townyadmin toggle war}}}, there is a 30 second countdown and then War begins.
+
+During war Nations fight each other. Towns without a nation are not included, cannot score points and cannot have their townblocks griefed.
+
+Nations can also pay a daily Neutrality cost to avoid taking part in a war. The cost of neutrality is set in the [DefaultConfig config.yml] using {{{price_nation_neutrality: 100.0}}}. In this example, a nation would pay 100 dollars from its nationbank each 'Towny Day'.
+
+While war is in effect, each competing town has a health points property attached to it. Normal townblocks have an HP of 60 while Home Blocks have 120 points by default. This can be changed in the config.
+A townblock loses HP by enemy-nation residents standing within the townblock. When a townblock has lost all HP and fallen the town which the attacker belongs to gains one townblock and points to their War Score.
+A Town can be knocked out of a war when their Home Block falls or if their Mayor is killed.
+A Nation can be knocked out of a war if its capital city is knocked out of the war, or if the King is killed.
+
+Points in war given for the following:
+  * A enemy killed: 1
+  * A townblock stolen: 1
+  * A town knocked out of the war: 10
+  * A nation knocked out of the war: 100
+
+Towny war ends when there is only one nation who's Home Block has not been conquered or when the admin toggles war off.
+
+*This description may not be accurate! Towny War should really not be used until it's been fixed.*
+
+Known Towny War Issues: 
+  * War spoils is not calculated correctly, will flood your economy with money.
+  * During Towny war, nations which do not paid for neutrality each day, have all of their towns' townblocks subject to griefing.
+    * Although the townblocks are restored at the end of war, the damage from any griefing is permanent.
+
+Additions to Towny War so far:
+  * Neutrality fixed.
+  * Entries in [DefaultConfig config.yml] added:
+    * {{{wartime_nation_can_be_neutral: true}}} setting to false prevents nations from being neutral during wartime, will turn off a nation's neutrality mid-war if changed.
+  * During war, firespread and explosions protections are turned off, enabling TNT Cannons to be used. PVP can be enabled in all towns by using {{{force_pvp_on: true}}} in the [DefaultConfig config.yml].
+ 
