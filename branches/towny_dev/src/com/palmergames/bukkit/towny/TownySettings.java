@@ -1093,25 +1093,25 @@ public class TownySettings {
 	
 	public static boolean isValidName(String name) {
 		
-		if (name.toLowerCase() != "spawn"
-				|| name.toLowerCase() != "list"
-				|| name.toLowerCase() != "new"
-				|| name.toLowerCase() != "here"
-				|| name.toLowerCase() != "new"
-				|| name.toLowerCase() != "help"
-				|| name.toLowerCase() != "?"
-				|| name.toLowerCase() != "leave"
-				|| name.toLowerCase() != "withdraw"
-				|| name.toLowerCase() != "deposit"
-				|| name.toLowerCase() != "set"
-				|| name.toLowerCase() != "toggle"
-				|| name.toLowerCase() != "mayor"
-				|| name.toLowerCase() != "assistant"
-				|| name.toLowerCase() != "kick"
-				|| name.toLowerCase() != "add"
-				|| name.toLowerCase() != "claim"
-				|| name.toLowerCase() != "unclaim"
-				|| name.toLowerCase() != "title")
+		if (name.toLowerCase() == "spawn"
+				|| name.toLowerCase() == "list"
+				|| name.toLowerCase() == "new"
+				|| name.toLowerCase() == "here"
+				|| name.toLowerCase() == "new"
+				|| name.toLowerCase() == "help"
+				|| name.toLowerCase() == "?"
+				|| name.toLowerCase() == "leave"
+				|| name.toLowerCase() == "withdraw"
+				|| name.toLowerCase() == "deposit"
+				|| name.toLowerCase() == "set"
+				|| name.toLowerCase() == "toggle"
+				|| name.toLowerCase() == "mayor"
+				|| name.toLowerCase() == "assistant"
+				|| name.toLowerCase() == "kick"
+				|| name.toLowerCase() == "add"
+				|| name.toLowerCase() == "claim"
+				|| name.toLowerCase() == "unclaim"
+				|| name.toLowerCase() == "title")
 			return false;
 		
 		try {
