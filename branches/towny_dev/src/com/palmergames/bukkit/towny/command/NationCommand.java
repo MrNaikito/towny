@@ -921,11 +921,11 @@ public class NationCommand implements CommandExecutor  {
 				else
 					try {
 						resident = plugin.getTownyUniverse().getResident(split[1]);
-						resident.setTitle(StringMgmt.join(StringMgmt.remArgs(split, 2)) + " ");
+						resident.setSurname(" " + StringMgmt.join(StringMgmt.remArgs(split, 2)));
 						plugin.getTownyUniverse().getDataSource().saveResident(resident);
 						
-						if (resident.hasTitle())
-						plugin.getTownyUniverse().sendNationMessage(nation, String.format(TownySettings.getLangString("msg_set_surname"), resident.getName(), resident.getTitle()));
+						if (resident.hasSurname())
+						plugin.getTownyUniverse().sendNationMessage(nation, String.format(TownySettings.getLangString("msg_set_surname"), resident.getName(), resident.getSurname()));
 
 					} catch (NotRegisteredException e) {
 						plugin.sendErrorMsg(player, e.getError());
