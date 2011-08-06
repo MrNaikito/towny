@@ -19,6 +19,7 @@ public class Resident extends TownBlockOwner {
 	public Resident(String name) {
 		setName(name);
 		setTitle("");
+		setSurname("");
 		permissions.loadDefault(this);
 	}
 
@@ -98,6 +99,7 @@ public class Resident extends TownBlockOwner {
 		if (town == null) {
 			this.town = null;
 			setTitle("");
+			setSurname("");
 			return;
 		}
 		if (this.town == town)
@@ -106,6 +108,7 @@ public class Resident extends TownBlockOwner {
 			throw new AlreadyRegisteredException();
 		this.town = town;
 		setTitle("");
+		setSurname("");
 	}
 
 	public void setFriends(List<Resident> newFriends) {
@@ -150,6 +153,7 @@ public class Resident extends TownBlockOwner {
 			try {
 				town.removeResident(this);
 				setTitle("");
+				setSurname("");
 			} catch (NotRegisteredException e) {
 			}
 	}

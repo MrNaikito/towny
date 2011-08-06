@@ -1042,6 +1042,24 @@ public class TownyUniverse extends TownyObject {
 			e.printStackTrace();
 		}
 		getDataSource().deleteResident(resident);
+		
+		//search and remove from all friends lists
+		List<Resident> toSave = new ArrayList<Resident>(getResidents());
+		for (Resident toCheck : toSave)
+			if (toCheck.hasFriend(resident)) {
+				try {
+					toCheck.removeFriend(resident);
+				} catch (NotRegisteredException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			else
+				toSave.remove(toCheck);
+		
+		for (Resident toCheck : toSave)
+			getDataSource().saveResident(toCheck);
+		
 		residents.remove(name.toLowerCase());
 		plugin.deleteCache(name);
 		getDataSource().saveResidentList();
