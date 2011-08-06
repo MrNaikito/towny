@@ -239,7 +239,6 @@ The time of a 'Towny Day' can be set in [DefaultConfig config.yml] at {{{day_int
           * If a resident can't pay his town tax when using flatrate taxation then he is kicked from the town.
         * Percentage: 
           * This charges a player a percentage of their money. If a player has no money left, he pays no taxes and is not kicked from the town.
-
     * /town set plottax {$}
       * This charges each resident of a town for each plot they own. Setting it to 10 would charge Miner Steve 40 dollars if he owned 4 plots.
       * If a resident can't pay his plot tax he loses his plot.
@@ -291,7 +290,25 @@ There are two added chatmodes in Towny, townchat and nationchat.
     * Use to speak on nationchat by default.
   * /res set mode reset
     * Reset chat mode to default chat.
-    
+
+----
+
+= Multiworld =
+
+Towny has mutliworld support. Each world has a datafile located at /plugins/towny/data/worlds/worldname.txt and each world is listed in /towny/data/worlds.txt.
+
+== World Toggles ==
+Towny can be turned off in a world in-game. While standing in a world type /townyworld toggle usingtowny.
+
+Other toggles:
+  * claimable - Whether townblocks can be claimed by mayors in this world.
+  * pvp - Whether PVP is on in the world.
+  * forcepvp - Used to force pvp on in towns.
+  * explosion - Used to force explosions on in towns.
+  * fire - Used to force firespread on in towns.
+  * townmobs - Used to turn off mobremoval in all towns. Restricted mobs are listed in the config.yml.
+  * worldmobs - Toggles mobremoval in the wilderness. Restricted mobs are listed in the config.yml.
+      
 ----
 
 = Towny War =
