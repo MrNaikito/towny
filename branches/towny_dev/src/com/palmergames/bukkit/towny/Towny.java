@@ -521,7 +521,7 @@ public class Towny extends JavaPlugin {
 				formattedName = formattedName.replace("{townynameprefix}", resident.hasTitle() ? resident.getTitle() : getTownyUniverse().getFormatter().getNamePrefix(resident));
 				formattedName = formattedName.replace("{playername}", player.getName());
 				formattedName = formattedName.replace("{modplayername}", player.getDisplayName());
-				formattedName = formattedName.replace("{townynamepostfix}", getTownyUniverse().getFormatter().getNamePostfix(resident));
+				formattedName = formattedName.replace("{townynamepostfix}", resident.hasSurname() ? resident.getSurname() : getTownyUniverse().getFormatter().getNamePostfix(resident));
 				formattedName = formattedName.replace("{permsuffix}", getPermissionNode(resident, "suffix"));
 				
 				formattedName = ChatTools.parseSingleLineString(colour + formattedName + Colors.White);

@@ -249,6 +249,10 @@ public class TownyFlatFileSource extends TownyDataSource {
 				if (line != null)
 					resident.setTitle(line);
 				
+				line = kvFile.get("surname");
+				if (line != null)
+					resident.setSurname(line);
+				
 				line = kvFile.get("town");
 				if (line != null)
 					resident.setTown(universe.getTown(line));
@@ -850,8 +854,10 @@ public class TownyFlatFileSource extends TownyDataSource {
 			fout.write("registered=" + Long.toString(resident.getRegistered()) + newLine);
 			// isNPC
 			fout.write("isNPC=" + Boolean.toString(resident.isNPC()) + newLine);
-			// totle
+			// title
 			fout.write("title=" + resident.getTitle() + newLine);
+			// surname
+			fout.write("surname=" + resident.getSurname() + newLine);
 			if (resident.hasTown())
 				fout.write("town=" + resident.getTown().getName() + newLine);
 			// Friends

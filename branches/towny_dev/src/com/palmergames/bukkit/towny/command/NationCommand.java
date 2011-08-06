@@ -795,7 +795,7 @@ public class NationCommand implements CommandExecutor  {
 			player.sendMessage(ChatTools.formatCommand("", "/nation set", "taxes [$]", ""));
 			player.sendMessage(ChatTools.formatCommand("", "/nation set", "name [name]", ""));
 			player.sendMessage(ChatTools.formatCommand("", "/nation set", "neutral [on/off]", ""));
-			player.sendMessage(ChatTools.formatCommand("", "/nation set", "title [resident] [title]", ""));
+			player.sendMessage(ChatTools.formatCommand("", "/nation set", "title/surname [resident] [text]", ""));
 		} else {
 			Resident resident;
 			Nation nation;
@@ -909,6 +909,23 @@ public class NationCommand implements CommandExecutor  {
 						
 						if (resident.hasTitle())
 						plugin.getTownyUniverse().sendNationMessage(nation, String.format(TownySettings.getLangString("msg_set_title"), resident.getName(), resident.getTitle()));
+
+					} catch (NotRegisteredException e) {
+						plugin.sendErrorMsg(player, e.getError());
+					}
+
+			} else if (split[0].equalsIgnoreCase("surname")) {
+				// Give the resident a title
+				if (split.length < 2)
+					plugin.sendErrorMsg(player, "Eg: /nation set surname bilbo the dwarf ");
+				else
+					try {
+						resident = plugin.getTownyUniverse().getResident(split[1]);
+						resident.setTitle(StringMgmt.join(StringMgmt.remArgs(split, 2)) + " ");
+						plugin.getTownyUniverse().getDataSource().saveResident(resident);
+						
+						if (resident.hasTitle())
+						plugin.getTownyUniverse().sendNationMessage(nation, String.format(TownySettings.getLangString("msg_set_surname"), resident.getName(), resident.getTitle()));
 
 					} catch (NotRegisteredException e) {
 						plugin.sendErrorMsg(player, e.getError());

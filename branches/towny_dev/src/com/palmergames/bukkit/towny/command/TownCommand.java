@@ -108,10 +108,7 @@ public class TownCommand implements CommandExecutor  {
 			if (split.length == 1)
 				plugin.sendErrorMsg(player, TownySettings.getLangString("msg_specify_name"));
 			else if (split.length == 2)
-				if (split[1].toLowerCase() != "spawn")
-					newTown(player, split[1], player.getName());
-				else
-					plugin.sendErrorMsg(player, TownySettings.getLangString("msg_invalid_name"));
+				newTown(player, split[1], player.getName());
 			else
 				// TODO: Check if player is an admin
 				newTown(player, split[1], split[2]);

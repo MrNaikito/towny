@@ -404,3 +404,4 @@ v0.73.3:
     - Towny now logs all player issued commands to the server.log
     - Added better control over name/chat modifying - modify_chat: '{permprefix}{townynameprefix}{playername}{townynamepostfix}{permsuffix}'
     - Added custom titles. Kings can assign titles to their vassals with '/nation set title [resident] title'. The title will be used in place of the townynameprefix.
+    - Added custom surnames. Kings can assign surnames to their vassals with '/nation set surname [resident] text'. The title will be used in place of the townynamepostfix.

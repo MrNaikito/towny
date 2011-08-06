@@ -14,7 +14,7 @@ public class Resident extends TownBlockOwner {
 	private Town town;
 	private long lastOnline, registered;
 	private boolean isNPC = false;
-	private String title;
+	private String title, surname;
 
 	public Resident(String name) {
 		setName(name);
@@ -50,6 +50,20 @@ public class Resident extends TownBlockOwner {
 	
 	public boolean hasTitle() {
 		return !title.isEmpty();
+	}
+	
+	public void setSurname(String surname) {
+		if (surname.matches(" "))
+			surname = "";
+		this.surname = surname;
+	}
+
+	public String getSurname() {
+		return surname;
+	}
+	
+	public boolean hasSurname() {
+		return !surname.isEmpty();
 	}
 
 	public boolean isKing() {
