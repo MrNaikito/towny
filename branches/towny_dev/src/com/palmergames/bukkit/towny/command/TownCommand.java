@@ -565,7 +565,7 @@ public class TownCommand implements CommandExecutor  {
 					return;
 				} else
 					//plugin.sendErrorMsg(player, TownySettings.getLangString("msg_town_rename_disabled"));
-					if (split[1].toLowerCase() != "spawn")
+					if (TownySettings.isValidRegionName(split[1]))
 						townRename(player, town, split[1]);
 					else
 						plugin.sendErrorMsg(player, TownySettings.getLangString("msg_invalid_name"));
@@ -631,7 +631,7 @@ public class TownCommand implements CommandExecutor  {
 			if (TownySettings.hasTownLimit() && universe.getTowns().size() >= TownySettings.getTownLimit())
 				throw new TownyException(TownySettings.getLangString("msg_err_universe_limit"));
 			
-			if (!TownySettings.isValidName(name))
+			if (!TownySettings.isValidRegionName(name))
 				throw new TownyException(String.format(TownySettings.getLangString("msg_err_invalid_name"), name));
 			
 			Resident resident = universe.getResident(mayorName);

@@ -1091,7 +1091,7 @@ public class TownySettings {
 		return input.replaceAll(getString("NAME_FILTER_REGEX"), "_").replaceAll(getString("NAME_REMOVE_REGEX"), "");
 	}
 	
-	public static boolean isValidName(String name) {
+	public static boolean isValidRegionName(String name) {
 		
 		if ((name.toLowerCase() == "spawn")
 				|| (name.equalsIgnoreCase("list"))
@@ -1113,6 +1113,11 @@ public class TownySettings {
 				|| (name.equalsIgnoreCase("unclaim"))
 				|| (name.equalsIgnoreCase("title")))
 			return false;
+		
+		return isValidName(name);
+	}
+		
+	public static boolean isValidName(String name) {
 		
 		try {
 			if (TownySettings.namePattern == null)

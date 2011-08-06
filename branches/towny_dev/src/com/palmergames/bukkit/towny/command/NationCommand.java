@@ -251,7 +251,7 @@ public class NationCommand implements CommandExecutor  {
 			if (town.hasNation())
 				throw new TownyException(TownySettings.getLangString("msg_err_already_nation"));
 			
-			if (!TownySettings.isValidName(name))
+			if (!TownySettings.isValidRegionName(name))
 				throw new TownyException(String.format(TownySettings.getLangString("msg_err_invalid_name"), name));
 			
 			if (TownySettings.isUsingIConomy() && !town.pay(TownySettings.getNewNationPrice()))
@@ -858,7 +858,10 @@ public class NationCommand implements CommandExecutor  {
 				if (split.length < 2)
 					plugin.sendErrorMsg(player, "Eg: /nation set name Plutoria");
 				else
-					nationRename(player, nation, split[1]);
+					if (TownySettings.isValidRegionName(split[1]))
+						nationRename(player, nation, split[1]);
+					else
+						plugin.sendErrorMsg(player, TownySettings.getLangString("msg_invalid_name"));
 			} else if (split[0].equalsIgnoreCase("neutral")) {
 				if (split.length < 2)
 					plugin.sendErrorMsg(player, "Eg: /nation set neutral [on/off]");
