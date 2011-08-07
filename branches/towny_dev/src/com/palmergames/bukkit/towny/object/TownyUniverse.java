@@ -370,6 +370,29 @@ public class TownyUniverse extends TownyObject {
 			getDataSource().saveTown(town);
 		}
 		
+		//search and update all ally/enemy lists
+		List<Nation> toSaveNation = new ArrayList<Nation>(getNations());
+		for (Nation toCheck : toSaveNation)
+			if (toCheck.hasAlly(oldNation) || toCheck.hasEnemy(oldNation)) {
+				try {
+					if (toCheck.hasAlly(oldNation)) {
+						toCheck.removeAlly(oldNation);
+						toCheck.addAlly(nation);
+					} else {
+						toCheck.removeEnemy(oldNation);
+						toCheck.addEnemy(nation);
+					}
+				} catch (NotRegisteredException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			else
+				toSave.remove(toCheck);
+		
+		for (Nation toCheck : toSaveNation)
+			getDataSource().saveNation(toCheck);		
+		
 		getDataSource().saveNation(nation);
 		getDataSource().saveNationList();
 		
@@ -952,6 +975,28 @@ public class TownyUniverse extends TownyObject {
 		} catch (IConomyException e) {
 		}
 		nations.remove(nation.getName().toLowerCase());
+		
+		//search and remove from all friends lists
+		List<Nation> toSaveNation = new ArrayList<Nation>(getNations());
+		for (Nation toCheck : toSaveNation)
+			if (toCheck.hasAlly(nation) || toCheck.hasEnemy(nation)) {
+				try {
+					if (toCheck.hasAlly(nation))
+						toCheck.removeAlly(nation);
+					else
+						toCheck.removeEnemy(nation);
+				} catch (NotRegisteredException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			else
+				toSave.remove(toCheck);
+		
+		for (Nation toCheck : toSaveNation)
+			getDataSource().saveNation(toCheck);		
+						
+						
 		plugin.updateCache();
 		for (Town town : toSave)
 			getDataSource().saveTown(town);
