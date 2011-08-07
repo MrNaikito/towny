@@ -407,3 +407,4 @@ v0.73.3:
     - Added custom surnames. Kings can assign surnames to their vassals with '/nation set surname [resident] text'. The title will be used in place of the townynamepostfix.
     - Fixed an error caused by deleted residents not being cleaned up from other resident friend lists.
     - Nations enemy/Ally lists are now updated when another nation is deleted or renamed.
+    - Paintings are now protected along with all other blocks.

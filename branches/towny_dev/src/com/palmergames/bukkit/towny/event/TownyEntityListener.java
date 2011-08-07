@@ -9,6 +9,7 @@ import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Creature;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Painting;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -18,16 +19,22 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityInteractEvent;
 import org.bukkit.event.entity.EntityListener;
 import org.bukkit.event.entity.EntityExplodeEvent;
+import org.bukkit.event.painting.PaintingBreakEvent;
+import org.bukkit.event.painting.PaintingBreakByEntityEvent;
 
 import com.palmergames.bukkit.towny.MobRemovalTimerTask;
 import com.palmergames.bukkit.towny.NotRegisteredException;
+import com.palmergames.bukkit.towny.PlayerCache;
 import com.palmergames.bukkit.towny.Towny;
 import com.palmergames.bukkit.towny.TownyException;
 import com.palmergames.bukkit.towny.TownySettings;
+import com.palmergames.bukkit.towny.PlayerCache.TownBlockStatus;
 import com.palmergames.bukkit.towny.object.Coord;
 import com.palmergames.bukkit.towny.object.TownBlock;
+import com.palmergames.bukkit.towny.object.TownyPermission;
 import com.palmergames.bukkit.towny.object.TownyUniverse;
 import com.palmergames.bukkit.towny.object.TownyWorld;
+import com.palmergames.bukkit.towny.object.WorldCoord;
 
 public class TownyEntityListener extends EntityListener {
 	private final Towny plugin;
@@ -150,6 +157,68 @@ public class TownyEntityListener extends EntityListener {
 		
 	}
 	
+	@Override
+	public void onPaintingBreak(PaintingBreakEvent event) {
+		if (event.isCancelled()) {
+			event.setCancelled(true);
+			return;
+		}
+		
+		long start = System.currentTimeMillis();
+		
+		onPaintingBreak(event,true);
+		
+		plugin.sendDebugMsg("onPaintingBreak took " + (System.currentTimeMillis() - start) + "ms ("+event.getCause().name()+", "+event.isCancelled() +")");	
+		
+	}
+	
+	private void onPaintingBreak (PaintingBreakEvent event, boolean firstCall) {
+		
+		if (event instanceof PaintingBreakByEntityEvent) {
+			PaintingBreakByEntityEvent evt = (PaintingBreakByEntityEvent) event;
+			if (evt.getRemover() instanceof Player) {
+				Player player = (Player) evt.getRemover();
+				Painting painting = evt.getPainting();
+		
+				WorldCoord worldCoord;
+				try {
+					worldCoord = new WorldCoord(plugin.getTownyUniverse().getWorld(painting.getWorld().getName()), Coord.parseCoord(painting.getLocation()));
+				} catch (NotRegisteredException e1) {
+					plugin.sendErrorMsg(player, TownySettings.getLangString("msg_err_not_configured"));
+					event.setCancelled(true);
+					return;
+				}
+				
+				// Check cached permissions first
+				try {
+					PlayerCache cache = plugin.getCache(player);
+					cache.updateCoord(worldCoord);
+					TownBlockStatus status = cache.getStatus();
+					if (status == TownBlockStatus.UNCLAIMED_ZONE && plugin.hasWildOverride(worldCoord.getWorld(), player, painting.getEntityId(), TownyPermission.ActionType.DESTROY))
+						return;
+					if (!cache.getDestroyPermission())
+						event.setCancelled(true);
+					if (cache.hasBlockErrMsg())
+						plugin.sendErrorMsg(player, cache.getBlockErrMsg());
+					return;
+				} catch (NullPointerException e) {
+					if (firstCall) {
+						// New or old destroy permission was null, update it
+						TownBlockStatus status = plugin.cacheStatus(player, worldCoord, plugin.getStatusCache(player, worldCoord));
+						plugin.cacheDestroy(player, worldCoord, getDestroyPermission(player, status, worldCoord));
+						onPaintingBreak(event, false);
+					} else
+						plugin.sendErrorMsg(player, TownySettings.getLangString("msg_err_updating_destroy_perms"));
+
+				}
+				
+		
+			}
+		}
+			
+	}
+	
+
 	
 	public boolean preventDamageCall(TownyWorld world, Entity a, Entity b, Player ap, Player bp) {
 		// World using Towny
@@ -246,5 +315,9 @@ public class TownyEntityListener extends EntityListener {
 			}	
 
 		}
+	}
+	
+	public boolean getDestroyPermission(Player player, TownBlockStatus status, WorldCoord pos) {
+		return plugin.getPermission(player, status, pos, TownyPermission.ActionType.DESTROY);
 	}
 }
