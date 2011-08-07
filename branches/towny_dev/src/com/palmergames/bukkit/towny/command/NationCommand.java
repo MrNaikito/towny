@@ -907,6 +907,15 @@ public class NationCommand implements CommandExecutor  {
 				else
 					try {
 						resident = plugin.getTownyUniverse().getResident(split[1]);
+						if (resident.hasNation()) {
+							if (resident.getTown().getNation() != plugin.getTownyUniverse().getResident(player.getName()).getTown().getNation()) {
+								plugin.sendErrorMsg(player, String.format(TownySettings.getLangString("msg_err_not_same_nation"), resident.getName()));
+								return;
+							}
+						} else {
+							plugin.sendErrorMsg(player, String.format(TownySettings.getLangString("msg_err_not_same_nation"), resident.getName()));
+							return;
+						}
 						resident.setTitle(StringMgmt.join(StringMgmt.remArgs(split, 2)) + " ");
 						plugin.getTownyUniverse().getDataSource().saveResident(resident);
 						
@@ -924,6 +933,15 @@ public class NationCommand implements CommandExecutor  {
 				else
 					try {
 						resident = plugin.getTownyUniverse().getResident(split[1]);
+						if (resident.hasNation()) {
+							if (resident.getTown().getNation() != plugin.getTownyUniverse().getResident(player.getName()).getTown().getNation()) {
+								plugin.sendErrorMsg(player, String.format(TownySettings.getLangString("msg_err_not_same_nation"), resident.getName()));
+								return;
+							}
+						} else {
+							plugin.sendErrorMsg(player, String.format(TownySettings.getLangString("msg_err_not_same_nation"), resident.getName()));
+							return;
+						}
 						resident.setSurname(" " + StringMgmt.join(StringMgmt.remArgs(split, 2)));
 						plugin.getTownyUniverse().getDataSource().saveResident(resident);
 						
