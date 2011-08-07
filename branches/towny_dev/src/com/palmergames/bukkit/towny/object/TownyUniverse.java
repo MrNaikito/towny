@@ -370,6 +370,9 @@ public class TownyUniverse extends TownyObject {
 			getDataSource().saveTown(town);
 		}
 		
+		getDataSource().saveNation(nation);
+		getDataSource().saveNationList();
+		
 		//search and update all ally/enemy lists
 		List<Nation> toSaveNation = new ArrayList<Nation>(getNations());
 		for (Nation toCheck : toSaveNation)
@@ -393,8 +396,6 @@ public class TownyUniverse extends TownyObject {
 		for (Nation toCheck : toSaveNation)
 			getDataSource().saveNation(toCheck);		
 		
-		getDataSource().saveNation(nation);
-		getDataSource().saveNationList();
 		
 	}
 
@@ -976,7 +977,7 @@ public class TownyUniverse extends TownyObject {
 		}
 		nations.remove(nation.getName().toLowerCase());
 		
-		//search and remove from all friends lists
+		//search and remove from all ally/enemy lists
 		List<Nation> toSaveNation = new ArrayList<Nation>(getNations());
 		for (Nation toCheck : toSaveNation)
 			if (toCheck.hasAlly(nation) || toCheck.hasEnemy(nation)) {
