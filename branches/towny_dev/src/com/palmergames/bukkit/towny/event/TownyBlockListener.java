@@ -185,8 +185,7 @@ public class TownyBlockListener extends BlockListener {
 						try {
 							if ((!CurrentTownBlock.hasResident() && destinationTownBlock.hasResident())
 									|| (CurrentTownBlock.hasResident() && !destinationTownBlock.hasResident())
-									|| ((!CurrentTownBlock.hasResident() && destinationTownBlock.hasResident())
-											&& (CurrentTownBlock.getResident() != destinationTownBlock.getResident()))
+									|| (CurrentTownBlock.getResident() != destinationTownBlock.getResident())
 									|| (CurrentTownBlock.isForSale() != -1)
 									|| (destinationTownBlock.isForSale() != -1)) {
 								event.setCancelled(true);
