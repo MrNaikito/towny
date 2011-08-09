@@ -2,14 +2,7 @@ package com.palmergames.bukkit.towny;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.SortedMap;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
@@ -25,6 +18,7 @@ import com.palmergames.bukkit.towny.object.WorldCoord;
 import com.palmergames.util.FileMgmt;
 
 import org.bukkit.util.config.Configuration;
+import org.bukkit.util.config.ConfigurationNode;
 
 
 public class TownySettings {
@@ -102,18 +96,22 @@ public class TownySettings {
 	 * 
 	 * townBlockLimit is a required field even if using a calculated ratio.
 	 * 
-	 * @param filepath
 	 * @throws IOException 
 	 */
 	
 	public static void loadTownLevelConfig() throws IOException {
+        ArrayList<ConfigurationNode> levels = new ArrayList<ConfigurationNode>(config.getNodeList("townLevel", null));
+        for (ConfigurationNode level : levels) {
+            newTownLevel(level.getInt("numResidents", 0), level.getString("namePrefix", ""),
+                    level.getString("namePostfix", ""), level.getString("mayorPrefix", ""),
+                    level.getString("mayorPostfix", ""), level.getInt("townBlockLimit", 1),
+                    level.getDouble("upkeepModifier", 1.0));
+        }
 
-		String[] tokens;		
-		List<String> lines = (List<String>)config.getProperty("townLevel");
-		
+		/*
 		//get an Iterator object for list using iterator() method.
 		Iterator<String> itr = lines.iterator();
-		
+
 		//use hasNext() and next() methods of Iterator to iterate through the elements
 		while(itr.hasNext()) {
                 tokens = itr.next().split(",", 7);
@@ -133,9 +131,9 @@ public class TownySettings {
                 else
                 	System.out.println("[Towny] loadTownLevelConfig bad length");
             //}
-			
+
 		}
-		
+
 		/*
 		//BufferedReader fin = new BufferedReader(new FileReader(filepath));
 		 
@@ -165,15 +163,19 @@ public class TownySettings {
 	 * 
 	 * numResidents:namePrefix:namePostfix:capitalPrefix:capitalPostfix:kingPrefix:kingPostfix
 	 * 
-	 * @param filepath
 	 * @throws IOException 
 	 */
 	
 	public static void loadNationLevelConfig() throws IOException {
-		
-		String[] tokens;		
-		List<String> lines = (List<String>)config.getProperty("nationLevel");
-		
+		ArrayList<ConfigurationNode> levels = new ArrayList<ConfigurationNode>(config.getNodeList("nationLevel", null));
+        for (ConfigurationNode level : levels) {
+            newNationLevel(level.getInt("numResidents", 0), level.getString("namePrefix", ""),
+                    level.getString("namePostfix", ""), level.getString("capitalPrefix", ""),
+                    level.getString("capitalPostfix", ""), level.getString("kingPrefix", ""),
+                    level.getString("kingPostfix", ""), level.getDouble("upkeepModifier", 1.0));
+        }
+
+		/*
 		//get an Iterator object for list using iterator() method.
 		Iterator<String> itr = lines.iterator();
 		

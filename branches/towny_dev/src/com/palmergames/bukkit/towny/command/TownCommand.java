@@ -1030,7 +1030,7 @@ public class TownCommand implements CommandExecutor  {
 	 * [resident] .. [resident]
 	 * 
 	 * @param player
-	 * @param town to add to if not null
+	 * @param specifiedTown to add to if not null
 	 * @param names
 	 */
 

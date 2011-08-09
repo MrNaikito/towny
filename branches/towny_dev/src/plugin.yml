@@ -142,15 +142,69 @@ town_creation_admin_only: false
 # numResidents,namePrefix,namePostfix,mayorPrefix,mayorPostfix,townBlockLimit,upkeepModifier
 
 townLevel:
-    - '0,, Ruin,Spirit ,,1,1.0'
-    - '1,, (Settlement),Hermit ,,16,1.0'
-    - '2,, (Hamlet),Chief ,,32,1.0'
-    - '6,, (Village),Baron Von ,,96,1.0'
-    - '10,, (Town),Viscount ,,160,1.0'
-    - '14,, (Large Town),Count Von ,,224,1.0'
-    - '20,, (City),Earl ,,320,1.0'
-    - '24,, (Large City),Duke ,,384,1.0'
-    - '28,, (Metropolis),Lord ,,448,1.0'
+    - numResidents: 0
+      namePrefix: ''
+      namePostfix: ' Ruins'
+      mayorPrefix: 'Spirit '
+      mayorPostfix: ''
+      townBlockLimit: 1
+      upkeepModifier: 1.0
+    - numResidents: 1
+      namePrefix: ''
+      namePostfix: ' (Settlement)'
+      mayorPrefix: 'Hermit '
+      mayorPostfix: ''
+      townBlockLimit: 16
+      upkeepModifier: 1.0
+    - numResidents: 2
+      namePrefix: ''
+      namePostfix: ' (Hamlet)'
+      mayorPrefix: 'Chief '
+      mayorPostfix: ''
+      townBlockLimit: 32
+      upkeepModifier: 1.0
+    - numResidents: 6
+      namePrefix: ''
+      namePostfix: ' (Village)'
+      mayorPrefix: 'Baron Von '
+      mayorPostfix: ''
+      townBlockLimit: 96
+      upkeepModifier: 1.0
+    - numResidents: 10
+      namePrefix: ''
+      namePostfix: ' (Town)'
+      mayorPrefix: 'Viscount '
+      mayorPostfix: ''
+      townBlockLimit: 160
+      upkeepModifier: 1.0
+    - numResidents: 14
+      namePrefix: ''
+      namePostfix: ' (Large Town)'
+      mayorPrefix: 'Count Von '
+      mayorPostfix: ''
+      townBlockLimit: 224
+      upkeepModifier: 1.0
+    - numResidents: 20
+      namePrefix: ''
+      namePostfix: ' (City)'
+      mayorPrefix: 'Earl '
+      mayorPostfix: ''
+      townBlockLimit: 320
+      upkeepModifier: 1.0
+    - numResidents: 24
+      namePrefix: ''
+      namePostfix: ' (Large City)'
+      mayorPrefix: 'Duke '
+      mayorPostfix: ''
+      townBlockLimit: 384
+      upkeepModifier: 1.0
+    - numResidents: 28
+      namePrefix: ''
+      namePostfix: ' (Metropolis)'
+      mayorPrefix: 'Lord '
+      mayorPostfix: ''
+      townBlockLimit: 448
+      upkeepModifier: 1.0
 
 ############################################################
 # +------------------------------------------------------+ #
@@ -161,12 +215,55 @@ townLevel:
 # numResidents,namePrefix,namePostfix,capitalPrefix,capitalPostfix,kingPrefix,kingPostfix,upkeepModifier
 
 nationLevel:
-    - '0,Lands of , (Nation),,,Leader ,,1.0'
-    - '10,Federation of , (Nation),,,Count ,,1.0'
-    - '20,Dominion of , (Nation),,,Duke ,,1.0'
-    - '30,Kingdom of , (Nation),,,King ,,1.0'
-    - '40,The , Empire,,,Emperor ,,1.0'
-    - '60,The , Realm,,,God Emperor ,,1.0'
+    - numResidents: 0
+      namePrefix: 'Land of '
+      namePostfix: ' (Nation)'
+      capitalPrefix: ''
+      capitalPostfix: ''
+      kingPrefix: 'Leader '
+      kingPostfix: ''
+      upkeepModifier: 1.0
+    - numResidents: 10
+      namePrefix: 'Federation of '
+      namePostfix: ' (Nation)'
+      capitalPrefix: ''
+      capitalPostfix: ''
+      kingPrefix: 'Count '
+      kingPostfix: ''
+      upkeepModifier: 1.0
+    - numResidents: 20
+      namePrefix: 'Dominion of '
+      namePostfix: ' (Nation)'
+      capitalPrefix: ''
+      capitalPostfix: ''
+      kingPrefix: 'Duke '
+      kingPostfix: ''
+      upkeepModifier: 1.0
+    - numResidents: 30
+      namePrefix: 'Kingdom of '
+      namePostfix: ' (Nation)'
+      capitalPrefix: ''
+      capitalPostfix: ''
+      kingPrefix: 'King '
+      kingPostfix: ''
+      upkeepModifier: 1.0
+    - numResidents: 40
+      namePrefix: 'The '
+      namePostfix: ' Empire'
+      capitalPrefix: ''
+      capitalPostfix: ''
+      kingPrefix: 'Emperor '
+      kingPostfix: ''
+      upkeepModifier: 1.0
+    - numResidents: 60
+      namePrefix: 'The '
+      namePostfix: ' Realm'
+      capitalPrefix: ''
+      capitalPostfix: ''
+      kingPrefix: 'God Emperor '
+      kingPostfix: ''
+      upkeepModifier: 1.0
+
 
 
 ############################################################
@@ -313,13 +410,15 @@ npc_prefix: 'NPC'
 
 # The format below will specify the changes made to the player name when chatting.
 # keys are
+# {nation} - Displays nation name in [ ] if a member of a nation.
+# {town} - Displays town name in [ ] if a member of a town.
 # {permprefix} - Permission group prefix
 # {townynameprefix} - Towny name prefix taken from the townLevel/nationLevels
 # {playername} - default player name
 # {modplayername} - modified player name (use if Towny is over writing some other plugins changes).
 # {townynamepostfix} - Towny name postfix taken from the townLevel/nationLevels.
 # {permsuffix} - Permission group suffix.
-modify_chat: '{permprefix}{townynameprefix}{playername}{townynamepostfix}{permsuffix}'
+modify_chat: '{nation}{town}{permprefix}{townynameprefix}{playername}{townynamepostfix}{permsuffix}'
 
 
 # Text colouring

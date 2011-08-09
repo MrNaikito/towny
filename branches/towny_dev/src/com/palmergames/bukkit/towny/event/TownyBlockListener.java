@@ -1,7 +1,10 @@
 package com.palmergames.bukkit.towny.event;
 
+import java.util.List;
+
 import org.bukkit.Location;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockDamageEvent;
@@ -9,6 +12,7 @@ import org.bukkit.event.block.BlockIgniteEvent;
 import org.bukkit.event.block.BlockBurnEvent;
 import org.bukkit.event.block.BlockListener;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.block.BlockPistonExtendEvent;
 
 import com.palmergames.bukkit.towny.NotRegisteredException;
 import com.palmergames.bukkit.towny.PlayerCache;
@@ -102,6 +106,53 @@ public class TownyBlockListener extends BlockListener {
 
 		plugin.sendDebugMsg("onBlockPlacedEvent took " + (System.currentTimeMillis() - start) + "ms ("+event.getPlayer().getName()+", "+event.isCancelled() +")");
 	}
+	
+	// prevent blocks igniting if within a protected town area when fire spread is set to off.
+	@Override
+	public void onBlockBurn(BlockBurnEvent event) {
+		
+		if (event.isCancelled()) {
+			event.setCancelled(true);
+			return;
+		}
+		
+		if (onBurn(event.getBlock()))
+			event.setCancelled(true);
+	}
+			
+	@Override
+	public void onBlockIgnite(BlockIgniteEvent event) {
+		
+		if (event.isCancelled()) {
+			event.setCancelled(true);
+			return;
+		}
+		
+		if (onBurn(event.getBlock()))
+			event.setCancelled(true);
+		
+	}
+	
+	@Override
+	public void onBlockPistonExtend(BlockPistonExtendEvent event) {
+		
+		if (event.isCancelled()) {
+			event.setCancelled(true);
+			return;
+		}
+		
+		List<Block> blocks = event.getBlocks();
+		BlockFace direction = event.getDirection();
+		
+		if (!blocks.isEmpty()) {
+			//check each block to see if's going to pass a plot boundary
+			
+			
+		}
+		
+		
+	}
+		
 
 	public void onBlockPlaceEvent(BlockPlaceEvent event, boolean firstCall, String errMsg) {
 		Player player = event.getPlayer();
@@ -138,32 +189,6 @@ public class TownyBlockListener extends BlockListener {
 			} else
 				plugin.sendErrorMsg(player, TownySettings.getLangString("msg_err_updating_build_perms"));
 		}
-	}
-	
-	// prevent blocks igniting if within a protected town area when fire spread is set to off.
-	@Override
-	public void onBlockBurn(BlockBurnEvent event) {
-		
-		if (event.isCancelled()) {
-			event.setCancelled(true);
-			return;
-		}
-		
-		if (onBurn(event.getBlock()))
-			event.setCancelled(true);
-	}
-			
-	@Override
-	public void onBlockIgnite(BlockIgniteEvent event) {
-		
-		if (event.isCancelled()) {
-			event.setCancelled(true);
-			return;
-		}
-		
-		if (onBurn(event.getBlock()))
-			event.setCancelled(true);
-		
 	}
 	
 	private boolean onBurn(Block block) {

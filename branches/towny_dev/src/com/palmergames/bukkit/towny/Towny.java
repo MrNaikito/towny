@@ -164,7 +164,12 @@ public class Towny extends JavaPlugin {
 					try {
 						home = town.getHomeBlock();
 						town.setWorld(home.getWorld());
-						getTownyUniverse().getDataSource().saveWorld(home.getWorld());
+						getTownyUniverse().getDataSource().saveTown(town);
+						if (!town.getWorld().hasTown(town)) {
+							town.getWorld().addTown(town);
+							getTownyUniverse().getDataSource().saveWorld(home.getWorld());
+						}
+						
 					} catch (TownyException e) {
 						// Error fetching homeblock
 						//e.printStackTrace();
@@ -518,6 +523,8 @@ public class Towny extends JavaPlugin {
 					colour = "";
 				formattedName = TownySettings.getString("MODIFY_CHAT");
 				
+				formattedName = formattedName.replace("{nation}", resident.hasNation() ? "[" + resident.getTown().getNation().getName() + "]" : "");
+				formattedName = formattedName.replace("{town}", resident.hasTown() ? "[" + resident.getTown().getName() + "]" : "");
 				formattedName = formattedName.replace("{permprefix}", getPermissionNode(resident, "prefix"));
 				formattedName = formattedName.replace("{townynameprefix}", resident.hasTitle() ? resident.getTitle() : getTownyUniverse().getFormatter().getNamePrefix(resident));
 				formattedName = formattedName.replace("{playername}", player.getName());
@@ -525,7 +532,7 @@ public class Towny extends JavaPlugin {
 				formattedName = formattedName.replace("{townynamepostfix}", resident.hasSurname() ? resident.getSurname() : getTownyUniverse().getFormatter().getNamePostfix(resident));
 				formattedName = formattedName.replace("{permsuffix}", getPermissionNode(resident, "suffix"));
 				
-				formattedName = ChatTools.parseSingleLineString(colour + formattedName + Colors.White);
+				formattedName = ChatTools.parseSingleLineString(colour + formattedName + Colors.White).trim();
 				
 				//formattedName = ChatTools.parseSingleLineString(colour + (TownySettings.isUsingPermsPrefix() ? getPermissionNode(resident, "prefix") : "") + (TownySettings.isUsingChatPrefix() ? getTownyUniverse().getFormatter().getNamePrefix(resident) : "")
 				//	+ player.getName() + (TownySettings.isUsingChatPrefix() ? getTownyUniverse().getFormatter().getNamePostfix(resident) : "") + (TownySettings.isUsingPermsPrefix() ? getPermissionNode(resident, "suffix") : "")

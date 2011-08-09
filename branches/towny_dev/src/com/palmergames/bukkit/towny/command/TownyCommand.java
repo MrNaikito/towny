@@ -438,7 +438,7 @@ public class TownyCommand implements CommandExecutor {
 	/**
 	 * Send the list of costs for iConomy to player Command: /towny prices
 	 * 
-	 * @param player
+	 * @param town
 	 */
 
 	/*
