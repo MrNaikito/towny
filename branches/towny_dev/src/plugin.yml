@@ -357,7 +357,6 @@ town_respawn: false
 # Allowed options: unclaimed, enemy, neutral
 prevent_town_spawn_in: enemy
 
-
 # Enables the [~Home] message.
 # If false it will make it harder for enemies to find the home block during a war
 show_town_notifications: true
