@@ -139,8 +139,6 @@ town_creation_admin_only: false
 # +------------------------------------------------------+ #
 ############################################################
 
-# numResidents,namePrefix,namePostfix,mayorPrefix,mayorPostfix,townBlockLimit,upkeepModifier
-
 townLevel:
     - numResidents: 0
       namePrefix: ''
@@ -211,8 +209,6 @@ townLevel:
 # |                default Nation levels                 | #
 # +------------------------------------------------------+ #
 ############################################################
-
-# numResidents,namePrefix,namePostfix,capitalPrefix,capitalPostfix,kingPrefix,kingPostfix,upkeepModifier
 
 nationLevel:
     - numResidents: 0
