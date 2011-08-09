@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.bukkit.Location;
 import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockDamageEvent;
@@ -140,14 +139,67 @@ public class TownyBlockListener extends BlockListener {
 			event.setCancelled(true);
 			return;
 		}
-		
+
 		List<Block> blocks = event.getBlocks();
-		BlockFace direction = event.getDirection();
+		
+		TownBlock CurrentTownBlock = null, destinationTownBlock = null;
+		Location loc, locTo;
+		Coord coord, coordTo;
 		
 		if (!blocks.isEmpty()) {
 			//check each block to see if's going to pass a plot boundary
+			for (Block block : blocks) {
+				
+				Block blockTo = block.getRelative(event.getDirection());
+				loc = block.getLocation();
+				locTo = blockTo.getLocation();
+				coord = Coord.parseCoord(loc);
+				coordTo = Coord.parseCoord(locTo);
+				
+
+					TownyWorld townyWorld = null;
+					try {
+						townyWorld = plugin.getTownyUniverse().getWorld(loc.getWorld().getName());
+						CurrentTownBlock = townyWorld.getTownBlock(coord);
+					} catch (NotRegisteredException e) {
+						//System.out.print("Failed to fetch TownBlock");
+					}
+					
+					try {
+						destinationTownBlock = townyWorld.getTownBlock(coordTo);
+					} catch (NotRegisteredException e1) {
+						//System.out.print("Failed to fetch TownBlockTo");
+					}
+					
+					if (CurrentTownBlock != destinationTownBlock) {
+
+						//System.out.print("Testing TownBlocks");
+						
+						// Cancel if either is not null, but other is (wild to town).
+						if ((CurrentTownBlock == null && destinationTownBlock != null)
+						|| (CurrentTownBlock != null && destinationTownBlock == null)) {
+							event.setCancelled(true);
+							return;
+						}
+						
+						try {
+							if ((!CurrentTownBlock.hasResident() && destinationTownBlock.hasResident())
+									|| (CurrentTownBlock.hasResident() && !destinationTownBlock.hasResident())
+									|| ((!CurrentTownBlock.hasResident() && destinationTownBlock.hasResident())
+											&& (CurrentTownBlock.getResident() != destinationTownBlock.getResident()))
+									|| (CurrentTownBlock.isForSale() != -1)
+									|| (destinationTownBlock.isForSale() != -1)) {
+								event.setCancelled(true);
+								return;
+							}
+						} catch (NotRegisteredException e) {
+							// This shoudl be unreachable
+							e.printStackTrace();
+						}
+					}
+
 			
-			
+			}
 		}
 		
 		

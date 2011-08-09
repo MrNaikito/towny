@@ -409,3 +409,4 @@ v0.73.3:
     - Nations enemy/Ally lists are now updated when another nation is deleted or renamed.
     - Paintings are now protected along with all other blocks.
     - townLevels and nationLevels are now full YAML nodes for easy editing (commit by dumptruckman).
+    - Pistons can now only operate between similarly owned townblocks or wild areas (No piston griefing).
