@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.palmergames.bukkit.towny.object.*;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -24,18 +25,8 @@ import com.palmergames.bukkit.towny.EmptyTownException;
 import com.palmergames.bukkit.towny.Towny;
 import com.palmergames.bukkit.towny.TownyException;
 import com.palmergames.bukkit.towny.TownySettings;
-import com.palmergames.bukkit.towny.object.Coord;
 import com.palmergames.bukkit.towny.questioner.JoinTownTask;
 import com.palmergames.bukkit.towny.questioner.ResidentTownQuestionTask;
-import com.palmergames.bukkit.towny.object.Resident;
-import com.palmergames.bukkit.towny.object.Town;
-import com.palmergames.bukkit.towny.object.TownBlock;
-import com.palmergames.bukkit.towny.object.TownBlockOwner;
-import com.palmergames.bukkit.towny.object.TownyIConomyObject;
-import com.palmergames.bukkit.towny.object.TownyPermission;
-import com.palmergames.bukkit.towny.object.TownyUniverse;
-import com.palmergames.bukkit.towny.object.TownyWorld;
-import com.palmergames.bukkit.towny.object.WorldCoord;
 import com.palmergames.bukkit.util.ChatTools;
 import com.palmergames.bukkit.util.Colors;
 import ca.xshade.questionmanager.Option;
@@ -140,14 +131,32 @@ public class TownCommand implements CommandExecutor  {
 					town = resident.getTown();
 					notAffordMSG = TownySettings.getLangString("msg_err_cant_afford_tp");
 				}
-				
-				// Prevent enemies from using spawn travel.
-				if (resident.hasTown())
-					if (town.hasNation() && resident.hasNation())
-						if (town.getNation().hasEnemy(resident.getTown().getNation()))
-							throw new TownyException(TownySettings.getLangString("msg_err_public_spawn_enemy"));
 
-					
+                // Prevent enemies from using spawn travel.
+				if (resident.hasTown() && resident.hasNation())
+                    if (town.hasNation())
+                        if (town.getNation().hasEnemy(resident.getTown().getNation()))
+                            throw new TownyException(TownySettings.getLangString("msg_err_public_spawn_enemy"));
+
+                if (!isTownyAdmin) {
+                    // Prevent spawn travel while in disallowed zones (if configured)
+                    List<String> disallowedZones = TownySettings.getDisallowedTownSpawnZones();
+                    if (!disallowedZones.isEmpty()) {
+                        String inTown = plugin.getTownyUniverse().getTownName(plugin.getCache(player).getLastLocation());
+                        if (inTown == null && disallowedZones.contains("unclaimed"))
+                            throw new TownyException(String.format(TownySettings.getLangString("msg_err_town_spawn_disallowed_from"), "the Wilderness"));
+                        if (inTown != null && resident.hasNation() && plugin.getTownyUniverse().getTown(inTown).hasNation()) {
+                            Nation inNation = plugin.getTownyUniverse().getTown(inTown).getNation();
+                            Nation playerNation = resident.getTown().getNation();
+                            if (!inNation.getAllies().contains(playerNation)) {
+                                if (disallowedZones.contains("neutral"))
+                                    throw new TownyException(String.format(TownySettings.getLangString("msg_err_town_spawn_disallowed_from"), "Neutral towns"));
+                                if (inNation.getEnemies().contains(playerNation) && disallowedZones.contains("enemy"))
+                                    throw new TownyException(String.format(TownySettings.getLangString("msg_err_town_spawn_disallowed_from"), "Enemy areas"));
+                            }
+                        }
+                    }
+                }
 				
 				double travelCost;
 				if (resident.getTown() == town)

@@ -309,6 +309,8 @@ msg_err_cant_afford_tp_town: '&cCannot afford to teleport to %s.'
 msg_err_not_public: '&cThat town is not public.'
 msg_err_town_spawn_forbidden: '&cTown spawn travel is forbidden.'
 msg_err_public_spawn_enemy: '&cPublic spawn travel is forbidden for enemies.'
+msg_err_town_spawn_disallowed_unclaimed: '&cTown spawn is not allowed from %s.'
+
 msg_err_cant_afford_tp: '&bCannot afford to teleport to your town''s spawn.'
 msg_err_plot_nfs: '&cThis plot is not for sale.'
 msg_err_not_part_town: '&cSelected area is not part of your town.'

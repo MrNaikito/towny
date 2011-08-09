@@ -410,3 +410,4 @@ v0.73.3:
     - Paintings are now protected along with all other blocks.
     - townLevels and nationLevels are now full YAML nodes for easy editing (commit by dumptruckman).
     - Pistons can now only operate between similarly owned townblocks or wild areas (No piston griefing).
+    - You can now block the use of '/town spawn' if you are in certain zones (unclaimed 'wilderness', Neutral towns and Enemy towns).

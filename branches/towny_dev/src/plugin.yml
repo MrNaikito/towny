@@ -353,6 +353,11 @@ allow_town_spawn_travel: true
 # Respawn the player at his town spawn point when he/she dies.
 town_respawn: false
 
+# Prevent players from using /town spawn while within unclaimed areas and/or enemy/neutral towns.
+# Allowed options: unclaimed, enemy, neutral
+prevent_town_spawn_in: enemy
+
+
 # Enables the [~Home] message.
 # If false it will make it harder for enemies to find the home block during a war
 show_town_notifications: true

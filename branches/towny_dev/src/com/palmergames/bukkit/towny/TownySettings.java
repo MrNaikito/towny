@@ -874,6 +874,11 @@ public class TownySettings {
 	public static boolean isAllowingPublicTownSpawnTravel() {
 		return getBoolean("ALLOW_TOWN_SPAWN_TRAVEL");
 	}
+
+    public static List<String> getDisallowedTownSpawnZones() {
+        if (getDebug()) System.out.println("[Towny] Debug: Reading disallowed town spawn zones. ");
+        return getStrArr("PREVENT_TOWN_SPAWN_IN");
+    }
 	
 	public static boolean isTaxingDaily() {
 		return getBoolean("DAILY_TAXES");
