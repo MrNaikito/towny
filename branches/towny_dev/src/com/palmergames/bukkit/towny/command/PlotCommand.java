@@ -73,7 +73,7 @@ public class PlotCommand implements CommandExecutor  {
 	
 	public void parsePlotCommand(Player player, String[] split) throws TownyException {
 		
-		if ((!plugin.isTownyAdmin(player)) || ((plugin.isPermissions()) && (!plugin.hasPermission(player, "towny.town.plot"))))
+		if ((!plugin.isTownyAdmin(player)) && ((plugin.isPermissions()) && (!plugin.hasPermission(player, "towny.town.plot"))))
 			throw new TownyException(TownySettings.getLangString("msg_err_command_disable"));
 		
 		if (split.length == 0 || split[0].equalsIgnoreCase("?")) {
