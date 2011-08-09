@@ -6,6 +6,7 @@ import org.bukkit.event.player.PlayerListener;
 
 import com.palmergames.bukkit.towny.NotRegisteredException;
 import com.palmergames.bukkit.towny.Towny;
+import com.palmergames.bukkit.towny.TownySettings;
 import com.palmergames.bukkit.towny.object.Nation;
 import com.palmergames.bukkit.towny.object.Resident;
 import com.palmergames.bukkit.towny.object.Town;
@@ -51,7 +52,8 @@ public class TownyPlayerLowListener extends PlayerListener {
 		try {
 			Resident resident = plugin.getTownyUniverse().getResident(player.getName());
 			Town town = resident.getTown();
-			String line = Colors.Blue + "[" + town.getName() + "] "
+			String prefix = TownySettings.getString("MODIFY_CHAT").contains("{town}") ? "" : ("[" + town.getName() + "] ");
+			String line = Colors.Blue + prefix
 					+ player.getDisplayName()
 					+ Colors.White + ": "
 					+ Colors.LightBlue + msg;
@@ -65,7 +67,8 @@ public class TownyPlayerLowListener extends PlayerListener {
 		try {
 			Resident resident = plugin.getTownyUniverse().getResident(player.getName());
 			Nation nation = resident.getTown().getNation();
-			String line = Colors.Gold + "[" + nation.getName() + "] "
+			String prefix = TownySettings.getString("MODIFY_CHAT").contains("{nation}") ? "" : ("[" + nation.getName() + "] ");
+			String line = Colors.Gold + prefix
 					+ player.getDisplayName()
 					+ Colors.White + ": "
 					+ Colors.Yellow + msg;
