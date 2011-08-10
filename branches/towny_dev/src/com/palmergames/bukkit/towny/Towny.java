@@ -329,6 +329,7 @@ public class Towny extends JavaPlugin {
 		//getServer().getPluginManager().registerEvent(Event.Type.PLAYER_COMMAND_PREPROCESS, playerListener, Priority.Normal, this);
 		pluginManager.registerEvent(Event.Type.PLAYER_MOVE, playerListener, Priority.Normal, this);
 		pluginManager.registerEvent(Event.Type.PLAYER_TELEPORT, playerListener, Priority.Normal, this);
+		// Used when player has tc or nc modes set.
 		pluginManager.registerEvent(Event.Type.PLAYER_CHAT, playerLowListener, Priority.Low, this);
 		pluginManager.registerEvent(Event.Type.PLAYER_RESPAWN, playerListener, Priority.Normal, this);
 		pluginManager.registerEvent(Event.Type.PLAYER_INTERACT, playerListener, Priority.Normal, this);

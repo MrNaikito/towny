@@ -15,7 +15,7 @@ import com.palmergames.bukkit.util.Colors;
 
 
 /**
- * Handle events for all Player related events
+ * Handle chat processing when a player has set mode nc or tc
  * 
  * @author Shade
  * 
@@ -47,13 +47,14 @@ public class TownyPlayerLowListener extends PlayerListener {
 		}
 		event.setCancelled(true);
 	}
-
+	
 	public void parseTownChatCommand(Player player, String msg) {
 		try {
 			Resident resident = plugin.getTownyUniverse().getResident(player.getName());
 			Town town = resident.getTown();
-			String prefix = TownySettings.getString("MODIFY_CHAT").contains("{town}") ? "" : ("[" + town.getName() + "] ");
-			String line = Colors.Blue + prefix
+			
+			String prefix = TownySettings.getString("MODIFY_CHAT").contains("{town}") ? "" : "[" + town.getName() + "] ";
+			String line = Colors.Blue + "[TC] " + prefix
 					+ player.getDisplayName()
 					+ Colors.White + ": "
 					+ Colors.LightBlue + msg;
@@ -67,8 +68,9 @@ public class TownyPlayerLowListener extends PlayerListener {
 		try {
 			Resident resident = plugin.getTownyUniverse().getResident(player.getName());
 			Nation nation = resident.getTown().getNation();
-			String prefix = TownySettings.getString("MODIFY_CHAT").contains("{nation}") ? "" : ("[" + nation.getName() + "] ");
-			String line = Colors.Gold + prefix
+			
+			String prefix = TownySettings.getString("MODIFY_CHAT").contains("{nation}") ? "" : "[" + nation.getName() + "] ";
+			String line = Colors.Gold + "[NC] " + prefix
 					+ player.getDisplayName()
 					+ Colors.White + ": "
 					+ Colors.Yellow + msg;

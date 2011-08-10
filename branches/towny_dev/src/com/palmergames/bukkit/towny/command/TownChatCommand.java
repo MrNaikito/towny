@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 
 import com.palmergames.bukkit.towny.NotRegisteredException;
 import com.palmergames.bukkit.towny.Towny;
+import com.palmergames.bukkit.towny.TownySettings;
 import com.palmergames.bukkit.towny.object.Resident;
 import com.palmergames.bukkit.towny.object.Town;
 import com.palmergames.bukkit.util.ChatTools;
@@ -34,6 +35,9 @@ public class TownChatCommand implements CommandExecutor  {
 		if (sender instanceof Player) {
 			Player player = (Player)sender;
 			
+			// Setup the chat prefix BEFORE we speak.
+			plugin.setDisplayName(player);
+			
 			if (args.length != 0)
 				parseTownChatCommand(player, StringMgmt.join(args, " "));
 		}
@@ -44,12 +48,15 @@ public class TownChatCommand implements CommandExecutor  {
 		try {
 			Resident resident = plugin.getTownyUniverse().getResident(player.getName());
 			Town town = resident.getTown();
-			String line = Colors.Blue + "[" + town.getName() + "] "
-					+ player.getDisplayName() + ": "
+			
+			String prefix = TownySettings.getString("MODIFY_CHAT").contains("{town}") ? "" : "[" + town.getName() + "] ";
+			String line = Colors.Blue + "[TC] " + prefix
+					+ player.getDisplayName()
+					+ Colors.White + ": "
 					+ Colors.LightBlue + msg;
 			plugin.getTownyUniverse().sendTownMessage(town, ChatTools.color(line));
 		} catch (NotRegisteredException x) {
-			player.sendMessage(x.getError());
+			plugin.sendErrorMsg(player, x.getError());
 		}
 	}
 

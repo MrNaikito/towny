@@ -50,6 +50,9 @@ public class NationChatCommand implements CommandExecutor  {
 		if (sender instanceof Player) {
 			Player player = (Player)sender;
 			
+			// Setup the chat prefix BEFORE we speak.
+			plugin.setDisplayName(player);
+			
 			if (args == null){
 				for (String line : output)
 					player.sendMessage(line);
@@ -68,8 +71,11 @@ public class NationChatCommand implements CommandExecutor  {
 		try {
 			Resident resident = plugin.getTownyUniverse().getResident(player.getName());
 			Nation nation = resident.getTown().getNation();
-			String line = Colors.Gold + "[" + nation.getName() + "] "
-					+ player.getDisplayName() + ": "
+			
+			String prefix = TownySettings.getString("MODIFY_CHAT").contains("{nation}") ? "" : "[" + nation.getName() + "] ";
+			String line = Colors.Gold + "[NC] " + prefix
+					+ player.getDisplayName()
+					+ Colors.White + ": "
 					+ Colors.Yellow + msg;
 			plugin.getTownyUniverse().sendNationMessage(nation, ChatTools.color(line));
 		} catch (NotRegisteredException x) {
