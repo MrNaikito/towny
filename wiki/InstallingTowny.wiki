@@ -39,6 +39,8 @@ Here are instructions for installing Towny for the first time.
   # Depending on how you configured your config.yml you may need to grant these permission nodes:
     * towny.town.new : User is able to create a town (used only when town_creation_admin_only: true)
     * towny.town.claim : User is able to expand his town with /town claim (used when world is set as unclaimable in /townyworld)
+    * towny.town.resident : User is able to join a town.
+    * towny.town.plot : User is able to use the /plot command, to buy and sell land personally.
     * towny.nation.new : User is able to create a nation (used only when nation_creation_admin_only: true)
     * towny.spawntp :Use /town spawn (requires allow_town_spawn: true set in the config.)
     * towny.publicspawntp : Use "/town spawn {town}" (teleport to other towns) (requires allow_town_spawn_travel: true in set in the config.)
