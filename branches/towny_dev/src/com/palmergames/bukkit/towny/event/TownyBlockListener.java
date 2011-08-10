@@ -192,8 +192,9 @@ public class TownyBlockListener extends BlockListener {
 								return;
 							}
 						} catch (NotRegisteredException e) {
-							// This should be unreachable
-							e.printStackTrace();
+							// Failed to fetch a resident
+							event.setCancelled(true);
+							return;
 						}
 					}
 

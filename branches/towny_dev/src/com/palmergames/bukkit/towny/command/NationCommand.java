@@ -436,9 +436,13 @@ public class NationCommand implements CommandExecutor  {
 	public static void nationAdd(Nation nation, List<Town> towns) throws AlreadyRegisteredException {
 		
 		for (Town town : towns) {
-			nation.addTown(town);
-			plugin.updateCache();
-			plugin.getTownyUniverse().getDataSource().saveTown(town);
+			if (!town.hasNation()) {
+				nation.addTown(town);
+				plugin.updateCache();
+				plugin.getTownyUniverse().getDataSource().saveTown(town);
+				plugin.getTownyUniverse().sendNationMessage(nation, String.format(TownySettings.getLangString("msg_join_nation"), town.getName()));
+			}
+			
 		}
 		plugin.getTownyUniverse().getDataSource().saveNation(nation);
 				

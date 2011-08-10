@@ -408,7 +408,7 @@ public class TownyUniverse extends TownyObject {
 				newResident(name);
 				resident = residents.get(name.toLowerCase());
 				getDataSource().loadResident(resident);
-				getDataSource().saveTown(resident.getTown());
+				//getDataSource().saveTown(resident.getTown());
 				getDataSource().saveResidentList();
 			} catch (AlreadyRegisteredException e) {
 				throw new NotRegisteredException("Failed to re-register " + name);
@@ -1095,35 +1095,38 @@ public class TownyUniverse extends TownyObject {
 	
 	public void removeResidentList(Resident resident) {
 		
-		String name = resident.getName();
+		String name = resident.getName();	
+		
 		try {
 			resident.clear();
 		} catch (EmptyTownException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		getDataSource().deleteResident(resident);
-		
-		//search and remove from all friends lists
-		List<Resident> toSave = new ArrayList<Resident>(getResidents());
-		for (Resident toCheck : toSave)
-			if (toCheck.hasFriend(resident)) {
-				try {
-					toCheck.removeFriend(resident);
-				} catch (NotRegisteredException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			else
-				toSave.remove(toCheck);
-		
-		for (Resident toCheck : toSave)
-			getDataSource().saveResident(toCheck);
+		getDataSource().deleteResident(resident);		
 		
 		residents.remove(name.toLowerCase());
 		plugin.deleteCache(name);
 		getDataSource().saveResidentList();
+		
+		//search and remove from all friends lists
+		List<Resident> toSave = new ArrayList<Resident>(getResidents());
+		if (!toSave.isEmpty()) {
+			for (Resident toCheck : toSave)
+				if (toCheck.hasFriend(resident)) {
+					try {
+						toCheck.removeFriend(resident);
+					} catch (NotRegisteredException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				else
+					toSave.remove(toCheck);
+			
+			for (Resident toCheck : toSave)
+				getDataSource().saveResident(toCheck);
+		}
 		
 	}
 	
