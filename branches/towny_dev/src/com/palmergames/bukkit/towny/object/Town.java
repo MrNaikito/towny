@@ -133,7 +133,13 @@ public class Town extends TownBlockOwner implements Walled, ResidentList {
 		if (hasResident(resident))
 			throw new AlreadyRegisteredException(resident.getName() + " already belongs to town.");
 		else if (resident.hasTown())
-			throw new AlreadyRegisteredException(resident.getName() + " already belongs to another town.");
+			try {
+				if (!resident.getTown().equals(this))
+				throw new AlreadyRegisteredException(resident.getName() + " already belongs to another town.");
+			} catch (NotRegisteredException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	}
 
 	public void addAssistant(Resident resident)

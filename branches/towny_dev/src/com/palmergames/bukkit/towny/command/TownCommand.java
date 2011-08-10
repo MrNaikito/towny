@@ -815,14 +815,19 @@ public class TownCommand implements CommandExecutor  {
 		return invited;
 	}
 	
-	public static void townAddResidents(Player player, Town town, List<Resident> invited) {
+	public static void townAddResidents(Player player, Town town, List<Resident> invited, boolean online) {
 		ArrayList<Resident> remove = new ArrayList<Resident>();
 		for (Resident newMember : invited)
 			try {
 				// only add players with the right permissions.
-				if (plugin.isPermissions() && !plugin.hasPermission(plugin.getServer().getPlayer(newMember.getName()), "towny.town.resident")) {
-					plugin.sendErrorMsg(player, String.format(TownySettings.getLangString("msg_not_allowed_join"), newMember.getName()));
-					remove.add(newMember);
+				if (plugin.isPermissions()) {
+						if (!online) {
+							plugin.sendErrorMsg(player, String.format(TownySettings.getLangString("msg_offline_no_join"), newMember.getName()));
+							remove.add(newMember);
+						} else if (!plugin.hasPermission(plugin.getServer().getPlayer(newMember.getName()), "towny.town.resident")) {
+							plugin.sendErrorMsg(player, String.format(TownySettings.getLangString("msg_not_allowed_join"), newMember.getName()));
+							remove.add(newMember);
+						}
 				} else {
 					town.addResidentCheck(newMember);
 					townInviteResident(town, newMember);
@@ -1060,7 +1065,7 @@ public class TownCommand implements CommandExecutor  {
 			return;
 		}
 
-		townAddResidents(player, town, (matchOnline ? plugin.getTownyUniverse().getOnlineResidents(player, names) : getResidents(player, names)));
+		townAddResidents(player, town, (matchOnline ? plugin.getTownyUniverse().getOnlineResidents(player, names) : getResidents(player, names)), matchOnline);
 		
 		plugin.updateCache();
 	}

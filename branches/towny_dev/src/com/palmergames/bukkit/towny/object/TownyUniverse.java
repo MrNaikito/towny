@@ -401,8 +401,23 @@ public class TownyUniverse extends TownyObject {
 
 	public Resident getResident(String name) throws NotRegisteredException {
 		Resident resident = residents.get(name.toLowerCase());
-		if (resident == null)
-			throw new NotRegisteredException(name + " is not registered.");
+		if (resident == null) {
+			// Attempt to load the resident and fix the files.
+			
+			try {
+				newResident(name);
+				resident = residents.get(name.toLowerCase());
+				getDataSource().loadResident(resident);
+				getDataSource().saveTown(resident.getTown());
+				getDataSource().saveResidentList();
+			} catch (AlreadyRegisteredException e) {
+				throw new NotRegisteredException("Failed to re-register " + name);
+			} catch (NotRegisteredException e) {
+				throw new NotRegisteredException(name + " is not registered.");
+			}
+			
+			//
+		}
 		return resident;
 	}
 
