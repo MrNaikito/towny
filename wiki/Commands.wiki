@@ -176,6 +176,7 @@
       * add+ {resident} .. {resident}
       * remove {resident} .. {resident}
       * remove+ {resident} .. {resident}
+    * nation {nation} add {town}
     * toggle
       * war
       * neutral
