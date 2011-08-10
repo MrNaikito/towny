@@ -11,6 +11,7 @@ Add a description of which nodes and when towny uses its nodes.
   * towny.town.resident : User is able to join a town.
   * towny.town.new : User is able to create a town (used only when town_creation_admin_only: true)
   * towny.town.claim : User is able to expand his town with /town claim (used when world is set as unclaimable in /townyworld)
+  * towny.town.plot : User is able to use the /plot commands, to buy or sell land personally.
 
   * towny.nation.new : User is able to create a nation (used only when nation_creation_admin_only: true)
 
