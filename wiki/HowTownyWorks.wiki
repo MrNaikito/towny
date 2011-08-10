@@ -37,6 +37,8 @@ Example: Admin Bob
   Then Bob leaves Server Town and creates his own town. Using the {{{/townyadmin set mayor {townname} npc}}} command Bob can flip back and forth between towns.
   
   Bob doesn't have to leave his town to add players to the Server Town though! He can use {{{/townyadmin town {townname} add {playername} }}} to add players to the Server Town or set {{{default_town_name: 'Server_Town'}}} in [DefaultConfig config.yml].
+  
+  Bob can also add the NPC town into a nation using /ta nation {nation} add  {town}.
 
 == Nations ==
 
@@ -206,7 +208,7 @@ Permissions are viewable by typing either {{{/resident}}} for personal plot perm
 
 == Protection Additions Found in Towny Advanced ==
 
-New in Towny Advanced (0.72+) are two new protection types, anti-explosion and anti-firespread.
+New in Towny Advanced (0.72+) are three new protection types, anti-explosion and anti-firespread and piston-protection.
 
 On the town level, a mayor can set these flags using:
   * /town toggle explosion
@@ -215,6 +217,8 @@ On the town level, a mayor can set these flags using:
 Explosion protection stops all explosions. This stops TNT, TNT cannons and creeper explosions.
 
 Firespread protection stops all fires from spreading, including lava, lightning and lighters. 
+
+Piston-protection allows pistons to operate between similarly owned townblocks or wild areas.
 
 ----
 
@@ -269,12 +273,23 @@ The time of a 'Towny Day' can be set in [DefaultConfig config.yml] at {{{day_int
 
 Towny modifies the in-game chat appearance of town mayors and nation leaders only.
 
-Chat modification can be turned on in [DefaultConfig config.yml] at {{{modify_chat_name: false}}}
+The various chat modification can be turned on in [DefaultConfig config.yml] at {{{modify_chat: '{permprefix}{townynameprefix}{playername}{townynamepostfix}{permsuffix}'}}}
+  * {permprefix} - The group prefix set in your permissions plugin.
+  * {townynameprefix} - Mayor/king titles, and titles handed out by kings to their minions.
+  * {playername} - The basic minecraft player name in chat, should not be removed.
+  * {townynameprefix} - Mayor/king suffix, and surnames handed out by kings to their minions.
+  * {permsuffix} - The group suffix set in your permissions plugin.
 
-Mayors chat name appears as blue by default and includes the mayorPrefix and mayorPostfix found in the townLevel section of the config.yml.
+Mayors chat name appears as blue by default (but can be configured in the config.yml,) and includes the mayorPrefix and mayorPostfix found in the townLevel section of the config.yml.
 
-Nation Leader's chat name appears as gold by default and includes the kingPrefix and kingPostfix found in the townLevel section of the config.yml.
+Nation Leader's chat name appears as gold by default (but can be configured in the config.yml,) and includes the kingPrefix and kingPostfix found in the townLevel section of the config.yml.
 
+Kings of nations can use two commands to change the displayed chat names of their minions:
+  * {{{/nation set title {resident} title}}}
+    Adds a prefix to the player.
+  * {{{/nation set surname {resident} text}}}
+    Adds a suffix to the player.
+  * A title/surname given to a mayor will override the MayorPrefix/MayorPostfix set in the townLevels of the config. He will still retain the colouring set on mayor names (default is light blue.)  
 
 == Chat Modes ==
 
