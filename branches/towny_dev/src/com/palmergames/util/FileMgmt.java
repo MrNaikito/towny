@@ -123,14 +123,61 @@ public class FileMgmt {
 	        return "";
 	    }
 	}
+
+    /**
+     * Pass a file and it will return it's contents as a string.
+     * @param file File to read.
+     * @return Contents of file.  String will be empty in case of any errors.
+     */
+    public static String convertFileToString(File file) {
+        if (file != null && file.exists() && file.canRead() && !file.isDirectory()) {
+	        Writer writer = new StringWriter();
+	        InputStream is = null;
+
+	        char[] buffer = new char[1024];
+	        try {
+                is = new FileInputStream(file);
+	            Reader reader = new BufferedReader(
+	                    new InputStreamReader(is, "UTF-8"));
+	            int n;
+	            while ((n = reader.read(buffer)) != -1) {
+	                writer.write(buffer, 0, n);
+	            }
+	        } catch (IOException e)
+			{
+			    System.out.println("Exception ");
+			} finally {
+                if (is != null) {
+                    try {
+	                    is.close();
+                    } catch (IOException ignore) {}
+                }
+	        }
+	        return writer.toString();
+	    } else {
+	        return "";
+	    }
+    }
 	
 	//writes a string to a file making all newline codes platform specific
 	public static boolean stringToFile(String source, String FileName) throws IOException {
 		
-		try {
-			
-			OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(FileName),"UTF-8");
-			
+		return stringToFile(source, new File(FileName));
+	}
+
+    /**
+     * Writes the contents of a string to a file.
+     * @param source String to write.
+     * @param file File to write to.
+     * @return True on success.
+     * @throws IOException
+     */
+    public static boolean stringToFile(String source, File file) throws IOException {
+
+        try {
+
+			OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(file),"UTF-8");
+
 		    //BufferedWriter out = new BufferedWriter(new FileWriter(FileName));
 
 		    source.replaceAll("\n", System.getProperty("line.separator"));
@@ -145,7 +192,7 @@ public class FileMgmt {
 		    System.out.println("Exception ");
 		    return false;
 		}
-	}
+    }
 
 
 	// move a file to a sub directory

@@ -1,8 +1,8 @@
 ﻿name: Towny
 main: com.palmergames.bukkit.towny.Towny
-version: 0.74.0
+version: 0.74.1 Dev
 language: english.yml
-last_run_version: 0.74.0
+last_run_version: 0.74.1 Dev
 author: Shade, Modified by FuzzeWuzze. Forked by ElgarL
 website: http://code.google.com/a/eclipselabs.org/p/towny/
 description: >
