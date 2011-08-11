@@ -401,7 +401,11 @@ public class TownyUniverse extends TownyObject {
 
 	public Resident getResident(String name) throws NotRegisteredException {
 		Resident resident = residents.get(name.toLowerCase());
-		if (resident == null) {
+		if (resident == null)
+			throw new NotRegisteredException(name + " is not registered.");
+		
+		/*
+		{
 			// Attempt to load the resident and fix the files.
 			
 			try {
@@ -418,6 +422,7 @@ public class TownyUniverse extends TownyObject {
 			
 			//
 		}
+		*/
 		return resident;
 	}
 
