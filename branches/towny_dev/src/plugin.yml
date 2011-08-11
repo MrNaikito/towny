@@ -367,7 +367,8 @@ show_town_notifications: true
 # +------------------------------------------------------+ #
 ############################################################
 
-using_essentials: true
+# Enable if you are using cooldowns in essentials for teleports.
+using_essentials: false
 using_iconomy: true
 using_permissions: true
 using_questioner: true
