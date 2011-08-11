@@ -452,7 +452,7 @@ public class TownyUniverse extends TownyObject {
 	public void sendMessage(Player player, String[] lines) {
 		for (String line : lines) {
 			player.sendMessage(line);
-			plugin.log("[send Message] " + player.getName() + ": " + line);
+			//plugin.log("[send Message] " + player.getName() + ": " + line);
 		}
 	}
 

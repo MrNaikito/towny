@@ -413,3 +413,5 @@ v0.74.0:
     - You can now block the use of '/town spawn' if you are in certain zones (unclaimed 'wilderness', Neutral towns and Enemy towns).
 v0.74.1:
     - Added sanity checking to prevent colour codes in titles and surnames, and a notification message when a title/surname is cleared.
+    - Removed console spam from 'send message'.
+    - Disabled the use of '/town new' and '/town claim' in worlds where Towny is disabled.

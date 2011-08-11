@@ -649,6 +649,10 @@ public class TownCommand implements CommandExecutor  {
 				throw new TownyException(String.format(TownySettings.getLangString("msg_err_already_res"), resident.getName()));
 
 			TownyWorld world = universe.getWorld(player.getWorld().getName());
+			
+			if (!world.isUsingTowny())
+				throw new TownyException(TownySettings.getLangString("msg_set_use_towny_off"));
+			
 			Coord key = Coord.parseCoord(player);
 			if (world.hasTownBlock(key))
 				throw new TownyException(String.format(TownySettings.getLangString("msg_already_claimed_1"), key));
@@ -1186,6 +1190,8 @@ public class TownCommand implements CommandExecutor  {
 					throw new TownyException(TownySettings.getLangString("msg_not_mayor_ass"));
 				world = plugin.getTownyUniverse().getWorld(player.getWorld().getName());
 				
+				if (!world.isUsingTowny())
+					throw new TownyException(TownySettings.getLangString("msg_set_use_towny_off"));
 				
 
 				double blockCost = 0;
