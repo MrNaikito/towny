@@ -254,6 +254,7 @@ msg_set_town_home: '&bSuccessfully changed town''s home block to %s'
 msg_set_town_spawn: '&bSuccessfully changed town''s spawn.'
 msg_set_title: '&b%s was granted the title of ''%s''.'
 msg_set_surname: '&b%s was granted the surname of ''%s''.'
+msg_clear_title_surname: '&bThe %s for ''%s'' was cleared.'
 
 msg_set_perms: '&bSuccessfully changed permissions to %s.'
 msg_set_claim: '&bSuccessfully changed %s''s claimability to %s'

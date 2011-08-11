@@ -411,3 +411,5 @@ v0.74.0:
     - townLevels and nationLevels are now full YAML nodes for easy editing (commit by dumptruckman).
     - Pistons can now only operate between similarly owned townblocks or wild areas (No piston griefing).
     - You can now block the use of '/town spawn' if you are in certain zones (unclaimed 'wilderness', Neutral towns and Enemy towns).
+v0.74.1:
+    - Added sanity checking to prevent colour codes in titles and surnames, and a notification message when a title/surname is cleared.
