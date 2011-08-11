@@ -513,7 +513,7 @@ public class Towny extends JavaPlugin {
 	public void setDisplayName (Player player) {
 		
 		// Setup the chat prefix BEFORE we speak.
-		//if (TownySettings.isUsingChatPrefix()) {
+		if (!TownySettings.getBoolean("DISABLE_MODIFY_CHAT")) {
 			try {
 				Resident resident = getTownyUniverse().getResident(player.getName());
 				String colour, formattedName = "";
@@ -543,7 +543,7 @@ public class Towny extends JavaPlugin {
 			} catch (NotRegisteredException e) {
 				log("Not Registered");
 			}
-		//}		
+		}		
 	}
 	
 	public void setPlayerMode(Player player, String[] modes) {

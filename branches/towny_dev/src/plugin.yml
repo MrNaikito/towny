@@ -421,6 +421,7 @@ npc_prefix: 'NPC'
 # {permsuffix} - Permission group suffix.
 modify_chat: '{nation}{town}{permprefix}{townynameprefix}{playername}{townynamepostfix}{permsuffix}'
 
+disable_modify_chat: false
 
 # Text colouring
 # --------------
