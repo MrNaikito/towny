@@ -677,7 +677,7 @@ public class TownySettings {
                 "",
                 "# Remove living entities within a town's boundaries, if the town has the mob removal flag set.");
         getTownMobRemovalEntities();
-        addComment("protection.word_mob_removal_entities", "",
+        addComment("protection.world_mob_removal_entities", "",
                 "# Globally remove living entities in all worlds that have their flag set.");
         getWorldMobRemovalEntities();
         addComment("protection.mob_removal_speed", "",
