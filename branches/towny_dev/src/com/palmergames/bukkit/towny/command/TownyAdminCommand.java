@@ -416,7 +416,7 @@ public class TownyAdminCommand implements CommandExecutor  {
 		} else if (split[0].equalsIgnoreCase("neutral")) {
 			
 				try {
-					choice = !TownySettings.getBoolean("wartime_nation_can_be_neutral");
+					choice = !TownySettings.isDeclaringNeutral();
 					TownySettings.setDeclaringNeutral(choice);
 					plugin.sendMsg(player, String.format(TownySettings.getLangString("msg_nation_allow_neutral"), choice ? "Enabled" : "Disabled"));
 					

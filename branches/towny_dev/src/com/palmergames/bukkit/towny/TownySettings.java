@@ -283,7 +283,7 @@ public class TownySettings {
 	// if the file is not found it will load the default from resource
 	public static void loadLanguage (String filepath, String defaultRes) throws IOException {		
 		
-		String defaultName = filepath + FileMgmt.fileSeparator() + getString("language");
+		String defaultName = filepath + FileMgmt.fileSeparator() + getString("language", defaultRes);
 		
 		File file = FileMgmt.unpackLanguageFile(defaultName, defaultRes);
 		if (file != null) {
@@ -317,23 +317,29 @@ public class TownySettings {
     public static Boolean getBoolean(String root, Boolean def) {
         return config.getBoolean(root.toLowerCase(), def);
     }
+    /*
 	public static Boolean getBoolean(String root){
         return config.getBoolean(root.toLowerCase(), true);
     }
+    */
 
     private static Double getDouble(String root, Double def) {
         return config.getDouble(root.toLowerCase(), def);
     }
+    /*
     private static Double getDouble(String root){
         return config.getDouble(root.toLowerCase(), 0);
     }
+    */
 
     private static Integer getInt(String root, Integer def) {
         return config.getInt(root.toLowerCase(), def);
     }
+    /*
     private static Integer getInt(String root){
         return config.getInt(root.toLowerCase(), 0);
     }
+    */
 
     private static Long getLong(String root, Long def) {
         return Long.parseLong(getString(root, Long.toString(def)));
@@ -355,6 +361,7 @@ public class TownySettings {
     public static String getString(String root, String def) {
         return config.getString(root.toLowerCase(), def);
     }
+    /*
     public static String getString(String root){
     	
     	String data = config.getString(root.toLowerCase());
@@ -364,6 +371,7 @@ public class TownySettings {
     	}
         return data;
     }
+    */
     public static String getLangString(String root){
     	
     	String data = language.getString(root.toLowerCase());
@@ -385,6 +393,7 @@ public class TownySettings {
 		return list;
     }
  // read a comma delimited string into an Integer list
+    /*
 	public static List<Integer> getIntArr(String root) {
 		
 		String[] strArray = getString(root.toLowerCase()).split(",");
@@ -396,6 +405,7 @@ public class TownySettings {
 		}	
 		return list;
 	}
+	*/
 
     public static List<String> getStrArr(String root, String def) {
         String[] strArray = getString(root.toLowerCase(), def).split(",");
@@ -408,6 +418,7 @@ public class TownySettings {
 		return list;
     }
 	// read a comma delimited string into a trimmed list.
+    /*
 	public static List<String> getStrArr(String root) {
 		
 		String[] strArray = getString(root.toLowerCase()).split(",");
@@ -419,6 +430,7 @@ public class TownySettings {
 		}
 		return list;
 	}
+	*/
 
     public static void addComment(String root, String...comments) {
         config.addComment(root.toLowerCase(), comments);
@@ -1427,15 +1439,15 @@ public class TownySettings {
 	*/
 
 	public static int getHealthRegenSpeed() {
-		return getInt("GLOBAL_TOWN_SETTINGS.HEALTH_REGEN.SPEED");
+		return getInt("GLOBAL_TOWN_SETTINGS.HEALTH_REGEN.SPEED", 3000);
 	}
 	
 	public static boolean hasHealthRegen() {
-		return getBoolean("GLOBAL_TOWN_SETTINGS.HEALTH_REGEN.ENABLE");
+		return getBoolean("GLOBAL_TOWN_SETTINGS.HEALTH_REGEN.ENABLE", true);
 	}
 	
 	public static boolean hasTownLimit() {
-		return getInt("TOWN_LIMIT") == 0;
+		return getTownLimit() == 0;
 	}
 	
 	public static int getTownLimit() {
@@ -1530,7 +1542,7 @@ public class TownySettings {
 	}
 	
 	public static double getTownPublicSpawnTravelPrice() {
-		return getDouble("economy.PRICE_TOWN_PUBLIC_SPAWN_TRAVEL");
+		return getDouble("economy.PRICE_TOWN_PUBLIC_SPAWN_TRAVEL", 10.0);
 	}
 	
 	public static double getBaseSpoilsOfWar() {
@@ -1606,7 +1618,7 @@ public class TownySettings {
 		else
 			multiplier = 1.0;
 		
-		return getDouble("economy.PRICE_NATION_UPKEEP") * multiplier;
+		return getNationUpkeep() * multiplier;
 	}
 	
 	public static String getFlatFileBackupType() {
@@ -1666,15 +1678,15 @@ public class TownySettings {
     }
 
 	public static int getMinDistanceFromTownHomeblocks() {
-		return getInt("TOWN.MIN_DISTANCE_FROM_TOWN_HOMEBLOCK");
+		return getInt("TOWN.MIN_DISTANCE_FROM_TOWN_HOMEBLOCK", 5);
 	}
 	
 	public static int getMaxDistanceBetweenHomeblocks() {
-		return getInt("TOWN.MAX_DISTANCE_BETWEEN_HOMEBLOCKS");
+		return getInt("TOWN.MAX_DISTANCE_BETWEEN_HOMEBLOCKS", 0);
 	}
 
 	public static int getMaxPlotsPerResident() {
-		return getInt("TOWN.MAX_PLOTS_PER_RESIDENT");
+		return getInt("TOWN.MAX_PLOTS_PER_RESIDENT", 100);
 	}
 
     public static boolean getPermFlag_Resident_Friend_Build() {
@@ -1834,7 +1846,7 @@ public class TownySettings {
 	}
 
 	public static boolean isUsingQuestioner() {
-		return getBoolean("plugin.interfacing.USING_QUESTIONER");
+		return getBoolean("plugin.interfacing.USING_QUESTIONER", true);
 	}
     public static void setUsingQuestioner(boolean newSetting) {
         setProperty("plugin.interfacing.USING_QUESTIONER", newSetting);
@@ -1847,7 +1859,7 @@ public class TownySettings {
 	}
 
 	public static boolean isUsingPermissions() {
-		return getBoolean("plugin.interfacing.USING_PERMISSIONS");
+		return getBoolean("plugin.interfacing.USING_PERMISSIONS", true);
 	}
     public static void setUsingPermissions(boolean newSetting) {
         setProperty("plugin.interfacing.USING_PERMISSIONS", newSetting);
