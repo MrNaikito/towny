@@ -100,7 +100,7 @@ public class NationCommand implements CommandExecutor  {
 	}
 	
 	public void parseNationCommand(Player player, String[] split) {
-		String nationCom = TownySettings.getFirstCommand(TownySettings.getNationCommands());
+		String nationCom = "/nation";
 		
 		if (split.length == 0)
 			try {

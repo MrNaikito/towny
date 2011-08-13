@@ -394,7 +394,7 @@ public class Towny extends JavaPlugin {
 			boolean display = false;
 			System.out.println("------------------------------------");
 			System.out.println("[Towny] ChangeLog up until v" + getVersion());
-			String lastVersion = TownySettings.getLastRunVersion();
+			String lastVersion = TownySettings.getLastRunVersion(getVersion());
 			for (String line : changeLog) { //TODO: crawl from the bottom, then past from that index.
 				if (line.startsWith("v" + lastVersion))
 					display = true;
@@ -425,7 +425,7 @@ public class Towny extends JavaPlugin {
 	
 	public void sendDevMsg(String msg) {
 		if (TownySettings.isDevMode()) {
-			Player townyDev = getServer().getPlayer(TownySettings.getString("dev_name"));
+			Player townyDev = getServer().getPlayer(TownySettings.getDevName());
 			if (townyDev == null)
 				return;
 			for (String line : ChatTools.color(TownySettings.getLangString("default_towny_prefix") + " DevMode: " + Colors.Rose + msg))
@@ -513,7 +513,7 @@ public class Towny extends JavaPlugin {
 	public void setDisplayName (Player player) {
 		
 		// Setup the chat prefix BEFORE we speak.
-		if (!TownySettings.getBoolean("DISABLE_MODIFY_CHAT")) {
+		if (TownySettings.isUsingModifyChat()) {
 			try {
 				Resident resident = getTownyUniverse().getResident(player.getName());
 				String colour, formattedName = "";
@@ -523,7 +523,7 @@ public class Towny extends JavaPlugin {
 					colour = TownySettings.getString("COLOUR_MAYOR");
 				else
 					colour = "";
-				formattedName = TownySettings.getString("MODIFY_CHAT");
+				formattedName = TownySettings.getModifyChatFormat();
 				
 				formattedName = formattedName.replace("{nation}", resident.hasNation() ? "[" + resident.getTown().getNation().getName() + "]" : "");
 				formattedName = formattedName.replace("{town}", resident.hasTown() ? "[" + resident.getTown().getName() + "]" : "");

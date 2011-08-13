@@ -93,8 +93,17 @@ public class CommentedConfiguration extends Configuration {
                             depth = newDepth;
                         } else {
                             // Path is same depth, replace the last path node name to the current node name
-                            currentPath = currentPath.replace(currentPath.substring(currentPath.lastIndexOf(".")), "");
-                            currentPath += "." + line.substring(whiteSpace, index);
+                            int lastIndex = currentPath.lastIndexOf(".");
+                            if (lastIndex < 0) {
+                                // if there isn't a final period, set the current path to nothing because we're at root
+                                currentPath = "";
+                            } else {
+                                // If there is a final period, replace everything after it with nothing
+                                currentPath = currentPath.replace(currentPath.substring(currentPath.lastIndexOf(".")), "");
+                                currentPath += ".";
+                            }
+                            //currentPath = currentPath.replace(currentPath.substring(currentPath.lastIndexOf(".")), "");
+                            currentPath += line.substring(whiteSpace, index);
 
                         }
                         // This is a new node so we need to mark it for commenting (if there are comments)
@@ -141,7 +150,7 @@ public class CommentedConfiguration extends Configuration {
         }
         for (String line : commentLines) {
             if (!line.isEmpty()) {
-                line = leadingSpaces + "# " + line;
+                line = leadingSpaces + line;
             } else {
                 line = " ";
             }

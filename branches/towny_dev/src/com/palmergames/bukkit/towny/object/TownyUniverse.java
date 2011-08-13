@@ -720,8 +720,10 @@ public class TownyUniverse extends TownyObject {
 					getRootFolder() + FileMgmt.fileSeparator() + "settings" + FileMgmt.fileSeparator() + "town-levels.csv",
 					getRootFolder() + FileMgmt.fileSeparator() + "settings" + FileMgmt.fileSeparator() + "nation-levels.csv"});
 					*/
-			TownySettings.loadConfig(getRootFolder() + FileMgmt.fileSeparator() + "settings" + FileMgmt.fileSeparator() + "config.yml", "/plugin.yml");
+			//TownySettings.loadConfig(getRootFolder() + FileMgmt.fileSeparator() + "settings" + FileMgmt.fileSeparator() + "config.yml", "/plugin.yml");
+            TownySettings.loadConfig(getRootFolder() + FileMgmt.fileSeparator() + "settings" + FileMgmt.fileSeparator() + "config.yml", plugin.getVersion());
 			TownySettings.loadLanguage(getRootFolder() + FileMgmt.fileSeparator() + "settings", "/english.yml");
+            //TownySettings.loadPermissions(getRootFolder() + FileMgmt.fileSeparator() + "settings", "/permissions.yml");
 			//TownySettings.loadTownLevelConfig(getRootFolder() + FileMgmt.fileSeparator() + "settings" + FileMgmt.fileSeparator() + "town-levels.csv");
 			//TownySettings.loadNationLevelConfig(getRootFolder() + FileMgmt.fileSeparator() + "settings" + FileMgmt.fileSeparator() + "nation-levels.csv");
 		} catch (FileNotFoundException e) {

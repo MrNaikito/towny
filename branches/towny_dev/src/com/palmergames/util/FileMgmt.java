@@ -62,13 +62,24 @@ public class FileMgmt {
 			out.close();
 		}
 	}
-	
-	public static File CheckYMLexists(String filePath, String defaultRes) {
+
+    public static File CheckYMLExists(File file) {
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return file;
+    }
+
+	public static File unpackLanguageFile(String filePath, String defaultRes) {
 		
 		// open a handle to yml file
 		File file = new File(filePath);
-		if(file.exists())
-			return file;
+		//if(file.exists())
+		//	return file;
 		
 		String resString;
 		

@@ -4,7 +4,8 @@ language: english
 author: ElgarL
 website:
 description: >
-    Language file for all game messages.
+    Language file for all game messages.  Do not alter this file.
+    If you wish to change any of the entries, make a copy named something else.
     Alternate language files can be enabled by altering the
     [language] entry in config.yml
     
