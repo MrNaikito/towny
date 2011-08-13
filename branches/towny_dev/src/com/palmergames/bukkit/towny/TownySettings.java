@@ -427,7 +427,7 @@ public class TownySettings {
     private static void setDefaults(String version) {
         // Version
         addComment("version", "", "# This is for showing the changelog on updates.  Please do not edit.");
-        setProperty("version.VERSION", version, false);
+        setProperty("version.VERSION", version);
         getLastRunVersion(version);
 
         addComment("language", "", "# The language file you wish to use");
@@ -1288,10 +1288,18 @@ public class TownySettings {
 	public static boolean isUsingIConomy() {
 		return getBoolean("plugin.interfacing.USING_ICONOMY", true);
 	}
+
+    public static void setUsingIConomy(boolean newSetting) {
+        setProperty("plugin.interfacing.USING_ICONOMY", newSetting);
+    }
 	
 	public static boolean isUsingEssentials() {
 		return getBoolean("plugin.interfacing.USING_ESSENTIALS", false);
 	}
+
+    public static void setUsingEssentials(boolean newSetting) {
+        setProperty("plugin.interfacing.USING_ESSENTIALS", newSetting);
+    }
 
 	public static double getNewTownPrice() {
 		return getDouble("economy.PRICE_NEW_TOWN", 250.0);
@@ -1316,6 +1324,10 @@ public class TownySettings {
 	public static boolean getDebug() {
 		return getBoolean("plugin.DEBUG_MODE", false);
 	}
+
+    public static void setDebug(boolean b) {
+        setProperty("plugin.DEBUG_MODE", b);
+    }
 
 	public static boolean getShowTownNotifications() {
 		return getBoolean("GLOBAL_TOWN_SETTINGS.SHOW_TOWN_NOTIFICATIONS", true);
@@ -1467,12 +1479,8 @@ public class TownySettings {
 		return getItemUseIds().contains(id);
 	}
 	
-	public static void setProperty(String root, Object value, boolean saveYML) {
+	private static void setProperty(String root, Object value) {
 		config.setProperty(root.toLowerCase(), value);
-		if (saveYML) {
-			if (getDebug()) System.out.println("[Towny] Debug: Saving config.yml ");
-			config.save();
-		}
 	}
 	
 	public static Object getProperty(String root) {
@@ -1493,7 +1501,7 @@ public class TownySettings {
 	}
 
 	public static long getDayInterval() {
-		return getLong("plugin.DAY_INTERVAL", (long)86400000);
+		return getLong("plugin.DAY_INTERVAL", 86400000L);
 	}
 	
 	public static boolean isAllowingTownSpawn() {
@@ -1545,6 +1553,10 @@ public class TownySettings {
 		return getBoolean("plugin.dev_mode.ENABLE", false);
 	}
 
+    public static void setDevMode(boolean choice) {
+        setProperty("plugin.dev_mode.ENABLE", choice);
+    }
+
     public static String getDevName() {
         return getString("plugin.dev_mode.DEV_NAME", "ElgarL");
     }
@@ -1558,6 +1570,10 @@ public class TownySettings {
 	public static boolean isDeclaringNeutral() {
 		return getBoolean("war.WARTIME_NATION_CAN_BE_NEUTRAL", true);
 	}
+
+    public static void setDeclaringNeutral(boolean choice) {
+        setProperty("war.WARTIME_NATION_CAN_BE_NEUTRAL", choice);
+    }
 
 	public static boolean isRemovingOnMonarchDeath() {
 		return getBoolean("war.WARTIME_REMOVE_ON_MONARCH_DEATH", false);
@@ -1644,6 +1660,10 @@ public class TownySettings {
 	public static String getLastRunVersion(String currentVersion) {
 		return getString("version.LAST_RUN_VERSION", currentVersion);
 	}
+
+    public static void setLastRunVersion(String currentVersion) {
+        setProperty("version.LAST_RUN_VERSION", currentVersion);
+    }
 
 	public static int getMinDistanceFromTownHomeblocks() {
 		return getInt("TOWN.MIN_DISTANCE_FROM_TOWN_HOMEBLOCK");
@@ -1816,6 +1836,9 @@ public class TownySettings {
 	public static boolean isUsingQuestioner() {
 		return getBoolean("plugin.interfacing.USING_QUESTIONER");
 	}
+    public static void setUsingQuestioner(boolean newSetting) {
+        setProperty("plugin.interfacing.USING_QUESTIONER", newSetting);
+    }
 	
 	public static boolean isAppendingToLog() {
         addComment("plugin.RESET_LOG_ON_BOOT",
@@ -1826,6 +1849,9 @@ public class TownySettings {
 	public static boolean isUsingPermissions() {
 		return getBoolean("plugin.interfacing.USING_PERMISSIONS");
 	}
+    public static void setUsingPermissions(boolean newSetting) {
+        setProperty("plugin.interfacing.USING_PERMISSIONS", newSetting);
+    }
 	
 	public static String filterName(String input) {
 		return input.replaceAll(getNameFilterRegex(), "_").replaceAll(getNameRemoveRegex(), "");

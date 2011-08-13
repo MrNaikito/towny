@@ -221,7 +221,7 @@ public class Towny extends JavaPlugin {
 
 		test = getServer().getPluginManager().getPlugin("Permissions");
 		if (test == null)
-			setSetting("USING_PERMISSIONS", false, false);
+			TownySettings.setUsingPermissions(false);
 		else {
 			permissions = (Permissions)test;
 			if (TownySettings.isUsingPermissions())
@@ -230,7 +230,7 @@ public class Towny extends JavaPlugin {
 		
 		test = getServer().getPluginManager().getPlugin("iConomy");
 		if (test == null)
-			setSetting("USING_ICONOMY", false, false);
+			TownySettings.setUsingIConomy(false);
 		else {
 			iconomy = (iConomy)test;
 			if (TownySettings.isUsingIConomy())
@@ -239,13 +239,13 @@ public class Towny extends JavaPlugin {
 		
 		test = getServer().getPluginManager().getPlugin("Essentials");
 		if (test == null)
-			setSetting("USING_ESSENTIALS", false, false);
+			TownySettings.setUsingEssentials(false);
 		else if (TownySettings.isUsingEssentials())
 			using.add("Essentials");
 		
 		test = getServer().getPluginManager().getPlugin("Questioner");
 		if (test == null)
-			setSetting("USING_QUESTIONER", false, false);
+			TownySettings.setUsingQuestioner(false);
 		else if (TownySettings.isUsingQuestioner())
 			using.add("Questioner");
 		
@@ -405,7 +405,7 @@ public class Towny extends JavaPlugin {
 		} catch (IOException e) {
 			sendDebugMsg("Could not read ChangeLog.txt");
 		}
-		setSetting("LAST_RUN_VERSION", getVersion(), true);
+		TownySettings.setLastRunVersion(getVersion());
 	}
 	
 
@@ -518,9 +518,9 @@ public class Towny extends JavaPlugin {
 				Resident resident = getTownyUniverse().getResident(player.getName());
 				String colour, formattedName = "";
 				if (resident.isKing())
-					colour = TownySettings.getString("COLOUR_KING");
+					colour = TownySettings.getKingColour();
 				else if (resident.isMayor())
-					colour = TownySettings.getString("COLOUR_MAYOR");
+					colour = TownySettings.getMayorColour();
 				else
 					colour = "";
 				formattedName = TownySettings.getModifyChatFormat();
@@ -703,9 +703,9 @@ public class Towny extends JavaPlugin {
 		return getDataFolder().getPath() + FileMgmt.fileSeparator() + "settings" + FileMgmt.fileSeparator() + "config.yml";
 	}
 	
-	public void setSetting(String root, Object value, boolean saveYML) {
-			TownySettings.setProperty(root, value, saveYML);
-	}
+	//public void setSetting(String root, Object value, boolean saveYML) {
+	//		TownySettings.setProperty(root, value, saveYML);
+	//}
 	
 	public Object getSetting(String root) {
 		return TownySettings.getProperty(root);
