@@ -696,7 +696,7 @@ public class Towny extends JavaPlugin {
 	}
 
 	public void sendMsg(String msg) {
-		System.out.println("[Towny] " + msg);
+		System.out.println("[Towny] " + ChatTools.stripColour(msg));
 	}
 	
 	public String getConfigPath() {

@@ -417,3 +417,4 @@ v0.74.1:
     - Disabled the use of '/town new' and '/town claim' in worlds where Towny is disabled.
     - Added 'disable_modify_chat' for those not wanting Towny to make any changes.
     - Fixed an error if a player uses '/town spawn' after logging, but before moving. This caused the player cache to be empty.
+    - All console messages should now have their colour codes removed correctly.
