@@ -281,7 +281,7 @@ public class Towny extends JavaPlugin {
 			getServer().getPluginManager().disablePlugin(this);
 		}
 		
-		Coord.setCellSize(TownySettings.getTownBlockSize());
+		//Coord.setCellSize(TownySettings.getTownBlockSize());
 		TownyIConomyObject.setPlugin(this);
 		//TownyCommand.setUniverse(townyUniverse);
 	}

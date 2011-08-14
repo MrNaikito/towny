@@ -734,6 +734,9 @@ public class TownyUniverse extends TownyObject {
 			return false;
 		}
 		
+		// Setup any defaults before we load the database.
+		Coord.setCellSize(TownySettings.getTownBlockSize());
+		
 		System.out.println("[Towny] Database: [Load] " + TownySettings.getLoadDatabase() + " [Save] " + TownySettings.getSaveDatabase());
 		if (!loadDatabase(TownySettings.getLoadDatabase())) {
 			System.out.println("[Towny] Error: Failed to load!");

@@ -419,3 +419,4 @@ v0.74.1:
     - Fixed an error if a player uses '/town spawn' after logging in, but before moving. This caused the player cache to be empty.
     - All console messages should now have their colour codes removed correctly.
     - New config.yml handling code means no need to delete config at each upgrade. (thanks dumptruckman)
+    - Fixed town spawn being lost at load when using non standard (16x16) plot sizes.
