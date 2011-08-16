@@ -566,6 +566,11 @@ public class TownySettings {
         addComment(ConfigNodes.GTOWN_SETTINGS_ALLOW_TOWN_SPAWN_TRAVEL.getRoot(),
                 "# Allow regular residents to use /town spawn [town] (TP to other towns if they are public).");
         setNewProperty(ConfigNodes.GTOWN_SETTINGS_ALLOW_TOWN_SPAWN_TRAVEL.getRoot(), isAllowingPublicTownSpawnTravel());
+        
+        addComment(ConfigNodes.GTOWN_SETTINGS_SPAWN_TIMER.getRoot(),
+                "# If non zero it delays any spawn request by x seconds.");
+        setNewProperty(ConfigNodes.GTOWN_SETTINGS_SPAWN_TIMER.getRoot(), getTeleportWarmupTime());
+        
         addComment(ConfigNodes.GTOWN_SETTINGS_TOWN_RESPAWN.getRoot(),
                 "# Respawn the player at his town spawn point when he/she dies");
         setNewProperty(ConfigNodes.GTOWN_SETTINGS_TOWN_RESPAWN.getRoot(), isTownRespawning());
