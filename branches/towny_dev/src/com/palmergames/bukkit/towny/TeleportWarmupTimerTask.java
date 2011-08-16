@@ -41,7 +41,12 @@ public class TeleportWarmupTimerTask extends TownyTimerTask {
     public static void requestTeleport(Resident resident, Town town) {
     	resident.setTeleportRequestTime();
         resident.setTeleportDestination(town);
+        try {
         teleportQueue.add(resident);
+        } catch (NullPointerException e) {
+        	System.out.println("[Towny] Error: Null returnd from teleport queue.");
+        	System.out.println(e.getStackTrace());
+        }
     }
 
     public static boolean abortTeleportRequest(Resident resident) {
