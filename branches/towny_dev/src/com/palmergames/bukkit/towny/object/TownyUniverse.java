@@ -11,24 +11,13 @@ import java.util.Set;
 
 import javax.naming.InvalidNameException;
 
+import com.palmergames.bukkit.towny.*;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.palmergames.bukkit.towny.AlreadyRegisteredException;
-import com.palmergames.bukkit.towny.DailyTimerTask;
-import com.palmergames.bukkit.towny.EmptyNationException;
-import com.palmergames.bukkit.towny.EmptyTownException;
-import com.palmergames.bukkit.towny.HealthRegenTimerTask;
-import com.palmergames.bukkit.towny.IConomyException;
-import com.palmergames.bukkit.towny.MobRemovalTimerTask;
-import com.palmergames.bukkit.towny.NotRegisteredException;
-import com.palmergames.bukkit.towny.Towny;
-import com.palmergames.bukkit.towny.TownyException;
-import com.palmergames.bukkit.towny.TownyFormatter;
-import com.palmergames.bukkit.towny.TownySettings;
 import com.palmergames.bukkit.towny.db.TownyDataSource;
 import com.palmergames.bukkit.towny.db.TownyFlatFileSource;
 import com.palmergames.bukkit.towny.db.TownyHModFlatFileSource;
@@ -52,6 +41,7 @@ public class TownyUniverse extends TownyObject {
 	private int dailyTask = -1;
 	private int mobRemoveTask = -1;
 	private int healthRegenTask = -1;
+    private int teleportWarmupTask = -1;
 	private War warEvent;
 	private String rootFolder;
 	
@@ -113,6 +103,17 @@ public class TownyUniverse extends TownyObject {
 			healthRegenTask = -1;
 		}
 	}
+
+    public void toggleTeleportWarmup(boolean on) {
+        if (on && !isTeleportWarmupRunning()) {
+			teleportWarmupTask = getPlugin().getServer().getScheduler().scheduleSyncRepeatingTask(getPlugin(), new TeleportWarmupTimerTask(this), 0, 20);
+			if (teleportWarmupTask == -1)
+				plugin.sendErrorMsg("Could not schedule teleport warmup loop.");
+		} else if (!on && isHealthRegenRunning()) {
+			getPlugin().getServer().getScheduler().cancelTask(teleportWarmupTask);
+			teleportWarmupTask = -1;
+		}
+    }
 	
 	public boolean isMobRemovalRunning() {
 		return mobRemoveTask != -1;
@@ -128,6 +129,10 @@ public class TownyUniverse extends TownyObject {
 		return healthRegenTask != -1;
 		//return healthRegenTimer != null;
 	}
+
+    public boolean isTeleportWarmupRunning() {
+        return teleportWarmupTask != -1;
+    }
 
 	public void onLogin(Player player) throws AlreadyRegisteredException, NotRegisteredException {
 		Resident resident;
@@ -1275,5 +1280,13 @@ public class TownyUniverse extends TownyObject {
 				}
 		}
 		return invited;
-	}	
+	}
+
+    public void requestTeleport(Player player, Town town) {
+        try {
+            TeleportWarmupTimerTask.requestTeleport(getResident(player.getName()), town);
+        } catch (TownyException x) {
+            plugin.sendErrorMsg(player, x.getError());
+        }
+    }
 }

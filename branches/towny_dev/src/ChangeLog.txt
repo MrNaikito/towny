@@ -421,3 +421,4 @@ v0.74.1:
     - New config.yml handling code means no need to delete config at each upgrade. (thanks dumptruckman)
     - Fixed town spawn being lost at load when using non standard (16x16) plot sizes.
     - Allow the ignition of obsidian for lighting portals, even when fire lighting is disabled in town.
+    - Durations specified in the config are now in seconds rather than milliseconds.

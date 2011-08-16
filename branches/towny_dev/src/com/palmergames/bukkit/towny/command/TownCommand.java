@@ -209,9 +209,18 @@ public class TownCommand implements CommandExecutor  {
 				
 				
 				// if an Admin or essentials teleport isn't being used, use our own.
-				if(isTownyAdmin || !notUsingESS)
-						player.teleport(town.getSpawn());
-
+				if(isTownyAdmin) {
+					player.teleport(town.getSpawn());
+                }
+                
+                if (!notUsingESS) {
+                    if (TownySettings.getTeleportWarmupTime() != 0) { // Use teleport warmup
+                        // TODO needs language messages
+                        plugin.getTownyUniverse().requestTeleport(player, town);
+                    } else { // Don't use teleport warmup
+                        player.teleport(town.getSpawn());
+                    }
+                }
 				
 			} catch (TownyException e) {
 				plugin.sendErrorMsg(player, e.getMessage());
