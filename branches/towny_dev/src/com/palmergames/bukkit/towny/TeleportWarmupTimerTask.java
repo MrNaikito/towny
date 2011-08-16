@@ -3,7 +3,6 @@ package com.palmergames.bukkit.towny;
 import com.palmergames.bukkit.towny.object.Resident;
 import com.palmergames.bukkit.towny.object.Town;
 import com.palmergames.bukkit.towny.object.TownyUniverse;
-import org.bukkit.entity.Player;
 
 import java.util.ArrayDeque;
 import java.util.Queue;

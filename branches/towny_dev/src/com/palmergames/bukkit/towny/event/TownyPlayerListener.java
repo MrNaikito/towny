@@ -33,7 +33,6 @@ import com.palmergames.bukkit.towny.object.TownyUniverse;
 import com.palmergames.bukkit.towny.object.TownyWorld;
 import com.palmergames.bukkit.towny.object.WorldCoord;
 import com.palmergames.bukkit.util.Colors;
-import org.bukkit.inventory.ItemStack;
 
 
 /**

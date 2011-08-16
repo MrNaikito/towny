@@ -1898,6 +1898,10 @@ public class TownySettings {
     public static boolean isUsingCheatProtection() {
         return getBoolean(ConfigNodes.PROT_CHEAT);
     }
+    
+    public static int getTeleportWarmupTime() {
+        return getInt(ConfigNodes.GTOWN_SETTINGS_SPAWN_TIMER);
+    }
 
 	public static boolean isValidRegionName(String name) {
 		

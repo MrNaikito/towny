@@ -62,6 +62,7 @@ public enum ConfigNodes {
 	    GTOWN_SETTINGS_ALLOW_OUTPOSTS("global_town_settings.allow_outposts","true"),
 	    GTOWN_SETTINGS_ALLOW_TOWN_SPAWN("global_town_settings.allow_town_spawn","true"),
 	    GTOWN_SETTINGS_ALLOW_TOWN_SPAWN_TRAVEL("global_town_settings.allow_town_spawn_travel","true"),
+	    GTOWN_SETTINGS_SPAWN_TIMER("global_town_settings.teleport_warmup_time","0"),
 	    GTOWN_SETTINGS_TOWN_RESPAWN("global_town_settings.town_respawn","false"),
 	    GTOWN_SETTINGS_PREVENT_TOWN_SPAWN_IN("global_town_settings.prevent_town_spawn_in","enemy"),
 	    GTOWN_SETTINGS_SHOW_TOWN_NOTIFICATIONS("global_town_settings.show_town_notifications","true"),
