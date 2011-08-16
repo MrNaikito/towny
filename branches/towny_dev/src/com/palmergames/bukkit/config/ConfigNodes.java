@@ -133,7 +133,7 @@ public enum ConfigNodes {
 	    WARTIME_WARNING_DELAY("war.wartime_warning_delay","30"),
 	    WARTIME_TOWN_BLOCK_HP("war.wartime_town_block_hp","60"),
 	    WARTIME_TOWN_BLOCK_LOSS_PRICE("war.wartime_town_block_loss_price","100"),
-	    WARTIME_HOME_BLOCK_HP("war.wartime_home_block_hp","120.0"),
+	    WARTIME_HOME_BLOCK_HP("war.wartime_home_block_hp","120"),
 	    WARTIME_BASE_SPOILS("war.wartime_base_spoils","100"),
 	    WARTIME_POINTS_TOWNBLOCK("war.wartime_points_townblock","1"),
 	    WARTIME_POINTS_TOWN("war.wartime_points_town","10"),
