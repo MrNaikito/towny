@@ -273,16 +273,20 @@ The time of a 'Towny Day' can be set in [DefaultConfig config.yml] at {{{day_int
 
 Towny modifies the in-game chat appearance of town mayors and nation leaders only.
 
-The various chat modification can be turned on in [DefaultConfig config.yml] at {{{modify_chat: '{permprefix}{townynameprefix}{playername}{townynamepostfix}{permsuffix}'}}}
+The various chat modification can be turned on in [DefaultConfig config.yml] at {{{modify_chat: '{nation}{town}{permprefix}{townynameprefix}{playername}{townynamepostfix}{permsuffix}'}}}
+  * {nation} - The nation the player is a part of.
+  * {town} - The town player is a part of.
   * {permprefix} - The group prefix set in your permissions plugin.
   * {townynameprefix} - Mayor/king titles, and titles handed out by kings to their minions.
   * {playername} - The basic minecraft player name in chat, should not be removed.
   * {townynameprefix} - Mayor/king suffix, and surnames handed out by kings to their minions.
   * {permsuffix} - The group suffix set in your permissions plugin.
+  Alternately you can try using {modplayername} instead of {playername}
+  * {modplayername} - modified player name (use if Towny is over writing some other plugins changes)
 
-Mayors chat name appears as blue by default (but can be configured in the config.yml,) and includes the mayorPrefix and mayorPostfix found in the townLevel section of the config.yml.
+Mayors chat name appears as blue by default (but can be configured in the config.yml @ colour_mayor: ) and includes the mayorPrefix and mayorPostfix found in the townLevel section of the config.yml.
 
-Nation Leader's chat name appears as gold by default (but can be configured in the config.yml,) and includes the kingPrefix and kingPostfix found in the townLevel section of the config.yml.
+Nation Leader's chat name appears as gold by default (but can be configured in the config.yml @ colour_king: ) and includes the kingPrefix and kingPostfix found in the townLevel section of the config.yml.
 
 Kings of nations can use two commands to change the displayed chat names of their minions:
   * {{{/nation set title {resident} title}}}
