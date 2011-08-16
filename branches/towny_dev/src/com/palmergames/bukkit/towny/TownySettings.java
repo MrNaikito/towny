@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
 import com.palmergames.bukkit.config.CommentedConfiguration;
+import com.palmergames.bukkit.config.ConfigNodes;
 import com.palmergames.bukkit.towny.object.Nation;
 import com.palmergames.bukkit.towny.object.Resident;
 import com.palmergames.bukkit.towny.object.Town;
@@ -44,8 +45,9 @@ public class TownySettings {
 		UPKEEP_MULTIPLIER
 	};
 	
+	
 	private static Pattern namePattern = null;	
-	private static CommentedConfiguration config;
+	private static CommentedConfiguration config, newConfig;
 	private static Configuration language;
     //private static Configuration permissions;
 	
@@ -268,7 +270,7 @@ public class TownySettings {
 			config = new CommentedConfiguration(file);
 			config.load();
 
-            setDefaults(version);
+            setDefaults(version, file);
 
             config.save();
 
@@ -433,21 +435,24 @@ public class TownySettings {
 	*/
 
     public static void addComment(String root, String...comments) {
-        config.addComment(root.toLowerCase(), comments);
+        newConfig.addComment(root.toLowerCase(), comments);
     }
 
-    private static void setDefaults(String version) {
+    private static void setDefaults(String version, File file) {
+    	
+    	newConfig = new CommentedConfiguration(file);
+    	
         // Version
         addComment("version", "", "# This is for showing the changelog on updates.  Please do not edit.");
-        setProperty("version.VERSION", version);
-        getLastRunVersion(version);
+        setNewProperty(ConfigNodes.VERSION.getRoot(), version);
+        setNewProperty(ConfigNodes.LAST_RUN_VERSION.getRoot(), getLastRunVersion(version));
 
-        addComment("language", "", "# The language file you wish to use");
-        getString("language", "english.yml");
+        addComment(ConfigNodes.LANGUAGE.getRoot(), "", "# The language file you wish to use");
+        getString(ConfigNodes.LANGUAGE.getRoot(), ConfigNodes.LANGUAGE.getDefault());
         
         
 
-        addComment("PERMISSIONS", "", "#  Possible permission nodes",
+        addComment(ConfigNodes.PERMS.getRoot(), "", "#  Possible permission nodes",
         							  "#",
         							  "#    towny.admin: User is able to use /townyadmin, as well as the ability to build/destroy anywhere. User is also able to make towns or nations when set to admin only.",
         							  "#    towny.town.new :User is able to create a town",
@@ -464,42 +469,42 @@ public class TownySettings {
         							  "#    towny.publicspawntp : Use ''/town spawn [town]'' (teleport to other towns)",
         							  "#",
         							  "# these will be moved to permissions nodes at a later date");
-        isTownCreationAdminOnly();
-        isNationCreationAdminOnly();
+        setNewProperty(ConfigNodes.PERMS_TOWN_CREATION_ADMIN_ONLY.getRoot(),isTownCreationAdminOnly());
+        setNewProperty(ConfigNodes.PERMS_NATION_CREATION_ADMIN_ONLY.getRoot(),isNationCreationAdminOnly());
 
-        addComment("levels", "", "");
+        addComment(ConfigNodes.LEVELS.getRoot(), "", "");
         setDefaultLevels();
 
-        addComment("town", "", "",
+        addComment(ConfigNodes.TOWN.getRoot(), "", "",
                 "############################################################",
                 "# +------------------------------------------------------+ #",
                 "# |               Town Claim/new defaults                | #",
                 "# +------------------------------------------------------+ #",
                 "############################################################", "");
-        addComment("TOWN.MAX_PLOTS_PER_RESIDENT", "# maximum number of plots any single resident can own");
-        getMaxPlotsPerResident();
-        addComment("TOWN.TOWN_LIMIT", "# Maximum number of towns allowed on the server.");
+        addComment(ConfigNodes.TOWN_MAX_PLOTS_PER_RESIDENT.getRoot(), "# maximum number of plots any single resident can own");
+        setNewProperty(ConfigNodes.TOWN_MAX_PLOTS_PER_RESIDENT.getRoot(), getMaxPlotsPerResident());
+        addComment(ConfigNodes.TOWN_LIMIT.getRoot(), "# Maximum number of towns allowed on the server.");
         getTownLimit();
-        addComment("TOWN.MIN_DISTANCE_FROM_TOWN_HOMEBLOCK", "",
+        addComment(ConfigNodes.TOWN_MIN_DISTANCE_FROM_TOWN_HOMEBLOCK.getRoot(), "",
                 "# Minimum number of plots any towns home plot must be from the next town.",
                 "# This will prevent someone founding a town right on your doorstep");
-        getMinDistanceFromTownHomeblocks();
-        addComment("TOWN.MAX_DISTANCE_BETWEEN_HOMEBLOCKS", "",
+        setNewProperty(ConfigNodes.TOWN_MIN_DISTANCE_FROM_TOWN_HOMEBLOCK.getRoot(), getMinDistanceFromTownHomeblocks());
+        addComment(ConfigNodes.TOWN_MAX_DISTANCE_BETWEEN_HOMEBLOCKS.getRoot(), "",
                 "# Maximum distance between homblocks.",
                 "# This will force players to build close together.");
-        getMaxDistanceBetweenHomeblocks();
-        addComment("TOWN.TOWN_BLOCK_RATIO", "",
+        setNewProperty(ConfigNodes.TOWN_MAX_DISTANCE_BETWEEN_HOMEBLOCKS.getRoot(), getMaxDistanceBetweenHomeblocks());
+        addComment(ConfigNodes.TOWN_TOWN_BLOCK_RATIO.getRoot(), "",
                 "# The maximum townblocks available to a town is (numResidents * ratio).",
                 "# Setting this value to 0 will instead use the level based jump values determined in the town level config.");
-        getTownBlockRatio();
-        addComment("TOWN.TOWN_BLOCK_SIZE",
+        setNewProperty(ConfigNodes.TOWN_TOWN_BLOCK_RATIO.getRoot(), getTownBlockRatio());
+        addComment(ConfigNodes.TOWN_TOWN_BLOCK_SIZE.getRoot(),
                 "# The size of the square grid cell. Changing this value is suggested only when you first install Towny.",
                 "# Doing so after entering data will shift things unwantedly. Using smaller value will allow higher precision,",
                 "# at the cost of more work setting up. Also, extremely small values will render the caching done useless.",
                 "# Each cell is (town_block_size * town_block_size * 128) in size, with 128 being from bedrock to clouds.");
-        getTownBlockSize();
+        setNewProperty(ConfigNodes.TOWN_TOWN_BLOCK_SIZE.getRoot(), getTownBlockSize());
 
-        addComment("new_world_settings", "", "",
+        addComment(ConfigNodes.NWS.getRoot(), "", "",
                 "############################################################",
                 "# +------------------------------------------------------+ #",
                 "# |             Default new world settings               | #",
@@ -599,7 +604,11 @@ public class TownySettings {
                 "# Spams the player named in dev_name with all messages related to towny.");
         isDevMode();
         getDevName();
+        addComment("plugin.LOGGING",
+                "# Record all messages to the towny.log");
         isLogging();
+        addComment("plugin.RESET_LOG_ON_BOOT",
+                "# If true this will cause the log to be wiped at every startup.");
         isAppendingToLog();
 
         addComment("filters_colour_chat", "", "",
@@ -614,6 +623,7 @@ public class TownySettings {
         getNameCheckRegex();
         getNameFilterRegex();
         getNameRemoveRegex();
+        addComment("filters_colour_chat.NPC_PREFIX", "# Not a good idea to change this at the moment.");
         getNPCPrefix();
         addComment("filters_colour_chat.modify_chat", "",
                 "# The format below will specify the changes made to the player name when chatting.",
@@ -829,6 +839,9 @@ public class TownySettings {
         getWarzoneTownBlockHealth();
         getWartimeTownBlockLossPrice();
         getWarTimeWarningDelay();
+        
+        config = newConfig;
+        newConfig = null;
     }
 
     private static void setDefaultLevels() {
@@ -932,7 +945,7 @@ public class TownySettings {
             level.put("upkeepModifier", 1.0);
             levels.add(new HashMap<String, Object>(level));
             level.clear();
-            config.setProperty("levels.town_level", levels);
+            newConfig.setProperty("levels.town_level", levels);
         }
         addComment("levels.nation_level", "",
                 "############################################################",
@@ -1004,7 +1017,7 @@ public class TownySettings {
             level.put("upkeepModifier", 1.0);
             levels.add(new HashMap<String, Object>(level));
             level.clear();
-            config.setProperty("levels.nation_level", levels);
+            newConfig.setProperty("levels.nation_level", levels);
         }
     }
 
@@ -1200,7 +1213,6 @@ public class TownySettings {
 	}
 	
 	public static String getNPCPrefix() {
-		addComment("filters_colour_chat.NPC_PREFIX", "# Not a good idea to change this at the moment.");
 		return getString("filters_colour_chat.NPC_PREFIX", "NPC");
 	}
 
@@ -1290,11 +1302,11 @@ public class TownySettings {
 	}
 
 	public static boolean isTownCreationAdminOnly() {
-		return getBoolean("PERMISSIONS.TOWN_CREATION_ADMIN_ONLY", false);
+		return getBoolean(ConfigNodes.PERMS_TOWN_CREATION_ADMIN_ONLY.getRoot(), Boolean.parseBoolean(ConfigNodes.PERMS_TOWN_CREATION_ADMIN_ONLY.getDefault()));
 	}
 	
 	public static boolean isNationCreationAdminOnly() {
-		return getBoolean("PERMISSIONS.NATION_CREATION_ADMIN_ONLY", false);
+		return getBoolean(ConfigNodes.PERMS_NATION_CREATION_ADMIN_ONLY.getRoot(), Boolean.parseBoolean(ConfigNodes.PERMS_NATION_CREATION_ADMIN_ONLY.getDefault()));
 	}
 
 	public static boolean isUsingIConomy() {
@@ -1493,6 +1505,10 @@ public class TownySettings {
 	
 	private static void setProperty(String root, Object value) {
 		config.setProperty(root.toLowerCase(), value);
+	}
+	
+	private static void setNewProperty(String root, Object value) {
+		newConfig.setProperty(root.toLowerCase(), value);
 	}
 	
 	public static Object getProperty(String root) {
@@ -1840,8 +1856,6 @@ public class TownySettings {
 	}
 
 	public static boolean isLogging() {
-        addComment("plugin.LOGGING",
-                "# Record all messages to the towny.log");
 		return getBoolean("plugin.LOGGING", true);
 	}
 
@@ -1853,8 +1867,6 @@ public class TownySettings {
     }
 	
 	public static boolean isAppendingToLog() {
-        addComment("plugin.RESET_LOG_ON_BOOT",
-                "# If true this will cause the log to be wiped at every startup.");
 		return !getBoolean("plugin.RESET_LOG_ON_BOOT", true);
 	}
 
