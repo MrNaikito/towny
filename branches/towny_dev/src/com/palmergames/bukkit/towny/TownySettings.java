@@ -18,6 +18,7 @@ import com.palmergames.bukkit.towny.object.TownyPermission.ActionType;
 import com.palmergames.bukkit.towny.object.TownyPermission.PermLevel;
 import com.palmergames.bukkit.towny.object.WorldCoord;
 import com.palmergames.util.FileMgmt;
+import com.palmergames.util.StringMgmt;
 
 import org.bukkit.util.config.Configuration;
 import org.bukkit.util.config.ConfigurationNode;
@@ -571,7 +572,7 @@ public class TownySettings {
         addComment(ConfigNodes.GTOWN_SETTINGS_PREVENT_TOWN_SPAWN_IN.getRoot(),
                 "# Prevent players from using /town spawn while within unclaimed areas and/or enemy/neutral towns.",
                 "# Allowed options: unclaimed, enemy, neutral");
-        setNewProperty(ConfigNodes.GTOWN_SETTINGS_PREVENT_TOWN_SPAWN_IN.getRoot(), getDisallowedTownSpawnZones());
+        setNewProperty(ConfigNodes.GTOWN_SETTINGS_PREVENT_TOWN_SPAWN_IN.getRoot(), StringMgmt.join(getDisallowedTownSpawnZones(),","));
         addComment(ConfigNodes.GTOWN_SETTINGS_SHOW_TOWN_NOTIFICATIONS.getRoot(),
                 "# Enables the [~Home] message.",
                 "# If false it will make it harder for enemies to find the home block during a war");
@@ -602,7 +603,7 @@ public class TownySettings {
         setNewProperty(ConfigNodes.PLUGIN_DEBUG_MODE.getRoot(), getDebug());
         addComment(ConfigNodes.PLUGIN_DEV_MODE.getRoot(),
                 "# Spams the player named in dev_name with all messages related to towny.");
-        setNewProperty(ConfigNodes.PLUGIN_DEV_MODE.getRoot(), isDevMode());
+        setNewProperty(ConfigNodes.PLUGIN_DEV_MODE_ENABLE.getRoot(), isDevMode());
         setNewProperty(ConfigNodes.PLUGIN_DEV_MODE_DEV_NAME.getRoot(), getDevName());
         addComment(ConfigNodes.PLUGIN_LOGGING.getRoot(),
                 "# Record all messages to the towny.log");
@@ -663,7 +664,7 @@ public class TownySettings {
                 "# 326 - water bucket",
                 "# 327 - lava bucket",
                 "# 351 - bone/bonemeal");
-        setNewProperty(ConfigNodes.PROT_ITEM_USE_ID.getRoot(), getItemUseIds());
+        setNewProperty(ConfigNodes.PROT_ITEM_USE_ID.getRoot(), StringMgmt.join(getItemUseIds(),","));
         addComment(ConfigNodes.PROT_SWITCH_ID.getRoot(), "",
                 "# Items which can be blocked or enabled via town/plot flags",
                 "# 25 - noteblock",
@@ -679,17 +680,17 @@ public class TownySettings {
                 "# 96 - trap door",
                 "# 84 - jukebox",
                 "# 93/94 - redstone repeater");
-        setNewProperty(ConfigNodes.PROT_SWITCH_ID.getRoot(), getSwitchIds());
+        setNewProperty(ConfigNodes.PROT_SWITCH_ID.getRoot(), StringMgmt.join(getSwitchIds(),","));
         addComment(ConfigNodes.PROT_MOB_REMOVE_TOWN.getRoot(), "",
                 "# permitted entities http://jd.bukkit.org/apidocs/org/bukkit/entity/package-summary.html",
                 "# Animals, Chicken, Cow, Creature, Creeper, Flying, Ghast, Giant, Monster, Pig, ",
                 "# PigZombie, Sheep, Skeleton, Slime, Spider, Squid, WaterMob, Wolf, Zombie",
                 "",
                 "# Remove living entities within a town's boundaries, if the town has the mob removal flag set.");
-        setNewProperty(ConfigNodes.PROT_MOB_REMOVE_TOWN.getRoot(), getTownMobRemovalEntities());
+        setNewProperty(ConfigNodes.PROT_MOB_REMOVE_TOWN.getRoot(), StringMgmt.join(getTownMobRemovalEntities(),","));
         addComment(ConfigNodes.PROT_MOB_REMOVE_WORLD.getRoot(), "",
                 "# Globally remove living entities in all worlds that have their flag set.");
-        setNewProperty(ConfigNodes.PROT_MOB_REMOVE_WORLD.getRoot(), getWorldMobRemovalEntities());
+        setNewProperty(ConfigNodes.PROT_MOB_REMOVE_WORLD.getRoot(), StringMgmt.join(getWorldMobRemovalEntities(),","));
         addComment(ConfigNodes.PROT_MOB_REMOVE_SPEED.getRoot(), "",
                 "# The maximum amount of time a mob could be inside a town's boundaries before being sent to the void.",
                 "# Lower values will check all entities more often at the risk of heavier burden and resource use.",
@@ -709,7 +710,7 @@ public class TownySettings {
         setNewProperty(ConfigNodes.UNCLAIMED_ZONE_DESTROY.getRoot(), getUnclaimedZoneDestroyRights());
         setNewProperty(ConfigNodes.UNCLAIMED_ZONE_ITEM_USE.getRoot(), getUnclaimedZoneItemUseRights());
         setNewProperty(ConfigNodes.UNCLAIMED_ZONE_SWITCH.getRoot(), getUnclaimedZoneSwitchRights());
-        setNewProperty(ConfigNodes.UNCLAIMED_ZONE_IGNORE.getRoot(), getUnclaimedZoneIgnoreIds());
+        setNewProperty(ConfigNodes.UNCLAIMED_ZONE_IGNORE.getRoot(), StringMgmt.join(getUnclaimedZoneIgnoreIds(),","));
 
 
         addComment(ConfigNodes.FLAGS_DEFAULT.getRoot(), "", "",
