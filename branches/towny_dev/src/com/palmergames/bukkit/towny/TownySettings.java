@@ -861,8 +861,8 @@ public class TownySettings {
                 "# |                 default Town levels                  | #",
                 "# +------------------------------------------------------+ #",
                 "############################################################", "");
-        List<ConfigurationNode> test = new ArrayList<ConfigurationNode>(config.getNodeList(ConfigNodes.LEVELS_TOWN_LEVEL.getRoot(), null));
-        if (test.isEmpty()) {
+        List<ConfigurationNode> townLevels = new ArrayList<ConfigurationNode>(config.getNodeList(ConfigNodes.LEVELS_TOWN_LEVEL.getRoot(), null));
+        if (townLevels.isEmpty()) {
             List<HashMap<String, Object>> levels = new ArrayList<HashMap<String, Object>>();
             HashMap<String, Object> level = new HashMap<String, Object>();
             level.put("numResidents", 0);
@@ -956,7 +956,9 @@ public class TownySettings {
             levels.add(new HashMap<String, Object>(level));
             level.clear();
             newConfig.setProperty(ConfigNodes.LEVELS_TOWN_LEVEL.getRoot(), levels);
-        }
+        } else
+        	newConfig.setProperty(ConfigNodes.LEVELS_TOWN_LEVEL.getRoot(), townLevels);
+        
         addComment(ConfigNodes.LEVELS_NATION_LEVEL.getRoot(), "",
                 "############################################################",
                 "# +------------------------------------------------------+ #",
@@ -1028,7 +1030,8 @@ public class TownySettings {
             levels.add(new HashMap<String, Object>(level));
             level.clear();
             newConfig.setProperty(ConfigNodes.LEVELS_NATION_LEVEL.getRoot(), levels);
-        }
+        } else
+        	newConfig.setProperty(ConfigNodes.LEVELS_NATION_LEVEL.getRoot(), nationLevels);
     }
 
 

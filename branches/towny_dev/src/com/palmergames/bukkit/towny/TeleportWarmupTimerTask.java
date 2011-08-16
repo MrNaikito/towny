@@ -39,7 +39,7 @@ public class TeleportWarmupTimerTask extends TownyTimerTask {
     }
 
     public static void requestTeleport(Resident resident, Town town) {
-        resident.setTeleportRequestTime();
+    	resident.setTeleportRequestTime();
         resident.setTeleportDestination(town);
         teleportQueue.add(resident);
     }

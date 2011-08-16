@@ -1284,7 +1284,7 @@ public class TownyUniverse extends TownyObject {
 
     public void requestTeleport(Player player, Town town) {
         try {
-            TeleportWarmupTimerTask.requestTeleport(getResident(player.getName()), town);
+            TeleportWarmupTimerTask.requestTeleport(getResident(player.getName().toLowerCase()), town);
         } catch (TownyException x) {
             plugin.sendErrorMsg(player, x.getError());
         }
