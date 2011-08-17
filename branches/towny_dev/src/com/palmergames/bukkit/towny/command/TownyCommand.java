@@ -478,7 +478,7 @@ public class TownyCommand implements CommandExecutor {
 		if (town != null) {
 			output.add(Colors.Yellow + "Town [" + plugin.getTownyUniverse().getFormatter().getFormattedName(town)+"]");
 			output.add(Colors.Rose + "    [Price] "
-					+ Colors.Green + "Plot: " + Colors.LightGreen + Integer.toString(town.getPlotPrice())
+					+ Colors.Green + "Plot: " + Colors.LightGreen + Double.toString(town.getPlotPrice())
 					+ Colors.Gray + " | "
 					+ Colors.Green + "Outpost: " + Colors.LightGreen + TownyFormatter.formatMoney(TownySettings.getOutpostCost()));
 			output.add(Colors.Rose + "    [Upkeep] "
@@ -490,7 +490,7 @@ public class TownyCommand implements CommandExecutor {
 			if (nation != null) {
 				output.add(Colors.Yellow + "Nation [" + plugin.getTownyUniverse().getFormatter().getFormattedName(nation)+"]");
 				output.add(Colors.Rose + "    [Upkeep] "
-					+ Colors.Green + "Town: " + Colors.LightGreen + Integer.toString(nation.getTaxes())
+					+ Colors.Green + "Town: " + Colors.LightGreen + Double.toString(nation.getTaxes())
 					+ Colors.Gray + " | "
 					+ Colors.Green + "Neutrality: " + Colors.LightGreen + TownyFormatter.formatMoney(TownySettings.getNationNeutralityCost()));
 			}

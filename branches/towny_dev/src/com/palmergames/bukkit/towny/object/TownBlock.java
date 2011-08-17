@@ -11,7 +11,7 @@ public class TownBlock {
 	private Resident resident;
     private TownBlockType type;
 	private int x, z;
-	private int isForSale = -1;
+	private double isForSale = -1;
 
 	public TownBlock(int x, int z, TownyWorld world) {
 		this.x = x;
@@ -84,12 +84,12 @@ public class TownBlock {
 		return false;
 	}
 
-	public void setForSale(int ForSale) {
+	public void setForSale(double ForSale) {
 		this.isForSale = ForSale;
 
 	}
 	
-	public int isForSale() {
+	public double isForSale() {
 		return isForSale;
 	}
 

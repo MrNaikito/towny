@@ -198,7 +198,7 @@ public class PlotCommand implements CommandExecutor  {
 		}
 	}
 	
-	public void setPlotForSale(Resident resident, WorldCoord worldCoord, int forSale) throws TownyException {
+	public void setPlotForSale(Resident resident, WorldCoord worldCoord, double forSale) throws TownyException {
 		if (resident.hasTown())
 			try {
 				TownBlock townBlock = worldCoord.getTownBlock();

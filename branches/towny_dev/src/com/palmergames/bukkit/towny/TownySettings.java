@@ -1115,7 +1115,7 @@ public class TownySettings {
 		return parseString(String.format(getLangString("MSG_DEL_NATION"), nation.getName()));
 	}
 	
-	public static String[] getBuyResidentPlotMsg(String who, String owner, Integer price) {
+	public static String[] getBuyResidentPlotMsg(String who, String owner, Double price) {
 		return parseString(String.format(getLangString("MSG_BUY_RESIDENT_PLOT"), who, owner, price));
 	}
 	

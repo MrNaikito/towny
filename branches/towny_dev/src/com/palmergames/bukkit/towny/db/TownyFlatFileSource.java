@@ -353,7 +353,7 @@ public class TownyFlatFileSource extends TownyDataSource {
 				line = kvFile.get("taxes");
 				if (line != null)
 					try {
-						town.setTaxes(Integer.parseInt(line));
+						town.setTaxes(Double.parseDouble(line));
 					} catch (Exception e) {
 						town.setTaxes(0);
 					}
@@ -361,7 +361,7 @@ public class TownyFlatFileSource extends TownyDataSource {
 				line = kvFile.get("plotTax");
 				if (line != null)
 					try {
-						town.setPlotTax(Integer.parseInt(line));
+						town.setPlotTax(Double.parseDouble(line));
 					} catch (Exception e) {
 						town.setPlotTax(0);
 					}
@@ -530,9 +530,9 @@ public class TownyFlatFileSource extends TownyDataSource {
 				line = kvFile.get("taxes");
 				if (line != null)
 					try {
-						nation.setTaxes(Integer.parseInt(line));
+						nation.setTaxes(Double.parseDouble(line));
 					} catch (Exception e) {
-						nation.setTaxes(0);
+						nation.setTaxes(0.0);
 					}
 					
 				line = kvFile.get("neutral");
@@ -756,7 +756,7 @@ public class TownyFlatFileSource extends TownyDataSource {
 					if (tokens.length >= 5)
 						try {
 							if (tokens[4].trim() != "true")
-								townblock.setForSale(Integer.parseInt(tokens[4]));
+								townblock.setForSale(Double.parseDouble(tokens[4]));
 							else
 								townblock.setForSale(town.getPlotPrice());
 
@@ -910,7 +910,7 @@ public class TownyFlatFileSource extends TownyDataSource {
 			// Taxes
 			fout.write("taxes=" + Double.toString(town.getTaxes()) + newLine);
 			// Plot Price
-			fout.write("plotPrice=" + Integer.toString(town.getPlotPrice()) + newLine);
+			fout.write("plotPrice=" + Double.toString(town.getPlotPrice()) + newLine);
 			// Plot Tax
 			fout.write("plotTax=" + Double.toString(town.getPlotTax()) + newLine);
 			// Upkeep
@@ -981,7 +981,7 @@ public class TownyFlatFileSource extends TownyDataSource {
 				fout.write(enemyNation.getName() + ",");
 			fout.write(newLine);
 			// Taxes
-			fout.write("taxes=" + Integer.toString(nation.getTaxes()) + newLine);
+			fout.write("taxes=" + Double.toString(nation.getTaxes()) + newLine);
 			// Neutral
 			fout.write("neutral=" + Boolean.toString(nation.isNeutral()) + newLine);
 
@@ -1117,7 +1117,7 @@ public class TownyFlatFileSource extends TownyDataSource {
 						//if present set the plot price
 						if (tokens.length >= 3)
 							if (tokens[2].trim() != "true")
-								townblock.setForSale(Integer.parseInt(tokens[2]));
+								townblock.setForSale(Double.parseDouble(tokens[2]));
 							else
 								townblock.setForSale(town.getPlotPrice());
 						
