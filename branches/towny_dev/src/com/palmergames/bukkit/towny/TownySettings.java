@@ -644,6 +644,8 @@ public class TownySettings {
                 "# {permsuffix} - Permission group suffix.");
         setNewProperty(ConfigNodes.FILTERS_MODIFY_CHAT_FORMAT.getRoot(), getModifyChatFormat());
         setNewProperty(ConfigNodes.FILTERS_MODIFY_CHAT_ENABLE.getRoot(), isUsingModifyChat());
+        
+        setNewProperty(ConfigNodes.FILTERS_MODIFY_CHAT_MAX_LGTH.getRoot(), getMaxTitleLength());
         addComment(ConfigNodes.FILTERS_COLOUR.getRoot(), "",
                 "# Text colouring",
                 "# --------------",
@@ -1376,6 +1378,10 @@ public class TownySettings {
 
     public static String getModifyChatFormat() {
         return getString(ConfigNodes.FILTERS_MODIFY_CHAT_FORMAT);
+    }
+    
+    public static int getMaxTitleLength() {
+        return getInt(ConfigNodes.FILTERS_MODIFY_CHAT_MAX_LGTH);
     }
 
     public static boolean isUsingModifyChat() {

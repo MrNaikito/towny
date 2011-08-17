@@ -922,7 +922,13 @@ public class NationCommand implements CommandExecutor  {
 							plugin.sendErrorMsg(player, String.format(TownySettings.getLangString("msg_err_not_same_nation"), resident.getName()));
 							return;
 						}
-						String title = plugin.getTownyUniverse().checkAndFilterName(StringMgmt.join(StringMgmt.remArgs(split, 2)));
+						split = StringMgmt.remArgs(split, 2);
+						if (StringMgmt.join(split).length() > TownySettings.getMaxTitleLength()) {
+							plugin.sendErrorMsg(player, TownySettings.getLangString("msg_err_input_too_long"));
+							return;
+						}
+							
+						String title = plugin.getTownyUniverse().checkAndFilterName(StringMgmt.join(split));
 						resident.setTitle(title + " ");
 						plugin.getTownyUniverse().getDataSource().saveResident(resident);
 						
@@ -953,7 +959,13 @@ public class NationCommand implements CommandExecutor  {
 							plugin.sendErrorMsg(player, String.format(TownySettings.getLangString("msg_err_not_same_nation"), resident.getName()));
 							return;
 						}
-						String surname = plugin.getTownyUniverse().checkAndFilterName(StringMgmt.join(StringMgmt.remArgs(split, 2)));
+						split = StringMgmt.remArgs(split, 2);
+						if (StringMgmt.join(split).length() > TownySettings.getMaxTitleLength()) {
+							plugin.sendErrorMsg(player, TownySettings.getLangString("msg_err_input_too_long"));
+							return;
+						}
+						
+						String surname = plugin.getTownyUniverse().checkAndFilterName(StringMgmt.join(split));
 						resident.setSurname(" " + surname);
 						plugin.getTownyUniverse().getDataSource().saveResident(resident);
 						
