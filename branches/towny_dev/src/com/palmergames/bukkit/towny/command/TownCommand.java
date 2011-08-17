@@ -144,11 +144,12 @@ public class TownCommand implements CommandExecutor  {
                     
                     if (!disallowedZones.isEmpty()) {
                         String inTown = null;
-                        Location loc = plugin.getCache(player).getLastLocation();
-                        if (loc != null)
+                        try {
+                        	Location loc = plugin.getCache(player).getLastLocation();
                         	inTown = plugin.getTownyUniverse().getTownName(loc);
-                        else
+                        } catch (NullPointerException e) {
                         	inTown = plugin.getTownyUniverse().getTownName(player.getLocation());
+                        }
                         
                         if (inTown == null && disallowedZones.contains("unclaimed"))
                             throw new TownyException(String.format(TownySettings.getLangString("msg_err_town_spawn_disallowed_from"), "the Wilderness"));
