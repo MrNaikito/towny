@@ -891,10 +891,10 @@ public class TownyUniverse extends TownyObject {
 
 	public void collectTownTaxes() throws IConomyException {
 		for (Town town : new ArrayList<Town>(towns.values()))
-			collectTownTaxe(town);
+			collectTownTaxes(town);
 	}
 
-	public void collectTownTaxe(Town town) throws IConomyException {
+	public void collectTownTaxes(Town town) throws IConomyException {
 		//Resident Tax
 		if (town.getTaxes() > 0)
 			for (Resident resident : new ArrayList<Resident>(town.getResidents()))
@@ -931,32 +931,38 @@ public class TownyUniverse extends TownyObject {
 				
 		
 		//Plot Tax
-		if (town.getPlotTax() > 0) {
+		if (town.getPlotTax() > 0 || town.getCommercialTax() > 0) {
 			Hashtable<Resident,Integer> townPlots = new Hashtable<Resident,Integer>();
+            Hashtable<Resident,Double> townTaxes = new Hashtable<Resident,Double>();
 			for (TownBlock townBlock : new ArrayList<TownBlock>(town.getTownBlocks())) {
 				if (!townBlock.hasResident())
 					continue;
 				try {
 					Resident resident = townBlock.getResident();
-					if (town.isMayor(resident) || town.hasAssistant(resident))
+					if (town.isMayor(resident) || town.hasAssistant(resident)) {
 						continue;
-					if (!resident.pay(town.getPlotTax(), town)) {
-						sendTownMessage(town,  String.format(TownySettings.getLangString("msg_couldnt_pay_plot_taxes"), resident));
-						townBlock.setResident(null);
-						getDataSource().saveResident(resident);
-						getDataSource().saveWorld(townBlock.getWorld());
-					} else
-						townPlots.put(resident, (townPlots.containsKey(resident) ? townPlots.get(resident) : 0) + 1);
+                    }
+                    if (!resident.pay(townBlock.getType().getTax(town), town)) {
+                        sendTownMessage(town,  String.format(TownySettings.getLangString("msg_couldnt_pay_plot_taxes"), resident));
+                        townBlock.setResident(null);
+                        getDataSource().saveResident(resident);
+                        getDataSource().saveWorld(townBlock.getWorld());
+                    } else {
+                        townPlots.put(resident, (townPlots.containsKey(resident) ? townPlots.get(resident) : 0) + 1);
+                        townTaxes.put(resident, (townTaxes.containsKey(resident) ? townTaxes.get(resident) : 0) +
+                                townBlock.getType().getTax(town));
+                    }
 				} catch (NotRegisteredException e) {
 				}
 			}
-			for (Resident resident : townPlots.keySet())
+			for (Resident resident : townPlots.keySet()) {
 				try {
 					int numPlots = townPlots.get(resident);
-					int totalCost = town.getPlotTax() * numPlots;
+					double totalCost = townTaxes.get(resident);
 					sendResidentMessage(resident, String.format(TownySettings.getLangString("msg_payed_plot_cost"), totalCost, numPlots, town.getName()));
 				} catch (TownyException e) {
 				}
+            }
 		}
 	}
 

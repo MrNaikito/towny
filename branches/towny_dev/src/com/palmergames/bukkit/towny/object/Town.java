@@ -23,7 +23,8 @@ public class Town extends TownBlockOwner implements Walled, ResidentList {
 	private List<Resident> assistants = new ArrayList<Resident>();
 	private Wall wall = new Wall();
 	private Resident mayor;
-	private int bonusBlocks, taxes, plotPrice, plotTax;
+	private int bonusBlocks, plotPrice;
+    private double taxes, plotTax, commercialTax;
 	private Nation nation;
 	private boolean hasUpkeep, isPVP, hasMobs, isPublic, isBANG, isFire,isTaxPercentage;
 	private String townBoard = "/town set board [msg]";
@@ -37,6 +38,7 @@ public class Town extends TownBlockOwner implements Walled, ResidentList {
 		bonusBlocks = 0;
 		taxes = 0;
 		plotTax = 0;
+        commercialTax = 0;
 		plotPrice = 0;
 		hasUpkeep = true;
 		isPVP = false;
@@ -65,11 +67,11 @@ public class Town extends TownBlockOwner implements Walled, ResidentList {
 		return mayor;
 	}
 
-	public void setTaxes(int taxes) {
+	public void setTaxes(double taxes) {
 		this.taxes = taxes;
 	}
 
-	public int getTaxes() {
+	public double getTaxes() {
 		return taxes;
 	}
 
@@ -489,13 +491,21 @@ public class Town extends TownBlockOwner implements Walled, ResidentList {
 		return hasHomeBlock() ? townBlock == homeBlock : false;
 	}
 
-	public void setPlotTax(int plotTax) {
+	public void setPlotTax(double plotTax) {
 		this.plotTax = plotTax;
 	}
 
-	public int getPlotTax() {
+	public double getPlotTax() {
 		return plotTax;
 	}
+
+    public void setCommercialTax(double commercialTax) {
+        this.commercialTax = commercialTax;
+    }
+
+    public double getCommercialTax() {
+        return commercialTax;
+    }
 	
 	public void withdrawFromBank(Resident resident, int amount) throws IConomyException, TownyException {
 		if (!isMayor(resident) && !hasAssistant(resident))

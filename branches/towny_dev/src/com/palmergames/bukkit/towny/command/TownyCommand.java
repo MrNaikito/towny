@@ -482,9 +482,9 @@ public class TownyCommand implements CommandExecutor {
 					+ Colors.Gray + " | "
 					+ Colors.Green + "Outpost: " + Colors.LightGreen + TownyFormatter.formatMoney(TownySettings.getOutpostCost()));
 			output.add(Colors.Rose + "    [Upkeep] "
-					+ Colors.Green + "Resident: " + Colors.LightGreen + Integer.toString(town.getTaxes())
+					+ Colors.Green + "Resident: " + Colors.LightGreen + Double.toString(town.getTaxes())
 					+ Colors.Gray + " | "
-					+ Colors.Green + "Plot: " + Colors.LightGreen + Integer.toString(town.getPlotTax()));
+					+ Colors.Green + "Plot: " + Colors.LightGreen + Double.toString(town.getPlotTax()));
 			
 			
 			if (nation != null) {

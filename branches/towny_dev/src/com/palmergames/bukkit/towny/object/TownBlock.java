@@ -9,6 +9,7 @@ public class TownBlock {
 	private TownyWorld world;
 	private Town town;
 	private Resident resident;
+    private TownBlockType type;
 	private int x, z;
 	private int isForSale = -1;
 
@@ -16,6 +17,7 @@ public class TownBlock {
 		this.x = x;
 		this.z = z;
 		this.setWorld(world);
+        this.type = TownBlockType.RESIDENTIAL;
 	}
 
 	public void setTown(Town town) {
@@ -90,6 +92,14 @@ public class TownBlock {
 	public int isForSale() {
 		return isForSale;
 	}
+
+    public TownBlockType getType() {
+        return type;
+    }
+
+    public void setType(TownBlockType type) {
+        this.type = type;
+    }
 	
 	public boolean isHomeBlock() {
 		try {

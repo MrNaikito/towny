@@ -908,11 +908,11 @@ public class TownyFlatFileSource extends TownyDataSource {
 			// Bonus Blocks
 			fout.write("bonusBlocks=" + Integer.toString(town.getBonusBlocks()) + newLine);
 			// Taxes
-			fout.write("taxes=" + Integer.toString(town.getTaxes()) + newLine);
+			fout.write("taxes=" + Double.toString(town.getTaxes()) + newLine);
 			// Plot Price
 			fout.write("plotPrice=" + Integer.toString(town.getPlotPrice()) + newLine);
 			// Plot Tax
-			fout.write("plotTax=" + Integer.toString(town.getPlotTax()) + newLine);
+			fout.write("plotTax=" + Double.toString(town.getPlotTax()) + newLine);
 			// Upkeep
 			fout.write("hasUpkeep=" + Boolean.toString(town.hasUpkeep()) + newLine);
 			// PVP
