@@ -422,3 +422,4 @@ v0.74.1:
     - Fixed town spawn being lost at load when using non standard (16x16) plot sizes.
     - Allow the ignition of obsidian for lighting portals, even when fire lighting is disabled in town.
     - Durations specified in the config are now in seconds rather than milliseconds.
+    - Implemented Towny's own teleport_warmup_time.

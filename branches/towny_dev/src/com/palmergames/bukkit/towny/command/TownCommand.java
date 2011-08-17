@@ -212,6 +212,7 @@ public class TownCommand implements CommandExecutor  {
 				// if an Admin or essentials teleport isn't being used, use our own.
 				if(isTownyAdmin) {
 					player.teleport(town.getSpawn());
+					return;
                 }
                 
                 if (!notUsingESS) {
