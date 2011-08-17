@@ -215,8 +215,9 @@ public class TownCommand implements CommandExecutor  {
                 }
                 
                 if (!notUsingESS) {
-                    if (TownySettings.getTeleportWarmupTime() != 0) { // Use teleport warmup
-                        // TODO needs language messages
+                    if (plugin.getTownyUniverse().isTeleportWarmupRunning()) { // Use teleport warmup
+                        player.sendMessage(String.format(TownySettings.getLangString("msg_town_spawn_warmup"),
+                                TownySettings.getTeleportWarmupTime()));
                         plugin.getTownyUniverse().requestTeleport(player, town);
                     } else { // Don't use teleport warmup
                         player.teleport(town.getSpawn());

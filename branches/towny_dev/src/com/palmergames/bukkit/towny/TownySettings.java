@@ -957,7 +957,7 @@ public class TownySettings {
             level.clear();
             newConfig.setProperty(ConfigNodes.LEVELS_TOWN_LEVEL.getRoot(), levels);
         } else
-        	newConfig.setProperty(ConfigNodes.LEVELS_TOWN_LEVEL.getRoot(), config.getNodeList(ConfigNodes.LEVELS_TOWN_LEVEL.getRoot(), null));
+        	newConfig.setProperty(ConfigNodes.LEVELS_TOWN_LEVEL.getRoot(), config.getProperty(ConfigNodes.LEVELS_TOWN_LEVEL.getRoot()));
         
         addComment(ConfigNodes.LEVELS_NATION_LEVEL.getRoot(), "",
                 "############################################################",
@@ -1031,7 +1031,7 @@ public class TownySettings {
             level.clear();
             newConfig.setProperty(ConfigNodes.LEVELS_NATION_LEVEL.getRoot(), levels);
         } else
-        	newConfig.setProperty(ConfigNodes.LEVELS_NATION_LEVEL.getRoot(), config.getNodeList(ConfigNodes.LEVELS_NATION_LEVEL.getRoot(), null));
+        	newConfig.setProperty(ConfigNodes.LEVELS_NATION_LEVEL.getRoot(), config.getProperty(ConfigNodes.LEVELS_NATION_LEVEL.getRoot()));
     }
 
 
