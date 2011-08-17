@@ -1289,4 +1289,8 @@ public class TownyUniverse extends TownyObject {
             plugin.sendErrorMsg(player, x.getError());
         }
     }
+    
+    public void abortTeleportRequest(Resident resident) {
+    	TeleportWarmupTimerTask.abortTeleportRequest(resident);
+    }
 }
