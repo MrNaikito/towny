@@ -24,7 +24,7 @@ public class Town extends TownBlockOwner implements Walled, ResidentList {
 	private Wall wall = new Wall();
 	private Resident mayor;
 	private int bonusBlocks;
-    private double taxes, plotTax, commercialTax, plotPrice;
+    private double taxes, plotTax, commercialTax, plotPrice, commercialPlotPrice;
 	private Nation nation;
 	private boolean hasUpkeep, isPVP, hasMobs, isPublic, isBANG, isFire,isTaxPercentage;
 	private String townBoard = "/town set board [msg]";
@@ -455,6 +455,14 @@ public class Town extends TownBlockOwner implements Walled, ResidentList {
 	public double getPlotPrice() {
 		return plotPrice;
 	}
+
+    public void setCommercialPlotPrice(double commercialPlotPrice) {
+        this.commercialPlotPrice = commercialPlotPrice;
+    }
+
+    public double getCommercialPlotPrice() {
+        return commercialPlotPrice;
+    }
 
 	@Override
 	public Wall getWall() {

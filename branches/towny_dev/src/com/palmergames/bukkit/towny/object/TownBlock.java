@@ -100,6 +100,10 @@ public class TownBlock {
     public void setType(TownBlockType type) {
         this.type = type;
     }
+
+    public void setType(int typeId) {
+        setType(TownBlockType.lookup(typeId));
+    }
 	
 	public boolean isHomeBlock() {
 		try {
