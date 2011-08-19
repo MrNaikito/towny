@@ -152,10 +152,10 @@ public class PlotCommand implements CommandExecutor  {
 						plugin.getTownyUniverse().getDataSource().saveResident(owner);
 						return true;
 					} else if (town.isMayor(resident) || town.hasAssistant(resident)) {
-						if (TownySettings.isUsingIConomy() && !town.pay(town.getPlotPrice(), owner))
+						if (TownySettings.isUsingIConomy() && !town.pay(townBlock.getPlotPrice(), owner))
 							throw new TownyException(TownySettings.getLangString("msg_town_no_money_purchase_plot"));
 						
-						plugin.getTownyUniverse().sendTownMessage(town, TownySettings.getBuyResidentPlotMsg(town.getName(), owner.getName(), town.getPlotPrice()));
+						plugin.getTownyUniverse().sendTownMessage(town, TownySettings.getBuyResidentPlotMsg(town.getName(), owner.getName(), townBlock.getPlotPrice()));
 						townBlock.setResident(null);
 						townBlock.setPlotPrice(-1);
 						return true;
@@ -165,7 +165,7 @@ public class PlotCommand implements CommandExecutor  {
 					if (townBlock.getPlotPrice() == -1)
 						throw new TownyException(TownySettings.getLangString("msg_err_plot_nfs"));
 					
-					if (TownySettings.isUsingIConomy() && !resident.pay(town.getPlotPrice(), town))
+					if (TownySettings.isUsingIConomy() && !resident.pay(townBlock.getPlotPrice(), town))
 						throw new TownyException(TownySettings.getLangString("msg_no_money_purchase_plot"));
 					
 					townBlock.setPlotPrice(-1);
