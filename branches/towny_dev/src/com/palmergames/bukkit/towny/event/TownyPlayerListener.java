@@ -359,24 +359,29 @@ public class TownyPlayerListener extends PlayerListener {
 			}
 			
 			if (fromResident != toResident && !toWild) {
-				if (!sendToMsg)
+				if (!sendToMsg) {
 					sendToMsg = true;
-				else
+                    if(toTownBlock.getType().getId() != 0) toMsg += "[" + toTownBlock.getType().toString() + "] ";
+                }
+				else {
 					toMsg += Colors.LightGray + "  -  ";
-				
-				if (toResident != null)
+                }
+                if (toResident != null)
 					toMsg += Colors.LightGreen + universe.getFormatter().getFormattedName(toResident);
 				else
 					toMsg += Colors.LightGreen + TownySettings.getUnclaimedPlotName();
 			}
 			
 			if (toTown != null && (toForSale || toHomeBlock)) {
-				if (!sendToMsg)
+				if (!sendToMsg) {
 					sendToMsg = true;
-				else
+                    if(toTownBlock.getType().getId() != 0) toMsg += "[" + toTownBlock.getType().toString() + "] ";
+                }
+				else {
 					toMsg += Colors.LightGray + "  -  ";
-				if (toHomeBlock)
-					toMsg += Colors.LightBlue + "[Home]";
+                }
+                if (toHomeBlock)
+                toMsg += Colors.LightBlue + "[Home]";
 				if (toForSale)
 					toMsg += Colors.Yellow + String.format(TownySettings.getLangString("For_Sale"), toTownBlock.getPlotPrice());
 			}
