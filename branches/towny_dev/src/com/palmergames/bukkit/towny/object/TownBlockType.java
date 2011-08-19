@@ -1,7 +1,5 @@
 package com.palmergames.bukkit.towny.object;
 
-import org.bukkit.Bukkit;
-
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
