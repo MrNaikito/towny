@@ -188,8 +188,8 @@ public class TownyBlockListener extends BlockListener {
 							if ((!CurrentTownBlock.hasResident() && destinationTownBlock.hasResident())
 									|| (CurrentTownBlock.hasResident() && !destinationTownBlock.hasResident())
 									|| (CurrentTownBlock.getResident() != destinationTownBlock.getResident())
-									|| (CurrentTownBlock.isForSale() != -1)
-									|| (destinationTownBlock.isForSale() != -1)) {
+									|| (CurrentTownBlock.getPlotPrice() != -1)
+									|| (destinationTownBlock.getPlotPrice() != -1)) {
 								event.setCancelled(true);
 								return;
 							}

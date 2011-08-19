@@ -312,7 +312,7 @@ public class Town extends TownBlockOwner implements Walled, ResidentList {
 		for (TownBlock townBlock : new ArrayList<TownBlock>(resident.getTownBlocks())) {
 			townBlock.setResident(null);
 			try {
-				townBlock.setForSale(townBlock.getTown().getPlotPrice());
+				townBlock.setPlotPrice(townBlock.getTown().getPlotPrice());
 			} catch (NotRegisteredException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

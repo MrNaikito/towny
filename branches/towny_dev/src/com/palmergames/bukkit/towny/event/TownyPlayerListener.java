@@ -341,7 +341,7 @@ public class TownyPlayerListener extends PlayerListener {
 				} catch (NotRegisteredException e) {
 				}
 				
-				toForSale = toTownBlock.isForSale() != -1;
+				toForSale = toTownBlock.getPlotPrice() != -1;
 				toHomeBlock = toTownBlock.isHomeBlock();
 			} catch (NotRegisteredException e) {
 				toWild = true;
@@ -378,7 +378,7 @@ public class TownyPlayerListener extends PlayerListener {
 				if (toHomeBlock)
 					toMsg += Colors.LightBlue + "[Home]";
 				if (toForSale)
-					toMsg += Colors.Yellow + String.format(TownySettings.getLangString("For_Sale"), toTownBlock.isForSale());
+					toMsg += Colors.Yellow + String.format(TownySettings.getLangString("For_Sale"), toTownBlock.getPlotPrice());
 			}
 			
 			if (sendToMsg)

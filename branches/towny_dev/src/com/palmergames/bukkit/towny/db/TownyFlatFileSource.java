@@ -772,9 +772,9 @@ public class TownyFlatFileSource extends TownyDataSource {
 					if (tokens.length >= 5)
 						try {
 							if (tokens[4].trim() != "true")
-								townblock.setForSale(Double.parseDouble(tokens[4]));
+								townblock.setPlotPrice(Double.parseDouble(tokens[4]));
 							else
-								townblock.setForSale(town.getPlotPrice());
+								townblock.setPlotPrice(town.getPlotPrice());
 
 						} catch (Exception e) {
 						}
@@ -1090,7 +1090,7 @@ public class TownyFlatFileSource extends TownyDataSource {
 	 * Long.toString(townblock.getZ()); line += ","; if (townblock.hasTown())
 	 * line += townblock.getTown().getName(); line += ","; if
 	 * (townblock.hasResident()) line += townblock.getResident().getName(); line
-	 * += "," + Boolean.toString(townblock.isForSale()); fout.write(line +
+	 * += "," + Boolean.toString(townblock.getPlotPrice()); fout.write(line +
 	 * newLine); } fout.close(); return true; } catch (Exception e) {
 	 * System.out.println("[Towny] Loading Error: Exception while saving town blocks list file");
 	 * e.printStackTrace();
@@ -1149,7 +1149,10 @@ public class TownyFlatFileSource extends TownyDataSource {
 
 						//if present set the plot price
 						if (tokens.length >= 3) {
-                            townblock.setForSale(Double.parseDouble(tokens[2]));
+							if (tokens[2] == "true")
+								townblock.setPlotPrice(town.getPlotPrice());
+							else
+								townblock.setPlotPrice(Double.parseDouble(tokens[2]));
                         }
 						
 					} catch (NumberFormatException e) {
@@ -1181,7 +1184,7 @@ public class TownyFlatFileSource extends TownyDataSource {
 		for (TownyWorld world : worlds.keySet()) {
 			out += world.getName() + ":";
 			for (TownBlock townBlock : worlds.get(world))
-				out += "[" + townBlock.getType().getId() + "]" + townBlock.getX() + "," + townBlock.getZ() +  "," + townBlock.isForSale() + ";";
+				out += "[" + townBlock.getType().getId() + "]" + townBlock.getX() + "," + townBlock.getZ() +  "," + townBlock.getPlotPrice() + ";";
 			out += "|";
 		}
 
