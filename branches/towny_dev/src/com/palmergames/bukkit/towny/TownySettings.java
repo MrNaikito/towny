@@ -17,6 +17,7 @@ import com.palmergames.bukkit.towny.object.TownyObject;
 import com.palmergames.bukkit.towny.object.TownyPermission.ActionType;
 import com.palmergames.bukkit.towny.object.TownyPermission.PermLevel;
 import com.palmergames.bukkit.towny.object.WorldCoord;
+import com.palmergames.bukkit.util.TimeTools;
 import com.palmergames.util.FileMgmt;
 import com.palmergames.util.StringMgmt;
 
@@ -1279,6 +1280,10 @@ public class TownySettings {
 	
 	///////////////////////////////
 	public static long getInactiveAfter() {
+        String time = getString(ConfigNodes.RES_SETTING_INACTIVE_AFTER_TIME);
+        if (Pattern.matches(".*[a-zA-Z].*", time)) {
+            return TimeTools.secondsFromDhms(time);
+        }
 		return getLong(ConfigNodes.RES_SETTING_INACTIVE_AFTER_TIME);
 	}
 
@@ -1396,6 +1401,10 @@ public class TownySettings {
     }
 	
 	public static long getDeleteTime() {
+        String time = getString(ConfigNodes.RES_SETTING_DELETE_OLD_RESIDENTS_TIME);
+        if (Pattern.matches(".*[a-zA-Z].*", time)) {
+            return TimeTools.secondsFromDhms(time);
+        }
 		return getLong(ConfigNodes.RES_SETTING_DELETE_OLD_RESIDENTS_TIME);
 	}
 
@@ -1454,8 +1463,12 @@ public class TownySettings {
 		return getStrArr(ConfigNodes.PROT_MOB_REMOVE_TOWN);
 	}
 	
-	public static int getMobRemovalSpeed() {
-		return getInt(ConfigNodes.PROT_MOB_REMOVE_SPEED);
+	public static long getMobRemovalSpeed() {
+        String time = getString(ConfigNodes.PROT_MOB_REMOVE_SPEED);
+        if (Pattern.matches(".*[a-zA-Z].*", time)) {
+            return TimeTools.secondsFromDhms(time);
+        }
+		return getLong(ConfigNodes.PROT_MOB_REMOVE_SPEED);
 	}
 	
 	/*
@@ -1546,6 +1559,10 @@ public class TownySettings {
 	}
 
 	public static long getDayInterval() {
+        String time = getString(ConfigNodes.PLUGIN_DAY_INTERVAL);
+        if (Pattern.matches(".*[a-zA-Z].*", time)) {
+            return TimeTools.secondsFromDhms(time);
+        }
 		return getLong(ConfigNodes.PLUGIN_DAY_INTERVAL);
 	}
 	
