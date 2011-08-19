@@ -24,7 +24,7 @@ public class Town extends TownBlockOwner implements Walled, ResidentList {
 	private Wall wall = new Wall();
 	private Resident mayor;
 	private int bonusBlocks;
-    private double taxes, plotTax, commercialTax, plotPrice, commercialPlotPrice;
+    private double taxes, plotTax, commercialPlotTax, plotPrice, commercialPlotPrice;
 	private Nation nation;
 	private boolean hasUpkeep, isPVP, hasMobs, isPublic, isBANG, isFire,isTaxPercentage;
 	private String townBoard = "/town set board [msg]";
@@ -38,7 +38,7 @@ public class Town extends TownBlockOwner implements Walled, ResidentList {
 		bonusBlocks = 0;
 		taxes = 0.0;
 		plotTax = 0.0;
-        commercialTax = 0;
+        commercialPlotTax = 0;
 		plotPrice = 0.0;
 		hasUpkeep = true;
 		isPVP = false;
@@ -507,12 +507,12 @@ public class Town extends TownBlockOwner implements Walled, ResidentList {
 		return plotTax;
 	}
 
-    public void setCommercialTax(double commercialTax) {
-        this.commercialTax = commercialTax;
+    public void setCommercialPlotTax(double commercialTax) {
+        this.commercialPlotTax = commercialTax;
     }
 
-    public double getCommercialTax() {
-        return commercialTax;
+    public double getCommercialPlotTax() {
+        return commercialPlotTax;
     }
 	
 	public void withdrawFromBank(Resident resident, int amount) throws IConomyException, TownyException {

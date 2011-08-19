@@ -931,7 +931,7 @@ public class TownyUniverse extends TownyObject {
 				
 		
 		//Plot Tax
-		if (town.getPlotTax() > 0 || town.getCommercialTax() > 0) {
+		if (town.getPlotTax() > 0 || town.getCommercialPlotTax() > 0) {
 			Hashtable<Resident,Integer> townPlots = new Hashtable<Resident,Integer>();
             Hashtable<Resident,Double> townTaxes = new Hashtable<Resident,Double>();
 			for (TownBlock townBlock : new ArrayList<TownBlock>(town.getTownBlocks())) {

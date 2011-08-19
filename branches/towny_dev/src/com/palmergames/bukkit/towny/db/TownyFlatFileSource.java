@@ -337,7 +337,7 @@ public class TownyFlatFileSource extends TownyDataSource {
 				line = kvFile.get("plotPrice");
 				if (line != null)
 					try {
-						town.setPlotPrice(Integer.parseInt(line));
+						town.setPlotPrice(Double.parseDouble(line));
 					} catch (Exception e) {
 						town.setPlotPrice(0);
 					}
@@ -366,12 +366,20 @@ public class TownyFlatFileSource extends TownyDataSource {
 						town.setPlotTax(0);
 					}
 
-                line = kvFile.get("commercialTax");
+                line = kvFile.get("commercialPlotPirce");
 				if (line != null)
 					try {
-						town.setCommercialTax(Double.parseDouble(line));
+						town.setCommercialPlotPrice(Double.parseDouble(line));
 					} catch (Exception e) {
-						town.setCommercialTax(0);
+						town.setCommercialPlotPrice(0);
+					}
+
+                line = kvFile.get("commercialPlotTax");
+				if (line != null)
+					try {
+						town.setCommercialPlotTax(Double.parseDouble(line));
+					} catch (Exception e) {
+						town.setCommercialPlotTax(0);
 					}
 
 				line = kvFile.get("pvp");
@@ -921,8 +929,10 @@ public class TownyFlatFileSource extends TownyDataSource {
 			fout.write("plotPrice=" + Double.toString(town.getPlotPrice()) + newLine);
 			// Plot Tax
 			fout.write("plotTax=" + Double.toString(town.getPlotTax()) + newLine);
+            // Commercial Plot Price
+            fout.write("commercialPlotPrice=" + Double.toString(town.getCommercialPlotPrice()) + newLine);
             // Commercial Tax
-            fout.write("commercialTax=" + Double.toString(town.getCommercialTax()) + newLine);
+            fout.write("commercialPlotTax=" + Double.toString(town.getCommercialPlotTax()) + newLine);
 			// Upkeep
 			fout.write("hasUpkeep=" + Boolean.toString(town.hasUpkeep()) + newLine);
 			// PVP

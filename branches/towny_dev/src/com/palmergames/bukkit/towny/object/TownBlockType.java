@@ -14,7 +14,7 @@ public enum TownBlockType {
     COMMERCIAL(1) {  // Just like residential but has additional tax
         @Override
         public double getTax(Town town) {
-            return town.getCommercialTax() + town.getPlotTax();
+            return town.getCommercialPlotTax() + town.getPlotTax();
         }
     },
 
