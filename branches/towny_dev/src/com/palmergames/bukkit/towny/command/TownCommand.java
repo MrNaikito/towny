@@ -478,6 +478,8 @@ public class TownCommand implements CommandExecutor  {
 			player.sendMessage(ChatTools.formatCommand("", "/town set", "taxes [$]", ""));
 			player.sendMessage(ChatTools.formatCommand("", "/town set", "plottax [$]", ""));
 			player.sendMessage(ChatTools.formatCommand("", "/town set", "plotprice [$]", ""));
+            player.sendMessage(ChatTools.formatCommand("", "/town set", "shoptax [$]", ""));
+			player.sendMessage(ChatTools.formatCommand("", "/town set", "shopprice [$]", ""));
 			player.sendMessage(ChatTools.formatCommand("", "/town set", "name [name]", ""));
 			//player.sendMessage(ChatTools.formatCommand("", "/town set", "public [on/off]", ""));
 			//player.sendMessage(ChatTools.formatCommand("", "/town set", "explosion [on/off]", ""));
@@ -532,21 +534,21 @@ public class TownCommand implements CommandExecutor  {
 					plugin.sendErrorMsg(player, "Eg: /town set taxes 7");
 					return;
 				} else {
-					Integer amount = Integer.parseInt(split[1]);
-					if (amount < 0) {
-						plugin.sendErrorMsg(player, TownySettings.getLangString("msg_err_negative_money"));
-						return;
-					}
-                    if(town.isTaxPercentage() && amount > 100)
-                    {
-                        plugin.sendErrorMsg(player, TownySettings.getLangString("msg_err_not_percentage"));
-                        return;
-                    }
-					try {
-						town.setTaxes(Integer.parseInt(split[1]));
+                    try {
+                        Double amount = Double.parseDouble(split[1]);
+                        if (amount < 0) {
+                            plugin.sendErrorMsg(player, TownySettings.getLangString("msg_err_negative_money"));
+                            return;
+                        }
+                        if(town.isTaxPercentage() && amount > 100)
+                        {
+                            plugin.sendErrorMsg(player, TownySettings.getLangString("msg_err_not_percentage"));
+                            return;
+                        }
+						town.setTaxes(amount);
 						plugin.getTownyUniverse().sendTownMessage(town, String.format(TownySettings.getLangString("msg_town_set_tax"), player.getName(), split[1]));
 					} catch (NumberFormatException e) {
-						plugin.sendErrorMsg(player, TownySettings.getLangString("msg_error_must_be_int"));
+						plugin.sendErrorMsg(player, TownySettings.getLangString("msg_error_must_be_num"));
 						return;
 					}
 				}
@@ -555,16 +557,34 @@ public class TownCommand implements CommandExecutor  {
 					plugin.sendErrorMsg(player, "Eg: /town set plottax 10");
 					return;
 				} else {
-					Integer amount = Integer.parseInt(split[1]);
-					if (amount < 0) {
-						plugin.sendErrorMsg(player, TownySettings.getLangString("msg_err_negative_money"));
-						return;
-					}
-					try {
-						town.setPlotTax(Integer.parseInt(split[1]));
+                    try {
+                        Double amount = Double.parseDouble(split[1]);
+                        if (amount < 0) {
+                            plugin.sendErrorMsg(player, TownySettings.getLangString("msg_err_negative_money"));
+                            return;
+                        }
+						town.setPlotTax(amount);
 						plugin.getTownyUniverse().sendTownMessage(town, String.format(TownySettings.getLangString("msg_town_set_plottax"), player.getName(), split[1]));
 					} catch (NumberFormatException e) {
-						plugin.sendErrorMsg(player, TownySettings.getLangString("msg_error_must_be_int"));
+						plugin.sendErrorMsg(player, TownySettings.getLangString("msg_error_must_be_num"));
+						return;
+					}
+				}
+			} else if (split[0].equalsIgnoreCase("shoptax")) {
+				if (split.length < 2) {
+					plugin.sendErrorMsg(player, "Eg: /town set shoptax 10");
+					return;
+				} else {
+                    try {
+                        Double amount = Double.parseDouble(split[1]);
+                        if (amount < 0) {
+                            plugin.sendErrorMsg(player, TownySettings.getLangString("msg_err_negative_money"));
+                            return;
+                        }
+						town.setCommercialPlotTax(amount);
+						plugin.getTownyUniverse().sendTownMessage(town, String.format(TownySettings.getLangString("msg_town_set_shoptax"), player.getName(), split[1]));
+					} catch (NumberFormatException e) {
+						plugin.sendErrorMsg(player, TownySettings.getLangString("msg_error_must_be_num"));
 						return;
 					}
 				}
@@ -573,16 +593,34 @@ public class TownCommand implements CommandExecutor  {
 					plugin.sendErrorMsg(player, "Eg: /town set plotprice 50");
 					return;
 				} else {
-					Integer amount = Integer.parseInt(split[1]);
-					if (amount < 0) {
-						plugin.sendErrorMsg(player, TownySettings.getLangString("msg_err_negative_money"));
-						return;
-					}
-					try {
+                    try {
+                        Double amount = Double.parseDouble(split[1]);
+                        if (amount < 0) {
+                            plugin.sendErrorMsg(player, TownySettings.getLangString("msg_err_negative_money"));
+                            return;
+                        }
 						town.setPlotPrice(amount);
 						plugin.getTownyUniverse().sendTownMessage(town, String.format(TownySettings.getLangString("msg_town_set_plotprice"), player.getName(), split[1]));
 					} catch (NumberFormatException e) {
-						plugin.sendErrorMsg(player, TownySettings.getLangString("msg_error_must_be_int"));
+						plugin.sendErrorMsg(player, TownySettings.getLangString("msg_error_must_be_num"));
+						return;
+					}
+				}
+			} else if (split[0].equalsIgnoreCase("shopprice")) {
+				if (split.length < 2) {
+					plugin.sendErrorMsg(player, "Eg: /town set shopprice 50");
+					return;
+				} else {
+                    try {
+                        Double amount = Double.parseDouble(split[1]);
+                        if (amount < 0) {
+                            plugin.sendErrorMsg(player, TownySettings.getLangString("msg_err_negative_money"));
+                            return;
+                        }
+						town.setCommercialPlotPrice(amount);
+						plugin.getTownyUniverse().sendTownMessage(town, String.format(TownySettings.getLangString("msg_town_set_shopprice"), player.getName(), split[1]));
+					} catch (NumberFormatException e) {
+						plugin.sendErrorMsg(player, TownySettings.getLangString("msg_error_must_be_num"));
 						return;
 					}
 				}

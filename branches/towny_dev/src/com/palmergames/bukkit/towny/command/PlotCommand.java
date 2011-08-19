@@ -3,6 +3,7 @@ package com.palmergames.bukkit.towny.command;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.palmergames.bukkit.towny.object.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -14,12 +15,6 @@ import com.palmergames.bukkit.towny.NotRegisteredException;
 import com.palmergames.bukkit.towny.Towny;
 import com.palmergames.bukkit.towny.TownyException;
 import com.palmergames.bukkit.towny.TownySettings;
-import com.palmergames.bukkit.towny.object.Coord;
-import com.palmergames.bukkit.towny.object.Resident;
-import com.palmergames.bukkit.towny.object.Town;
-import com.palmergames.bukkit.towny.object.TownBlock;
-import com.palmergames.bukkit.towny.object.TownyWorld;
-import com.palmergames.bukkit.towny.object.WorldCoord;
 import com.palmergames.bukkit.util.ChatTools;
 import com.palmergames.bukkit.util.Colors;
 import com.palmergames.util.StringMgmt;
@@ -36,12 +31,13 @@ public class PlotCommand implements CommandExecutor  {
 	
 	static {
 		output.add(ChatTools.formatTitle("/plot"));
-		output.add(ChatTools.formatCommand(TownySettings.getLangString("res_sing"), "/plot claim", "",TownySettings.getLangString("msg_block_claim")));
-		output.add(ChatTools.formatCommand(TownySettings.getLangString("res_sing") + "/Mayor", "/plot notforsale", "", TownySettings.getLangString("msg_plot_nfs")));
-		output.add(ChatTools.formatCommand(TownySettings.getLangString("res_sing") + "/Mayor", "/plot forsale [$]", "", TownySettings.getLangString("msg_plot_fs")));
+		output.add(ChatTools.formatCommand(TownySettings.getLangString("res_sing"), "/plot claim", "", TownySettings.getLangString("msg_block_claim")));
+		output.add(ChatTools.formatCommand(TownySettings.getLangString("res_sing") + "/" + TownySettings.getLangString("mayor_sing"), "/plot notforsale", "", TownySettings.getLangString("msg_plot_nfs")));
+		output.add(ChatTools.formatCommand(TownySettings.getLangString("res_sing") + "/" + TownySettings.getLangString("mayor_sing"), "/plot forsale [$]", "", TownySettings.getLangString("msg_plot_fs")));
+        output.add(ChatTools.formatCommand(TownySettings.getLangString("res_sing") + "/" + TownySettings.getLangString("mayor_sing"), "/plot set ...", "", TownySettings.getLangString("msg_plot_fs")));
 		output.add(TownySettings.getLangString("msg_nfs_abr"));
 	}
-	
+
 	public PlotCommand(Towny instance) {
 		plugin = instance;
 	}	
@@ -118,7 +114,15 @@ public class PlotCommand implements CommandExecutor  {
 						setPlotForSale(resident, worldCoord, Double.parseDouble(split[1]));
 					else
 						setPlotForSale(resident, worldCoord, worldCoord.getTownBlock().getTown().getPlotPrice());
-				}
+				} else if (split[0].equalsIgnoreCase("set")) {
+                    if (split.length > 1) {
+                        WorldCoord worldCoord = new WorldCoord(world, Coord.parseCoord(player));
+                        setPlotType(resident, worldCoord, split[1]);
+                    } else {
+                        player.sendMessage(ChatTools.formatCommand("", "/plot set", "reset", ""));
+                        player.sendMessage(ChatTools.formatCommand("", "/plot set", "shop", ""));
+                    }
+                }
 			} catch (TownyException x) {
 				plugin.sendErrorMsg(player, x.getError());
 			} catch (IConomyException x) {
@@ -197,7 +201,26 @@ public class PlotCommand implements CommandExecutor  {
 			throw new TownyException(TownySettings.getLangString("msg_not_own_place"));
 		}
 	}
-	
+
+    public void setPlotType(Resident resident, WorldCoord worldCoord, String type) throws TownyException {
+        if (resident.hasTown())
+			try {
+				TownBlock townBlock = worldCoord.getTownBlock();
+				Town town = townBlock.getTown();
+				if (resident.getTown() != town)
+					throw new TownyException(TownySettings.getLangString("msg_err_not_part_town"));
+
+				if (town.isMayor(resident) || town.hasAssistant(resident))
+					townBlock.setType(type);
+				else
+                    throw new TownyException(TownySettings.getLangString("msg_not_mayor_ass"));
+			} catch (NotRegisteredException e) {
+				throw new TownyException(TownySettings.getLangString("msg_err_not_part_town"));
+			}
+		else
+			throw new TownyException(TownySettings.getLangString("msg_err_must_belong_town"));
+    }
+
 	public void setPlotForSale(Resident resident, WorldCoord worldCoord, double forSale) throws TownyException {
 		if (resident.hasTown())
 			try {

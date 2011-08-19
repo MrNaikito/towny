@@ -2,6 +2,8 @@ package com.palmergames.bukkit.towny.object;
 
 import com.palmergames.bukkit.towny.AlreadyRegisteredException;
 import com.palmergames.bukkit.towny.NotRegisteredException;
+import com.palmergames.bukkit.towny.TownyException;
+import com.palmergames.bukkit.towny.TownySettings;
 
 public class TownBlock {
 	// TODO: Admin only or possibly a group check
@@ -103,6 +105,14 @@ public class TownBlock {
 
     public void setType(int typeId) {
         setType(TownBlockType.lookup(typeId));
+    }
+
+    public void setType(String typeName) throws TownyException {
+        if (typeName.equalsIgnoreCase("reset")) typeName = "default";
+        TownBlockType type = TownBlockType.lookup(typeName);
+        if (type == null)
+            throw new TownyException(TownySettings.getLangString("msg_err_not_block_type"));
+        setType(type);
     }
 	
 	public boolean isHomeBlock() {
