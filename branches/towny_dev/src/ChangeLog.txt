@@ -425,3 +425,4 @@ v0.74.1:
     - Implemented Towny's own teleport_warmup_time.
     - Added a command '/townyadmin reset'. Wipes all settings and generate/load a default config.yml.
     - Title and Surnames can now be limited in length by the setting 'max_title_length' in config.yml.
+    - Towny is now an observable object.  This allows other plugins to observe events that happen in Towny.
