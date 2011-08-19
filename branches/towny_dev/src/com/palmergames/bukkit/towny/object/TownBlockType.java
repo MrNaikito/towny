@@ -1,5 +1,7 @@
 package com.palmergames.bukkit.towny.object;
 
+import org.bukkit.Bukkit;
+
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
@@ -54,7 +56,7 @@ public enum TownBlockType {
     static {
         for(TownBlockType s : EnumSet.allOf(TownBlockType.class)) {
             idLookup.put(s.getId(), s);
-            nameLookup.put(s.toString(), s);
+            nameLookup.put(s.toString().toLowerCase(), s);
         }
     }
 
@@ -76,6 +78,6 @@ public enum TownBlockType {
     }
 
     public static TownBlockType lookup(String name) {
-        return nameLookup.get(name);
+        return nameLookup.get(name.toLowerCase());
     }
 }

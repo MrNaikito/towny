@@ -118,6 +118,8 @@ public class PlotCommand implements CommandExecutor  {
                     if (split.length > 1) {
                         WorldCoord worldCoord = new WorldCoord(world, Coord.parseCoord(player));
                         setPlotType(resident, worldCoord, split[1]);
+                        player.sendMessage(String.format(TownySettings.getLangString("msg_plot_set_type"),split[1]));
+
                     } else {
                         player.sendMessage(ChatTools.formatCommand("", "/plot set", "reset", ""));
                         player.sendMessage(ChatTools.formatCommand("", "/plot set", "shop", ""));
