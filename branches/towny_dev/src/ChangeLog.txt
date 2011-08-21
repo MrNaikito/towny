@@ -437,3 +437,14 @@ v0.74.1:
       '/town set shopprice $$' - Set the towns default price on shop plots.
       '/town set shoptax $$'   - Set the town tax rate on shop plots.
                                  (a shop plot is charged an extra tax on top of any plot taxes.)
+    - Added /towny map big, which fills the entire chatbox (after pressing t) with the map.
+    - Expanded commands:
+      '/plot [claim/unclaim/nfs] [circle/rect] [radius]'
+      '/plot fs within [circle/rect] [radius]'
+      '/plot fs [$] within [circle/rect] [radius]'
+    - Commands still accepted
+      '/plot claim [radius]'
+      '/plot fs'
+      '/plot fs [$]'
+      
+    

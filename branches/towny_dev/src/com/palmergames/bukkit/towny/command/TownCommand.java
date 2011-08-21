@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.palmergames.bukkit.towny.object.*;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -12,25 +11,37 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
+import ca.xshade.bukkit.questioner.Questioner;
+import ca.xshade.questionmanager.Option;
+import ca.xshade.questionmanager.Question;
+
 import com.earth2me.essentials.Essentials;
 import com.earth2me.essentials.Teleport;
 import com.earth2me.essentials.User;
 import com.iConomy.iConomy;
-
-import ca.xshade.bukkit.questioner.Questioner;
 import com.palmergames.bukkit.towny.AlreadyRegisteredException;
+import com.palmergames.bukkit.towny.EmptyTownException;
 import com.palmergames.bukkit.towny.IConomyException;
 import com.palmergames.bukkit.towny.NotRegisteredException;
-import com.palmergames.bukkit.towny.EmptyTownException;
 import com.palmergames.bukkit.towny.Towny;
 import com.palmergames.bukkit.towny.TownyException;
 import com.palmergames.bukkit.towny.TownySettings;
+import com.palmergames.bukkit.towny.TownyUtil;
+import com.palmergames.bukkit.towny.object.Coord;
+import com.palmergames.bukkit.towny.object.Nation;
+import com.palmergames.bukkit.towny.object.Resident;
+import com.palmergames.bukkit.towny.object.Town;
+import com.palmergames.bukkit.towny.object.TownBlock;
+import com.palmergames.bukkit.towny.object.TownBlockOwner;
+import com.palmergames.bukkit.towny.object.TownyIConomyObject;
+import com.palmergames.bukkit.towny.object.TownyPermission;
+import com.palmergames.bukkit.towny.object.TownyUniverse;
+import com.palmergames.bukkit.towny.object.TownyWorld;
+import com.palmergames.bukkit.towny.object.WorldCoord;
 import com.palmergames.bukkit.towny.questioner.JoinTownTask;
 import com.palmergames.bukkit.towny.questioner.ResidentTownQuestionTask;
 import com.palmergames.bukkit.util.ChatTools;
 import com.palmergames.bukkit.util.Colors;
-import ca.xshade.questionmanager.Option;
-import ca.xshade.questionmanager.Question;
 import com.palmergames.util.StringMgmt;
 
 /**
@@ -1227,8 +1238,8 @@ public class TownCommand implements CommandExecutor  {
 			player.sendMessage(ChatTools.formatTitle("/town claim"));
 			player.sendMessage(ChatTools.formatCommand(TownySettings.getLangString("mayor_sing"), "/town claim", "", TownySettings.getLangString("msg_block_claim")));
 			player.sendMessage(ChatTools.formatCommand(TownySettings.getLangString("mayor_sing"), "/town claim", "outpost", TownySettings.getLangString("mayor_help_3")));
-			player.sendMessage(ChatTools.formatCommand(TownySettings.getLangString("mayor_sing"), "/town claim", "[radius]", TownySettings.getLangString("mayor_help_4")));
-			player.sendMessage(ChatTools.formatCommand(TownySettings.getLangString("mayor_sing"), "/town claim", "auto", TownySettings.getLangString("mayor_help_5")));
+			player.sendMessage(ChatTools.formatCommand(TownySettings.getLangString("mayor_sing"), "/town claim", "[circle/rect] [radius]", TownySettings.getLangString("mayor_help_4")));
+			player.sendMessage(ChatTools.formatCommand(TownySettings.getLangString("mayor_sing"), "/town claim", "[circle/rect] auto", TownySettings.getLangString("mayor_help_5")));
 		} else {
 			Resident resident;
 			Town town;
@@ -1263,12 +1274,12 @@ public class TownCommand implements CommandExecutor  {
 					} else
 						throw new TownyException(TownySettings.getLangString("msg_outpost_disable"));
 				} else {
-					selection = selectWorldCoordArea(town, new WorldCoord(world, Coord.parseCoord(plugin.getCache(player).getLastLocation())), split);
+					selection = TownyUtil.selectWorldCoordArea(town, new WorldCoord(world, Coord.parseCoord(plugin.getCache(player).getLastLocation())), split);
 					blockCost = TownySettings.getClaimPrice();
 				}
 				
 				plugin.sendDebugMsg("townClaim: Pre-Filter Selection " + Arrays.toString(selection.toArray(new WorldCoord[0])));
-				selection = removeTownOwnedBlocks(selection);
+				selection = TownyUtil.filterTownOwnedBlocks(selection);
 				plugin.sendDebugMsg("townClaim: Post-Filter Selection " + Arrays.toString(selection.toArray(new WorldCoord[0])));
 				checkIfSelectionIsValid(town, selection, attachedToEdge, blockCost, false);
 				
@@ -1300,7 +1311,7 @@ public class TownCommand implements CommandExecutor  {
 		if (split.length == 1 && split[0].equalsIgnoreCase("?")) {
 			player.sendMessage(ChatTools.formatTitle("/town unclaim"));
 			player.sendMessage(ChatTools.formatCommand(TownySettings.getLangString("mayor_sing"), "/town unclaim", "", TownySettings.getLangString("mayor_help_6")));
-			player.sendMessage(ChatTools.formatCommand(TownySettings.getLangString("mayor_sing"), "/town unclaim", "[radius]", TownySettings.getLangString("mayor_help_7")));
+			player.sendMessage(ChatTools.formatCommand(TownySettings.getLangString("mayor_sing"), "/town unclaim", "[circle/rect] [radius]", TownySettings.getLangString("mayor_help_7")));
 			player.sendMessage(ChatTools.formatCommand(TownySettings.getLangString("mayor_sing"), "/town unclaim", "all", TownySettings.getLangString("mayor_help_8")));
 		} else {
 			Resident resident;
@@ -1321,8 +1332,8 @@ public class TownCommand implements CommandExecutor  {
 				if (split.length == 1 && split[0].equalsIgnoreCase("all"))
 					townUnclaimAll(town);
 				else {
-					selection = selectWorldCoordArea(town, new WorldCoord(world, Coord.parseCoord(plugin.getCache(player).getLastLocation())), split);
-					selection = filterOwnedBlocks(town, selection);
+					selection = TownyUtil.selectWorldCoordArea(town, new WorldCoord(world, Coord.parseCoord(plugin.getCache(player).getLastLocation())), split);
+					selection = TownyUtil.filterOwnedBlocks(town, selection);
 					
 					for (WorldCoord worldCoord : selection)
 						townUnclaim(town, worldCoord, false);
@@ -1339,28 +1350,8 @@ public class TownCommand implements CommandExecutor  {
 		}
 	}
 	
-	public static List<WorldCoord> removeTownOwnedBlocks(List<WorldCoord> selection) {
-		List<WorldCoord> out = new ArrayList<WorldCoord>();
-		for (WorldCoord worldCoord : selection)
-			try {
-				if (!worldCoord.getTownBlock().hasTown())
-					out.add(worldCoord);
-			} catch (NotRegisteredException e) {
-				out.add(worldCoord);
-			}
-		return out;
-	}
 	
-	public static List<WorldCoord> filterOwnedBlocks(TownBlockOwner owner, List<WorldCoord> selection) {
-		List<WorldCoord> out = new ArrayList<WorldCoord>();
-		for (WorldCoord worldCoord : selection)
-			try {
-				if (worldCoord.getTownBlock().isOwner(owner))
-					out.add(worldCoord);
-			} catch (NotRegisteredException e) {
-			}
-		return out;
-	}
+	
 	
 	public static boolean isEdgeBlock(TownBlockOwner owner, List<WorldCoord> worldCoords) {
 		// TODO: Better algorithm that doesn't duplicates checks.
@@ -1389,50 +1380,6 @@ public class TownCommand implements CommandExecutor  {
 		if (TownySettings.getDebug())
 			System.out.println("false");
 		return false;
-	}
-	
-	public static List<WorldCoord> selectWorldCoordArea(TownBlockOwner owner, WorldCoord pos, String[] args) throws TownyException {
-		List<WorldCoord> out = new ArrayList<WorldCoord>();
-		
-		if (args.length == 0) {
-			
-			// claim with no sub command entered so attempt selection of one plot
-			if (pos.getWorld().isClaimable())
-				out.add(pos);
-			else
-				throw new TownyException(TownySettings.getLangString("msg_not_claimable"));
-		} else {
-			 int r;
-				if (args[0].equalsIgnoreCase("auto")) {
-					
-					// Attempt to select outwards until no town blocks remain
-					if (owner instanceof Town) {
-						Town town = (Town)owner;
-						int available = TownySettings.getMaxTownBlocks(town) - town.getTownBlocks().size();
-						r = 0;
-						while (available - Math.pow((r + 1) * 2 - 1, 2) >= 0)
-							r += 1;
-					} else
-						throw new TownyException(TownySettings.getLangString("msg_err_rect_auto"));
-				} else {
-					
-					// if a value was given attempt to select a radius of plots
-					try {
-						r = Integer.parseInt(args[0]);
-					} catch (NumberFormatException e) {
-						throw new TownyException(TownySettings.getLangString("msg_err_invalid_radius"));
-					}
-				}
-				
-				r -= 1;
-				
-				for (int z = pos.getZ() - r; z <= pos.getZ() + r; z++)
-					for (int x = pos.getX() - r; x <= pos.getX() + r; x++)
-						if (pos.getWorld().isClaimable())
-							out.add(new WorldCoord(pos.getWorld(), x, z));	
-			}
-
-		return out;
 	}
 	
 	public static void checkIfSelectionIsValid(TownBlockOwner owner, List<WorldCoord> selection, boolean attachedToEdge, double blockCost, boolean force) throws TownyException {
