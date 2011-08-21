@@ -113,6 +113,7 @@ public class PlotCommand implements CommandExecutor  {
 					if (split.length > 1)
 						setPlotForSale(resident, worldCoord, Double.parseDouble(split[1]));
 					else {
+						// Pull the default town price for the relevant PlotType.
 						double price = 0;
 						
 						switch (worldCoord.getTownBlock().getType().ordinal()) {
