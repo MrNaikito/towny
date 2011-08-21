@@ -112,8 +112,20 @@ public class PlotCommand implements CommandExecutor  {
 					WorldCoord worldCoord = new WorldCoord(world, Coord.parseCoord(player));
 					if (split.length > 1)
 						setPlotForSale(resident, worldCoord, Double.parseDouble(split[1]));
-					else
-						setPlotForSale(resident, worldCoord, worldCoord.getTownBlock().getTown().getPlotPrice());
+					else {
+						double price = 0;
+						
+						switch (worldCoord.getTownBlock().getType().ordinal()) {
+						
+						case 0:
+							price = worldCoord.getTownBlock().getTown().getPlotPrice();
+							break;
+						case 1:
+							price = worldCoord.getTownBlock().getTown().getCommercialPlotPrice();
+							break;							
+						}
+						setPlotForSale(resident, worldCoord, price);
+					}
 				} else if (split[0].equalsIgnoreCase("set")) {
                     if (split.length > 1) {
                         WorldCoord worldCoord = new WorldCoord(world, Coord.parseCoord(player));
