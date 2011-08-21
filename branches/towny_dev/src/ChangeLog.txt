@@ -432,3 +432,8 @@ v0.74.1:
     - Fixed a bug when using essentials teleport warmup where admins would be teleported twice.
     - Fixed a bug where players with no town we're not able to use public town spawns.
     - Fixed a bug where plot claim was not taking money from a player.
+    - Added new plot types and commands to support.
+      '/plot set reset/shop'   - Sets a plot as a Shop plot or resets to a normal plot.
+      '/town set shopprice $$' - Set the towns default price on shop plots.
+      '/town set shoptax $$'   - Set the town tax rate on shop plots.
+                                 (a shop plot is charged an extra tax on top of any plot taxes.)
