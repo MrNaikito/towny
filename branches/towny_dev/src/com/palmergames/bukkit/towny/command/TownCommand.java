@@ -166,7 +166,7 @@ public class TownCommand implements CommandExecutor  {
                 }
 				
 				double travelCost;
-				if (resident.getTown() == town)
+				if (resident.hasTown() && resident.getTown() == town)
 					travelCost = TownySettings.getTownSpawnTravelPrice();
 				else
 					travelCost = TownySettings.getTownPublicSpawnTravelPrice();
@@ -227,6 +227,7 @@ public class TownCommand implements CommandExecutor  {
 				
 			} catch (TownyException e) {
 				plugin.sendErrorMsg(player, e.getMessage());
+				//e.printStackTrace();
 			} catch (IConomyException e) {
 				plugin.sendErrorMsg(player, e.getMessage());
 			}
