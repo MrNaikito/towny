@@ -431,3 +431,4 @@ v0.74.1:
     - Fixed a bug when using Max distance between towns on a fresh install not allowing the first town to be founded.
     - Fixed a bug when using essentials teleport warmup where admins would be teleported twice.
     - Fixed a bug where players with no town we're not able to use public town spawns.
+    - Fixed a bug where plot claim was not taking money from a player.
