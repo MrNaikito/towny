@@ -420,11 +420,12 @@ v0.74.1:
     - All console messages should now have their colour codes removed correctly.
     - New config.yml handling code means no need to delete config at each upgrade. (thanks dumptruckman)
     - Fixed town spawn being lost at load when using non standard (16x16) plot sizes.
-    - Allow the ignition of obsidian for lighting portals, even when fire lighting is disabled in town.
+    - Allow the ignition of obsidian for lighting portals, even when fire spread is disabled in a town.
     - Durations specified in the config are now in seconds rather than milliseconds.
-    - Implemented Towny's own teleport_warmup_time.
+    - Implemented Towny's own teleport_warmup_time for town spawns.
     - Added a command '/townyadmin reset'. Wipes all settings and generate/load a default config.yml.
     - Title and Surnames can now be limited in length by the setting 'max_title_length' in config.yml.
     - Towny is now an observable object.  This allows other plugins to observe events that happen in Towny.
     - Towny now abbreviates it's residents lists when displayed, for easier reading.
     - Better formatting for times in the config eg. 1d6h20s.
+    - Fixed a bug when using Max distance between towns on a fresh install not allowing the first town to be founded.
