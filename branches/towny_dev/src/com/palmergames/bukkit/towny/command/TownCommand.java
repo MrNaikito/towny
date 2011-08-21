@@ -178,7 +178,7 @@ public class TownCommand implements CommandExecutor  {
 				//essentials tests
 				boolean notUsingESS = false;
 				
-				if (TownySettings.isUsingEssentials()) {
+				if (TownySettings.isUsingEssentials() && !isTownyAdmin) {
 					Plugin handle = plugin.getServer().getPluginManager().getPlugin("Essentials");
 					if (!handle.equals(null)) {
 						

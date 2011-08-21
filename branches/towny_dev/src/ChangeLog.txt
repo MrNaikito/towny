@@ -429,3 +429,4 @@ v0.74.1:
     - Towny now abbreviates it's residents lists when displayed, for easier reading.
     - Better formatting for times in the config eg. 1d6h20s.
     - Fixed a bug when using Max distance between towns on a fresh install not allowing the first town to be founded.
+    - Fixed a bug when using essentials teleport warmup where admins would be teleported twice.
