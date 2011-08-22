@@ -3,13 +3,18 @@ package com.palmergames.bukkit.towny.command;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.palmergames.bukkit.towny.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.palmergames.bukkit.towny.EconomyException;
+import com.palmergames.bukkit.towny.AlreadyRegisteredException;
+import com.palmergames.bukkit.towny.IConomyException;
+import com.palmergames.bukkit.towny.NotRegisteredException;
+import com.palmergames.bukkit.towny.Towny;
+import com.palmergames.bukkit.towny.TownyException;
+import com.palmergames.bukkit.towny.TownySettings;
+import com.palmergames.bukkit.towny.TownyUtil;
 import com.palmergames.bukkit.towny.object.Coord;
 import com.palmergames.bukkit.towny.object.Resident;
 import com.palmergames.bukkit.towny.object.Town;
@@ -198,13 +203,13 @@ public class PlotCommand implements CommandExecutor  {
                 }
 			} catch (TownyException x) {
 				plugin.sendErrorMsg(player, x.getError());
-			} catch (EconomyException x) {
+			} catch (IConomyException x) {
 				plugin.sendErrorMsg(player, x.getError());
 			}
 		}
 	}
 	
-	public boolean residentClaim(Resident resident, WorldCoord worldCoord) throws TownyException, EconomyException {
+	public boolean residentClaim(Resident resident, WorldCoord worldCoord) throws TownyException, IConomyException {
 		if (plugin.getTownyUniverse().isWarTime())
 			throw new TownyException(TownySettings.getLangString("msg_war_cannot_do"));
 		
@@ -218,7 +223,7 @@ public class PlotCommand implements CommandExecutor  {
 				try {
 					Resident owner = townBlock.getResident();
 					if (townBlock.getPlotPrice() != -1) {
-						if (TownySettings.isUsingEconomy() && !resident.pay(townBlock.getPlotPrice(), owner))
+						if (TownySettings.isUsingIConomy() && !resident.pay(townBlock.getPlotPrice(), owner))
 							throw new TownyException(TownySettings.getLangString("msg_no_money_purchase_plot"));
 						if (resident.getTownBlocks().size() + 1 > TownySettings.getMaxPlotsPerResident())
 							throw new TownyException(String.format(TownySettings.getLangString("msg_no_money_purchase_plot"), TownySettings.getMaxPlotsPerResident()));
@@ -229,7 +234,7 @@ public class PlotCommand implements CommandExecutor  {
 						plugin.getTownyUniverse().getDataSource().saveResident(owner);
 						return true;
 					} else if (town.isMayor(resident) || town.hasAssistant(resident)) {
-						if (TownySettings.isUsingEconomy() && !town.pay(townBlock.getPlotPrice(), owner))
+						if (TownySettings.isUsingIConomy() && !town.pay(townBlock.getPlotPrice(), owner))
 							throw new TownyException(TownySettings.getLangString("msg_town_no_money_purchase_plot"));
 						
 						plugin.getTownyUniverse().sendTownMessage(town, TownySettings.getBuyResidentPlotMsg(town.getName(), owner.getName(), townBlock.getPlotPrice()));
@@ -242,7 +247,7 @@ public class PlotCommand implements CommandExecutor  {
 					if (townBlock.getPlotPrice() == -1)
 						throw new TownyException(TownySettings.getLangString("msg_err_plot_nfs"));
 					
-					if (TownySettings.isUsingEconomy() && !resident.pay(townBlock.getPlotPrice(), town))
+					if (TownySettings.isUsingIConomy() && !resident.pay(townBlock.getPlotPrice(), town))
 						throw new TownyException(TownySettings.getLangString("msg_no_money_purchase_plot"));
 					
 					townBlock.setPlotPrice(-1);

@@ -4,10 +4,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.palmergames.bukkit.towny.*;
-import com.palmergames.bukkit.towny.EconomyException;
+import com.palmergames.bukkit.towny.AlreadyRegisteredException;
+import com.palmergames.bukkit.towny.EmptyNationException;
+import com.palmergames.bukkit.towny.IConomyException;
+import com.palmergames.bukkit.towny.NotRegisteredException;
+import com.palmergames.bukkit.towny.TownyException;
+import com.palmergames.bukkit.towny.TownySettings;
 
-public class Nation extends TownyEconomyObject implements ResidentList {
+public class Nation extends TownyIConomyObject implements ResidentList {
 	private List<Resident> assistants = new ArrayList<Resident>();
 	private List<Town> towns = new ArrayList<Town>();
 	private List<Nation> allies = new ArrayList<Nation>();
@@ -317,15 +321,15 @@ public class Nation extends TownyEconomyObject implements ResidentList {
 		return false;
 	}
 	
-	public void withdrawFromBank(Resident resident, int amount) throws EconomyException, TownyException {
+	public void withdrawFromBank(Resident resident, int amount) throws IConomyException, TownyException {
 		if (!isKing(resident) && !hasAssistant(resident))
 			throw new TownyException(TownySettings.getLangString("msg_no_access_nation_bank"));
 		
-		if (TownySettings.isUsingEconomy()) {
+		if (TownySettings.isUsingIConomy()) {
 			if (!pay(amount, resident))
 				throw new TownyException(TownySettings.getLangString("msg_err_no_money"));
 		} else
-			throw new TownyException(TownySettings.getLangString("msg_err_no_economy"));
+			throw new TownyException(TownySettings.getLangString("msg_err_no_iconomy"));
 	}
 	
 	@Override

@@ -4,10 +4,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.palmergames.bukkit.towny.*;
 import org.bukkit.Location;
 
-import com.palmergames.bukkit.towny.EconomyException;
+import com.palmergames.bukkit.towny.AlreadyRegisteredException;
+import com.palmergames.bukkit.towny.EmptyNationException;
+import com.palmergames.bukkit.towny.EmptyTownException;
+import com.palmergames.bukkit.towny.IConomyException;
+import com.palmergames.bukkit.towny.NotRegisteredException;
+import com.palmergames.bukkit.towny.TownyException;
+import com.palmergames.bukkit.towny.TownySettings;
 import com.palmergames.bukkit.wallgen.Wall;
 import com.palmergames.bukkit.wallgen.WallSection;
 import com.palmergames.bukkit.wallgen.Walled;
@@ -510,15 +515,15 @@ public class Town extends TownBlockOwner implements Walled, ResidentList {
         return commercialPlotTax;
     }
 	
-	public void withdrawFromBank(Resident resident, int amount) throws EconomyException, TownyException {
+	public void withdrawFromBank(Resident resident, int amount) throws IConomyException, TownyException {
 		if (!isMayor(resident) && !hasAssistant(resident))
 			throw new TownyException("You don't have access to the town's bank.");
 		
-		if (TownySettings.isUsingEconomy()) {
+		if (TownySettings.isUsingIConomy()) {
 			if (!pay(amount, resident))
 				throw new TownyException("There is not enough money in the bank.");
 		} else
-			throw new TownyException("No economy found.");
+			throw new TownyException("iConomy has not been turned on.");
 			
 	}
 	

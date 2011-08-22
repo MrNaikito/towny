@@ -11,7 +11,6 @@ import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 //import javax.persistence.PersistenceException;
 
-import com.palmergames.bukkit.towny.event.*;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -33,11 +32,17 @@ import com.palmergames.bukkit.towny.command.ResidentCommand;
 import com.palmergames.bukkit.towny.command.TownyAdminCommand;
 import com.palmergames.bukkit.towny.command.TownyWorldCommand;
 import com.palmergames.bukkit.towny.PlayerCache.TownBlockStatus;
+import com.palmergames.bukkit.towny.event.TownyBlockListener;
+import com.palmergames.bukkit.towny.event.TownyEntityListener;
+import com.palmergames.bukkit.towny.event.TownyEntityMonitorListener;
+import com.palmergames.bukkit.towny.event.TownyPlayerListener;
+import com.palmergames.bukkit.towny.event.TownyPlayerLowListener;
+import com.palmergames.bukkit.towny.event.TownyWorldListener;
 import com.palmergames.bukkit.towny.object.Coord;
 import com.palmergames.bukkit.towny.object.Resident;
 import com.palmergames.bukkit.towny.object.Town;
 import com.palmergames.bukkit.towny.object.TownBlock;
-import com.palmergames.bukkit.towny.object.TownyEconomyObject;
+import com.palmergames.bukkit.towny.object.TownyIConomyObject;
 import com.palmergames.bukkit.towny.object.TownyPermission;
 import com.palmergames.bukkit.towny.object.TownyUniverse;
 import com.palmergames.bukkit.towny.object.TownyWorld;
@@ -51,6 +56,7 @@ import com.palmergames.util.FileMgmt;
 import com.palmergames.util.JavaUtil;
 import com.palmergames.util.StringMgmt;
 
+import com.iConomy.*;
 import com.nijikokun.bukkit.Permissions.Permissions;
 import com.nijiko.permissions.PermissionHandler;
 
@@ -75,10 +81,10 @@ public class Towny extends JavaPlugin {
 	private final TownyPlayerLowListener playerLowListener = new TownyPlayerLowListener(this);
 	private final TownyEntityMonitorListener entityMonitorListener = new TownyEntityMonitorListener(this);
 	private final TownyWorldListener worldListener = new TownyWorldListener(this);
-	private final TownyServerListener serverListener = new TownyServerListener();
 	private TownyUniverse townyUniverse;
 	private Map<String, PlayerCache> playerCache = Collections.synchronizedMap(new HashMap<String, PlayerCache>());
 	private Map<String, List<String>> playerMode = Collections.synchronizedMap(new HashMap<String, List<String>>());
+	private iConomy iconomy = null;
 	private Permissions permissions = null;
 	private boolean error = false;
 	private Logger logger = Logger.getLogger("com.palmergames.bukkit.towny");
@@ -222,6 +228,15 @@ public class Towny extends JavaPlugin {
 				using.add("Permissions");
 		}
 		
+		test = getServer().getPluginManager().getPlugin("iConomy");
+		if (test == null)
+			TownySettings.setUsingIConomy(false);
+		else {
+			iconomy = (iConomy)test;
+			if (TownySettings.isUsingIConomy())
+				using.add("iConomy");
+		}
+		
 		test = getServer().getPluginManager().getPlugin("Essentials");
 		if (test == null)
 			TownySettings.setUsingEssentials(false);
@@ -268,7 +283,7 @@ public class Towny extends JavaPlugin {
 		}
 		
 		//Coord.setCellSize(TownySettings.getTownBlockSize());
-		TownyEconomyObject.setPlugin(this);
+		TownyIConomyObject.setPlugin(this);
 		//TownyCommand.setUniverse(townyUniverse);
 	}
 	
@@ -338,10 +353,6 @@ public class Towny extends JavaPlugin {
 		pluginManager.registerEvent(Event.Type.PAINTING_BREAK, entityListener, Priority.Normal, this);
 		
 		pluginManager.registerEvent(Event.Type.WORLD_LOAD, worldListener, Priority.Normal, this);
-
-		pluginManager.registerEvent(Event.Type.PLUGIN_ENABLE, serverListener, Priority.Normal, this);
-
-
 	}
 	
 	/*
@@ -920,6 +931,13 @@ public class Towny extends JavaPlugin {
 		return false;
 	}	
 
+	public iConomy getIConomy() throws IConomyException {
+		if (iconomy == null)
+			throw new IConomyException("iConomy is not installed");
+		else
+			return iconomy;
+		
+	}
 
 	public Logger getLogger() {
 		return logger;

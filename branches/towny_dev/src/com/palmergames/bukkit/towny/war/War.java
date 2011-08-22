@@ -4,13 +4,20 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
-import com.palmergames.bukkit.towny.*;
-import com.palmergames.bukkit.towny.object.*;
-import com.palmergames.util.EconomyTools;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitScheduler;
 
-import com.palmergames.bukkit.towny.EconomyException;
+import com.palmergames.bukkit.towny.IConomyException;
+import com.palmergames.bukkit.towny.NotRegisteredException;
+import com.palmergames.bukkit.towny.Towny;
+import com.palmergames.bukkit.towny.TownyException;
+import com.palmergames.bukkit.towny.TownySettings;
+import com.palmergames.bukkit.towny.object.Nation;
+import com.palmergames.bukkit.towny.object.Town;
+import com.palmergames.bukkit.towny.object.TownBlock;
+import com.palmergames.bukkit.towny.object.TownyIConomyObject;
+import com.palmergames.bukkit.towny.object.TownyUniverse;
+import com.palmergames.bukkit.towny.object.WorldCoord;
 import com.palmergames.bukkit.util.ChatTools;
 import com.palmergames.bukkit.util.Colors;
 import com.palmergames.bukkit.util.MinecraftTools;
@@ -18,6 +25,7 @@ import com.palmergames.bukkit.util.ServerBroadCastTimerTask;
 import com.palmergames.util.KeyValue;
 import com.palmergames.util.KeyValueTable;
 import com.palmergames.util.TimeMgmt;
+
 
 
 //TODO: Extend a new class called TownyEvent
@@ -122,7 +130,7 @@ public class War {
 		try {
 			warSpoils.pay(TownySettings.getBaseSpoilsOfWar());
 			plugin.sendMsg("[War] Seeding spoils of war with " + TownySettings.getBaseSpoilsOfWar());
-		} catch (EconomyException e) {
+		} catch (IConomyException e) {
 			plugin.sendErrorMsg("[War] Could not seed spoils of war.");
 		}
 		
@@ -164,7 +172,7 @@ public class War {
 				double nationWinnings = halfWinnings / warringNations.size(); // Again, might leave residue.
 				for (Nation winningNation : warringNations) {
 					getWarSpoils().pay(nationWinnings, winningNation);
-					universe.sendGlobalMessage(winningNation.getName() + " won " + EconomyTools.Format(nationWinnings) + ".");
+					universe.sendGlobalMessage(winningNation.getName() + " won " + nationWinnings + " " + TownyIConomyObject.getIConomyCurrency() + ".");
 				}
 			} catch (ArithmeticException e) {
 				// A war ended with 0 nations.
@@ -172,10 +180,10 @@ public class War {
 			
 			try {
 				KeyValue<Town,Integer> winningTownScore = getWinningTownScore();
-				universe.sendGlobalMessage(winningTownScore.key.getName() + " won " + EconomyTools.Format(halfWinnings) + " with the score " + winningTownScore.value + ".");
+				universe.sendGlobalMessage(winningTownScore.key.getName() + " won " + halfWinnings + " " + TownyIConomyObject.getIConomyCurrency() + " with the score " + winningTownScore.value + ".");
 			} catch (TownyException e) {
 			}
-		} catch (EconomyException e1) {
+		} catch (IConomyException e1) {
 		} 
 		
 	}
@@ -232,8 +240,8 @@ public class War {
 				remove(townBlock.getTown());
 				plugin.getTownyUniverse().sendTownMessage(townBlock.getTown(), "Your town ran out of funds to support yourself in war.");
 			} else
-				plugin.getTownyUniverse().sendTownMessage(townBlock.getTown(), "Your town lost "+EconomyTools.Format(TownySettings.getWartimeTownBlockLossPrice())+".");
-		} catch (EconomyException e) {
+				plugin.getTownyUniverse().sendTownMessage(townBlock.getTown(), "Your town lost "+TownySettings.getWartimeTownBlockLossPrice()+" "+TownyIConomyObject.getIConomyCurrency()+".");
+		} catch (IConomyException e) {
 		}
 		if (townBlock.getTown().isHomeBlock(townBlock))
 			remove(townBlock.getTown());
@@ -380,10 +388,10 @@ public class War {
 		output.add(Colors.Green + "  Towns: " + Colors.LightGreen + warringTowns.size() +" / " + townScores.size());
 		output.add(Colors.Green + "  WarZone: " + Colors.LightGreen + warZone.size() + " Town blocks");
 		try{
-        output.add(Colors.Green + "  Spoils of War: " + Colors.LightGreen + EconomyTools.Format(warSpoils.getHoldingBalance()));
+        output.add(Colors.Green + "  Spoils of War: " + Colors.LightGreen + warSpoils.getHoldingBalance() + " " + TownyIConomyObject.getIConomyCurrency());
         return output;
 		}
-		catch(EconomyException e)
+		catch(IConomyException e)
 		{
 		}
 		return null;

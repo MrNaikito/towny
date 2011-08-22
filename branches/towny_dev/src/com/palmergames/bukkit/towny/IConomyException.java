@@ -1,15 +1,15 @@
 package com.palmergames.bukkit.towny;
 
-public class EconomyException extends Exception {
+public class IConomyException extends Exception {
 	private static final long serialVersionUID = 5273714478509976170L;
 	public String error;
 
-	public EconomyException() {
+	public IConomyException() {
 		super();
 		error = "unknown";
 	}
 
-	public EconomyException(String error) {
+	public IConomyException(String error) {
 		super(error);
 		this.error = error;
 	}
