@@ -205,9 +205,9 @@ public class TownyUniverse extends TownyObject {
 			Town town = resident.getTown();
 			player.teleport(town.getSpawn());
 			//show message if we are using iConomy and are charging for spawn travel.
-			if (!plugin.isTownyAdmin(player) && TownySettings.isUsingIConomy() && TownySettings.getTownSpawnTravelPrice() != 0)
+			if (!plugin.isTownyAdmin(player) && TownySettings.isUsingEconomy() && TownySettings.getTownSpawnTravelPrice() != 0)
 				plugin.sendMsg(player, String.format(TownySettings.getLangString("msg_cost_spawn"),
-						TownySettings.getTownSpawnTravelPrice() + TownyIConomyObject.getIConomyCurrency()));
+						TownySettings.getTownSpawnTravelPrice() + TownyEconomyObject.getIConomyCurrency()));
 			//player.teleportTo(town.getSpawn());
 		} catch (TownyException x) {
 			if (forceTeleport) {
@@ -344,7 +344,7 @@ public class TownyUniverse extends TownyObject {
 		try {
 			town.pay(town.getHoldingBalance());
 			oldTown.pay(oldTown.getHoldingBalance(), town);
-		} catch (IConomyException e) {
+		} catch (EconomyException e) {
 		}
 		
 		for (Resident resident : toSave) {
@@ -387,7 +387,7 @@ public class TownyUniverse extends TownyObject {
 		try {
 			nation.pay(nation.getHoldingBalance());
 			oldNation.pay(oldNation.getHoldingBalance(), nation);
-		} catch (IConomyException e) {
+		} catch (EconomyException e) {
 		}
 		
 		for (Town town : toSave) {
@@ -884,14 +884,14 @@ public class TownyUniverse extends TownyObject {
 		return warEvent != null ? warEvent.isWarTime() : false;
 	}
 
-	public void collectNationTaxes() throws IConomyException {
+	public void collectNationTaxes() throws EconomyException {
 		for (Nation nation : new ArrayList<Nation>(nations.values()))
 			collectNationTaxes(nation);
         setChanged();
         notifyObservers(COLLECTED_NATION_TAX);
 	}
 
-	public void collectNationTaxes(Nation nation) throws IConomyException {
+	public void collectNationTaxes(Nation nation) throws EconomyException {
 		if (nation.getTaxes() > 0)
 			for (Town town : new ArrayList<Town>(nation.getTowns())) {
 				if (town.isCapital() || !town.hasUpkeep())
@@ -911,14 +911,14 @@ public class TownyUniverse extends TownyObject {
 			}
 	}
 
-	public void collectTownTaxes() throws IConomyException {
+	public void collectTownTaxes() throws EconomyException {
 		for (Town town : new ArrayList<Town>(towns.values()))
 			collectTownTaxes(town);
         setChanged();
         notifyObservers(COLLECTED_TONW_TAX);
 	}
 
-	public void collectTownTaxes(Town town) throws IConomyException {
+	public void collectTownTaxes(Town town) throws EconomyException {
 		//Resident Tax
 		if (town.getTaxes() > 0)
 			for (Resident resident : new ArrayList<Resident>(town.getResidents()))
@@ -1041,7 +1041,7 @@ public class TownyUniverse extends TownyObject {
 		nation.clear();
 		try {
 			nation.pay(nation.getHoldingBalance(), new WarSpoils());
-		} catch (IConomyException e) {
+		} catch (EconomyException e) {
 		}
 		nations.remove(nation.getName().toLowerCase());
 		
@@ -1099,7 +1099,7 @@ public class TownyUniverse extends TownyObject {
 		}
 		try {
 			town.pay(town.getHoldingBalance(), new WarSpoils());
-		} catch (IConomyException e) {
+		} catch (EconomyException e) {
 		}
 		
 		for (Resident resident : toSave) {
@@ -1227,7 +1227,7 @@ public class TownyUniverse extends TownyObject {
 			removeTownBlock(townBlock);
 	}
 
-	public void collectTownCosts() throws IConomyException, TownyException {
+	public void collectTownCosts() throws EconomyException, TownyException {
 		for (Town town : new ArrayList<Town>(towns.values()))
 			if (town.hasUpkeep())
 				if (!town.pay(TownySettings.getTownUpkeepCost(town))) {
@@ -1239,7 +1239,7 @@ public class TownyUniverse extends TownyObject {
         notifyObservers(UPKEEP_TOWN);
 	}
 	
-	public void collectNationCosts() throws IConomyException {
+	public void collectNationCosts() throws EconomyException {
 		for (Nation nation : new ArrayList<Nation>(nations.values())) {
 			if (!nation.pay(TownySettings.getNationUpkeepCost(nation))) {
 				removeNation(nation);

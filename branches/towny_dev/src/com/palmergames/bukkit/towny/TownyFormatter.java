@@ -4,17 +4,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.palmergames.bukkit.towny.object.Nation;
-import com.palmergames.bukkit.towny.object.Resident;
-import com.palmergames.bukkit.towny.object.Town;
-import com.palmergames.bukkit.towny.object.TownyIConomyObject;
-import com.palmergames.bukkit.towny.object.TownyObject;
-import com.palmergames.bukkit.towny.object.TownyWorld;
+import com.palmergames.bukkit.towny.object.*;
 import com.palmergames.bukkit.util.ChatTools;
 import com.palmergames.bukkit.util.Colors;
+import com.palmergames.util.EconomyTools;
 import com.palmergames.util.StringMgmt;
-
-import com.iConomy.*;
 
 //TODO: Make static
 //TODO: pull names from the config
@@ -46,11 +40,10 @@ public class TownyFormatter {
 					+ resident.getPermissions().getColourString());
 
 		// Bank: 534 coins
-		if (TownySettings.isUsingIConomy())
+		if (TownySettings.isUsingEconomy())
 			try {
-				TownyIConomyObject.checkIConomy();
 				out.add(Colors.Green + "Bank: " + Colors.LightGreen + resident.getHoldingBalance());
-			} catch (IConomyException e1) {
+			} catch (EconomyException e1) {
 			}
 		
 		// Town: Camelot
@@ -108,11 +101,10 @@ public class TownyFormatter {
 
 		// | Bank: 534 coins
 		String bankString = "";
-		if (TownySettings.isUsingIConomy())
+		if (TownySettings.isUsingEconomy())
 			try {
-				TownyIConomyObject.checkIConomy();
 				bankString = Colors.Gray + " | " + Colors.Green + "Bank: " + Colors.LightGreen + town.getHoldingBalance();
-			} catch (IConomyException e1) {
+			} catch (EconomyException e1) {
 			}
 
 		// Mayor: MrSand | Bank: 534 coins
@@ -149,11 +141,11 @@ public class TownyFormatter {
 		out.add(ChatTools.formatTitle(getFormattedName(nation)));
 
 		// Bank: 534 coins
-		if (TownySettings.isUsingIConomy())
+		if (TownySettings.isUsingEconomy())
 			try {
-				TownyIConomyObject.checkIConomy();
+
 				out.add(Colors.Green + "Bank: " + Colors.LightGreen + nation.getHoldingBalance());
-			} catch (IConomyException e1) {
+			} catch (EconomyException e1) {
 			}
 		
 		// King: King Harlus
@@ -288,7 +280,7 @@ public class TownyFormatter {
 	
 	public static String formatMoney(double amount) {
 		try {
-			return iConomy.format(amount);
+			return EconomyTools.getMethod().format(amount);
 		} catch (Exception e) {
 			return Double.toString(amount);
 		}

@@ -19,7 +19,7 @@ public class DailyTimerTask extends TownyTimerTask {
 		universe.getPlugin().sendDebugMsg("New Day");
 		
 		// Collect taxes
-		if (TownySettings.isUsingIConomy() && TownySettings.isTaxingDaily()) {
+		if (TownySettings.isUsingEconomy() && TownySettings.isTaxingDaily()) {
 			universe.sendGlobalMessage(String.format(TownySettings.getLangString("msg_new_day_tax")));
 			try {
 				universe.getPlugin().sendDebugMsg("Collecting Town Taxes");
@@ -30,7 +30,7 @@ public class DailyTimerTask extends TownyTimerTask {
 				universe.collectTownCosts();
 				universe.getPlugin().sendDebugMsg("Collecting Nation Costs");
 				universe.collectNationCosts();
-			} catch (IConomyException e) {
+			} catch (EconomyException ignored) {
 			} catch (TownyException e) {
 				// TODO king exception
 				e.printStackTrace();

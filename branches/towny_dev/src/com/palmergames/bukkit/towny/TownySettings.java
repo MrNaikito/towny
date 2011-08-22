@@ -36,7 +36,7 @@ public class TownySettings {
 		KING_PREFIX,
 		KING_POSTFIX,
 		UPKEEP_MULTIPLIER
-	};
+	}
 	// Town Level
 	public enum TownLevel {
 		NAME_PREFIX,
@@ -45,7 +45,7 @@ public class TownySettings {
 		MAYOR_POSTFIX,
 		TOWN_BLOCK_LIMIT,
 		UPKEEP_MULTIPLIER
-	};
+	}
 	
 	
 	private static Pattern namePattern = null;	
@@ -595,7 +595,7 @@ public class TownySettings {
         addComment(ConfigNodes.PLUGIN_USING_ESSENTIALS.getRoot(),
                 "# Enable if you are using cooldowns in essentials for teleports.");
         setNewProperty(ConfigNodes.PLUGIN_USING_ESSENTIALS.getRoot(), isUsingEssentials());
-        setNewProperty(ConfigNodes.PLUGIN_USING_ICONOMY.getRoot(), isUsingIConomy());
+        setNewProperty(ConfigNodes.PLUGIN_USING_ECONOMY.getRoot(), isUsingEconomy());
         setNewProperty(ConfigNodes.PLUGIN_USING_PERMISSIONS.getRoot(), isUsingPermissions());
         setNewProperty(ConfigNodes.PLUGIN_USING_QUESTIONER.getRoot(), isUsingQuestioner());
         setNewProperty(ConfigNodes.PLUGIN_DATABASE_LOAD.getRoot(), getLoadDatabase());
@@ -1331,12 +1331,12 @@ public class TownySettings {
 		return getBoolean(ConfigNodes.PERMS_NATION_CREATION_ADMIN_ONLY);
 	}
 
-	public static boolean isUsingIConomy() {
-		return getBoolean(ConfigNodes.PLUGIN_USING_ICONOMY);
+	public static boolean isUsingEconomy() {
+		return getBoolean(ConfigNodes.PLUGIN_USING_ECONOMY);
 	}
 
-    public static void setUsingIConomy(boolean newSetting) {
-        setProperty(ConfigNodes.PLUGIN_USING_ICONOMY.getRoot(), newSetting);
+    public static void setUsingEconomy(boolean newSetting) {
+        setProperty(ConfigNodes.PLUGIN_USING_ECONOMY.getRoot(), newSetting);
     }
 	
 	public static boolean isUsingEssentials() {

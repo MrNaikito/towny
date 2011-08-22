@@ -72,7 +72,7 @@ public enum ConfigNodes {
 	    PLUGIN_DAILY_BACKUPS("plugin.database.daily_backups","true"),
 	    PLUGIN_FLATFILE_BACKUP("plugin.database.flatfile_backup","zip"),
 	    PLUGIN_USING_ESSENTIALS("plugin.interfacing.using_essentials","false"),
-	    PLUGIN_USING_ICONOMY("plugin.interfacing.using_iconomy","true"),
+	    PLUGIN_USING_ECONOMY("plugin.interfacing.using_economy","true"),
 	    PLUGIN_USING_QUESTIONER("plugin.interfacing.using_questioner","true"),
 	    PLUGIN_USING_PERMISSIONS("plugin.interfacing.using_permissions","true"),
 	    PLUGIN_DAY_INTERVAL("plugin.day_interval","1d"),
