@@ -447,4 +447,7 @@ v0.74.1:
       '/plot fs'
       '/plot fs [$]'
     - Paintings can no longer be placed in the wilderness if the player doesn't have the correct permissions.
-    - All /townyworld commands are now accessable via the console. Append a suffix of the world name to any command other than '?' and 'list'. eg. '/tw toggle fire world_nether'
+    - All /townyworld commands are now accessable via the console. Append a suffix of the world name to any command other than '?' and 'list'. eg. '/tw toggle fire world_nether'.
+    - Added new Tags for Towns and Nations. If these are set they will be used instead of the full names in chat.
+      '/town set tag [upto 4 characters]'
+      '/nation set tag [upto 4 characters]

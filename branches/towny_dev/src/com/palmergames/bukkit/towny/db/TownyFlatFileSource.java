@@ -321,6 +321,10 @@ public class TownyFlatFileSource extends TownyDataSource {
 				}
 
 				town.setTownBoard(kvFile.get("townBoard"));
+				
+				line = kvFile.get("tag");
+				if (line != null)
+					town.setTag(line);
 
 				line = kvFile.get("protectionStatus");
 				if (line != null)
@@ -522,6 +526,10 @@ public class TownyFlatFileSource extends TownyDataSource {
 							nation.addAssistant(assistant);
 					}
 				}
+				
+				line = kvFile.get("tag");
+				if (line != null)
+					nation.setTag(line);
 
 				line = kvFile.get("allies");
 				if (line != null) {
@@ -919,6 +927,8 @@ public class TownyFlatFileSource extends TownyDataSource {
 			fout.write(newLine);
 			// Town Board
 			fout.write("townBoard=" + town.getTownBoard() + newLine);
+			// tag
+			fout.write("title=" + town.getTag() + newLine);
 			// Town Protection
 			fout.write("protectionStatus=" + town.getPermissions().toString() + newLine);
 			// Bonus Blocks
@@ -986,8 +996,9 @@ public class TownyFlatFileSource extends TownyDataSource {
 				fout.write(town.getName() + ",");
 			fout.write(newLine);
 			if (nation.hasCapital())
-				fout.write("capital=" + nation.getCapital().getName());
-			fout.write(newLine);
+				fout.write("capital=" + nation.getCapital().getName() + newLine);
+			if (nation.hasTag())
+				fout.write("title=" + nation.getTag() + newLine);
 			fout.write("assistants=");
 			for (Resident assistant : nation.getAssistants())
 				fout.write(assistant.getName() + ",");

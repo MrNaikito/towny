@@ -527,9 +527,20 @@ public class Towny extends JavaPlugin {
                                 else
                                         colour = "";
                                 formattedName = TownySettings.getModifyChatFormat();
+                                String nation = "",town = "";
                                 
-                                formattedName = formattedName.replace("{nation}", resident.hasNation() ? "[" + resident.getTown().getNation().getName() + "]" : "");
-                                formattedName = formattedName.replace("{town}", resident.hasTown() ? "[" + resident.getTown().getName() + "]" : "");
+                                if (resident.hasNation()) {
+                                	nation = resident.hasNation() ? "[" + resident.getTown().getNation().getName() + "]" : "";
+                                	nation = resident.getTown().getNation().hasTag() ? "[" + resident.getTown().getNation().getTag() + "]" : nation;
+                                }
+                                
+                                if (resident.hasTown()) {
+                                	town = resident.hasTown() ? "[" + resident.getTown().getName() + "]" : "";
+                                	town = resident.getTown().hasTag() ? "[" + resident.getTown().getTag() + "]" : town;
+                                }
+                                
+                                formattedName = formattedName.replace("{nation}", nation);
+                                formattedName = formattedName.replace("{town}", town);
                                 formattedName = formattedName.replace("{permprefix}", getPermissionNode(resident, "prefix"));
                                 formattedName = formattedName.replace("{townynameprefix}", resident.hasTitle() ? resident.getTitle() : getTownyUniverse().getFormatter().getNamePrefix(resident));
                                 formattedName = formattedName.replace("{playername}", player.getName());

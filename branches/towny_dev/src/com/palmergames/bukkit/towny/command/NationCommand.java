@@ -802,6 +802,7 @@ public class NationCommand implements CommandExecutor  {
                         player.sendMessage(ChatTools.formatCommand("", "/nation set", "name [name]", ""));
                         player.sendMessage(ChatTools.formatCommand("", "/nation set", "neutral [on/off]", ""));
                         player.sendMessage(ChatTools.formatCommand("", "/nation set", "title/surname [resident] [text]", ""));
+                        player.sendMessage(ChatTools.formatCommand("", "/nation set", "tag [upto 4 letters]", ""));
                 } else {
                         Resident resident;
                         Nation nation;
@@ -861,13 +862,23 @@ public class NationCommand implements CommandExecutor  {
                                         }
                                 }
                         } else if (split[0].equalsIgnoreCase("name")) {
-                                if (split.length < 2)
-                                        plugin.sendErrorMsg(player, "Eg: /nation set name Plutoria");
-                                else
-                                        if (TownySettings.isValidRegionName(split[1]))
-                                                nationRename(player, nation, split[1]);
-                                        else
-                                                plugin.sendErrorMsg(player, TownySettings.getLangString("msg_invalid_name"));
+                               if (split.length < 2)
+                                       plugin.sendErrorMsg(player, "Eg: /nation set name Plutoria");
+                               else
+                            	   if (TownySettings.isValidRegionName(split[1]))
+                            		   nationRename(player, nation, split[1]);
+                            	   else
+                            		   plugin.sendErrorMsg(player, TownySettings.getLangString("msg_invalid_name"));
+                        } else if (split[0].equalsIgnoreCase("tag")) {
+                        	if (split.length < 2)
+                                plugin.sendErrorMsg(player, "Eg: /nation set tag PLT");
+                        	else
+                                try {
+                                	nation.setTag(split[1]);
+                                	plugin.getTownyUniverse().sendNationMessage(nation, String.format(TownySettings.getLangString("msg_set_nation_tag"), player.getName(), nation.getTag()));
+                                } catch (TownyException e) {
+                                	plugin.sendErrorMsg(player, e.getMessage());
+                                }
                         } else if (split[0].equalsIgnoreCase("neutral")) {
                                 if (split.length < 2)
                                         plugin.sendErrorMsg(player, "Eg: /nation set neutral [on/off]");

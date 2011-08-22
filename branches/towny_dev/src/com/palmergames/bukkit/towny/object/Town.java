@@ -24,10 +24,10 @@ public class Town extends TownBlockOwner implements Walled, ResidentList {
         private Wall wall = new Wall();
         private Resident mayor;
         private int bonusBlocks;
-    private double taxes, plotTax, commercialPlotTax, plotPrice, commercialPlotPrice;
+        private double taxes, plotTax, commercialPlotTax, plotPrice, commercialPlotPrice;
         private Nation nation;
         private boolean hasUpkeep, isPVP, hasMobs, isPublic, isBANG, isFire,isTaxPercentage;
-        private String townBoard = "/town set board [msg]";
+        private String townBoard = "/town set board [msg]", tag;
         private TownBlock homeBlock;
         private TownyWorld world;
         private Location spawn;
@@ -35,6 +35,7 @@ public class Town extends TownBlockOwner implements Walled, ResidentList {
 
         public Town(String name) {
                 setName(name);
+                tag = "";
                 bonusBlocks = 0;
                 taxes = 0.0;
                 plotTax = 0.0;
@@ -62,6 +63,22 @@ public class Town extends TownBlockOwner implements Walled, ResidentList {
                                 }
                 }
         }
+        
+        public void setTag(String text) throws TownyException {
+        	if (tag.length() > 4)
+        		throw new TownyException("Tag too long");
+    		if (tag.matches(" "))
+    			tag = "";
+    		this.tag = text.toUpperCase();
+    	}
+
+    	public String getTag() {
+    		return tag;
+    	}
+    	
+    	public boolean hasTag() {
+    		return !tag.isEmpty();
+    	}
 
         public Resident getMayor() {
                 return mayor;

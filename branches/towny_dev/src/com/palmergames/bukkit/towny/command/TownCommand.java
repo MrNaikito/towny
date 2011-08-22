@@ -493,6 +493,7 @@ public class TownCommand implements CommandExecutor  {
             player.sendMessage(ChatTools.formatCommand("", "/town set", "shoptax [$]", ""));
                         player.sendMessage(ChatTools.formatCommand("", "/town set", "shopprice [$]", ""));
                         player.sendMessage(ChatTools.formatCommand("", "/town set", "name [name]", ""));
+                        player.sendMessage(ChatTools.formatCommand("", "/town set", "tag [upto 4 letters]", ""));
                         //player.sendMessage(ChatTools.formatCommand("", "/town set", "public [on/off]", ""));
                         //player.sendMessage(ChatTools.formatCommand("", "/town set", "explosion [on/off]", ""));
                         //player.sendMessage(ChatTools.formatCommand("", "/town set", "fire [on/off]", ""));
@@ -646,6 +647,16 @@ public class TownCommand implements CommandExecutor  {
                                                 townRename(player, town, split[1]);
                                         else
                                                 plugin.sendErrorMsg(player, TownySettings.getLangString("msg_invalid_name"));
+                        } else if (split[0].equalsIgnoreCase("tag")) {
+                        	if (split.length < 2)
+                                plugin.sendErrorMsg(player, "Eg: /town set tag PLT");
+                        	else
+                                try {
+                                	town.setTag(split[1]);
+                                	plugin.getTownyUniverse().sendTownMessage(town, String.format(TownySettings.getLangString("msg_set_town_tag"), player.getName(), town.getTag()));
+                                } catch (TownyException e) {
+                                	plugin.sendErrorMsg(player, e.getMessage());
+                                }
                         } else if (split[0].equalsIgnoreCase("homeblock")) {
                                 Coord coord = Coord.parseCoord(player);
                                 TownBlock townBlock;

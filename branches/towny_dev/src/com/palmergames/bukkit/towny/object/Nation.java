@@ -19,10 +19,29 @@ public class Nation extends TownyIConomyObject implements ResidentList {
         private Town capital;
         private double taxes;
         private boolean neutral = false;
+        private String tag;
 
         public Nation(String name) {
                 setName(name);
+                tag = "";
         }
+        
+        public void setTag(String text) throws TownyException {
+        	if (tag.length() > 4)
+        		throw new TownyException("Tag too long");
+    		if (tag.matches(" "))
+    			tag = "";
+    		this.tag = text.toUpperCase();
+    	}
+
+    	public String getTag() {
+    		return tag;
+    	}
+    	
+    	public boolean hasTag() {
+    		return !tag.isEmpty();
+    	}
+
 
         public void addAlly(Nation nation) throws AlreadyRegisteredException {
                 if (hasAlly(nation))
