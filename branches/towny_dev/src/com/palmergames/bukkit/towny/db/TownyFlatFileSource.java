@@ -928,7 +928,7 @@ public class TownyFlatFileSource extends TownyDataSource {
 			// Town Board
 			fout.write("townBoard=" + town.getTownBoard() + newLine);
 			// tag
-			fout.write("title=" + town.getTag() + newLine);
+			fout.write("tag=" + town.getTag() + newLine);
 			// Town Protection
 			fout.write("protectionStatus=" + town.getPermissions().toString() + newLine);
 			// Bonus Blocks
@@ -998,7 +998,7 @@ public class TownyFlatFileSource extends TownyDataSource {
 			if (nation.hasCapital())
 				fout.write("capital=" + nation.getCapital().getName() + newLine);
 			if (nation.hasTag())
-				fout.write("title=" + nation.getTag() + newLine);
+				fout.write("tag=" + nation.getTag() + newLine);
 			fout.write("assistants=");
 			for (Resident assistant : nation.getAssistants())
 				fout.write(assistant.getName() + ",");
