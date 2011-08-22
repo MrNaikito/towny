@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.naming.InvalidNameException;
+
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -652,11 +654,13 @@ public class TownCommand implements CommandExecutor  {
                                 plugin.sendErrorMsg(player, "Eg: /town set tag PLT");
                         	else
                                 try {
-                                	town.setTag(split[1]);
+                                	town.setTag(plugin.getTownyUniverse().checkAndFilterName(split[1]));
                                 	plugin.getTownyUniverse().sendTownMessage(town, String.format(TownySettings.getLangString("msg_set_town_tag"), player.getName(), town.getTag()));
                                 } catch (TownyException e) {
                                 	plugin.sendErrorMsg(player, e.getMessage());
-                                }
+                                } catch (InvalidNameException e) {
+                                	plugin.sendErrorMsg(player, e.getMessage());
+								}
                         } else if (split[0].equalsIgnoreCase("homeblock")) {
                                 Coord coord = Coord.parseCoord(player);
                                 TownBlock townBlock;

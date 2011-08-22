@@ -874,11 +874,13 @@ public class NationCommand implements CommandExecutor  {
                                 plugin.sendErrorMsg(player, "Eg: /nation set tag PLT");
                         	else
                                 try {
-                                	nation.setTag(split[1]);
+                                	nation.setTag(plugin.getTownyUniverse().checkAndFilterName(split[1]));
                                 	plugin.getTownyUniverse().sendNationMessage(nation, String.format(TownySettings.getLangString("msg_set_nation_tag"), player.getName(), nation.getTag()));
                                 } catch (TownyException e) {
                                 	plugin.sendErrorMsg(player, e.getMessage());
-                                }
+                                } catch (InvalidNameException e) {
+                                	plugin.sendErrorMsg(player, e.getMessage());
+								}
                         } else if (split[0].equalsIgnoreCase("neutral")) {
                                 if (split.length < 2)
                                         plugin.sendErrorMsg(player, "Eg: /nation set neutral [on/off]");
