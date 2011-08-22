@@ -407,7 +407,11 @@ public class TownyAdminCommand implements CommandExecutor  {
                 
                 if (split.length == 0) {
                         //command was '/townyadmin toggle'
-                        plugin.sendErrorMsg(player, String.format(TownySettings.getLangString("msg_err_invalid_input"), "Eg: /townyadmin toggle war"));
+                        player.sendMessage(ChatTools.formatTitle("/townyadmin toggle"));
+                        player.sendMessage(ChatTools.formatCommand("", "/townyadmin toggle", "war", ""));
+                        player.sendMessage(ChatTools.formatCommand("", "/townyadmin toggle", "neutral", ""));
+                        player.sendMessage(ChatTools.formatCommand("", "/townyadmin toggle", "devmode", ""));
+                        player.sendMessage(ChatTools.formatCommand("", "/townyadmin toggle", "debug", ""));
                         return;
                         
                 } else if (split[0].equalsIgnoreCase("war")) {
