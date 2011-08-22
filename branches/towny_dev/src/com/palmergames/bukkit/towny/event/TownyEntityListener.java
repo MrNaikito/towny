@@ -15,6 +15,7 @@ import org.bukkit.event.entity.EntityListener;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.painting.PaintingBreakEvent;
 import org.bukkit.event.painting.PaintingBreakByEntityEvent;
+import org.bukkit.event.painting.PaintingPlaceEvent;
 
 import com.palmergames.bukkit.towny.MobRemovalTimerTask;
 import com.palmergames.bukkit.towny.NotRegisteredException;
@@ -95,6 +96,53 @@ public class TownyEntityListener extends EntityListener {
 	}
 	
 	@Override
+	public void onEntityDeath(EntityDeathEvent event) {
+		Entity entity =  event.getEntity();
+		
+		if (entity instanceof Player) {
+			Player player = (Player)entity;
+			plugin.sendDebugMsg("onPlayerDeath: " + player.getName() + "[ID: " + entity.getEntityId() + "]");
+		}
+    }
+	
+	@Override
+	public void onCreatureSpawn(CreatureSpawnEvent event) {
+		if (event.getEntity() instanceof LivingEntity) {
+			LivingEntity livingEntity = (LivingEntity)event.getEntity();
+			Location loc = event.getLocation();
+			Coord coord = Coord.parseCoord(loc);
+			TownyWorld townyWorld = null;
+			
+			try {
+				townyWorld = plugin.getTownyUniverse().getWorld(loc.getWorld().getName());
+			} catch (NotRegisteredException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			//remove from world if set to remove mobs globally
+			if (townyWorld.isUsingTowny())
+			if (!townyWorld.hasWorldMobs() && MobRemovalTimerTask.isRemovingWorldEntity(livingEntity)){
+						plugin.sendDebugMsg("onCreatureSpawn world: Canceled " + event.getCreatureType() + " from spawning within "+coord.toString()+".");
+						event.setCancelled(true);
+			}
+				
+			//remove from towns if in the list and set to remove		
+			try {
+				
+				TownBlock townBlock = townyWorld.getTownBlock(coord);
+				if (townyWorld.isUsingTowny() && !townyWorld.isForceTownMobs())
+				if (!townBlock.getTown().hasMobs() && MobRemovalTimerTask.isRemovingTownEntity(livingEntity)) {
+					plugin.sendDebugMsg("onCreatureSpawn town: Canceled " + event.getCreatureType() + " from spawning within "+coord.toString()+".");
+					event.setCancelled(true);
+				}
+			} catch (TownyException x) {
+			}	
+
+		}
+	}
+	
+	@Override
 	public void onEntityInteract(EntityInteractEvent event) {
 		
 		if (event.isCancelled())
@@ -165,6 +213,21 @@ public class TownyEntityListener extends EntityListener {
 		
 	}
 	
+	@Override
+	public void onPaintingPlace(PaintingPlaceEvent event) {
+		if (event.isCancelled()) {
+			event.setCancelled(true);
+			return;
+		}
+		
+		long start = System.currentTimeMillis();
+		
+		onPaintingPlace(event,true);
+		
+		plugin.sendDebugMsg("onPaintingBreak took " + (System.currentTimeMillis() - start) + "ms ("+event.getEventName()+", "+event.isCancelled() +")");	
+		
+	}
+	
 	private void onPaintingBreak (PaintingBreakEvent event, boolean firstCall) {
 		
 		if (event instanceof PaintingBreakByEntityEvent) {
@@ -208,10 +271,49 @@ public class TownyEntityListener extends EntityListener {
 		
 			}
 		}
+	}	
+	
+	private void onPaintingPlace (PaintingPlaceEvent event, boolean firstCall) {
+		
+
+		Player player = event.getPlayer();
+		Painting painting = event.getPainting();
+
+		WorldCoord worldCoord;
+		try {
+			worldCoord = new WorldCoord(plugin.getTownyUniverse().getWorld(painting.getWorld().getName()), Coord.parseCoord(painting.getLocation()));
+		} catch (NotRegisteredException e1) {
+			plugin.sendErrorMsg(player, TownySettings.getLangString("msg_err_not_configured"));
+			event.setCancelled(true);
+			return;
+		}
+		
+		// Check cached permissions first
+		try {
+			PlayerCache cache = plugin.getCache(player);
+			cache.updateCoord(worldCoord);
+			TownBlockStatus status = cache.getStatus();
+			if (status == TownBlockStatus.UNCLAIMED_ZONE && plugin.hasWildOverride(worldCoord.getWorld(), player, painting.getEntityId(), TownyPermission.ActionType.BUILD))
+				return;
+			if (!cache.getBuildPermission())
+				event.setCancelled(true);
+			if (cache.hasBlockErrMsg())
+				plugin.sendErrorMsg(player, cache.getBlockErrMsg());
+			return;
+		} catch (NullPointerException e) {
+			if (firstCall) {
+				// New or old build permission was null, update it
+				TownBlockStatus status = plugin.cacheStatus(player, worldCoord, plugin.getStatusCache(player, worldCoord));
+				plugin.cacheBuild(player, worldCoord, getBuildPermission(player, status, worldCoord));
+				onPaintingPlace(event, false);
+			} else
+				plugin.sendErrorMsg(player, TownySettings.getLangString("msg_err_updating_build_perms"));
+
+		}
+				
+		
 			
 	}
-	
-
 	
 	public boolean preventDamageCall(TownyWorld world, Entity a, Entity b, Player ap, Player bp) {
 		// World using Towny
@@ -262,52 +364,8 @@ public class TownyEntityListener extends EntityListener {
 		return false;
 	}
 	
-	
-	@Override
-	public void onEntityDeath(EntityDeathEvent event) {
-		Entity entity =  event.getEntity();
-		
-		if (entity instanceof Player) {
-			Player player = (Player)entity;
-			plugin.sendDebugMsg("onPlayerDeath: " + player.getName() + "[ID: " + entity.getEntityId() + "]");
-		}
-    }
-	
-	@Override
-	public void onCreatureSpawn(CreatureSpawnEvent event) {
-		if (event.getEntity() instanceof LivingEntity) {
-			LivingEntity livingEntity = (LivingEntity)event.getEntity();
-			Location loc = event.getLocation();
-			Coord coord = Coord.parseCoord(loc);
-			TownyWorld townyWorld = null;
-			
-			try {
-				townyWorld = plugin.getTownyUniverse().getWorld(loc.getWorld().getName());
-			} catch (NotRegisteredException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			//remove from world if set to remove mobs globally
-			if (townyWorld.isUsingTowny())
-			if (!townyWorld.hasWorldMobs() && MobRemovalTimerTask.isRemovingWorldEntity(livingEntity)){
-						plugin.sendDebugMsg("onCreatureSpawn world: Canceled " + event.getCreatureType() + " from spawning within "+coord.toString()+".");
-						event.setCancelled(true);
-			}
-				
-			//remove from towns if in the list and set to remove		
-			try {
-				
-				TownBlock townBlock = townyWorld.getTownBlock(coord);
-				if (townyWorld.isUsingTowny() && !townyWorld.isForceTownMobs())
-				if (!townBlock.getTown().hasMobs() && MobRemovalTimerTask.isRemovingTownEntity(livingEntity)) {
-					plugin.sendDebugMsg("onCreatureSpawn town: Canceled " + event.getCreatureType() + " from spawning within "+coord.toString()+".");
-					event.setCancelled(true);
-				}
-			} catch (TownyException x) {
-			}	
-
-		}
+	public boolean getBuildPermission(Player player, TownBlockStatus status, WorldCoord pos) {
+		return plugin.getPermission(player, status, pos, TownyPermission.ActionType.BUILD);
 	}
 	
 	public boolean getDestroyPermission(Player player, TownBlockStatus status, WorldCoord pos) {

@@ -446,5 +446,5 @@ v0.74.1:
       '/plot claim [radius]'
       '/plot fs'
       '/plot fs [$]'
-      
+    - Paintings can no longer be placed in the wilderness if the player doesn't have the correct permissions.
     
