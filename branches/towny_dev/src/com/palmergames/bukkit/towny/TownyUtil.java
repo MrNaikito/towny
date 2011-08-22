@@ -158,7 +158,7 @@ public class TownyUtil {
 		List<WorldCoord> out = new ArrayList<WorldCoord>();
 		for (WorldCoord worldCoord : selection)
 			try {
-				if (!worldCoord.getTownBlock().hasResident())
+				if (worldCoord.getTownBlock().getPlotPrice() > -1)
 					out.add(worldCoord);
 			} catch (NotRegisteredException e) {
 			}
