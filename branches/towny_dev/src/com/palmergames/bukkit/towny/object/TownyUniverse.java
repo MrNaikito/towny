@@ -810,6 +810,7 @@ public class TownyUniverse extends TownyObject {
 
         public TownyWorld getWorld(String name) throws NotRegisteredException {
                 TownyWorld world = worlds.get(name.toLowerCase());
+                /*
                 if (world == null) {
                         try {
                                 newWorld(name);
@@ -819,9 +820,11 @@ public class TownyUniverse extends TownyObject {
                                 e.printStackTrace();
                         }
                         world = worlds.get(name.toLowerCase());
+                        */
                         if (world == null)
-                                throw new NotRegisteredException("Could not create world " + name.toLowerCase());
-                }
+                        	throw new NotRegisteredException("World not registered!");
+                                //throw new NotRegisteredException("Could not create world " + name.toLowerCase());
+                //}
                 return world;
         }
         
