@@ -879,7 +879,6 @@ public class TownySettings {
             level.put("upkeepModifier", 1.0);
             levels.add(new HashMap<String, Object>(level));
             level.clear();
-            level.put("numResidents", 1);
             level.put("namePrefix", "");
             level.put("namePostfix", " (Settlement)");
             level.put("mayorPrefix", "Hermit ");
