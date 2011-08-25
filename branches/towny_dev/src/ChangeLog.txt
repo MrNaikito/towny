@@ -451,3 +451,4 @@ v0.74.1:
     - Added new Tags for Towns and Nations. If these are set they will be used instead of the full names in chat.
       '/town set tag [upto 4 characters]'
       '/nation set tag [upto 4 characters]
+    - Fixed nations losing Enemies and Allies during a reload.

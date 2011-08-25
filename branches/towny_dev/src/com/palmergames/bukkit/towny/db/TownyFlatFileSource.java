@@ -537,7 +537,7 @@ public class TownyFlatFileSource extends TownyDataSource {
 					for (String token : tokens) {
 						Nation friend = universe.getNation(token);
 						if (friend != null)
-							nation.setAliegeance("ally", friend);
+							nation.addAlly(friend); //("ally", friend);
 					}
 				}
 
@@ -547,7 +547,7 @@ public class TownyFlatFileSource extends TownyDataSource {
 					for (String token : tokens) {
 						Nation enemy = universe.getNation(token);
 						if (enemy != null)
-							nation.setAliegeance("enemy", enemy);
+							nation.addEnemy(enemy); //("enemy", enemy);
 					}
 				}
 
