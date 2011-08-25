@@ -19,7 +19,7 @@ import com.palmergames.bukkit.towny.object.TownyPermission.PermLevel;
 import com.palmergames.bukkit.towny.object.WorldCoord;
 import com.palmergames.bukkit.util.TimeTools;
 import com.palmergames.util.FileMgmt;
-import com.palmergames.util.StringMgmt;
+//import com.palmergames.util.StringMgmt;
 
 import org.bukkit.util.config.Configuration;
 import org.bukkit.util.config.ConfigurationNode;
@@ -435,429 +435,37 @@ public class TownySettings {
                 return list;
         }
         */
-
+    
     public static void addComment(String root, String...comments) {
         newConfig.addComment(root.toLowerCase(), comments);
     }
-
-    private static void setDefaults(String version, File file) {
-        
-        newConfig = new CommentedConfiguration(file);
-        
-        // Version
-        addComment("version", "", "# This is for showing the changelog on updates.  Please do not edit.");
-        setNewProperty(ConfigNodes.VERSION.getRoot(), version);
-        setNewProperty(ConfigNodes.LAST_RUN_VERSION.getRoot(), getLastRunVersion(version));
-
-        addComment(ConfigNodes.LANGUAGE.getRoot(), "", "# The language file you wish to use");
-        getString(ConfigNodes.LANGUAGE.getRoot(), ConfigNodes.LANGUAGE.getDefault());
-        
-        
-
-        addComment(ConfigNodes.PERMS.getRoot(), "", "#  Possible permission nodes",
-                                                                  "#",
-                                                                  "#    towny.admin: User is able to use /townyadmin, as well as the ability to build/destroy anywhere. User is also able to make towns or nations when set to admin only.",
-                                                                  "#    towny.cheat.bypass : User is able to use any fly mods and double block jump (disables towny cheat protection for this user).",
-                                                                  "#    towny.town.new :User is able to create a town",
-                                                                  "#    towny.town.claim : User is able to expand his town with /town claim",
-                                                                  "#    towny.town.plot : User is able to use the /plot commands",
-                                                                  "#    towny.town.resident : User is able to join towns upon invite.",
-                                                                  "#    towny.nation.new :User is able to create a nation",
-                                                                  "#    towny.wild.*: User is able to build/destroy in wild regardless.",
-                                                                  "#        towny.wild.build",
-                                                                  "#        towny.wild.destroy",
-                                                                  "#        towny.wild.switch",
-                                                                  "#        towny.wild.item_use",
-                                                                  "#    towny.wild.block.[block id].* : User is able to edit [block id] in the wild.",
-                                                                  "#    towny.spawntp :Use /town spawn",
-                                                                  "#    towny.publicspawntp : Use ''/town spawn [town]'' (teleport to other towns)",
-                                                                  "#",
-                                                                  "# these will be moved to permissions nodes at a later date");
-        setNewProperty(ConfigNodes.PERMS_TOWN_CREATION_ADMIN_ONLY.getRoot(),isTownCreationAdminOnly());
-        setNewProperty(ConfigNodes.PERMS_NATION_CREATION_ADMIN_ONLY.getRoot(),isNationCreationAdminOnly());
-
-        addComment(ConfigNodes.LEVELS.getRoot(), "", "");
-        setDefaultLevels();
-
-        addComment(ConfigNodes.TOWN.getRoot(), "", "",
-                "############################################################",
-                "# +------------------------------------------------------+ #",
-                "# |               Town Claim/new defaults                | #",
-                "# +------------------------------------------------------+ #",
-                "############################################################", "");
-        addComment(ConfigNodes.TOWN_MAX_PLOTS_PER_RESIDENT.getRoot(), "# maximum number of plots any single resident can own");
-        setNewProperty(ConfigNodes.TOWN_MAX_PLOTS_PER_RESIDENT.getRoot(), getMaxPlotsPerResident());
-        addComment(ConfigNodes.TOWN_LIMIT.getRoot(), "# Maximum number of towns allowed on the server.");
-        getTownLimit();
-        addComment(ConfigNodes.TOWN_MIN_DISTANCE_FROM_TOWN_HOMEBLOCK.getRoot(), "",
-                "# Minimum number of plots any towns home plot must be from the next town.",
-                "# This will prevent someone founding a town right on your doorstep");
-        setNewProperty(ConfigNodes.TOWN_MIN_DISTANCE_FROM_TOWN_HOMEBLOCK.getRoot(), getMinDistanceFromTownHomeblocks());
-        addComment(ConfigNodes.TOWN_MAX_DISTANCE_BETWEEN_HOMEBLOCKS.getRoot(), "",
-                "# Maximum distance between homblocks.",
-                "# This will force players to build close together.");
-        setNewProperty(ConfigNodes.TOWN_MAX_DISTANCE_BETWEEN_HOMEBLOCKS.getRoot(), getMaxDistanceBetweenHomeblocks());
-        addComment(ConfigNodes.TOWN_TOWN_BLOCK_RATIO.getRoot(), "",
-                "# The maximum townblocks available to a town is (numResidents * ratio).",
-                "# Setting this value to 0 will instead use the level based jump values determined in the town level config.");
-        setNewProperty(ConfigNodes.TOWN_TOWN_BLOCK_RATIO.getRoot(), getTownBlockRatio());
-        addComment(ConfigNodes.TOWN_TOWN_BLOCK_SIZE.getRoot(),
-                "# The size of the square grid cell. Changing this value is suggested only when you first install Towny.",
-                "# Doing so after entering data will shift things unwantedly. Using smaller value will allow higher precision,",
-                "# at the cost of more work setting up. Also, extremely small values will render the caching done useless.",
-                "# Each cell is (town_block_size * town_block_size * 128) in size, with 128 being from bedrock to clouds.");
-        setNewProperty(ConfigNodes.TOWN_TOWN_BLOCK_SIZE.getRoot(), getTownBlockSize());
-
-        addComment(ConfigNodes.NWS.getRoot(), "", "",
-                "############################################################",
-                "# +------------------------------------------------------+ #",
-                "# |             Default new world settings               | #",
-                "# +------------------------------------------------------+ #",
-                "############################################################",
-                "",
-                "# These flags are only used at the initial setp of a new world.",
-                "",
-                "# Once Towny is running each world can be altered from within game",
-                "# using '/townyworld toggle'", "");
-        addComment(ConfigNodes.NWS_FORCE_PVP_ON.getRoot(),
-                "# force_pvp_on is a global flag and overrides any towns flag setting");
-        setNewProperty(ConfigNodes.NWS_FORCE_PVP_ON.getRoot(), isForcingPvP());
-        addComment(ConfigNodes.NWS_DISABLE_PLAYER_CROP_TRAMPLING.getRoot(),
-                "# Disable players trampling crops");
-        setNewProperty(ConfigNodes.NWS_DISABLE_PLAYER_CROP_TRAMPLING.getRoot(), isPlayerTramplingCropsDisabled());
-        addComment(ConfigNodes.NWS_DISABLE_CREATURE_CROP_TRAMPLING.getRoot(),
-                "# Disable creatures trampling crops");
-        setNewProperty(ConfigNodes.NWS_DISABLE_CREATURE_CROP_TRAMPLING.getRoot(), isCreatureTramplingCropsDisabled());
-        addComment(ConfigNodes.NWS_WORLD_MONSTERS_ON.getRoot(),
-                "# world_monsters_on is a global flag setting per world.");
-        setNewProperty(ConfigNodes.NWS_WORLD_MONSTERS_ON.getRoot(), isWorldMonstersOn());
-        addComment(ConfigNodes.NWS_FORCE_EXPLOSIONS_ON.getRoot(),
-                "# force_explosions_on is a global flag and overrides any towns flag setting");
-        setNewProperty(ConfigNodes.NWS_FORCE_EXPLOSIONS_ON.getRoot(), isForcingExplosions());
-        addComment(ConfigNodes.NWS_FORCE_TOWN_MONSTERS_ON.getRoot(),
-                "# force_monsters_on is a global flag and overrides any towns flag setting");
-        setNewProperty(ConfigNodes.NWS_FORCE_TOWN_MONSTERS_ON.getRoot(), isForcingMonsters());
-        addComment(ConfigNodes.NWS_FORCE_FIRE_ON.getRoot(),
-                "# force_fire_on is a global flag and overrides any towns flag setting");
-        setNewProperty(ConfigNodes.NWS_FORCE_FIRE_ON.getRoot(), isForcingFire());
-
-        addComment(ConfigNodes.GTOWN_SETTINGS.getRoot(), "", "",
-                "############################################################",
-                "# +------------------------------------------------------+ #",
-                "# |                Global town settings                  | #",
-                "# +------------------------------------------------------+ #",
-                "############################################################", "");
-        addComment(ConfigNodes.GTOWN_SETTINGS_FRIENDLY_FIRE.getRoot(),
-                "# can residents/Allies harm other residents when in a town with pvp enabled?");
-        setNewProperty(ConfigNodes.GTOWN_SETTINGS_FRIENDLY_FIRE.getRoot(), getFriendlyFire());
-        addComment(ConfigNodes.GTOWN_SETTINGS_HEALTH_REGEN.getRoot(), "",
-                "# Players within their town or allied towns will regenerate half a heart after every health_regen_speed seconds.");
-        setNewProperty(ConfigNodes.GTOWN_SETTINGS_REGEN_ENABLE.getRoot(), hasHealthRegen());
-        setNewProperty(ConfigNodes.GTOWN_SETTINGS_REGEN_SPEED.getRoot(), getHealthRegenSpeed());
-        addComment(ConfigNodes.GTOWN_SETTINGS_DAILY_TAXES.getRoot(), "",
-                "# Enables taxes to be collected daily by town/nation",
-                "# If a town can't pay it's tax then it is kicked from the nation.",
-                "# if a resident can't pay his plot tax he loses his plot.",
-                "# if a resident can't pay his town tax then he is kicked from the town.",
-                "# if a town or nation fails to pay it's upkeep it is deleted.");
-        setNewProperty(ConfigNodes.GTOWN_SETTINGS_DAILY_TAXES.getRoot(), isTaxingDaily());
-        addComment(ConfigNodes.GTOWN_SETTINGS_ALLOW_OUTPOSTS.getRoot(), "",
-                "# Allow towns to claim outposts (a townblock not connected to town).");
-        setNewProperty(ConfigNodes.GTOWN_SETTINGS_ALLOW_OUTPOSTS.getRoot(), isAllowingOutposts());
-        addComment("GLOBAL_TOWN_SETTINGS.ALLOW_TOWN_SPAWN", "# Allow the use of /town spawn");
-        setNewProperty(ConfigNodes.GTOWN_SETTINGS_ALLOW_TOWN_SPAWN.getRoot(), isAllowingTownSpawn());
-        addComment(ConfigNodes.GTOWN_SETTINGS_ALLOW_TOWN_SPAWN_TRAVEL.getRoot(),
-                "# Allow regular residents to use /town spawn [town] (TP to other towns if they are public).");
-        setNewProperty(ConfigNodes.GTOWN_SETTINGS_ALLOW_TOWN_SPAWN_TRAVEL.getRoot(), isAllowingPublicTownSpawnTravel());
-        
-        addComment(ConfigNodes.GTOWN_SETTINGS_SPAWN_TIMER.getRoot(),
-                "# If non zero it delays any spawn request by x seconds.");
-        setNewProperty(ConfigNodes.GTOWN_SETTINGS_SPAWN_TIMER.getRoot(), getTeleportWarmupTime());
-        
-        addComment(ConfigNodes.GTOWN_SETTINGS_TOWN_RESPAWN.getRoot(),
-                "# Respawn the player at his town spawn point when he/she dies");
-        setNewProperty(ConfigNodes.GTOWN_SETTINGS_TOWN_RESPAWN.getRoot(), isTownRespawning());
-        addComment(ConfigNodes.GTOWN_SETTINGS_PREVENT_TOWN_SPAWN_IN.getRoot(),
-                "# Prevent players from using /town spawn while within unclaimed areas and/or enemy/neutral towns.",
-                "# Allowed options: unclaimed, enemy, neutral");
-        setNewProperty(ConfigNodes.GTOWN_SETTINGS_PREVENT_TOWN_SPAWN_IN.getRoot(), StringMgmt.join(getDisallowedTownSpawnZones(),","));
-        addComment(ConfigNodes.GTOWN_SETTINGS_SHOW_TOWN_NOTIFICATIONS.getRoot(),
-                "# Enables the [~Home] message.",
-                "# If false it will make it harder for enemies to find the home block during a war");
-        setNewProperty(ConfigNodes.GTOWN_SETTINGS_SHOW_TOWN_NOTIFICATIONS.getRoot(), getShowTownNotifications());
-
-        addComment(ConfigNodes.PLUGIN.getRoot(), "", "",
-                "############################################################",
-                "# +------------------------------------------------------+ #",
-                "# |                 Plugin interfacing                   | #",
-                "# +------------------------------------------------------+ #",
-                "############################################################", "");
-        addComment(ConfigNodes.PLUGIN_USING_ESSENTIALS.getRoot(),
-                "# Enable if you are using cooldowns in essentials for teleports.");
-        setNewProperty(ConfigNodes.PLUGIN_USING_ESSENTIALS.getRoot(), isUsingEssentials());
-        setNewProperty(ConfigNodes.PLUGIN_USING_ICONOMY.getRoot(), isUsingIConomy());
-        setNewProperty(ConfigNodes.PLUGIN_USING_PERMISSIONS.getRoot(), isUsingPermissions());
-        setNewProperty(ConfigNodes.PLUGIN_USING_QUESTIONER.getRoot(), isUsingQuestioner());
-        setNewProperty(ConfigNodes.PLUGIN_DATABASE_LOAD.getRoot(), getLoadDatabase());
-        setNewProperty(ConfigNodes.PLUGIN_DATABASE_SAVE.getRoot(), getSaveDatabase());
-        setNewProperty(ConfigNodes.PLUGIN_DAILY_BACKUPS.getRoot(), isBackingUpDaily());
-        setNewProperty(ConfigNodes.PLUGIN_FLATFILE_BACKUP.getRoot(), getFlatFileBackupType());
-        addComment(ConfigNodes.PLUGIN_DAY_INTERVAL.getRoot(),
-                "# The time taken between each \"day\". At the start of each day, taxes will be collected.",
-                "# Judged in seconds. Default is 24 hours.");
-        setNewProperty(ConfigNodes.PLUGIN_DAY_INTERVAL.getRoot(), getDayInterval());
-        addComment(ConfigNodes.PLUGIN_DEBUG_MODE.getRoot(),
-                "# Lots of messages to tell you what's going on in the server with time taken for events.");
-        setNewProperty(ConfigNodes.PLUGIN_DEBUG_MODE.getRoot(), getDebug());
-        addComment(ConfigNodes.PLUGIN_DEV_MODE.getRoot(),
-                "# Spams the player named in dev_name with all messages related to towny.");
-        setNewProperty(ConfigNodes.PLUGIN_DEV_MODE_ENABLE.getRoot(), isDevMode());
-        setNewProperty(ConfigNodes.PLUGIN_DEV_MODE_DEV_NAME.getRoot(), getDevName());
-        addComment(ConfigNodes.PLUGIN_LOGGING.getRoot(),
-                "# Record all messages to the towny.log");
-        setNewProperty(ConfigNodes.PLUGIN_LOGGING.getRoot(), isLogging());
-        addComment(ConfigNodes.PLUGIN_RESET_LOG_ON_BOOT.getRoot(),
-                "# If true this will cause the log to be wiped at every startup.");
-        setNewProperty(ConfigNodes.PLUGIN_RESET_LOG_ON_BOOT.getRoot(), isAppendingToLog());
-
-        addComment(ConfigNodes.FILTERS_COLOUR_CHAT.getRoot(), "", "",
-                "############################################################",
-                "# +------------------------------------------------------+ #",
-                "# |               Filters colour and chat                | #",
-                "# +------------------------------------------------------+ #",
-                "############################################################", "");
-        
-        addComment(ConfigNodes.FILTERS_REGEX.getRoot(), "",
-                        "# Regex fields used in validating inputs.");
-        setNewProperty(ConfigNodes.FILTERS_REGEX_NAME_CHECK_REGEX.getRoot(), getNameCheckRegex());
-        setNewProperty(ConfigNodes.FILTERS_REGEX_NAME_FILTER_REGEX.getRoot(), getNameFilterRegex());
-        setNewProperty(ConfigNodes.FILTERS_REGEX_NAME_REMOVE_REGEX.getRoot(), getNameRemoveRegex());
-        addComment(ConfigNodes.FILTERS_NPC_PREFIX.getRoot(), "# This is the name given to any NPC assigned mayor.");
-        setNewProperty(ConfigNodes.FILTERS_NPC_PREFIX.getRoot(), getNPCPrefix());
-        addComment(ConfigNodes.FILTERS_MODIFY_CHAT.getRoot(), "",
-                "# The format below will specify the changes made to the player name when chatting.",
-                "# keys are",
-                "# {nation} - Displays nation name in [ ] if a member of a nation.",
-                "# {town} - Displays town name in [ ] if a member of a town.",
-                "# {permprefix} - Permission group prefix",
-                "# {townynameprefix} - Towny name prefix taken from the townLevel/nationLevels",
-                "# {playername} - default player name",
-                "# {modplayername} - modified player name (use if Towny is over writing some other plugins changes).",
-                "# {townynamepostfix} - Towny name postfix taken from the townLevel/nationLevels.",
-                "# {permsuffix} - Permission group suffix.");
-        setNewProperty(ConfigNodes.FILTERS_MODIFY_CHAT_FORMAT.getRoot(), getModifyChatFormat());
-        setNewProperty(ConfigNodes.FILTERS_MODIFY_CHAT_ENABLE.getRoot(), isUsingModifyChat());
-        
-        setNewProperty(ConfigNodes.FILTERS_MODIFY_CHAT_MAX_LGTH.getRoot(), getMaxTitleLength());
-        addComment(ConfigNodes.FILTERS_COLOUR.getRoot(), "",
-                "# Text colouring",
-                "# --------------",
-                "# Black = &0, Navy = &1, Green = &2, Blue = &3, Red = &4",
-                "# Purple = &5, Gold = &6, LightGray = &7, Gray = &8",
-                "# DarkPurple = &9, LightGreen = &a, LightBlue = &b",
-                "# Rose = &c, LightPurple = &d, Yellow = &e, White = &f",
-                "",
-                "# Chat colours");
-        setNewProperty(ConfigNodes.FILTERS_COLOUR_KING.getRoot(), getKingColour());
-        setNewProperty(ConfigNodes.FILTERS_COLOUR_MAYOR.getRoot(), getMayorColour());
-
-        addComment(ConfigNodes.PROT.getRoot(), "", "",
-                "############################################################",
-                "# +------------------------------------------------------+ #",
-                "# |             block/item/mob protection                | #",
-                "# +------------------------------------------------------+ #",
-                "############################################################", "");
-        addComment(ConfigNodes.PROT_ITEM_USE_ID.getRoot(), "",
-                "# Items that can be blocked within towns via town/plot flags",
-                "# 259 - flint and steel",
-                "# 325 - bucket",
-                "# 326 - water bucket",
-                "# 327 - lava bucket",
-                "# 351 - bone/bonemeal");
-        setNewProperty(ConfigNodes.PROT_ITEM_USE_ID.getRoot(), StringMgmt.join(getItemUseIds(),","));
-        addComment(ConfigNodes.PROT_SWITCH_ID.getRoot(), "",
-                "# Items which can be blocked or enabled via town/plot flags",
-                "# 25 - noteblock",
-                "# 54 - chest",
-                "# 61 - furnace",
-                "# 62 - lit furnace",
-                "# 64 - wooden door",
-                "# 69 - lever",
-                "# 70 - stone pressure plate",
-                "# 71 - iron door",
-                "# 72 - wooden pressure plate",
-                "# 77 - stone button",
-                "# 96 - trap door",
-                "# 84 - jukebox",
-                "# 93/94 - redstone repeater");
-        setNewProperty(ConfigNodes.PROT_SWITCH_ID.getRoot(), StringMgmt.join(getSwitchIds(),","));
-        addComment(ConfigNodes.PROT_MOB_REMOVE_TOWN.getRoot(), "",
-                "# permitted entities http://jd.bukkit.org/apidocs/org/bukkit/entity/package-summary.html",
-                "# Animals, Chicken, Cow, Creature, Creeper, Flying, Ghast, Giant, Monster, Pig, ",
-                "# PigZombie, Sheep, Skeleton, Slime, Spider, Squid, WaterMob, Wolf, Zombie",
-                "",
-                "# Remove living entities within a town's boundaries, if the town has the mob removal flag set.");
-        setNewProperty(ConfigNodes.PROT_MOB_REMOVE_TOWN.getRoot(), StringMgmt.join(getTownMobRemovalEntities(),","));
-        addComment(ConfigNodes.PROT_MOB_REMOVE_WORLD.getRoot(), "",
-                "# Globally remove living entities in all worlds that have their flag set.");
-        setNewProperty(ConfigNodes.PROT_MOB_REMOVE_WORLD.getRoot(), StringMgmt.join(getWorldMobRemovalEntities(),","));
-        addComment(ConfigNodes.PROT_MOB_REMOVE_SPEED.getRoot(), "",
-                "# The maximum amount of time a mob could be inside a town's boundaries before being sent to the void.",
-                "# Lower values will check all entities more often at the risk of heavier burden and resource use.",
-                "# NEVER set below 1.");
-        setNewProperty(ConfigNodes.PROT_MOB_REMOVE_SPEED.getRoot(), getMobRemovalSpeed());
-        addComment(ConfigNodes.PROT_CHEAT.getRoot(), "",
-                "# Prevent fly and double block jump cheats.");
-        setNewProperty(ConfigNodes.PROT_CHEAT.getRoot(), isUsingCheatProtection());
-
-        addComment(ConfigNodes.UNCLAIMED_ZONE.getRoot(), "", "",
-                "############################################################",
-                "# +------------------------------------------------------+ #",
-                "# |             Unclaimed plot settings                  | #",
-                "# +------------------------------------------------------+ #",
-                "############################################################", "");
-        setNewProperty(ConfigNodes.UNCLAIMED_ZONE_BUILD.getRoot(), getUnclaimedZoneBuildRights());
-        setNewProperty(ConfigNodes.UNCLAIMED_ZONE_DESTROY.getRoot(), getUnclaimedZoneDestroyRights());
-        setNewProperty(ConfigNodes.UNCLAIMED_ZONE_ITEM_USE.getRoot(), getUnclaimedZoneItemUseRights());
-        setNewProperty(ConfigNodes.UNCLAIMED_ZONE_SWITCH.getRoot(), getUnclaimedZoneSwitchRights());
-        setNewProperty(ConfigNodes.UNCLAIMED_ZONE_IGNORE.getRoot(), StringMgmt.join(getUnclaimedZoneIgnoreIds(),","));
-
-
-        addComment(ConfigNodes.FLAGS_DEFAULT.getRoot(), "", "",
-                "############################################################",
-                "# +------------------------------------------------------+ #",
-                "# |             Default Town/Plot flags                  | #",
-                "# +------------------------------------------------------+ #",
-                "############################################################",
-                "",
-                "# Default permission flags for towns",
-                "# These are copied into the town data file at creation",
-                "");
-        addComment(ConfigNodes.FLAGS_DEFAULT_TOWN.getRoot(), "",
-                "# Can allies/outsiders/residents perform certain actions in the town",
-                "",
-                "# build - place blocks and other items",
-                "# destroy - break blocks and other items",
-                "# itemuse - use items such as flint and steel or buckets (as defined in item_use_ids)",
-                "# switch - trigger or activate switches (as defined in switch_ids)");
-
-        setNewProperty(ConfigNodes.FLAGS_TOWN_RES_BUILD.getRoot(), getPermFlag_Town_Resident_Build());
-        setNewProperty(ConfigNodes.FLAGS_TOWN_RES_DESTROY.getRoot(), getPermFlag_Town_Resident_Destroy());
-        setNewProperty(ConfigNodes.FLAGS_TOWN_RES_SWITCH.getRoot(), getPermFlag_Town_Resident_Switch());
-        setNewProperty(ConfigNodes.FLAGS_TOWN_RES_ITEM_USE.getRoot(), getPermFlag_Town_Resident_ItemUse());
-        
-        setNewProperty(ConfigNodes.FLAGS_TOWN_ALLY_BUILD.getRoot(), getPermFlag_Town_Ally_Build());
-        setNewProperty(ConfigNodes.FLAGS_TOWN_ALLY_DESTROY.getRoot(), getPermFlag_Town_Ally_Destroy());
-        setNewProperty(ConfigNodes.FLAGS_TOWN_ALLY_SWITCH.getRoot(), getPermFlag_Town_Ally_Switch());
-        setNewProperty(ConfigNodes.FLAGS_TOWN_ALLY_ITEM_USE.getRoot(), getPermFlag_Town_Ally_ItemUse());
-        
-        setNewProperty(ConfigNodes.FLAGS_TOWN_OUTSIDER_BUILD.getRoot(), getPermFlag_Town_Outsider_Build());
-        setNewProperty(ConfigNodes.FLAGS_TOWN_OUTSIDER_DESTROY.getRoot(), getPermFlag_Town_Outsider_Destroy());
-        setNewProperty(ConfigNodes.FLAGS_TOWN_OUTSIDER_SWITCH.getRoot(), getPermFlag_Town_Outsider_Switch());
-        setNewProperty(ConfigNodes.FLAGS_TOWN_OUTSIDER_ITEM_USE.getRoot(), getPermFlag_Town_Outsider_ItemUse());
-        addComment(ConfigNodes.FLAGS_DEFAULT_RES.getRoot(), "",
-                "# Default permission flags for residents plots within a town",
-                "",
-                "# Can allies/friends/outsiders perform certain actions in the town",
-                "",
-                "# build - place blocks and other items",
-                "# destroy - break blocks and other items",
-                "# itemuse - use items such as furnaces (as defined in item_use_ids)",
-                "# switch - trigger or activate switches (as defined in switch_ids)");
-        setNewProperty(ConfigNodes.FLAGS_RES_FR_BUILD.getRoot(), getPermFlag_Resident_Friend_Build());
-        setNewProperty(ConfigNodes.FLAGS_RES_FR_DESTROY.getRoot(), getPermFlag_Resident_Friend_Destroy());
-        setNewProperty(ConfigNodes.FLAGS_RES_FR_SWITCH.getRoot(), getPermFlag_Resident_Friend_Switch());
-        setNewProperty(ConfigNodes.FLAGS_RES_FR_ITEM_USE.getRoot(), getPermFlag_Resident_Friend_ItemUse());
-        
-        setNewProperty(ConfigNodes.FLAGS_RES_ALLY_BUILD.getRoot(), getPermFlag_Resident_Ally_Build());
-        setNewProperty(ConfigNodes.FLAGS_RES_ALLY_DESTROY.getRoot(), getPermFlag_Resident_Ally_Destroy());
-        setNewProperty(ConfigNodes.FLAGS_RES_ALLY_SWITCH.getRoot(), getPermFlag_Resident_Ally_Switch());
-        setNewProperty(ConfigNodes.FLAGS_RES_ALLY_ITEM_USE.getRoot(), getPermFlag_Resident_Ally_ItemUse());
-        
-        setNewProperty(ConfigNodes.FLAGS_RES_OUTSIDER_BUILD.getRoot(), getPermFlag_Resident_Outsider_Build());
-        setNewProperty(ConfigNodes.FLAGS_RES_OUTSIDER_DESTROY.getRoot(), getPermFlag_Resident_Outsider_Destroy());
-        setNewProperty(ConfigNodes.FLAGS_RES_OUTSIDER_SWITCH.getRoot(), getPermFlag_Resident_Outsider_Switch());
-        setNewProperty(ConfigNodes.FLAGS_RES_OUTSIDER_ITEM_USE.getRoot(), getPermFlag_Resident_Outsider_ItemUse());
-
-        addComment(ConfigNodes.RES_SETTING.getRoot(), "", "",
-                "############################################################",
-                "# +------------------------------------------------------+ #",
-                "# |                  Resident settings                   | #",
-                "# +------------------------------------------------------+ #",
-                "############################################################", "");
-        addComment(ConfigNodes.RES_SETTING_INACTIVE_AFTER_TIME.getRoot(),
-                "# player is flagged as inactive after 1 hour (default)");
-        setNewProperty(ConfigNodes.RES_SETTING_INACTIVE_AFTER_TIME.getRoot(), getInactiveAfter());
-        addComment(ConfigNodes.RES_SETTING_DELETE_OLD_RESIDENTS.getRoot(),
-                "# if enabled old residents will be kicked and deleted from a town",
-                "# after Two months (default) of not logging in");
-        setNewProperty(ConfigNodes.RES_SETTING_DELETE_OLD_RESIDENTS_ENABLE.getRoot(), isDeletingOldResidents());
-        setNewProperty(ConfigNodes.RES_SETTING_DELETE_OLD_RESIDENTS_TIME.getRoot(), getDeleteTime());
-        addComment("resident_settings.DEFAULT_TOWN_NAME",
-                "# The name of the town a resident will automatically join when he first registers.");
-        setNewProperty(ConfigNodes.RES_SETTING_DEFAULT_TOWN_NAME.getRoot(), getDefaultTownName());
-
-        addComment(ConfigNodes.ECO.getRoot(), "", "",
-                "############################################################",
-                "# +------------------------------------------------------+ #",
-                "# |                  Economy settings                    | #",
-                "# +------------------------------------------------------+ #",
-                "############################################################", "");
-        addComment(ConfigNodes.ECO_PRICE_TOWN_SPAWN_TRAVEL.getRoot(), "# Cost to use /town spawn");
-        setNewProperty(ConfigNodes.ECO_PRICE_TOWN_SPAWN_TRAVEL.getRoot(), getTownSpawnTravelPrice());
-        addComment(ConfigNodes.ECO_PRICE_TOWN_PUBLIC_SPAWN_TRAVEL.getRoot(),
-                "# Cost to use /town spawn [town]",
-                "# This is paid to the town you goto.");
-        setNewProperty(ConfigNodes.ECO_PRICE_TOWN_PUBLIC_SPAWN_TRAVEL.getRoot(), getTownPublicSpawnTravelPrice());
-        setNewProperty(ConfigNodes.ECO_PRICE_DEATH.getRoot(), getDeathPrice());
-        setNewProperty(ConfigNodes.ECO_PRICE_DEATH_WARTIME.getRoot(), getWartimeDeathPrice());
-        addComment(ConfigNodes.ECO_PRICE_NATION_NEUTRALITY.getRoot(),
-                "# The daily upkeep to remain neutral during a war. Neutrality will exclude you from a war event, as well as deterring enemies.");
-        setNewProperty(ConfigNodes.ECO_PRICE_NATION_NEUTRALITY.getRoot(), getNationNeutralityCost());
-        addComment(ConfigNodes.ECO_PRICE_NEW_NATION.getRoot(),
-                "# How much it costs to start a nation.");
-        setNewProperty(ConfigNodes.ECO_PRICE_NEW_NATION.getRoot(), getNewNationPrice());
-        addComment(ConfigNodes.ECO_PRICE_NEW_TOWN.getRoot(), "# How much it costs to start a town.");
-        setNewProperty(ConfigNodes.ECO_PRICE_NEW_TOWN.getRoot(), getNewTownPrice());
-        addComment(ConfigNodes.ECO_PRICE_OUTPOST.getRoot(),
-                "# How much it costs to make an outpost. An outpost isn't limited to being on the edge of town.");
-        setNewProperty(ConfigNodes.ECO_PRICE_OUTPOST.getRoot(), getOutpostCost());
-        addComment(ConfigNodes.ECO_PRICE_CLAIM_TOWNBLOCK.getRoot(),
-                "# The price for a town to expand one townblock.");
-        setNewProperty(ConfigNodes.ECO_PRICE_CLAIM_TOWNBLOCK.getRoot(), getClaimPrice());
-        addComment(ConfigNodes.ECO_PRICE_NATION_UPKEEP.getRoot(),
-                "# The server's daily charge on each nation. If a nation fails to pay this upkeep",
-                "# all of it's member town are kicked and the Nation is removed.");
-        setNewProperty(ConfigNodes.ECO_PRICE_NATION_UPKEEP.getRoot(), getNationUpkeep());
-        addComment(ConfigNodes.ECO_PRICE_TOWN_UPKEEP.getRoot(),
-                "# The server's daily charge on each town. If a town fails to pay this upkeep",
-                "# all of it's residents are kicked and the town is removed.");
-        setNewProperty(ConfigNodes.ECO_PRICE_TOWN_UPKEEP.getRoot(), getTownUpkeep());
-
-        addComment(ConfigNodes.WAR.getRoot(), "", "",
-                "############################################################",
-                "# +------------------------------------------------------+ #",
-                "# |                  Wartime settings                    | #",
-                "# +------------------------------------------------------+ #",
-                "############################################################", "");
-        addComment(ConfigNodes.WARTIME_NATION_CAN_BE_NEUTRAL.getRoot(),
-                "#This setting allows you disable the ability for a nation to pay to remain neutral during a war.");
-        setNewProperty(ConfigNodes.WARTIME_NATION_CAN_BE_NEUTRAL.getRoot(), isDeclaringNeutral());
-        setNewProperty(ConfigNodes.WARTIME_BASE_SPOILS.getRoot(), getBaseSpoilsOfWar());
-        setNewProperty(ConfigNodes.WARTIME_HOME_BLOCK_HP.getRoot(), getWarzoneHomeBlockHealth());
-        setNewProperty(ConfigNodes.WARTIME_MIN_HEIGHT.getRoot(), getMinWarHeight());
-        setNewProperty(ConfigNodes.WARTIME_POINTS_KILL.getRoot(), getWarPointsForKill());
-        setNewProperty(ConfigNodes.WARTIME_POINTS_NATION.getRoot(), getWarPointsForNation());
-        setNewProperty(ConfigNodes.WARTIME_POINTS_TOWN.getRoot(), getWarPointsForTown());
-        setNewProperty(ConfigNodes.WARTIME_POINTS_TOWNBLOCK.getRoot(), getWarPointsForTownBlock());
-        setNewProperty(ConfigNodes.WARTIME_REMOVE_ON_MONARCH_DEATH.getRoot(), isRemovingOnMonarchDeath());
-        setNewProperty(ConfigNodes.WARTIME_TOWN_BLOCK_HP.getRoot(), getWarzoneTownBlockHealth());
-        setNewProperty(ConfigNodes.WARTIME_TOWN_BLOCK_LOSS_PRICE.getRoot(), getWartimeTownBlockLossPrice());
-        setNewProperty(ConfigNodes.WARTIME_WARNING_DELAY.getRoot(), getWarTimeWarningDelay());
-        
-        config = newConfig;
-        newConfig = null;
-    }
+    
+    /**
+    * Builds a new config reading old config data.
+    */
+        private static void setDefaults(String version, File file) {
+        	
+        	newConfig = new CommentedConfiguration(file);
+        	
+            for (ConfigNodes root : ConfigNodes.values()) {
+            	if (root.getComments().length > 0)
+            		addComment(root.getRoot(), root.getComments());
+            	
+            	if (root == ConfigNodes.LEVELS)
+            		setDefaultLevels();
+            	else if ((root.getRoot() == ConfigNodes.LEVELS_TOWN_LEVEL.getRoot()) || (root.getRoot() == ConfigNodes.LEVELS_NATION_LEVEL.getRoot())) {
+            		// Do nothing here as setDefaultLevels configured town and nation levels.
+            	} else if (root == ConfigNodes.VERSION){
+            		setNewProperty(ConfigNodes.VERSION.getRoot(), version);
+            	} else if (root == ConfigNodes.LAST_RUN_VERSION) {
+            		setNewProperty(ConfigNodes.LAST_RUN_VERSION.getRoot(), getLastRunVersion(version));
+            	} else
+            		setNewProperty(root.getRoot(), (config.getProperty(root.getRoot().toLowerCase()) != null) ? config.getString(root.getRoot().toLowerCase()) : root.getDefault());
+            }
+            
+            config = newConfig;
+            newConfig = null;
+        }
 
     private static void setDefaultLevels() {
         addComment(ConfigNodes.LEVELS_TOWN_LEVEL.getRoot(), "",
@@ -867,7 +475,7 @@ public class TownySettings {
                 "# +------------------------------------------------------+ #",
                 "############################################################", "");
         List<ConfigurationNode> townLevels = new ArrayList<ConfigurationNode>(config.getNodeList(ConfigNodes.LEVELS_TOWN_LEVEL.getRoot(), null));
-        if (townLevels.isEmpty()) {
+        if (townLevels.isEmpty() || townLevels.size() == 0) {
             List<HashMap<String, Object>> levels = new ArrayList<HashMap<String, Object>>();
             HashMap<String, Object> level = new HashMap<String, Object>();
             level.put("numResidents", 0);
@@ -952,7 +560,7 @@ public class TownySettings {
             level.clear();
             newConfig.setProperty(ConfigNodes.LEVELS_TOWN_LEVEL.getRoot(), levels);
         } else
-                newConfig.setProperty(ConfigNodes.LEVELS_TOWN_LEVEL.getRoot(), config.getProperty(ConfigNodes.LEVELS_TOWN_LEVEL.getRoot()));
+        	newConfig.setProperty(ConfigNodes.LEVELS_TOWN_LEVEL.getRoot(), config.getProperty(ConfigNodes.LEVELS_TOWN_LEVEL.getRoot()));
         
         addComment(ConfigNodes.LEVELS_NATION_LEVEL.getRoot(), "",
                 "############################################################",
@@ -961,7 +569,7 @@ public class TownySettings {
                 "# +------------------------------------------------------+ #",
                 "############################################################", "");
         ArrayList<ConfigurationNode> nationLevels = new ArrayList<ConfigurationNode>(config.getNodeList(ConfigNodes.LEVELS_NATION_LEVEL.getRoot(), null));
-        if (nationLevels.isEmpty()) {
+        if (nationLevels.isEmpty() || nationLevels.size() == 0) {
             List<HashMap<String, Object>> levels = new ArrayList<HashMap<String, Object>>();
             HashMap<String, Object> level = new HashMap<String, Object>();
             level.put("numResidents", 0);
@@ -1026,7 +634,7 @@ public class TownySettings {
             level.clear();
             newConfig.setProperty(ConfigNodes.LEVELS_NATION_LEVEL.getRoot(), levels);
         } else
-                newConfig.setProperty(ConfigNodes.LEVELS_NATION_LEVEL.getRoot(), config.getProperty(ConfigNodes.LEVELS_NATION_LEVEL.getRoot()));
+        	newConfig.setProperty(ConfigNodes.LEVELS_NATION_LEVEL.getRoot(), config.getProperty(ConfigNodes.LEVELS_NATION_LEVEL.getRoot()));
     }
 
 
@@ -1532,7 +1140,7 @@ public class TownySettings {
         private static void setNewProperty(String root, Object value) {
                 newConfig.setProperty(root.toLowerCase(), value);
         }
-        
+              
         public static Object getProperty(String root) {
                 return config.getProperty(root.toLowerCase());
 
