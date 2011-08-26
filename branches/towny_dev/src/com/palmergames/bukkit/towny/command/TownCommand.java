@@ -119,7 +119,7 @@ public class TownCommand implements CommandExecutor  {
                 } else if (split[0].equalsIgnoreCase("leave"))
                         townLeave(player);
                 else if (split[0].equalsIgnoreCase("spawn"))
-                        try {
+                		try {
                                 
                                 boolean isTownyAdmin = plugin.isTownyAdmin(player);
                                 Town town;
@@ -145,38 +145,38 @@ public class TownCommand implements CommandExecutor  {
                                         notAffordMSG = TownySettings.getLangString("msg_err_cant_afford_tp");
                                 }
 
-                // Prevent enemies from using spawn travel.
-                                if (resident.hasTown() && resident.hasNation())
-                    if (town.hasNation())
-                        if (town.getNation().hasEnemy(resident.getTown().getNation()))
-                            throw new TownyException(TownySettings.getLangString("msg_err_public_spawn_enemy"));
+                                // Prevent enemies from using spawn travel.
+                                if (!isTownyAdmin && resident.hasTown() && resident.hasNation())
+                                    if (town.hasNation())
+                                        if (town.getNation().hasEnemy(resident.getTown().getNation()))
+                                            throw new TownyException(TownySettings.getLangString("msg_err_public_spawn_enemy"));
 
-                if (!isTownyAdmin) {
-                    // Prevent spawn travel while in disallowed zones (if configured)
-                    List<String> disallowedZones = TownySettings.getDisallowedTownSpawnZones();
-                    
-                    if (!disallowedZones.isEmpty()) {
-                        String inTown = null;
-                        try {
-                                Location loc = plugin.getCache(player).getLastLocation();
-                                inTown = plugin.getTownyUniverse().getTownName(loc);
-                        } catch (NullPointerException e) {
-                                inTown = plugin.getTownyUniverse().getTownName(player.getLocation());
-                        }
-                        
-                        if (inTown == null && disallowedZones.contains("unclaimed"))
-                            throw new TownyException(String.format(TownySettings.getLangString("msg_err_town_spawn_disallowed_from"), "the Wilderness"));
-                        if (inTown != null && resident.hasNation() && plugin.getTownyUniverse().getTown(inTown).hasNation()) {
-                            Nation inNation = plugin.getTownyUniverse().getTown(inTown).getNation();
-                            Nation playerNation = resident.getTown().getNation();
-                            if (inNation.getEnemies().contains(playerNation) && disallowedZones.contains("enemy"))
-                                throw new TownyException(String.format(TownySettings.getLangString("msg_err_town_spawn_disallowed_from"), "Enemy areas"));
-                            if (!inNation.getAllies().contains(playerNation) && !inNation.getEnemies().contains(playerNation) && disallowedZones.contains("neutral"))
-                                    throw new TownyException(String.format(TownySettings.getLangString("msg_err_town_spawn_disallowed_from"), "Neutral towns"));
+                                if (!isTownyAdmin) {
+                                    // Prevent spawn travel while in disallowed zones (if configured)
+                                    List<String> disallowedZones = TownySettings.getDisallowedTownSpawnZones();
+                                    
+                                    if (!disallowedZones.isEmpty()) {
+                                        String inTown = null;
+                                        try {
+                                                Location loc = plugin.getCache(player).getLastLocation();
+                                                inTown = plugin.getTownyUniverse().getTownName(loc);
+                                        } catch (NullPointerException e) {
+                                                inTown = plugin.getTownyUniverse().getTownName(player.getLocation());
+                                        }
+                                        
+                                        if (inTown == null && disallowedZones.contains("unclaimed"))
+                                            throw new TownyException(String.format(TownySettings.getLangString("msg_err_town_spawn_disallowed_from"), "the Wilderness"));
+                                        if (inTown != null && resident.hasNation() && plugin.getTownyUniverse().getTown(inTown).hasNation()) {
+                                            Nation inNation = plugin.getTownyUniverse().getTown(inTown).getNation();
+                                            Nation playerNation = resident.getTown().getNation();
+                                            if (inNation.getEnemies().contains(playerNation) && disallowedZones.contains("enemy"))
+                                                throw new TownyException(String.format(TownySettings.getLangString("msg_err_town_spawn_disallowed_from"), "Enemy areas"));
+                                            if (!inNation.getAllies().contains(playerNation) && !inNation.getEnemies().contains(playerNation) && disallowedZones.contains("neutral"))
+                                                    throw new TownyException(String.format(TownySettings.getLangString("msg_err_town_spawn_disallowed_from"), "Neutral towns"));
 
-                        }
-                    }
-                }
+                                        }
+                                    }
+                                }
                                 
                                 double travelCost;
                                 if (resident.hasTown() && resident.getTown() == town)
@@ -226,17 +226,17 @@ public class TownCommand implements CommandExecutor  {
                                 if(isTownyAdmin) {
                                         player.teleport(town.getSpawn());
                                         return;
-                }
-                
-                if (!notUsingESS) {
-                    if (plugin.getTownyUniverse().isTeleportWarmupRunning()) { // Use teleport warmup
-                        player.sendMessage(String.format(TownySettings.getLangString("msg_town_spawn_warmup"),
-                                TownySettings.getTeleportWarmupTime()));
-                        plugin.getTownyUniverse().requestTeleport(player, town);
-                    } else { // Don't use teleport warmup
-                        player.teleport(town.getSpawn());
-                    }
-                }
+				                }
+				                
+				                if (!notUsingESS) {
+				                    if (plugin.getTownyUniverse().isTeleportWarmupRunning()) { // Use teleport warmup
+				                        player.sendMessage(String.format(TownySettings.getLangString("msg_town_spawn_warmup"),
+				                                TownySettings.getTeleportWarmupTime()));
+				                        plugin.getTownyUniverse().requestTeleport(player, town);
+				                    } else { // Don't use teleport warmup
+				                        player.teleport(town.getSpawn());
+				                    }
+				                }
                                 
                         } catch (TownyException e) {
                                 plugin.sendErrorMsg(player, e.getMessage());
