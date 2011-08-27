@@ -78,6 +78,7 @@
         * {resident/ally/outsider} {on/off}
         * {build/destroy/switch/itemuse} {on/off}
         * {resident/ally/outsider} {build/destroy/switch/itemuse} {on/off}
+      * tag {upto4character}
       * taxes {$}
       * plottax {$}
       * plotprice {$}
@@ -94,8 +95,20 @@
   * /plot 
     * claim
     * unclaim
-    * {forsale/fs}
+    * {forsale/fs} 
+      * circle/rect
+        * radius      
+      * $$
+        * circle/rect
+          * radius      
     * {notforsale/nfs}
+      * circle/rect
+        * radius      
+    * set
+      * reset
+      * shop
+      * shopprice $$
+      * shoptax $$
 
 == /nation ==  
   * /nation 
@@ -129,6 +142,9 @@
       * neutral {on/off}
       * taxes {$}
       * name {name}
+      * title {name} {titlegoeshere}
+      * surname {name} {surnamegoeshere}
+      * tag {upto4character}
 
 == /townyworld ==  
   * /townyworld 
@@ -177,6 +193,7 @@
       * remove {resident} .. {resident}
       * remove+ {resident} .. {resident}
     * nation {nation} add {town}
+    * reset
     * toggle
       * war
       * neutral
