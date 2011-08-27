@@ -2,7 +2,7 @@
 
 = Introduction =
 
-Here are instructions for upgrading to Towny 0.7:
+Here are instructions for upgrading to Towny 0.75.1:
 
 
 = Upgrade Instructions =
@@ -21,11 +21,8 @@ Here are instructions for upgrading to Towny 0.7:
       * NOTE: The .csv files are no longer being used. Instead the entries in config.yml are used.
       * Save config.yml and optionally, discard config.properties.
     * Upgrade from post-0.72 to a new version (Extra info for dev builds [UsingDevBuilds here.])
-      * Rename your config.yml to oldconfig.yml
-      * Delete english.yml
-      * Start your server and let the new config.yml + english.yml generate.
-      * Stop your server and configure config.yml to match your settings in oldconfig.yml.
-      * Make note of any new flags and configure to your liking. 
+      * Start your server and let the config.yml + english.yml update themselves
+      * Stop your server and configure any new flags in config.yml, your old settings will remain but any new settings will be added and set to their defaults.
       * Save config.yml.    
   * *If you use Permissions you MUST configure your [PermissionNodes permission nodes], as they are required for players to be able to build/mine in the wilderness.*
     * towny.wild.(asterisk) 
@@ -41,7 +38,7 @@ Here are instructions for upgrading to Towny 0.7:
     * towny.wild.block.{block id}.itemuse
   * Note that town settings like PVP, Explosion, Fire may revert to their default off state.
 
-Your server is ready to use Towny 0.75!
+Your server is ready to use Towny 0.75.1!
 
   * Start your server.
   * If you would like to use the updated list of itemIDs ignored in the wilderness (only used if players cannot build/destroy freely in the wild,) use /tw set usingdefault in each world.
