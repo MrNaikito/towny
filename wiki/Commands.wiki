@@ -82,6 +82,8 @@
       * taxes {$}
       * plottax {$}
       * plotprice {$}
+      * shopprice $$
+      * shoptax $$
       * name {name}
     * toggle
       * explosion
@@ -107,8 +109,6 @@
     * set
       * reset
       * shop
-      * shopprice $$
-      * shoptax $$
 
 == /nation ==  
   * /nation 
