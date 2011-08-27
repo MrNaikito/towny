@@ -5,6 +5,36 @@
 
 Here you can find information on old releases of Towny.
 
+== New in 0.74 ==
+
+    * .yml files now encoded in UTF-8, allow for easier multi-language support!
+
+    * Fixed multiverse loading after towny and causing world-file corruption.
+    
+    * Towny will now attempt to repair corrupted world Towny data files.
+
+    * *New Permission Node*: towny.town.plot - Grants users the ability to purchase/sell plots of land personally.
+
+    * Added separate charges for own town spawn travel and public spawn travel (set in config.yml).
+
+    * Players in Enemy nations can no longer use spawn travel to opposing public towns.
+
+    * Enabled '/townyadmin backup' use from the console.
+    
+    * You can now block the use of '/town spawn' if you are in certain zones (unclaimed 'wilderness', Neutral towns and Enemy towns).
+    
+    * Anti-griefing additions!
+      * Added the ability to disable player and creature trampling of crops (per world).
+      * Paintings cannot be destroyed by outsiders!
+      * Pistons can now only operate between similarly owned townblocks or wild areas (No piston griefing).
+    
+    * Chat overhaul!
+      * Added better control over name/chat modifying - modify_chat: '{permprefix}{townynameprefix}{playername}{townynamepostfix}{permsuffix}'
+      * Better HeroChat intergration.
+      * Added custom player prefix/suffixes that Kings can apply to their minions.
+
+    * So much MORE! [http://code.google.com/a/eclipselabs.org/p/towny/source/browse/trunk/Towny/src/ChangeLog.txt#383 Click here for a full changelog.]
+
 == New in 0.73 ==
 
   * /ta reload now reloads both the config.yml _and_ the Towny data folder! It really works!
