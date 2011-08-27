@@ -2,7 +2,7 @@
 
 = Introduction =
 
-Here are instructions for upgrading to Towny 0.74:
+Here are instructions for upgrading to Towny 0.7:
 
 
 = Upgrade Instructions =
@@ -41,7 +41,7 @@ Here are instructions for upgrading to Towny 0.74:
     * towny.wild.block.{block id}.itemuse
   * Note that town settings like PVP, Explosion, Fire may revert to their default off state.
 
-Your server is ready to use Towny 0.74!
+Your server is ready to use Towny 0.75!
 
   * Start your server.
   * If you would like to use the updated list of itemIDs ignored in the wilderness (only used if players cannot build/destroy freely in the wild,) use /tw set usingdefault in each world.
