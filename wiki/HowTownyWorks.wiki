@@ -48,6 +48,11 @@ A nation is a collection of towns (or just one town) with one town as the capita
 
 Kings lead Nations and are the mayor of the capital city.
 
+Kings have the ability to set titles (prefixes) and surnames (postfixes) to the residents of the towns they have in their nation. This is done with:
+  * /nation set title {name} titlegoeshere
+  * /nation set surname {name} surnamegoeshere
+Typing the commands with nothing after the player's name resets the title or surname to blank.
+
 == Configuring Mayor and King Titles, Town and Nation Names ==
 
 Towny gives you the ability to customize the naming scheme applied to Mayors, Kings, Towns, Capital Cities and Nations.
@@ -114,6 +119,26 @@ Towny provides a server admin a hands-off approach to block-protection. Block pr
   
   More information on the townLevel line and how to configure it is [HowTownyWorks#Configuring_Mayor_and_King_Titles,_Town_and_Nation_Names here.]
 
+== Plot Types == 
+Towny post-0.75 has added plot types besides the default. This is to give mayors more control over their towns.
+
+As of now there are:
+
+=== Default Plots ===
+
+These plots do not need any specific command to be designated.
+
+They are put up for sale with /plot forsale {$$}.
+
+A plot which is not of default type can be reset to a default plot with /plot set reset.
+
+=== Shop Plots ===
+
+Shop plots are designate with /plot set shop
+
+A mayor can use /town set shopprice {$$} to set how much shop plots are sold at by default. This can be overriden when a mayor puts the actual plot up for sale with /plot forsale {$$}.
+A mayor can also charge an additional shoptax with /town set shoptax {$$}. This tax is charged in addition to the normal plottax.
+
 == Outposts ==
 Normally townblocks are claimed around the home block, always connected to the town. To claim a townblock out in the wilderness, a mayor or assistant must claim an outpost.
 
@@ -136,6 +161,7 @@ The server admin can set a default plotprice in [DefaultConfig config.yml] at {{
 The map in towny displays the grid system of plots. The map can be viewed once using {{{/towny map}}} one time or you can set the map to show every time you move from one block to another:
   * Use {{{/resident set mode map}}} to turn it on.
   * And use {{{/resident set mode reset}}} to turn it off.
+A large version of the map can be seen using /towny map big.
 
 ----
 
