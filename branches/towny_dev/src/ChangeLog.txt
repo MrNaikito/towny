@@ -452,3 +452,4 @@ v0.74.1:
       '/town set tag [upto 4 characters]'
       '/nation set tag [upto 4 characters]
     - Fixed nations losing Enemies and Allies during a reload.
+    - It is now possible to use '/town spawn' when in boats and minecarts. You will leave the vehicle where it is when you teleport.
