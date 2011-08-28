@@ -288,8 +288,9 @@ public class TownySettings {
         public static void loadLanguage (String filepath, String defaultRes) throws IOException {               
                 
                 String defaultName = filepath + FileMgmt.fileSeparator() + getString("language", defaultRes);
-                
+
                 File file = FileMgmt.unpackLanguageFile(defaultName, defaultRes);
+                
                 if (file != null) {
                                 
                         // read the (language).yml into memory

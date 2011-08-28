@@ -78,12 +78,13 @@ public class FileMgmt {
 		
 		// open a handle to yml file
 		File file = new File(filePath);
-		//if(file.exists())
-		//	return file;
+		if((file.exists()) && (!filePath.contains("english.yml")))
+			return file;
 		
 		String resString;
 		
 		// create the file as it doesn't exist
+		// or we are replacing english.yml
 		try {
 			checkFiles(new String[]{
 					filePath});
