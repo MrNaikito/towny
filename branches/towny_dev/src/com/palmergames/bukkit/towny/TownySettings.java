@@ -287,7 +287,7 @@ public class TownySettings {
         // if the file is not found it will load the default from resource
         public static void loadLanguage (String filepath, String defaultRes) throws IOException {               
                 
-                String defaultName = filepath + FileMgmt.fileSeparator() + getString("language", defaultRes);
+                String defaultName = filepath + FileMgmt.fileSeparator() + getString(ConfigNodes.LANGUAGE.getRoot(), defaultRes);
 
                 File file = FileMgmt.unpackLanguageFile(defaultName, defaultRes);
                 

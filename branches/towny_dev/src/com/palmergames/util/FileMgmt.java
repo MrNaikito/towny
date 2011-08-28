@@ -17,6 +17,7 @@ import java.io.Writer;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+import com.palmergames.bukkit.config.ConfigNodes;
 import com.palmergames.util.FileMgmt;
 
 public class FileMgmt {
@@ -78,7 +79,7 @@ public class FileMgmt {
 		
 		// open a handle to yml file
 		File file = new File(filePath);
-		if((file.exists()) && (!filePath.contains("english.yml")))
+		if((file.exists()) && (!filePath.contains(ConfigNodes.LANGUAGE.getDefault())))
 			return file;
 		
 		String resString;
