@@ -457,3 +457,4 @@ v0.75.1:
     - Fixed config reading so it works!
 v0.75.2:
     - Fixed deleting foreign language files at startup.
+    - Added missing entry from english.yml - msg_err_empty_area_selection: '&cSelected area contains no valid plots.'
