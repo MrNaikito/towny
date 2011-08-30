@@ -460,3 +460,4 @@ v0.75.3:
     - Added missing entry from english.yml - msg_err_empty_area_selection: '&cSelected area contains no valid plots.'
     - Fixed error on using '/town claim auto'.
     - Fixed a refactoring error which affected towny top commands.
+    - Fixed the shutdown of the Teleport warmup timer on restarts.
