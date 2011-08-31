@@ -455,11 +455,17 @@ v0.75.0:
     - It is now possible to use '/town spawn' when in boats and minecarts. You will leave the vehicle where it is when you teleport.
 v0.75.1:
     - Fixed config reading so it works!
-v0.75.3:
+v0.75.2:
     - Fixed deleting foreign language files at startup.
     - Added missing entry from english.yml - msg_err_empty_area_selection: '&cSelected area contains no valid plots.'
     - Fixed error on using '/town claim auto'.
     - Fixed a refactoring error which affected towny top commands.
+v0.75.3:
+    - Added Town Buy command. Is defaulted to be empty. Currently only has ability to buy bonus blocks up until a set limit.
+      '/town buy'
+      '/town buy bonus [n]'
+    - [Bonus: 0] is now hidden from the status when the town has no bonus blocks.
+    - Added: [Bought: 0/max] to /town.
     - Fixed the shutdown of the Teleport warmup timer on restarts.
     - Fixed enabling Devmode, debug and reading integers from the config.
     - Added town bank caps and a toggle to enable/disable withdrawls from town banks (prevent players hiding money in towns on PVP worlds) - thanks phrstbrn
