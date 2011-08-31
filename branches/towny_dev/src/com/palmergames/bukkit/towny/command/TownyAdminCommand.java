@@ -412,6 +412,7 @@ public class TownyAdminCommand implements CommandExecutor  {
                         player.sendMessage(ChatTools.formatCommand("", "/townyadmin toggle", "neutral", ""));
                         player.sendMessage(ChatTools.formatCommand("", "/townyadmin toggle", "devmode", ""));
                         player.sendMessage(ChatTools.formatCommand("", "/townyadmin toggle", "debug", ""));
+                        player.sendMessage(ChatTools.formatCommand("", "/townyadmin toggle", "withdraw", ""));
                         return;
                         
                 } else if (split[0].equalsIgnoreCase("war")) {
@@ -463,7 +464,7 @@ public class TownyAdminCommand implements CommandExecutor  {
                                 return;
                         }
                 */
-                } else if (split[0].equalsIgnoreCase("devmode"))
+                } else if (split[0].equalsIgnoreCase("devmode")) {
                         try {
                                 choice = !TownySettings.isDevMode();
                                 TownySettings.setDevMode(choice);
@@ -471,13 +472,22 @@ public class TownyAdminCommand implements CommandExecutor  {
                         } catch (Exception e) {
                                 plugin.sendErrorMsg(player, TownySettings.getLangString("msg_err_invalid_choice"));
                         }
-                else if (split[0].equalsIgnoreCase("debug"))
+                } else if (split[0].equalsIgnoreCase("debug")) {
                         try {
                                 choice = !TownySettings.getDebug();
                                 TownySettings.setDebug(choice);
                                 plugin.sendMsg(player, "Debug Mode " + (choice ? Colors.Green + "Enabled" : Colors.Red + "Disabled"));
                         } catch (Exception e) {
                                 plugin.sendErrorMsg(player, TownySettings.getLangString("msg_err_invalid_choice"));
+                        }
+                } else if (split[0].equalsIgnoreCase("withdraw")) {
+                		try {
+                				choice = !TownySettings.getTownBankAllowWithdrawls();
+                				TownySettings.SetTownBankAllowWithdrawls(choice);
+                				plugin.sendMsg(player, "Town Withdrawls " + (choice ? Colors.Green + "Enabled" : Colors.Red + "Disabled"));
+                		} catch (Exception e) {
+                				plugin.sendErrorMsg(player, TownySettings.getLangString("msg_err_invalid_choice"));
+                		}
                 } else {
                         // parameter error message
                         // neutral/war/townmobs/worldmobs

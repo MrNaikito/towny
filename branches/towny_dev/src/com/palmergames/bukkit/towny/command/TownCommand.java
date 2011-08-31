@@ -1474,8 +1474,11 @@ public class TownCommand implements CommandExecutor  {
                 Resident resident;
                 Town town;
                 try {
+                        if(!TownySettings.getTownBankAllowWithdrawls())
+                                throw new TownyException(TownySettings.getLangString("msg_err_withdraw_disabled"));
+                        
                         if (amount < 0)
-                                throw new TownyException(TownySettings.getLangString("msg_err_negative_money")); //TODO
+                                throw new TownyException(TownySettings.getLangString("msg_err_negative_money"));
                         
                         resident = plugin.getTownyUniverse().getResident(player.getName());
                         town = resident.getTown();
@@ -1496,8 +1499,14 @@ public class TownCommand implements CommandExecutor  {
                         resident = plugin.getTownyUniverse().getResident(player.getName());
                         town = resident.getTown();
                         
+                        double bankcap = TownySettings.getTownBankCap();
+                        if (bankcap > 0) {
+                                if(amount + town.getHoldingBalance() > bankcap)
+                                        throw new TownyException(String.format(TownySettings.getLangString("msg_err_deposit_capped"), bankcap));
+                        }
+                        
                         if (amount < 0)
-                                throw new TownyException(TownySettings.getLangString("msg_err_negative_money")); //TODO
+                                throw new TownyException(TownySettings.getLangString("msg_err_negative_money"));
                         
                         if (!resident.pay(amount, town))
                                 throw new TownyException(TownySettings.getLangString("msg_insuf_funds"));

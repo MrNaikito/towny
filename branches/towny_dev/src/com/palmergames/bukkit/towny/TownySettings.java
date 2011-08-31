@@ -1536,6 +1536,17 @@ public class TownySettings {
     public static int getTeleportWarmupTime() {
         return getInt(ConfigNodes.GTOWN_SETTINGS_SPAWN_TIMER);
     }
+    
+    public static int getTownBankCap() {
+        return getInt(ConfigNodes.GTOWN_SETTINGS_BANK_CAP_AMOUNT);
+    }
+    
+    public static boolean getTownBankAllowWithdrawls() {
+        return getBoolean(ConfigNodes.GTOWN_SETTINGS_BANK_ALLOW_WITHDRAWLS);
+    }
+    public static void SetTownBankAllowWithdrawls(boolean newSetting) {
+        setProperty(ConfigNodes.GTOWN_SETTINGS_BANK_ALLOW_WITHDRAWLS.getRoot(), newSetting);
+    }
 
         public static boolean isValidRegionName(String name) {
                 
