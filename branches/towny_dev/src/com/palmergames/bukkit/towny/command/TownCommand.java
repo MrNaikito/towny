@@ -63,7 +63,7 @@ public class TownCommand implements CommandExecutor  {
                 output.add(ChatTools.formatCommand("", "/town", "[town]", TownySettings.getLangString("town_help_3")));
                 output.add(ChatTools.formatCommand("", "/town", "here", TownySettings.getLangString("town_help_4")));
                 output.add(ChatTools.formatCommand("", "/town", "list", ""));
-                output.add(ChatTools.formatCommand("", "/town", "online", ""));
+                output.add(ChatTools.formatCommand("", "/town", "online", TownySettings.getLangString("town_help_10")));
                 output.add(ChatTools.formatCommand("", "/town", "leave", ""));
                 output.add(ChatTools.formatCommand("", "/town", "spawn", TownySettings.getLangString("town_help_5")));
                 if (!TownySettings.isTownCreationAdminOnly())
