@@ -63,6 +63,7 @@ public class TownCommand implements CommandExecutor  {
                 output.add(ChatTools.formatCommand("", "/town", "[town]", TownySettings.getLangString("town_help_3")));
                 output.add(ChatTools.formatCommand("", "/town", "here", TownySettings.getLangString("town_help_4")));
                 output.add(ChatTools.formatCommand("", "/town", "list", ""));
+                output.add(ChatTools.formatCommand("", "/town", "online", ""));
                 output.add(ChatTools.formatCommand("", "/town", "leave", ""));
                 output.add(ChatTools.formatCommand("", "/town", "spawn", TownySettings.getLangString("town_help_5")));
                 if (!TownySettings.isTownCreationAdminOnly())
@@ -294,7 +295,15 @@ public class TownCommand implements CommandExecutor  {
                                 parseTownClaimCommand(player, newSplit);
                         else if (split[0].equalsIgnoreCase("unclaim"))
                                 parseTownUnclaimCommand(player, newSplit);
-                        else
+                        else if (split[0].equalsIgnoreCase("online")) {
+        					try {
+        						Resident resident = plugin.getTownyUniverse().getResident(player.getName());
+        						Town town = resident.getTown();
+        						plugin.getTownyUniverse().sendMessage(player, TownyFormatter.getFormattedOnlineResidents(plugin, TownySettings.getLangString("msg_town_online"), town));
+        					} catch (NotRegisteredException x) {
+        						plugin.sendErrorMsg(player, TownySettings.getLangString("msg_err_dont_belong_town"));
+        					}
+                        } else
                                 try {
                                         Town town = plugin.getTownyUniverse().getTown(split[0]);
                                         plugin.getTownyUniverse().sendMessage(player, plugin.getTownyUniverse().getStatus(town));

@@ -27,7 +27,7 @@ import static com.palmergames.bukkit.towny.object.TownyObservableType.*;
 
 
 public class TownyUniverse extends TownyObject {
-        private Towny plugin;
+        private static Towny plugin;
         private Hashtable<String, Resident> residents = new Hashtable<String, Resident>();
         private Hashtable<String, Town> towns = new Hashtable<String, Town>();
         private Hashtable<String, Nation> nations = new Hashtable<String, Nation>();
@@ -54,7 +54,7 @@ public class TownyUniverse extends TownyObject {
         
         public TownyUniverse(Towny plugin) {
                 setName("");
-                this.plugin = plugin;
+                TownyUniverse.plugin = plugin;
         }
         
         public void newDay() {
@@ -1030,7 +1030,7 @@ public class TownyUniverse extends TownyObject {
         }
 
         public void setPlugin(Towny plugin) {
-                this.plugin = plugin;
+                TownyUniverse.plugin = plugin;
         }
 
         public void removeWorld(TownyWorld world) throws UnsupportedOperationException {
@@ -1338,8 +1338,20 @@ public class TownyUniverse extends TownyObject {
                 }
                 return invited;
         }
-
-    public void requestTeleport(Player player, Town town) {
+        
+        public List<Resident> getOnlineResidents(ResidentList residentList) {
+    		List<Resident> onlineResidents = new ArrayList<Resident>();
+    		for (Player player : plugin.getServer().getOnlinePlayers()) {
+    			for (Resident resident : residentList.getResidents()) {
+    				if (resident.getName().equalsIgnoreCase(player.getName()))
+    					onlineResidents.add(resident);
+    			}
+    		}
+    		
+    		return onlineResidents;
+    	}
+        
+	public void requestTeleport(Player player, Town town) {
         try {
             TeleportWarmupTimerTask.requestTeleport(getResident(player.getName().toLowerCase()), town);
         } catch (TownyException x) {

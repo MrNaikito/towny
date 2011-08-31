@@ -7,6 +7,7 @@ import java.util.List;
 import com.iConomy.iConomy;
 import com.palmergames.bukkit.towny.object.Nation;
 import com.palmergames.bukkit.towny.object.Resident;
+import com.palmergames.bukkit.towny.object.ResidentList;
 import com.palmergames.bukkit.towny.object.Town;
 import com.palmergames.bukkit.towny.object.TownyIConomyObject;
 import com.palmergames.bukkit.towny.object.TownyObject;
@@ -21,6 +22,25 @@ import com.palmergames.util.StringMgmt;
 public class TownyFormatter {
         public static final SimpleDateFormat lastOnlineFormat = new SimpleDateFormat("MMMMM dd '@' HH:mm");
         public static final SimpleDateFormat registeredFormat = new SimpleDateFormat("MMM d yyyy");
+        
+        /* 1 = Description
+    	 * 2 = Count
+    	 * 
+    	 * Colours:
+    	 * 3 = Description and :
+    	 * 4 = Count
+    	 * 5 = Colour for the start of the list
+    	 */
+    	public static final String residentListPrefixFormat = "%3$s%1$s %4$s[%2$d]%3$s:%5$s ";
+    	
+    	public static List<String> getFormattedOnlineResidents(Towny plugin, String prefix, ResidentList residentList) {
+    		List<Resident> onlineResidents = plugin.getTownyUniverse().getOnlineResidents(residentList);
+    		return ChatTools.listArr(getFormattedNames(plugin, onlineResidents), String.format(residentListPrefixFormat, prefix, onlineResidents.size(), Colors.Green, Colors.LightGreen, Colors.White));
+    	}
+    	
+    	public static String[] getFormattedNames(Towny plugin, List<Resident> residentList) {
+    		return plugin.getTownyUniverse().getFormatter().getFormattedNames(residentList.toArray(new Resident[0]));
+    	}
         
         public String getTime() {
                 SimpleDateFormat sdf = new SimpleDateFormat("hh:mm aa");

@@ -470,3 +470,6 @@ v0.75.3:
     - Fixed enabling Devmode, debug and reading integers from the config.
     - Added town bank caps and a toggle to enable/disable withdrawls from town banks (prevent players hiding money in towns on PVP worlds) - thanks phrstbrn
     - New command '/townyadmin toggle withdraw'.
+    - Added two new commands to see who's online
+      '/town online'
+      '/nation online'
