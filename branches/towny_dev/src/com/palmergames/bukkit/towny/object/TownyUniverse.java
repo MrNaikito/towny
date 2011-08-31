@@ -1049,21 +1049,21 @@ public class TownyUniverse extends TownyObject {
                 nations.remove(nation.getName().toLowerCase());
                 
                 //search and remove from all ally/enemy lists
-                List<Nation> toSaveNation = new ArrayList<Nation>(getNations());
-                for (Nation toCheck : toSaveNation)
+                List<Nation> toSaveNation = new ArrayList<Nation>();
+                for (Nation toCheck : getNations())
                         if (toCheck.hasAlly(nation) || toCheck.hasEnemy(nation)) {
                                 try {
                                         if (toCheck.hasAlly(nation))
                                                 toCheck.removeAlly(nation);
                                         else
                                                 toCheck.removeEnemy(nation);
+                                        
+                                        toSaveNation.add(toCheck);
                                 } catch (NotRegisteredException e) {
                                         // TODO Auto-generated catch block
                                         e.printStackTrace();
                                 }
-                        }
-                        else
-                                toSave.remove(toCheck);
+                        }  
                 
                 for (Nation toCheck : toSaveNation)
                         getDataSource().saveNation(toCheck);            
@@ -1174,22 +1174,21 @@ public class TownyUniverse extends TownyObject {
                 getDataSource().saveResidentList();
                 
                 //search and remove from all friends lists
-                List<Resident> toSave = new ArrayList<Resident>(getResidents());
+                List<Resident> toSave = new ArrayList<Resident>();
                 if (!toSave.isEmpty()) {
-                        for (Resident toCheck : toSave)
-                                if (toCheck.hasFriend(resident)) {
-                                        try {
-                                                toCheck.removeFriend(resident);
-                                        } catch (NotRegisteredException e) {
-                                                // TODO Auto-generated catch block
-                                                e.printStackTrace();
-                                        }
-                                }
-                                else
-                                        toSave.remove(toCheck);
+                	for (Resident toCheck : getResidents())
+                		if (toCheck.hasFriend(resident)) {
+                			try {
+                                toCheck.removeFriend(resident);
+                                toSave.add(toCheck);
+	                        } catch (NotRegisteredException e) {
+	                                // TODO Auto-generated catch block
+	                                e.printStackTrace();
+	                        }
+                		}
                         
-                        for (Resident toCheck : toSave)
-                                getDataSource().saveResident(toCheck);
+                	for (Resident toCheck : toSave)
+                		getDataSource().saveResident(toCheck);
                 }
                 
         }
