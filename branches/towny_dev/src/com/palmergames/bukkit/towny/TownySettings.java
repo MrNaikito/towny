@@ -319,7 +319,7 @@ public class TownySettings {
                 return str.replaceAll("&", "\u00A7");
         }
 
-    public static Boolean getBoolean(ConfigNodes node) {
+    public static boolean getBoolean(ConfigNodes node) {
         return Boolean.parseBoolean(config.getString(node.getRoot().toLowerCase(), node.getDefault()));
     }
     /*
@@ -328,7 +328,7 @@ public class TownySettings {
     }
     */
 
-    private static Double getDouble(ConfigNodes node) {
+    private static double getDouble(ConfigNodes node) {
         return Double.parseDouble(config.getString(node.getRoot().toLowerCase(), node.getDefault()));
     }
     /*
@@ -337,7 +337,7 @@ public class TownySettings {
     }
     */
 
-    private static Integer getInt(ConfigNodes node) {
+    private static int getInt(ConfigNodes node) {
         return Integer.parseInt(config.getString(node.getRoot().toLowerCase(), node.getDefault()));
     }
     /*
@@ -346,7 +346,7 @@ public class TownySettings {
     }
     */
 
-    private static Long getLong(ConfigNodes node) {
+    private static long getLong(ConfigNodes node) {
         return Long.parseLong(getString(node));
     }
     
@@ -1217,7 +1217,7 @@ public class TownySettings {
         }
 
     public static void setDevMode(boolean choice) {
-        setProperty(ConfigNodes.PLUGIN_DEV_MODE_DEV_NAME.getRoot(), choice);
+        setProperty(ConfigNodes.PLUGIN_DEV_MODE_ENABLE.getRoot(), choice);
     }
 
     public static String getDevName() {

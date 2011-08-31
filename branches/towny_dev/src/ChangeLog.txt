@@ -461,3 +461,4 @@ v0.75.3:
     - Fixed error on using '/town claim auto'.
     - Fixed a refactoring error which affected towny top commands.
     - Fixed the shutdown of the Teleport warmup timer on restarts.
+    - Fixed enabling Devmode, debug and reading integers from the config.
