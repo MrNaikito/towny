@@ -477,7 +477,7 @@ v0.75.3:
     - Prevent sticky pistons pulling blocks across plot boundaries (if different owners).
     - Fix for getLastLocation() needing to throw a NullPointerException. The players location is now set upon creation of the cache.
     - Added a Maxplots permissions node. If a group doesn't have this node or the node is set to -1 Towny will default back to the max_plots_per_resident in config.
-      Setting max_plots_per_resident to -1 with no permission node will be infinite plots.
+      Setting max_plots_per_resident to -1 with no permission node, or a node set to -1 will allow infinite plots.
       
       Eg usage:
 
