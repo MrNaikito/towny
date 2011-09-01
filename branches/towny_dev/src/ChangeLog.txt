@@ -474,3 +474,4 @@ v0.75.3:
       '/town online'
       '/nation online'
     - Fix for deleted residents in friend lists causing errors upon deletion, and the same error with nation deletion and enemy/ally lists.
+    - Prevent sticky pistons pulling blocks across plot boundaries (if different owners).
