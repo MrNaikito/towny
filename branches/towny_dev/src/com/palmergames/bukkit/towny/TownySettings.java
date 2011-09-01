@@ -887,7 +887,7 @@ public class TownySettings {
         public static long getInactiveAfter() {
         String time = getString(ConfigNodes.RES_SETTING_INACTIVE_AFTER_TIME);
         if (Pattern.matches(".*[a-zA-Z].*", time)) {
-            return TimeTools.secondsFromDhms(time);
+            return (TimeTools.secondsFromDhms(time) * 1000);
         }
                 return getLong(ConfigNodes.RES_SETTING_INACTIVE_AFTER_TIME);
         }
@@ -1012,7 +1012,7 @@ public class TownySettings {
         public static long getDeleteTime() {
         String time = getString(ConfigNodes.RES_SETTING_DELETE_OLD_RESIDENTS_TIME);
         if (Pattern.matches(".*[a-zA-Z].*", time)) {
-            return TimeTools.secondsFromDhms(time);
+            return (TimeTools.secondsFromDhms(time) * 1000);
         }
                 return getLong(ConfigNodes.RES_SETTING_DELETE_OLD_RESIDENTS_TIME);
         }

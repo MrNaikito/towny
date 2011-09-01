@@ -502,3 +502,5 @@ v0.75.3:
 		      build: true
 		      suffix: ''
 		      towny_maxplots: -1
+		      
+    - Fixed old resident deletion for the new config system using seconds instead of milliseconds.
