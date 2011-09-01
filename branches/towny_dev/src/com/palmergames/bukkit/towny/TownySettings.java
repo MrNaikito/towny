@@ -1356,8 +1356,11 @@ public class TownySettings {
                 return getInt(ConfigNodes.TOWN_MAX_DISTANCE_BETWEEN_HOMEBLOCKS);
         }
 
-        public static int getMaxPlotsPerResident() {
-                return getInt(ConfigNodes.TOWN_MAX_PLOTS_PER_RESIDENT);
+        public static int getMaxResidentPlots(Towny plugin, Resident resident) {
+        	int maxPlots = plugin.getGroupPermissionIntNode(resident.getName(), "towny_maxplots");
+            if (maxPlots == -1) 
+            	maxPlots = getInt(ConfigNodes.TOWN_MAX_PLOTS_PER_RESIDENT);
+            return maxPlots;
         }
 
     public static boolean getPermFlag_Resident_Friend_Build() {

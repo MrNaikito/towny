@@ -1,18 +1,62 @@
 package com.palmergames.bukkit.towny.object;
 
+import static com.palmergames.bukkit.towny.object.TownyObservableType.COLLECTED_NATION_TAX;
+import static com.palmergames.bukkit.towny.object.TownyObservableType.COLLECTED_TONW_TAX;
+import static com.palmergames.bukkit.towny.object.TownyObservableType.NEW_DAY;
+import static com.palmergames.bukkit.towny.object.TownyObservableType.NEW_NATION;
+import static com.palmergames.bukkit.towny.object.TownyObservableType.NEW_RESIDENT;
+import static com.palmergames.bukkit.towny.object.TownyObservableType.NEW_TOWN;
+import static com.palmergames.bukkit.towny.object.TownyObservableType.NEW_WORLD;
+import static com.palmergames.bukkit.towny.object.TownyObservableType.PLAYER_LOGIN;
+import static com.palmergames.bukkit.towny.object.TownyObservableType.PLAYER_LOGOUT;
+import static com.palmergames.bukkit.towny.object.TownyObservableType.REMOVE_NATION;
+import static com.palmergames.bukkit.towny.object.TownyObservableType.REMOVE_RESIDENT;
+import static com.palmergames.bukkit.towny.object.TownyObservableType.REMOVE_TOWN;
+import static com.palmergames.bukkit.towny.object.TownyObservableType.REMOVE_TOWN_BLOCK;
+import static com.palmergames.bukkit.towny.object.TownyObservableType.RENAME_NATION;
+import static com.palmergames.bukkit.towny.object.TownyObservableType.RENAME_TOWN;
+import static com.palmergames.bukkit.towny.object.TownyObservableType.TELEPORT_REQUEST;
+import static com.palmergames.bukkit.towny.object.TownyObservableType.TOGGLE_DAILY_TIMER;
+import static com.palmergames.bukkit.towny.object.TownyObservableType.TOGGLE_HEALTH_REGEN;
+import static com.palmergames.bukkit.towny.object.TownyObservableType.TOGGLE_MOB_REMOVAL;
+import static com.palmergames.bukkit.towny.object.TownyObservableType.TOGGLE_TELEPORT_WARMUP;
+import static com.palmergames.bukkit.towny.object.TownyObservableType.UPKEEP_NATION;
+import static com.palmergames.bukkit.towny.object.TownyObservableType.UPKEEP_TOWN;
+import static com.palmergames.bukkit.towny.object.TownyObservableType.WAR_CLEARED;
+import static com.palmergames.bukkit.towny.object.TownyObservableType.WAR_END;
+import static com.palmergames.bukkit.towny.object.TownyObservableType.WAR_SET;
+import static com.palmergames.bukkit.towny.object.TownyObservableType.WAR_START;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Set;
 
 import javax.naming.InvalidNameException;
 
-import com.palmergames.bukkit.towny.*;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import com.palmergames.bukkit.towny.AlreadyRegisteredException;
+import com.palmergames.bukkit.towny.DailyTimerTask;
+import com.palmergames.bukkit.towny.EmptyNationException;
+import com.palmergames.bukkit.towny.EmptyTownException;
+import com.palmergames.bukkit.towny.HealthRegenTimerTask;
+import com.palmergames.bukkit.towny.IConomyException;
+import com.palmergames.bukkit.towny.MobRemovalTimerTask;
+import com.palmergames.bukkit.towny.NotRegisteredException;
+import com.palmergames.bukkit.towny.TeleportWarmupTimerTask;
+import com.palmergames.bukkit.towny.Towny;
+import com.palmergames.bukkit.towny.TownyException;
+import com.palmergames.bukkit.towny.TownyFormatter;
+import com.palmergames.bukkit.towny.TownySettings;
 import com.palmergames.bukkit.towny.db.TownyDataSource;
 import com.palmergames.bukkit.towny.db.TownyFlatFileSource;
 import com.palmergames.bukkit.towny.db.TownyHModFlatFileSource;
@@ -23,8 +67,6 @@ import com.palmergames.bukkit.util.Colors;
 import com.palmergames.bukkit.util.MinecraftTools;
 import com.palmergames.util.FileMgmt;
 
-import static com.palmergames.bukkit.towny.object.TownyObservableType.*;
-
 
 public class TownyUniverse extends TownyObject {
         private static Towny plugin;
@@ -33,7 +75,6 @@ public class TownyUniverse extends TownyObject {
         private Hashtable<String, Nation> nations = new Hashtable<String, Nation>();
         private Hashtable<String, TownyWorld> worlds = new Hashtable<String, TownyWorld>();
         // private List<Election> elections;
-        private TownyFormatter formatter = new TownyFormatter(); //TODO : Make static
         private TownyDataSource dataSource;
         private int dailyTask = -1;
         private int mobRemoveTask = -1;
@@ -699,19 +740,19 @@ public class TownyUniverse extends TownyObject {
         }
         
         public List<String> getStatus(Resident resident) {
-                return getFormatter().getStatus(resident);
+                return TownyFormatter.getStatus(resident);
         }
 
         public List<String> getStatus(Town town) {
-                return getFormatter().getStatus(town);
+                return TownyFormatter.getStatus(town);
         }
 
         public List<String> getStatus(Nation nation) {
-                return getFormatter().getStatus(nation);
+                return TownyFormatter.getStatus(nation);
         }
         
         public List<String> getStatus(TownyWorld world) {
-                return getFormatter().getStatus(world);
+                return TownyFormatter.getStatus(world);
         }
 
         public Town getTown(String name) throws NotRegisteredException {
@@ -873,14 +914,6 @@ public class TownyUniverse extends TownyObject {
 
         public TownyDataSource getDataSource() {
                 return dataSource;
-        }
-
-        public void setFormatter(TownyFormatter formatter) {
-                this.formatter = formatter;
-        }
-
-        public TownyFormatter getFormatter() {
-                return formatter;
         }
 
         public boolean isWarTime() {

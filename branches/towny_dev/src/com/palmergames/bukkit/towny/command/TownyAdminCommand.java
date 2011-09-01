@@ -190,7 +190,7 @@ public class TownyAdminCommand implements CommandExecutor  {
                 ta_panel.add(Colors.Blue + "[" + Colors.LightBlue + TownySettings.getLangString("ta_panel_8") + Colors.Blue + "] "
                                 + Colors.Green + TownySettings.getLangString("ta_panel_9") + Colors.LightGreen + MemMgmt.getMemSize(run.totalMemory()) + Colors.Gray + " | "
                                 + Colors.Green + TownySettings.getLangString("ta_panel_10") + Colors.LightGreen + Thread.getAllStackTraces().keySet().size() + Colors.Gray + " | "
-                                + Colors.Green + TownySettings.getLangString("ta_panel_11") + Colors.LightGreen + plugin.getTownyUniverse().getFormatter().getTime());
+                                + Colors.Green + TownySettings.getLangString("ta_panel_11") + Colors.LightGreen + TownyFormatter.getTime());
                 ta_panel.add(Colors.Yellow + MemMgmt.getMemoryBar(50, run));
         
         }
