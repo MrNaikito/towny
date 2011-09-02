@@ -1072,43 +1072,44 @@ public class TownyUniverse extends TownyObject {
         }
         
         public void removeNation(Nation nation) {
-                getDataSource().deleteNation(nation);
-                List<Town> toSave = new ArrayList<Town>(nation.getTowns());
-                nation.clear();
-                try {
-                        nation.pay(nation.getHoldingBalance(), new WarSpoils());
-                } catch (IConomyException e) {
-                }
-                nations.remove(nation.getName().toLowerCase());
-                
-                //search and remove from all ally/enemy lists
-                List<Nation> toSaveNation = new ArrayList<Nation>();
-                for (Nation toCheck : getNations())
-                        if (toCheck.hasAlly(nation) || toCheck.hasEnemy(nation)) {
-                                try {
-                                        if (toCheck.hasAlly(nation))
-                                                toCheck.removeAlly(nation);
-                                        else
-                                                toCheck.removeEnemy(nation);
-                                        
-                                        toSaveNation.add(toCheck);
-                                } catch (NotRegisteredException e) {
-                                        // TODO Auto-generated catch block
-                                        e.printStackTrace();
-                                }
-                        }  
-                
-                for (Nation toCheck : toSaveNation)
-                        getDataSource().saveNation(toCheck);            
-                                                
-                                                
-                plugin.updateCache();
-                for (Town town : toSave)
-                        getDataSource().saveTown(town);
-                getDataSource().saveNationList();
+        	
+        	//search and remove from all ally/enemy lists
+            List<Nation> toSaveNation = new ArrayList<Nation>();
+            for (Nation toCheck : getNations())
+                    if (toCheck.hasAlly(nation) || toCheck.hasEnemy(nation)) {
+                            try {
+                                    if (toCheck.hasAlly(nation))
+                                            toCheck.removeAlly(nation);
+                                    else
+                                            toCheck.removeEnemy(nation);
+                                    
+                                    toSaveNation.add(toCheck);
+                            } catch (NotRegisteredException e) {
+                                    // TODO Auto-generated catch block
+                                    e.printStackTrace();
+                            }
+                    }  
+            
+            for (Nation toCheck : toSaveNation)
+                    getDataSource().saveNation(toCheck);
+            
+            //Delete nation and save towns
+            getDataSource().deleteNation(nation);
+            List<Town> toSave = new ArrayList<Town>(nation.getTowns());
+            nation.clear();
+            try {
+            	nation.pay(nation.getHoldingBalance(), new WarSpoils());
+            } catch (IConomyException e) {
+            }
+            nations.remove(nation.getName().toLowerCase());
+                                                     
+            plugin.updateCache();
+            for (Town town : toSave)
+            	getDataSource().saveTown(town);
+            getDataSource().saveNationList();
 
-        setChanged();
-        notifyObservers(REMOVE_NATION);
+            setChanged();
+            notifyObservers(REMOVE_NATION);
         }
 
         ////////////////////////////////////////////
@@ -1192,21 +1193,9 @@ public class TownyUniverse extends TownyObject {
         
         public void removeResidentList(Resident resident) {
                 
-                String name = resident.getName();       
+                String name = resident.getName();    
                 
-                try {
-                        resident.clear();
-                } catch (EmptyTownException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                }
-                getDataSource().deleteResident(resident);               
-                
-                residents.remove(name.toLowerCase());
-                plugin.deleteCache(name);
-                getDataSource().saveResidentList();
-                
-                //search and remove from all friends lists
+              //search and remove from all friends lists
                 List<Resident> toSave = new ArrayList<Resident>();
                 if (!toSave.isEmpty()) {
                 	for (Resident toCheck : getResidents())
@@ -1223,6 +1212,19 @@ public class TownyUniverse extends TownyObject {
                 	for (Resident toCheck : toSave)
                 		getDataSource().saveResident(toCheck);
                 }
+                
+                //Wipe and delete resident
+                try {
+                        resident.clear();
+                } catch (EmptyTownException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                }
+                getDataSource().deleteResident(resident);               
+                
+                residents.remove(name.toLowerCase());
+                plugin.deleteCache(name);
+                getDataSource().saveResidentList();
                 
         }
         
