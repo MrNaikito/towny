@@ -143,8 +143,6 @@ public class TownyBlockListener extends BlockListener {
 			return;
 		}
 		
-		System.out.print("onBlockPistonRetract");
-		
 		//fetch the piston base
 		Block block = event.getBlock();
 		
