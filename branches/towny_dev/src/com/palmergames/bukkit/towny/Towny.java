@@ -700,16 +700,20 @@ public class Towny extends JavaPlugin {
         // Suppression is to clear warnings while retaining permissions 2.7 compatibility
         public int getGroupPermissionIntNode(String playerName, String node) {
         	if (isPermissions()) {
-        		PermissionHandler handler = permissions.getHandler();
-        		
-        		Player player = getServer().getPlayer(playerName);
-        		String worldName = player.getWorld().getName();
-        		String groupName = handler.getGroup(worldName, playerName);
-        		
-        		return handler.getGroupPermissionInteger(worldName, groupName, node);
-        	} else {
-        		return -1;
+        		try {
+	        		PermissionHandler handler = permissions.getHandler();
+	        		
+	        		Player player = getServer().getPlayer(playerName);
+	        		String worldName = player.getWorld().getName();
+	        		String groupName = handler.getGroup(worldName, playerName);
+	        		
+	        		return handler.getGroupPermissionInteger(worldName, groupName, node);
+        		} catch (Exception e) {
+        			// Ignore UnsupportedOperationException on certain Permission APIs
+        		}
         	}
+        	
+        	return -1;
         }
 
         /** hasPermission
