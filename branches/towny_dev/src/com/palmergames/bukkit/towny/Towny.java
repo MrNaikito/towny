@@ -724,16 +724,18 @@ public class Towny extends JavaPlugin {
         public boolean hasPermission(Player player, String node) {
                 sendDebugMsg("Perm Check: Does " + player.getName() + " have the node '" + node + "'?");
                 if (isPermissions()) {
-                        sendDebugMsg("    Permissions installed.");
-                        PermissionHandler handler = permissions.getHandler();
-                        boolean perm = handler.permission(player, node);
-                        sendDebugMsg("    Permissions says "+perm+".");
-                        return perm;
+                    sendDebugMsg("    Permissions installed.");
+                    PermissionHandler handler = permissions.getHandler();
+                    boolean perm = handler.permission(player, node);
+                    sendDebugMsg("    Permissions says "+perm+".");
+                	return perm;
                 // } else if (groupManager != null)
                 //      return groupManager.getHandler().permission(player, node);
                 } else {
-                        sendDebugMsg("    Does not have permission.");
-                        return player.hasPermission(node);
+                	sendDebugMsg("    Using BukkitPerms installed.");
+                	boolean perm = player.hasPermission(node);
+                    sendDebugMsg("    Permissions says "+perm+".");
+                    return perm;
                 }
         }
 

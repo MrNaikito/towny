@@ -129,8 +129,8 @@ public class TownCommand implements CommandExecutor  {
                                 
                                 // Check permission to use spawn travel
                                 if (!isTownyAdmin && (
-                                                (split.length == 1 && (!TownySettings.isAllowingTownSpawn() || (plugin.isPermissions() && !plugin.hasPermission(player, "towny.spawntp")))) ||
-                                                (split.length > 1 && (!TownySettings.isAllowingPublicTownSpawnTravel() || (plugin.isPermissions() && !plugin.hasPermission(player, "towny.publicspawntp"))))))
+                                                (split.length == 1 && (!TownySettings.isAllowingTownSpawn() || (!plugin.hasPermission(player, "towny.spawntp")))) ||
+                                                (split.length > 1 && (!TownySettings.isAllowingPublicTownSpawnTravel() || (!plugin.hasPermission(player, "towny.publicspawntp"))))))
                                         throw new TownyException(TownySettings.getLangString("msg_err_town_spawn_forbidden"));
                                 
                                 Resident resident = plugin.getTownyUniverse().getResident(player.getName());
@@ -818,7 +818,7 @@ public class TownCommand implements CommandExecutor  {
                         if (universe.isWarTime())
                                 throw new TownyException(TownySettings.getLangString("msg_war_cannot_do"));
                         
-                        if (!plugin.isTownyAdmin(player) && (TownySettings.isTownCreationAdminOnly() ||  (plugin.isPermissions() && !plugin.hasPermission(player, "towny.town.new"))))
+                        if (!plugin.isTownyAdmin(player) && (TownySettings.isTownCreationAdminOnly() ||  (!plugin.hasPermission(player, "towny.town.new"))))
                                 throw new TownyException(TownySettings.getNotPermToNewTownLine());
                         
                         if (TownySettings.hasTownLimit() && universe.getTowns().size() >= TownySettings.getTownLimit())

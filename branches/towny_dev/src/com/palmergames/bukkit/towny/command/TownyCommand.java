@@ -174,7 +174,7 @@ public class TownyCommand implements CommandExecutor {
         
         private void TopCommand(Player player, String[] args) {
                 
-                if (!plugin.isTownyAdmin(player) && (plugin.isPermissions() && !plugin.hasPermission(player, "towny.top"))) {
+                if (!plugin.isTownyAdmin(player) && (!plugin.hasPermission(player, "towny.top"))) {
                         sendErrorMsg(player, TownySettings.getLangString("msg_err_command_disable"));
                         return;
                 }
