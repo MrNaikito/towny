@@ -505,3 +505,4 @@ v0.75.3:
 		      
     - Fixed old resident deletion for the new config system using seconds instead of milliseconds.
     - Towny now correctly defaults to Bukkits Permissions if using_permissions is set to false in the config.
+    - Added XcraftGate to the plugin.yml as a recognised multiworld plugin.
