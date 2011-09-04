@@ -32,3 +32,36 @@ Add a description of which nodes and when towny uses its nodes.
   * towny.publicspawntp : Use "/town spawn {town}" (teleport to other towns) (requires allow_town_spawn_travel: true in set in the config.)
 
   * towny.cheat.bypass : User is allowed to fly, use WorldEdit's compass.
+  
+= Info Nodes =
+
+  This is similar to a permission node as it is added to your permission nodes file(s).
+  
+  * towny_maxplots: {number}
+    This info node is used to limit the number of plots a player can own based on what permissions group they are in. If a group doesn't have this node or the node is set to -1 Towny will default back to the max_plots_per_resident in config.
+    Setting max_plots_per_resident to -1 with no permission node, or a node set to -1 will allow infinite plots.
+  
+    Example:
+    {{{
+  		groups:
+  		  Default:
+  		    default: true
+  		    permissions:
+  		    - general.spawn
+  		    inheritance: []
+  		    info:
+  		      prefix: ''
+  		      build: true
+  		      suffix: ''
+  		      towny_maxplots: 1
+  		  Admins:
+  		    default: false
+  		    permissions:
+  		    - '*'
+  		    inheritance:
+  		    info:
+  		      prefix: ''
+  		      build: true
+  		      suffix: ''
+		      towny_maxplots: -1
+    }}}
