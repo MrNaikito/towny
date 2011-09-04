@@ -5,6 +5,35 @@
 
 Here you can find information on old releases of Towny.
 
+== New in 0.75 ==
+
+    * Added 'disable_modify_chat' for those not wanting Towny to make any changes.
+    
+    * New config.yml handling code means no need to delete config at each upgrade. (thanks dumptruckman)
+    
+    * Fixed town spawn being lost at load when using non standard (16x16) plot sizes.
+    
+    * Allow the ignition of obsidian for lighting portals, even when fire spread is disabled in a town.
+    
+    * Implemented Towny's own teleport_warmup_time for town spawns.
+    
+    * Better formatting for times in the config eg. 1d6h20s.
+    
+    * Added new plot types and commands to support.
+      * Shop Plots added!
+      * '/plot set reset/shop'   - Sets a plot as a Shop plot or resets to a normal plot.
+      * '/town set shopprice $$' - Set the towns default price on shop plots.
+      * '/town set shoptax $$'   - Set the town tax rate on shop plots, (a shop plot is charged an extra tax on top of any plot taxes.)
+    
+    * Added /towny map big, which fills the entire chatbox (after pressing t) with the map.
+    
+    * Added new Tags for Towns and Nations. If these are set they will be used instead of the full names in chat.
+      * '/town set tag [upto 4 characters]'
+      * '/nation set tag [upto 4 characters]'   
+
+    * So much MORE! [http://code.google.com/a/eclipselabs.org/p/towny/source/browse/trunk/Towny/src/ChangeLog.txt#414 Click here for a full changelog.]
+
+
 == New in 0.74 ==
 
     * .yml files now encoded in UTF-8, allow for easier multi-language support!
