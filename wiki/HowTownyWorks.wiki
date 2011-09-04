@@ -318,6 +318,17 @@ The time of a 'Towny Day' can be set in [DefaultConfig config.yml] at {{{day_int
   
   More information on the townLevel line and how to configure it is [HowTownyWorks#Configuring_Mayor_and_King_Titles,_Town_and_Nation_Names here.]
 
+== Town and Nation Banks ==
+
+Towns and Nations both have banks, to which any resident can deposit money but only town mayors and nation kings (and assistants) can withdraw from.
+Any money collected via taxes is deposited to the nation/town bank. When a town needs money, to claim a townblock or an outpost, it is taken from the townbank.
+
+Since mayors and kings can deposit money to their respective banks, some servers will find that mayors and kings shield their wealth from plugins that take a players money for dying from pvp combat.
+To prevent townbanks from being exploited an admin can use two options:
+  * Admins can set a cap on a town/nation bank using {{{bank_cap: '0'}}} in the config.yml.
+  * Admins can use '/ta toggle withdraw' to prevent mayors and kings from removing money from their bank.
+The cap on banks does not affect taxes which will still be put into the bank. 
+
 ----
 
 = Chat =
