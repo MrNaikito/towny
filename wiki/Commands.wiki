@@ -42,6 +42,7 @@
     * ?
     * {town}
     * list
+    * online
     * leave
     * here
     * spawn
@@ -55,6 +56,8 @@
       * {# (radius around current position)}
     * withdraw {$}
     * deposit {$}
+    * buy
+      * bonus {amount}
     * new 
       * {townname}
       * {townname} {mayor}
@@ -115,6 +118,7 @@
     *  
     * ?
     * list
+    * online
     * {nation}
     * leave
     * withdraw {$}
@@ -199,6 +203,7 @@
       * neutral
       * debug
       * devmode
+      * withdraw
     * set 
       * mayor 
         * {town} {resident}
