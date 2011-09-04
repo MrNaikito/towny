@@ -727,6 +727,18 @@ public class TownyFlatFileSource extends TownyDataSource {
 							world.setUnclaimedZoneIgnore(nums);
 						} catch (Exception e) {
 						}
+					line = kvFile.get("plotManagementDeleteIds");
+					if (line != null)
+						try {
+							List<Integer> nums = new ArrayList<Integer>();
+							for (String s: line.split(","))
+								try {
+									nums.add(Integer.parseInt(s));
+								} catch (NumberFormatException e) {
+								}
+							world.setPlotManagementDeleteIds(nums);
+						} catch (Exception e) {
+						}
 				}
 				
 				line = kvFile.get("usingTowny");
@@ -1089,6 +1101,9 @@ public class TownyFlatFileSource extends TownyDataSource {
 			// Unclaimed Zone Name
 			if (world.getUnclaimedZoneIgnoreIds() != null)
 				fout.write("unclaimedZoneIgnoreIds=" + StringMgmt.join(world.getUnclaimedZoneIgnoreIds(), ",") + newLine);
+			// Unclaimed Zone Name
+			if (world.getPlotManagementDeleteIds() != null)
+				fout.write("plotManagementDeleteIds=" + StringMgmt.join(world.getPlotManagementDeleteIds(), ",") + newLine);
 			// Using Towny
 			fout.write("usingTowny=" + Boolean.toString(world.isUsingTowny()) + newLine);
 			

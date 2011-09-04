@@ -1323,6 +1323,14 @@ public class TownySettings {
         public static boolean isForcingFire() {
                 return getBoolean(ConfigNodes.NWS_FORCE_FIRE_ON);
         }
+        
+    public static boolean isWorldPlotManagement() {
+    	return getBoolean(ConfigNodes.NWS_PLOT_MANAGEMENT_ENABLE);
+    }
+    
+    public static List<Integer> getPlotManagementDeleteIds() {
+    	return getIntArr(ConfigNodes.NWS_PLOT_MANAGEMENT_DELETE);
+    }
 
         public static boolean isTownRespawning() {
                 return getBoolean(ConfigNodes.GTOWN_SETTINGS_TOWN_RESPAWN);

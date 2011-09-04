@@ -39,6 +39,7 @@ import java.util.Set;
 import javax.naming.InvalidNameException;
 
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
@@ -898,6 +899,36 @@ public class TownyUniverse extends TownyObject {
                 }
                 return false;
         }
+        
+        public boolean isEnemy(String a, String b) {
+		        try {
+		                Resident residentA = getResident(a);
+		                Resident residentB = getResident(b);
+		                if (residentA.getTown() == residentB.getTown())
+		                        return false;
+		                if (residentA.getTown().getNation() == residentB.getTown().getNation())
+		                        return false;
+		                if (residentA.getTown().getNation().hasEnemy(residentB.getTown().getNation()))
+		                        return true;
+		        } catch (NotRegisteredException e) {
+		                return false;
+		        }
+		        return false;
+		}
+		
+		public boolean isEnemy(Town a, Town b) {
+		        try {
+		                if (a == b)
+		                        return false;
+		                if (a.getNation() == b.getNation())
+		                        return false;
+		                if (a.getNation().hasEnemy(b.getNation()))
+		                        return true;
+		        } catch (NotRegisteredException e) {
+		                return false;
+		        }
+		        return false;
+		}
 
         public void setDataSource(String databaseType) throws UnsupportedOperationException {
                 if (databaseType.equalsIgnoreCase("flatfile"))
@@ -1116,39 +1147,41 @@ public class TownyUniverse extends TownyObject {
         
         
         public void removeTown(Town town) {
-                getDataSource().deleteTown(town);
-                List<Resident> toSave = new ArrayList<Resident>(town.getResidents());
-                TownyWorld world = town.getWorld();
-                
-                try {
-                        if (town.hasNation()) {
-                                Nation nation = town.getNation();
-                                nation.removeTown(town);
-                                        
-                                getDataSource().saveNation(nation);
-                        }
-                        town.clear();
-                } catch (EmptyNationException e) {
-                        removeNation(e.getNation());
-                } catch (NotRegisteredException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                }
-                try {
-                        town.pay(town.getHoldingBalance(), new WarSpoils());
-                } catch (IConomyException e) {
-                }
-                
-                for (Resident resident : toSave) {
-                        removeResident(resident);
-                        getDataSource().saveResident(resident);
-                }
-                
-                towns.remove(town.getName().toLowerCase());
-                plugin.updateCache();
+        	
+        	removeTownBlocks(town);
+        	getDataSource().deleteTown(town);
+            List<Resident> toSave = new ArrayList<Resident>(town.getResidents());
+            TownyWorld world = town.getWorld();
+            
+            try {
+                    if (town.hasNation()) {
+                            Nation nation = town.getNation();
+                            nation.removeTown(town);
+                                    
+                            getDataSource().saveNation(nation);
+                    }
+                    town.clear();
+            } catch (EmptyNationException e) {
+                    removeNation(e.getNation());
+            } catch (NotRegisteredException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+            }
+            try {
+                    town.pay(town.getHoldingBalance(), new WarSpoils());
+            } catch (IConomyException e) {
+            }
+            
+            for (Resident resident : toSave) {
+                    removeResident(resident);
+                    getDataSource().saveResident(resident);
+            }
+            
+            towns.remove(town.getName().toLowerCase());
+            plugin.updateCache();
 
-                getDataSource().saveTownList();
-                getDataSource().saveWorld(world);
+            getDataSource().saveTownList();
+            getDataSource().saveWorld(world);
 
         setChanged();
         notifyObservers(REMOVE_TOWN);
@@ -1255,9 +1288,38 @@ public class TownyUniverse extends TownyObject {
                         getDataSource().saveResident(resident);
                 if (town != null)
                         getDataSource().saveTown(town);
+                
+                if (TownySettings.isWorldPlotManagement())
+                	deleteTownBlockIds(townBlock);
 
         setChanged();
         notifyObservers(REMOVE_TOWN_BLOCK);
+        }
+        
+		public void deleteTownBlockIds(TownBlock townBlock) {
+        	
+        	List<Integer> plotManagementDeleteIds = TownySettings.getPlotManagementDeleteIds();
+        	Block block = null;
+        	int plotSize = TownySettings.getTownBlockSize();
+        	
+        	plugin.sendDebugMsg("Processing deleteTownBlockIds");
+        	
+        	for (int z = 0; z < plotSize; z++)
+        		for (int x = 0; x < plotSize; x++)
+        			for (int y = 127; y > 0; y--) { //Check from bottom up else minecraft won't remove doors
+        				try {
+        					block = plugin.getServerWorld(townBlock.getWorld().getName()).getBlockAt((townBlock.getX()*plotSize) + x, y, (townBlock.getZ()*plotSize) + z);
+        					plugin.sendDebugMsg("Testing Block - " + block.getType().toString());
+	        				if (plotManagementDeleteIds.contains(block.getTypeId())) {
+	        					plugin.sendDebugMsg("Setting Block type to Air");
+	        					block.setType(Material.AIR);
+	        				}
+						} catch (NotRegisteredException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+        				
+        			}
         }
         
         public void removeTownBlocks(Town town) {

@@ -825,6 +825,8 @@ public class Towny extends JavaPlugin {
                                 // Allied destroy rights
                                 if (universe.isAlly(town, resident.getTown()))
                                         return TownBlockStatus.TOWN_ALLY;
+                                else if (universe.isEnemy(town, resident.getTown()))
+                                		return TownBlockStatus.ENEMY;
                                 else
                                         return TownBlockStatus.OUTSIDER;
                         } else if (resident.isMayor() || resident.getTown().hasAssistant(resident))
@@ -964,7 +966,7 @@ public class Towny extends JavaPlugin {
                                 cacheBlockErrMsg(player, String.format(TownySettings.getLangString("msg_cache_block_error_town_allies"), actionType.toString()));
                                 return false;
                         }
-                else if (status == TownBlockStatus.OUTSIDER)
+                else if (status == TownBlockStatus.OUTSIDER || status == TownBlockStatus.ENEMY)
                         if (town.getPermissions().getOutsider(actionType))
                                 return true;
                         else {
