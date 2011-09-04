@@ -460,7 +460,7 @@ v0.75.2:
     - Added missing entry from english.yml - msg_err_empty_area_selection: '&cSelected area contains no valid plots.'
     - Fixed error on using '/town claim auto'.
     - Fixed a refactoring error which affected towny top commands.
-v0.75.3:
+v0.76.0:
     - Added Town Buy command. Is defaulted to be empty. Currently only has ability to buy bonus blocks up until a set limit.
       '/town buy'
       '/town buy bonus [n]'
