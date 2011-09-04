@@ -135,6 +135,8 @@ economy:
     # The price for a town to expand one townblock.
     price_claim_townblock: '25.0'
     price_death: '1.0'
+    # How much it costs a player to buy extra blocks.
+    price_purchased_bonus_townblock: '25.0'
     # How much it costs to start a nation.
     price_new_nation: '1000.0'
     # The server's daily charge on each nation. If a nation fails to pay this upkeep
@@ -160,6 +162,11 @@ new_world_settings:
     force_pvp_on: 'false'
     # force_fire_on is a global flag and overrides any towns flag setting
     force_fire_on: 'false'
+    # World management settings to deal with un/claiming plots
+    plot_management:
+        enabled: 'true'
+        # These items will be deleted upon a plot being unclaimed
+        unclaim_delete: 26,50,55,63,64,68,70,71,72,75,76,93,94
     # force_town_monsters_on is a global flag and overrides any towns flag setting
     force_town_monsters_on: 'false'
     # Disable creatures trampling crops
@@ -194,8 +201,15 @@ global_town_settings:
     daily_taxes: 'true'
     # Respawn the player at his town spawn point when he/she dies
     town_respawn: 'false'
+ 
+    # Maximum amount of money allowed in town bank
+    # Use 0 for no limit
+    bank_cap: '0'
     # can residents/Allies harm other residents when in a town with pvp enabled?
     friendly_fire: 'true'
+ 
+    # Set to true to allow withdrawls from town banks
+    bank_allow_withdrawls: 'true'
     # If non zero it delays any spawn request by x seconds.
     teleport_warmup_time: '0'
     # Players within their town or allied towns will regenerate half a heart after every health_regen_speed seconds.
@@ -265,9 +279,9 @@ plugin:
         dev_name: ElgarL
         enable: 'false'
 version:
-    last_run_version: 0.74.1 Dev
+    last_run_version: 0.76.0
     # This is for showing the changelog on updates.  Please do not edit.
-    version: 0.74.1 Dev
+    version: 0.76.0
 levels:
  
     ############################################################
@@ -467,6 +481,8 @@ language: english.yml
 ############################################################
  
 town:
+    # Limits the maximum amount of bonus blocks a town can buy.
+    max_purchased_blocks: '0'
     # maximum number of plots any single resident can own
     max_plots_per_resident: '100'
  
