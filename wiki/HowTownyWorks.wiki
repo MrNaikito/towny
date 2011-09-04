@@ -58,41 +58,64 @@ Typing the commands with nothing after the player's name resets the title or sur
 Towny gives you the ability to customize the naming scheme applied to Mayors, Kings, Towns, Capital Cities and Nations.
 
 This is done with two sections in the [DefaultConfig config.yml]
-  * townLevel:
+  * town_level:
     * The basic layout of the townLevel lines are as follows: 
-    * numResidents,namePrefix,namePostfix,mayorPrefix,mayorPostfix,townBlockLimit,upkeepModifier
-    * A couple example lines from the config:
-      * {{{- '2,, (Hamlet),Chief ,,32,1.0'}}}
-      * {{{- '6,, (Village),Baron Von ,,96,1.1'}}}
+    {{{
+    -   upkeepModifier: 1.0
+        namePostfix: ' (Settlement)'
+        mayorPrefix: 'Hermit '
+        mayorPostfix: ''
+        townBlockLimit: 16
+        namePrefix: ''
+        numresidents: 1
+    -   upkeepModifier: 1.0
+        namePostfix: ' (Hamlet)'
+        mayorPrefix: 'Chief '
+        mayorPostfix: ''
+        townBlockLimit: 32
+        namePrefix: ''
+        numResidents: 2 
+    }}}
     * These are read as follows:
-      * The first line: When the town of Bob has 2-5 residents they get the following attributes: 
-        * The name Bob is given a postfix and appears as "Bob (Hamlet)",
-        * The mayor of Bob recieves a prefix, he is now "Chief Robert",
-        * The town is given a maximum of 32 townblocks to use,
-        * The town still pays an upkeep equal to the standard.
-      * The second line: When the town of Bob reaches 6 residents the following changes occur:
-        * The name of Bob changes from "Bob (Hamlet)" to "Bob (Village)",
-        * "Chief Robert" becomes "Baron von Robert",
-        * Robert has 96 townblocks at his disposal,
-        * The town of Bob now pays 10% more upkeep than before.   
-      
-  * nationLevel:
+      * upkeepModifier: 1.0 - Use a higher multiplier to increase the upkeep as towns get more residents.
+      * namePostfix: ' (Settlement)' - This is added to the end of the town name.
+      * mayorPrefix: 'Hermit ' - This is added to the front of the mayor's name.
+      * mayorPostfix: '' - This is added to the end of the mayor's name.
+      * townBlockLimit: 16 - This decides how many townblocks a town gets, it is only used if town_block_ratio: '0' is set in the config.yml.
+      * namePrefix: '' - This is added to the front of the town name.
+      * numresidents: 1 - This is how many residents a town needs to have in order to attain the prefixes/postfixes of the townlevel.
+    * The two levels above are for towns of 1 and 2 residents. When a town is created the mayor's new town has (Settlement) added to the end of his townname and he is given the prefix of Hermit. When the mayor gets a second resident his town becomes Townname (Hamlet) and he receives the prefix of Chief.
+    
+    
+  * nation_level:
     * The basic layout of the nationLevel lines are as follows:
-    * numResidents,namePrefix,namePostfix,capitalPrefix,capitalPostfix,kingPrefix,kingPostfix,upkeepModifier
-    * A couple example lines from the config:
-      * {{{- '20,Dominion of , (Nation),,,Duke ,1.0'}}}
-      * {{{- '30,Kingdom of , (Nation),,,King ,1.2'}}}
-    * These are read as follows:
-      * The first line: We will pretend that Robert started the nation of "Hotdogs" and has between 20 and 29 residents total in his nation:
-        * The name of the nation receives a prefix and a postfix making it "Dominion of Hotdogs (Nation)",
-        * There is no prefix or postfix attached to the Capital city of Bob,
-        * Robert recieves the title "Duke Robert",
-        * Robert pays the standard upkeep applied to nations.
-      * The second line: Robert has reached 30 residents and the following things change:
-        * The nation is retitled "Kingdom of Hotdogs (Nation)",
-        * There are still no prefix or postfix attached to the Capital city of Bob,
-        * Robert recieves the title "King Robert",
-        * Robert pays 20% more than the standard upkeep, set in the config.yml.
+    {{{
+        -   capitalPostfix: ''
+            upkeepModifier: 1.0
+            namePostfix: ' (Nation)'
+            kingPrefix: 'Count '
+            namePrefix: 'Federation of '
+            numResidents: 10
+            capitalPrefix: ''
+            kingPostfix: ''
+        -   capitalPostfix: ''
+            upkeepModifier: 1.0
+            namePostfix: ' (Nation)'
+            kingPrefix: 'Duke '
+            namePrefix: 'Dominion of '
+            numResidents: 20
+            capitalPrefix: ''
+        kingPostfix: ''
+    }}}
+    *These are read as follows:
+      * capitolPostfix: '' - This is added to the end of the capital city of the nation.
+      * upkeepModifier: 1.0 - Use a higher multiplier to increase the upkeep as nations get more residents.
+      * namePostfix: ' (Nation)' - This is added to the end of the nation name.
+      * kingPrefix: 'Count ' - This is added to the front of the nation-leader.
+      * namePrefix: 'Federation of ' - This is added to the front of the nation name.
+      * numResidents: 10 - This is how many residents a nation must have to receive the prefixes and postfixes of the nation level.
+      * capitalPrefix: '' - This is added to the front of the capital city of the nation.
+      * kingPostfix: '' - This is added to the end of the nation-leader's name.
     
 
 ----
@@ -118,26 +141,30 @@ Towny provides a server admin a hands-off approach to block-protection. Block pr
   You can override this by setting {{{ town_block_ratio: 0 }}} and using the townLevel section of the [DefaultConfig config.yml] 
   
   More information on the townLevel line and how to configure it is [HowTownyWorks#Configuring_Mayor_and_King_Titles,_Town_and_Nation_Names here.]
+  
+  === Buying Townblocks ===
+  Mayors can buy townblocks using /town buy bonus {amount}. An admin can set a maximum limit on how many townblocks a town can buy in the config.yml at {{{max_purchased_blocks: '0'}}}. The price of a bought townblock is also set in the config.yml at {{{price_purchased_bonus_townblock: '25.0'}}}.
+  Using this feature, mayors can grow their town without needing new residents.
 
 == Plot Types == 
 Towny post-0.75 has added plot types besides the default. This is to give mayors more control over their towns.
 
 As of now there are:
 
-=== Default Plots ===
+  === Default Plots === 
 
-These plots do not need any specific command to be designated.
+  These plots do not need any specific command to be designated.
 
-They are put up for sale with /plot forsale {$$}.
+  They are put up for sale with /plot forsale {$$}.
 
-A plot which is not of default type can be reset to a default plot with /plot set reset.
+  A plot which is not of default type can be reset to a default plot with /plot set reset.
 
-=== Shop Plots ===
+  === Shop Plots ===
 
-Shop plots are designate with /plot set shop
+  Shop plots are designate with /plot set shop
 
-A mayor can use /town set shopprice {$$} to set how much shop plots are sold at by default. This can be overriden when a mayor puts the actual plot up for sale with /plot forsale {$$}.
-A mayor can also charge an additional shoptax with /town set shoptax {$$}. This tax is charged in addition to the normal plottax.
+  A mayor can use /town set shopprice {$$} to set how much shop plots are sold at by default. This can be overriden when a mayor puts the actual plot up for sale with /plot forsale {$$}.
+  A mayor can also charge an additional shoptax with /town set shoptax {$$}. This tax is charged in addition to the normal plottax.
 
 == Outposts ==
 Normally townblocks are claimed around the home block, always connected to the town. To claim a townblock out in the wilderness, a mayor or assistant must claim an outpost.
