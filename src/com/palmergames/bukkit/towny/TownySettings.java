@@ -44,12 +44,12 @@ public class TownySettings {
 	};
 	// Town Level
 	public enum TownLevel {
-	        NAME_PREFIX,
-	        NAME_POSTFIX,
-	        MAYOR_PREFIX,
-	        MAYOR_POSTFIX,
-	        TOWN_BLOCK_LIMIT,
-	        UPKEEP_MULTIPLIER
+		NAME_PREFIX,
+        NAME_POSTFIX,
+        MAYOR_PREFIX,
+        MAYOR_POSTFIX,
+        TOWN_BLOCK_LIMIT,
+        UPKEEP_MULTIPLIER
 	};	
 	
 	private static Pattern namePattern = null;      
@@ -130,19 +130,19 @@ public class TownySettings {
     }
     
     public static Map<TownySettings.TownLevel,Object> getTownLevel(int numResidents) {
-            return configTownLevel.get(numResidents);
+    	return configTownLevel.get(numResidents);
     }
     
     public static Map<TownySettings.NationLevel,Object> getNationLevel(int numResidents) {
-            return configNationLevel.get(numResidents);
+    	return configNationLevel.get(numResidents);
     }
     
     public static Map<TownySettings.TownLevel,Object> getTownLevel(Town town) {
-            return getTownLevel(calcTownLevel(town));
+    	return getTownLevel(calcTownLevel(town));
     }
     
     public static Map<TownySettings.NationLevel,Object> getNationLevel(Nation nation) {
-            return getNationLevel(calcNationLevel(nation));
+    	return getNationLevel(calcNationLevel(nation));
     }
     
     //TODO: more efficient way
@@ -230,45 +230,43 @@ public class TownySettings {
     }
     
     private static String getString(String root, String def){
-        
         String data = config.getString(root.toLowerCase(), def);
         if (data == null) {
-                sendError(root.toLowerCase() + " from config.yml");
-                return "";
+        	sendError(root.toLowerCase() + " from config.yml");
+        	return "";
         }
         return data;
     }
     
     public static String getLangString(String root){
-        
         String data = language.getString(root.toLowerCase());
         if (data == null) {
-                sendError(root.toLowerCase() + " from " + config.getString("language"));
-                return "";
+        	sendError(root.toLowerCase() + " from " + config.getString("language"));
+        	return "";
         }
         return parseSingleLineString(data);
     }
 
     public static List<Integer> getIntArr(ConfigNodes node) {
         String[] strArray = getString(node.getRoot().toLowerCase(), node.getDefault()).split(",");
-                List<Integer> list = new ArrayList<Integer>();
-                if (strArray != null) {
-                for (int ctr=0; ctr < strArray.length; ctr++)
-                        if (strArray[ctr] != null)
-                                list.add(Integer.parseInt(strArray[ctr]));
-                }
-                return list;
+        List<Integer> list = new ArrayList<Integer>();
+        if (strArray != null) {
+        for (int ctr=0; ctr < strArray.length; ctr++)
+        	if (strArray[ctr] != null)
+        		list.add(Integer.parseInt(strArray[ctr]));
+        }
+        return list;
     }
 
     private static List<String> getStrArr(ConfigNodes node) {
         String[] strArray = getString(node.getRoot().toLowerCase(), node.getDefault()).split(",");
-                List<String> list = new ArrayList<String>();
-                if (strArray != null) {
-                for (int ctr=0; ctr < strArray.length; ctr++)
-                        if (strArray[ctr] != null)
-                                list.add(strArray[ctr].trim());
-                }
-                return list;
+        List<String> list = new ArrayList<String>();
+        if (strArray != null) {
+        for (int ctr=0; ctr < strArray.length; ctr++)
+        	if (strArray[ctr] != null)
+        		list.add(strArray[ctr].trim());
+        }
+        return list;
     }
     
     public static long getMillis(ConfigNodes node) {
@@ -276,7 +274,7 @@ public class TownySettings {
 	    if (Pattern.matches(".*[a-zA-Z].*", time)) {
 	        return (TimeTools.secondsFromDhms(time) * 1000);
 	    }
-            return TownySettings.getLong(node);
+        return TownySettings.getLong(node);
     }
     
     public static void addComment(String root, String...comments) {
