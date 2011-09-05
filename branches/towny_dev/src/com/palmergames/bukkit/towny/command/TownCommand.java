@@ -787,7 +787,7 @@ public class TownCommand implements CommandExecutor  {
     		if (current + inputN > TownySettings.getMaxPurchedBlocks()) {
     			n = TownySettings.getMaxPurchedBlocks() - current;
     		} else {
-    			n = current + inputN;
+    			n = inputN;
     		}
     		
     		if (n == 0)
