@@ -579,7 +579,7 @@ public class TownySettings {
 		try {
 			return (String)getNationLevel(resident.getTown().getNation()).get(TownySettings.NationLevel.KING_PREFIX);
         } catch (NotRegisteredException e) {
-        	System.out.println("[Towny] Error: Could not read getKingPrefix.");
+        	sendError("getKingPrefix.");
         	return "";
         }
 	}
@@ -588,25 +588,25 @@ public class TownySettings {
 		try {
             return (String)getTownLevel(resident.getTown()).get(TownySettings.TownLevel.MAYOR_PREFIX);
 		} catch (NotRegisteredException e) {
-            System.out.println("[Towny] Error: Could not read getMayorPrefix.");
+			sendError("getMayorPrefix.");
             return "";
 		}
 	}
 	
 	public static String getCapitalPostfix(Town town) {
-	        try {
-	                return (String)getNationLevel(town.getNation()).get(TownySettings.NationLevel.CAPITAL_POSTFIX);
-	        } catch (NotRegisteredException e) {
-	                System.out.println("[Towny] Error: Could not read getCapitalPostfix.");
-	                return "";
-	        }
+		try {
+            return (String)getNationLevel(town.getNation()).get(TownySettings.NationLevel.CAPITAL_POSTFIX);
+		} catch (NotRegisteredException e) {
+			sendError("getCapitalPostfix.");
+            return "";
+		}
 	}
 	
 	public static String getTownPostfix(Town town) {
 		try {
             return (String)getTownLevel(town).get(TownySettings.TownLevel.NAME_POSTFIX);
 		} catch (Exception e) {
-            System.out.println("[Towny] Error: Could not read getTownPostfix.");
+			sendError("getTownPostfix.");
             return "";
 		}
 	}
@@ -615,7 +615,7 @@ public class TownySettings {
 		try {
             return (String)getNationLevel(nation).get(TownySettings.NationLevel.NAME_POSTFIX);
 		} catch (Exception e) {
-            System.out.println("[Towny] Error: Could not read getNationPostfix.");
+			sendError("getNationPostfix.");
             return "";
 		}
 	}
@@ -624,7 +624,7 @@ public class TownySettings {
 		try {
             return (String)getNationLevel(nation).get(TownySettings.NationLevel.NAME_PREFIX);
 		} catch (Exception e) {
-            System.out.println("[Towny] Error: Could not read getNationPrefix.");
+			sendError("getNationPrefix.");
             return "";
 		}
 	}
@@ -633,7 +633,7 @@ public class TownySettings {
 		try {
             return (String)getTownLevel(town).get(TownySettings.TownLevel.NAME_PREFIX);
 		} catch (Exception e) {
-            System.out.println("[Towny] Error: Could not read getTownPrefix.");
+			sendError("getTownPrefix.");
             return "";
 		}
 	}
@@ -642,7 +642,7 @@ public class TownySettings {
 		try {
             return (String)getNationLevel(town.getNation()).get(TownySettings.NationLevel.CAPITAL_PREFIX);
 		} catch (NotRegisteredException e) {
-            System.out.println("[Towny] Error: Could not read getCapitalPrefix.");
+			sendError("getCapitalPrefix.");
             return "";
 		}
 	}
@@ -651,7 +651,7 @@ public class TownySettings {
 		try {
             return (String)getNationLevel(resident.getTown().getNation()).get(TownySettings.NationLevel.KING_POSTFIX);
 		} catch (NotRegisteredException e) {
-            System.out.println("[Towny] Error: Could not read getKingPostfix.");
+			sendError("getKingPostfix.");
             return "";
 		}
 	}
@@ -660,7 +660,7 @@ public class TownySettings {
 		try {
             return (String)getTownLevel(resident.getTown()).get(TownySettings.TownLevel.MAYOR_POSTFIX);
 		} catch (NotRegisteredException e) {
-            System.out.println("[Towny] Error: Could not read getMayorPostfix.");
+			sendError("getMayorPostfix.");
             return "";
 		}
 	}
