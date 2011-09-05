@@ -220,11 +220,11 @@ public class TownySettings {
     private static int getInt(ConfigNodes node) {
         return Integer.parseInt(config.getString(node.getRoot().toLowerCase(), node.getDefault()));
     }
-
+    /*
     private static long getLong(ConfigNodes node) {
         return Long.parseLong(getString(node));
     }
-
+	*/
     public static String getString(ConfigNodes node) {
         return config.getString(node.getRoot().toLowerCase(), node.getDefault());
     }
@@ -268,15 +268,11 @@ public class TownySettings {
         }
         return list;
     }
-    
+
     public static long getMillis(ConfigNodes node) {
-    	String time = TownySettings.getString(node);
-	    if (Pattern.matches(".*[a-zA-Z].*", time)) {
-	        return (TimeTools.secondsFromDhms(time) * 1000);
-	    }
-        return TownySettings.getLong(node);
+	    return (TimeTools.secondsFromDhms(TownySettings.getString(node)) * 1000);
     }
-    
+
     public static void addComment(String root, String...comments) {
         newConfig.addComment(root.toLowerCase(), comments);
     }
