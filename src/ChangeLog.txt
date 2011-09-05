@@ -510,3 +510,4 @@ v0.76.0:
 v0.76.1:
     - Fixed error with '/town buy' granting the wrong number of blocks.
     - Fixed converting seconds to milliseconds for mobremoval and new day timers.
+    - Fixed an error when using '/town claim #'.
