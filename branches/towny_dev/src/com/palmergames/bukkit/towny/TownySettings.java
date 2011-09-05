@@ -1076,7 +1076,7 @@ public class TownySettings {
         public static long getMobRemovalSpeed() {
         String time = getString(ConfigNodes.PROT_MOB_REMOVE_SPEED);
         if (Pattern.matches(".*[a-zA-Z].*", time)) {
-            return TimeTools.secondsFromDhms(time);
+            return (TimeTools.secondsFromDhms(time) * 1000);
         }
                 return getLong(ConfigNodes.PROT_MOB_REMOVE_SPEED);
         }
@@ -1183,9 +1183,9 @@ public class TownySettings {
         public static long getDayInterval() {
         String time = getString(ConfigNodes.PLUGIN_DAY_INTERVAL);
         if (Pattern.matches(".*[a-zA-Z].*", time)) {
-            return TimeTools.secondsFromDhms(time);
+            return (TimeTools.secondsFromDhms(time) * 1000);
         }
-                return getLong(ConfigNodes.PLUGIN_DAY_INTERVAL);
+                return (getLong(ConfigNodes.PLUGIN_DAY_INTERVAL) * 1000);
         }
         
         public static boolean isAllowingTownSpawn() {
