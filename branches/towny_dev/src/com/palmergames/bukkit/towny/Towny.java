@@ -258,6 +258,7 @@ public class Towny extends JavaPlugin {
                 
                 if (getTownyUniverse().isWarTime())
                         getTownyUniverse().getWarEvent().toggleEnd();
+                townyUniverse.toggleTownyRepeatingTimer(false);
                 townyUniverse.toggleDailyTimer(false);
                 townyUniverse.toggleMobRemoval(false);
                 townyUniverse.toggleHealthRegen(false);
@@ -294,6 +295,7 @@ public class Towny extends JavaPlugin {
                 SetWorldFlags();
                 
                 //make sure the timers are stopped for a reset
+                townyUniverse.toggleTownyRepeatingTimer(false);
                 townyUniverse.toggleDailyTimer(false);
                 townyUniverse.toggleMobRemoval(false);
                 townyUniverse.toggleHealthRegen(false);
@@ -312,7 +314,7 @@ public class Towny extends JavaPlugin {
                                         town.setHasMobs(true);
                         }
                 */
-                
+                townyUniverse.toggleTownyRepeatingTimer(true);
                 townyUniverse.toggleDailyTimer(true);
                 townyUniverse.toggleMobRemoval(true);
                 townyUniverse.toggleHealthRegen(TownySettings.hasHealthRegen());
