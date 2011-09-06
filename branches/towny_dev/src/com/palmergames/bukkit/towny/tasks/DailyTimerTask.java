@@ -1,8 +1,11 @@
-package com.palmergames.bukkit.towny;
+package com.palmergames.bukkit.towny.tasks;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.palmergames.bukkit.towny.IConomyException;
+import com.palmergames.bukkit.towny.TownyException;
+import com.palmergames.bukkit.towny.TownySettings;
 import com.palmergames.bukkit.towny.object.Resident;
 import com.palmergames.bukkit.towny.object.TownyUniverse;
 import com.palmergames.bukkit.towny.object.TownyWorld;

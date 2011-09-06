@@ -17,7 +17,6 @@ import org.bukkit.event.painting.PaintingBreakEvent;
 import org.bukkit.event.painting.PaintingBreakByEntityEvent;
 import org.bukkit.event.painting.PaintingPlaceEvent;
 
-import com.palmergames.bukkit.towny.MobRemovalTimerTask;
 import com.palmergames.bukkit.towny.NotRegisteredException;
 import com.palmergames.bukkit.towny.PlayerCache;
 import com.palmergames.bukkit.towny.Towny;
@@ -30,6 +29,7 @@ import com.palmergames.bukkit.towny.object.TownyPermission;
 import com.palmergames.bukkit.towny.object.TownyUniverse;
 import com.palmergames.bukkit.towny.object.TownyWorld;
 import com.palmergames.bukkit.towny.object.WorldCoord;
+import com.palmergames.bukkit.towny.tasks.MobRemovalTimerTask;
 
 public class TownyEntityListener extends EntityListener {
         private final Towny plugin;

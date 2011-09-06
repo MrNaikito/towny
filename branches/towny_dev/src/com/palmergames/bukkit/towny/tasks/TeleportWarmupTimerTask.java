@@ -1,5 +1,7 @@
-package com.palmergames.bukkit.towny;
+package com.palmergames.bukkit.towny.tasks;
 
+import com.palmergames.bukkit.towny.TownyException;
+import com.palmergames.bukkit.towny.TownySettings;
 import com.palmergames.bukkit.towny.object.Resident;
 import com.palmergames.bukkit.towny.object.Town;
 import com.palmergames.bukkit.towny.object.TownyUniverse;
