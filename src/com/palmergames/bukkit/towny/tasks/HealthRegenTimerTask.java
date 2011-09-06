@@ -1,8 +1,9 @@
-package com.palmergames.bukkit.towny;
+package com.palmergames.bukkit.towny.tasks;
 
 import org.bukkit.Server;
 import org.bukkit.entity.Player;
 
+import com.palmergames.bukkit.towny.TownyException;
 import com.palmergames.bukkit.towny.object.Coord;
 import com.palmergames.bukkit.towny.object.TownBlock;
 import com.palmergames.bukkit.towny.object.TownyUniverse;

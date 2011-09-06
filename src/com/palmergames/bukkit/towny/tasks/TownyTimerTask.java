@@ -1,7 +1,8 @@
-package com.palmergames.bukkit.towny;
+package com.palmergames.bukkit.towny.tasks;
 
 import java.util.TimerTask;
 
+import com.palmergames.bukkit.towny.Towny;
 import com.palmergames.bukkit.towny.object.TownyUniverse;
 
 public abstract class TownyTimerTask extends TimerTask {
