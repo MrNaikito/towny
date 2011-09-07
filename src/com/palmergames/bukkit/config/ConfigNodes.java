@@ -80,7 +80,8 @@ public enum ConfigNodes {
             		"# World management settings to deal with un/claiming plots"),
             NWS_PLOT_MANAGEMENT_ENABLE("new_world_settings.plot_management.enabled","true"),
             NWS_PLOT_MANAGEMENT_DELETE("new_world_settings.plot_management.unclaim_delete","26,50,55,63,64,68,70,71,72,75,76,93,94", "# These items will be deleted upon a plot being unclaimed"),
-            		
+            NWS_PLOT_MANAGEMENT_REVERT_ENABLE("new_world_settings.plot_management.revert_on_unclaim.enabled","true"),
+            
             GTOWN_SETTINGS("global_town_settings","", "", "",
 								                      "############################################################",
 								                      "# +------------------------------------------------------+ #",

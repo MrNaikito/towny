@@ -269,8 +269,12 @@ public class TownySettings {
         return list;
     }
 
-    public static long getMillis(ConfigNodes node) {
-	    return (TimeTools.secondsFromDhms(TownySettings.getString(node)) * 1000);
+    public static long getSeconds(ConfigNodes node) {
+    	String time = getString(node);
+        if (Pattern.matches(".*[a-zA-Z].*", time)) {
+            return (TimeTools.secondsFromDhms(time));
+        }
+        return Long.parseLong(time);
     }
 
     public static void addComment(String root, String...comments) {
@@ -666,7 +670,7 @@ public class TownySettings {
 	}
 
 	public static long getInactiveAfter() {
-		return getMillis(ConfigNodes.RES_SETTING_INACTIVE_AFTER_TIME);
+		return getSeconds(ConfigNodes.RES_SETTING_INACTIVE_AFTER_TIME);
 	}
 	
 	public static String getLoadDatabase() {
@@ -782,7 +786,7 @@ public class TownySettings {
     }
     
     public static long getDeleteTime() {
-        return getMillis(ConfigNodes.RES_SETTING_DELETE_OLD_RESIDENTS_TIME);
+        return getSeconds(ConfigNodes.RES_SETTING_DELETE_OLD_RESIDENTS_TIME);
 	}
 	
 	public static boolean isDeletingOldResidents() {
@@ -839,11 +843,11 @@ public class TownySettings {
 	}
 	
 	public static long getMobRemovalSpeed() {
-		return getMillis(ConfigNodes.PROT_MOB_REMOVE_SPEED);
+		return getSeconds(ConfigNodes.PROT_MOB_REMOVE_SPEED);
 	}
 	
-	public static int getHealthRegenSpeed() {
-		return getInt(ConfigNodes.GTOWN_SETTINGS_REGEN_SPEED);
+	public static long getHealthRegenSpeed() {
+		return getSeconds(ConfigNodes.GTOWN_SETTINGS_REGEN_SPEED);
 	}
 	
 	public static boolean hasHealthRegen() {
@@ -931,7 +935,7 @@ public class TownySettings {
 	}
 	
 	public static long getDayInterval() {
-		return getMillis(ConfigNodes.PLUGIN_DAY_INTERVAL);
+		return getSeconds(ConfigNodes.PLUGIN_DAY_INTERVAL);
 	}
 	
 	public static boolean isAllowingTownSpawn() {
@@ -1071,6 +1075,10 @@ public class TownySettings {
     
     public static List<Integer> getPlotManagementDeleteIds() {
     	return getIntArr(ConfigNodes.NWS_PLOT_MANAGEMENT_DELETE);
+    }
+    
+    public static boolean isWorldPlotManagementRevert() {
+    	return getBoolean(ConfigNodes.NWS_PLOT_MANAGEMENT_REVERT_ENABLE);
     }
 
     public static boolean isTownRespawning() {

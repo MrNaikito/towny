@@ -32,6 +32,7 @@ import com.palmergames.bukkit.towny.TownySettings;
 import com.palmergames.bukkit.towny.TownyUtil;
 import com.palmergames.bukkit.towny.object.Coord;
 import com.palmergames.bukkit.towny.object.Nation;
+import com.palmergames.bukkit.towny.object.PlotBlockData;
 import com.palmergames.bukkit.towny.object.Resident;
 import com.palmergames.bukkit.towny.object.Town;
 import com.palmergames.bukkit.towny.object.TownBlock;
@@ -871,6 +872,20 @@ public class TownCommand implements CommandExecutor  {
                 town.setHomeBlock(townBlock);
                 town.setSpawn(spawn);
                 world.addTown(town);
+                
+                if (TownySettings.isWorldPlotManagementRevert()) {
+                	PlotBlockData plotChunk = TownyUniverse.getPlotChunk(townBlock);
+            		if (plotChunk != null) {
+            			plotChunk.resetBlockListRestored();
+            			TownyUniverse.addPlotChunkOwned(plotChunk);
+            			TownyUniverse.deletePlotChunk(plotChunk);
+            		} else {
+            			plotChunk = new PlotBlockData(townBlock);
+            			plotChunk.initialize();
+            			TownyUniverse.addPlotChunkOwned(plotChunk);
+            			plotChunk = null;
+            		}
+                }
                 plugin.sendDebugMsg("Creating new Town account: " + "town-"+name);
                 if(TownySettings.isUsingIConomy())
                 {
@@ -1542,6 +1557,19 @@ public class TownCommand implements CommandExecutor  {
                         townBlock.setTown(town);
                         if (!town.hasHomeBlock())
                                 town.setHomeBlock(townBlock);
+                        if (TownySettings.isWorldPlotManagementRevert()) {
+                        	PlotBlockData plotChunk = TownyUniverse.getPlotChunk(townBlock);
+                    		if (plotChunk != null) {
+                    			plotChunk.resetBlockListRestored();
+                    			TownyUniverse.addPlotChunkOwned(plotChunk);
+                    			TownyUniverse.deletePlotChunk(plotChunk);
+                    		} else {
+                    			plotChunk = new PlotBlockData(townBlock);
+                    			plotChunk.initialize();
+                    			TownyUniverse.addPlotChunkOwned(plotChunk);
+                    			plotChunk = null;
+                    		}
+                        }
                         return true;
                 }
         }

@@ -71,11 +71,13 @@ import com.palmergames.util.FileMgmt;
 
 
 public class TownyUniverse extends TownyObject {
-	private static Towny plugin;
+	static Towny plugin;
     private Hashtable<String, Resident> residents = new Hashtable<String, Resident>();
     private Hashtable<String, Town> towns = new Hashtable<String, Town>();
     private Hashtable<String, Nation> nations = new Hashtable<String, Nation>();
     private Hashtable<String, TownyWorld> worlds = new Hashtable<String, TownyWorld>();
+    private static Hashtable<String, PlotBlockData> PlotChunks = new Hashtable<String, PlotBlockData>();
+    private static Hashtable<String, PlotBlockData> PlotChunksOwned = new Hashtable<String, PlotBlockData>();
     // private List<Election> elections;
     private TownyDataSource dataSource;
     private int townyRepeatingTask = -1;
@@ -113,12 +115,12 @@ public class TownyUniverse extends TownyObject {
     
     public void toggleTownyRepeatingTimer(boolean on) {
         if (on && !isTownyRepeatingTaskRunning()) {
-        	townyRepeatingTask = getPlugin().getServer().getScheduler().scheduleAsyncRepeatingTask(getPlugin(), new RepeatingTimerTask(this, plugin.getServer()), 0, MinecraftTools.convertToTicks(5000));
-                if (townyRepeatingTask == -1)
-                        plugin.sendErrorMsg("Could not schedule Towny Timer Task.");
+        	townyRepeatingTask = getPlugin().getServer().getScheduler().scheduleAsyncRepeatingTask(getPlugin(), new RepeatingTimerTask(this), 0, MinecraftTools.convertToTicks(5));
+            if (townyRepeatingTask == -1)
+            	plugin.sendErrorMsg("Could not schedule Towny Timer Task.");
         } else if (!on && isTownyRepeatingTaskRunning()) {
-                getPlugin().getServer().getScheduler().cancelTask(townyRepeatingTask);
-                townyRepeatingTask = -1;
+        	getPlugin().getServer().getScheduler().cancelTask(townyRepeatingTask);
+            townyRepeatingTask = -1;
         }
         setChanged();
 	}
@@ -138,7 +140,7 @@ public class TownyUniverse extends TownyObject {
 	
 	public void toggleDailyTimer(boolean on) {
 		if (on && !isDailyTimerRunning()) {
-            long timeTillNextDay = TownySettings.getDayInterval() - System.currentTimeMillis() % TownySettings.getDayInterval();
+            long timeTillNextDay = (TownySettings.getDayInterval()*1000) - System.currentTimeMillis() % (TownySettings.getDayInterval()*1000);
             dailyTask = getPlugin().getServer().getScheduler().scheduleAsyncRepeatingTask(getPlugin(), new DailyTimerTask(this), MinecraftTools.convertToTicks(timeTillNextDay), MinecraftTools.convertToTicks(TownySettings.getDayInterval()));
             if (dailyTask == -1)
                     plugin.sendErrorMsg("Could not schedule new day loop.");
@@ -1278,12 +1280,6 @@ public class TownyUniverse extends TownyObject {
 	}
         
         /////////////////////////////////////////////
-        
-        
-        public void sendUniverseTree(CommandSender sender) {
-                for (String line : getTreeString(0))
-                        sender.sendMessage(line);
-        }
 
         public void removeTownBlock(TownBlock townBlock) {
                 Resident resident = null;
@@ -1306,6 +1302,15 @@ public class TownyUniverse extends TownyObject {
                 
                 if (TownySettings.isWorldPlotManagement())
                 	deleteTownBlockIds(townBlock);
+                
+                // Move the plot to be restored
+                if (TownySettings.isWorldPlotManagementRevert()) {
+                	String key = getPlotKey(townBlock);
+                	if (PlotChunksOwned.containsKey(key)) {
+                		PlotChunks.put(key, PlotChunksOwned.get(key));
+                		PlotChunksOwned.remove(key);
+                	}
+                }
 
         setChanged();
         notifyObservers(REMOVE_TOWN_BLOCK);
@@ -1342,7 +1347,82 @@ public class TownyUniverse extends TownyObject {
                         removeTownBlock(townBlock);
         }
 
-        public void collectTownCosts() throws IConomyException, TownyException {
+        /**
+		 * @return the plotChunks
+		 */
+		public Hashtable<String, PlotBlockData> getPlotChunks() {
+			return PlotChunks;
+		}
+		public static boolean hasPlotChunks() {
+			return !PlotChunks.isEmpty();
+		}
+
+		/**
+		 * @param plotChunks the plotChunks to set
+		 */
+		public void setPlotChunks(Hashtable<String, PlotBlockData> plotChunks) {
+			PlotChunks = plotChunks;
+		}
+		
+		/**
+		 * Removes a Plot Chunk from the Hashtable
+		 * 
+		 * @param plotChunks the plotChunks to set
+		 */
+		public static void deletePlotChunk(PlotBlockData plotChunk) {
+			if (PlotChunks.containsKey(getPlotKey(plotChunk)))
+				PlotChunks.remove(getPlotKey(plotChunk));
+		}
+		public static void deletePlotChunkOwned(PlotBlockData plotChunk) {
+			if (PlotChunksOwned.containsKey(getPlotKey(plotChunk)))
+				PlotChunksOwned.remove(getPlotKey(plotChunk));
+		}
+		
+		/**
+		 * Adds a Plot Chunk to the Hashtable
+		 * 
+		 * @param plotChunks
+		 */
+		public static void addPlotChunk(PlotBlockData plotChunk) {
+			if (!PlotChunks.containsKey(getPlotKey(plotChunk))) {
+				plotChunk.initialize();
+				PlotChunks.put(getPlotKey(plotChunk), plotChunk);
+			}
+		}
+		public static void addPlotChunkOwned(PlotBlockData plotChunk) {
+			if (!PlotChunksOwned.containsKey(getPlotKey(plotChunk))) {
+				//plotChunk.initialize();
+				PlotChunksOwned.put(getPlotKey(plotChunk), plotChunk);
+			}
+		}
+		
+		/**
+		 * Gets a Plot Chunk from the Owned Hashtable
+		 * 
+		 * @param plotChunks
+		 */
+		public static PlotBlockData getPlotChunk(TownBlock townBlock) {
+			if (PlotChunks.containsKey(getPlotKey(townBlock))) {
+				return PlotChunks.get(getPlotKey(townBlock));
+			}
+			return null;
+		}
+		public static PlotBlockData getPlotChunkOwned(TownBlock townBlock) {
+			if (PlotChunksOwned.containsKey(getPlotKey(townBlock))) {
+				return PlotChunksOwned.get(getPlotKey(townBlock));
+			}
+			return null;
+		}
+		
+		private static String getPlotKey(PlotBlockData plotChunk) {
+			return "[" + plotChunk.getWorldName() + "|" + plotChunk.getX() + "|" + plotChunk.getZ() + "]";	
+		}
+		
+		public static String getPlotKey(TownBlock townBlock) {
+			return "[" + townBlock.getWorld().getName() + "|" + townBlock.getX() + "|" + townBlock.getZ() + "]";	
+		}
+
+		public void collectTownCosts() throws IConomyException, TownyException {
                 for (Town town : new ArrayList<Town>(towns.values()))
                         if (town.hasUpkeep())
                                 if (!town.pay(TownySettings.getTownUpkeepCost(town))) {
@@ -1382,6 +1462,12 @@ public class TownyUniverse extends TownyObject {
                 for (TownyWorld world : getWorlds())
                         townBlocks.addAll(world.getTownBlocks());
                 return townBlocks;
+        }
+        
+        
+        public void sendUniverseTree(CommandSender sender) {
+                for (String line : getTreeString(0))
+                        sender.sendMessage(line);
         }
         
         @Override

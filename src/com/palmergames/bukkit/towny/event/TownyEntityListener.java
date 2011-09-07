@@ -188,7 +188,7 @@ public class TownyEntityListener extends EntityListener {
                                 // If explosions are off, or it's wartime and explosions are off and the towns has no nation
                                 if (townyWorld.isUsingTowny()  && !townyWorld.isForceExpl())
                                 if (!townBlock.getTown().isBANG() || (plugin.getTownyUniverse().isWarTime() && !townBlock.getTown().hasNation() && !townBlock.getTown().isBANG())) {
-                                        plugin.sendDebugMsg("onEntityExplode: Canceled " + event.getEntity().getEntityId() + " from exploding within "+coord.toString()+".");
+                                        if (event.getEntity() != null) plugin.sendDebugMsg("onEntityExplode: Canceled " + event.getEntity().getEntityId() + " from exploding within "+coord.toString()+".");
                                         event.setCancelled(true);
                                 }
                         } catch (TownyException x) {
