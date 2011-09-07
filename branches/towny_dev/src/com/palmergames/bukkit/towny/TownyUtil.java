@@ -19,11 +19,6 @@ public class TownyUtil {
 			else
 				throw new TownyException(TownySettings.getLangString("msg_not_claimable"));
 		} else {
-			try {
-				Integer.parseInt(args[0]);
-				// Treat as rect to serve for backwards capability.
-				out = selectWorldCoordAreaRect(owner, pos, args);
-			} catch (NumberFormatException e) {
 				if (args.length > 1) {
 					if (args[0].equalsIgnoreCase("rect")) {
 						out = selectWorldCoordAreaRect(owner, pos, StringMgmt.remFirstArg(args));
@@ -32,7 +27,16 @@ public class TownyUtil {
 					} else {
 						//TODO: Some output?
 					}
-				}
+				} else if (args[0].equalsIgnoreCase("auto")) {
+					out = selectWorldCoordAreaRect(owner, pos, args);
+				} else {
+					try {
+						Integer.parseInt(args[0]);
+						// Treat as rect to serve for backwards capability.
+						out = selectWorldCoordAreaRect(owner, pos, args);
+					} catch (NumberFormatException e) {
+						//TODO: Some output?
+					}
 			}
 		}
 		

@@ -1,34 +1,24 @@
 package com.palmergames.bukkit.towny.tasks;
 
-import org.bukkit.Server;
-import org.bukkit.entity.Player;
+import java.util.ArrayList;
 
-import com.palmergames.bukkit.towny.TownyException;
-import com.palmergames.bukkit.towny.object.Coord;
-import com.palmergames.bukkit.towny.object.TownBlock;
+import com.palmergames.bukkit.towny.object.PlotBlockData;
 import com.palmergames.bukkit.towny.object.TownyUniverse;
-import com.palmergames.bukkit.towny.object.TownyWorld;
 
 public class RepeatingTimerTask extends TownyTimerTask {
-
-private Server server;
 	
-	public RepeatingTimerTask(TownyUniverse universe, Server server) {
+	public RepeatingTimerTask(TownyUniverse universe) {
 		super(universe);
-		this.server = server;
 	}
 	
 	@Override
 	public void run() {
-		if (universe.isWarTime())
-			return;
 		
-		for (Player player : server.getOnlinePlayers()) {
-			
+		if (TownyUniverse.hasPlotChunks())
+		for (PlotBlockData plotChunk : new ArrayList<PlotBlockData>(universe.getPlotChunks().values())) {
+			if (!plotChunk.restoreNextBlock())
+				TownyUniverse.deletePlotChunk(plotChunk);	
 		}
-		
-		//if (TownySettings.getDebug())
-		//	System.out.println("[Towny] Debug: Health Regen");
 	}
 	
 }
