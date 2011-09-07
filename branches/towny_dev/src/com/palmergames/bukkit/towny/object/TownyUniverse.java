@@ -45,6 +45,8 @@ import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import com.palmergames.util.TimeMgmt;
+
 import com.palmergames.bukkit.towny.AlreadyRegisteredException;
 import com.palmergames.bukkit.towny.EmptyNationException;
 import com.palmergames.bukkit.towny.EmptyTownException;
@@ -140,7 +142,8 @@ public class TownyUniverse extends TownyObject {
 	
 	public void toggleDailyTimer(boolean on) {
 		if (on && !isDailyTimerRunning()) {
-            long timeTillNextDay = (TownySettings.getDayInterval()*1000) - System.currentTimeMillis() % (TownySettings.getDayInterval()*1000);
+            long timeTillNextDay = ((TownySettings.getDayInterval()*1000) - (System.currentTimeMillis() % (TownySettings.getDayInterval()*1000)))/1000;
+            plugin.sendMsg("Time until a New Day: " + TimeMgmt.formatCountdownTime(timeTillNextDay));
             dailyTask = getPlugin().getServer().getScheduler().scheduleAsyncRepeatingTask(getPlugin(), new DailyTimerTask(this), MinecraftTools.convertToTicks(timeTillNextDay), MinecraftTools.convertToTicks(TownySettings.getDayInterval()));
             if (dailyTask == -1)
                     plugin.sendErrorMsg("Could not schedule new day loop.");
