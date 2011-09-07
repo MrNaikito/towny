@@ -14,6 +14,7 @@ import com.palmergames.bukkit.towny.object.TownyObject;
 import com.palmergames.bukkit.towny.object.TownyWorld;
 import com.palmergames.bukkit.util.ChatTools;
 import com.palmergames.bukkit.util.Colors;
+import com.palmergames.bukkit.util.MinecraftTools;
 import com.palmergames.util.StringMgmt;
 
 public class TownyFormatter {
@@ -53,7 +54,7 @@ public class TownyFormatter {
                 List<String> out = new ArrayList<String>();
 
                 // ___[ King Harlus ]___
-                out.add(ChatTools.formatTitle(getFormattedName(resident)));
+                out.add(ChatTools.formatTitle(getFormattedName(resident) + ((MinecraftTools.isOnline(resident.getName())) ? Colors.LightGreen + " (Online)" : "")));
 
                 // Registered: Sept 3 2009 | Last Online: March 7 @ 14:30
                 out.add(Colors.Green + "Registered: " + Colors.LightGreen + registeredFormat.format(resident.getRegistered())
@@ -169,15 +170,25 @@ public class TownyFormatter {
 
                 // ___[ Azur Empire ]___
                 out.add(ChatTools.formatTitle(getFormattedName(nation)));
-
-                // Bank: 534 coins
-                if (TownySettings.isUsingIConomy())
-                        try {
-                                TownyIConomyObject.checkIConomy();
-                                out.add(Colors.Green + "Bank: " + Colors.LightGreen + nation.getHoldingFormattedBalance());
-                        } catch (IConomyException e1) {
-                        }
-                
+        
+				// Bank: 534 coins
+				String line = "";
+				if (TownySettings.isUsingIConomy())
+					try {
+						TownyIConomyObject.checkIConomy();
+						line = Colors.Green + "Bank: " + Colors.LightGreen + nation.getHoldingFormattedBalance();
+					} catch (IConomyException e1) {
+                            }
+				
+				if (nation.isNeutral()) {
+					if (line.length() > 0)
+						line += Colors.Gray + " | ";
+					line += Colors.LightGray + "Neutral";
+				}
+				// Bank: 534 coins | Neutral
+				if (line.length() > 0)
+					out.add(line);
+	    
                 // King: King Harlus
                 if (nation.getNumTowns() > 0 && nation.hasCapital() && nation.getCapital().hasMayor())
                         out.add(Colors.Green + "King: " + Colors.LightGreen + getFormattedName(nation.getCapital().getMayor())

@@ -18,7 +18,8 @@ public class TownyWorld extends TownyObject {
 	private Boolean unclaimedZoneBuild = null, unclaimedZoneDestroy = null, unclaimedZoneSwitch = null, unclaimedZoneItemUse = null;
 	private String unclaimedZoneName = null;
 	private Hashtable<Coord, TownBlock> townBlocks = new Hashtable<Coord, TownBlock>();
-
+	private List<Coord> warZones = new ArrayList<Coord>();
+	
 	// TODO: private List<TownBlock> adminTownBlocks = new
 	// ArrayList<TownBlock>();
 
@@ -370,4 +371,17 @@ public class TownyWorld extends TownyObject {
 				
 		return (int)Math.ceil(min);
 	}
+
+	public void addWarZone(Coord coord) {
+    	if (!isWarZone(coord))
+    		warZones.add(coord);
+    }
+    
+    public void removeWarZone(Coord coord) {
+    	warZones.remove(coord);
+    }
+    
+    public boolean isWarZone(Coord coord) {
+    	return warZones.contains(coord);
+    }
 }

@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+
 import com.palmergames.bukkit.towny.AlreadyRegisteredException;
 import com.palmergames.bukkit.towny.EmptyNationException;
 import com.palmergames.bukkit.towny.IConomyException;
 import com.palmergames.bukkit.towny.NotRegisteredException;
 import com.palmergames.bukkit.towny.TownyException;
 import com.palmergames.bukkit.towny.TownySettings;
+import com.palmergames.bukkit.townywar.TownyWar;
 
 public class Nation extends TownyIConomyObject implements ResidentList {
         private List<Resident> assistants = new ArrayList<Resident>();
@@ -315,10 +317,16 @@ public class Nation extends TownyIConomyObject implements ResidentList {
         }
 
         public void setNeutral(boolean neutral) throws TownyException {
-                if (!TownySettings.isDeclaringNeutral() && neutral)
-                        throw new TownyException(TownySettings.getLangString("msg_err_fight_like_king"));
-                else
-                        this.neutral = neutral;
+            if (!TownySettings.isDeclaringNeutral() && neutral)
+                throw new TownyException(TownySettings.getLangString("msg_err_fight_like_king"));
+            else {
+        		if (neutral) {
+        			for (Resident resident : getResidents()) {
+            			TownyWar.removeAttackerFlags(resident.getName());
+        			}
+        		}
+                this.neutral = neutral;
+            }
         }
                  
         public boolean isNeutral() {

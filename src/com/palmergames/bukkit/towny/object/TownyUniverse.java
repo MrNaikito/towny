@@ -45,8 +45,6 @@ import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.palmergames.util.TimeMgmt;
-
 import com.palmergames.bukkit.towny.AlreadyRegisteredException;
 import com.palmergames.bukkit.towny.EmptyNationException;
 import com.palmergames.bukkit.towny.EmptyTownException;
@@ -70,6 +68,7 @@ import com.palmergames.bukkit.util.ChatTools;
 import com.palmergames.bukkit.util.Colors;
 import com.palmergames.bukkit.util.MinecraftTools;
 import com.palmergames.util.FileMgmt;
+import com.palmergames.util.TimeMgmt;
 
 
 public class TownyUniverse extends TownyObject {
@@ -949,7 +948,7 @@ public class TownyUniverse extends TownyObject {
 		        }
 		        return false;
 		}
-
+		
         public void setDataSource(String databaseType) throws UnsupportedOperationException {
                 if (databaseType.equalsIgnoreCase("flatfile"))
                         setDataSource(new TownyFlatFileSource());
@@ -1565,5 +1564,23 @@ public class TownyUniverse extends TownyObject {
     
     public void abortTeleportRequest(Resident resident) {
         TeleportWarmupTimerTask.abortTeleportRequest(resident);
+    }
+    
+    public void addWarZone(WorldCoord worldCoord) {
+    	worldCoord.getWorld().addWarZone(worldCoord);
+    	plugin.updateCache(worldCoord);
+    }
+    
+    public void removeWarZone(WorldCoord worldCoord) {
+    	worldCoord.getWorld().removeWarZone(worldCoord);
+    	plugin.updateCache(worldCoord);
+    }
+    
+    public boolean isEnemyTownBlock(Player player, WorldCoord worldCoord) {
+    	try {
+			return isEnemy(getResident(player.getName()).getTown(), worldCoord.getTownBlock().getTown());
+		} catch (NotRegisteredException e) {
+			return false;
+		}
     }
 }

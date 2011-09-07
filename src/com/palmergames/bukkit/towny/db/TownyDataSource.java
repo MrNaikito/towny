@@ -10,8 +10,10 @@ import com.palmergames.bukkit.towny.NotRegisteredException;
 import com.palmergames.bukkit.towny.Towny;
 import com.palmergames.bukkit.towny.TownySettings;
 import com.palmergames.bukkit.towny.object.Nation;
+import com.palmergames.bukkit.towny.object.PlotBlockData;
 import com.palmergames.bukkit.towny.object.Resident;
 import com.palmergames.bukkit.towny.object.Town;
+import com.palmergames.bukkit.towny.object.TownBlock;
 import com.palmergames.bukkit.towny.object.TownyUniverse;
 import com.palmergames.bukkit.towny.object.TownyWorld;
 
@@ -98,6 +100,9 @@ public abstract class TownyDataSource {
 	abstract public boolean saveTown(Town town);
 	abstract public boolean saveNation(Nation nation);
 	abstract public boolean saveWorld(TownyWorld world);
+	
+	abstract public PlotBlockData loadPlotData(TownBlock plotChunk);
+	abstract public boolean savePlotData(PlotBlockData plotChunk);
 
 	abstract public void deleteResident(Resident resident);
 	abstract public void deleteTown(Town town);

@@ -21,6 +21,7 @@ import com.palmergames.bukkit.towny.Towny;
 import com.palmergames.bukkit.towny.TownyException;
 import com.palmergames.bukkit.towny.TownySettings;
 import com.palmergames.bukkit.towny.object.Nation;
+import com.palmergames.bukkit.towny.object.PlotBlockData;
 import com.palmergames.bukkit.towny.object.Resident;
 import com.palmergames.bukkit.towny.object.Town;
 import com.palmergames.bukkit.towny.object.TownBlock;
@@ -99,6 +100,16 @@ public class TownyFlatFileSource extends TownyDataSource {
 	
 	public String getWorldFilename(TownyWorld world) {
 		return rootFolder + dataFolder + FileMgmt.fileSeparator() +  "worlds" + FileMgmt.fileSeparator() + world.getName() + ".txt";
+	}
+	
+	public String getPlotFilename(PlotBlockData plotChunk) {
+		return rootFolder + dataFolder + FileMgmt.fileSeparator() +  plotChunk.getWorldName()
+				+ FileMgmt.fileSeparator() + plotChunk.getX() + "_" + plotChunk.getZ()  + "_" + plotChunk.getSize() + ".data";
+	}
+
+	public String getPlotFilename(TownBlock plotChunk) {
+		return rootFolder + dataFolder + FileMgmt.fileSeparator() +  plotChunk.getWorld().getName()
+				+ FileMgmt.fileSeparator() + plotChunk.getX() + "_" + plotChunk.getZ()  + "_" + TownySettings.getTownBlockSize() + ".data";
 	}
 	
 	
@@ -1226,12 +1237,84 @@ public class TownyFlatFileSource extends TownyDataSource {
 
 		return out;
 	}
+	
+	/**
+	 * Save PlotBlockData
+	 * 
+	 * @param plotChunk
+	 * @return true if saved
+	 */
+	@Override
+	public boolean savePlotData(PlotBlockData plotChunk) {
+		
+		FileMgmt.checkFolders(new String[]{
+				rootFolder + dataFolder + FileMgmt.fileSeparator() + "plot-block-data" + FileMgmt.fileSeparator() + plotChunk.getWorldName()});
+		
+		BufferedWriter fout;
+		String path = getPlotFilename(plotChunk);
+		try {
+			fout = new BufferedWriter(new FileWriter(path));
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+		try {
+			for (int block: new ArrayList<Integer>(plotChunk.getBlockList())) {
+				fout.write(block);
+			}
+						
+			fout.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;		
+		
+	}
+	
+	@Override
+	public PlotBlockData loadPlotData(TownBlock plotChunk) {
+		String fileName = getPlotFilename(plotChunk);
+		int value;
+		
+		if (isFile(fileName)) {
+			PlotBlockData plotBlockData = new PlotBlockData(plotChunk);
+			List<Integer>IntArr = new ArrayList<Integer>();
+			
+			try {
+				BufferedReader fin = new BufferedReader(new FileReader(fileName));
+				try {
+					while ((value = fin.read()) >= 0) {
+						IntArr.add(value);	
+					}
+					
+				} catch (IOException e) {
+					//e.printStackTrace();
+					plotBlockData.setBlockList(IntArr);
+				}
+				fin.close();
+				return plotBlockData;
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
 
 	@Override
 	public void deleteResident(Resident resident) {
 		File file = new File(getResidentFilename(resident));
 		if (file.exists())
 			file.delete();
+	}
+	
+	private boolean isFile(String fileName) {
+		File file = new File(fileName);
+		if (file.exists() && file.isFile())
+			return true;
+		
+		return false;
 	}
 	
 	@Override

@@ -52,6 +52,10 @@ import com.palmergames.bukkit.towny.object.TownyUniverse;
 import com.palmergames.bukkit.towny.object.TownyWorld;
 import com.palmergames.bukkit.towny.object.WorldCoord;
 import com.palmergames.bukkit.towny.questioner.TownyQuestionTask;
+import com.palmergames.bukkit.townywar.TownyWar;
+import com.palmergames.bukkit.townywar.listener.TownyWarBlockListener;
+import com.palmergames.bukkit.townywar.listener.TownyWarCustomListener;
+import com.palmergames.bukkit.townywar.listener.TownyWarEntityListener;
 import com.palmergames.bukkit.util.ChatTools;
 import com.palmergames.bukkit.util.Colors;
 import com.palmergames.util.FileMgmt;
@@ -79,6 +83,9 @@ public class Towny extends JavaPlugin {
         private final TownyPlayerLowListener playerLowListener = new TownyPlayerLowListener(this);
         private final TownyEntityMonitorListener entityMonitorListener = new TownyEntityMonitorListener(this);
         private final TownyWorldListener worldListener = new TownyWorldListener(this);
+        private final TownyWarBlockListener townyWarBlockListener = new TownyWarBlockListener(this);
+        private final TownyWarCustomListener customListener = new TownyWarCustomListener(this);
+        private final TownyWarEntityListener townyWarEntityListener = new TownyWarEntityListener(this);
         private TownyUniverse townyUniverse;
         private Map<String, PlayerCache> playerCache = Collections.synchronizedMap(new HashMap<String, PlayerCache>());
         private Map<String, List<String>> playerMode = Collections.synchronizedMap(new HashMap<String, List<String>>());
@@ -110,7 +117,7 @@ public class Towny extends JavaPlugin {
                 getCommand("townchat").setExecutor(new TownChatCommand(this));
                 getCommand("nationchat").setExecutor(new NationChatCommand(this));
                 
-                
+                TownyWar.onEnable();
                 //checkPlugins();
                 //load();
                 
@@ -256,6 +263,8 @@ public class Towny extends JavaPlugin {
                 if (townyUniverse.getDataSource() != null && error == false)
                         townyUniverse.getDataSource().saveAll();
                 
+                TownyWar.onDisable();
+                
                 if (getTownyUniverse().isWarTime())
                         getTownyUniverse().getWarEvent().toggleEnd();
                 townyUniverse.toggleTownyRepeatingTimer(false);
@@ -354,6 +363,12 @@ public class Towny extends JavaPlugin {
                 pluginManager.registerEvent(Event.Type.PAINTING_BREAK, entityListener, Priority.Normal, this);
                 
                 pluginManager.registerEvent(Event.Type.WORLD_LOAD, worldListener, Priority.Normal, this);
+                
+                pluginManager.registerEvent(Event.Type.BLOCK_BREAK, townyWarBlockListener, Priority.Normal, this);
+                pluginManager.registerEvent(Event.Type.CUSTOM_EVENT, customListener, Priority.Normal, this);
+                pluginManager.registerEvent(Event.Type.BLOCK_BURN, townyWarBlockListener, Priority.Normal, this);
+                pluginManager.registerEvent(Event.Type.BLOCK_PISTON_EXTEND, townyWarBlockListener, Priority.Normal, this);
+                pluginManager.registerEvent(Event.Type.ENTITY_EXPLODE, townyWarEntityListener, Priority.Normal, this);
         }
         
         /*
@@ -827,9 +842,12 @@ public class Towny extends JavaPlugin {
                                 // Allied destroy rights
                                 if (universe.isAlly(town, resident.getTown()))
                                         return TownBlockStatus.TOWN_ALLY;
-                                else if (universe.isEnemy(town, resident.getTown()))
-                                		return TownBlockStatus.ENEMY;
-                                else
+                                else if (universe.isEnemy(resident.getTown(), town)) {
+                                	if (townBlock.isWarZone())
+                            			return TownBlockStatus.WARZONE;
+                            		else
+                            			return TownBlockStatus.ENEMY;
+                        		} else
                                         return TownBlockStatus.OUTSIDER;
                         } else if (resident.isMayor() || resident.getTown().hasAssistant(resident))
                                 return TownBlockStatus.TOWN_OWNER;
