@@ -513,3 +513,6 @@ v0.76.1:
     - Fixed an error when using '/town claim #'.
     - Fixed an error with '/town claim auto' (I broke it fixing the above command).
     - Explosions in the nether caused by using beds are now blocked if a town is there and set to block explosions. However, the fires it generates can not be blocked.
+    - Added (Online) to title Resident Status
+    - Added Neutral in Nation status.
+    - Moved /nation set neutral [on/off] to /nation toggle neutral    

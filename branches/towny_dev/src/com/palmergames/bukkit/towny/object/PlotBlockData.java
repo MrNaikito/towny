@@ -16,9 +16,9 @@ public class PlotBlockData {
 	private int blockListRestored; // counter for the next block to test
 	
 	public PlotBlockData(TownBlock townBlock) {
-		this.x = townBlock.getX();
-		this.z = townBlock.getZ();
-		this.size = TownySettings.getTownBlockSize();
+		setX(townBlock.getX());
+		setZ(townBlock.getZ());
+		setSize(TownySettings.getTownBlockSize());
 		this.height = 127;
 		this.worldName = townBlock.getWorld().getName();
 		this.blockListRestored = 0;
@@ -89,13 +89,22 @@ public class PlotBlockData {
 	public int getX() {
 		return x;
 	}
+	public void setX(int x) {
+		this.x = x;
+	}
 
 	public int getZ() {
 		return z;
 	}
+	public void setZ(int z) {
+		this.z = z;
+	}
 	
 	public int getSize() {
 		return size;
+	}
+	public void setSize(int size) {
+		this.size = size;
 	}
 	
 	public String getWorldName() {

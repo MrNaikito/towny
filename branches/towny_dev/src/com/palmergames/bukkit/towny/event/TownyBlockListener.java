@@ -8,25 +8,27 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockBurnEvent;
 import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.event.block.BlockIgniteEvent;
-import org.bukkit.event.block.BlockBurnEvent;
 import org.bukkit.event.block.BlockListener;
+import org.bukkit.event.block.BlockPistonExtendEvent;
 import org.bukkit.event.block.BlockPistonRetractEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.block.BlockPistonExtendEvent;
 
 import com.palmergames.bukkit.towny.NotRegisteredException;
 import com.palmergames.bukkit.towny.PlayerCache;
-import com.palmergames.bukkit.towny.TownyException;
-import com.palmergames.bukkit.towny.TownySettings;
 import com.palmergames.bukkit.towny.PlayerCache.TownBlockStatus;
 import com.palmergames.bukkit.towny.Towny;
+import com.palmergames.bukkit.towny.TownyException;
+import com.palmergames.bukkit.towny.TownySettings;
 import com.palmergames.bukkit.towny.object.Coord;
 import com.palmergames.bukkit.towny.object.TownBlock;
 import com.palmergames.bukkit.towny.object.TownyPermission;
 import com.palmergames.bukkit.towny.object.TownyWorld;
 import com.palmergames.bukkit.towny.object.WorldCoord;
+import com.palmergames.bukkit.townywar.TownyWar;
+import com.palmergames.bukkit.townywar.TownyWarConfig;
 
 
 public class TownyBlockListener extends BlockListener {
@@ -238,7 +240,11 @@ public class TownyBlockListener extends BlockListener {
 		
 		return false;
 	}
-		
+	
+	public boolean t(String msg) {
+		System.out.println("Debug > "+msg);
+		return true;
+	}
 
 	public void onBlockPlaceEvent(BlockPlaceEvent event, boolean firstCall, String errMsg) {
 		Player player = event.getPlayer();
@@ -259,6 +265,20 @@ public class TownyBlockListener extends BlockListener {
 			TownBlockStatus status = cache.getStatus();
 			if (status == TownBlockStatus.UNCLAIMED_ZONE && plugin.hasWildOverride(worldCoord.getWorld(), player, event.getBlock().getTypeId(), TownyPermission.ActionType.BUILD))
 				return;
+			if (((status == TownBlockStatus.ENEMY && TownyWarConfig.isAllowingAttacks()) || status == TownBlockStatus.ADMIN)
+					&& event.getBlock().getType() == TownyWarConfig.getFlagBaseMaterial()
+					&& plugin.hasPlayerMode(player, "warflag")) {
+				try {
+					if (TownyWar.callAttackCellEvent(plugin, player, block, worldCoord))
+						return;
+				} catch (TownyException e) {
+					plugin.sendErrorMsg(player, e.getMessage());
+				}
+				
+				event.setBuild(false);
+				event.setCancelled(true);
+				return;
+			}
 			if (!cache.getBuildPermission()) { // If build cache is empty, throws null pointer
 				event.setBuild(false);
 				event.setCancelled(true);

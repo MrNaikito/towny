@@ -13,6 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
+import org.bukkit.Material;
 import org.bukkit.util.config.Configuration;
 import org.bukkit.util.config.ConfigurationNode;
 
@@ -26,6 +27,7 @@ import com.palmergames.bukkit.towny.object.TownyObject;
 import com.palmergames.bukkit.towny.object.TownyPermission.ActionType;
 import com.palmergames.bukkit.towny.object.TownyPermission.PermLevel;
 import com.palmergames.bukkit.towny.object.WorldCoord;
+import com.palmergames.bukkit.townywar.TownyWarConfig;
 import com.palmergames.bukkit.util.TimeTools;
 import com.palmergames.util.FileMgmt;
 
@@ -176,11 +178,20 @@ public class TownySettings {
 			
 			config.save();
 			
-			// Load Nation & Town level data into maps.
-			loadTownLevelConfig();
-			loadNationLevelConfig();
+			loadCachedObjects();
 		}
 	}
+	
+	public static void loadCachedObjects() throws IOException {
+    	// Cell War material types.
+    	TownyWarConfig.setFlagBaseMaterial(Material.matchMaterial(getString(ConfigNodes.WAR_ENEMY_FLAG_BASE_BLOCK)));
+    	TownyWarConfig.setFlagLightMaterial(Material.matchMaterial(getString(ConfigNodes.WAR_ENEMY_FLAG_LIGHT_BLOCK)));
+    	TownyWarConfig.setBeaconWireFrameMaterial(Material.matchMaterial(getString(ConfigNodes.WAR_ENEMY_BEACON_WIREFRAME_BLOCK)));
+    	
+    	// Load Nation & Town level data into maps.
+        loadTownLevelConfig();
+        loadNationLevelConfig();
+    }
 	
 	// This will read the language entry in the config.yml to attempt to load custom languages
 	// if the file is not found it will load the default from resource
@@ -202,22 +213,22 @@ public class TownySettings {
 	}
 	
 	private static String[] parseString(String str) {
-	return parseSingleLineString(str).split("@");
+		return parseSingleLineString(str).split("@");
 	}
 	
 	public static String parseSingleLineString(String str) {
-	return str.replaceAll("&", "\u00A7");
+		return str.replaceAll("&", "\u00A7");
 	}
 
     public static boolean getBoolean(ConfigNodes node) {
         return Boolean.parseBoolean(config.getString(node.getRoot().toLowerCase(), node.getDefault()));
     }
 
-    private static double getDouble(ConfigNodes node) {
+    public static double getDouble(ConfigNodes node) {
         return Double.parseDouble(config.getString(node.getRoot().toLowerCase(), node.getDefault()));
     }
 
-    private static int getInt(ConfigNodes node) {
+    public static int getInt(ConfigNodes node) {
         return Integer.parseInt(config.getString(node.getRoot().toLowerCase(), node.getDefault()));
     }
     /*
@@ -229,7 +240,7 @@ public class TownySettings {
         return config.getString(node.getRoot().toLowerCase(), node.getDefault());
     }
     
-    private static String getString(String root, String def){
+    public static String getString(String root, String def){
         String data = config.getString(root.toLowerCase(), def);
         if (data == null) {
         	sendError(root.toLowerCase() + " from config.yml");
@@ -794,15 +805,15 @@ public class TownySettings {
 	}
 	
 	public static int getWarTimeWarningDelay() {
-		return getInt(ConfigNodes.WARTIME_WARNING_DELAY);
+		return getInt(ConfigNodes.WAR_EVENT_WARNING_DELAY);
 	}
 	
 	public static int getWarzoneTownBlockHealth() {
-		return getInt(ConfigNodes.WARTIME_TOWN_BLOCK_HP);
+		return getInt(ConfigNodes.WAR_EVENT_TOWN_BLOCK_HP);
 	}
 	
 	public static int getWarzoneHomeBlockHealth() {
-		return getInt(ConfigNodes.WARTIME_HOME_BLOCK_HP);
+		return getInt(ConfigNodes.WAR_EVENT_HOME_BLOCK_HP);
 	}
 	public static String[] getWarTimeLoseTownBlockMsg(WorldCoord worldCoord) {
 		return getWarTimeLoseTownBlockMsg(worldCoord, "");
@@ -813,23 +824,23 @@ public class TownySettings {
 	}       
 	
 	public static int getWarPointsForTownBlock() {
-		return getInt(ConfigNodes.WARTIME_POINTS_TOWNBLOCK);
+		return getInt(ConfigNodes.WAR_EVENT_POINTS_TOWNBLOCK);
 	}
 	
 	public static int getWarPointsForTown() {
-		return getInt(ConfigNodes.WARTIME_POINTS_TOWN);
+		return getInt(ConfigNodes.WAR_EVENT_POINTS_TOWN);
 	}
 	
 	public static int getWarPointsForNation() {
-		return getInt(ConfigNodes.WARTIME_POINTS_NATION);
+		return getInt(ConfigNodes.WAR_EVENT_POINTS_NATION);
 	}
 	
 	public static int getWarPointsForKill() {
-		return getInt(ConfigNodes.WARTIME_POINTS_KILL);
+		return getInt(ConfigNodes.WAR_EVENT_POINTS_KILL);
 	}
 	
 	public static int getMinWarHeight() {
-		return getInt(ConfigNodes.WARTIME_MIN_HEIGHT);
+		return getInt(ConfigNodes.WAR_EVENT_MIN_HEIGHT);
 	}
 	
 	public static List<String> getWorldMobRemovalEntities() {
@@ -968,7 +979,7 @@ public class TownySettings {
 	}
 	
 	public static double getBaseSpoilsOfWar() {
-		return getDouble(ConfigNodes.WARTIME_BASE_SPOILS);
+		return getDouble(ConfigNodes.WAR_EVENT_BASE_SPOILS);
 	}
 	
 	public static double getWartimeDeathPrice() {
@@ -980,7 +991,7 @@ public class TownySettings {
 	}
 	
 	public static double getWartimeTownBlockLossPrice() {
-		return getDouble(ConfigNodes.WARTIME_TOWN_BLOCK_LOSS_PRICE);
+		return getDouble(ConfigNodes.WAR_EVENT_TOWN_BLOCK_LOSS_PRICE);
 	}
 	
 	public static boolean isDevMode() {
@@ -1004,7 +1015,7 @@ public class TownySettings {
     }
     
     public static boolean isRemovingOnMonarchDeath() {
-        return getBoolean(ConfigNodes.WARTIME_REMOVE_ON_MONARCH_DEATH);
+        return getBoolean(ConfigNodes.WAR_EVENT_REMOVE_ON_MONARCH_DEATH);
 	}
 	
 	public static double getTownUpkeepCost(Town town) {
