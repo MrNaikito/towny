@@ -25,6 +25,7 @@ import com.palmergames.bukkit.towny.TownySettings;
 import com.palmergames.bukkit.towny.object.Coord;
 import com.palmergames.bukkit.towny.object.TownBlock;
 import com.palmergames.bukkit.towny.object.TownyPermission;
+import com.palmergames.bukkit.towny.object.TownyUniverse;
 import com.palmergames.bukkit.towny.object.TownyWorld;
 import com.palmergames.bukkit.towny.object.WorldCoord;
 import com.palmergames.bukkit.townywar.TownyWar;
@@ -64,7 +65,7 @@ public class TownyBlockListener extends BlockListener {
 		Block block = event.getBlock();
 		WorldCoord worldCoord;
 		try {
-			worldCoord = new WorldCoord(plugin.getTownyUniverse().getWorld(block.getWorld().getName()), Coord.parseCoord(block));
+			worldCoord = new WorldCoord(TownyUniverse.getWorld(block.getWorld().getName()), Coord.parseCoord(block));
 		} catch (NotRegisteredException e1) {
 			plugin.sendErrorMsg(player, TownySettings.getLangString("msg_err_not_configured"));
 			event.setCancelled(true);
@@ -198,7 +199,7 @@ public class TownyBlockListener extends BlockListener {
 		TownBlock CurrentTownBlock = null, destinationTownBlock = null;
 		
 		try {
-			townyWorld = plugin.getTownyUniverse().getWorld(loc.getWorld().getName());
+			townyWorld = TownyUniverse.getWorld(loc.getWorld().getName());
 			CurrentTownBlock = townyWorld.getTownBlock(coord);
 		} catch (NotRegisteredException e) {
 			//System.out.print("Failed to fetch TownBlock");
@@ -251,7 +252,7 @@ public class TownyBlockListener extends BlockListener {
 		Block block = event.getBlock();
 		WorldCoord worldCoord;
 		try {
-			worldCoord = new WorldCoord(plugin.getTownyUniverse().getWorld(block.getWorld().getName()), Coord.parseCoord(block));
+			worldCoord = new WorldCoord(TownyUniverse.getWorld(block.getWorld().getName()), Coord.parseCoord(block));
 		} catch (NotRegisteredException e1) {
 			plugin.sendErrorMsg(player, TownySettings.getLangString("msg_err_not_configured"));
 			event.setCancelled(true);
@@ -303,7 +304,7 @@ public class TownyBlockListener extends BlockListener {
 		Coord coord = Coord.parseCoord(loc);
 
 		try {
-			TownyWorld townyWorld = plugin.getTownyUniverse().getWorld(loc.getWorld().getName());
+			TownyWorld townyWorld = TownyUniverse.getWorld(loc.getWorld().getName());
 			TownBlock townBlock = townyWorld.getTownBlock(coord);
 			if (townyWorld.isUsingTowny())
 				if ((block.getRelative(BlockFace.DOWN).getType() != Material.OBSIDIAN && !townBlock.getTown().isFire() && !townyWorld.isForceFire())

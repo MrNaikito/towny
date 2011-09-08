@@ -68,7 +68,7 @@ public class TownyEntityListener extends EntityListener {
                         
                         TownyUniverse universe = plugin.getTownyUniverse();
                         try {
-                                TownyWorld world = universe.getWorld(defender.getWorld().getName());
+                                TownyWorld world = TownyUniverse.getWorld(defender.getWorld().getName());
                                 
                                 // Wartime
                                 if (universe.isWarTime()) {
@@ -114,7 +114,7 @@ public class TownyEntityListener extends EntityListener {
                         TownyWorld townyWorld = null;
                         
                         try {
-                                townyWorld = plugin.getTownyUniverse().getWorld(loc.getWorld().getName());
+								townyWorld = TownyUniverse.getWorld(loc.getWorld().getName());
                         } catch (NotRegisteredException e) {
                                 // TODO Auto-generated catch block
                                 e.printStackTrace();
@@ -153,7 +153,7 @@ public class TownyEntityListener extends EntityListener {
                 TownyWorld townyWorld = null;
                 
                 try {
-                        townyWorld = plugin.getTownyUniverse().getWorld(block.getLocation().getWorld().getName());
+						townyWorld = TownyUniverse.getWorld(block.getLocation().getWorld().getName());
                 } catch (NotRegisteredException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
@@ -182,7 +182,7 @@ public class TownyEntityListener extends EntityListener {
                         
                         //TODO: expand to protect neutrals during a war
                         try {
-                                TownyWorld townyWorld = plugin.getTownyUniverse().getWorld(loc.getWorld().getName());
+								TownyWorld townyWorld = TownyUniverse.getWorld(loc.getWorld().getName());
                                 TownBlock townBlock = townyWorld.getTownBlock(coord);
                                 
                                 // If explosions are off, or it's wartime and explosions are off and the towns has no nation
@@ -238,7 +238,7 @@ public class TownyEntityListener extends EntityListener {
                 
                                 WorldCoord worldCoord;
                                 try {
-                                        worldCoord = new WorldCoord(plugin.getTownyUniverse().getWorld(painting.getWorld().getName()), Coord.parseCoord(painting.getLocation()));
+										worldCoord = new WorldCoord(TownyUniverse.getWorld(painting.getWorld().getName()), Coord.parseCoord(painting.getLocation()));
                                 } catch (NotRegisteredException e1) {
                                         plugin.sendErrorMsg(player, TownySettings.getLangString("msg_err_not_configured"));
                                         event.setCancelled(true);
@@ -281,7 +281,7 @@ public class TownyEntityListener extends EntityListener {
 
                 WorldCoord worldCoord;
                 try {
-                        worldCoord = new WorldCoord(plugin.getTownyUniverse().getWorld(painting.getWorld().getName()), Coord.parseCoord(painting.getLocation()));
+						worldCoord = new WorldCoord(TownyUniverse.getWorld(painting.getWorld().getName()), Coord.parseCoord(painting.getLocation()));
                 } catch (NotRegisteredException e1) {
                         plugin.sendErrorMsg(player, TownySettings.getLangString("msg_err_not_configured"));
                         event.setCancelled(true);

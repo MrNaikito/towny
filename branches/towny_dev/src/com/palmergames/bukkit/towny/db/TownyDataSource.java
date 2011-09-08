@@ -101,9 +101,12 @@ public abstract class TownyDataSource {
 	abstract public boolean saveNation(Nation nation);
 	abstract public boolean saveWorld(TownyWorld world);
 	
-	abstract public PlotBlockData loadPlotData(TownBlock plotChunk);
 	abstract public boolean savePlotData(PlotBlockData plotChunk);
+	
+	abstract public PlotBlockData loadPlotData(String worldName, int x, int z);
+	abstract public PlotBlockData loadPlotData(TownBlock townBlock);
 
+	abstract public void deletePlotData(PlotBlockData plotChunk);
 	abstract public void deleteResident(Resident resident);
 	abstract public void deleteTown(Town town);
 	abstract public void deleteNation(Nation nation);

@@ -29,7 +29,7 @@ private Server server;
 			
 			Coord coord = Coord.parseCoord(player);
 			try {
-				TownyWorld world = universe.getWorld(player.getWorld().getName());
+				TownyWorld world = TownyUniverse.getWorld(player.getWorld().getName());
 				TownBlock townBlock = world.getTownBlock(coord);
 					
 				if (universe.isAlly(townBlock.getTown(), universe.getResident(player.getName()).getTown()))

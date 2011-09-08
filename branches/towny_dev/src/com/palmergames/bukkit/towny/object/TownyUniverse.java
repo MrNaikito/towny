@@ -76,11 +76,11 @@ public class TownyUniverse extends TownyObject {
     private Hashtable<String, Resident> residents = new Hashtable<String, Resident>();
     private Hashtable<String, Town> towns = new Hashtable<String, Town>();
     private Hashtable<String, Nation> nations = new Hashtable<String, Nation>();
-    private Hashtable<String, TownyWorld> worlds = new Hashtable<String, TownyWorld>();
+    private static Hashtable<String, TownyWorld> worlds = new Hashtable<String, TownyWorld>();
     private static Hashtable<String, PlotBlockData> PlotChunks = new Hashtable<String, PlotBlockData>();
-    private static Hashtable<String, PlotBlockData> PlotChunksOwned = new Hashtable<String, PlotBlockData>();
+    //private static Hashtable<String, PlotBlockData> PlotChunksOwned = new Hashtable<String, PlotBlockData>();
     // private List<Election> elections;
-    private TownyDataSource dataSource;
+    private static TownyDataSource dataSource;
     private int townyRepeatingTask = -1;
     private int dailyTask = -1;
     private int mobRemoveTask = -1;
@@ -869,7 +869,7 @@ public class TownyUniverse extends TownyObject {
                 return getDataSource().loadAll();
         }
 
-        public TownyWorld getWorld(String name) throws NotRegisteredException {
+        public static TownyWorld getWorld(String name) throws NotRegisteredException {
                 TownyWorld world = worlds.get(name.toLowerCase());
                 /*
                 if (world == null) {
@@ -959,7 +959,7 @@ public class TownyUniverse extends TownyObject {
         }
         
         public void setDataSource(TownyDataSource dataSource) {
-                this.dataSource = dataSource;
+                TownyUniverse.dataSource = dataSource;
         }
 
         public TownyDataSource getDataSource() {
@@ -1302,15 +1302,14 @@ public class TownyUniverse extends TownyObject {
                 if (town != null)
                         getDataSource().saveTown(town);
                 
-                if (TownySettings.isWorldPlotManagement())
+                if (townBlock.getWorld().isUsingPlotManagementDelete())
                 	deleteTownBlockIds(townBlock);
                 
                 // Move the plot to be restored
-                if (TownySettings.isWorldPlotManagementRevert()) {
-                	String key = getPlotKey(townBlock);
-                	if (PlotChunksOwned.containsKey(key)) {
-                		PlotChunks.put(key, PlotChunksOwned.get(key));
-                		PlotChunksOwned.remove(key);
+                if (townBlock.getWorld().isUsingPlotManagementRevert()) {
+                	PlotBlockData plotData = getPlotChunkSnapshot(townBlock);
+                	if (plotData != null) {
+                		addPlotChunk(plotData);
                 	}
                 }
 
@@ -1320,7 +1319,6 @@ public class TownyUniverse extends TownyObject {
         
 		public void deleteTownBlockIds(TownBlock townBlock) {
         	
-        	List<Integer> plotManagementDeleteIds = TownySettings.getPlotManagementDeleteIds();
         	Block block = null;
         	int plotSize = TownySettings.getTownBlockSize();
         	
@@ -1332,7 +1330,7 @@ public class TownyUniverse extends TownyObject {
         				try {
         					block = plugin.getServerWorld(townBlock.getWorld().getName()).getBlockAt((townBlock.getX()*plotSize) + x, y, (townBlock.getZ()*plotSize) + z);
         					plugin.sendDebugMsg("Testing Block - " + block.getType().toString());
-	        				if (plotManagementDeleteIds.contains(block.getTypeId())) {
+	        				if (townBlock.getWorld().isPlotManagementDeleteIds(block.getTypeId())) {
 	        					plugin.sendDebugMsg("Setting Block type to Air");
 	        					block.setType(Material.AIR);
 	        				}
@@ -1350,11 +1348,14 @@ public class TownyUniverse extends TownyObject {
         }
 
         /**
-		 * @return the plotChunks
+		 * @return the plotChunks which are being processed
 		 */
 		public Hashtable<String, PlotBlockData> getPlotChunks() {
 			return PlotChunks;
 		}
+		/**
+		 * @return true if there are any chunks being processed.
+		 */
 		public static boolean hasPlotChunks() {
 			return !PlotChunks.isEmpty();
 		}
@@ -1367,51 +1368,63 @@ public class TownyUniverse extends TownyObject {
 		}
 		
 		/**
-		 * Removes a Plot Chunk from the Hashtable
+		 * Removes a Plot Chunk from the regeneration Hashtable
 		 * 
-		 * @param plotChunks the plotChunks to set
+		 * @param PlotBlockData
 		 */
 		public static void deletePlotChunk(PlotBlockData plotChunk) {
 			if (PlotChunks.containsKey(getPlotKey(plotChunk)))
 				PlotChunks.remove(getPlotKey(plotChunk));
 		}
-		public static void deletePlotChunkOwned(PlotBlockData plotChunk) {
-			if (PlotChunksOwned.containsKey(getPlotKey(plotChunk)))
-				PlotChunksOwned.remove(getPlotKey(plotChunk));
-		}
 		
 		/**
-		 * Adds a Plot Chunk to the Hashtable
+		 * Adds a Plot Chunk to the regeneration Hashtable
 		 * 
 		 * @param plotChunks
 		 */
 		public static void addPlotChunk(PlotBlockData plotChunk) {
 			if (!PlotChunks.containsKey(getPlotKey(plotChunk))) {
-				plotChunk.initialize();
+				//plotChunk.initialize();
 				PlotChunks.put(getPlotKey(plotChunk), plotChunk);
 			}
 		}
-		public static void addPlotChunkOwned(PlotBlockData plotChunk) {
-			if (!PlotChunksOwned.containsKey(getPlotKey(plotChunk))) {
-				//plotChunk.initialize();
-				PlotChunksOwned.put(getPlotKey(plotChunk), plotChunk);
+		/**
+		 * Saves a Plot Chunk snapshot to the datasource
+		 * 
+		 * @param PlotBlockData
+		 */
+		public static void addPlotChunkSnapshot(PlotBlockData plotChunk) {
+			if (dataSource.loadPlotData(plotChunk.getWorldName(),plotChunk.getX(),plotChunk.getZ()) == null) {
+				dataSource.savePlotData(plotChunk);
 			}
 		}
 		
 		/**
-		 * Gets a Plot Chunk from the Owned Hashtable
+		 * Deletes a Plot Chunk snapshot from the datasource
+		 * 
+		 * @param PlotBlockData
+		 */
+		public static void deletePlotChunkSnapshot(PlotBlockData plotChunk) {
+				dataSource.deletePlotData(plotChunk);
+		}
+		
+		/**
+		 * Loads a Plot Chunk snapshot from the datasource
+		 * 
+		 * @param TownBlock
+		 */
+		public static PlotBlockData getPlotChunkSnapshot(TownBlock townBlock) {
+			return dataSource.loadPlotData(townBlock);
+		}
+		
+		/**
+		 * Gets a Plot Chunk from the regeneration Hashtable
 		 * 
 		 * @param plotChunks
 		 */
 		public static PlotBlockData getPlotChunk(TownBlock townBlock) {
 			if (PlotChunks.containsKey(getPlotKey(townBlock))) {
 				return PlotChunks.get(getPlotKey(townBlock));
-			}
-			return null;
-		}
-		public static PlotBlockData getPlotChunkOwned(TownBlock townBlock) {
-			if (PlotChunksOwned.containsKey(getPlotKey(townBlock))) {
-				return PlotChunksOwned.get(getPlotKey(townBlock));
 			}
 			return null;
 		}
@@ -1425,15 +1438,15 @@ public class TownyUniverse extends TownyObject {
 		}
 
 		public void collectTownCosts() throws IConomyException, TownyException {
-                for (Town town : new ArrayList<Town>(towns.values()))
-                        if (town.hasUpkeep())
-                                if (!town.pay(TownySettings.getTownUpkeepCost(town))) {
-                                        removeTown(town);
-                                        sendGlobalMessage(town.getName() + TownySettings.getLangString("msg_bankrupt_town"));
-                                }
+			for (Town town : new ArrayList<Town>(towns.values()))
+				if (town.hasUpkeep())
+					if (!town.pay(TownySettings.getTownUpkeepCost(town))) {
+						removeTown(town);
+						sendGlobalMessage(town.getName() + TownySettings.getLangString("msg_bankrupt_town"));
+					}
 
-        setChanged();
-        notifyObservers(UPKEEP_TOWN);
+			setChanged();
+			notifyObservers(UPKEEP_TOWN);
         }
         
         public void collectNationCosts() throws IConomyException {

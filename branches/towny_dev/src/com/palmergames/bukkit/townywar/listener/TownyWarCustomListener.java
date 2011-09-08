@@ -48,7 +48,7 @@ public class TownyWarCustomListener extends CustomEventListener {
 			
 			TownyUniverse universe = plugin.getTownyUniverse();
 			try {
-				TownyWorld world = universe.getWorld(cell.getWorldName());
+				TownyWorld world = TownyUniverse.getWorld(cell.getWorldName());
 				WorldCoord worldCoord = new WorldCoord(world, cell.getX(), cell.getZ());
 				universe.removeWarZone(worldCoord);
 				
@@ -81,7 +81,7 @@ public class TownyWarCustomListener extends CustomEventListener {
 				Town town = resident.getTown();
 				Nation nation = town.getNation();
 				
-				TownyWorld world = universe.getWorld(cell.getWorldName());
+				TownyWorld world = TownyUniverse.getWorld(cell.getWorldName());
 				WorldCoord worldCoord = new WorldCoord(world, cell.getX(), cell.getZ());
 				universe.removeWarZone(worldCoord);
 				
@@ -108,7 +108,7 @@ public class TownyWarCustomListener extends CustomEventListener {
 			
 			TownyUniverse universe = plugin.getTownyUniverse();
 			try {
-				TownyWorld world = universe.getWorld(cell.getWorldName());
+				TownyWorld world = TownyUniverse.getWorld(cell.getWorldName());
 				WorldCoord worldCoord = new WorldCoord(world, cell.getX(), cell.getZ());
 				universe.removeWarZone(worldCoord);
 				plugin.updateCache(worldCoord);

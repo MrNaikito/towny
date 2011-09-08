@@ -12,9 +12,11 @@ import com.palmergames.bukkit.towny.TownySettings;
 
 public class TownyWorld extends TownyObject {
 	private List<Town> towns = new ArrayList<Town>();
-	private boolean isClaimable = true, isPVP, isForcePVP, isForceExpl, isForceFire, isForceTownMobs, hasWorldMobs, isDisablePlayerTrample, isDisableCreatureTrample, usingDefault = true, isUsingTowny = true;
+	private boolean isClaimable = true, isPVP, isForcePVP, isForceExpl, isForceFire, isForceTownMobs, hasWorldMobs, isDisablePlayerTrample,
+			isDisableCreatureTrample, usingDefault = true, isUsingTowny = true, isUsingPlotManagementDelete = true, isUsingPlotManagementRevert = true;
 	private List<Integer> unclaimedZoneIgnoreIds = null;
 	private List<Integer> plotManagementDeleteIds = null;
+	private List<Integer> plotManagementIgnoreIds = null;
 	private Boolean unclaimedZoneBuild = null, unclaimedZoneDestroy = null, unclaimedZoneSwitch = null, unclaimedZoneItemUse = null;
 	private String unclaimedZoneName = null;
 	private Hashtable<Coord, TownBlock> townBlocks = new Hashtable<Coord, TownBlock>();
@@ -35,6 +37,8 @@ public class TownyWorld extends TownyObject {
 		hasWorldMobs = true;
         //hasWorldMobs = TownySettings.isWorldMonstersOn(); ??
 		isForceExpl = TownySettings.isForcingExplosions();
+		isUsingPlotManagementDelete = TownySettings.isUsingPlotManagementDelete();
+		isUsingPlotManagementRevert = TownySettings.isUsingPlotManagementRevert();
 	}
 
 	public List<Town> getTowns() {
@@ -234,14 +238,29 @@ public class TownyWorld extends TownyObject {
 			setUnclaimedZoneItemUse(null);
 			setUnclaimedZoneIgnore(null);
 			setUnclaimedZoneName(null);
-		}
-			
+		}	
 	}
 
 	public boolean isUsingDefault() {
 		return usingDefault;
 	}
 	
+	
+	public void setUsingPlotManagementDelete(boolean using) {
+		isUsingPlotManagementDelete = using;
+	}
+	
+	public boolean isUsingPlotManagementDelete( ) {
+		return isUsingPlotManagementDelete;
+	}
+	
+	public void setUsingPlotManagementRevert(boolean using) {
+		isUsingPlotManagementRevert = using;
+	}
+	
+	public boolean isUsingPlotManagementRevert( ) {
+		return isUsingPlotManagementRevert;
+	}
 	
 	public List<Integer> getPlotManagementDeleteIds() {
 		if (plotManagementDeleteIds == null)
@@ -256,6 +275,21 @@ public class TownyWorld extends TownyObject {
 
 	public void setPlotManagementDeleteIds(List<Integer> plotManagementDeleteIds) {
 			this.plotManagementDeleteIds = plotManagementDeleteIds;
+	}
+	
+	public List<Integer> getPlotManagementIgnoreIds() {
+		if (plotManagementIgnoreIds == null)
+			return TownySettings.getPlotManagementIgnoreIds();
+		else
+			return plotManagementIgnoreIds;
+	}
+	
+	public boolean isPlotManagementIgnoreIds(int id) {
+		return getPlotManagementIgnoreIds().contains(id);
+	}
+
+	public void setPlotManagementIgnoreIds(List<Integer> plotManagementIgnoreIds) {
+			this.plotManagementIgnoreIds = plotManagementIgnoreIds;
 	}
 	
 	public List<Integer> getUnclaimedZoneIgnoreIds() {

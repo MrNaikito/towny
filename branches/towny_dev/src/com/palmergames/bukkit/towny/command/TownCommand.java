@@ -359,7 +359,7 @@ public class TownCommand implements CommandExecutor  {
          */
         public void showTownStatusHere(Player player) {
                 try {
-                        TownyWorld world = plugin.getTownyUniverse().getWorld(player.getWorld().getName());
+						TownyWorld world = TownyUniverse.getWorld(player.getWorld().getName());
                         Coord coord = Coord.parseCoord(player);
                         showTownStatusAtCoord(player, world, coord);
                 } catch (TownyException e) {
@@ -687,7 +687,7 @@ public class TownCommand implements CommandExecutor  {
                                         if (plugin.getTownyUniverse().isWarTime())
                                                 throw new TownyException(TownySettings.getLangString("msg_war_cannot_do"));
                                         
-                                        world = plugin.getTownyUniverse().getWorld(player.getWorld().getName());
+										world = TownyUniverse.getWorld(player.getWorld().getName());
                                         if (world.getMinDistanceFromOtherTowns(coord, resident.getTown()) < TownySettings.getMinDistanceFromTownHomeblocks())
                                                 throw new TownyException(TownySettings.getLangString("msg_too_close"));
                                         
@@ -695,7 +695,7 @@ public class TownCommand implements CommandExecutor  {
                                                 if ((world.getMinDistanceFromOtherTowns(coord, resident.getTown()) > TownySettings.getMaxDistanceBetweenHomeblocks()) && world.hasTowns())
                                                         throw new TownyException(TownySettings.getLangString("msg_too_far"));
                                         
-                                        townBlock = plugin.getTownyUniverse().getWorld(player.getWorld().getName()).getTownBlock(coord);
+										townBlock = TownyUniverse.getWorld(player.getWorld().getName()).getTownBlock(coord);
                                         town.setHomeBlock(townBlock);
                                         plugin.sendMsg(player, String.format(TownySettings.getLangString("msg_set_town_home"), coord.toString()));
                                 } catch (TownyException e) {
@@ -832,7 +832,7 @@ public class TownCommand implements CommandExecutor  {
                         if (resident.hasTown())
                                 throw new TownyException(String.format(TownySettings.getLangString("msg_err_already_res"), resident.getName()));
 
-                        TownyWorld world = universe.getWorld(player.getWorld().getName());
+                        TownyWorld world = TownyUniverse.getWorld(player.getWorld().getName());
                         
                         if (!world.isUsingTowny())
                                 throw new TownyException(TownySettings.getLangString("msg_set_use_towny_off"));
@@ -873,18 +873,16 @@ public class TownCommand implements CommandExecutor  {
                 town.setSpawn(spawn);
                 world.addTown(town);
                 
-                if (TownySettings.isWorldPlotManagementRevert()) {
+                if (world.isUsingPlotManagementRevert()) {
                 	PlotBlockData plotChunk = TownyUniverse.getPlotChunk(townBlock);
             		if (plotChunk != null) {
-            			plotChunk.resetBlockListRestored();
-            			TownyUniverse.addPlotChunkOwned(plotChunk);
-            			TownyUniverse.deletePlotChunk(plotChunk);
+            			TownyUniverse.deletePlotChunk(plotChunk); // just claimed so stop regeneration.
             		} else {
-            			plotChunk = new PlotBlockData(townBlock);
+            			plotChunk = new PlotBlockData(townBlock); // Not regenerating so create a new snapshot.
             			plotChunk.initialize();
-            			TownyUniverse.addPlotChunkOwned(plotChunk);
-            			plotChunk = null;
             		}
+            		TownyUniverse.addPlotChunkSnapshot(plotChunk); // Save a snapshot.
+            		plotChunk = null;
                 }
                 plugin.sendDebugMsg("Creating new Town account: " + "town-"+name);
                 if(TownySettings.isUsingIConomy())
@@ -1386,7 +1384,7 @@ public class TownCommand implements CommandExecutor  {
                                 town = resident.getTown();
                                 if (!resident.isMayor() && !town.hasAssistant(resident))
                                         throw new TownyException(TownySettings.getLangString("msg_not_mayor_ass"));
-                                world = plugin.getTownyUniverse().getWorld(player.getWorld().getName());
+								world = TownyUniverse.getWorld(player.getWorld().getName());
                                 
                                 if (!world.isUsingTowny())
                                         throw new TownyException(TownySettings.getLangString("msg_set_use_towny_off"));
@@ -1457,7 +1455,7 @@ public class TownCommand implements CommandExecutor  {
                                 if (!resident.isMayor())
                                         if (!town.hasAssistant(resident))
                                                 throw new TownyException(TownySettings.getLangString("msg_not_mayor_ass"));
-                                world = plugin.getTownyUniverse().getWorld(player.getWorld().getName());
+								world = TownyUniverse.getWorld(player.getWorld().getName());
                                 
                                 List<WorldCoord> selection;
                                 if (split.length == 1 && split[0].equalsIgnoreCase("all"))
@@ -1557,18 +1555,16 @@ public class TownCommand implements CommandExecutor  {
                         townBlock.setTown(town);
                         if (!town.hasHomeBlock())
                                 town.setHomeBlock(townBlock);
-                        if (TownySettings.isWorldPlotManagementRevert()) {
+                        if (town.getWorld().isUsingPlotManagementRevert()) {
                         	PlotBlockData plotChunk = TownyUniverse.getPlotChunk(townBlock);
                     		if (plotChunk != null) {
-                    			plotChunk.resetBlockListRestored();
-                    			TownyUniverse.addPlotChunkOwned(plotChunk);
-                    			TownyUniverse.deletePlotChunk(plotChunk);
+                    			TownyUniverse.deletePlotChunk(plotChunk); // just claimed so stop regeneration.
                     		} else {
-                    			plotChunk = new PlotBlockData(townBlock);
+                    			plotChunk = new PlotBlockData(townBlock); // Not regenerating so create a new snapshot.
                     			plotChunk.initialize();
-                    			TownyUniverse.addPlotChunkOwned(plotChunk);
-                    			plotChunk = null;
                     		}
+                    		TownyUniverse.addPlotChunkSnapshot(plotChunk); // Save a snapshot.
+                    		plotChunk = null;
                         }
                         return true;
                 }
