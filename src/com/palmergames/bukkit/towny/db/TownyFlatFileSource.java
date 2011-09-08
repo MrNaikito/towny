@@ -57,6 +57,7 @@ public class TownyFlatFileSource extends TownyDataSource {
 					rootFolder + dataFolder + FileMgmt.fileSeparator() + "nations" + FileMgmt.fileSeparator() + "deleted",
 					rootFolder + dataFolder + FileMgmt.fileSeparator() + "worlds",
 					rootFolder + dataFolder + FileMgmt.fileSeparator() + "worlds" + FileMgmt.fileSeparator() + "deleted",
+					rootFolder + dataFolder + FileMgmt.fileSeparator() + "plot-block-data",
 					rootFolder + dataFolder + FileMgmt.fileSeparator() + "townblocks"});
 			FileMgmt.checkFiles(new String[]{
 					rootFolder + dataFolder + FileMgmt.fileSeparator() + "residents.txt",
@@ -103,13 +104,13 @@ public class TownyFlatFileSource extends TownyDataSource {
 	}
 	
 	public String getPlotFilename(PlotBlockData plotChunk) {
-		return rootFolder + dataFolder + FileMgmt.fileSeparator() +  plotChunk.getWorldName()
+		return rootFolder + dataFolder + FileMgmt.fileSeparator() + "plot-block-data" + FileMgmt.fileSeparator() +  plotChunk.getWorldName()
 				+ FileMgmt.fileSeparator() + plotChunk.getX() + "_" + plotChunk.getZ()  + "_" + plotChunk.getSize() + ".data";
 	}
 
-	public String getPlotFilename(TownBlock plotChunk) {
-		return rootFolder + dataFolder + FileMgmt.fileSeparator() +  plotChunk.getWorld().getName()
-				+ FileMgmt.fileSeparator() + plotChunk.getX() + "_" + plotChunk.getZ()  + "_" + TownySettings.getTownBlockSize() + ".data";
+	public String getPlotFilename(TownBlock townBlock) {
+		return rootFolder + dataFolder + FileMgmt.fileSeparator() + "plot-block-data" + FileMgmt.fileSeparator() +  townBlock.getWorld().getName()
+				+ FileMgmt.fileSeparator() + townBlock.getX() + "_" + townBlock.getZ()  + "_" + TownySettings.getTownBlockSize() + ".data";
 	}
 	
 	
@@ -462,7 +463,7 @@ public class TownyFlatFileSource extends TownyDataSource {
 					tokens = line.split(",");
 					if (tokens.length == 3)
 						try {
-							TownyWorld world = universe.getWorld(tokens[0]);
+							TownyWorld world = TownyUniverse.getWorld(tokens[0]);
 							int x = Integer.parseInt(tokens[1]);
 							int z = Integer.parseInt(tokens[2]);
 							TownBlock homeBlock = world.getTownBlock(x, z);
@@ -738,19 +739,44 @@ public class TownyFlatFileSource extends TownyDataSource {
 							world.setUnclaimedZoneIgnore(nums);
 						} catch (Exception e) {
 						}
-					line = kvFile.get("plotManagementDeleteIds");
-					if (line != null)
-						try {
-							List<Integer> nums = new ArrayList<Integer>();
-							for (String s: line.split(","))
-								try {
-									nums.add(Integer.parseInt(s));
-								} catch (NumberFormatException e) {
-								}
-							world.setPlotManagementDeleteIds(nums);
-						} catch (Exception e) {
-						}
 				}
+				
+				line = kvFile.get("usingPlotManagementDelete");
+				if (line != null)
+					try {
+						world.setUsingPlotManagementDelete(Boolean.parseBoolean(line));
+					} catch (Exception e) {
+					}
+				line = kvFile.get("plotManagementDeleteIds");
+				if (line != null)
+					try {
+						List<Integer> nums = new ArrayList<Integer>();
+						for (String s: line.split(","))
+							try {
+								nums.add(Integer.parseInt(s));
+							} catch (NumberFormatException e) {
+							}
+						world.setPlotManagementDeleteIds(nums);
+					} catch (Exception e) {
+					}
+				line = kvFile.get("usingPlotManagementRevert");
+				if (line != null)
+					try {
+						world.setUsingPlotManagementRevert(Boolean.parseBoolean(line));
+					} catch (Exception e) {
+					}
+				line = kvFile.get("plotManagementIgnoreIds");
+				if (line != null)
+					try {
+						List<Integer> nums = new ArrayList<Integer>();
+						for (String s: line.split(","))
+							try {
+								nums.add(Integer.parseInt(s));
+							} catch (NumberFormatException e) {
+							}
+						world.setPlotManagementIgnoreIds(nums);
+					} catch (Exception e) {
+					}
 				
 				line = kvFile.get("usingTowny");
 				if (line != null)
@@ -1109,12 +1135,22 @@ public class TownyFlatFileSource extends TownyDataSource {
 			// Unclaimed Zone Name
 			if (world.getUnclaimedZoneName() != null)
 				fout.write("unclaimedZoneName=" + world.getUnclaimedZoneName() + newLine);
-			// Unclaimed Zone Name
+			// Unclaimed Zone Ignore Ids
 			if (world.getUnclaimedZoneIgnoreIds() != null)
 				fout.write("unclaimedZoneIgnoreIds=" + StringMgmt.join(world.getUnclaimedZoneIgnoreIds(), ",") + newLine);
-			// Unclaimed Zone Name
+			
+			// Using PlotManagement Delete
+			fout.write("usingPlotManagementDelete=" + Boolean.toString(world.isUsingPlotManagementDelete()) + newLine);
+			// Plot Management Delete Ids
 			if (world.getPlotManagementDeleteIds() != null)
 				fout.write("plotManagementDeleteIds=" + StringMgmt.join(world.getPlotManagementDeleteIds(), ",") + newLine);
+			
+			// Using PlotManagement Revert
+			fout.write("usingPlotManagementRevert=" + Boolean.toString(world.isUsingPlotManagementRevert()) + newLine);
+			// Plot Management Ignore Ids
+			if (world.getPlotManagementIgnoreIds() != null)
+				fout.write("plotManagementIgnoreIds=" + StringMgmt.join(world.getPlotManagementIgnoreIds(), ",") + newLine);
+			
 			// Using Towny
 			fout.write("usingTowny=" + Boolean.toString(world.isUsingTowny()) + newLine);
 			
@@ -1160,7 +1196,7 @@ public class TownyFlatFileSource extends TownyDataSource {
 			if (split.length != 2)
 				continue;
 			try {
-				TownyWorld world = universe.getWorld(split[0]);
+				TownyWorld world = TownyUniverse.getWorld(split[0]);
 				for (String s : split[1].split(";")) {
                     String blockTypeData = null;
                     int indexOfType = s.indexOf("[");
@@ -1273,13 +1309,43 @@ public class TownyFlatFileSource extends TownyDataSource {
 		
 	}
 	
+	/**
+	 * Load PlotBlockData
+	 * 
+	 * @param worldName
+	 * @param x
+	 * @param z
+	 * @return PlotBlockData or null
+	 */
 	@Override
-	public PlotBlockData loadPlotData(TownBlock plotChunk) {
-		String fileName = getPlotFilename(plotChunk);
+	public PlotBlockData loadPlotData(String worldName, int x, int z) {
+		
+		try {
+			TownyWorld world = TownyUniverse.getWorld(worldName);
+			TownBlock townBlock = new TownBlock(x,z,world);
+			
+			return loadPlotData(townBlock);
+		} catch (NotRegisteredException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	/**
+	 * Load PlotBlockData
+	 * 
+	 * @param townBlock
+	 * @return PlotBlockData or null
+	 */
+	@Override
+	public PlotBlockData loadPlotData(TownBlock townBlock) {
+		String fileName = getPlotFilename(townBlock);
+
 		int value;
 		
 		if (isFile(fileName)) {
-			PlotBlockData plotBlockData = new PlotBlockData(plotChunk);
+			PlotBlockData plotBlockData = new PlotBlockData(townBlock);
 			List<Integer>IntArr = new ArrayList<Integer>();
 			
 			try {
@@ -1288,18 +1354,25 @@ public class TownyFlatFileSource extends TownyDataSource {
 					while ((value = fin.read()) >= 0) {
 						IntArr.add(value);	
 					}
-					
 				} catch (IOException e) {
-					//e.printStackTrace();
-					plotBlockData.setBlockList(IntArr);
+					e.printStackTrace();
 				}
 				fin.close();
-				return plotBlockData;
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			plotBlockData.setBlockList(IntArr);
+			plotBlockData.resetBlockListRestored();
+			return plotBlockData;
 		}
 		return null;
+	}
+	
+	@Override
+	public void deletePlotData(PlotBlockData plotChunk) {
+		File file = new File(getPlotFilename(plotChunk));
+		if (file.exists())
+			file.delete();
 	}
 
 	@Override

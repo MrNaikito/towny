@@ -515,4 +515,12 @@ v0.76.1:
     - Explosions in the nether caused by using beds are now blocked if a town is there and set to block explosions. However, the fires it generates can not be blocked.
     - Added (Online) to title Resident Status
     - Added Neutral in Nation status.
-    - Moved /nation set neutral [on/off] to /nation toggle neutral    
+    - Moved /nation set neutral [on/off] to /nation toggle neutral
+    - Added plot regeneration.
+      When a town plot is unclaimed (by a player or through upkeep) it will slowly begin to revert to a pre town state.
+      Blocks will slowly change back to whatever blocks we're present at the moment the town block was claimed.
+      You can configure certain block types you don't want restored to prevent players exploiting regen for diamond ores.
+      Block types to not restore are configured in block_ignore in the worlds txt file data/worlds/worldname.txt
+    - Added a block deletion function to remove specified blocks when a town block becomes unclaimed.
+      This is useful for removing Lockette/Deadbolt signs on doors and chests.
+      Block types to remove are configured in unclaim_delete in the worlds txt file data/worlds/worldname.txt

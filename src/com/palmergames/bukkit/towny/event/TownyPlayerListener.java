@@ -29,6 +29,7 @@ import com.palmergames.bukkit.towny.object.Resident;
 import com.palmergames.bukkit.towny.object.Town;
 import com.palmergames.bukkit.towny.object.TownBlock;
 import com.palmergames.bukkit.towny.object.TownyPermission;
+import com.palmergames.bukkit.towny.object.TownyUniverse;
 import com.palmergames.bukkit.towny.object.TownyWorld;
 import com.palmergames.bukkit.towny.object.WorldCoord;
 import com.palmergames.bukkit.util.Colors;
@@ -106,7 +107,7 @@ public class TownyPlayerListener extends PlayerListener {
 		TownyWorld townyWorld = null;
 		
 		try {
-			townyWorld = plugin.getTownyUniverse().getWorld(block.getLocation().getWorld().getName());
+			townyWorld = TownyUniverse.getWorld(block.getLocation().getWorld().getName());
 		} catch (NotRegisteredException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -153,7 +154,7 @@ public class TownyPlayerListener extends PlayerListener {
 		//System.out.println("onPlayerInteractEvent");
 		
 		try {
-			worldCoord = new WorldCoord(plugin.getTownyUniverse().getWorld(player.getWorld().getName()), Coord.parseCoord(player));
+			worldCoord = new WorldCoord(TownyUniverse.getWorld(player.getWorld().getName()), Coord.parseCoord(player));
 		} catch (NotRegisteredException e1) {
 			plugin.sendErrorMsg(player, TownySettings.getLangString("msg_err_not_configured"));
 			event.setCancelled(true);
@@ -194,7 +195,7 @@ public class TownyPlayerListener extends PlayerListener {
 
 		WorldCoord worldCoord;
 		try {
-			worldCoord = new WorldCoord(plugin.getTownyUniverse().getWorld(block.getWorld().getName()), Coord.parseCoord(block));
+			worldCoord = new WorldCoord(TownyUniverse.getWorld(block.getWorld().getName()), Coord.parseCoord(block));
 		} catch (NotRegisteredException e1) {
 			plugin.sendErrorMsg(player, TownySettings.getLangString("msg_err_not_configured"));
 			event.setCancelled(true);
@@ -264,9 +265,9 @@ public class TownyPlayerListener extends PlayerListener {
 	  
 		
 		try {
-			TownyWorld fromWorld = plugin.getTownyUniverse().getWorld(from.getWorld().getName());
+			TownyWorld fromWorld = TownyUniverse.getWorld(from.getWorld().getName());
 			WorldCoord fromCoord = new WorldCoord(fromWorld, Coord.parseCoord(from));
-			TownyWorld toWorld = plugin.getTownyUniverse().getWorld(to.getWorld().getName());
+			TownyWorld toWorld = TownyUniverse.getWorld(to.getWorld().getName());
 			WorldCoord toCoord = new WorldCoord(toWorld, Coord.parseCoord(to));
 			if (!fromCoord.equals(toCoord))
 				onPlayerMoveChunk(player, fromCoord, toCoord, from, to);

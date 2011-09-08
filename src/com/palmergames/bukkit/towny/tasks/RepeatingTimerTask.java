@@ -13,12 +13,13 @@ public class RepeatingTimerTask extends TownyTimerTask {
 	
 	@Override
 	public void run() {
-		
 		if (TownyUniverse.hasPlotChunks())
-		for (PlotBlockData plotChunk : new ArrayList<PlotBlockData>(universe.getPlotChunks().values())) {
-			if (!plotChunk.restoreNextBlock())
-				TownyUniverse.deletePlotChunk(plotChunk);	
-		}
+			for (PlotBlockData plotChunk : new ArrayList<PlotBlockData>(universe.getPlotChunks().values())) {
+				if (!plotChunk.restoreNextBlock()) {
+					TownyUniverse.deletePlotChunk(plotChunk);	
+					TownyUniverse.deletePlotChunkSnapshot(plotChunk);
+				}
+			}
 	}
 	
 }

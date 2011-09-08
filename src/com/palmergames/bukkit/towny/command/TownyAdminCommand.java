@@ -206,7 +206,7 @@ public class TownyAdminCommand implements CommandExecutor  {
                                 if (plugin.getTownyUniverse().isWarTime())
                                         throw new TownyException(TownySettings.getLangString("msg_war_cannot_do"));
                                 
-                                world = plugin.getTownyUniverse().getWorld(player.getWorld().getName());
+								world = TownyUniverse.getWorld(player.getWorld().getName());
                                 
                                 List<WorldCoord> selection;
                                 selection = TownyUtil.selectWorldCoordArea(null, new WorldCoord(world, Coord.parseCoord(player)), split);

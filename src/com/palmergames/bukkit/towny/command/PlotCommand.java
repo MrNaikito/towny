@@ -19,6 +19,7 @@ import com.palmergames.bukkit.towny.object.Coord;
 import com.palmergames.bukkit.towny.object.Resident;
 import com.palmergames.bukkit.towny.object.Town;
 import com.palmergames.bukkit.towny.object.TownBlock;
+import com.palmergames.bukkit.towny.object.TownyUniverse;
 import com.palmergames.bukkit.towny.object.TownyWorld;
 import com.palmergames.bukkit.towny.object.WorldCoord;
 import com.palmergames.bukkit.util.ChatTools;
@@ -89,7 +90,7 @@ public class PlotCommand implements CommandExecutor  {
                         TownyWorld world;
                         try {
                                 resident = plugin.getTownyUniverse().getResident(player.getName());
-                                world = plugin.getTownyUniverse().getWorld(player.getWorld().getName());
+								world = TownyUniverse.getWorld(player.getWorld().getName());
                         } catch (TownyException x) {
                                 plugin.sendErrorMsg(player, x.getError());
                                 return;

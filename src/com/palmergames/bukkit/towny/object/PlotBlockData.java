@@ -52,11 +52,16 @@ public class PlotBlockData {
         return list;
     }
 	
+	/**
+	 * Reverts an area to the stored image.
+	 * 
+	 * @return true if there are more blocks to check.
+	 */
 	public boolean restoreNextBlock() {
 		Block block = null;
-		int x, y, z;
+		int x, y, z, blockId;
 		
-		while (true) {
+		while (blockListRestored < blockList.size()) {
 			y = height - (blockListRestored % height);
 			x = (int)(blockListRestored/height) % size;
 			z = ((int)(blockListRestored/height) / size) % size;
@@ -64,26 +69,25 @@ public class PlotBlockData {
 				block = TownyUniverse.plugin.getServerWorld(worldName).getBlockAt((getX()*size) + x, y, (getZ()*size) + z);					
 				// If this block isn't correct, replace
 				// and flag as done.
-				if (block.getTypeId() != blockList.get(blockListRestored)) {
-					block.setTypeId(blockList.get(blockListRestored));
-					break;
+				blockId = block.getTypeId();
+				if ((blockId != blockList.get(blockListRestored))) {
+					if (!TownyUniverse.getWorld(worldName).isPlotManagementIgnoreIds(blockList.get(blockListRestored))) {
+						block.setTypeId(blockList.get(blockListRestored));
+					} else
+						block.setTypeId(0);
+						
+					return true;
 				}
-							
 			} catch (NotRegisteredException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			blockListRestored++;
-			if (blockListRestored == blockList.size())
-				break;
 		}
-		
-		if (blockListRestored == blockList.size()) {
-			// reset as we are finished with the regeneration
-			resetBlockListRestored();
-			return false;
-		}
-		return true;	
+
+		// reset as we are finished with the regeneration
+		resetBlockListRestored();
+		return false;
 	}
 
 	public int getX() {

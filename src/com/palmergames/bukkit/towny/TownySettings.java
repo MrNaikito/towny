@@ -1080,7 +1080,7 @@ public class TownySettings {
 		return getBoolean(ConfigNodes.NWS_FORCE_FIRE_ON);
 	}
         
-    public static boolean isWorldPlotManagement() {
+    public static boolean isUsingPlotManagementDelete() {
     	return getBoolean(ConfigNodes.NWS_PLOT_MANAGEMENT_ENABLE);
     }
     
@@ -1088,9 +1088,17 @@ public class TownySettings {
     	return getIntArr(ConfigNodes.NWS_PLOT_MANAGEMENT_DELETE);
     }
     
-    public static boolean isWorldPlotManagementRevert() {
+    public static boolean isUsingPlotManagementRevert() {
     	return getBoolean(ConfigNodes.NWS_PLOT_MANAGEMENT_REVERT_ENABLE);
     }
+    
+    public static long getPlotManagementSpeed() {
+		return getSeconds(ConfigNodes.NWS_PLOT_MANAGEMENT_REVERT_TIME);
+	}
+    
+    public static List<Integer> getPlotManagementIgnoreIds() {
+		return getIntArr(ConfigNodes.NWS_PLOT_MANAGEMENT_REVERT_IGNORE);
+	}    
 
     public static boolean isTownRespawning() {
         return getBoolean(ConfigNodes.GTOWN_SETTINGS_TOWN_RESPAWN);
