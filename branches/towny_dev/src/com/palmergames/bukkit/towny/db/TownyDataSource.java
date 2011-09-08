@@ -74,17 +74,18 @@ public abstract class TownyDataSource {
 
 	public boolean loadAll() {
 		return loadWorldList() && loadNationList() && loadTownList() && loadResidentList()
-			&& loadWorlds() && loadNations() && loadTowns() && loadResidents();
+			&& loadWorlds() && loadNations() && loadTowns() && loadResidents() && loadRegenList();
 	}
 
 	public boolean saveAll() {
-		return saveWorldList() && saveNationList() && saveTownList() && saveResidentList()
+		return loadRegenList() && saveWorldList() && saveNationList() && saveTownList() && saveResidentList()
 			&& saveWorlds() && saveNations() && saveTowns() && saveResidents();
 	}
 
 	abstract public boolean loadResidentList();
 	abstract public boolean loadTownList();
 	abstract public boolean loadNationList();
+	abstract public boolean loadRegenList();
 	
 	abstract public boolean loadResident(Resident resident);
 	abstract public boolean loadTown(Town town);
@@ -95,6 +96,7 @@ public abstract class TownyDataSource {
 	abstract public boolean saveTownList();
 	abstract public boolean saveNationList();
 	abstract public boolean saveWorldList();
+	abstract public boolean saveRegenList();
 	
 	abstract public boolean saveResident(Resident resident);
 	abstract public boolean saveTown(Town town);

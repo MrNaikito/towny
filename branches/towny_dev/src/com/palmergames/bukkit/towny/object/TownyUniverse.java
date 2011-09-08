@@ -116,7 +116,7 @@ public class TownyUniverse extends TownyObject {
     
     public void toggleTownyRepeatingTimer(boolean on) {
         if (on && !isTownyRepeatingTaskRunning()) {
-        	townyRepeatingTask = getPlugin().getServer().getScheduler().scheduleAsyncRepeatingTask(getPlugin(), new RepeatingTimerTask(this), 0, MinecraftTools.convertToTicks(5));
+        	townyRepeatingTask = getPlugin().getServer().getScheduler().scheduleAsyncRepeatingTask(getPlugin(), new RepeatingTimerTask(this), 0, MinecraftTools.convertToTicks(TownySettings.getPlotManagementSpeed()));
             if (townyRepeatingTask == -1)
             	plugin.sendErrorMsg("Could not schedule Towny Timer Task.");
         } else if (!on && isTownyRepeatingTaskRunning()) {
@@ -1309,7 +1309,7 @@ public class TownyUniverse extends TownyObject {
                 if (townBlock.getWorld().isUsingPlotManagementRevert()) {
                 	PlotBlockData plotData = getPlotChunkSnapshot(townBlock);
                 	if (plotData != null) {
-                		addPlotChunk(plotData);
+                		addPlotChunk(plotData, true);
                 	}
                 }
 
@@ -1373,8 +1373,10 @@ public class TownyUniverse extends TownyObject {
 		 * @param PlotBlockData
 		 */
 		public static void deletePlotChunk(PlotBlockData plotChunk) {
-			if (PlotChunks.containsKey(getPlotKey(plotChunk)))
+			if (PlotChunks.containsKey(getPlotKey(plotChunk))) {
 				PlotChunks.remove(getPlotKey(plotChunk));
+				dataSource.saveRegenList();
+			}
 		}
 		
 		/**
@@ -1382,10 +1384,12 @@ public class TownyUniverse extends TownyObject {
 		 * 
 		 * @param plotChunks
 		 */
-		public static void addPlotChunk(PlotBlockData plotChunk) {
+		public static void addPlotChunk(PlotBlockData plotChunk, boolean save) {
 			if (!PlotChunks.containsKey(getPlotKey(plotChunk))) {
 				//plotChunk.initialize();
 				PlotChunks.put(getPlotKey(plotChunk), plotChunk);
+				if (save)
+					dataSource.saveRegenList();
 			}
 		}
 		/**

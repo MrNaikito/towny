@@ -63,7 +63,8 @@ public class TownyFlatFileSource extends TownyDataSource {
 					rootFolder + dataFolder + FileMgmt.fileSeparator() + "residents.txt",
 					rootFolder + dataFolder + FileMgmt.fileSeparator() + "towns.txt",
 					rootFolder + dataFolder + FileMgmt.fileSeparator() + "nations.txt",
-					rootFolder + dataFolder + FileMgmt.fileSeparator() + "worlds.txt"});
+					rootFolder + dataFolder + FileMgmt.fileSeparator() + "worlds.txt",
+					rootFolder + dataFolder + FileMgmt.fileSeparator() + "regen.txt"});
 		} catch (IOException e) {
 			System.out.println("[Towny] Error: Could not create flatfile default files and folders.");
 		}
@@ -231,6 +232,40 @@ public class TownyFlatFileSource extends TownyDataSource {
 			}
 			return true;
 		}
+	}
+	
+	@Override
+	public boolean loadRegenList() {
+		sendDebugMsg("Loading Regen List");
+
+		String line;
+		BufferedReader fin;
+		String[] split;
+		PlotBlockData plotData;
+
+		try {
+			fin = new BufferedReader(new FileReader(rootFolder + dataFolder + FileMgmt.fileSeparator() + "regen.txt"));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return false;
+		}
+		try {
+			while ((line = fin.readLine()) != null)
+				if (!line.equals("")) {
+					split = line.split(",");
+					plotData = loadPlotData(split[0],Integer.parseInt(split[1]),Integer.parseInt(split[2]));
+                	if (plotData != null) {
+                		TownyUniverse.addPlotChunk(plotData, false);
+                	}
+				}
+			fin.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+
 	}
 
 	/*
@@ -866,7 +901,7 @@ public class TownyFlatFileSource extends TownyDataSource {
 			fout.close();
 			return true;
 		} catch (Exception e) {
-			System.out.println("[Towny] Loading Error: Exception while saving residents list file");
+			System.out.println("[Towny] Saving Error: Exception while saving residents list file");
 			e.printStackTrace();
 			return false;
 		}
@@ -881,7 +916,7 @@ public class TownyFlatFileSource extends TownyDataSource {
 			fout.close();
 			return true;
 		} catch (Exception e) {
-			System.out.println("[Towny] Loading Error: Exception while saving town list file");
+			System.out.println("[Towny] Saving Error: Exception while saving town list file");
 			e.printStackTrace();
 			return false;
 		}
@@ -896,7 +931,7 @@ public class TownyFlatFileSource extends TownyDataSource {
 			fout.close();
 			return true;
 		} catch (Exception e) {
-			System.out.println("[Towny] Loading Error: Exception while saving nation list file");
+			System.out.println("[Towny] Saving Error: Exception while saving nation list file");
 			e.printStackTrace();
 			return false;
 		}
@@ -914,7 +949,25 @@ public class TownyFlatFileSource extends TownyDataSource {
 			fout.close();
 			return true;
 		} catch (Exception e) {
-			System.out.println("[Towny] Loading Error: Exception while saving world list file");
+			System.out.println("[Towny] Saving Error: Exception while saving world list file");
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	@Override
+	public boolean saveRegenList() {
+		try {
+			
+			System.out.print("[Towny] save active regen list");
+			
+			BufferedWriter fout = new BufferedWriter(new FileWriter(rootFolder + dataFolder + FileMgmt.fileSeparator() + "regen.txt"));
+			for (PlotBlockData plot : new ArrayList<PlotBlockData>(universe.getPlotChunks().values()))
+				fout.write(plot.getWorldName() + "," + plot.getX() + "," + plot.getZ() + newLine);
+			fout.close();
+			return true;
+		} catch (Exception e) {
+			System.out.println("[Towny] Saving Error: Exception while saving regen file");
 			e.printStackTrace();
 			return false;
 		}

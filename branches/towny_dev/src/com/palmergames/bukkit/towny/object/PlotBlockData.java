@@ -59,20 +59,21 @@ public class PlotBlockData {
 	 */
 	public boolean restoreNextBlock() {
 		Block block = null;
-		int x, y, z, blockId;
+		int x, y, z, blockId, reverse;
 		
 		while (blockListRestored < blockList.size()) {
-			y = height - (blockListRestored % height);
-			x = (int)(blockListRestored/height) % size;
-			z = ((int)(blockListRestored/height) / size) % size;
+			reverse = (blockList.size()-1) - blockListRestored;
+			y = height - (reverse % height);
+			x = (int)(reverse/height) % size;
+			z = ((int)(reverse/height) / size) % size;
 			try {
 				block = TownyUniverse.plugin.getServerWorld(worldName).getBlockAt((getX()*size) + x, y, (getZ()*size) + z);					
 				// If this block isn't correct, replace
 				// and flag as done.
 				blockId = block.getTypeId();
-				if ((blockId != blockList.get(blockListRestored))) {
-					if (!TownyUniverse.getWorld(worldName).isPlotManagementIgnoreIds(blockList.get(blockListRestored))) {
-						block.setTypeId(blockList.get(blockListRestored));
+				if ((blockId != blockList.get(reverse))) {
+					if (!TownyUniverse.getWorld(worldName).isPlotManagementIgnoreIds(blockList.get(reverse))) {
+						block.setTypeId(blockList.get(reverse));
 					} else
 						block.setTypeId(0);
 						
