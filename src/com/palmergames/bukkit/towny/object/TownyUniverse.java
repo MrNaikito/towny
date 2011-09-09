@@ -212,7 +212,9 @@ public class TownyUniverse extends TownyObject {
                         resident.setRegistered(System.currentTimeMillis());
                         if (!TownySettings.getDefaultTownName().equals(""))
                                 try {
-                                        getTown(TownySettings.getDefaultTownName()).addResident(resident);
+                                        Town town = getTown(TownySettings.getDefaultTownName());
+                                        town.addResident(resident);
+                                        getDataSource().saveTown(town);
                                 } catch (NotRegisteredException e) {
                                 } catch (AlreadyRegisteredException e) {
                                 }

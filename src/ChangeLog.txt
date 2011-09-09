@@ -526,3 +526,4 @@ v0.76.1:
       Block types to remove are configured in unclaim_delete in the worlds txt file data/worlds/worldname.txt
     - Removed the commands '/town add+' and '/town kick+'. Use '/town add' and '/town kick'.
     - Removed + commands from '/town assistant [.add/remove]'.
+    - Fixed when players are added to the default town they are unable to use '/town leave'.
