@@ -112,7 +112,7 @@ public enum ConfigNodes {
                     "# if a resident can't pay his town tax then he is kicked from the town.",
                     "# if a town or nation fails to pay it's upkeep it is deleted."),
             GTOWN_SETTINGS_DAILY_TAXES_MAX_TAX("global_town_settings.daily_taxes.max_tax_amount","1000.0", "# Maximum amount allowed when using flat taxes"),
-            GTOWN_SETTINGS_DAILY_TAXES_MAX_TAX_PERCENT("global_town_settings.daily_taxes.max_tax_percent","25%", "# maximum percentage allowed when taxing by percentages"),
+            GTOWN_SETTINGS_DAILY_TAXES_MAX_TAX_PERCENT("global_town_settings.daily_taxes.max_tax_percent","25", "# maximum percentage allowed when taxing by percentages"),
             GTOWN_SETTINGS_BANK_CAP_AMOUNT("global_town_settings.bank_cap","0",
                     "",
                     "# Maximum amount of money allowed in town bank",
