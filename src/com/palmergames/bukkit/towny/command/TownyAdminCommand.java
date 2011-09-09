@@ -261,9 +261,7 @@ public class TownyAdminCommand implements CommandExecutor  {
                                 if (split.length == 1)
                                         plugin.getTownyUniverse().sendMessage(player, plugin.getTownyUniverse().getStatus(town));
                                 else if (split[1].equalsIgnoreCase("add"))
-                                        TownCommand.townAdd(player, town, StringMgmt.remArgs(split, 2), true);
-                                else if (split[1].equalsIgnoreCase("add+"))
-                                        TownCommand.townAdd(player, town, StringMgmt.remArgs(split, 2), false);
+                                        TownCommand.townAdd(player, town, StringMgmt.remArgs(split, 2));
                         } catch (NotRegisteredException e) {
                                 plugin.sendErrorMsg(player, e.getError());
                         }
