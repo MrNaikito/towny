@@ -1348,6 +1348,7 @@ public class TownyFlatFileSource extends TownyDataSource {
 			return false;
 		}
 		try {
+			// Push the plot height, then the plot block data types.
 			fout.write(plotChunk.getHeight());
 			for (int block: new ArrayList<Integer>(plotChunk.getBlockList())) {
 				fout.write(block);
@@ -1405,6 +1406,7 @@ public class TownyFlatFileSource extends TownyDataSource {
 			try {
 				BufferedReader fin = new BufferedReader(new FileReader(fileName));
 				try {
+					// First entry is the plot height
 					plotBlockData.setHeight(fin.read());
 					while ((value = fin.read()) >= 0) {
 						IntArr.add(value);	
