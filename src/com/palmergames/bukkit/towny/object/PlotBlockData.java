@@ -21,8 +21,12 @@ public class PlotBlockData {
 		setX(townBlock.getX());
 		setZ(townBlock.getZ());
 		setSize(TownySettings.getTownBlockSize());
-		setHeight(127);
 		this.worldName = townBlock.getWorld().getName();
+		try {
+			setHeight(TownyUniverse.plugin.getServerWorld(worldName).getMaxHeight()-1);
+		} catch (NotRegisteredException e) {
+			setHeight(127);
+		}
 		this.blockListRestored = 0;
 	}
 	
