@@ -1445,37 +1445,81 @@ public class TownyUniverse extends TownyObject {
                                 player.sendMessage(msg);
         }
         
-        public List<Resident> getOnlineResidents(Player player, String[] names) {
-                List<Resident> invited = new ArrayList<Resident>();
-                for (String name : names) {
-                        List<Player> matches = plugin.getServer().matchPlayer(name);
-                        if (matches.size() > 1) {
-                                String line = "Multiple players selected";
-                                for (Player p : matches)
-                                        line += ", " + p.getName();
-                                plugin.sendErrorMsg(player, line);
-                        } else if (matches.size() == 1)
-                                try {
-                                        Resident target = plugin.getTownyUniverse().getResident(matches.get(0).getName());
-                                        invited.add(target);
-                                } catch (TownyException x) {
-                                        plugin.sendErrorMsg(player, x.getError());
-                                }
-                }
-                return invited;
+        public List<Resident> getValidatedResidents(Player player, String[] names) {
+        	List<Resident> invited = new ArrayList<Resident>();
+        	for (String name : names) {
+        		List<Player> matches = plugin.getServer().matchPlayer(name);
+        		if (matches.size() > 1) {
+                    String line = "Multiple players selected";
+                    for (Player p : matches)
+                            line += ", " + p.getName();
+                    plugin.sendErrorMsg(player, line);
+        		} else if (matches.size() == 1) {
+        			// Match found online
+                    try {
+                            Resident target = getResident(matches.get(0).getName());
+                            invited.add(target);
+                    } catch (TownyException x) {
+                            plugin.sendErrorMsg(player, x.getError());
+                    }
+        		} else {
+        			// No online matches so test for offline.
+        			Resident target;
+					try {
+						target = getResident(name);
+						invited.add(target);
+					} catch (NotRegisteredException x) {
+						plugin.sendErrorMsg(player, x.getError());
+					}
+        		}
+        	}
+        	return invited;
         }
         
-        public List<Resident> getOnlineResidents(ResidentList residentList) {
-    		List<Resident> onlineResidents = new ArrayList<Resident>();
-    		for (Player player : plugin.getServer().getOnlinePlayers()) {
-    			for (Resident resident : residentList.getResidents()) {
-    				if (resident.getName().equalsIgnoreCase(player.getName()))
-    					onlineResidents.add(resident);
-    			}
-    		}
-    		
-    		return onlineResidents;
-    	}
+    public List<Resident> getOnlineResidents(Player player, String[] names) {
+    	List<Resident> invited = new ArrayList<Resident>();
+        for (String name : names) {
+        	List<Player> matches = plugin.getServer().matchPlayer(name);
+            if (matches.size() > 1) {
+            	String line = "Multiple players selected";
+                for (Player p : matches)
+                    line += ", " + p.getName();
+                plugin.sendErrorMsg(player, line);
+            } else if (matches.size() == 1)
+            	try {
+                    Resident target = plugin.getTownyUniverse().getResident(matches.get(0).getName());
+                    invited.add(target);
+            	} catch (TownyException x) {
+                    plugin.sendErrorMsg(player, x.getError());
+            }
+        }
+        return invited;
+}
+    /*
+    private static List<Resident> getResidents(Player player, String[] names) {
+        List<Resident> invited = new ArrayList<Resident>();
+        for (String name : names)
+            try {
+                Resident target = plugin.getTownyUniverse().getResident(name);
+                invited.add(target);
+            } catch (TownyException x) {
+                plugin.sendErrorMsg(player, x.getError());
+            }
+        return invited;
+    }
+    */
+        
+    public List<Resident> getOnlineResidents(ResidentList residentList) {
+    	List<Resident> onlineResidents = new ArrayList<Resident>();
+		for (Player player : plugin.getServer().getOnlinePlayers()) {
+			for (Resident resident : residentList.getResidents()) {
+				if (resident.getName().equalsIgnoreCase(player.getName()))
+					onlineResidents.add(resident);
+			}
+		}
+		
+		return onlineResidents;
+	}
         
 	public void requestTeleport(Player player, Town town) {
         try {

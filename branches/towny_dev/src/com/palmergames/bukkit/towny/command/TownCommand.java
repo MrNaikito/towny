@@ -286,13 +286,9 @@ public class TownCommand implements CommandExecutor  {
                         else if (split[0].equalsIgnoreCase("delete"))
                                 townDelete(player, newSplit);
                         else if (split[0].equalsIgnoreCase("add"))
-                                townAdd(player, null, newSplit, true);
+                                townAdd(player, null, newSplit);
                         else if (split[0].equalsIgnoreCase("kick"))
-                                townKick(player, newSplit, true);
-                        else if (split[0].equalsIgnoreCase("add+"))
-                                townAdd(player, null, newSplit, false);
-                        else if (split[0].equalsIgnoreCase("kick+"))
-                                townKick(player, newSplit, false);
+                                townKick(player, newSplit);
                         else if (split[0].equalsIgnoreCase("claim"))
                                 parseTownClaimCommand(player, newSplit);
                         else if (split[0].equalsIgnoreCase("unclaim"))
@@ -340,16 +336,10 @@ public class TownCommand implements CommandExecutor  {
                         //TODO: assistant help
                 } else if (split[0].equalsIgnoreCase("add")) {
                         String[] newSplit = StringMgmt.remFirstArg(split);
-                        townAssistantsAdd(player, newSplit, true);
+                        townAssistantsAdd(player, newSplit);
                 } else if (split[0].equalsIgnoreCase("remove")) {
                         String[] newSplit = StringMgmt.remFirstArg(split);
-                        townAssistantsRemove(player, newSplit, true);
-                } else if (split[0].equalsIgnoreCase("add+")) {
-                        String[] newSplit = StringMgmt.remFirstArg(split);
-                        townAssistantsAdd(player, newSplit, false);
-                } else if (split[0].equalsIgnoreCase("remove+")) {
-                        String[] newSplit = StringMgmt.remFirstArg(split);
-                        townAssistantsRemove(player, newSplit, false);
+                        townAssistantsRemove(player, newSplit);
                 }
         }
         
@@ -987,7 +977,7 @@ public class TownCommand implements CommandExecutor  {
          * @param names
          */
 
-        public void townKick(Player player, String[] names, boolean matchOnline) {
+        public void townKick(Player player, String[] names) {
                 Resident resident;
                 Town town;
                 try {
@@ -1001,11 +991,11 @@ public class TownCommand implements CommandExecutor  {
                         return;
                 }
 
-                townKickResidents(player, resident, town, (matchOnline ? plugin.getTownyUniverse().getOnlineResidents(player, names) : getResidents(player, names)));
+                townKickResidents(player, resident, town, plugin.getTownyUniverse().getValidatedResidents(player, names));
                 
                 plugin.updateCache();
         }
-        
+        /*
         private static List<Resident> getResidents(Player player, String[] names) {
                 List<Resident> invited = new ArrayList<Resident>();
                 for (String name : names)
@@ -1017,23 +1007,23 @@ public class TownCommand implements CommandExecutor  {
                         }
                 return invited;
         }
-        
-        public static void townAddResidents(Player player, Town town, List<Resident> invited, boolean online) {
+        */
+        public static void townAddResidents(Player player, Town town, List<Resident> invited) {
                 ArrayList<Resident> remove = new ArrayList<Resident>();
                 for (Resident newMember : invited)
                         try {
                                 // only add players with the right permissions.
                                 if (plugin.isPermissions()) {
-                                                if (!online) {
-                                                        plugin.sendErrorMsg(player, String.format(TownySettings.getLangString("msg_offline_no_join"), newMember.getName()));
-                                                        remove.add(newMember);
-                                                } else if (!plugin.hasPermission(plugin.getServer().getPlayer(newMember.getName()), "towny.town.resident")) {
-                                                        plugin.sendErrorMsg(player, String.format(TownySettings.getLangString("msg_not_allowed_join"), newMember.getName()));
-                                                        remove.add(newMember);
-                                                } else {
-                                                        town.addResidentCheck(newMember);
-                                                        townInviteResident(town, newMember);
-                                                }
+                                	if (plugin.getServer().matchPlayer(newMember.getName()).isEmpty()) { //Not online
+                                        plugin.sendErrorMsg(player, String.format(TownySettings.getLangString("msg_offline_no_join"), newMember.getName()));
+                                        remove.add(newMember);
+                                } else if (!plugin.hasPermission(plugin.getServer().getPlayer(newMember.getName()), "towny.town.resident")) {
+                                        plugin.sendErrorMsg(player, String.format(TownySettings.getLangString("msg_not_allowed_join"), newMember.getName()));
+                                        remove.add(newMember);
+                                } else {
+                                        town.addResidentCheck(newMember);
+                                        townInviteResident(town, newMember);
+                                }
                                 } else {
                                         town.addResidentCheck(newMember);
                                         townInviteResident(town, newMember);
@@ -1140,7 +1130,7 @@ public class TownCommand implements CommandExecutor  {
          * @param names
          */
 
-        public void townAssistantsAdd(Player player, String[] names, boolean matchOnline) {
+        public void townAssistantsAdd(Player player, String[] names) {
                 Resident resident;
                 Town town;
                 try {
@@ -1153,7 +1143,7 @@ public class TownCommand implements CommandExecutor  {
                         return;
                 }
 
-                townAssistantsAdd(player, town, (matchOnline ? plugin.getTownyUniverse().getOnlineResidents(player, names) : getResidents(player, names)));
+                townAssistantsAdd(player, town, plugin.getTownyUniverse().getValidatedResidents(player, names));
         }
 
         public void townAssistantsAdd(Player player, Town town, List<Resident> invited) {
@@ -1191,7 +1181,7 @@ public class TownCommand implements CommandExecutor  {
          * @param names
          */
 
-        public void townAssistantsRemove(Player player, String[] names, boolean matchOnline) {
+        public void townAssistantsRemove(Player player, String[] names) {
                 Resident resident;
                 Town town;
                 try {
@@ -1204,7 +1194,7 @@ public class TownCommand implements CommandExecutor  {
                         return;
                 }
 
-                townAssistantsRemove(player, resident, town, (matchOnline ? plugin.getTownyUniverse().getOnlineResidents(player, names) : getResidents(player, names)));
+                townAssistantsRemove(player, resident, town, plugin.getTownyUniverse().getValidatedResidents(player, names));
         }
 
         public void townAssistantsRemove(Player player, Resident resident, Town town, List<Resident> kicking) {
@@ -1254,7 +1244,7 @@ public class TownCommand implements CommandExecutor  {
          * @param names
          */
 
-        public static void townAdd(Player player, Town specifiedTown, String[] names, boolean matchOnline) {
+        public static void townAdd(Player player, Town specifiedTown, String[] names) {
                 Resident resident;
                 Town town;
                 try {
@@ -1271,7 +1261,7 @@ public class TownCommand implements CommandExecutor  {
                         return;
                 }
 
-                townAddResidents(player, town, (matchOnline ? plugin.getTownyUniverse().getOnlineResidents(player, names) : getResidents(player, names)), matchOnline);
+                townAddResidents(player, town, plugin.getTownyUniverse().getValidatedResidents(player, names));
                 
                 plugin.updateCache();
         }
