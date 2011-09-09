@@ -1332,12 +1332,12 @@ public class TownyUniverse extends TownyObject {
         	try {
 				World world = plugin.getServerWorld(townBlock.getWorld().getName());
 				int height = world.getMaxHeight()-1;
-				int worldx = townBlock.getX()*plotSize, worldy = townBlock.getZ()*plotSize;
+				int worldx = townBlock.getX()*plotSize, worldz = townBlock.getZ()*plotSize;
 				
 				for (int z = 0; z < plotSize; z++)
 	        		for (int x = 0; x < plotSize; x++)
 	        			for (int y = height; y > 0; y--) { //Check from bottom up else minecraft won't remove doors
-	        				block = world.getBlockAt(worldx + x, y, worldy + z);
+	        				block = world.getBlockAt(worldx + x, y, worldz + z);
 	        				if (townBlock.getWorld().isPlotManagementDeleteIds(block.getTypeId())) {
 	        					block.setType(Material.AIR);
 	        				}	
