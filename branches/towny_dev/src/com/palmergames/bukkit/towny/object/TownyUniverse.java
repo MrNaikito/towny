@@ -45,6 +45,8 @@ import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import com.palmergames.bukkit.towny.object.TownyRegenAPI;
+
 import com.palmergames.bukkit.towny.AlreadyRegisteredException;
 import com.palmergames.bukkit.towny.EmptyNationException;
 import com.palmergames.bukkit.towny.EmptyTownException;
@@ -77,8 +79,8 @@ public class TownyUniverse extends TownyObject {
     private Hashtable<String, Town> towns = new Hashtable<String, Town>();
     private Hashtable<String, Nation> nations = new Hashtable<String, Nation>();
     private static Hashtable<String, TownyWorld> worlds = new Hashtable<String, TownyWorld>();
-    private static Hashtable<String, PlotBlockData> PlotChunks = new Hashtable<String, PlotBlockData>();
-    //private static Hashtable<String, PlotBlockData> PlotChunksOwned = new Hashtable<String, PlotBlockData>();
+    //private static Hashtable<String, PlotBlockData> PlotChunks = new Hashtable<String, PlotBlockData>();
+
     // private List<Election> elections;
     private static TownyDataSource dataSource;
     private int townyRepeatingTask = -1;
@@ -962,7 +964,7 @@ public class TownyUniverse extends TownyObject {
                 TownyUniverse.dataSource = dataSource;
         }
 
-        public TownyDataSource getDataSource() {
+        public static TownyDataSource getDataSource() {
                 return dataSource;
         }
 
@@ -1307,9 +1309,9 @@ public class TownyUniverse extends TownyObject {
                 
                 // Move the plot to be restored
                 if (townBlock.getWorld().isUsingPlotManagementRevert()) {
-                	PlotBlockData plotData = getPlotChunkSnapshot(townBlock);
+                	PlotBlockData plotData = TownyRegenAPI.getPlotChunkSnapshot(townBlock);
                 	if (plotData != null) {
-                		addPlotChunk(plotData, true);
+                		TownyRegenAPI.addPlotChunk(plotData, true);
                 	}
                 }
 
@@ -1347,100 +1349,7 @@ public class TownyUniverse extends TownyObject {
                         removeTownBlock(townBlock);
         }
 
-        /**
-		 * @return the plotChunks which are being processed
-		 */
-		public Hashtable<String, PlotBlockData> getPlotChunks() {
-			return PlotChunks;
-		}
-		/**
-		 * @return true if there are any chunks being processed.
-		 */
-		public static boolean hasPlotChunks() {
-			return !PlotChunks.isEmpty();
-		}
-
-		/**
-		 * @param plotChunks the plotChunks to set
-		 */
-		public void setPlotChunks(Hashtable<String, PlotBlockData> plotChunks) {
-			PlotChunks = plotChunks;
-		}
-		
-		/**
-		 * Removes a Plot Chunk from the regeneration Hashtable
-		 * 
-		 * @param PlotBlockData
-		 */
-		public static void deletePlotChunk(PlotBlockData plotChunk) {
-			if (PlotChunks.containsKey(getPlotKey(plotChunk))) {
-				PlotChunks.remove(getPlotKey(plotChunk));
-				dataSource.saveRegenList();
-			}
-		}
-		
-		/**
-		 * Adds a Plot Chunk to the regeneration Hashtable
-		 * 
-		 * @param plotChunks
-		 */
-		public static void addPlotChunk(PlotBlockData plotChunk, boolean save) {
-			if (!PlotChunks.containsKey(getPlotKey(plotChunk))) {
-				//plotChunk.initialize();
-				PlotChunks.put(getPlotKey(plotChunk), plotChunk);
-				if (save)
-					dataSource.saveRegenList();
-			}
-		}
-		/**
-		 * Saves a Plot Chunk snapshot to the datasource
-		 * 
-		 * @param PlotBlockData
-		 */
-		public static void addPlotChunkSnapshot(PlotBlockData plotChunk) {
-			if (dataSource.loadPlotData(plotChunk.getWorldName(),plotChunk.getX(),plotChunk.getZ()) == null) {
-				dataSource.savePlotData(plotChunk);
-			}
-		}
-		
-		/**
-		 * Deletes a Plot Chunk snapshot from the datasource
-		 * 
-		 * @param PlotBlockData
-		 */
-		public static void deletePlotChunkSnapshot(PlotBlockData plotChunk) {
-				dataSource.deletePlotData(plotChunk);
-		}
-		
-		/**
-		 * Loads a Plot Chunk snapshot from the datasource
-		 * 
-		 * @param TownBlock
-		 */
-		public static PlotBlockData getPlotChunkSnapshot(TownBlock townBlock) {
-			return dataSource.loadPlotData(townBlock);
-		}
-		
-		/**
-		 * Gets a Plot Chunk from the regeneration Hashtable
-		 * 
-		 * @param plotChunks
-		 */
-		public static PlotBlockData getPlotChunk(TownBlock townBlock) {
-			if (PlotChunks.containsKey(getPlotKey(townBlock))) {
-				return PlotChunks.get(getPlotKey(townBlock));
-			}
-			return null;
-		}
-		
-		private static String getPlotKey(PlotBlockData plotChunk) {
-			return "[" + plotChunk.getWorldName() + "|" + plotChunk.getX() + "|" + plotChunk.getZ() + "]";	
-		}
-		
-		public static String getPlotKey(TownBlock townBlock) {
-			return "[" + townBlock.getWorld().getName() + "|" + townBlock.getX() + "|" + townBlock.getZ() + "]";	
-		}
-
+       
 		public void collectTownCosts() throws IConomyException, TownyException {
 			for (Town town : new ArrayList<Town>(towns.values()))
 				if (town.hasUpkeep())

@@ -25,6 +25,7 @@ import com.palmergames.bukkit.towny.object.PlotBlockData;
 import com.palmergames.bukkit.towny.object.Resident;
 import com.palmergames.bukkit.towny.object.Town;
 import com.palmergames.bukkit.towny.object.TownBlock;
+import com.palmergames.bukkit.towny.object.TownyRegenAPI;
 import com.palmergames.bukkit.towny.object.TownyUniverse;
 import com.palmergames.bukkit.towny.object.TownyWorld;
 import com.palmergames.util.FileMgmt;
@@ -255,7 +256,7 @@ public class TownyFlatFileSource extends TownyDataSource {
 					split = line.split(",");
 					plotData = loadPlotData(split[0],Integer.parseInt(split[1]),Integer.parseInt(split[2]));
                 	if (plotData != null) {
-                		TownyUniverse.addPlotChunk(plotData, false);
+                		TownyRegenAPI.addPlotChunk(plotData, false);
                 	}
 				}
 			fin.close();
@@ -962,7 +963,7 @@ public class TownyFlatFileSource extends TownyDataSource {
 			System.out.print("[Towny] save active regen list");
 			
 			BufferedWriter fout = new BufferedWriter(new FileWriter(rootFolder + dataFolder + FileMgmt.fileSeparator() + "regen.txt"));
-			for (PlotBlockData plot : new ArrayList<PlotBlockData>(universe.getPlotChunks().values()))
+			for (PlotBlockData plot : new ArrayList<PlotBlockData>(TownyRegenAPI.getPlotChunks().values()))
 				fout.write(plot.getWorldName() + "," + plot.getX() + "," + plot.getZ() + newLine);
 			fout.close();
 			return true;

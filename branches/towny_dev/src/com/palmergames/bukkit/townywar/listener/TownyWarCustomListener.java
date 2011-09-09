@@ -89,8 +89,8 @@ public class TownyWarCustomListener extends CustomEventListener {
 				Town oldTown = townBlock.getTown();
 				townBlock.setTown(town);
 				
-				universe.getDataSource().saveTown(oldTown);
-				universe.getDataSource().saveTown(town);
+				TownyUniverse.getDataSource().saveTown(oldTown);
+				TownyUniverse.getDataSource().saveTown(town);
 				
 				plugin.updateCache(worldCoord);
 				

@@ -169,10 +169,10 @@ public class Towny extends JavaPlugin {
                                         try {
                                                 home = town.getHomeBlock();
                                                 town.setWorld(home.getWorld());
-                                                getTownyUniverse().getDataSource().saveTown(town);
+												TownyUniverse.getDataSource().saveTown(town);
                                                 if (!town.getWorld().hasTown(town)) {
                                                         town.getWorld().addTown(town);
-                                                        getTownyUniverse().getDataSource().saveWorld(home.getWorld());
+														TownyUniverse.getDataSource().saveWorld(home.getWorld());
                                                 }
                                                 
                                         } catch (TownyException e) {
@@ -260,8 +260,8 @@ public class Towny extends JavaPlugin {
 
         @Override
         public void onDisable() {
-                if (townyUniverse.getDataSource() != null && error == false)
-                        townyUniverse.getDataSource().saveAll();
+                if (TownyUniverse.getDataSource() != null && error == false)
+                        TownyUniverse.getDataSource().saveAll();
                 
                 TownyWar.onDisable();
                 
