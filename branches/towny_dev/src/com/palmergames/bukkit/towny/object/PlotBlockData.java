@@ -3,6 +3,7 @@ package com.palmergames.bukkit.towny.object;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bukkit.World;
 import org.bukkit.block.Block;
 
 import com.palmergames.bukkit.towny.NotRegisteredException;
@@ -12,6 +13,7 @@ public class PlotBlockData {
 	
 	private String worldName;
 	private int x, z, size, height;
+
 	private List<Integer> blockList = new ArrayList<Integer>(); // Stores the original plot blocks
 	private int blockListRestored; // counter for the next block to test
 	
@@ -19,7 +21,7 @@ public class PlotBlockData {
 		setX(townBlock.getX());
 		setZ(townBlock.getZ());
 		setSize(TownySettings.getTownBlockSize());
-		this.height = 127;
+		setHeight(127);
 		this.worldName = townBlock.getWorld().getName();
 		this.blockListRestored = 0;
 	}
@@ -38,17 +40,22 @@ public class PlotBlockData {
         List<Integer> list = new ArrayList<Integer>();
         Block block = null;
         
-        for (int z = 0; z < size; z++)
-    		for (int x = 0; x < size; x++)
-    			for (int y = height; y > 0; y--) { // Top down to account for falling blocks.
-    				try {
-    					block = TownyUniverse.plugin.getServerWorld(worldName).getBlockAt((getX()*size) + x, y, (getZ()*size) + z);
+        
+        try {
+        	World world = TownyUniverse.plugin.getServerWorld(worldName);
+			
+			for (int z = 0; z < size; z++)
+	    		for (int x = 0; x < size; x++)
+	    			for (int y = height; y > 0; y--) { // Top down to account for falling blocks.
+	    				block = world.getBlockAt((getX()*size) + x, y, (getZ()*size) + z);
     					list.add(block.getTypeId());
-    				} catch (NotRegisteredException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-    			}
+	    			}
+	        
+		} catch (NotRegisteredException e1) {
+			// Failed to fetch world
+			e1.printStackTrace();
+		}
+        
         return list;
     }
 	
@@ -61,13 +68,17 @@ public class PlotBlockData {
 		Block block = null;
 		int x, y, z, blockId, reverse;
 		
-		while (blockListRestored < blockList.size()) {
-			reverse = (blockList.size()-1) - blockListRestored;
-			y = height - (reverse % height);
-			x = (int)(reverse/height) % size;
-			z = ((int)(reverse/height) / size) % size;
-			try {
-				block = TownyUniverse.plugin.getServerWorld(worldName).getBlockAt((getX()*size) + x, y, (getZ()*size) + z);					
+
+		try {
+			World world = TownyUniverse.plugin.getServerWorld(worldName);
+			
+			while (blockListRestored < blockList.size()) {
+				reverse = (blockList.size()-1) - blockListRestored;
+				y = height - (reverse % height);
+				x = (int)(reverse/height) % size;
+				z = ((int)(reverse/height) / size) % size;
+
+				block = world.getBlockAt((getX()*size) + x, y, (getZ()*size) + z);					
 				// If this block isn't correct, replace
 				// and flag as done.
 				blockId = block.getTypeId();
@@ -79,11 +90,12 @@ public class PlotBlockData {
 						
 					return true;
 				}
-			} catch (NotRegisteredException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+
+				blockListRestored++;
 			}
-			blockListRestored++;
+		} catch (NotRegisteredException e1) {
+			// Failed to get world.
+			e1.printStackTrace();
 		}
 
 		// reset as we are finished with the regeneration
@@ -110,6 +122,14 @@ public class PlotBlockData {
 	}
 	public void setSize(int size) {
 		this.size = size;
+	}
+	
+	public int getHeight() {
+		return height;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
 	}
 	
 	public String getWorldName() {
