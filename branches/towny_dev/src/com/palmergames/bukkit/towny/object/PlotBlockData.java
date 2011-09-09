@@ -71,18 +71,19 @@ public class PlotBlockData {
 	public boolean restoreNextBlock() {
 		Block block = null;
 		int x, y, z, blockId, reverse;
+		int worldx = getX()*size, worldz = getZ()*size;
 		
-
 		try {
 			World world = TownyUniverse.plugin.getServerWorld(worldName);
 			
 			while (blockListRestored < blockList.size()) {
-				reverse = (blockList.size()-1) - blockListRestored;
+				reverse = (blockList.size()-1) - blockListRestored; //regen bottom up to stand a better chance of restoring tree's and plants.
 				y = height - (reverse % height);
 				x = (int)(reverse/height) % size;
 				z = ((int)(reverse/height) / size) % size;
+				blockListRestored++;
 
-				block = world.getBlockAt((getX()*size) + x, y, (getZ()*size) + z);					
+				block = world.getBlockAt(worldx + x, y, worldz + z);					
 				// If this block isn't correct, replace
 				// and flag as done.
 				blockId = block.getTypeId();
@@ -94,8 +95,6 @@ public class PlotBlockData {
 						
 					return true;
 				}
-
-				blockListRestored++;
 			}
 		} catch (NotRegisteredException e1) {
 			// Failed to get world.
