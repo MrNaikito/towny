@@ -62,7 +62,7 @@ public class DailyTimerTask extends TownyTimerTask {
                 if (TownySettings.isBackingUpDaily())
                         try {
                                 universe.getPlugin().sendDebugMsg("Making backup");
-                                universe.getDataSource().backup();
+                                TownyUniverse.getDataSource().backup();
                         } catch (IOException e) {
                                 System.out.println("[Towny] Error: Could not create backup.");
                                 System.out.print(e.getStackTrace());

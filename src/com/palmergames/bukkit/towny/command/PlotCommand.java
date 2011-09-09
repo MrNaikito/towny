@@ -114,8 +114,8 @@ public class PlotCommand implements CommandExecutor  {
                                                                 plugin.sendErrorMsg(player, x.getError());
                                                         }
                                                 }
-                                                plugin.getTownyUniverse().getDataSource().saveResident(resident);
-                                                plugin.getTownyUniverse().getDataSource().saveWorld(world);
+												TownyUniverse.getDataSource().saveResident(resident);
+												TownyUniverse.getDataSource().saveWorld(world);
                                         } else {
                                                 player.sendMessage(TownySettings.getLangString("msg_err_empty_area_selection"));
                                         }
@@ -135,8 +135,8 @@ public class PlotCommand implements CommandExecutor  {
                                                                 plugin.sendErrorMsg(player, x.getError());
                                                         }
                                                 }
-                                                plugin.getTownyUniverse().getDataSource().saveResident(resident);
-                                                plugin.getTownyUniverse().getDataSource().saveWorld(world);
+												TownyUniverse.getDataSource().saveResident(resident);
+												TownyUniverse.getDataSource().saveWorld(world);
                                         } else {
                                                 player.sendMessage(TownySettings.getLangString("msg_err_empty_area_selection"));
                                         }
@@ -237,7 +237,7 @@ public class PlotCommand implements CommandExecutor  {
                                                 plugin.getTownyUniverse().sendTownMessage(town, TownySettings.getBuyResidentPlotMsg(resident.getName(), owner.getName(), townBlock.getPlotPrice()));
                                                 townBlock.setPlotPrice(-1);
                                                 townBlock.setResident(resident);
-                                                plugin.getTownyUniverse().getDataSource().saveResident(owner);
+												TownyUniverse.getDataSource().saveResident(owner);
                                                 return true;
                                         } else if (town.isMayor(resident) || town.hasAssistant(resident)) {
                                                 if (TownySettings.isUsingIConomy() && !town.pay(townBlock.getPlotPrice(), owner))
@@ -277,7 +277,7 @@ public class PlotCommand implements CommandExecutor  {
                         if (resident == owner || force) {
                                 townBlock.setResident(null);
                                 townBlock.setPlotPrice(townBlock.getTown().getPlotPrice());
-                                plugin.getTownyUniverse().getDataSource().saveResident(resident);
+								TownyUniverse.getDataSource().saveResident(resident);
                                 return true;
                         } else
                                 throw new TownyException(TownySettings.getLangString("msg_not_own_area"));

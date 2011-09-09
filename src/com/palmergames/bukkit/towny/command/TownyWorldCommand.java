@@ -265,7 +265,7 @@ public class TownyWorldCommand implements CommandExecutor  {
 				return;
 			}
 			
-			plugin.getTownyUniverse().getDataSource().saveWorld(Globalworld);
+			TownyUniverse.getDataSource().saveWorld(Globalworld);
 			
 		}
 		
@@ -391,7 +391,7 @@ public class TownyWorldCommand implements CommandExecutor  {
 				return;
 			}
 
-			plugin.getTownyUniverse().getDataSource().saveWorld(Globalworld);
+			TownyUniverse.getDataSource().saveWorld(Globalworld);
 		}
 	}
 	

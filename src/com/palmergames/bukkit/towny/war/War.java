@@ -247,8 +247,8 @@ public class War {
                         remove(townBlock.getTown());
                 else
                         remove(townBlock.getWorldCoord());
-                plugin.getTownyUniverse().getDataSource().saveTown(townBlock.getTown());
-                plugin.getTownyUniverse().getDataSource().saveTown(attacker);
+				TownyUniverse.getDataSource().saveTown(townBlock.getTown());
+				TownyUniverse.getDataSource().saveTown(attacker);
         }
         
         public void remove(TownBlock townBlock) throws NotRegisteredException {

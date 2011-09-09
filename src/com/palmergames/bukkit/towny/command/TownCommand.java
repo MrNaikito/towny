@@ -39,6 +39,7 @@ import com.palmergames.bukkit.towny.object.TownBlock;
 import com.palmergames.bukkit.towny.object.TownBlockOwner;
 import com.palmergames.bukkit.towny.object.TownyIConomyObject;
 import com.palmergames.bukkit.towny.object.TownyPermission;
+import com.palmergames.bukkit.towny.object.TownyRegenAPI;
 import com.palmergames.bukkit.towny.object.TownyUniverse;
 import com.palmergames.bukkit.towny.object.TownyWorld;
 import com.palmergames.bukkit.towny.object.WorldCoord;
@@ -493,7 +494,7 @@ public class TownCommand implements CommandExecutor  {
                                 return;
                         } 
 
-                        plugin.getTownyUniverse().getDataSource().saveTown(town);
+						TownyUniverse.getDataSource().saveTown(town);
                 }
         }
         
@@ -719,7 +720,7 @@ public class TownCommand implements CommandExecutor  {
                                 return;
                         }
 
-                        plugin.getTownyUniverse().getDataSource().saveTown(town);
+						TownyUniverse.getDataSource().saveTown(town);
                 }
         }
         
@@ -765,7 +766,7 @@ public class TownCommand implements CommandExecutor  {
 	                    }
 	                }
 	
-	                plugin.getTownyUniverse().getDataSource().saveTown(town);
+					TownyUniverse.getDataSource().saveTown(town);
                 } catch (TownyException x) {
                 	plugin.sendErrorMsg(player, x.getError());
                 }
@@ -874,14 +875,14 @@ public class TownCommand implements CommandExecutor  {
                 world.addTown(town);
                 
                 if (world.isUsingPlotManagementRevert()) {
-                	PlotBlockData plotChunk = TownyUniverse.getPlotChunk(townBlock);
+                	PlotBlockData plotChunk = TownyRegenAPI.getPlotChunk(townBlock);
             		if (plotChunk != null) {
-            			TownyUniverse.deletePlotChunk(plotChunk); // just claimed so stop regeneration.
+            			TownyRegenAPI.deletePlotChunk(plotChunk); // just claimed so stop regeneration.
             		} else {
             			plotChunk = new PlotBlockData(townBlock); // Not regenerating so create a new snapshot.
             			plotChunk.initialize();
             		}
-            		TownyUniverse.addPlotChunkSnapshot(plotChunk); // Save a snapshot.
+            		TownyRegenAPI.addPlotChunkSnapshot(plotChunk); // Save a snapshot.
             		plotChunk = null;
                 }
                 plugin.sendDebugMsg("Creating new Town account: " + "town-"+name);
@@ -891,10 +892,10 @@ public class TownCommand implements CommandExecutor  {
                         iConomy.getAccount("town-"+name).getHoldings().set(0);
                 }
                 
-                universe.getDataSource().saveResident(resident);
-                universe.getDataSource().saveTown(town);
-                universe.getDataSource().saveWorld(world);
-                universe.getDataSource().saveTownList();
+                TownyUniverse.getDataSource().saveResident(resident);
+                TownyUniverse.getDataSource().saveTown(town);
+                TownyUniverse.getDataSource().saveWorld(world);
+                TownyUniverse.getDataSource().saveTownList();
                 
                 plugin.updateCache();
                 return town;
@@ -942,8 +943,8 @@ public class TownCommand implements CommandExecutor  {
                         return;
                 }
                 
-                plugin.getTownyUniverse().getDataSource().saveResident(resident);
-                plugin.getTownyUniverse().getDataSource().saveTown(town);
+				TownyUniverse.getDataSource().saveResident(resident);
+				TownyUniverse.getDataSource().saveTown(town);
                 
                 plugin.updateCache();
                 
@@ -1053,7 +1054,7 @@ public class TownCommand implements CommandExecutor  {
 
                         msg = String.format(TownySettings.getLangString("msg_invited_join_town"), player.getName(), msg);
                         plugin.getTownyUniverse().sendTownMessage(town, ChatTools.color(msg));
-                        plugin.getTownyUniverse().getDataSource().saveTown(town);
+						TownyUniverse.getDataSource().saveTown(town);
                 } else
                         plugin.sendErrorMsg(player, TownySettings.getLangString("msg_invalid_name"));
         }
@@ -1061,8 +1062,8 @@ public class TownCommand implements CommandExecutor  {
         public static void townAddResident(Town town, Resident resident) throws AlreadyRegisteredException {
                 town.addResident(resident);
                 plugin.deleteCache(resident.getName());
-                plugin.getTownyUniverse().getDataSource().saveResident(resident);
-                plugin.getTownyUniverse().getDataSource().saveTown(town);
+				TownyUniverse.getDataSource().saveResident(resident);
+				TownyUniverse.getDataSource().saveTown(town);
         }
 
         private static void townInviteResident(Town town, Resident newMember) throws AlreadyRegisteredException {
@@ -1102,7 +1103,7 @@ public class TownCommand implements CommandExecutor  {
                                 try {
                                         town.removeResident(member);
                                         plugin.deleteCache(member.getName());
-                                        plugin.getTownyUniverse().getDataSource().saveResident(member);
+										TownyUniverse.getDataSource().saveResident(member);
                                 } catch (NotRegisteredException e) {
                                         remove.add(member);
                                 } catch (EmptyTownException e) {
@@ -1125,7 +1126,7 @@ public class TownCommand implements CommandExecutor  {
                         msg = msg.substring(0, msg.length()-2);
                         msg = String.format(TownySettings.getLangString("msg_kicked"), player.getName(), msg);
                         plugin.getTownyUniverse().sendTownMessage(town, ChatTools.color(msg));
-                        plugin.getTownyUniverse().getDataSource().saveTown(town);
+						TownyUniverse.getDataSource().saveTown(town);
                 } else
                         plugin.sendErrorMsg(player, TownySettings.getLangString("msg_invalid_name"));
         }
@@ -1162,7 +1163,7 @@ public class TownCommand implements CommandExecutor  {
                         try {
                                 town.addAssistant(newMember);
                                 plugin.deleteCache(newMember.getName());
-                                plugin.getTownyUniverse().getDataSource().saveResident(newMember);
+								TownyUniverse.getDataSource().saveResident(newMember);
                         } catch (AlreadyRegisteredException e) {
                                 remove.add(newMember);
                         }
@@ -1176,7 +1177,7 @@ public class TownCommand implements CommandExecutor  {
                                 msg += newMember.getName() + ", ";
                         msg = String.format(TownySettings.getLangString("msg_raised_ass"), player.getName(), msg, "town");
                         plugin.getTownyUniverse().sendTownMessage(town, ChatTools.color(msg));
-                        plugin.getTownyUniverse().getDataSource().saveTown(town);
+						TownyUniverse.getDataSource().saveTown(town);
                 } else
                         plugin.sendErrorMsg(player, TownySettings.getLangString("msg_invalid_name"));
         }
@@ -1214,8 +1215,8 @@ public class TownCommand implements CommandExecutor  {
                         try {
                                 town.removeAssistant(member);
                                 plugin.deleteCache(member.getName());
-                                plugin.getTownyUniverse().getDataSource().saveResident(member);
-                                plugin.getTownyUniverse().getDataSource().saveTown(town);
+								TownyUniverse.getDataSource().saveResident(member);
+								TownyUniverse.getDataSource().saveTown(town);
                         } catch (NotRegisteredException e) {
                                 remove.add(member);
                         }
@@ -1238,7 +1239,7 @@ public class TownCommand implements CommandExecutor  {
                         msg = msg.substring(0, msg.length()-2);
                         msg = String.format(TownySettings.getLangString("msg_lowered_to_res"), player.getName(), msg);
                         plugin.getTownyUniverse().sendTownMessage(town, ChatTools.color(msg));
-                        plugin.getTownyUniverse().getDataSource().saveTown(town);
+						TownyUniverse.getDataSource().saveTown(town);
                 } else
                         plugin.sendErrorMsg(player, TownySettings.getLangString("msg_invalid_name"));
         }
@@ -1422,9 +1423,9 @@ public class TownCommand implements CommandExecutor  {
                                 
                                 for (WorldCoord worldCoord : selection)
                                         townClaim(town, worldCoord);
-                                
-                                plugin.getTownyUniverse().getDataSource().saveTown(town);
-                                plugin.getTownyUniverse().getDataSource().saveWorld(world);
+
+								TownyUniverse.getDataSource().saveTown(town);
+								TownyUniverse.getDataSource().saveWorld(world);
                                 
                                 plugin.sendMsg(player, String.format(TownySettings.getLangString("msg_annexed_area"), Arrays.toString(selection.toArray(new WorldCoord[0]))));
                                 plugin.updateCache();
@@ -1469,8 +1470,8 @@ public class TownCommand implements CommandExecutor  {
         
                                         plugin.sendMsg(player, String.format(TownySettings.getLangString("msg_abandoned_area"), Arrays.toString(selection.toArray(new WorldCoord[0]))));
                                 }
-                                plugin.getTownyUniverse().getDataSource().saveTown(town);
-                                plugin.getTownyUniverse().getDataSource().saveWorld(world);
+								TownyUniverse.getDataSource().saveTown(town);
+								TownyUniverse.getDataSource().saveWorld(world);
                                 plugin.updateCache();
                         } catch (TownyException x) {
                                 plugin.sendErrorMsg(player, x.getError());
@@ -1556,14 +1557,14 @@ public class TownCommand implements CommandExecutor  {
                         if (!town.hasHomeBlock())
                                 town.setHomeBlock(townBlock);
                         if (town.getWorld().isUsingPlotManagementRevert()) {
-                        	PlotBlockData plotChunk = TownyUniverse.getPlotChunk(townBlock);
+                        	PlotBlockData plotChunk = TownyRegenAPI.getPlotChunk(townBlock);
                     		if (plotChunk != null) {
-                    			TownyUniverse.deletePlotChunk(plotChunk); // just claimed so stop regeneration.
+                    			TownyRegenAPI.deletePlotChunk(plotChunk); // just claimed so stop regeneration.
                     		} else {
                     			plotChunk = new PlotBlockData(townBlock); // Not regenerating so create a new snapshot.
                     			plotChunk.initialize();
                     		}
-                    		TownyUniverse.addPlotChunkSnapshot(plotChunk); // Save a snapshot.
+                    		TownyRegenAPI.addPlotChunkSnapshot(plotChunk); // Save a snapshot.
                     		plotChunk = null;
                         }
                         return true;

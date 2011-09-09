@@ -14,6 +14,7 @@ import com.palmergames.bukkit.towny.Towny;
 import com.palmergames.bukkit.towny.TownyException;
 import com.palmergames.bukkit.towny.TownySettings;
 import com.palmergames.bukkit.towny.object.Resident;
+import com.palmergames.bukkit.towny.object.TownyUniverse;
 import com.palmergames.bukkit.townywar.TownyWarConfig;
 import com.palmergames.bukkit.util.ChatTools;
 import com.palmergames.bukkit.util.Colors;
@@ -151,7 +152,7 @@ public class ResidentCommand implements CommandExecutor  {
                                 return;
                         }
 
-                        plugin.getTownyUniverse().getDataSource().saveResident(resident);
+						TownyUniverse.getDataSource().saveResident(resident);
                 }
         }
         
@@ -242,7 +243,7 @@ public class ResidentCommand implements CommandExecutor  {
                         msg = msg.substring(0, msg.length()-2);
                         msg += TownySettings.getLangString("msg_to_list");
                         plugin.sendMsg(player, msg);
-                        plugin.getTownyUniverse().getDataSource().saveResident(resident);
+						TownyUniverse.getDataSource().saveResident(resident);
                 } else
                         plugin.sendErrorMsg(player, TownySettings.getLangString("msg_invalid_name"));
         }
@@ -276,7 +277,7 @@ public class ResidentCommand implements CommandExecutor  {
                         msg = msg.substring(0, msg.length()-2);
                         msg += TownySettings.getLangString("msg_from_list");;
                         plugin.sendMsg(player, msg);
-                        plugin.getTownyUniverse().getDataSource().saveResident(resident);
+						TownyUniverse.getDataSource().saveResident(resident);
                 } else
                         plugin.sendErrorMsg(player, TownySettings.getLangString("msg_invalid_name"));
                         

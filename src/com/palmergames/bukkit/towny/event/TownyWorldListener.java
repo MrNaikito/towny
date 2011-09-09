@@ -24,10 +24,12 @@ public class TownyWorldListener extends WorldListener {
 			TownyWorld world = TownyUniverse.getWorld(worldName);
 			if (world == null)
 				plugin.sendErrorMsg("Could not create data for " + worldName);
-			else
-				if (!plugin.getTownyUniverse().getDataSource().loadWorld(world))
+			else {
+				if (!TownyUniverse.getDataSource().loadWorld(world)) {
 					// First time world has been noticed
-					plugin.getTownyUniverse().getDataSource().saveWorld(world); 
+					TownyUniverse.getDataSource().saveWorld(world);
+				}
+			} 
 		} catch (AlreadyRegisteredException e) {
 			// Allready loaded			
 		} catch (NotRegisteredException e) {

@@ -3,6 +3,7 @@ package com.palmergames.bukkit.towny.tasks;
 import java.util.ArrayList;
 
 import com.palmergames.bukkit.towny.object.PlotBlockData;
+import com.palmergames.bukkit.towny.object.TownyRegenAPI;
 import com.palmergames.bukkit.towny.object.TownyUniverse;
 
 public class RepeatingTimerTask extends TownyTimerTask {
@@ -13,11 +14,11 @@ public class RepeatingTimerTask extends TownyTimerTask {
 	
 	@Override
 	public void run() {
-		if (TownyUniverse.hasPlotChunks())
-			for (PlotBlockData plotChunk : new ArrayList<PlotBlockData>(universe.getPlotChunks().values())) {
+		if (TownyRegenAPI.hasPlotChunks())
+			for (PlotBlockData plotChunk : new ArrayList<PlotBlockData>(TownyRegenAPI.getPlotChunks().values())) {
 				if (!plotChunk.restoreNextBlock()) {
-					TownyUniverse.deletePlotChunk(plotChunk);	
-					TownyUniverse.deletePlotChunkSnapshot(plotChunk);
+					TownyRegenAPI.deletePlotChunk(plotChunk);	
+					TownyRegenAPI.deletePlotChunkSnapshot(plotChunk);
 				}
 			}
 	}

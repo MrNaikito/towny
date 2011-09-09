@@ -98,7 +98,7 @@ public class TownyAdminCommand implements CommandExecutor  {
                                 reloadTowny(null, true);
                         else if (args[0].equalsIgnoreCase("backup"))
                                 try {
-                                        plugin.getTownyUniverse().getDataSource().backup();
+										TownyUniverse.getDataSource().backup();
                                         sender.sendMessage(Colors.strip(TownySettings.getLangString("mag_backup_success")));
                                 } catch (IOException e) {
                                         sender.sendMessage(Colors.strip("Error: " + e.getMessage()));
@@ -134,7 +134,7 @@ public class TownyAdminCommand implements CommandExecutor  {
                                 } catch (NumberFormatException nfe) {
                                         throw new TownyException(TownySettings.getLangString("msg_error_must_be_int"));
                                 }
-                                plugin.getTownyUniverse().getDataSource().saveTown(town);
+								TownyUniverse.getDataSource().saveTown(town);
                         } catch (TownyException e) {
                                 plugin.sendErrorMsg(player, e.getError());
                         }
@@ -144,7 +144,7 @@ public class TownyAdminCommand implements CommandExecutor  {
                         reloadTowny(player, true);
                 else if (split[0].equalsIgnoreCase("backup"))
                         try {
-                                plugin.getTownyUniverse().getDataSource().backup();
+								TownyUniverse.getDataSource().backup();
                                 plugin.sendMsg(player, TownySettings.getLangString("mag_backup_success"));
                         } catch (IOException e) {
                                 plugin.sendErrorMsg(player, "Error: " + e.getMessage());
@@ -232,11 +232,13 @@ public class TownyAdminCommand implements CommandExecutor  {
                                 }
 
                                 plugin.sendMsg(player, String.format(TownySettings.getLangString("msg_admin_unclaim_area"), Arrays.toString(selection.toArray(new WorldCoord[0]))));
-                                for (Resident resident : residents)
-                                        plugin.getTownyUniverse().getDataSource().saveResident(resident);
-                                for (Town town : towns)
-                                        plugin.getTownyUniverse().getDataSource().saveTown(town);
-                                plugin.getTownyUniverse().getDataSource().saveWorld(world);
+                                for (Resident resident : residents) {
+									TownyUniverse.getDataSource().saveResident(resident);
+								}
+                                for (Town town : towns) {
+									TownyUniverse.getDataSource().saveTown(town);
+								}
+								TownyUniverse.getDataSource().saveWorld(world);
                                 plugin.updateCache();
                         } catch (TownyException x) {
                                 plugin.sendErrorMsg(player, x.getError());
@@ -318,8 +320,8 @@ public class TownyAdminCommand implements CommandExecutor  {
                                                 newMayor.setLastOnline(0);
                                                 newMayor.setNPC(true);
                                                 
-                                                plugin.getTownyUniverse().getDataSource().saveResident(newMayor);
-                                                plugin.getTownyUniverse().getDataSource().saveResidentList();
+												TownyUniverse.getDataSource().saveResident(newMayor);
+												TownyUniverse.getDataSource().saveResidentList();
                                                 
                                                 // set for no upkeep as an NPC mayor is assigned
                                                 town.setHasUpkeep(false);
@@ -350,7 +352,7 @@ public class TownyAdminCommand implements CommandExecutor  {
                                                         e.printStackTrace();
                                                 }       
                                         }
-                                        plugin.getTownyUniverse().getDataSource().saveTown(town);
+										TownyUniverse.getDataSource().saveTown(town);
                                         plugin.getTownyUniverse().sendTownMessage(town, TownySettings.getNewMayorMsg(newMayor.getName()));
                                 } catch (TownyException e) {
                                         plugin.sendErrorMsg(player, e.getError());
@@ -371,7 +373,7 @@ public class TownyAdminCommand implements CommandExecutor  {
 
                         townBlock.setResident(null);
                         townBlock.setPlotPrice(townBlock.getTown().getPlotPrice());
-                        plugin.getTownyUniverse().getDataSource().saveResident(owner);
+						TownyUniverse.getDataSource().saveResident(owner);
                         return true;
 
                 } catch (NotRegisteredException e) {
@@ -394,8 +396,9 @@ public class TownyAdminCommand implements CommandExecutor  {
         }
         
         public void reloadTowny(Player player, Boolean reset) {
-                if (reset)
-                        plugin.getTownyUniverse().getDataSource().deleteFile(plugin.getConfigPath());
+                if (reset) {
+					TownyUniverse.getDataSource().deleteFile(plugin.getConfigPath());
+				}
                 plugin.load();
                 if (player != null)
                         plugin.sendMsg(player, TownySettings.getLangString("msg_reloaded"));

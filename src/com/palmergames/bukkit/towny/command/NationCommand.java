@@ -302,9 +302,9 @@ public class NationCommand implements CommandExecutor  {
                         iConomy.getAccount("nation-"+name);
                         iConomy.getAccount("nation-"+name).getHoldings().set(0);
                 }
-                universe.getDataSource().saveTown(town);
-                universe.getDataSource().saveNation(nation);
-                universe.getDataSource().saveNationList();
+                TownyUniverse.getDataSource().saveTown(town);
+                TownyUniverse.getDataSource().saveNation(nation);
+                TownyUniverse.getDataSource().saveNationList();
                 
                 return nation;
         }
@@ -320,9 +320,9 @@ public class NationCommand implements CommandExecutor  {
                         
                         nation.removeTown(town);
                         
-                        plugin.getTownyUniverse().getDataSource().saveTown(town);
-                        plugin.getTownyUniverse().getDataSource().saveNation(nation);
-                        plugin.getTownyUniverse().getDataSource().saveNationList();
+						TownyUniverse.getDataSource().saveTown(town);
+						TownyUniverse.getDataSource().saveNation(nation);
+						TownyUniverse.getDataSource().saveNationList();
                         
                         plugin.getTownyUniverse().sendNationMessage(nation, ChatTools.color(String.format(TownySettings.getLangString("msg_nation_town_left"), town.getName())));
                         plugin.getTownyUniverse().sendTownMessage(town, ChatTools.color(String.format(TownySettings.getLangString("msg_town_left_nation"), nation.getName())));
@@ -331,7 +331,7 @@ public class NationCommand implements CommandExecutor  {
                         return;
                 } catch (EmptyNationException en) {
                         plugin.getTownyUniverse().removeNation(en.getNation());
-                        plugin.getTownyUniverse().getDataSource().saveNationList();
+						TownyUniverse.getDataSource().saveNationList();
                         plugin.getTownyUniverse().sendGlobalMessage(ChatTools.color(String.format(TownySettings.getLangString("msg_del_nation"), en.getNation().getName())));
                 }
                 
@@ -445,7 +445,7 @@ public class NationCommand implements CommandExecutor  {
                         
                                 nation.addTown(town);
                                 plugin.updateCache();
-                                plugin.getTownyUniverse().getDataSource().saveTown(town);
+								TownyUniverse.getDataSource().saveTown(town);
                 }
         }
         
@@ -455,12 +455,12 @@ public class NationCommand implements CommandExecutor  {
                         if (!town.hasNation()) {
                                 nation.addTown(town);
                                 plugin.updateCache();
-                                plugin.getTownyUniverse().getDataSource().saveTown(town);
+								TownyUniverse.getDataSource().saveTown(town);
                                 plugin.getTownyUniverse().sendNationMessage(nation, String.format(TownySettings.getLangString("msg_join_nation"), town.getName()));
                         }
                         
                 }
-                plugin.getTownyUniverse().getDataSource().saveNation(nation);
+				TownyUniverse.getDataSource().saveNation(nation);
                                 
         }
         
@@ -490,7 +490,7 @@ public class NationCommand implements CommandExecutor  {
                                 try {
                                         nation.removeTown(town);
                                         plugin.updateCache();
-                                        plugin.getTownyUniverse().getDataSource().saveTown(town);
+										TownyUniverse.getDataSource().saveTown(town);
                                 } catch (NotRegisteredException e) {
                                         remove.add(town);
                                 } catch (EmptyNationException e) {
@@ -513,7 +513,7 @@ public class NationCommand implements CommandExecutor  {
                         msg = msg.substring(0, msg.length()-2);
                         msg = String.format(TownySettings.getLangString("msg_nation_kicked"), player.getName(), msg);
                         plugin.getTownyUniverse().sendNationMessage(nation, ChatTools.color(msg));
-                        plugin.getTownyUniverse().getDataSource().saveNation(nation);
+						TownyUniverse.getDataSource().saveNation(nation);
                 } else
                         plugin.sendErrorMsg(player, TownySettings.getLangString("msg_invalid_name"));
         }
@@ -568,7 +568,7 @@ public class NationCommand implements CommandExecutor  {
                         try {
                                 nation.addAssistant(newMember);
                                 plugin.deleteCache(newMember.getName());
-                                plugin.getTownyUniverse().getDataSource().saveResident(newMember);
+								TownyUniverse.getDataSource().saveResident(newMember);
                         } catch (AlreadyRegisteredException e) {
                                 remove.add(newMember);
                         }
@@ -584,7 +584,7 @@ public class NationCommand implements CommandExecutor  {
                         msg = msg.substring(0, msg.length()-2);
                         msg = String.format(TownySettings.getLangString("msg_raised_ass"), player.getName(), msg, "nation");
                         plugin.getTownyUniverse().sendNationMessage(nation, ChatTools.color(msg));
-                        plugin.getTownyUniverse().getDataSource().saveNation(nation);
+						TownyUniverse.getDataSource().saveNation(nation);
                 } else
                         plugin.sendErrorMsg(player, TownySettings.getLangString("msg_invalid_name"));
         }
@@ -620,8 +620,8 @@ public class NationCommand implements CommandExecutor  {
                         try {
                                 nation.removeAssistant(member);
                                 plugin.deleteCache(member.getName());
-                                plugin.getTownyUniverse().getDataSource().saveResident(member);
-                                plugin.getTownyUniverse().getDataSource().saveNation(nation);
+								TownyUniverse.getDataSource().saveResident(member);
+								TownyUniverse.getDataSource().saveNation(nation);
                         } catch (NotRegisteredException e) {
                                 remove.add(member);
                         }
@@ -643,7 +643,7 @@ public class NationCommand implements CommandExecutor  {
                         msg = msg.substring(0, msg.length()-2);
                         msg = String.format(TownySettings.getLangString("msg_lowered_to_res"), player.getName(), msg);
                         plugin.getTownyUniverse().sendNationMessage(nation, ChatTools.color(msg));
-                        plugin.getTownyUniverse().getDataSource().saveNation(nation);
+						TownyUniverse.getDataSource().saveNation(nation);
                 } else
                         plugin.sendErrorMsg(player, TownySettings.getLangString("msg_invalid_name"));
         }
@@ -721,7 +721,7 @@ public class NationCommand implements CommandExecutor  {
                                 msg = String.format(TownySettings.getLangString("msg_broke_alliance"), player.getName(), msg);
                         
                         plugin.getTownyUniverse().sendNationMessage(nation, ChatTools.color(msg));
-                        plugin.getTownyUniverse().getDataSource().saveNations();
+						TownyUniverse.getDataSource().saveNations();
                 } else
                         plugin.sendErrorMsg(player, TownySettings.getLangString("msg_invalid_name"));
                 
@@ -800,7 +800,7 @@ public class NationCommand implements CommandExecutor  {
                                 msg = String.format(TownySettings.getLangString("msg_enemy_to_neutral"), player.getName(), msg);
                         
                         plugin.getTownyUniverse().sendNationMessage(nation, ChatTools.color(msg));
-                        plugin.getTownyUniverse().getDataSource().saveNations();
+						TownyUniverse.getDataSource().saveNations();
                 } else
                         plugin.sendErrorMsg(player, TownySettings.getLangString("msg_invalid_name"));
 
@@ -918,7 +918,7 @@ public class NationCommand implements CommandExecutor  {
                                                         
                                                 String title = plugin.getTownyUniverse().checkAndFilterName(StringMgmt.join(split));
                                                 resident.setTitle(title + " ");
-                                                plugin.getTownyUniverse().getDataSource().saveResident(resident);
+												TownyUniverse.getDataSource().saveResident(resident);
                                                 
                                                 if (resident.hasTitle())
                                                         plugin.getTownyUniverse().sendNationMessage(nation, String.format(TownySettings.getLangString("msg_set_title"), resident.getName(), resident.getTitle()));
@@ -955,7 +955,7 @@ public class NationCommand implements CommandExecutor  {
                                                 
                                                 String surname = plugin.getTownyUniverse().checkAndFilterName(StringMgmt.join(split));
                                                 resident.setSurname(" " + surname);
-                                                plugin.getTownyUniverse().getDataSource().saveResident(resident);
+												TownyUniverse.getDataSource().saveResident(resident);
                                                 
                                                 if (resident.hasSurname())
                                                         plugin.getTownyUniverse().sendNationMessage(nation, String.format(TownySettings.getLangString("msg_set_surname"), resident.getName(), resident.getSurname()));
@@ -973,7 +973,7 @@ public class NationCommand implements CommandExecutor  {
                                 return;
                         }
 
-                        plugin.getTownyUniverse().getDataSource().saveNation(nation);
+						TownyUniverse.getDataSource().saveNation(nation);
                 }
         }
         
@@ -1033,7 +1033,8 @@ public class NationCommand implements CommandExecutor  {
         		return;
         	} 
 
-        	plugin.getTownyUniverse().getDataSource().saveNation(nation);
+        	plugin.getTownyUniverse();
+			TownyUniverse.getDataSource().saveNation(nation);
     	}
 	}
         
