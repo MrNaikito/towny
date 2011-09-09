@@ -1331,9 +1331,9 @@ public class TownyUniverse extends TownyObject {
         			for (int y = 127; y > 0; y--) { //Check from bottom up else minecraft won't remove doors
         				try {
         					block = plugin.getServerWorld(townBlock.getWorld().getName()).getBlockAt((townBlock.getX()*plotSize) + x, y, (townBlock.getZ()*plotSize) + z);
-        					plugin.sendDebugMsg("Testing Block - " + block.getType().toString());
+        					//plugin.sendDebugMsg("Testing Block - " + block.getType().toString());
 	        				if (townBlock.getWorld().isPlotManagementDeleteIds(block.getTypeId())) {
-	        					plugin.sendDebugMsg("Setting Block type to Air");
+	        					//plugin.sendDebugMsg("Setting Block type to Air");
 	        					block.setType(Material.AIR);
 	        				}
 						} catch (NotRegisteredException e) {
