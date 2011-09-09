@@ -960,7 +960,7 @@ public class TownyFlatFileSource extends TownyDataSource {
 	public boolean saveRegenList() {
 		try {
 			
-			System.out.print("[Towny] save active regen list");
+			//System.out.print("[Towny] save active regen list");
 			
 			BufferedWriter fout = new BufferedWriter(new FileWriter(rootFolder + dataFolder + FileMgmt.fileSeparator() + "regen.txt"));
 			for (PlotBlockData plot : new ArrayList<PlotBlockData>(TownyRegenAPI.getPlotChunks().values()))
