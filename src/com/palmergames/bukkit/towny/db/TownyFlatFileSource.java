@@ -1382,7 +1382,7 @@ public class TownyFlatFileSource extends TownyDataSource {
 			
 			return loadPlotData(townBlock);
 		} catch (NotRegisteredException e) {
-			// TODO Auto-generated catch block
+			// Failed to get world
 			e.printStackTrace();
 		}
 		return null;
