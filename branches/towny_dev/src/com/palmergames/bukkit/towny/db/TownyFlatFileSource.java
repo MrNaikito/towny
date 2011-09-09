@@ -1432,13 +1432,6 @@ public class TownyFlatFileSource extends TownyDataSource {
 		if (file.exists())
 			file.delete();
 	}
-
-	@Override
-	public void deleteResident(Resident resident) {
-		File file = new File(getResidentFilename(resident));
-		if (file.exists())
-			file.delete();
-	}
 	
 	private boolean isFile(String fileName) {
 		File file = new File(fileName);
@@ -1455,6 +1448,13 @@ public class TownyFlatFileSource extends TownyDataSource {
 			file.delete();
 	}
 
+	@Override
+	public void deleteResident(Resident resident) {
+		File file = new File(getResidentFilename(resident));
+		if (file.exists())
+			file.delete();
+	}
+	
 	@Override
 	public void deleteTown(Town town) {
 		File file = new File(getTownFilename(town));
