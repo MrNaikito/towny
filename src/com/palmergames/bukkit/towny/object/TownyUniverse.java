@@ -1172,7 +1172,7 @@ public class TownyUniverse extends TownyObject {
         public void removeTown(Town town) {
         	
         	removeTownBlocks(town);
-        	getDataSource().deleteTown(town);
+        	
             List<Resident> toSave = new ArrayList<Resident>(town.getResidents());
             TownyWorld world = town.getWorld();
             
@@ -1203,6 +1203,7 @@ public class TownyUniverse extends TownyObject {
             towns.remove(town.getName().toLowerCase());
             plugin.updateCache();
 
+            getDataSource().deleteTown(town);
             getDataSource().saveTownList();
             getDataSource().saveWorld(world);
 
