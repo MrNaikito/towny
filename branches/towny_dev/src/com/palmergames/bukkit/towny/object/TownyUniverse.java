@@ -1329,22 +1329,24 @@ public class TownyUniverse extends TownyObject {
         	
         	plugin.sendDebugMsg("Processing deleteTownBlockIds");
         	
-        	for (int z = 0; z < plotSize; z++)
-        		for (int x = 0; x < plotSize; x++)
-        			for (int y = 127; y > 0; y--) { //Check from bottom up else minecraft won't remove doors
-        				try {
-        					block = plugin.getServerWorld(townBlock.getWorld().getName()).getBlockAt((townBlock.getX()*plotSize) + x, y, (townBlock.getZ()*plotSize) + z);
-        					//plugin.sendDebugMsg("Testing Block - " + block.getType().toString());
+        	try {
+				World world = plugin.getServerWorld(townBlock.getWorld().getName());
+				int height = world.getMaxHeight()-1;
+				int worldx = townBlock.getX()*plotSize, worldy = townBlock.getZ()*plotSize;
+				
+				for (int z = 0; z < plotSize; z++)
+	        		for (int x = 0; x < plotSize; x++)
+	        			for (int y = height; y > 0; y--) { //Check from bottom up else minecraft won't remove doors
+	        				block = world.getBlockAt(worldx + x, y, worldy + z);
 	        				if (townBlock.getWorld().isPlotManagementDeleteIds(block.getTypeId())) {
-	        					//plugin.sendDebugMsg("Setting Block type to Air");
 	        					block.setType(Material.AIR);
-	        				}
-						} catch (NotRegisteredException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-        				
-        			}
+	        				}	
+	        			}
+			} catch (NotRegisteredException e1) {
+				// Failed to get world.
+				e1.printStackTrace();
+			}
+        	
         }
         
         public void removeTownBlocks(Town town) {
