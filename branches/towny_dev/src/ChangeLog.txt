@@ -531,3 +531,4 @@ v0.76.1:
     - Added a max_tax_amount and max_tax_percent to the config for towns. Defaults to 1000 and 25% respetively.
       Which one is used depends on how the town is taxing; flat rate or by percentage.
     - Fixed Town and Nation tags size limit.
+    - Titles and surnames can now contain spaces.

@@ -916,7 +916,7 @@ public class NationCommand implements CommandExecutor  {
                                                         return;
                                                 }
                                                         
-                                                String title = plugin.getTownyUniverse().checkAndFilterName(StringMgmt.join(split));
+                                                String title = StringMgmt.join(plugin.getTownyUniverse().checkAndFilterArray(split));
                                                 resident.setTitle(title + " ");
 												TownyUniverse.getDataSource().saveResident(resident);
                                                 
@@ -927,8 +927,6 @@ public class NationCommand implements CommandExecutor  {
                                                 
                                         } catch (NotRegisteredException e) {
                                                 plugin.sendErrorMsg(player, e.getError());
-                                        } catch (InvalidNameException e) {
-                                                plugin.sendErrorMsg(player, e.getMessage());
                                         }
 
                         } else if (split[0].equalsIgnoreCase("surname")) {
@@ -953,7 +951,7 @@ public class NationCommand implements CommandExecutor  {
                                                         return;
                                                 }
                                                 
-                                                String surname = plugin.getTownyUniverse().checkAndFilterName(StringMgmt.join(split));
+                                                String surname = StringMgmt.join(plugin.getTownyUniverse().checkAndFilterArray(split));
                                                 resident.setSurname(" " + surname);
 												TownyUniverse.getDataSource().saveResident(resident);
                                                 
@@ -964,8 +962,6 @@ public class NationCommand implements CommandExecutor  {
                                                         
                                         } catch (NotRegisteredException e) {
                                                 plugin.sendErrorMsg(player, e.getError());
-                                        } catch (InvalidNameException e) {
-                                                plugin.sendErrorMsg(player, e.getMessage());
                                         }
 
                         } else {
