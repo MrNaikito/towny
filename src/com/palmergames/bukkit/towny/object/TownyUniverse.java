@@ -367,6 +367,19 @@ public class TownyUniverse extends TownyObject {
                 
                 return out;
         }
+        
+        public String[] checkAndFilterArray(String[] arr){
+        	String[] out = arr;
+        	int count = 0;
+        	
+        	for (String word: arr) {
+        		out[count] = TownySettings.filterName(word);
+        		count++;
+        	}
+            
+            return out;
+    }
+        
 
         public boolean hasResident(String name) {
                 return residents.containsKey(name.toLowerCase());

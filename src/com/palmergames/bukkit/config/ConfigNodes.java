@@ -186,7 +186,7 @@ public enum ConfigNodes {
                     "# {permsuffix} - Permission group suffix."),
             FILTERS_MODIFY_CHAT_ENABLE("filters_colour_chat.modify_chat.enable","true"),
             FILTERS_MODIFY_CHAT_FORMAT("filters_colour_chat.modify_chat.format","{nation}{town}{permprefix}{townynameprefix}{playername}{townynamepostfix}{permsuffix}"),
-            FILTERS_MODIFY_CHAT_MAX_LGTH("filters_colour_chat.modify_chat.max_title_length","15"),
+            FILTERS_MODIFY_CHAT_MAX_LGTH("filters_colour_chat.modify_chat.max_title_length","10"),
             FILTERS_COLOUR("filters_colour_chat.colour","",
             		"",
                     "# Text colouring",
