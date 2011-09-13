@@ -272,6 +272,7 @@ public class Towny extends JavaPlugin {
                 townyUniverse.toggleMobRemoval(false);
                 townyUniverse.toggleHealthRegen(false);
                 townyUniverse.toggleTeleportWarmup(false);
+                townyUniverse.cancelProtectionRegenTasks();
                 
                 playerCache.clear();
                 playerMode.clear();
@@ -348,6 +349,7 @@ public class Towny extends JavaPlugin {
 
                 pluginManager.registerEvent(Event.Type.BLOCK_PLACE, blockListener, Priority.Lowest, this);
                 pluginManager.registerEvent(Event.Type.BLOCK_BREAK, blockListener, Priority.Lowest, this);
+                pluginManager.registerEvent(Event.Type.BLOCK_PHYSICS, blockListener, Priority.Lowest, this);
                 pluginManager.registerEvent(Event.Type.BLOCK_IGNITE, blockListener, Priority.Lowest, this);
                 pluginManager.registerEvent(Event.Type.BLOCK_BURN, blockListener, Priority.Lowest, this);
                 pluginManager.registerEvent(Event.Type.BLOCK_PISTON_EXTEND, blockListener, Priority.Lowest, this);

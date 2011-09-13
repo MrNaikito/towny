@@ -1336,6 +1336,10 @@ public class TownySettings {
         return getBoolean(ConfigNodes.PROT_CHEAT);
     }
     
+    public static long getRegenDelay() {
+        return getSeconds(ConfigNodes.PROT_REGEN_DELAY);
+    }
+    
     public static int getTeleportWarmupTime() {
         return getInt(ConfigNodes.GTOWN_SETTINGS_SPAWN_TIMER);
     }
