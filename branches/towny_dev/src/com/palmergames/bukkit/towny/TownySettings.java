@@ -26,6 +26,7 @@ import com.palmergames.bukkit.towny.object.TownBlockOwner;
 import com.palmergames.bukkit.towny.object.TownyObject;
 import com.palmergames.bukkit.towny.object.TownyPermission.ActionType;
 import com.palmergames.bukkit.towny.object.TownyPermission.PermLevel;
+import com.palmergames.bukkit.towny.object.TownyUniverse;
 import com.palmergames.bukkit.towny.object.WorldCoord;
 import com.palmergames.bukkit.townywar.TownyWarConfig;
 import com.palmergames.bukkit.util.TimeTools;
@@ -1140,8 +1141,8 @@ public class TownySettings {
 		return getInt(ConfigNodes.TOWN_MAX_DISTANCE_BETWEEN_HOMEBLOCKS);
 	}
 	
-	public static int getMaxResidentPlots(Towny plugin, Resident resident) {
-		int maxPlots = plugin.getGroupPermissionIntNode(resident.getName(), "towny_maxplots");
+	public static int getMaxResidentPlots(Resident resident) {
+		int maxPlots = TownyUniverse.plugin.getGroupPermissionIntNode(resident.getName(), "towny_maxplots");
 	    if (maxPlots == -1) 
 	    	maxPlots = getInt(ConfigNodes.TOWN_MAX_PLOTS_PER_RESIDENT);
 	    return maxPlots;

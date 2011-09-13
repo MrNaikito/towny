@@ -100,7 +100,7 @@ public class PlotCommand implements CommandExecutor  {
                                 if (split[0].equalsIgnoreCase("claim")) {
                                         List<WorldCoord> selection = TownyUtil.selectWorldCoordArea(resident, new WorldCoord(world, Coord.parseCoord(player)), StringMgmt.remFirstArg(split));
                                         selection = TownyUtil.filterUnownedPlots(selection);
-                                        int maxPlots = TownySettings.getMaxResidentPlots(plugin, resident);
+                                        int maxPlots = TownySettings.getMaxResidentPlots(resident);
                                         if (maxPlots >= 0 && resident.getTownBlocks().size() + selection.size() > maxPlots)
                                         	throw new TownyException(String.format(TownySettings.getLangString("msg_max_plot_own"), maxPlots));
                                         if (selection.size() > 0) {
@@ -230,7 +230,7 @@ public class PlotCommand implements CommandExecutor  {
                                                 if (TownySettings.isUsingIConomy() && !resident.pay(townBlock.getPlotPrice(), owner))
                                                         throw new TownyException(TownySettings.getLangString("msg_no_money_purchase_plot"));
                                                 
-                                                int maxPlots = TownySettings.getMaxResidentPlots(plugin, resident);
+                                                int maxPlots = TownySettings.getMaxResidentPlots(resident);
                                                 if (maxPlots >= 0 && resident.getTownBlocks().size() + 1 > maxPlots)
                                                         throw new TownyException(String.format(TownySettings.getLangString("msg_max_plot_own"), maxPlots));
                                                 

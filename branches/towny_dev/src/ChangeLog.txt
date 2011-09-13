@@ -542,3 +542,4 @@ v0.76.1:
     - Moved daily tax settings to the economy section of the config.
     - Tidy of economy settings (WARNING - be sure to check the values after upgrading).
     - Added a broadcast if a Nation is disbanded due to a town deletion.
+    - Fixed '/xxx claim auto' commands for town and resident.
