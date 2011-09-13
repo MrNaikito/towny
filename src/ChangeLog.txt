@@ -544,3 +544,4 @@ v0.76.1:
     - Added a broadcast if a Nation is disbanded due to a town deletion.
     - Fixed '/xxx claim auto' commands for town and resident.
     - Fixed '/plot unclaim xx' command. Now errors if it's an invalid entry.
+    - Minor alterations to english.yml
