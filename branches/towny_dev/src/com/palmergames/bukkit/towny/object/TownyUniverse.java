@@ -32,6 +32,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Set;
@@ -62,6 +63,7 @@ import com.palmergames.bukkit.towny.db.TownyHModFlatFileSource;
 import com.palmergames.bukkit.towny.tasks.DailyTimerTask;
 import com.palmergames.bukkit.towny.tasks.HealthRegenTimerTask;
 import com.palmergames.bukkit.towny.tasks.MobRemovalTimerTask;
+import com.palmergames.bukkit.towny.tasks.ProtectionRegenTask;
 import com.palmergames.bukkit.towny.tasks.RepeatingTimerTask;
 import com.palmergames.bukkit.towny.tasks.TeleportWarmupTimerTask;
 import com.palmergames.bukkit.towny.war.War;
@@ -79,6 +81,8 @@ public class TownyUniverse extends TownyObject {
     private Hashtable<String, Town> towns = new Hashtable<String, Town>();
     private Hashtable<String, Nation> nations = new Hashtable<String, Nation>();
     private static Hashtable<String, TownyWorld> worlds = new Hashtable<String, TownyWorld>();
+    private Hashtable<BlockLocation, ProtectionRegenTask> protectionRegenTasks = new Hashtable<BlockLocation, ProtectionRegenTask>();
+    private Set<Block> protectionPlaceholders = new HashSet<Block>();
     //private static Hashtable<String, PlotBlockData> PlotChunks = new Hashtable<String, PlotBlockData>();
 
     // private List<Election> elections;
@@ -1570,5 +1574,54 @@ public class TownyUniverse extends TownyObject {
 		} catch (NotRegisteredException e) {
 			return false;
 		}
+    }
+    
+    public boolean hasProtectionRegenTask(BlockLocation blockLocation) {
+    	for(BlockLocation location : protectionRegenTasks.keySet()) {
+    		if (location.isLocation(blockLocation)) {
+    			return true;
+    		}
+    	}
+    	return false;
+    }
+    
+    public ProtectionRegenTask GetProtectionRegenTask(BlockLocation blockLocation) {
+    	for(BlockLocation location : protectionRegenTasks.keySet()) {
+    		if (location.isLocation(blockLocation)) {
+    			return protectionRegenTasks.get(location);
+    		}
+    	}
+    	return null;
+    }
+    
+    public void addProtectionRegenTask(ProtectionRegenTask task) {
+        protectionRegenTasks.put(task.getBlockLocation(), task);
+    }
+    
+    public void removeProtectionRegenTask(ProtectionRegenTask task) {
+        protectionRegenTasks.remove(task.getBlockLocation());
+        if (protectionRegenTasks.isEmpty())
+        	protectionPlaceholders.clear();
+    }
+    
+    public void cancelProtectionRegenTasks() {
+        for(ProtectionRegenTask task : protectionRegenTasks.values()) {
+            plugin.getServer().getScheduler().cancelTask(task.getTaskId());
+            task.replaceProtections();
+        }
+        protectionRegenTasks.clear();
+        protectionPlaceholders.clear();
+    }
+    
+    public boolean isPlaceholder(Block block) {
+        return protectionPlaceholders.contains(block);
+    }
+    
+    public void addPlaceholder(Block block) {
+        protectionPlaceholders.add(block);
+    }
+    
+    public void removePlaceholder(Block block) {
+        protectionPlaceholders.remove(block);
     }
 }

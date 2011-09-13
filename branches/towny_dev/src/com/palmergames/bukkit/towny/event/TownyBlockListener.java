@@ -16,18 +16,23 @@ import org.bukkit.event.block.BlockPistonExtendEvent;
 import org.bukkit.event.block.BlockPistonRetractEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 
+import org.bukkit.event.block.BlockPhysicsEvent;
+
 import com.palmergames.bukkit.towny.NotRegisteredException;
 import com.palmergames.bukkit.towny.PlayerCache;
 import com.palmergames.bukkit.towny.PlayerCache.TownBlockStatus;
 import com.palmergames.bukkit.towny.Towny;
 import com.palmergames.bukkit.towny.TownyException;
 import com.palmergames.bukkit.towny.TownySettings;
+import com.palmergames.bukkit.towny.object.BlockLocation;
 import com.palmergames.bukkit.towny.object.Coord;
+import com.palmergames.bukkit.towny.object.NeedsPlaceholder;
 import com.palmergames.bukkit.towny.object.TownBlock;
 import com.palmergames.bukkit.towny.object.TownyPermission;
 import com.palmergames.bukkit.towny.object.TownyUniverse;
 import com.palmergames.bukkit.towny.object.TownyWorld;
 import com.palmergames.bukkit.towny.object.WorldCoord;
+import com.palmergames.bukkit.towny.tasks.ProtectionRegenTask;
 import com.palmergames.bukkit.townywar.TownyWar;
 import com.palmergames.bukkit.townywar.TownyWarConfig;
 
@@ -40,19 +45,54 @@ public class TownyBlockListener extends BlockListener {
 	}
 
 	@Override
+	public void onBlockPhysics(BlockPhysicsEvent event) {
+
+		if (event.isCancelled()) {
+			event.setCancelled(true);
+			return;
+		}
+		
+		long start = System.currentTimeMillis();
+		
+		Block block = event.getBlock();
+		BlockLocation blockLocation = new BlockLocation(block.getLocation());
+		
+		// if this is a placeholder remove it, as it's no longer needed.
+		if(plugin.getTownyUniverse().isPlaceholder(block)) {
+			plugin.getTownyUniverse().removePlaceholder(block);
+	        block.setTypeId(0, false);
+		}
+		
+		if (plugin.getTownyUniverse().hasProtectionRegenTask(blockLocation)) {
+			//Cancel any physics events as we will be replacing this block
+			event.setCancelled(true);
+		} else {
+			// Check the block below and cancel the event if that block is going to be replaced.			
+			Block blockBelow = block.getRelative(BlockFace.DOWN);
+			blockLocation = new BlockLocation(blockBelow.getLocation());
+			
+			if (plugin.getTownyUniverse().hasProtectionRegenTask(blockLocation)
+					&& (NeedsPlaceholder.contains(block.getType()))) {
+				//System.out.print("Cancelling for Below on - " + block.getType().toString());
+				event.setCancelled(true);
+			}
+		}
+
+		plugin.sendDebugMsg("onBlockPhysics took " + (System.currentTimeMillis() - start) + "ms ("+event.isCancelled() +")");
+	}
+	
+	@Override
 	public void onBlockBreak(BlockBreakEvent event) {
 		if (event.isCancelled()) {
 			event.setCancelled(true);
 			return;
 		}
 		
-		//if (event.getDamageLevel() == BlockDamageLevel.STOPPED || event.getDamageLevel() == BlockDamageLevel.BROKEN || event.getDamageLevel() == BlockDamageLevel.STARTED) {
-			long start = System.currentTimeMillis();
+		long start = System.currentTimeMillis();
 
-			onBlockBreakEvent(event, true);
+		onBlockBreakEvent(event, true);
 
-			plugin.sendDebugMsg("onBlockBreakEvent took " + (System.currentTimeMillis() - start) + "ms ("+event.getPlayer().getName()+", "+event.isCancelled() +")");
-		//}
+		plugin.sendDebugMsg("onBlockBreakEvent took " + (System.currentTimeMillis() - start) + "ms ("+event.getPlayer().getName()+", "+event.isCancelled() +")");
 	}
 	
 	@Override
@@ -79,8 +119,22 @@ public class TownyBlockListener extends BlockListener {
 			TownBlockStatus status = cache.getStatus();
 			if (status == TownBlockStatus.UNCLAIMED_ZONE && plugin.hasWildOverride(worldCoord.getWorld(), player, event.getBlock().getTypeId(), TownyPermission.ActionType.DESTROY))
 				return;
-			if (!cache.getDestroyPermission())
-				event.setCancelled(true);
+			if (!cache.getDestroyPermission()) {
+			    long delay = TownySettings.getRegenDelay();
+			    if(delay > 0) {
+			        if(!plugin.getTownyUniverse().isPlaceholder(block)) {
+				    	if (!plugin.getTownyUniverse().hasProtectionRegenTask(new BlockLocation(block.getLocation()))) {
+	        				ProtectionRegenTask task = new ProtectionRegenTask(plugin.getTownyUniverse(), block);
+	        				task.setTaskId(plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, task, 20*delay));
+	        				plugin.getTownyUniverse().addProtectionRegenTask(task);
+				    	}
+			        } else {
+			            plugin.getTownyUniverse().removePlaceholder(block);
+			            block.setTypeId(0, false);
+			        }
+			    }
+	            event.setCancelled(true);
+            }
 			if (cache.hasBlockErrMsg())
 				plugin.sendErrorMsg(player, cache.getBlockErrMsg());
 			return;

@@ -48,7 +48,7 @@ public class DailyTimerTask extends TownyTimerTask {
                         universe.getPlugin().sendDebugMsg("Scanning for old residents...");
                         for (Resident resident : new ArrayList<Resident>(universe.getResidents())) {
                                 if (!resident.isNPC()
-                                	&& (System.currentTimeMillis() - resident.getLastOnline() > TownySettings.getDeleteTime())
+                                	&& (System.currentTimeMillis() - resident.getLastOnline() > (TownySettings.getDeleteTime()*1000))
                                 	&& !plugin.isOnline(resident.getName())) {
                                         universe.getPlugin().sendMsg("Deleting resident: " + resident.getName());
                                         universe.removeResident(resident);

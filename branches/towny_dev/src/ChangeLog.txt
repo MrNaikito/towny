@@ -532,3 +532,9 @@ v0.76.1:
       Which one is used depends on how the town is taxing; flat rate or by percentage.
     - Fixed Town and Nation tags size limit.
     - Titles and surnames can now contain spaces.
+    - Fixed default Bukkit Permissions to deny instead of allow.
+    - Fixed last timer for deleting old residents.
+    - Added a new setting 'regen_delay'.
+      This setting is in seconds. It will allow players to break protected blocks in the wild and town, even if they dont have permission.
+      The blocks will drop no loot and will regenerate after the specified time.
+      Defaults to 0 (disabled).
