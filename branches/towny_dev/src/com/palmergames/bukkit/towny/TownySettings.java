@@ -963,15 +963,15 @@ public class TownySettings {
     }
         
     public static boolean isTaxingDaily() {
-        return getBoolean(ConfigNodes.GTOWN_SETTINGS_DAILY_TAXES_ENABLED);
+        return getBoolean(ConfigNodes.ECO_DAILY_TAXES_ENABLED);
 	}
     
     public static double getMaxTax() {
-        return getDouble(ConfigNodes.GTOWN_SETTINGS_DAILY_TAXES_MAX_TAX);
+        return getDouble(ConfigNodes.ECO_DAILY_TAXES_MAX_TAX);
 	}
     
     public static double getMaxTaxPercent() {
-        return getDouble(ConfigNodes.GTOWN_SETTINGS_DAILY_TAXES_MAX_TAX_PERCENT);
+        return getDouble(ConfigNodes.ECO_DAILY_TAXES_MAX_TAX_PERCENT);
 	}
     
 	public static boolean isBackingUpDaily() {
