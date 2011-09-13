@@ -250,7 +250,7 @@ public class TownyCommand implements CommandExecutor {
                 List<String> output = new ArrayList<String>();
                 output.add("§0-§4###§0---§4###§0-");
                 output.add("§4#§c###§4#§0-§4#§c###§4#§0   §6[§eTowny " + plugin.getTownyUniverse().getPlugin().getVersion() + "§6]");
-                output.add("§4#§c####§4#§c####§4#   §3By: §bChris H (Shade)/croxis/ElgarL");
+                output.add("§4#§c####§4#§c####§4#   §3By: §bChris H (Shade)/Llmdl/ElgarL");
                 output.add("§0-§4#§c#######§4#§0-");
                 output.add("§0--§4##§c###§4##§0-- " 
                                 + "§3Residents: §b" + Integer.toString(plugin.getTownyUniverse().getResidents().size())
