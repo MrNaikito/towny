@@ -338,6 +338,7 @@ public enum ConfigNodes {
             ECO_PRICE_OUTPOST("economy.price_outpost","500.0",
                     "# How much it costs to make an outpost. An outpost isn't limited to being on the edge of town."),
             ECO_PRICE_CLAIM_TOWNBLOCK("economy.price_claim_townblock","25.0",
+            		"",
                     "# The price for a town to expand one townblock."),
             ECO_PRICE_PURCHASED_BONUS_TOWNBLOCK("economy.price_purchased_bonus_townblock","25.0",
             		"# How much it costs a player to buy extra blocks."),
@@ -367,8 +368,8 @@ public enum ConfigNodes {
                     "# if a resident can't pay his plot tax he loses his plot.",
                     "# if a resident can't pay his town tax then he is kicked from the town.",
                     "# if a town or nation fails to pay it's upkeep it is deleted."),
-            ECO_DAILY_TAXES_MAX_TAX("economy.daily_taxes.max_tax_amount","1000.0", "# Maximum amount allowed when using flat taxes"),
-            ECO_DAILY_TAXES_MAX_TAX_PERCENT("economy.daily_taxes.max_tax_percent","25", "# maximum percentage allowed when taxing by percentages"),
+            ECO_DAILY_TAXES_MAX_TAX("economy.daily_taxes.max_tax_amount","1000.0", "# Maximum tax amount allowed when using flat taxes"),
+            ECO_DAILY_TAXES_MAX_TAX_PERCENT("economy.daily_taxes.max_tax_percent","25", "# maximum tax percentage allowed when taxing by percentages"),
                     
             WAR("war","",
             		"", "",
