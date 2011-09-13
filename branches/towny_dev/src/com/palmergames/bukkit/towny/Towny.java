@@ -469,6 +469,11 @@ public class Towny extends JavaPlugin {
                 for (String line : ChatTools.color(TownySettings.getLangString("default_towny_prefix") + Colors.Green + msg))
                         player.sendMessage(line);
         }
+        
+        public void sendMsg(Player player, String[] msg) {
+        	for (String line : ChatTools.color(TownySettings.getLangString("default_towny_prefix") + Colors.Green + msg))
+                player.sendMessage(line);
+        }
 
         public String getVersion() {
                 return version;
