@@ -360,7 +360,7 @@ public enum ConfigNodes {
                     "# Use 0 for no limit"),
             ECO_BANK_NATION_ALLOW_WITHDRAWLS("economy.banks.nation_allow_withdrawls","true",
                     "# Set to true to allow withdrawls from nation banks"),
-            ECO_DAILY_TAXES("global_town_settings.daily_taxes","", ""),
+            ECO_DAILY_TAXES("economy.daily_taxes","", ""),
             ECO_DAILY_TAXES_ENABLED("economy.daily_taxes.enabled","true",
             		"# Enables taxes to be collected daily by town/nation",
                     "# If a town can't pay it's tax then it is kicked from the nation.",
