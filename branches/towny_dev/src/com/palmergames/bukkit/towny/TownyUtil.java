@@ -28,7 +28,7 @@ public class TownyUtil {
 					} else if (args[0].equalsIgnoreCase("circle")) {
 						out = selectWorldCoordAreaCircle(owner, pos, StringMgmt.remFirstArg(args));
 					} else {
-						//TODO: Some output?
+						throw new TownyException(String.format(TownySettings.getLangString("msg_err_invalid_property"), StringMgmt.join(args," ")));
 					}
 				} else if (args[0].equalsIgnoreCase("auto")) {
 					out = selectWorldCoordAreaRect(owner, pos, args);
@@ -38,7 +38,7 @@ public class TownyUtil {
 						// Treat as rect to serve for backwards capability.
 						out = selectWorldCoordAreaRect(owner, pos, args);
 					} catch (NumberFormatException e) {
-						//TODO: Some output?
+						throw new TownyException(String.format(TownySettings.getLangString("msg_err_invalid_property"), args[0]));
 					}
 			}
 		}

@@ -543,3 +543,4 @@ v0.76.1:
     - Tidy of economy settings (WARNING - be sure to check the values after upgrading).
     - Added a broadcast if a Nation is disbanded due to a town deletion.
     - Fixed '/xxx claim auto' commands for town and resident.
+    - Fixed '/plot unclaim xx' command. Now errors if it's an invalid entry.
