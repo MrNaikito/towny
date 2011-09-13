@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.palmergames.bukkit.towny.object.Coord;
+import com.palmergames.bukkit.towny.object.Resident;
 import com.palmergames.bukkit.towny.object.Town;
 import com.palmergames.bukkit.towny.object.TownBlock;
 import com.palmergames.bukkit.towny.object.TownBlockOwner;
@@ -52,14 +53,19 @@ public class TownyUtil {
 				int r;
 				if (args[0].equalsIgnoreCase("auto")) {
 					// Attempt to select outwards until no town blocks remain
+					int available;
 					if (owner instanceof Town) {
-						Town town = (Town)owner;
-						int available = TownySettings.getMaxTownBlocks(town) - town.getTownBlocks().size();
-						r = 0;
-						while (available - Math.pow((r + 1) * 2 - 1, 2) >= 0)
-							r += 1;
+							Town town = (Town)owner;
+							available = TownySettings.getMaxTownBlocks(town) - town.getTownBlocks().size();
+					} else if (owner instanceof Resident) {
+						available = TownySettings.getMaxResidentPlots((Resident)owner);
 					} else
-						throw new TownyException(TownySettings.getLangString("msg_err_area_auto"));
+						throw new TownyException(TownySettings.getLangString("msg_err_rect_auto"));
+					
+					r = 0;
+					while (available - Math.pow((r + 1) * 2 - 1, 2) >= 0)
+						r += 1;
+
 				} else {
 					try {
 						r = Integer.parseInt(args[0]);
@@ -86,15 +92,20 @@ public class TownyUtil {
 				int r;
 				if (args[0].equalsIgnoreCase("auto")) {
 					// Attempt to select outwards until no town blocks remain
+					int available;
 					if (owner instanceof Town) {
-						Town town = (Town)owner;
-						int available = TownySettings.getMaxTownBlocks(town) - town.getTownBlocks().size();
-						r = 0;
-						if (available > 0) // Since: 0 - ceil(Pi * 0^2) >= 0 is a true statement.
-							while (available - Math.ceil(Math.PI * r * r) >= 0)
-								r += 1;
+							Town town = (Town)owner;
+							available = TownySettings.getMaxTownBlocks(town) - town.getTownBlocks().size();
+					} else if (owner instanceof Resident) {
+						available = TownySettings.getMaxResidentPlots((Resident)owner);
 					} else
-						throw new TownyException(TownySettings.getLangString("msg_err_area_auto"));
+						throw new TownyException(TownySettings.getLangString("msg_err_rect_auto"));
+						
+					r = 0;
+					if (available > 0) // Since: 0 - ceil(Pi * 0^2) >= 0 is a true statement.
+						while (available - Math.ceil(Math.PI * r * r) >= 0)
+							r += 1;
+
 				} else {
 					try {
 						r = Integer.parseInt(args[0]);

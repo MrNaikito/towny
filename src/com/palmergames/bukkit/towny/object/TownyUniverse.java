@@ -76,7 +76,7 @@ import com.palmergames.util.TimeMgmt;
 
 
 public class TownyUniverse extends TownyObject {
-	static Towny plugin;
+	public static Towny plugin;
     private Hashtable<String, Resident> residents = new Hashtable<String, Resident>();
     private Hashtable<String, Town> towns = new Hashtable<String, Town>();
     private Hashtable<String, Nation> nations = new Hashtable<String, Nation>();
