@@ -1345,14 +1345,25 @@ public class TownySettings {
     }
     
     public static int getTownBankCap() {
-        return getInt(ConfigNodes.GTOWN_SETTINGS_BANK_CAP_AMOUNT);
+        return getInt(ConfigNodes.ECO_BANK_CAP_TOWN);
+    }
+    
+    public static int getNationBankCap() {
+        return getInt(ConfigNodes.ECO_BANK_CAP_NATION);
     }
     
     public static boolean getTownBankAllowWithdrawls() {
-        return getBoolean(ConfigNodes.GTOWN_SETTINGS_BANK_ALLOW_WITHDRAWLS);
+        return getBoolean(ConfigNodes.ECO_BANK_TOWN_ALLOW_WITHDRAWLS);
     }
     public static void SetTownBankAllowWithdrawls(boolean newSetting) {
-        setProperty(ConfigNodes.GTOWN_SETTINGS_BANK_ALLOW_WITHDRAWLS.getRoot(), newSetting);
+        setProperty(ConfigNodes.ECO_BANK_TOWN_ALLOW_WITHDRAWLS.getRoot(), newSetting);
+    }
+    
+    public static boolean geNationBankAllowWithdrawls() {
+        return getBoolean(ConfigNodes.ECO_BANK_NATION_ALLOW_WITHDRAWLS);
+    }
+    public static void SetNationBankAllowWithdrawls(boolean newSetting) {
+        setProperty(ConfigNodes.ECO_BANK_NATION_ALLOW_WITHDRAWLS.getRoot(), newSetting);
     }
 
     public static boolean isValidRegionName(String name) {

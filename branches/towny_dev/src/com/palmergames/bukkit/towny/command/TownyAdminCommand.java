@@ -413,7 +413,7 @@ public class TownyAdminCommand implements CommandExecutor  {
                         player.sendMessage(ChatTools.formatCommand("", "/townyadmin toggle", "neutral", ""));
                         player.sendMessage(ChatTools.formatCommand("", "/townyadmin toggle", "devmode", ""));
                         player.sendMessage(ChatTools.formatCommand("", "/townyadmin toggle", "debug", ""));
-                        player.sendMessage(ChatTools.formatCommand("", "/townyadmin toggle", "withdraw", ""));
+                        player.sendMessage(ChatTools.formatCommand("", "/townyadmin toggle", "townwithdraw/nationwithdraw", ""));
                         return;
                         
                 } else if (split[0].equalsIgnoreCase("war")) {
@@ -481,7 +481,7 @@ public class TownyAdminCommand implements CommandExecutor  {
                         } catch (Exception e) {
                                 plugin.sendErrorMsg(player, TownySettings.getLangString("msg_err_invalid_choice"));
                         }
-                } else if (split[0].equalsIgnoreCase("withdraw")) {
+                } else if (split[0].equalsIgnoreCase("townwithdraw")) {
                 		try {
                 				choice = !TownySettings.getTownBankAllowWithdrawls();
                 				TownySettings.SetTownBankAllowWithdrawls(choice);
@@ -489,6 +489,14 @@ public class TownyAdminCommand implements CommandExecutor  {
                 		} catch (Exception e) {
                 				plugin.sendErrorMsg(player, TownySettings.getLangString("msg_err_invalid_choice"));
                 		}
+                } else if (split[0].equalsIgnoreCase("nationwithdraw")) {
+            		try {
+            				choice = !TownySettings.geNationBankAllowWithdrawls();
+            				TownySettings.SetNationBankAllowWithdrawls(choice);
+            				plugin.sendMsg(player, "Nation Withdrawls " + (choice ? Colors.Green + "Enabled" : Colors.Red + "Disabled"));
+            		} catch (Exception e) {
+            				plugin.sendErrorMsg(player, TownySettings.getLangString("msg_err_invalid_choice"));
+            		}
                 } else {
                         // parameter error message
                         // neutral/war/townmobs/worldmobs
