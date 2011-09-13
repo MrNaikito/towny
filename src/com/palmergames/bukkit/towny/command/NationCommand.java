@@ -200,6 +200,9 @@ public class NationCommand implements CommandExecutor  {
                 Resident resident;
                 Nation nation;
                 try {
+                		if(!TownySettings.geNationBankAllowWithdrawls())
+                	    	throw new TownyException(TownySettings.getLangString("msg_err_withdraw_disabled"));
+                	
                         if (amount < 0)
                                 throw new TownyException(TownySettings.getLangString("msg_err_negative_money")); //TODO
                         
@@ -221,6 +224,12 @@ public class NationCommand implements CommandExecutor  {
                 try {
                         resident = plugin.getTownyUniverse().getResident(player.getName());
                         nation = resident.getTown().getNation();
+                        
+                        double bankcap = TownySettings.getNationBankCap();
+                        if (bankcap > 0) {
+                                if(amount + nation.getHoldingBalance() > bankcap)
+                                        throw new TownyException(String.format(TownySettings.getLangString("msg_err_deposit_capped"), bankcap));
+                        }
                         
                         if (amount < 0)
                                 throw new TownyException(TownySettings.getLangString("msg_err_negative_money"));
