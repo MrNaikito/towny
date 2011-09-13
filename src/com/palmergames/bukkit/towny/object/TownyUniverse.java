@@ -1203,6 +1203,7 @@ public class TownyUniverse extends TownyObject {
                     town.clear();
             } catch (EmptyNationException e) {
                     removeNation(e.getNation());
+                    sendGlobalMessage(String.format(TownySettings.getLangString("msg_del_nation"), e.getNation()));
             } catch (NotRegisteredException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();

@@ -351,7 +351,9 @@ public class TownyAdminCommand implements CommandExecutor  {
                                                 }       
                                         }
 										TownyUniverse.getDataSource().saveTown(town);
-                                        plugin.getTownyUniverse().sendTownMessage(town, TownySettings.getNewMayorMsg(newMayor.getName()));
+										String[] msg = TownySettings.getNewMayorMsg(newMayor.getName());
+                                        plugin.getTownyUniverse().sendTownMessage(town, msg);
+                                        plugin.sendMsg(player, msg);
                                 } catch (TownyException e) {
                                         plugin.sendErrorMsg(player, e.getError());
                                 }
