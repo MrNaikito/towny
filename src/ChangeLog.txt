@@ -539,3 +539,4 @@ v0.76.1:
       The blocks will drop no loot and will regenerate after the specified time.
       Defaults to 0 (disabled).
     - Added Nation bank caps and moved the settings to the economy section.
+    - Moved daily tax settings to the economy section of the config.
