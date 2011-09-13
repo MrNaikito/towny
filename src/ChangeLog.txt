@@ -540,3 +540,4 @@ v0.76.1:
       Defaults to 0 (disabled).
     - Added Nation bank caps and moved the settings to the economy section.
     - Moved daily tax settings to the economy section of the config.
+    - Tidy of economy settings (WARNING - be sure to check the values after upgrading)
