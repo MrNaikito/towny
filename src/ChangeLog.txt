@@ -545,3 +545,5 @@ v0.76.1:
     - Fixed '/xxx claim auto' commands for town and resident.
     - Fixed '/plot unclaim xx' command. Now errors if it's an invalid entry.
     - Minor alterations to english.yml
+    - No more sneak jump to avoid the cheat protection.
+    - Fixed resetting tags using '/town set tag '.

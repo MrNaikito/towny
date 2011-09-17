@@ -68,9 +68,9 @@ public class Town extends TownBlockOwner implements Walled, ResidentList {
         public void setTag(String text) throws TownyException {
         	if (text.length() > 4)
         		throw new TownyException("Tag too long");
-    		if (tag.matches(" "))
-    			tag = "";
     		this.tag = text.toUpperCase();
+    		if (this.tag.matches(" "))
+    			this.tag = "";
     	}
 
     	public String getTag() {
