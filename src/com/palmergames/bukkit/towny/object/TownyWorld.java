@@ -13,7 +13,10 @@ import com.palmergames.bukkit.towny.TownySettings;
 public class TownyWorld extends TownyObject {
 	private List<Town> towns = new ArrayList<Town>();
 	private boolean isClaimable = true, isPVP, isForcePVP, isForceExpl, isForceFire, isForceTownMobs, hasWorldMobs, isDisablePlayerTrample,
-			isDisableCreatureTrample, usingDefault = true, isUsingTowny = true, isUsingPlotManagementDelete = true, isUsingPlotManagementRevert = true;
+			isDisableCreatureTrample, usingDefault = true, isUsingTowny = true, isUsingPlotManagementDelete = true,
+			isUsingPlotManagementRevert = true,
+			isUsingPlotManagementWildRevert = true;
+	private Long plotManagementRevertSpeed, plotManagementWildRevertDelay;
 	private List<Integer> unclaimedZoneIgnoreIds = null;
 	private List<Integer> plotManagementDeleteIds = null;
 	private List<Integer> plotManagementIgnoreIds = null;
@@ -37,8 +40,10 @@ public class TownyWorld extends TownyObject {
 		hasWorldMobs = true;
         //hasWorldMobs = TownySettings.isWorldMonstersOn(); ??
 		isForceExpl = TownySettings.isForcingExplosions();
-		isUsingPlotManagementDelete = TownySettings.isUsingPlotManagementDelete();
-		isUsingPlotManagementRevert = TownySettings.isUsingPlotManagementRevert();
+		setUsingPlotManagementDelete(TownySettings.isUsingPlotManagementDelete());
+		setUsingPlotManagementRevert(TownySettings.isUsingPlotManagementRevert());
+		setUsingPlotManagementWildRevert(TownySettings.isUsingPlotManagementWildRegen());
+		setUsingPlotManagementRevert(TownySettings.isUsingPlotManagementRevert());
 	}
 
 	public List<Town> getTowns() {
@@ -292,6 +297,54 @@ public class TownyWorld extends TownyObject {
 			this.plotManagementIgnoreIds = plotManagementIgnoreIds;
 	}
 	
+	/**
+	 * @return the isUsingPlotManagementWildRevert
+	 */
+	public boolean isUsingPlotManagementWildRevert() {
+		return isUsingPlotManagementWildRevert;
+	}
+
+	/**
+	 * @param isUsingPlotManagementWildRevert the isUsingPlotManagementWildRevert to set
+	 */
+	public void setUsingPlotManagementWildRevert(boolean isUsingPlotManagementWildRevert) {
+		this.isUsingPlotManagementWildRevert = isUsingPlotManagementWildRevert;
+	}
+
+	/**
+	 * @return the plotManagementRevertSpeed
+	 */
+	public long getPlotManagementRevertSpeed() {
+		if (this.plotManagementRevertSpeed == -1)
+			return TownySettings.getPlotManagementSpeed();
+		else
+			return plotManagementRevertSpeed;
+	}
+
+	/**
+	 * @param plotManagementRevertSpeed the plotManagementRevertSpeed to set
+	 */
+	public void setPlotManagementRevertSpeed(long plotManagementRevertSpeed) {
+		this.plotManagementRevertSpeed = plotManagementRevertSpeed;
+	}
+
+	/**
+	 * @return the plotManagementWildRevertDelay
+	 */
+	public long getPlotManagementWildRevertDelay() {
+		if (this.plotManagementWildRevertDelay == -1)
+			return TownySettings.getPlotManagementWildRegenDelay();
+		else
+		return plotManagementWildRevertDelay;
+	}
+
+	/**
+	 * @param plotManagementWildRevertDelay the plotManagementWildRevertDelay to set
+	 */
+	public void setPlotManagementWildRevertDelay(long plotManagementWildRevertDelay) {
+		this.plotManagementWildRevertDelay = plotManagementWildRevertDelay;
+	}
+
 	public List<Integer> getUnclaimedZoneIgnoreIds() {
 		if (unclaimedZoneIgnoreIds == null || isUsingDefault())
 			return TownySettings.getUnclaimedZoneIgnoreIds();

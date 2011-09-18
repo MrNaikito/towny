@@ -22,36 +22,37 @@ public class ProtectionRegenTask extends TownyTimerTask {
     
     private static final Material placeholder = Material.DIRT;
 
-    public ProtectionRegenTask(TownyUniverse universe, Block block) {
+    public ProtectionRegenTask(TownyUniverse universe, Block block, boolean update) {
         super(universe);
         this.state = block.getState();
         this.altState = null;
         this.setBlockLocation(new BlockLocation(block.getLocation()));
         
-        if(state.getData() instanceof Door) {
-            Door door = (Door)state.getData();
-            Block topHalf;
-            Block bottomHalf;
-            if(door.isTopHalf()) {
-                topHalf = block;
-                bottomHalf = block.getRelative(BlockFace.DOWN);
-            } else {
-                bottomHalf = block;
-                topHalf = block.getRelative(BlockFace.UP);
-            }
-            bottomHalf.setTypeId(0);
-            topHalf.setTypeId(0);
-        } else if(state.getData() instanceof PistonExtensionMaterial) {
-            PistonExtensionMaterial extension = (PistonExtensionMaterial)state.getData();
-            Block piston = block.getRelative(extension.getAttachedFace());
-            if(piston.getTypeId() != 0) {
-                this.altState = piston.getState();
-                piston.setTypeId(0, false);
-            }
-            block.setTypeId(0, false);
-        } else {
-            block.setTypeId(0, false);
-        }
+        if (update)
+	        if(state.getData() instanceof Door) {
+	            Door door = (Door)state.getData();
+	            Block topHalf;
+	            Block bottomHalf;
+	            if(door.isTopHalf()) {
+	                topHalf = block;
+	                bottomHalf = block.getRelative(BlockFace.DOWN);
+	            } else {
+	                bottomHalf = block;
+	                topHalf = block.getRelative(BlockFace.UP);
+	            }
+	            bottomHalf.setTypeId(0);
+	            topHalf.setTypeId(0);
+	        } else if(state.getData() instanceof PistonExtensionMaterial) {
+	            PistonExtensionMaterial extension = (PistonExtensionMaterial)state.getData();
+	            Block piston = block.getRelative(extension.getAttachedFace());
+	            if(piston.getTypeId() != 0) {
+	                this.altState = piston.getState();
+	                piston.setTypeId(0, false);
+	            }
+	            block.setTypeId(0, false);
+	        } else {
+	            block.setTypeId(0, false);
+	        }
     }
 
     @Override

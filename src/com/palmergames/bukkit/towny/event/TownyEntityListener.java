@@ -23,6 +23,7 @@ import com.palmergames.bukkit.towny.Towny;
 import com.palmergames.bukkit.towny.TownyException;
 import com.palmergames.bukkit.towny.TownySettings;
 import com.palmergames.bukkit.towny.PlayerCache.TownBlockStatus;
+import com.palmergames.bukkit.towny.object.BlockLocation;
 import com.palmergames.bukkit.towny.object.Coord;
 import com.palmergames.bukkit.towny.object.TownBlock;
 import com.palmergames.bukkit.towny.object.TownyPermission;
@@ -30,6 +31,7 @@ import com.palmergames.bukkit.towny.object.TownyUniverse;
 import com.palmergames.bukkit.towny.object.TownyWorld;
 import com.palmergames.bukkit.towny.object.WorldCoord;
 import com.palmergames.bukkit.towny.tasks.MobRemovalTimerTask;
+import com.palmergames.bukkit.towny.tasks.ProtectionRegenTask;
 
 public class TownyEntityListener extends EntityListener {
         private final Towny plugin;
@@ -175,14 +177,27 @@ public class TownyEntityListener extends EntityListener {
                 Location loc;
                 Coord coord;
                 List<Block> blocks = event.blockList();
+                Entity entity = event.getEntity();
+                
+                int count = 0;
+                
                 for (Block block : blocks) {
                         
                         loc = block.getLocation();
                         coord = Coord.parseCoord(loc);
+                        count++;
+                        TownyWorld townyWorld;
+                        
+						try {
+							townyWorld = TownyUniverse.getWorld(loc.getWorld().getName());
+						} catch (NotRegisteredException e) {
+							// failed to get world so abort
+							return;
+						}
                         
                         //TODO: expand to protect neutrals during a war
                         try {
-								TownyWorld townyWorld = TownyUniverse.getWorld(loc.getWorld().getName());
+								
                                 TownBlock townBlock = townyWorld.getTownBlock(coord);
                                 
                                 // If explosions are off, or it's wartime and explosions are off and the towns has no nation
@@ -191,7 +206,17 @@ public class TownyEntityListener extends EntityListener {
                                         if (event.getEntity() != null) plugin.sendDebugMsg("onEntityExplode: Canceled " + event.getEntity().getEntityId() + " from exploding within "+coord.toString()+".");
                                         event.setCancelled(true);
                                 }
+                                
                         } catch (TownyException x) {
+                        	
+                        	// Wilderness explosion regeneration
+                        	if (townyWorld.isUsingPlotManagementWildRevert())
+                            	if (entity instanceof Creature)
+	            				    	if (!plugin.getTownyUniverse().hasProtectionRegenTask(new BlockLocation(block.getLocation()))) {
+	            	        				ProtectionRegenTask task = new ProtectionRegenTask(plugin.getTownyUniverse(), block, false);
+	            	        				task.setTaskId(plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, task, ((TownySettings.getPlotManagementWildRegenDelay() + count)*20)));
+	            	        				plugin.getTownyUniverse().addProtectionRegenTask(task);
+	            				    	}
                         }
                 
                 }       
