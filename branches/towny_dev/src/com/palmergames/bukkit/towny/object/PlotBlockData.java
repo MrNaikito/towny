@@ -11,8 +11,10 @@ import com.palmergames.bukkit.towny.TownySettings;
 
 public class PlotBlockData {
 	
+	private int defaultVersion = 1;
+	
 	private String worldName;
-	private int x, z, size, height;
+	private int x, z, size, height, version;
 
 	private List<Integer> blockList = new ArrayList<Integer>(); // Stores the original plot blocks
 	private int blockListRestored; // counter for the next block to test
@@ -22,6 +24,7 @@ public class PlotBlockData {
 		setZ(townBlock.getZ());
 		setSize(TownySettings.getTownBlockSize());
 		this.worldName = townBlock.getWorld().getName();
+		this.setVersion(defaultVersion);
 		try {
 			setHeight(TownyUniverse.plugin.getServerWorld(worldName).getMaxHeight()-1);
 		} catch (NotRegisteredException e) {
@@ -52,7 +55,17 @@ public class PlotBlockData {
 	    		for (int x = 0; x < size; x++)
 	    			for (int y = height; y > 0; y--) { // Top down to account for falling blocks.
 	    				block = world.getBlockAt((getX()*size) + x, y, (getZ()*size) + z);
-    					list.add(block.getTypeId());
+	    				switch (defaultVersion) {
+	    				
+	    				case 1:
+	    					list.add(block.getTypeId());
+	    					list.add((int) block.getData());
+	    					break;
+	    					
+	    				default:
+	    					list.add(block.getTypeId());
+	    				}
+    					
 	    			}
 	        
 		} catch (NotRegisteredException e1) {
@@ -70,26 +83,58 @@ public class PlotBlockData {
 	 */
 	public boolean restoreNextBlock() {
 		Block block = null;
-		int x, y, z, blockId, reverse;
+		int x, y, z, blockId, reverse, scale;
 		int worldx = getX()*size, worldz = getZ()*size;
+		blockObject storedData;
 		
 		try {
 			World world = TownyUniverse.plugin.getServerWorld(worldName);
 			
-			while (blockListRestored < blockList.size()) {
-				reverse = (blockList.size()-1) - blockListRestored; //regen bottom up to stand a better chance of restoring tree's and plants.
+			//Scale for the number of elements
+			switch (version) {
+			
+			case 1:
+				scale = 2;
+				break;
+				
+			default:
+				scale = 1;
+			}
+				
+			reverse = (blockList.size() - blockListRestored) / scale ;
+			
+			while (reverse > 0) {
+				
+				reverse--; //regen bottom up to stand a better chance of restoring tree's and plants.
 				y = height - (reverse % height);
 				x = (int)(reverse/height) % size;
 				z = ((int)(reverse/height) / size) % size;
-				blockListRestored++;
 
 				block = world.getBlockAt(worldx + x, y, worldz + z);					
-				// If this block isn't correct, replace
-				// and flag as done.
 				blockId = block.getTypeId();
-				if ((blockId != blockList.get(reverse))) {
-					if (!TownyUniverse.getWorld(worldName).isPlotManagementIgnoreIds(blockList.get(reverse))) {
-						block.setTypeId(blockList.get(reverse));
+				storedData = getStoredBlockData((blockList.size()-1) - blockListRestored);
+				
+				// Increment based upon number of elements
+				blockListRestored += scale;				
+				
+				// If this block isn't correct, replace
+				// and return as done.
+				if ((blockId != storedData.getTypeID())) {
+					if (!TownyUniverse.getWorld(worldName).isPlotManagementIgnoreIds(storedData.getTypeID())) {
+						
+						//System.out.print("regen x: " + x + " y: " + y + " z: " + z + " ID: " + blockId); 
+						
+						//restore based upon version
+						switch (version) {
+						
+						case 1:
+							block.setTypeIdAndData(storedData.getTypeID(), storedData.getData(), false);
+							
+							break;
+						default:
+							block.setTypeId(storedData.getTypeID());
+						}
+						
 					} else
 						block.setTypeId(0);
 						
@@ -104,6 +149,19 @@ public class PlotBlockData {
 		// reset as we are finished with the regeneration
 		resetBlockListRestored();
 		return false;
+	}
+	
+	private blockObject getStoredBlockData(int index) {	
+		//return based upon version
+		switch (version) {
+		
+		case 1:
+			return new blockObject(blockList.get(index-1), (byte)(blockList.get(index) & 0xff));
+			
+		default:
+			return new blockObject(blockList.get(index), (byte) 0);
+		}
+			
 	}
 
 	public int getX() {
@@ -137,6 +195,20 @@ public class PlotBlockData {
 	
 	public String getWorldName() {
 		return worldName;
+	}
+
+	/**
+	 * @return the version
+	 */
+	public int getVersion() {
+		return version;
+	}
+
+	/**
+	 * @param version the version to set
+	 */
+	public void setVersion(int version) {
+		this.version = version;
 	}
 
 	/**

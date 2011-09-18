@@ -40,6 +40,17 @@ public class TownyFlatFileSource extends TownyDataSource {
 	protected String rootFolder = "";
 	protected String dataFolder = FileMgmt.fileSeparator() + "data";
 	protected String settingsFolder = FileMgmt.fileSeparator() + "settings";
+	
+	private enum elements {
+		VER, novalue;
+		public static elements fromString(String Str) {
+			try {
+				return valueOf(Str);
+			} catch (Exception ex){
+				return novalue;
+			}
+		}
+	}; 
 
 	@Override
 	public void initialize(Towny plugin, TownyUniverse universe) {
@@ -1349,6 +1360,23 @@ public class TownyFlatFileSource extends TownyDataSource {
 			return false;
 		}
 		try {
+			
+			switch (plotChunk.getVersion()) {
+			
+			case 1:
+				/*
+				 * New system requires pushing
+				 * version data first
+				 */
+				fout.write("VER");
+				fout.write(plotChunk.getVersion());
+				
+				break;
+				
+			default:
+				
+			}
+			
 			// Push the plot height, then the plot block data types.
 			fout.write(plotChunk.getHeight());
 			for (int block: new ArrayList<Integer>(plotChunk.getBlockList())) {
@@ -1389,7 +1417,7 @@ public class TownyFlatFileSource extends TownyDataSource {
 	}
 	
 	/**
-	 * Load PlotBlockData
+	 * Load PlotBlockData for regen at unclaim
 	 * 
 	 * @param townBlock
 	 * @return PlotBlockData or null
@@ -1407,8 +1435,39 @@ public class TownyFlatFileSource extends TownyDataSource {
 			try {
 				BufferedReader fin = new BufferedReader(new FileReader(fileName));
 				try {
-					// First entry is the plot height
-					plotBlockData.setHeight(fin.read());
+					//read the first 3 characters to test for version info
+					char[] key = new char[3];
+					fin.read(key,0,3);
+					String test = new String(key);
+					
+					System.out.print("Checking: " + test); 
+					
+					switch (elements.fromString(test)) {
+					case VER:
+						// Read the file version
+						System.out.print("Ver matched");
+						int version = fin.read();
+						plotBlockData.setVersion(version);
+						
+						// next entry is the plot height
+						plotBlockData.setHeight(fin.read());
+						break;
+						
+					default:
+						System.out.print("No match");
+						/*
+						 * no version field so set height
+						 * and push rest to queue
+						 * 
+						 */
+						plotBlockData.setVersion(0);
+						// First entry is the plot height
+						plotBlockData.setHeight(key[0]);
+						IntArr.add((int) key[1]);
+						IntArr.add((int) key[2]);
+					}
+					
+					// load remainder of file
 					while ((value = fin.read()) >= 0) {
 						IntArr.add(value);	
 					}
