@@ -547,3 +547,4 @@ v0.76.1:
     - Minor alterations to english.yml
     - No more sneak jump to avoid the cheat protection.
     - Fixed resetting tags using '/town set tag '.
+    - Plot regen should now correctly restore different types of leaves/wood etc.
