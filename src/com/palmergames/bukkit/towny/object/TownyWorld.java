@@ -44,6 +44,9 @@ public class TownyWorld extends TownyObject {
 		setUsingPlotManagementRevert(TownySettings.isUsingPlotManagementRevert());
 		setUsingPlotManagementWildRevert(TownySettings.isUsingPlotManagementWildRegen());
 		setUsingPlotManagementRevert(TownySettings.isUsingPlotManagementRevert());
+		setPlotManagementRevertSpeed(TownySettings.getPlotManagementSpeed());
+		setPlotManagementWildRevertDelay(TownySettings.getPlotManagementWildRegenDelay());
+		
 	}
 
 	public List<Town> getTowns() {
@@ -315,9 +318,6 @@ public class TownyWorld extends TownyObject {
 	 * @return the plotManagementRevertSpeed
 	 */
 	public long getPlotManagementRevertSpeed() {
-		if (this.plotManagementRevertSpeed == -1)
-			return TownySettings.getPlotManagementSpeed();
-		else
 			return plotManagementRevertSpeed;
 	}
 
@@ -332,9 +332,6 @@ public class TownyWorld extends TownyObject {
 	 * @return the plotManagementWildRevertDelay
 	 */
 	public long getPlotManagementWildRevertDelay() {
-		if (this.plotManagementWildRevertDelay == -1)
-			return TownySettings.getPlotManagementWildRegenDelay();
-		else
 		return plotManagementWildRevertDelay;
 	}
 
