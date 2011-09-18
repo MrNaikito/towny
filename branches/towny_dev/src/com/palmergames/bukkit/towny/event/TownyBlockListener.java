@@ -124,7 +124,7 @@ public class TownyBlockListener extends BlockListener {
 			    if(delay > 0) {
 			        if(!plugin.getTownyUniverse().isPlaceholder(block)) {
 				    	if (!plugin.getTownyUniverse().hasProtectionRegenTask(new BlockLocation(block.getLocation()))) {
-	        				ProtectionRegenTask task = new ProtectionRegenTask(plugin.getTownyUniverse(), block);
+	        				ProtectionRegenTask task = new ProtectionRegenTask(plugin.getTownyUniverse(), block, true);
 	        				task.setTaskId(plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, task, 20*delay));
 	        				plugin.getTownyUniverse().addProtectionRegenTask(task);
 				    	}

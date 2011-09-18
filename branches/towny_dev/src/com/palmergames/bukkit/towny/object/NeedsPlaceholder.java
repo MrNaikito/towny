@@ -17,7 +17,8 @@ public class NeedsPlaceholder {
 		Material.RED_MUSHROOM,
 		Material.CROPS,
 		Material.REDSTONE_TORCH_OFF,
-		Material.REDSTONE_TORCH_ON
+		Material.REDSTONE_TORCH_ON,
+		Material.SNOW
 	);
 
 	public static boolean contains(Material material) {

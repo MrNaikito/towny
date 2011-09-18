@@ -1105,6 +1105,14 @@ public class TownySettings {
 		return getSeconds(ConfigNodes.NWS_PLOT_MANAGEMENT_REVERT_TIME);
 	}
     
+    public static boolean isUsingPlotManagementWildRegen() {
+    	return getBoolean(ConfigNodes.NWS_PLOT_MANAGEMENT_WILD_MOB_REVERT_ENABLE);
+    }
+    
+    public static long getPlotManagementWildRegenDelay() {
+		return getSeconds(ConfigNodes.NWS_PLOT_MANAGEMENT_WILD_MOB_REVERT_TIME);
+	}
+    
     public static List<Integer> getPlotManagementIgnoreIds() {
 		return getIntArr(ConfigNodes.NWS_PLOT_MANAGEMENT_REVERT_IGNORE);
 	}    

@@ -812,6 +812,12 @@ public class TownyFlatFileSource extends TownyDataSource {
 						world.setUsingPlotManagementRevert(Boolean.parseBoolean(line));
 					} catch (Exception e) {
 					}
+				line = kvFile.get("usingPlotManagementRevertSpeed");
+				if (line != null)
+					try {
+						world.setPlotManagementRevertSpeed(Long.parseLong(line));
+					} catch (Exception e) {
+					}
 				line = kvFile.get("plotManagementIgnoreIds");
 				if (line != null)
 					try {
@@ -822,6 +828,19 @@ public class TownyFlatFileSource extends TownyDataSource {
 							} catch (NumberFormatException e) {
 							}
 						world.setPlotManagementIgnoreIds(nums);
+					} catch (Exception e) {
+					}
+				
+				line = kvFile.get("usingPlotManagementWildRegen");
+				if (line != null)
+					try {
+						world.setUsingPlotManagementRevert(Boolean.parseBoolean(line));
+					} catch (Exception e) {
+					}
+				line = kvFile.get("usingPlotManagementWildRegenDelay");
+				if (line != null)
+					try {
+						world.setPlotManagementWildRevertDelay(Long.parseLong(line));
 					} catch (Exception e) {
 					}
 				
@@ -1212,9 +1231,16 @@ public class TownyFlatFileSource extends TownyDataSource {
 			
 			// Using PlotManagement Revert
 			fout.write("usingPlotManagementRevert=" + Boolean.toString(world.isUsingPlotManagementRevert()) + newLine);
+			// Using PlotManagement Revert Speed
+			fout.write("usingPlotManagementRevertSpeed=" + Long.toString(world.getPlotManagementRevertSpeed()) + newLine);
 			// Plot Management Ignore Ids
 			if (world.getPlotManagementIgnoreIds() != null)
 				fout.write("plotManagementIgnoreIds=" + StringMgmt.join(world.getPlotManagementIgnoreIds(), ",") + newLine);
+			
+			// Using PlotManagement Wild Regen
+			fout.write("usingPlotManagementWildRegen=" + Boolean.toString(world.isUsingPlotManagementWildRevert()) + newLine);
+			// Using PlotManagement Wild Regen Delay
+			fout.write("usingPlotManagementWildRegenDelay=" + Long.toString(world.getPlotManagementWildRevertDelay()) + newLine);
 			
 			// Using Towny
 			fout.write("usingTowny=" + Boolean.toString(world.isUsingTowny()) + newLine);
