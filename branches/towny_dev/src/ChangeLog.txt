@@ -549,3 +549,4 @@ v0.76.1:
     - Fixed resetting tags using '/town set tag '.
     - Plot regen should now correctly restore different types of leaves/wood etc.
     - Added a new Default new world setting (wild_revert_on_mob_explosion). When enabled this will replace blocks destroyed by creature explosions in the wild.
+    - Fixed a 'TickNextTick list out of synch' error on a new day.

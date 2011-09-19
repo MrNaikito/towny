@@ -1466,12 +1466,9 @@ public class TownyFlatFileSource extends TownyDataSource {
 					fin.read(key,0,3);
 					String test = new String(key);
 					
-					System.out.print("Checking: " + test); 
-					
 					switch (elements.fromString(test)) {
 					case VER:
 						// Read the file version
-						System.out.print("Ver matched");
 						int version = fin.read();
 						plotBlockData.setVersion(version);
 						
@@ -1480,7 +1477,6 @@ public class TownyFlatFileSource extends TownyDataSource {
 						break;
 						
 					default:
-						System.out.print("No match");
 						/*
 						 * no version field so set height
 						 * and push rest to queue
