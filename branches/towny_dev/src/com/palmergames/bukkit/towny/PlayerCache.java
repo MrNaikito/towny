@@ -16,6 +16,7 @@ public class PlayerCache {
 
 	public PlayerCache(TownyWorld world, Player player) {
 		this(new WorldCoord(world, Coord.parseCoord(player)));
+		setLastLocation(player.getLocation());
 	}
 	
 	public PlayerCache(WorldCoord lastTownBlock) {

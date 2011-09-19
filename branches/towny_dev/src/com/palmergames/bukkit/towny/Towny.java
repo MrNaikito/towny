@@ -505,6 +505,7 @@ public class Towny extends JavaPlugin {
                 deleteCache(player.getName());
         }
         
+        
         public void deleteCache(String name) {
                 playerCache.remove(name.toLowerCase());
         }
