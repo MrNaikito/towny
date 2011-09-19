@@ -210,7 +210,7 @@ public class TownyEntityListener extends EntityListener {
                         } catch (TownyException x) {
                         	
                         	// Wilderness explosion regeneration
-                        	if (townyWorld.isUsingPlotManagementWildRevert())
+                        	if ((townyWorld.isUsingTowny()) && (townyWorld.isUsingPlotManagementWildRevert()))
                             	if (entity instanceof Creature)
 	            				    	if (!plugin.getTownyUniverse().hasProtectionRegenTask(new BlockLocation(block.getLocation()))) {
 	            	        				ProtectionRegenTask task = new ProtectionRegenTask(plugin.getTownyUniverse(), block, false);

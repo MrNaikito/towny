@@ -59,15 +59,16 @@ public class DailyTimerTask extends TownyTimerTask {
                 }
                 
                 // Backups
+                universe.getPlugin().sendDebugMsg("Cleaning up old backups.");
+                TownyUniverse.getDataSource().cleanupBackups();
                 if (TownySettings.isBackingUpDaily())
                         try {
-                                universe.getPlugin().sendDebugMsg("Making backup");
+                                universe.getPlugin().sendDebugMsg("Making backup.");
                                 TownyUniverse.getDataSource().backup();
                         } catch (IOException e) {
                                 System.out.println("[Towny] Error: Could not create backup.");
                                 System.out.print(e.getStackTrace());
                         }
-                
                 
                 universe.getPlugin().sendDebugMsg("Finished New Day Code");
                 universe.getPlugin().sendDebugMsg("Universe Stats:");

@@ -1061,6 +1061,14 @@ public class TownySettings {
 		return getString(ConfigNodes.PLUGIN_FLATFILE_BACKUP);
 	}
 	
+	public static long getBackupLifeLength() {
+		long t = TimeTools.getMillis(TownySettings.getString(ConfigNodes.PLUGIN_BACKUPS_ARE_DELETED_AFTER));
+		long minT = TimeTools.getMillis("1d");
+		if (t >= 0 && t < minT)
+			t = minT;
+		return t;
+	}
+	
 	public static boolean isForcingPvP() {
 		return getBoolean(ConfigNodes.NWS_FORCE_PVP_ON);
 	}

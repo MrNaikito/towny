@@ -44,6 +44,9 @@ public abstract class TownyDataSource {
 	public void backup() throws IOException {
 	}
 	
+	public void cleanupBackups() {
+	}
+	
 	public boolean confirmContinuation(String msg) {
 		Boolean choice = null;
 		String input = null;
