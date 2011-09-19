@@ -78,22 +78,26 @@ public class FileMgmt {
 		
 		// open a handle to yml file
 		File file = new File(filePath);
-		//if(file.exists())
-		//	return file;
+		
+		if((file.exists()) && (!filePath.contains(FileMgmt.fileSeparator() + defaultRes)))
+			return file;
 		
 		String resString;
 		
-		// create the file as it doesn't exist
+		/*
+		 *  create the file as it doesn't exist,
+		 *  or it's the default file
+		 *  so refresh just in case.
+		 */
 		try {
-			checkFiles(new String[]{
-					filePath});
+			checkFiles(new String[]{filePath});
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
-		// file didn't exist so we need to populate a new one
+		// Populate a new file
 		try {
-			resString = convertStreamToString(defaultRes);
+			resString = convertStreamToString("/" + defaultRes);
 			if (resString != null) {
 	    		// Save the string to file (*.yml)
 	    		try {
