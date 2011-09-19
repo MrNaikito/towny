@@ -552,3 +552,4 @@ v0.76.1:
     - Fixed a 'TickNextTick list out of synch' error on a new day.
     - Fixed overwriting custom language files (no, really this time).
     - Towny will now clean up it's backup folder. Default time to keep backups is 90 days (configurable in config).
+    - Fixed default switch and item use permissions for ally and outsider.
