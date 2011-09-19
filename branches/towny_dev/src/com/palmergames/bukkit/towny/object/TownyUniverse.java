@@ -46,8 +46,6 @@ import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.palmergames.bukkit.towny.object.TownyRegenAPI;
-
 import com.palmergames.bukkit.towny.AlreadyRegisteredException;
 import com.palmergames.bukkit.towny.EmptyNationException;
 import com.palmergames.bukkit.towny.EmptyTownException;
@@ -851,6 +849,7 @@ public class TownyUniverse extends TownyObject {
                 }
                 
                 try {
+                		getDataSource().cleanupBackups();
                         setDataSource(TownySettings.getSaveDatabase());
                         getDataSource().initialize(plugin, this);
                         try {

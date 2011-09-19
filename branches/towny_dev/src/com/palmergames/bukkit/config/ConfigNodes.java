@@ -132,6 +132,7 @@ public enum ConfigNodes {
             PLUGIN_DATABASE_LOAD("plugin.database.database_load","flatfile"),
             PLUGIN_DATABASE_SAVE("plugin.database.database_save","flatfile"),
             PLUGIN_DAILY_BACKUPS("plugin.database.daily_backups","true"),
+            PLUGIN_BACKUPS_ARE_DELETED_AFTER("plugin.database.backups_are_deteleted_after","90d"),
             PLUGIN_FLATFILE_BACKUP("plugin.database.flatfile_backup","zip"),
             PLUGIN_USING_ESSENTIALS("plugin.interfacing.using_essentials","false", "# Enable if you are using cooldowns in essentials for teleports."),
             PLUGIN_USING_ICONOMY("plugin.interfacing.using_iconomy","true"),

@@ -100,6 +100,13 @@ public class TownyFlatFileSource extends TownyDataSource {
 		}
 	}
 	
+	@Override
+	public void cleanupBackups() {
+		long deleteAfter = TownySettings.getBackupLifeLength();
+		if (deleteAfter >= 0)
+			FileMgmt.deleteOldBackups(new File(rootFolder + FileMgmt.fileSeparator() + "backup"), deleteAfter);
+	}
+	
 	public String getResidentFilename(Resident resident) {
 		return rootFolder + dataFolder + FileMgmt.fileSeparator() + "residents" + FileMgmt.fileSeparator() + resident.getName() + ".txt";
 	}
