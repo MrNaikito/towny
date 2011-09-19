@@ -245,13 +245,14 @@ public class TownyPlayerListener extends PlayerListener {
 	   // Prevent fly/double jump cheats
 		if (TownySettings.isUsingCheatProtection() && !plugin.hasPermission(player, "towny.cheat.bypass"))
 		   if (event.getEventName() != "PLAYER_TELEPORT" && from.getBlock().getRelative(BlockFace.DOWN).getType() == Material.AIR
-                    && player.getFallDistance() == 0 && player.getVelocity().getY() <= -0.6) {
+                    && player.getFallDistance() == 0 && player.getVelocity().getY() <= -0.6
+        			&& (player.getLocation().getY() > 0)) {
 			   //plugin.sendErrorMsg(player, "Cheat Detected!");
 			   
 			   Location blockLocation = from;
 	
 			   //find the first non air block below us
-			   while (blockLocation.getBlock().getType() == Material.AIR)
+			   while ((blockLocation.getBlock().getType() == Material.AIR) && (blockLocation.getY() > 0))
 				   blockLocation.setY(blockLocation.getY() - 1);
 			   
 			   // set to 1 block up so we are not sunk in the ground
