@@ -9,7 +9,7 @@ import org.bukkit.Location;
 import com.palmergames.bukkit.towny.AlreadyRegisteredException;
 import com.palmergames.bukkit.towny.EmptyNationException;
 import com.palmergames.bukkit.towny.EmptyTownException;
-import com.palmergames.bukkit.towny.IConomyException;
+import com.palmergames.bukkit.towny.EconomyException;
 import com.palmergames.bukkit.towny.NotRegisteredException;
 import com.palmergames.bukkit.towny.TownyException;
 import com.palmergames.bukkit.towny.TownySettings;
@@ -553,11 +553,11 @@ public class Town extends TownBlockOwner implements Walled, ResidentList {
         return commercialPlotTax;
     }
         
-    public void withdrawFromBank(Resident resident, int amount) throws IConomyException, TownyException {
+    public void withdrawFromBank(Resident resident, int amount) throws EconomyException, TownyException {
         if (!isMayor(resident) && !hasAssistant(resident))
                 throw new TownyException("You don't have access to the town's bank.");
         
-        if (TownySettings.isUsingIConomy()) {
+        if (TownySettings.isUsingEconomy()) {
                 if (!pay(amount, resident))
                         throw new TownyException("There is not enough money in the bank.");
         } else

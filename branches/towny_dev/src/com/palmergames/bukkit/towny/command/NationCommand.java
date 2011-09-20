@@ -18,7 +18,7 @@ import ca.xshade.questionmanager.Question;
 import com.iConomy.iConomy;
 import com.palmergames.bukkit.towny.AlreadyRegisteredException;
 import com.palmergames.bukkit.towny.EmptyNationException;
-import com.palmergames.bukkit.towny.IConomyException;
+import com.palmergames.bukkit.towny.EconomyException;
 import com.palmergames.bukkit.towny.NotRegisteredException;
 import com.palmergames.bukkit.towny.Towny;
 import com.palmergames.bukkit.towny.TownyException;
@@ -27,7 +27,7 @@ import com.palmergames.bukkit.towny.TownySettings;
 import com.palmergames.bukkit.towny.object.Nation;
 import com.palmergames.bukkit.towny.object.Resident;
 import com.palmergames.bukkit.towny.object.Town;
-import com.palmergames.bukkit.towny.object.TownyIConomyObject;
+import com.palmergames.bukkit.towny.object.TownyEconomyObject;
 import com.palmergames.bukkit.towny.object.TownyUniverse;
 import com.palmergames.bukkit.towny.questioner.JoinNationTask;
 import com.palmergames.bukkit.towny.questioner.ResidentNationQuestionTask;
@@ -213,7 +213,7 @@ public class NationCommand implements CommandExecutor  {
                         plugin.getTownyUniverse().sendNationMessage(nation, String.format(TownySettings.getLangString("msg_xx_withdrew_xx"), resident.getName(), amount, "nation"));
                 } catch (TownyException x) {
                         plugin.sendErrorMsg(player, x.getError());
-                } catch (IConomyException x) {
+                } catch (EconomyException x) {
                         plugin.sendErrorMsg(player, x.getError());
                 }
         }
@@ -240,7 +240,7 @@ public class NationCommand implements CommandExecutor  {
                         plugin.getTownyUniverse().sendNationMessage(nation, String.format(TownySettings.getLangString("msg_xx_deposited_xx"), resident.getName(), amount, "nation"));
                 } catch (TownyException x) {
                         plugin.sendErrorMsg(player, x.getError());
-                } catch (IConomyException x) {
+                } catch (EconomyException x) {
                         plugin.sendErrorMsg(player, x.getError());
                 }
         }
@@ -279,7 +279,7 @@ public class NationCommand implements CommandExecutor  {
                         if (!TownySettings.isValidRegionName(name))
                                 throw new TownyException(String.format(TownySettings.getLangString("msg_err_invalid_name"), name));
                         
-                        if (TownySettings.isUsingIConomy() && !town.pay(TownySettings.getNewNationPrice()))
+                        if (TownySettings.isUsingEconomy() && !town.pay(TownySettings.getNewNationPrice()))
                                 throw new TownyException(TownySettings.getLangString("msg_no_funds_new_nation"));
 
                         newNation(universe, name, town);
@@ -296,7 +296,7 @@ public class NationCommand implements CommandExecutor  {
                 } catch (TownyException x) {
                         plugin.sendErrorMsg(player, x.getError());
                         // TODO: delete town data that might have been done
-                } catch (IConomyException x) {
+                } catch (EconomyException x) {
                         plugin.sendErrorMsg(player, x.getError());
                 }
         }
@@ -306,7 +306,7 @@ public class NationCommand implements CommandExecutor  {
                 Nation nation = universe.getNation(name);
                 nation.addTown(town);
                 nation.setCapital(town);
-                if(TownySettings.isUsingIConomy())
+                if(TownySettings.isUsingEconomy())
                 {
                         iConomy.getAccount("nation-"+name);
                         iConomy.getAccount("nation-"+name).getHoldings().set(0);
@@ -1008,20 +1008,20 @@ public class NationCommand implements CommandExecutor  {
                     boolean choice = !nation.isNeutral();
                     Double cost = TownySettings.getNationNeutralityCost();
                     
-                    if (choice && TownySettings.isUsingIConomy() && !nation.pay(cost))
+                    if (choice && TownySettings.isUsingEconomy() && !nation.pay(cost))
                         throw new TownyException(TownySettings.getLangString("msg_nation_cant_neutral"));
                             
                     nation.setNeutral(choice);
                     plugin.updateCache();
 
                     // send message depending on if using IConomy and charging for neutral
-                    if (TownySettings.isUsingIConomy() && cost > 0)
-                        plugin.sendMsg(player, String.format(TownySettings.getLangString("msg_you_paid"), cost + TownyIConomyObject.getIConomyCurrency()));
+                    if (TownySettings.isUsingEconomy() && cost > 0)
+                        plugin.sendMsg(player, String.format(TownySettings.getLangString("msg_you_paid"), cost + TownyEconomyObject.getEconomyCurrency()));
                     else                                                    
                         plugin.sendMsg(player, TownySettings.getLangString("msg_nation_set_neutral"));
                     
                     plugin.getTownyUniverse().sendNationMessage(nation, TownySettings.getLangString("msg_nation_neutral") + (nation.isNeutral() ? Colors.Green : Colors.Red + " not") + " neutral.");
-                } catch (IConomyException e) {
+                } catch (EconomyException e) {
                     plugin.sendErrorMsg(player, e.getError());
                 } catch (TownyException e) {
                     try {

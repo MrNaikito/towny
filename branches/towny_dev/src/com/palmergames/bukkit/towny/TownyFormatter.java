@@ -9,7 +9,7 @@ import com.palmergames.bukkit.towny.object.Nation;
 import com.palmergames.bukkit.towny.object.Resident;
 import com.palmergames.bukkit.towny.object.ResidentList;
 import com.palmergames.bukkit.towny.object.Town;
-import com.palmergames.bukkit.towny.object.TownyIConomyObject;
+import com.palmergames.bukkit.towny.object.TownyEconomyObject;
 import com.palmergames.bukkit.towny.object.TownyObject;
 import com.palmergames.bukkit.towny.object.TownyWorld;
 import com.palmergames.bukkit.util.ChatTools;
@@ -69,11 +69,11 @@ public class TownyFormatter {
                 }
 
                 // Bank: 534 coins
-                if (TownySettings.isUsingIConomy())
+                if (TownySettings.isUsingEconomy())
                         try {
-                                TownyIConomyObject.checkIConomy();
+                                TownyEconomyObject.checkIConomy();
                                 out.add(Colors.Green + "Bank: " + Colors.LightGreen + resident.getHoldingFormattedBalance());
-                        } catch (IConomyException e1) {
+                        } catch (EconomyException e1) {
                         }
                 
                 // Town: Camelot
@@ -130,11 +130,11 @@ public class TownyFormatter {
 
                 // | Bank: 534 coins
                 String bankString = "";
-                if (TownySettings.isUsingIConomy())
+                if (TownySettings.isUsingEconomy())
                         try {
-                                TownyIConomyObject.checkIConomy();
+                                TownyEconomyObject.checkIConomy();
                                 bankString = Colors.Gray + " | " + Colors.Green + "Bank: " + Colors.LightGreen + town.getHoldingFormattedBalance();
-                        } catch (IConomyException e1) {
+                        } catch (EconomyException e1) {
                         }
 
                 // Mayor: MrSand | Bank: 534 coins
@@ -173,11 +173,11 @@ public class TownyFormatter {
         
 				// Bank: 534 coins
 				String line = "";
-				if (TownySettings.isUsingIConomy())
+				if (TownySettings.isUsingEconomy())
 					try {
-						TownyIConomyObject.checkIConomy();
+						TownyEconomyObject.checkIConomy();
 						line = Colors.Green + "Bank: " + Colors.LightGreen + nation.getHoldingFormattedBalance();
-					} catch (IConomyException e1) {
+					} catch (EconomyException e1) {
                             }
 				
 				if (nation.isNeutral()) {

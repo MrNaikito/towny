@@ -23,7 +23,7 @@ import com.earth2me.essentials.User;
 import com.iConomy.iConomy;
 import com.palmergames.bukkit.towny.AlreadyRegisteredException;
 import com.palmergames.bukkit.towny.EmptyTownException;
-import com.palmergames.bukkit.towny.IConomyException;
+import com.palmergames.bukkit.towny.EconomyException;
 import com.palmergames.bukkit.towny.NotRegisteredException;
 import com.palmergames.bukkit.towny.Towny;
 import com.palmergames.bukkit.towny.TownyException;
@@ -37,7 +37,7 @@ import com.palmergames.bukkit.towny.object.Resident;
 import com.palmergames.bukkit.towny.object.Town;
 import com.palmergames.bukkit.towny.object.TownBlock;
 import com.palmergames.bukkit.towny.object.TownBlockOwner;
-import com.palmergames.bukkit.towny.object.TownyIConomyObject;
+import com.palmergames.bukkit.towny.object.TownyEconomyObject;
 import com.palmergames.bukkit.towny.object.TownyPermission;
 import com.palmergames.bukkit.towny.object.TownyRegenAPI;
 import com.palmergames.bukkit.towny.object.TownyUniverse;
@@ -189,7 +189,7 @@ public class TownCommand implements CommandExecutor  {
                                         travelCost = TownySettings.getTownPublicSpawnTravelPrice();
                                 
                                 // Check if need/can pay
-                                if (!isTownyAdmin && TownySettings.isUsingIConomy() && (resident.getHoldingBalance() < travelCost))
+                                if (!isTownyAdmin && TownySettings.isUsingEconomy() && (resident.getHoldingBalance() < travelCost))
                                         throw new TownyException(notAffordMSG);
                                 
                                 //essentials tests
@@ -221,9 +221,9 @@ public class TownCommand implements CommandExecutor  {
                                         }
                                 }
                                 //show message if we are using iConomy and are charging for spawn travel.
-                                if (!isTownyAdmin && TownySettings.isUsingIConomy() && resident.pay(travelCost, town))
+                                if (!isTownyAdmin && TownySettings.isUsingEconomy() && resident.pay(travelCost, town))
                                         plugin.sendMsg(player, String.format(TownySettings.getLangString("msg_cost_spawn"),
-                                                        travelCost + TownyIConomyObject.getIConomyCurrency()));
+                                                        travelCost + TownyEconomyObject.getEconomyCurrency()));
                                 
                                 
                                 // if an Admin or essentials teleport isn't being used, use our own.
@@ -249,7 +249,7 @@ public class TownCommand implements CommandExecutor  {
                         } catch (TownyException e) {
                                 plugin.sendErrorMsg(player, e.getMessage());
                                 //e.printStackTrace();
-                        } catch (IConomyException e) {
+                        } catch (EconomyException e) {
                                 plugin.sendErrorMsg(player, e.getMessage());
                         }
                 else if (split[0].equalsIgnoreCase("withdraw")) {
@@ -787,9 +787,9 @@ public class TownCommand implements CommandExecutor  {
     		
     		try {
     			double cost = n * TownySettings.getPurchasedBonusBlocksCost();
-                if (TownySettings.isUsingIConomy() && !town.pay(cost))
-                	throw new TownyException(String.format(TownySettings.getLangString("msg_no_funds_to_buy"), n, "bonus town blocks", cost + TownyIConomyObject.getIConomyCurrency()));
-    	    } catch (IConomyException e1) {
+                if (TownySettings.isUsingEconomy() && !town.pay(cost))
+                	throw new TownyException(String.format(TownySettings.getLangString("msg_no_funds_to_buy"), n, "bonus town blocks", cost + TownyEconomyObject.getEconomyCurrency()));
+    	    } catch (EconomyException e1) {
                 throw new TownyException("Iconomy Error");
     	    }
     	    
@@ -839,7 +839,7 @@ public class TownCommand implements CommandExecutor  {
                                 if ((world.getMinDistanceFromOtherTowns(key) > TownySettings.getMaxDistanceBetweenHomeblocks()) && world.hasTowns())
                                         throw new TownyException(TownySettings.getLangString("msg_too_far"));
 
-                        if (TownySettings.isUsingIConomy() && !resident.pay(TownySettings.getNewTownPrice()))
+                        if (TownySettings.isUsingEconomy() && !resident.pay(TownySettings.getNewTownPrice()))
                                 throw new TownyException(String.format(TownySettings.getLangString("msg_no_funds_new_town"), (resident.getName().equals(player.getName()) ? "You" : resident.getName())));
 
                         newTown(universe, world, name, resident, key, player.getLocation());                    
@@ -847,7 +847,7 @@ public class TownCommand implements CommandExecutor  {
                 } catch (TownyException x) {
                         plugin.sendErrorMsg(player, x.getError());
                         // TODO: delete town data that might have been done
-                } catch (IConomyException x) {
+                } catch (EconomyException x) {
                         plugin.sendErrorMsg(player, x.getError());
                 }
         }
@@ -876,7 +876,7 @@ public class TownCommand implements CommandExecutor  {
             		plotChunk = null;
                 }
                 plugin.sendDebugMsg("Creating new Town account: " + "town-"+name);
-                if(TownySettings.isUsingIConomy())
+                if(TownySettings.isUsingEconomy())
                 {
                         iConomy.getAccount("town-"+name);
                         iConomy.getAccount("town-"+name).getHoldings().set(0);
@@ -1405,9 +1405,9 @@ public class TownCommand implements CommandExecutor  {
                                 
                                 try {
                                         double cost = blockCost * selection.size();
-                                        if (TownySettings.isUsingIConomy() && !town.pay(cost))
-                                                throw new TownyException(String.format(TownySettings.getLangString("msg_no_funds_claim"), selection.size(), cost + TownyIConomyObject.getIConomyCurrency()));
-                                } catch (IConomyException e1) {
+                                        if (TownySettings.isUsingEconomy() && !town.pay(cost))
+                                                throw new TownyException(String.format(TownySettings.getLangString("msg_no_funds_claim"), selection.size(), cost + TownyEconomyObject.getEconomyCurrency()));
+                                } catch (EconomyException e1) {
                                         throw new TownyException("Iconomy Error");
                                 }
                                 
@@ -1526,9 +1526,9 @@ public class TownCommand implements CommandExecutor  {
                 
                 try {
                         double cost = blockCost * selection.size();
-                        if (TownySettings.isUsingIConomy() && !owner.canPayFromHoldings(cost))
-                                throw new TownyException(String.format(TownySettings.getLangString("msg_err_cant_afford_blocks"), selection.size(), cost + TownyIConomyObject.getIConomyCurrency()));
-                } catch (IConomyException e1) {
+                        if (TownySettings.isUsingEconomy() && !owner.canPayFromHoldings(cost))
+                                throw new TownyException(String.format(TownySettings.getLangString("msg_err_cant_afford_blocks"), selection.size(), cost + TownyEconomyObject.getEconomyCurrency()));
+                } catch (EconomyException e1) {
                         throw new TownyException("Iconomy Error");
                 }
         }
@@ -1599,7 +1599,7 @@ public class TownCommand implements CommandExecutor  {
                         plugin.getTownyUniverse().sendTownMessage(town, String.format(TownySettings.getLangString("msg_xx_withdrew_xx"), resident.getName(), amount, "town"));
                 } catch (TownyException x) {
                         plugin.sendErrorMsg(player, x.getError());
-                } catch (IConomyException x) {
+                } catch (EconomyException x) {
                         plugin.sendErrorMsg(player, x.getError());
                 }
         }
@@ -1626,7 +1626,7 @@ public class TownCommand implements CommandExecutor  {
                         plugin.getTownyUniverse().sendTownMessage(town, String.format(TownySettings.getLangString("msg_xx_deposited_xx"), resident.getName(), amount, "town"));
                 } catch (TownyException x) {
                         plugin.sendErrorMsg(player, x.getError());
-                } catch (IConomyException x) {
+                } catch (EconomyException x) {
                         plugin.sendErrorMsg(player, x.getError());
                 }
         }
