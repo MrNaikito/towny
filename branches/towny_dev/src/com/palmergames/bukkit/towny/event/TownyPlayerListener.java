@@ -14,6 +14,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
+import org.bukkit.material.Attachable;
 
 import com.palmergames.bukkit.towny.NotRegisteredException;
 import com.palmergames.bukkit.towny.PlayerCache;
@@ -24,6 +25,7 @@ import com.palmergames.bukkit.towny.TownyFormatter;
 import com.palmergames.bukkit.towny.TownySettings;
 import com.palmergames.bukkit.towny.command.TownCommand;
 import com.palmergames.bukkit.towny.command.TownyCommand;
+import com.palmergames.bukkit.towny.object.BlockLocation;
 import com.palmergames.bukkit.towny.object.Coord;
 import com.palmergames.bukkit.towny.object.Resident;
 import com.palmergames.bukkit.towny.object.Town;
@@ -123,6 +125,18 @@ public class TownyPlayerListener extends PlayerListener {
 					return;
 		    }
 		}
+		
+		// Towny regen
+        if(TownySettings.getRegenDelay() > 0) {
+            if(event.getClickedBlock().getState().getData() instanceof Attachable) {
+                Attachable attachable = (Attachable)event.getClickedBlock().getState().getData();
+                BlockLocation attachedToBlock = new BlockLocation(event.getClickedBlock().getRelative(attachable.getAttachedFace()).getLocation());
+                // Prevent attached blocks from falling off when interacting
+                if(plugin.getTownyUniverse().hasProtectionRegenTask(attachedToBlock)) {
+                    event.setCancelled(true);
+                }
+            }
+         }
 			
 		if(event.hasItem())
 		{
