@@ -3,7 +3,7 @@ package com.palmergames.bukkit.towny.tasks;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import com.palmergames.bukkit.towny.IConomyException;
+import com.palmergames.bukkit.towny.EconomyException;
 import com.palmergames.bukkit.towny.TownyException;
 import com.palmergames.bukkit.towny.TownySettings;
 import com.palmergames.bukkit.towny.object.Resident;
@@ -22,7 +22,7 @@ public class DailyTimerTask extends TownyTimerTask {
                 universe.getPlugin().sendDebugMsg("New Day");
                 
                 // Collect taxes
-                if (TownySettings.isUsingIConomy() && TownySettings.isTaxingDaily()) {
+                if (TownySettings.isUsingEconomy() && TownySettings.isTaxingDaily()) {
                         universe.sendGlobalMessage(String.format(TownySettings.getLangString("msg_new_day_tax")));
                         try {
                                 universe.getPlugin().sendDebugMsg("Collecting Town Taxes");
@@ -33,7 +33,7 @@ public class DailyTimerTask extends TownyTimerTask {
                                 universe.collectTownCosts();
                                 universe.getPlugin().sendDebugMsg("Collecting Nation Costs");
                                 universe.collectNationCosts();
-                        } catch (IConomyException e) {
+                        } catch (EconomyException e) {
                         } catch (TownyException e) {
                                 // TODO king exception
                                 e.printStackTrace();

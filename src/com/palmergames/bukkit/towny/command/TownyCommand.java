@@ -8,7 +8,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.palmergames.bukkit.towny.IConomyException;
+import com.palmergames.bukkit.towny.EconomyException;
 import com.palmergames.bukkit.towny.NotRegisteredException;
 import com.palmergames.bukkit.towny.Towny;
 import com.palmergames.bukkit.towny.TownyAsciiMap;
@@ -19,7 +19,7 @@ import com.palmergames.bukkit.towny.object.Resident;
 import com.palmergames.bukkit.towny.object.ResidentList;
 import com.palmergames.bukkit.towny.object.Town;
 import com.palmergames.bukkit.towny.object.TownBlockOwner;
-import com.palmergames.bukkit.towny.object.TownyIConomyObject;
+import com.palmergames.bukkit.towny.object.TownyEconomyObject;
 import com.palmergames.bukkit.towny.object.TownyObject;
 import com.palmergames.bukkit.util.ChatTools;
 import com.palmergames.bukkit.util.Colors;
@@ -188,23 +188,23 @@ public class TownyCommand implements CommandExecutor {
                 } else if (args[0].equalsIgnoreCase("money"))
                         try {
                                 if (args.length == 1 || args[1].equalsIgnoreCase("all")) {
-                                        List<TownyIConomyObject> list = new ArrayList<TownyIConomyObject>(plugin.getTownyUniverse().getResidents());
+                                        List<TownyEconomyObject> list = new ArrayList<TownyEconomyObject>(plugin.getTownyUniverse().getResidents());
                                         list.addAll(plugin.getTownyUniverse().getTowns());
                                         list.addAll(plugin.getTownyUniverse().getNations());
                                         towny_top.add(ChatTools.formatTitle("Top Bank Accounts"));
                                         towny_top.addAll(getTopBankBalance(list, 10));
                                 } else if (args[1].equalsIgnoreCase("resident")) {
                                         towny_top.add(ChatTools.formatTitle("Top Resident Bank Accounts"));
-                                        towny_top.addAll(getTopBankBalance(new ArrayList<TownyIConomyObject>(plugin.getTownyUniverse().getResidents()), 10));
+                                        towny_top.addAll(getTopBankBalance(new ArrayList<TownyEconomyObject>(plugin.getTownyUniverse().getResidents()), 10));
                                 } else if (args[1].equalsIgnoreCase("town")) {
                                         towny_top.add(ChatTools.formatTitle("Top Town Bank Accounts"));
-                                        towny_top.addAll(getTopBankBalance(new ArrayList<TownyIConomyObject>(plugin.getTownyUniverse().getTowns()), 10));
+                                        towny_top.addAll(getTopBankBalance(new ArrayList<TownyEconomyObject>(plugin.getTownyUniverse().getTowns()), 10));
                                 } else if (args[1].equalsIgnoreCase("nation")) {
                                         towny_top.add(ChatTools.formatTitle("Top Nation Bank Accounts"));
-                                        towny_top.addAll(getTopBankBalance(new ArrayList<TownyIConomyObject>(plugin.getTownyUniverse().getNations()), 10));
+                                        towny_top.addAll(getTopBankBalance(new ArrayList<TownyEconomyObject>(plugin.getTownyUniverse().getNations()), 10));
                                 } else 
                                         sendErrorMsg(player, "Invalid sub command.");
-                        } catch (IConomyException e) {
+                        } catch (EconomyException e) {
                                 sendErrorMsg(player, "IConomy error.");
                                 sendErrorMsg(player, e.getError());
                         }
@@ -339,21 +339,21 @@ public class TownyCommand implements CommandExecutor {
                 return output;
         }
         
-        public List<String> getTopBankBalance(List<TownyIConomyObject> list, int maxListing) throws IConomyException {
+        public List<String> getTopBankBalance(List<TownyEconomyObject> list, int maxListing) throws EconomyException {
                 List<String> output = new ArrayList<String>();
-                KeyValueTable<TownyIConomyObject,Double> kvTable = new KeyValueTable<TownyIConomyObject,Double>();
-                for (TownyIConomyObject obj : list)
+                KeyValueTable<TownyEconomyObject,Double> kvTable = new KeyValueTable<TownyEconomyObject,Double>();
+                for (TownyEconomyObject obj : list)
                 {
                         kvTable.put(obj, obj.getHoldingBalance());
                 }
                 kvTable.sortByValue();
                 kvTable.revese();
                 int n = 0;
-                for (KeyValue<TownyIConomyObject,Double> kv : kvTable.getKeyValues()) {
+                for (KeyValue<TownyEconomyObject,Double> kv : kvTable.getKeyValues()) {
                         n++;
                         if (maxListing != -1 && n > maxListing)
                                 break;
-                        TownyIConomyObject town = (TownyIConomyObject)kv.key;
+                        TownyEconomyObject town = (TownyEconomyObject)kv.key;
                         output.add(String.format(
                                         Colors.LightGray + "%-20s "+Colors.Gold+"|"+Colors.Blue+" %s",
                                         TownyFormatter.getFormattedName(town),

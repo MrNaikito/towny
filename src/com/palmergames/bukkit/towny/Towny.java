@@ -26,6 +26,7 @@ import ca.xshade.questionmanager.Question;
 import com.iConomy.iConomy;
 import com.nijiko.permissions.PermissionHandler;
 import com.nijikokun.bukkit.Permissions.Permissions;
+import com.nijikokun.register.Register;
 import com.palmergames.bukkit.towny.PlayerCache.TownBlockStatus;
 import com.palmergames.bukkit.towny.command.NationChatCommand;
 import com.palmergames.bukkit.towny.command.NationCommand;
@@ -46,7 +47,7 @@ import com.palmergames.bukkit.towny.object.Coord;
 import com.palmergames.bukkit.towny.object.Resident;
 import com.palmergames.bukkit.towny.object.Town;
 import com.palmergames.bukkit.towny.object.TownBlock;
-import com.palmergames.bukkit.towny.object.TownyIConomyObject;
+import com.palmergames.bukkit.towny.object.TownyEconomyObject;
 import com.palmergames.bukkit.towny.object.TownyPermission;
 import com.palmergames.bukkit.towny.object.TownyUniverse;
 import com.palmergames.bukkit.towny.object.TownyWorld;
@@ -89,6 +90,8 @@ public class Towny extends JavaPlugin {
         private TownyUniverse townyUniverse;
         private Map<String, PlayerCache> playerCache = Collections.synchronizedMap(new HashMap<String, PlayerCache>());
         private Map<String, List<String>> playerMode = Collections.synchronizedMap(new HashMap<String, List<String>>());
+        
+        private Register register = null;
         private iConomy iconomy = null;
         private Permissions permissions = null;
         private boolean error = false;
@@ -233,13 +236,26 @@ public class Towny extends JavaPlugin {
                                 using.add("Permissions");
                 }
                 
-                test = getServer().getPluginManager().getPlugin("iConomy");
-                if (test == null)
-                        TownySettings.setUsingIConomy(false);
-                else {
-                        iconomy = (iConomy)test;
-                        if (TownySettings.isUsingIConomy())
-                                using.add("iConomy");
+                test = getServer().getPluginManager().getPlugin("Register");
+                if (test != null) {
+                        register = (Register)test;
+                        if (TownySettings.isUsingRegister()) {
+                                using.add("Register");
+                                TownySettings.setUsingIConomy(false);
+                        }
+                }else {
+                	TownySettings.setUsingRegister(false);
+                	
+                	test = getServer().getPluginManager().getPlugin("iConomy");
+                    if (test == null)
+                            TownySettings.setUsingIConomy(false);
+                    else {
+                            iconomy = (iConomy)test;
+                            if (TownySettings.isUsingIConomy()) {
+                                    using.add("iConomy");
+                                    TownySettings.setUsingRegister(false);
+                            }
+                    }
                 }
                 
                 test = getServer().getPluginManager().getPlugin("Essentials");
@@ -292,7 +308,7 @@ public class Towny extends JavaPlugin {
                 }
                 
                 //Coord.setCellSize(TownySettings.getTownBlockSize());
-                TownyIConomyObject.setPlugin(this);
+                TownyEconomyObject.setPlugin(this);
                 //TownyCommand.setUniverse(townyUniverse);
         }
         
@@ -1009,15 +1025,32 @@ public class Towny extends JavaPlugin {
                 return false;
         }       
 
-        public iConomy getIConomy() throws IConomyException {
+        public iConomy getIConomy() throws EconomyException {
                 if (iconomy == null)
-                        throw new IConomyException("iConomy is not installed");
+                        throw new EconomyException("iConomy is not installed");
                 else
                         return iconomy;
                 
         }
 
-        public Logger getLogger() {
+        /**
+		 * @return the register
+		 */
+		public Register getRegister() throws EconomyException{
+			if (iconomy == null)
+                throw new EconomyException("iConomy is not installed");
+			else
+				return register;
+		}
+
+		/**
+		 * @param register the register to set
+		 */
+		public void setRegister(Register register) {
+			this.register = register;
+		}
+
+		public Logger getLogger() {
                 return logger;
         }
         

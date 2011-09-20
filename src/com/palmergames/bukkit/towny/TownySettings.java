@@ -322,11 +322,7 @@ public class TownySettings {
 
     private static void setDefaultLevels() {
         addComment(ConfigNodes.LEVELS_TOWN_LEVEL.getRoot(), "",
-                "############################################################",
-                "# +------------------------------------------------------+ #",
-                "# |                 default Town levels                  | #",
-                "# +------------------------------------------------------+ #",
-                "############################################################", "");
+                "# default Town levels.");
         List<ConfigurationNode> townLevels = new ArrayList<ConfigurationNode>(config.getNodeList(ConfigNodes.LEVELS_TOWN_LEVEL.getRoot(), null));
         if (townLevels.isEmpty() || townLevels.size() == 0) {
             List<HashMap<String, Object>> levels = new ArrayList<HashMap<String, Object>>();
@@ -417,11 +413,7 @@ public class TownySettings {
         	newConfig.setProperty(ConfigNodes.LEVELS_TOWN_LEVEL.getRoot(), config.getProperty(ConfigNodes.LEVELS_TOWN_LEVEL.getRoot()));
         
         addComment(ConfigNodes.LEVELS_NATION_LEVEL.getRoot(), "",
-                "############################################################",
-                "# +------------------------------------------------------+ #",
-                "# |                default Nation levels                 | #",
-                "# +------------------------------------------------------+ #",
-                "############################################################", "");
+        		"# default Nation levels.");
         ArrayList<ConfigurationNode> nationLevels = new ArrayList<ConfigurationNode>(config.getNodeList(ConfigNodes.LEVELS_NATION_LEVEL.getRoot(), null));
         if (nationLevels.isEmpty() || nationLevels.size() == 0) {
             List<HashMap<String, Object>> levels = new ArrayList<HashMap<String, Object>>();
@@ -725,8 +717,20 @@ public class TownySettings {
 		return getBoolean(ConfigNodes.PERMS_NATION_CREATION_ADMIN_ONLY);
 	}
 	
+	public static boolean isUsingRegister() {
+		return getBoolean(ConfigNodes.PLUGIN_USING_REGISTER);
+	}
+
+    public static void setUsingRegister(boolean newSetting) {
+        setProperty(ConfigNodes.PLUGIN_USING_REGISTER.getRoot(), newSetting);
+    }
+	
 	public static boolean isUsingIConomy() {
 		return getBoolean(ConfigNodes.PLUGIN_USING_ICONOMY);
+	}
+	
+	public static boolean isUsingEconomy() {
+		return (isUsingIConomy() || isUsingRegister());
 	}
 
     public static void setUsingIConomy(boolean newSetting) {
@@ -1419,5 +1423,6 @@ public class TownySettings {
             return false;
 		}
 	}
+	
 
 }
