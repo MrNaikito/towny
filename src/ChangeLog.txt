@@ -535,7 +535,7 @@ v0.76.1:
     - Fixed default Bukkit Permissions to deny instead of allow.
     - Fixed last timer for deleting old residents.
     - Added a new setting 'regen_delay'.
-      This setting is in seconds. It will allow players to break protected blocks in the wild and town, even if they dont have permission.
+      This setting is in seconds. It will allow players to break protected blocks in the wild and towns, even if they dont have permission.
       The blocks will drop no loot and will regenerate after the specified time.
       Defaults to 0 (disabled).
     - Added Nation bank caps and moved the settings to the economy section.
@@ -554,4 +554,4 @@ v0.76.1:
     - Towny will now clean up it's backup folder. Default time to keep backups is 90 days (configurable in config).
     - Fixed default switch and item use permissions for ally and outsider.
     - Finally fixed the elusive error when getLastLocation() throws a NullPointerException.
-    - Fixed an infinate loop when a player uses a fly hack over void.
+    - Fixed an infinite loop when a player uses a fly hack over void.
