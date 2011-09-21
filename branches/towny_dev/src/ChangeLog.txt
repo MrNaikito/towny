@@ -568,3 +568,4 @@ v0.76.1:
       - towny.nation.* : Grants all Nation permission nodes.
       
     - Added 'towny time' : Displays the time until a new day is scheduled.
+    - Players can no longer attack another players tamed wolf if in a non PVP area (can attack own).

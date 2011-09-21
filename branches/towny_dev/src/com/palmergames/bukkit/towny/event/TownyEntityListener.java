@@ -355,9 +355,19 @@ public class TownyEntityListener extends EntityListener {
                         Coord key = Coord.parseCoord(b);
                         TownBlock townblock = world.getTownBlock(key);
                         //plugin.sendDebugMsg("is townblock");
-                        if (!townblock.getTown().isPVP() && !world.isForcePVP())
+                        if (!townblock.getTown().isPVP() && !world.isForcePVP()) {
                                 if (bp != null && (ap != null || a instanceof Arrow))
-                                        return true;
+                                    return true;
+                                
+                                if (b instanceof Wolf) {
+                                    Wolf wolf = (Wolf)b;
+                                    if (wolf.isTamed() && !wolf.getOwner().equals((AnimalTamer)a)) {
+                                    	return true;
+                                    }
+                                }
+                                
+                                
+                        }
                         /*
                                 else if (!TownySettings.isPvEWithinNonPvPZones()) // TODO: Allow EvE >.>
                                         return true;
