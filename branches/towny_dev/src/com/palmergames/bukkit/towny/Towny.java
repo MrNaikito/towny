@@ -164,20 +164,16 @@ public class Towny extends JavaPlugin {
                 for (Town town : getTownyUniverse().getTowns()) {
                         sendDebugMsg("[Towny] Setting flags for: " + town.getName());
                         
-                        TownBlock home;
-                        
                         if (town.getWorld() == null) {
                                 System.out.println("[Towny Error] Detected an error with the world files. Attempting to repair");
                                 if (town.hasHomeBlock())
                                         try {
-                                                home = town.getHomeBlock();
-                                                town.setWorld(home.getWorld());
-												TownyUniverse.getDataSource().saveTown(town);
-                                                if (!town.getWorld().hasTown(town)) {
-                                                        town.getWorld().addTown(town);
-														TownyUniverse.getDataSource().saveWorld(home.getWorld());
-                                                }
-                                                
+                                        	TownyWorld world = town.getHomeBlock().getWorld();
+                                        	if (!world.hasTown(town)) {
+                                        		town.getWorld().addTown(town);
+                                        		TownyUniverse.getDataSource().saveTown(town);
+												TownyUniverse.getDataSource().saveWorld(world);
+                                        	}                                                
                                         } catch (TownyException e) {
                                                 // Error fetching homeblock
                                                 //e.printStackTrace();
