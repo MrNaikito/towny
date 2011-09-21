@@ -321,8 +321,8 @@ public class TownyBlockListener extends BlockListener {
 			if (status == TownBlockStatus.UNCLAIMED_ZONE && plugin.hasWildOverride(worldCoord.getWorld(), player, event.getBlock().getTypeId(), TownyPermission.ActionType.BUILD))
 				return;
 			if (((status == TownBlockStatus.ENEMY && TownyWarConfig.isAllowingAttacks()) || status == TownBlockStatus.ADMIN)
-					&& event.getBlock().getType() == TownyWarConfig.getFlagBaseMaterial()
-					&& plugin.hasPlayerMode(player, "warflag")) {
+					&& event.getBlock().getType() == TownyWarConfig.getFlagBaseMaterial()) {
+					//&& plugin.hasPlayerMode(player, "warflag")) {
 				try {
 					if (TownyWar.callAttackCellEvent(plugin, player, block, worldCoord))
 						return;
