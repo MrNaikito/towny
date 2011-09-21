@@ -147,7 +147,7 @@ public class TownyCommand implements CommandExecutor {
                 } else if (split[0].equalsIgnoreCase("tree")) {
                         consoleUseOnly(player);
                 } else if (split[0].equalsIgnoreCase("time")) {       
-                        plugin.sendMsg("Time until a New Day: " + TimeMgmt.formatCountdownTime(TownyUtil.townyTime()));
+                        plugin.sendMsg(player, "Time until a New Day: " + TimeMgmt.formatCountdownTime(TownyUtil.townyTime()));
                 } else if (split[0].equalsIgnoreCase("universe")) {
                         for (String line : getUniverseStats())
                                 player.sendMessage(line);               
