@@ -919,6 +919,11 @@ public class NationCommand implements CommandExecutor  {
                                         plugin.sendErrorMsg(player, "Eg: /nation set title bilbo Jester ");
                                 else
                                         try {
+                                        	if (plugin.isPermissions() && (!plugin.hasPermission(player, "towny.nation.titles"))) {
+                                       			plugin.sendErrorMsg(player, TownySettings.getLangString("msg_err_command_disable"));
+                                       			return;
+                                       		}
+                                        	
                                                 resident = plugin.getTownyUniverse().getResident(split[1]);
                                                 if (resident.hasNation()) {
                                                         if (resident.getTown().getNation() != plugin.getTownyUniverse().getResident(player.getName()).getTown().getNation()) {
@@ -954,6 +959,11 @@ public class NationCommand implements CommandExecutor  {
                                         plugin.sendErrorMsg(player, "Eg: /nation set surname bilbo the dwarf ");
                                 else
                                         try {
+                                        	if (plugin.isPermissions() && (!plugin.hasPermission(player, "towny.nation.titles"))) {
+                                       			plugin.sendErrorMsg(player, TownySettings.getLangString("msg_err_command_disable"));
+                                       			return;
+                                       		}
+                                        	
                                                 resident = plugin.getTownyUniverse().getResident(split[1]);
                                                 if (resident.hasNation()) {
                                                         if (resident.getTown().getNation() != plugin.getTownyUniverse().getResident(player.getName()).getTown().getNation()) {

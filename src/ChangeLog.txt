@@ -564,4 +564,5 @@ v0.76.1:
       - towny.town.rename : player can rename their town
       - towny.nation.delete : player can delete their nation
       - towny.nation.rename : player can rename their nation
+      - towny.nation.grant-titles : King can set nation members titles and surnames '/nation set [title/surname]'.
       - towny.nation.* : Grants all Nation permission nodes.
