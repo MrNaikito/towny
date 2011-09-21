@@ -355,8 +355,12 @@ public class NationCommand implements CommandExecutor  {
                                 Resident resident = plugin.getTownyUniverse().getResident(player.getName());
                                 Town town = resident.getTown();
                                 Nation nation = town.getNation();
+                                
                                 if (!resident.isKing())
-                                        throw new TownyException(TownySettings.getLangString("msg_not_king"));
+                                    throw new TownyException(TownySettings.getLangString("msg_not_king"));
+                                if (plugin.isPermissions() && (!plugin.hasPermission(player, "towny.nation.delete")))
+                                	throw new TownyException(TownySettings.getLangString("msg_err_command_disable"));
+                                	
                                 plugin.getTownyUniverse().removeNation(nation);
                                 plugin.getTownyUniverse().sendGlobalMessage(TownySettings.getDelNationMsg(nation));
                         } catch (TownyException x) {
@@ -886,11 +890,17 @@ public class NationCommand implements CommandExecutor  {
                         } else if (split[0].equalsIgnoreCase("name")) {
                                if (split.length < 2)
                                        plugin.sendErrorMsg(player, "Eg: /nation set name Plutoria");
-                               else
-                            	   if (TownySettings.isValidRegionName(split[1]))
-                            		   nationRename(player, nation, split[1]);
-                            	   else
-                            		   plugin.sendErrorMsg(player, TownySettings.getLangString("msg_invalid_name"));
+                               else {
+                            	   if (plugin.isPermissions() && (!plugin.hasPermission(player, "towny.nation.rename"))) {
+                               			plugin.sendErrorMsg(player, TownySettings.getLangString("msg_err_command_disable"));
+                               			return;
+                               		}
+                               
+                            	   	if (TownySettings.isValidRegionName(split[1]))
+                            	   		nationRename(player, nation, split[1]);
+                            	   	else
+                            	   		plugin.sendErrorMsg(player, TownySettings.getLangString("msg_invalid_name"));
+                               }
                         } else if (split[0].equalsIgnoreCase("tag")) {
                         	if (split.length < 2)
                                 plugin.sendErrorMsg(player, "Eg: /nation set tag PLT");

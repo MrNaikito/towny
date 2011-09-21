@@ -1,6 +1,6 @@
 ﻿name: Towny
 main: com.palmergames.bukkit.towny.Towny
-version: 0.76.0.36
+version: 0.76.0.37
 author: Shade, Modified by FuzzeWuzze. Forked by ElgarL
 website: http://code.google.com/a/eclipselabs.org/p/towny/
 description: >
@@ -47,7 +47,7 @@ permissions:
         default: op
         children:
             towny.town.*: true
-            towny.nation.new: true
+            towny.nation.*: true
             towny.wild.*: true
             towny.spawntp: true
             towny.publicspawntp: true
@@ -63,14 +63,29 @@ permissions:
         default: op
         children:
             towny.town.new: true
+            towny.town.delete: true
+            towny.town.rename: true
             towny.town.claim: true
             towny.town.resident: true
             towny.town.plot: true
+    towny.nation.*:
+        description: User has access to all nation commands.
+        default: op
+        children:
+            towny.nation.new: true
+            towny.nation.delete: true
+            towny.nation.rename: true
     towny.town.resident:
         description: User is permitted to join towns.
         default: false
     towny.town.new:
         description: User is able to create a town
+        default: false
+    towny.town.delete:
+        description: User is able to delete their town
+        default: false
+    towny.town.rename:
+        description: User is able to rename their town
         default: false
     towny.town.claim:
         description: User is able to expand with /towny claim
@@ -80,6 +95,12 @@ permissions:
         default: false
     towny.nation.new:
         description: User is able to create a nation
+        default: false
+    towny.nation.delete:
+        description: User is able to delete their nation
+        default: false
+    towny.nation.rename:
+        description: User is able to rename their nation
         default: false
     towny.wild.*:
         description: User can build/destroy in wild.
