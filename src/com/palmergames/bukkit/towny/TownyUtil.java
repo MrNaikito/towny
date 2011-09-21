@@ -204,4 +204,8 @@ public class TownyUtil {
             }
         return false;
 	}
+	
+	public static Long townyTime() {
+		return ((TownySettings.getDayInterval()*1000) - (System.currentTimeMillis() % (TownySettings.getDayInterval()*1000)))/1000;
+	}
 }

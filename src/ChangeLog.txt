@@ -566,3 +566,5 @@ v0.76.1:
       - towny.nation.rename : player can rename their nation
       - towny.nation.grant-titles : King can set nation members titles and surnames '/nation set [title/surname]'.
       - towny.nation.* : Grants all Nation permission nodes.
+      
+    - Added 'towny time' : Displays the time until a new day is scheduled.

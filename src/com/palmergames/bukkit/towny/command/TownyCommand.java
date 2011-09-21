@@ -14,6 +14,7 @@ import com.palmergames.bukkit.towny.Towny;
 import com.palmergames.bukkit.towny.TownyAsciiMap;
 import com.palmergames.bukkit.towny.TownyFormatter;
 import com.palmergames.bukkit.towny.TownySettings;
+import com.palmergames.bukkit.towny.TownyUtil;
 import com.palmergames.bukkit.towny.object.Nation;
 import com.palmergames.bukkit.towny.object.Resident;
 import com.palmergames.bukkit.towny.object.ResidentList;
@@ -26,6 +27,7 @@ import com.palmergames.bukkit.util.Colors;
 import com.palmergames.util.KeyValue;
 import com.palmergames.util.KeyValueTable;
 import com.palmergames.util.StringMgmt;
+import com.palmergames.util.TimeMgmt;
 
 public class TownyCommand implements CommandExecutor {
         
@@ -55,6 +57,7 @@ public class TownyCommand implements CommandExecutor {
                 towny_help.add(ChatTools.formatCommand("", "/towny", "map", "Displays a map of the nearby townblocks"));
                 towny_help.add(ChatTools.formatCommand("", "/towny", "prices", "Display the prices used with iConomy"));
                 towny_help.add(ChatTools.formatCommand("", "/towny", "top", "Display highscores"));
+                towny_help.add(ChatTools.formatCommand("", "/towny", "time", "Display time until a new day"));
                 towny_help.add(ChatTools.formatCommand("", "/towny", "universe", "Displays stats"));
                 towny_help.add(ChatTools.formatCommand("", "/towny", "v", "Displays the version of Towny"));
                 towny_help.add(ChatTools.formatCommand("", "/towny", "war", "'/towny war' for more info"));
@@ -85,6 +88,8 @@ public class TownyCommand implements CommandExecutor {
                                         sender.sendMessage(Colors.strip(line));
                         else if (args[0].equalsIgnoreCase("tree"))
                                 plugin.getTownyUniverse().sendUniverseTree(sender);
+                        else if (args[0].equalsIgnoreCase("time"))
+                            plugin.sendMsg("Time until a New Day: " + TimeMgmt.formatCountdownTime(TownyUtil.townyTime()));
                         else if (args[0].equalsIgnoreCase("version") || args[0].equalsIgnoreCase("v"))
                                 sender.sendMessage(Colors.strip(towny_version));
                         else if (args[0].equalsIgnoreCase("war")){
@@ -141,6 +146,8 @@ public class TownyCommand implements CommandExecutor {
                         TopCommand(player,StringMgmt.remFirstArg(split));
                 } else if (split[0].equalsIgnoreCase("tree")) {
                         consoleUseOnly(player);
+                } else if (split[0].equalsIgnoreCase("time")) {       
+                        plugin.sendMsg("Time until a New Day: " + TimeMgmt.formatCountdownTime(TownyUtil.townyTime()));
                 } else if (split[0].equalsIgnoreCase("universe")) {
                         for (String line : getUniverseStats())
                                 player.sendMessage(line);               
