@@ -1,6 +1,6 @@
 ﻿name: Towny
 main: com.palmergames.bukkit.towny.Towny
-version: 0.76.0.40
+version: 0.76.0.41
 author: Shade, Modified by FuzzeWuzze. Forked by ElgarL
 website: http://code.google.com/a/eclipselabs.org/p/towny/
 description: >
@@ -59,7 +59,7 @@ permissions:
         description: User has access to the "/towny top" commands.
         default: false
     towny.town.*:
-        description: User can create a town and claim land.
+        description: User can access all town commands.
         default: op
         children:
             towny.town.new: true
@@ -68,6 +68,16 @@ permissions:
             towny.town.claim: true
             towny.town.resident: true
             towny.town.plot: true
+            towny.town.toggle.*: true
+    towny.town.toggle*:
+        description: User can access all town toggle commands (if a mayor or assistant).
+        default: op
+        children:
+            towny.town.toggle.pvp: true
+            towny.town.toggle.public: true
+            towny.town.toggle.explosions: true
+            towny.town.toggle.fire: true
+            towny.town.toggle.mobs: true
     towny.nation.*:
         description: User has access to all nation commands.
         default: op
@@ -93,6 +103,21 @@ permissions:
         default: true
     towny.town.plot:
         description: User is able to purchase and own town plots.
+        default: false
+    towny.town.toggle.pvp:
+    description: If a mayor or assistant, the user is able to toggle pvp on/off in their town.
+        default: false
+    towny.town.toggle.public:
+    description: If a mayor or assistant, the user is able to toggle public on/off in their town.
+        default: false
+    towny.town.toggle.explosions:
+    description: If a mayor or assistant, the user is able to toggle explosions on/off in their town.
+        default: false
+    towny.town.toggle.fire:
+    description: If a mayor or assistant, the user is able to toggle fire on/off in their town.
+        default: false
+    towny.town.toggle.mobs:
+    description: If a mayor or assistant, the user is able to toggle mobs on/off in their town.
         default: false
     towny.nation.new:
         description: User is able to create a nation
