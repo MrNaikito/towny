@@ -557,3 +557,4 @@ v0.76.1:
     - Fixed an infinite loop when a player uses a fly hack over void.
     - Added support for Register 2.0 (Register.jar) - Supports iConomy5, iConomy6, EssentialsEco, BOSEconomy.
       (https://github.com/iConomy/Register/tree/master/dist)
+    - Towny will no longer cause an exception if users attempt to use iConomy 6 instead of 5.01 natively.
