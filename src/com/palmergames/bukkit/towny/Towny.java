@@ -249,12 +249,18 @@ public class Towny extends JavaPlugin {
                 	test = getServer().getPluginManager().getPlugin("iConomy");
                     if (test == null)
                             TownySettings.setUsingIConomy(false);
+                    
                     else {
+                    	if (!test.getDescription().getVersion().matches("5.01")) {
+                    		TownySettings.setUsingIConomy(false);
+                    		sendErrorMsg("Towny does not have native support for iConomy " + test.getDescription().getVersion() + ". You need the Register.jar.");
+                    	} else {
                             iconomy = (iConomy)test;
                             if (TownySettings.isUsingIConomy()) {
                                     using.add("iConomy");
                                     TownySettings.setUsingRegister(false);
                             }
+                    	}
                     }
                 }
                 
