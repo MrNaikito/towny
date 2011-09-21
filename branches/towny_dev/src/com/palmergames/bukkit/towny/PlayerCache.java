@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import com.palmergames.bukkit.towny.object.Coord;
 import com.palmergames.bukkit.towny.object.TownyWorld;
 import com.palmergames.bukkit.towny.object.WorldCoord;
+import com.palmergames.bukkit.towny.object.TownyPermission.ActionType;
 
 public class PlayerCache {
 	private WorldCoord lastTownBlock;
@@ -35,6 +36,41 @@ public class PlayerCache {
 
 	public WorldCoord getLastTownBlock() {
 		return lastTownBlock;
+	}
+	
+	public boolean getCachePermission(ActionType action) throws NullPointerException {
+		
+		switch(action.ordinal()){
+		
+		case 0: // BUILD
+			if (buildPermission == null)
+				throw new NullPointerException();
+			else
+				return buildPermission;
+			
+		case 1: // DESTROY
+			if (destroyPermission == null)
+				throw new NullPointerException();
+			else
+				return destroyPermission;			
+			
+		case 2: // SWITCH
+			if (switchPermission == null)
+				throw new NullPointerException();
+			else
+				return switchPermission;			
+			
+		case 3: // ITEM_USE
+			if (itemUsePermission == null)
+				throw new NullPointerException();
+			else
+				return itemUsePermission;
+			
+		default:
+			throw new NullPointerException();
+			
+		}
+		
 	}
 
 	public void setBuildPermission(boolean buildPermission) {

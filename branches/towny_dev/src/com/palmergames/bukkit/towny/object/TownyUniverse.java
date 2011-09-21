@@ -51,14 +51,17 @@ import com.palmergames.bukkit.towny.EmptyNationException;
 import com.palmergames.bukkit.towny.EmptyTownException;
 import com.palmergames.bukkit.towny.EconomyException;
 import com.palmergames.bukkit.towny.NotRegisteredException;
+import com.palmergames.bukkit.towny.PlayerCache;
 import com.palmergames.bukkit.towny.Towny;
 import com.palmergames.bukkit.towny.TownyException;
 import com.palmergames.bukkit.towny.TownyFormatter;
 import com.palmergames.bukkit.towny.TownySettings;
 import com.palmergames.bukkit.towny.TownyUtil;
+import com.palmergames.bukkit.towny.PlayerCache.TownBlockStatus;
 import com.palmergames.bukkit.towny.db.TownyDataSource;
 import com.palmergames.bukkit.towny.db.TownyFlatFileSource;
 import com.palmergames.bukkit.towny.db.TownyHModFlatFileSource;
+import com.palmergames.bukkit.towny.object.TownyPermission.ActionType;
 import com.palmergames.bukkit.towny.tasks.DailyTimerTask;
 import com.palmergames.bukkit.towny.tasks.HealthRegenTimerTask;
 import com.palmergames.bukkit.towny.tasks.MobRemovalTimerTask;
@@ -721,6 +724,52 @@ public class TownyUniverse extends TownyObject {
                 
                 
         }
+        
+        /** getCachePermission
+         * 
+         * returns player cached permission for
+         * BUILD, DESTROY, SWITCH or ITEM_USE
+         * 
+         * @param player
+         * @param location
+         * @param action
+         * @return
+         */
+        public boolean getCachePermission(Player player, Location location, ActionType action ) {
+        	
+        	WorldCoord worldCoord;
+        	
+        	try {
+				worldCoord = new WorldCoord(TownyUniverse.getWorld(player.getWorld().getName()), Coord.parseCoord(location));
+				PlayerCache cache = plugin.getCache(player);
+				cache.updateCoord(worldCoord);
+				
+				return cache.getCachePermission(action); // Throws NullPointerException if the cache is empty
+				
+			} catch (NotRegisteredException e) {
+				// World not known
+				e.printStackTrace();
+			} catch (NullPointerException e) {
+				// New or old cache permission was null, update it
+				
+				try {
+					worldCoord = new WorldCoord(TownyUniverse.getWorld(player.getWorld().getName()), Coord.parseCoord(location));
+					
+					TownBlockStatus status = plugin.cacheStatus(player, worldCoord, plugin.getStatusCache(player, worldCoord));
+					plugin.cacheBuild(player, worldCoord, plugin.getPermission(player, status, worldCoord, action));
+					
+					PlayerCache cache = plugin.getCache(player);
+					cache.updateCoord(worldCoord);
+					
+					return cache.getCachePermission(action);
+					
+				} catch (NotRegisteredException e1) {
+					// Will never get here.
+				}
+				
+			}
+			return false;
+    	}
 
         public List<Resident> getResidents() {
                 return new ArrayList<Resident>(residents.values());
