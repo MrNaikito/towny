@@ -653,11 +653,17 @@ public class TownCommand implements CommandExecutor  {
                                         plugin.sendErrorMsg(player, "Eg: /town set name BillyBobTown");
                                         return;
                                 } else
-                                        //plugin.sendErrorMsg(player, TownySettings.getLangString("msg_town_rename_disabled"));
-                                        if (TownySettings.isValidRegionName(split[1]))
-                                                townRename(player, town, split[1]);
-                                        else
-                                                plugin.sendErrorMsg(player, TownySettings.getLangString("msg_invalid_name"));
+                                	if (plugin.isPermissions() && (!plugin.hasPermission(player, "towny.town.rename"))) {
+                                		plugin.sendErrorMsg(player, TownySettings.getLangString("msg_err_command_disable"));
+                                		return;
+                                	}
+                                		
+                                    //plugin.sendErrorMsg(player, TownySettings.getLangString("msg_town_rename_disabled"));
+                                    if (TownySettings.isValidRegionName(split[1]))
+                                        townRename(player, town, split[1]);
+                                    else
+                                        plugin.sendErrorMsg(player, TownySettings.getLangString("msg_invalid_name"));
+                                    
                         } else if (split[0].equalsIgnoreCase("tag")) {
                         	if (split.length < 2)
                                 plugin.sendErrorMsg(player, "Eg: /town set tag PLT");
@@ -947,8 +953,12 @@ public class TownCommand implements CommandExecutor  {
                         try {
                                 Resident resident = plugin.getTownyUniverse().getResident(player.getName());
                                 Town town = resident.getTown();
+
                                 if (!resident.isMayor())
-                                        throw new TownyException(TownySettings.getLangString("msg_not_mayor"));
+                                    throw new TownyException(TownySettings.getLangString("msg_not_mayor"));
+                                if (plugin.isPermissions() && (!plugin.hasPermission(player, "towny.town.delete")))
+                                	throw new TownyException(TownySettings.getLangString("msg_err_command_disable"));
+                                
                                 plugin.getTownyUniverse().removeTown(town);
                                 plugin.getTownyUniverse().sendGlobalMessage(TownySettings.getDelTownMsg(town));
                         } catch (TownyException x) {

@@ -558,3 +558,10 @@ v0.76.1:
     - Added support for Register 2.0 (Register.jar) - Supports iConomy5, iConomy6, EssentialsEco, BOSEconomy.
       (https://github.com/iConomy/Register/tree/master/dist)
     - Towny will no longer cause an exception if users attempt to use iConomy 6 instead of 5.01 natively.
+    - Added some new permission nodes.
+    
+      - towny.town.delete : player can delete their town
+      - towny.town.rename : player can rename their town
+      - towny.nation.delete : player can delete their nation
+      - towny.nation.rename : player can rename their nation
+      - towny.nation.* : Grants all Nation permission nodes.
