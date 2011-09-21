@@ -1,0 +1,250 @@
+[B]Plugin: [/B]Towny
+[RIGHT]                                                     [URL='http://esper.net/publicirc.php?#Towny']IRC: Join channel #Towny[/URL][/RIGHT]
+[RIGHT][URL='https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=8WWJ76KLFKM4G'][IMG]https://www.paypalobjects.com/en_GB/i/btn/btn_donate_LG.gif[/IMG][/URL][/RIGHT]
+ [B]Version:[/B] v0.76.0
+
+ Taking Shades Towny a step farther.
+
+ [B]REQUIRES[/B]
+[LIST]
+[*]No other plugins, but is best with Questioner
+[/LIST]
+[B]Optional[/B]
+[LIST]
+[*]Questioner 0.4 - [URL='http://code.google.com/a/eclipselabs.org/p/towny/downloads/detail?name=Questioner.jar&can=2&q=']Download Jar[/URL]
+[*]iConomy 5
+[*]Essentials 2.5+  (for teleport cooldown -  bugged)
+[*]Permissions 2.7.4+(should work with all versions)
+[*]Groupmanager (working)
+[/LIST]
+[URL='http://code.google.com/a/eclipselabs.org/p/towny/wiki/HowTownyWorks'][B]How it works/Features[/B]:[/URL]
+
+ Wiki and Downloads - [URL='http://code.google.com/a/eclipselabs.org/p/towny/']Towny Wiki Site[/URL]
+Make a suggestion - [URL='http://code.google.com/a/eclipselabs.org/p/towny/issues/entry?template=Suggestion']Link[/URL]
+Report an issue - [URL='http://code.google.com/a/eclipselabs.org/p/towny/issues/entry?template=Defect%20report%20from%20user']Link[/URL]
+[spoiler=Whats new][B]New in 0.76[/B]
+[LIST]
+[*]New commands:
+[LIST]
+[*]/town online - Shows how many people in your town are online.
+[*]/nation online - Show how many people in your nation are online.
+[*]/town buy bonus {amount} - Allows mayors to buy more townblocks without adding residents to their town.
+ 
+
+[INDENT=1]The price is set in the config at price_purchased_bonus_townblock: '25.0'.  A maximum amount of townblocks that a mayor can purchase is also in the config at max_purchased_blocks: '0'.[/INDENT]
+[*]/ta toggle withdraw - Disables mayors, kings and assistants from withdrawing money from their town banks.
+ 
+
+[INDENT=1]An extra command that works together with the option bank cap set in the config at bank_cap: '0'.[/INDENT]
+[/LIST]
+[/LIST]
+[LIST]
+[*]Added town bank caps and a  toggle to enable/disable withdrawls from town banks (prevent players  hiding money in towns on PVP worlds) - thanks phrstbrn
+[/LIST]
+[LIST]
+[*]Bug Fixes!
+[LIST]
+[*]Fixed the shutdown of the Teleport warmup timer on restarts.
+[*]Fixed enabling Devmode, debug and reading integers from the config.
+[*]Fix  for deleted residents in friend lists causing errors upon deletion, and  the same error with nation deletion and enemy/ally lists.
+[*]Prevent sticky pistons pulling blocks across plot boundaries (if different owners).
+[*]Fix for getLastLocation() needing to throw a NullPointerException[URL='http://code.google.com/a/eclipselabs.org/p/towny/w/edit/NullPointerException']?[/URL]. The players location is now set upon creation of the cache.
+[*]Fixed old resident deletion for the new config system using seconds instead of milliseconds.
+[*]Towny now correctly defaults to Bukkits Permissions if using_permissions is set to false in the config.
+[*]Added XcraftGate[URL='http://code.google.com/a/eclipselabs.org/p/towny/w/edit/XcraftGate']?[/URL] to the plugin.yml as a recognised multiworld plugin.
+[/LIST]
+[/LIST]
+[LIST]
+[*]Added  a new unclaim_delete under Plot management in global_town_settings.  This will delete any items listed when a town unclaims a plot or a town  is deleted.
+[LIST]
+[*]Ruined towns can now have all torches removed, to make looters exploring the ruins need torches.
+[*]All signs (including Lockette signs) can be removed automatically.
+[/LIST]
+[/LIST]
+[LIST]
+[*]Added a Maxplots permissions node.
+[LIST]
+[*]If a group doesn't have this node or the node is set to -1 Towny will default back to the max_plots_per_resident in config.
+[/LIST]
+[INDENT=1]Setting max_plots_per_resident to -1 with no permission node, or a node set to -1 will allow infinite plots.[/INDENT]
+[/LIST]
+[LIST]
+[*]So much MORE! [URL='http://code.google.com/a/eclipselabs.org/p/towny/source/browse/trunk/Towny/src/ChangeLog.txt#383']Click here for a full changelog.[/URL]
+[/LIST]
+-Towny Advanced 0.75.1 received 1644 downloads.
+-Towny Advanced 0.75.0 received  126 downloads.
+-Towny Advanced 0.74.0 received 3012 downloads.
+-Towny Advanced 0.73.2 received 2580 downloads.
+-Towny Advanced 0.73.1 recieved 1501 downloads.
+-Towny Advanced 0.73.0 received  412 downloads.
+-Towny Advanced 0.72.1 received 1230 downloads.
+[/spoiler]
+
+[B]Instructions on how to install and Permissions.[/B]
+
+[URL='http://code.google.com/a/eclipselabs.org/p/towny/wiki/InstallingTowny']Installing for the first time[/URL]
+[URL='http://code.google.com/a/eclipselabs.org/p/towny/wiki/UpgradingTowny']Upgrading from an old version of Towny[/URL]
+
+ [B]Config[/B]
+ Read this page to learn what everything in the config does!
+ [URL='http://code.google.com/a/eclipselabs.org/p/towny/wiki/DefaultConfig']Default Config.yml[/URL]
+
+[B]PLUGINS COMPILED/TESTED AGAINST (Recommended Versions)[/B]
+[LIST]
+[*]Essentials 2.5.3
+[*]Permissions 2.7.4, 3.1.5
+[*]iConomy 5.01
+[*]Questioner 0.4
+
+[/LIST]
+[B]Release version:[/B]
+
+[URL='http://towny.eclipselabs.org.codespot.com/files/Towny.jar']Download Jar[/URL] | [URL='http://code.google.com/a/eclipselabs.org/p/towny/']Source[/URL]
+
+[B]Dev Version (Majorly different - be sure to talk to us in IRC before using):[/B]
+[URL='http://palmergames.com/downloads/Towny.jar']Download Jar[/URL] | Source
+
+[URL='http://palmergames.com/downloads/Towny.jar']Mirror[/URL] (Dev version - constantly updating)
+
+
+To upgrade...
+[LIST=1]
+[*]BACKUP your towny folder.
+[*]Place the latest version of the Towny Jar into your plugins folder
+[*][S]Delete the config.yml and english.yml files[/S]
+[*] Start the server
+[*]Edit the new config.yml with any changes you want.
+[*]If using permissions use the nodes below.
+[*]Ingame type '/townyadmin reload'
+[/LIST]
+[spoiler=Permission nodes] 							[B]Permissions[/B]
+
+[INDENT=1]     -towny.admin: User is able to use /townyadmin, as well as the ability to[/INDENT]
+[INDENT=2]build/destroy anywhere. User can also able to make towns or nations when set to admin only.[/INDENT]
+[INDENT=1][/INDENT]
+[INDENT=1] - towny.cheat.bypass: Disables the anti cheat code for players with this node.[/INDENT]
+[INDENT=1]- towny.town.new : User is able to create a town[/INDENT]
+[INDENT=1] - towny.town.claim : User is able to expand his town with /town claim[/INDENT]
+[INDENT=1]- towny.town.resident: User is permitted to join towns[/INDENT]
+[INDENT=1]    - towny.nation.new : User is able to create a nation[/INDENT]
+[INDENT=1]- towny.town.plot : User is able to purchase and own town plots.[/INDENT]
+[INDENT=1]- towny.top: User is permitted to use the '/towny top' commands[/INDENT]
+[INDENT=1]    - towny.wild.*: User is able to build/destroy in wild regardless.[/INDENT]
+[INDENT=1]    - towny.wild.build[/INDENT]
+[INDENT=1]    - towny.wild.destroy[/INDENT]
+[INDENT=1]    - towny.wild.switch[/INDENT]
+[INDENT=1]    - towny.wild.item_use[/INDENT]
+[INDENT=1]    - towny.wild.block.[block id] .[/INDENT]
+[INDENT=8].* : User is able to edit [block id] in the wild.[/INDENT]
+[INDENT=8]          .build[/INDENT]
+[INDENT=8]          .destroy[/INDENT]
+[INDENT=8]          .switch[/INDENT]
+[INDENT=8]          .item_use[/INDENT]
+[INDENT=1][/INDENT]
+[INDENT=1]    - towny.spawntp :Use /town spawn[/INDENT]
+[INDENT=1]    - towny.publicspawntp : Use "/town spawn [town]" (teleport to other towns)[/INDENT]
+[INDENT=1][/INDENT]
+[INDENT=1]In the info: section[/INDENT]
+[INDENT=1] towny_maxplots: 1 : User is only allowed to own x number of plots. -1 defaults to the config setting.[/INDENT]
+
+[/spoiler]
+
+[spoiler=Changelog][B]Changelog[/B]
+v0.75.0:
+    - Added sanity checking to prevent colour codes in titles and surnames, and a notification message when a title/surname is cleared.
+    - Removed console spam from 'send message'.
+    - Disabled the use of '/town new' and '/town claim' in worlds where Towny is disabled.
+    - Added 'disable_modify_chat' for those not wanting Towny to make any changes.
+    - Fixed an error if a player uses '/town spawn' after logging in, but before moving. This caused the player cache to be empty.
+    - All console messages should now have their colour codes removed correctly.
+    - New config.yml handling code means no need to delete config at each upgrade. (thanks dumptruckman)
+    - Fixed town spawn being lost at load when using non standard (16x16) plot sizes.
+    - Allow the ignition of obsidian for lighting portals, even when fire spread is disabled in a town.
+    - Durations specified in the config are now in seconds rather than milliseconds.
+    - Implemented Towny's own teleport_warmup_time for town spawns.
+    - Added a command '/townyadmin reset'. Wipes all settings and generate/load a default config.yml.
+    - Title and Surnames can now be limited in length by the setting 'max_title_length' in config.yml.
+    - Towny is now an observable object.  This allows other plugins to observe events that happen in Towny.
+    - Towny now abbreviates it's residents lists when displayed, for easier reading.
+    - Better formatting for times in the config eg. 1d6h20s.
+    - Fixed a bug when using Max distance between towns on a fresh install not allowing the first town to be founded.
+    - Fixed a bug when using essentials teleport warmup where admins would be teleported twice.
+    - Fixed a bug where players with no town we're not able to use public town spawns.
+    - Fixed a bug where plot claim was not taking money from a player.
+    - Added new plot types and commands to support.
+      '/plot set reset/shop'   - Sets a plot as a Shop plot or resets to a normal plot.
+      '/town set shopprice $$' - Set the towns default price on shop plots.
+      '/town set shoptax $$'   - Set the town tax rate on shop plots.
+                                 (a shop plot is charged an extra tax on top of any plot taxes.)
+    - Added /towny map big, which fills the entire chatbox (after pressing t) with the map.
+    - Expanded commands:
+      '/plot [claim/unclaim/nfs] [circle/rect] [radius]'
+      '/plot fs within [circle/rect] [radius]'
+      '/plot fs [$] within [circle/rect] [radius]'
+    - Commands still accepted
+      '/plot claim [radius]'
+      '/plot fs'
+      '/plot fs [$]'
+    - Paintings can no longer be placed in the wilderness if the player doesn't have the correct permissions.
+    - All /townyworld commands are now accessable via the console. Append a suffix of the world name to any command other than '?' and 'list'. eg. '/tw toggle fire world_nether'.
+    - Added new Tags for Towns and Nations. If these are set they will be used instead of the full names in chat.
+      '/town set tag [upto 4 characters]'
+      '/nation set tag [upto 4 characters]
+    - Fixed nations losing Enemies and Allies during a reload.
+    - It is now possible to use '/town spawn' when in boats and minecarts. You will leave the vehicle where it is when you teleport.
+v0.75.1:
+    - Fixed config reading so it works!
+v0.75.2:
+    - Fixed deleting foreign language files at startup.
+    - Added missing entry from english.yml - msg_err_empty_area_selection: '&cSelected area contains no valid plots.'
+    - Fixed error on using '/town claim auto'.
+    - Fixed a refactoring error which affected towny top commands.
+v0.76.0:
+    - Added Town Buy command. Is defaulted to be empty. Currently only has ability to buy bonus blocks up until a set limit.
+      '/town buy'
+      '/town buy bonus [n]'
+    - [Bonus: 0] is now hidden from the status when the town has no bonus blocks.
+    - Added: [Bought: 0/max] to /town.
+    - Fixed the shutdown of the Teleport warmup timer on restarts.
+    - Fixed enabling Devmode, debug and reading integers from the config.
+    - Added town bank caps and a toggle to enable/disable withdrawls from town banks (prevent players hiding money in towns on PVP worlds) - thanks phrstbrn
+    - New command '/townyadmin toggle withdraw'.
+    - Added two new commands to see who's online
+      '/town online'
+      '/nation online'
+    - Fix for deleted residents in friend lists causing errors upon deletion, and the same error with nation deletion and enemy/ally lists.
+    - Prevent sticky pistons pulling blocks across plot boundaries (if different owners).
+    - Fix for getLastLocation() needing to throw a NullPointerException. The players location is now set upon creation of the cache.
+    - Added a Maxplots permissions node. If a group doesn't have this node or the node is set to -1 Towny will default back to the max_plots_per_resident in config.
+      Setting max_plots_per_resident to -1 with no permission node, or a node set to -1 will allow infinite plots.
+
+      Eg usage:
+
+        groups:
+          Default:
+            default: true
+            permissions:
+            - general.spawn
+            inheritance: []
+            info:
+              prefix: ''
+              build: true
+              suffix: ''
+              towny_maxplots: 1
+          Admins:
+            default: false
+            permissions:
+            - '*'
+            inheritance:
+            info:
+              prefix: ''
+              build: true
+              suffix: ''
+              towny_maxplots: -1
+
+    - Fixed old resident deletion for the new config system using seconds instead of milliseconds.
+    - Towny now correctly defaults to Bukkits Permissions if using_permissions is set to false in the config.
+    - Added XcraftGate to the plugin.yml as a recognised multiworld plugin.
+    - Added a new unclaim_delete under Plot management in global_town_settings. This will delete any items listed when a town unclaims a plot or a town is deleted.[/spoiler]
+
+Credits: Many thanks to all contributers including, but not limited to: Fuzziewuzzie, Shadeness, [URL='http://forums.bukkit.org/members/llmdl.10585/']LlmDl[/URL], SwearWord and dumptruckman.
