@@ -700,6 +700,27 @@ public class TownyUniverse extends TownyObject {
                 
                 
         }
+        
+        /** getTownBlock
+         * 
+         * returns TownBlock this location lies within
+         * if no block is registered it returns null
+         * 
+         * @param loc
+         * @return
+         */
+        public TownBlock getTownBlock(Location loc) {
+                
+                try {
+                        WorldCoord worldCoord = new WorldCoord(getWorld(loc.getWorld().getName()), Coord.parseCoord(loc));
+                        return worldCoord.getTownBlock();
+                } catch (NotRegisteredException e) {
+                        // No data so return null
+                        return null;
+                }
+                
+                
+        }
 
         public List<Resident> getResidents() {
                 return new ArrayList<Resident>(residents.values());
