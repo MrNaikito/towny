@@ -1140,6 +1140,10 @@ public class TownySettings {
 			return true; //Assume
 	}
 	
+	public static int getMinBukkitVersion() {
+        return getInt(ConfigNodes.VERSION_BUKKIT);
+	}
+	
 	public static boolean isTownyUpToDate(String currentVersion) {
 		return currentVersion.equals(getLastRunVersion(currentVersion));
 	}
