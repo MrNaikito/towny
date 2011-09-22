@@ -149,7 +149,7 @@ Defaults to 0 (disabled). This shouldn't be used, will probably be worked into w
 [LIST]
 [*]So much MORE! [URL='http://code.google.com/a/eclipselabs.org/p/towny/source/browse/trunk/Towny/src/ChangeLog.txt#510']Click here for a full changelog.[/URL]
 [/LIST]
--Towny Advanced 0.76.0 received 2770 downloads.
+-Towny Advanced 0.76.0 received 2784 downloads.
 -Towny Advanced 0.75.1 received 1644 downloads.
 -Towny Advanced 0.75.0 received  126 downloads.
 -Towny Advanced 0.74.0 received 3012 downloads.
