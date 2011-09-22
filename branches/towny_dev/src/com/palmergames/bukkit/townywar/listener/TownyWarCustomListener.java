@@ -1,14 +1,17 @@
 package com.palmergames.bukkit.townywar.listener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.entity.Player;
 import org.bukkit.event.CustomEventListener;
 import org.bukkit.event.Event;
-
 
 import com.palmergames.bukkit.towny.NotRegisteredException;
 import com.palmergames.bukkit.towny.Towny;
 import com.palmergames.bukkit.towny.TownyException;
 import com.palmergames.bukkit.towny.TownySettings;
+import com.palmergames.bukkit.towny.command.TownCommand;
 import com.palmergames.bukkit.towny.object.Nation;
 import com.palmergames.bukkit.towny.object.Resident;
 import com.palmergames.bukkit.towny.object.Town;
@@ -86,11 +89,23 @@ public class TownyWarCustomListener extends CustomEventListener {
 				universe.removeWarZone(worldCoord);
 				
 				TownBlock townBlock = worldCoord.getTownBlock();
-				Town oldTown = townBlock.getTown();
-				townBlock.setTown(town);
+				universe.removeTownBlock(townBlock);
 				
-				TownyUniverse.getDataSource().saveTown(oldTown);
-				TownyUniverse.getDataSource().saveTown(town);
+				try {
+					List<WorldCoord> selection = new ArrayList<WorldCoord>();
+					selection.add(worldCoord);
+					TownCommand.checkIfSelectionIsValid(town, selection, false, 0, false);
+					TownCommand.townClaim(town, worldCoord);
+					TownyUniverse.getDataSource().saveTown(town);
+					TownyUniverse.getDataSource().saveWorld(world);
+					
+					//TODO
+					//PlotCommand.plotClaim(resident, worldCoord);
+					//TownyUniverse.getDataSource().saveResident(resident);
+					//TownyUniverse.getDataSource().saveWorld(world);
+				} catch (TownyException te) {
+					// Couldn't claim it.
+				}
 				
 				plugin.updateCache(worldCoord);
 				
