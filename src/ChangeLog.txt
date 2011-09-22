@@ -507,7 +507,7 @@ v0.76.0:
     - Towny now correctly defaults to Bukkits Permissions if using_permissions is set to false in the config.
     - Added XcraftGate to the plugin.yml as a recognised multiworld plugin.
     - Added a new unclaim_delete under Plot management in global_town_settings. This will delete any items listed when a town unclaims a plot or a town is deleted.
-v0.76.1:
+v0.76.1.0:
     - Fixed error with '/town buy' granting the wrong number of blocks.
     - Fixed converting seconds to milliseconds for mobremoval and new day timers.
     - Fixed an error when using '/town claim #'.
@@ -578,3 +578,4 @@ v0.76.1:
     - Added new API functions
       TownyUniverse.getTownBlock(location)
       TownyUniverse.getCachePermission(player,location,action)
+    - Towny will now check the Craftbukkit version and disable itself if it's too old.
