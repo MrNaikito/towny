@@ -575,4 +575,6 @@ v0.76.1:
       
     - Added 'towny time' : Displays the time until a new day is scheduled.
     - Players can no longer attack another players tamed wolf if in a non PVP area (can attack own).
-    - Added TownyUniverse.getTownBlock(location) for shop plugins to use.
+    - Added new API functions
+      TownyUniverse.getTownBlock(location)
+      TownyUniverse.getCachePermission(player,location,action)

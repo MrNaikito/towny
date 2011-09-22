@@ -714,15 +714,15 @@ public class TownyUniverse extends TownyObject {
          */
         public TownBlock getTownBlock(Location loc) {
                 
+        	plugin.sendDebugMsg("Fetching TownBlock");
+        	
                 try {
                         WorldCoord worldCoord = new WorldCoord(getWorld(loc.getWorld().getName()), Coord.parseCoord(loc));
                         return worldCoord.getTownBlock();
                 } catch (NotRegisteredException e) {
                         // No data so return null
                         return null;
-                }
-                
-                
+                }     
         }
         
         /** getCachePermission
@@ -744,6 +744,7 @@ public class TownyUniverse extends TownyObject {
 				PlayerCache cache = plugin.getCache(player);
 				cache.updateCoord(worldCoord);
 				
+				plugin.sendDebugMsg("Cache permissions for " + action.toString() + " : " + cache.getCachePermission(action));
 				return cache.getCachePermission(action); // Throws NullPointerException if the cache is empty
 				
 			} catch (NotRegisteredException e) {
@@ -761,6 +762,7 @@ public class TownyUniverse extends TownyObject {
 					PlayerCache cache = plugin.getCache(player);
 					cache.updateCoord(worldCoord);
 					
+					plugin.sendDebugMsg("New Cache permissions for " + action.toString() + " : " + cache.getCachePermission(action));
 					return cache.getCachePermission(action);
 					
 				} catch (NotRegisteredException e1) {
