@@ -782,13 +782,13 @@ public class TownyUniverse extends TownyObject {
     			plugin.cacheBuild(player, worldCoord, plugin.getPermission(player, status, worldCoord, action));
     			
     		case 1: // DESTROY
-    			plugin.cacheBuild(player, worldCoord, plugin.getPermission(player, status, worldCoord, action));		
+    			plugin.cacheDestroy(player, worldCoord, plugin.getPermission(player, status, worldCoord, action));		
     			
     		case 2: // SWITCH
-    			plugin.cacheBuild(player, worldCoord, plugin.getPermission(player, status, worldCoord, action));			
+    			plugin.cacheSwitch(player, worldCoord, plugin.getPermission(player, status, worldCoord, action));			
     			
     		case 3: // ITEM_USE
-    			plugin.cacheBuild(player, worldCoord, plugin.getPermission(player, status, worldCoord, action));
+    			plugin.cacheItemUse(player, worldCoord, plugin.getPermission(player, status, worldCoord, action));
     			
     		default:
     			//for future expansion of permissions
