@@ -30,4 +30,3 @@ Here are instructions for upgrading to Towny 0.76.1:
 Your server is ready to use Towny 0.76.1!
 
   * Start your server.
-  * If you would like to use the updated list of itemIDs ignored in the wilderness (only used if players cannot build/destroy freely in the wild,) use /tw set usingdefault in each world.
