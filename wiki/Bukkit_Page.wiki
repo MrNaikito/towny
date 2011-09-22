@@ -7,7 +7,7 @@
 
 [B]REQUIRES[/B]
 [LIST]
-[*]No other plugins, but is best with Questioner so that invitations are given by Towns and Nations to residents and towns.
+[*]No other plugins, but is best with [URL='http://code.google.com/a/eclipselabs.org/p/towny/wiki/Questioner']Questioner[/URL] so that invitations are given by Towns and Nations to residents and towns.
 [/LIST]
 
 [B]Optional[/B]
@@ -15,11 +15,12 @@
 [*]Questioner 0.4 - [URL='http://code.google.com/a/eclipselabs.org/p/towny/downloads/detail?name=Questioner.jar&can=2&q=']Download Jar[/URL]
 [*]Essentials 2.5+ - (Towny /town spawn's obey Essentials teleport cooldown)
 [*]All permissions plugins are supported and provide greater customization.
+[*]Economy plugin of your choice.
 [/LIST]
 
-[B]Economy Plugins[/B]
+[B]Supported Economy Plugins[/B]
 [LIST]
-[*]iConomy 5 [URL='http://bukkit.org/deadfly.php?id=587691/51']Download Jar[/URL]
+[*]iConomy 5 - [URL='http://bukkit.org/deadfly.php?id=587691/51']Download Jar[/URL]
 [*][URL='http://forums.bukkit.org/threads/1080.40/']iConomy 6[/URL] *
 [*][URL='http://forums.bukkit.org/threads/1185.15312/']EssentialsEco[/URL] *
 [*][URL='http://forums.bukkit.org/threads/19025']BOSEconomy[/URL] *
@@ -35,15 +36,14 @@
 
 [B]Download Towny[/B]
 [LIST]
-[*][B]Release version:[/B]
-[INDENT=1][URL='http://towny.eclipselabs.org.codespot.com/files/Towny.jar']Download Jar[/URL] | [URL='http://code.google.com/a/eclipselabs.org/p/towny/']Source[/URL][/INDENT]
-[*][B]Dev Version (Majorly different - be sure to talk to us in IRC before using):[/B]
-[INDENT=1][URL='http://palmergames.com/downloads/Towny.jar']Download Jar[/URL] (Dev version - constantly updating)[/INDENT]
+[*][B]Release version:[/B] [URL='http://towny.eclipselabs.org.codespot.com/files/Towny.jar']Download Jar[/URL] | [URL='http://code.google.com/a/eclipselabs.org/p/towny/']Source[/URL]
+[*][B]Dev Version:[/B] [URL='http://palmergames.com/downloads/Towny.jar']Download Jar[/URL] (Majorly Different - Visit IRC channel before using.)
+
 [/LIST]
 
-[B]Instructions on how to install and Permissions.[/B]
+[B]Installing and Upgrading[/B]
 [URL='http://code.google.com/a/eclipselabs.org/p/towny/wiki/InstallingTowny']Installing for the first time[/URL]
-[URL='http://code.google.com/a/eclipselabs.org/p/towny/wiki/UpgradingTowny']Upgrading from an old version of Towny[/URL]
+[URL='http://code.google.com/a/eclipselabs.org/p/towny/wiki/UpgradingTowny']Upgrading Towny to latest Release[/URL]
 
 [B]Config[/B]
 Read this page to learn what everything in the config does!
@@ -55,7 +55,7 @@ Use these permission nodes if you are also using any permissions plugin (Permiss
 
 [B]How Towny Works[/B]
 Read this wikipage to learn how Towny works, this page is a must-read for every admin and will unlock the features/customizability in Towny.
-[URL='http://code.google.com/a/eclipselabs.org/p/towny/wiki/HowTownyWorks'][B]How it works/Features[/B]:[/URL]
+[URL='http://code.google.com/a/eclipselabs.org/p/towny/wiki/HowTownyWorks']How it works/Features[/URL]
 
 [B]Wiki[/B]
 [URL='http://code.google.com/a/eclipselabs.org/p/towny/']Towny Wiki Site[/URL]
