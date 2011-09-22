@@ -1,7 +1,7 @@
 [B]Plugin: [/B]Towny
 [RIGHT]                                                     [URL='http://esper.net/publicirc.php?#Towny']IRC: Join channel #Towny[/URL][/RIGHT]
 [RIGHT][URL='https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=8WWJ76KLFKM4G'][IMG]https://www.paypalobjects.com/en_GB/i/btn/btn_donate_LG.gif[/IMG][/URL][/RIGHT]
- [B]Version:[/B] v0.76.1
+ [B]Version:[/B] v0.76.1.0
 
  Taking Shades Towny a step farther.
 
@@ -64,7 +64,7 @@ Read this wikipage to learn how Towny works, this page is a must-read for every 
 Make a suggestion - [URL='http://code.google.com/a/eclipselabs.org/p/towny/issues/entry?template=Suggestion']Link[/URL]
 Report an issue - [URL='http://code.google.com/a/eclipselabs.org/p/towny/issues/entry?template=Defect%20report%20from%20user']Link[/URL]
 
-[spoiler=Whats new][B]New in 0.76.1[/B]
+[spoiler=Whats new][B]New in 0.76.1.0[/B]
 [LIST]
 [*]New commands:
 [LIST]
