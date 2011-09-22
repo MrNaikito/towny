@@ -25,7 +25,7 @@ Here are instructions for upgrading to Towny 0.76.1:
       * Stop your server and configure any new flags in config.yml, your old settings will remain but any new settings will be added and set to their defaults.
       * Save config.yml.    
 
-  * *If you use Permissions you MUST configure your [PermissionNodes permission nodes], Check for any new nodes added in the current version.*
+  * *If you use a permissions plugin you MUST configure your [PermissionNodes permission nodes], Check for any new nodes added in the current version.*
 
 Your server is ready to use Towny 0.76.1!
 
