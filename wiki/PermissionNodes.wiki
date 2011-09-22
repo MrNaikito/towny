@@ -9,40 +9,39 @@ Add a description of which nodes and when towny uses its nodes.
   * towny.admin: User is able to use /townyadmin, as well as the ability to build/destroy anywhere. User can also able to make towns or nations when set to admin only.
 
   * towny.town.{{{*}}} : User has access to all .town permission nodes.
-  * towny.town.claim : User is able to expand his town with /town claim (used when world is set as unclaimable in /townyworld)
-  * towny.town.delete : player can delete their town
-  * towny.town.new : User is able to create a town (used only when town_creation_admin_only: true)
-  * towny.town.plot : User is able to use the /plot commands, to buy or sell land personally.
-  * towny.town.rename : player can rename their town
-  * towny.town.resident : User is able to join a town.
-
-  * towny.town.toggle.{{{*}}} : User has access to all town toggle commands (if a mayor or assistant).
-    * towny.town.toggle.pvp : If a mayor or assistant, the user is able to toggle pvp on/off in their town.
-    * towny.town.toggle.public : If a mayor or assistant....
-    * towny.town.toggle.explosions : If a mayor or assistant....
-    * towny.town.toggle.fire : If a mayor or assistant....
-    * towny.town.toggle.mobs :  If a mayor or assistant....
+    * towny.town.claim : User is able to expand his town with /town claim (used when world is set as unclaimable in /townyworld)
+    * towny.town.delete : player can delete their town
+    * towny.town.new : User is able to create a town (used only when town_creation_admin_only: true)
+    * towny.town.plot : User is able to use the /plot commands, to buy or sell land personally.
+    * towny.town.rename : player can rename their town
+    * towny.town.resident : User is able to join a town.
+    * towny.town.toggle.{{{*}}} : User has access to all town toggle commands (if a mayor or assistant).
+      * towny.town.toggle.pvp : If a mayor or assistant, the user is able to toggle pvp on/off in their town.
+      * towny.town.toggle.public : If a mayor or assistant....
+      * towny.town.toggle.explosions : If a mayor or assistant....
+      * towny.town.toggle.fire : If a mayor or assistant....
+      * towny.town.toggle.mobs :  If a mayor or assistant....
 
   * towny.nation.{{{*}}} : Grants all Nation permission nodes.
-  * towny.nation.delete : player can delete their nation
-  * towny.nation.grant-titles : King can set nation members titles and surnames '/nation set [title/surname]'.
-  * towny.nation.new : User is able to create a nation (used only when nation_creation_admin_only: true)
-  * towny.nation.rename : player can rename their nation
+    * towny.nation.delete : player can delete their nation
+    * towny.nation.grant-titles : King can set nation members titles and surnames '/nation set [title/surname]'.
+    * towny.nation.new : User is able to create a nation (used only when nation_creation_admin_only: true)
+    * towny.nation.rename : player can rename their nation
 
 
 
   * towny.top : Gives users access to /towny top command.
 
   * towny.wild.{{{*}}}
-  * towny.wild.build
-  * towny.wild.destroy
-  * towny.wild.switch
-  * towny.wild.item_use
-  * towny.wild.block.{block id}.{{{*}}}
-  * towny.wild.block.{block id}.build
-  * towny.wild.block.{block id}.destroy
-  * towny.wild.block.{block id}.switch
-  * towny.wild.block.{block id}.itemuse
+    * towny.wild.build
+    * towny.wild.destroy
+    * towny.wild.switch
+    * towny.wild.item_use
+    * towny.wild.block.{block id}.{{{*}}}
+      * towny.wild.block.{block id}.build
+      * towny.wild.block.{block id}.destroy
+      * towny.wild.block.{block id}.switch
+      * towny.wild.block.{block id}.itemuse
 
   * towny.spawntp :Use /town spawn (requires allow_town_spawn: true set in the config.)
   * towny.publicspawntp : Use "/town spawn {town}" (teleport to other towns) (requires allow_town_spawn_travel: true in set in the config.)
