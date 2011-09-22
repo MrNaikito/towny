@@ -190,6 +190,18 @@ The map in towny displays the grid system of plots. The map can be viewed once u
   * And use {{{/resident set mode reset}}} to turn it off.
 A large version of the map can be seen using /towny map big.
 
+== Plot Regeneration & Unclaimed Plots == 
+
+When a town plot is unclaimed (by a player or through upkeep) it will slowly begin to revert to a pre town state. This can be disabled in the config at new_world_settings.plot_management.revert_on_unclaim.enabled.
+Blocks will slowly change back to whatever blocks we're present at the moment the town block was claimed.
+You can configure certain block types you don't want restored to prevent players exploiting regen for diamond ores.
+Block types to not restore are configured in block_ignore in the worlds txt file data/worlds/worldname.txt
+
+Another option aside from the revert_on_unclaim is the block_delete section. When block_delete is enabled in the config and when a townblock is unclaimed (by a player or through upkeep) the blockIDs listed in the config will be removed from the townblock.
+By default the list includes redstone, redstone accessories, doors, signs and more. This can be useful for delete all signs within a townblock, ensuring any chests locked with Lockette or Deadbolt signs are unlocked.
+
+Last but not least is a simple wild_revert_on_mob_explosion option in the config.
+This option will regenerate the ground affected by creeper explosions in the wilderness. 
 ----
 
 = How Towny Lets Players Protect Their Blocks =
@@ -281,7 +293,7 @@ Piston-protection allows pistons to operate between similarly owned townblocks o
 
 Taxes and Upkeep are two seperate functions with to different results. {{{using_iconomy: true}}} must be set in [DefaultConfig config.yml] in order for Taxes and Upkeep to be applied.
 Taxes and Upkeep are charged at the same time, each 'Towny Day' or each time an admin type /townyadmin newday.
-The time of a 'Towny Day' can be set in [DefaultConfig config.yml] at {{{day_interval: 86400000}}} and by default is 24 real-life hours.
+The time of a 'Towny Day' can be set in [DefaultConfig config.yml] at {{{day_interval: 1d}}} and by default is 24 real-life hours. An admin can check how long until the next day starts by using /townyadmin time.
 
   === Taxes ===
   Taxes are collected on the town level from residents and on the nation level from towns.
@@ -304,6 +316,8 @@ The time of a 'Towny Day' can be set in [DefaultConfig config.yml] at {{{day_int
     * /nation set taxes {$}
       * This charges each town that is a member of the nation. Setting it to 100 would charge each town's townbank 100 each 'Towny Day'.
       * If a town can't pay it's tax then it is kicked from the nation.
+  
+  Admins can set two options in the config.yml for controlling maximum tax amounts on towns. There is max_tax_amount which defaults to 1000 and max_tax_percent which defaults to 25%. Which one is used depends on how the town is taxing, a flat rate or by percentage.
     
   === Upkeep ===
   Upkeep collection can be set on towns and on nations seperately. Upkeep money is taken from townbanks and nationbanks and removed from the game.
@@ -325,7 +339,7 @@ Any money collected via taxes is deposited to the nation/town bank. When a town 
 
 Since mayors and kings can deposit money to their respective banks, some servers will find that mayors and kings shield their wealth from plugins that take a players money for dying from pvp combat.
 To prevent townbanks from being exploited an admin can use two options:
-  * Admins can set a cap on a town/nation bank using {{{bank_cap: '0'}}} in the config.yml.
+  * Admins can set a cap on a town/nation banks at town_bank_cap and nation_bank_cap in the config.yml.
   * Admins can use '/ta toggle withdraw' to prevent mayors and kings from removing money from their bank.
 The cap on banks does not affect taxes which will still be put into the bank. 
 
