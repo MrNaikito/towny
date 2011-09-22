@@ -293,7 +293,7 @@ Piston-protection allows pistons to operate between similarly owned townblocks o
 
 Taxes and Upkeep are two seperate functions with to different results. {{{using_iconomy: true}}} must be set in [DefaultConfig config.yml] in order for Taxes and Upkeep to be applied.
 Taxes and Upkeep are charged at the same time, each 'Towny Day' or each time an admin type /townyadmin newday.
-The time of a 'Towny Day' can be set in [DefaultConfig config.yml] at {{{day_interval: 1d}}} and by default is 24 real-life hours. An admin can check how long until the next day starts by using /townyadmin time.
+The time of a 'Towny Day' can be set in [DefaultConfig config.yml] at {{{day_interval: 1d}}} and by default is 24 real-life hours. Any one can check how long until the next day starts by using /towny time.
 
   === Taxes ===
   Taxes are collected on the town level from residents and on the nation level from towns.
