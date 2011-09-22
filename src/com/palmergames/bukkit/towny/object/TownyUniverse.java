@@ -757,7 +757,8 @@ public class TownyUniverse extends TownyObject {
 					worldCoord = new WorldCoord(TownyUniverse.getWorld(player.getWorld().getName()), Coord.parseCoord(location));
 					
 					TownBlockStatus status = plugin.cacheStatus(player, worldCoord, plugin.getStatusCache(player, worldCoord));
-					plugin.cacheBuild(player, worldCoord, plugin.getPermission(player, status, worldCoord, action));
+					//plugin.cacheBuild(player, worldCoord, plugin.getPermission(player, status, worldCoord, action));
+					triggerCacheCreate(player, location, worldCoord, status, action);
 					
 					PlayerCache cache = plugin.getCache(player);
 					cache.updateCoord(worldCoord);
@@ -771,6 +772,29 @@ public class TownyUniverse extends TownyObject {
 				
 			}
 			return false;
+    	}
+        
+        private void triggerCacheCreate(Player player, Location location, WorldCoord worldCoord, TownBlockStatus status, ActionType action) {
+    		
+    		switch(action.ordinal()){
+    		
+    		case 0: // BUILD
+    			plugin.cacheBuild(player, worldCoord, plugin.getPermission(player, status, worldCoord, action));
+    			
+    		case 1: // DESTROY
+    			plugin.cacheBuild(player, worldCoord, plugin.getPermission(player, status, worldCoord, action));		
+    			
+    		case 2: // SWITCH
+    			plugin.cacheBuild(player, worldCoord, plugin.getPermission(player, status, worldCoord, action));			
+    			
+    		case 3: // ITEM_USE
+    			plugin.cacheBuild(player, worldCoord, plugin.getPermission(player, status, worldCoord, action));
+    			
+    		default:
+    			//for future expansion of permissions
+    			
+    		}
+    		
     	}
 
         public List<Resident> getResidents() {
