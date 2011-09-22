@@ -24,19 +24,8 @@ Here are instructions for upgrading to Towny 0.76.1:
       * Start your server and let the config.yml + english.yml update themselves
       * Stop your server and configure any new flags in config.yml, your old settings will remain but any new settings will be added and set to their defaults.
       * Save config.yml.    
-  * *If you use Permissions you MUST configure your [PermissionNodes permission nodes], as they are required for players to be able to build/mine in the wilderness.*
-    * towny.wild.(asterisk) 
-  * or
-    * towny.wild.build
-    * towny.wild.destroy
-    * towny.wild.switch
-    * towny.wild.item_use
-    * towny.wild.block.{block id}.asterisk 
-    * towny.wild.block.{block id}.build 
-    * towny.wild.block.{block id}.destroy 
-    * towny.wild.block.{block id}.switch 
-    * towny.wild.block.{block id}.itemuse
-  * Note that town settings like PVP, Explosion, Fire may revert to their default off state.
+
+  * *If you use Permissions you MUST configure your [PermissionNodes permission nodes], Check for any new nodes added in the current version.*
 
 Your server is ready to use Towny 0.76.1!
 
