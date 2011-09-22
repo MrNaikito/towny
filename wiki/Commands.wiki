@@ -63,14 +63,10 @@
       * {townname} {mayor}
     * delete {town name}
     * add {resident} .. {resident}
-    * add+ {resident} .. {resident}
     * kick {resident} .. {resident}
-    * kick+ {resident} .. {resident}
     * assistant 
       * add {resident} .. {resident}
-      * add+ {resident} .. {resident}
       * remove {resident} .. {resident}
-      * remove+ {resident} .. {resident}
     * set 
       * board {message}
       * mayor {resident}
@@ -99,7 +95,10 @@
 == /plot ==
   * /plot 
     * claim
+      * auto
     * unclaim
+      * circle/rect
+        * radius      
     * {forsale/fs} 
       * circle/rect
         * radius      
@@ -143,12 +142,13 @@
     * set 
       * king {resident}
       * captial {town}
-      * neutral {on/off}
       * taxes {$}
       * name {name}
       * title {name} {titlegoeshere}
       * surname {name} {surnamegoeshere}
       * tag {upto4character}
+    * toggle
+      * neutral
 
 == /townyworld ==  
   * /townyworld 
@@ -177,6 +177,7 @@
     * ?
     * map
     * prices
+    * time
     * top 
       * money {all/resident/town/nation}
       * residents {all/town/nation}
