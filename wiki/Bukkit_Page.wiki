@@ -24,7 +24,7 @@
 [*][URL='http://forums.bukkit.org/threads/1080.40/']iConomy 6[/URL] *
 [*][URL='http://forums.bukkit.org/threads/1185.15312/']EssentialsEco[/URL] *
 [*][URL='http://forums.bukkit.org/threads/19025']BOSEconomy[/URL] *
-[*] * Requires Register.jar in your plugins folder. [URL='http://mirror.nexua.org/Register/latest/stable/Register.jar']Download Register.jar[/URL]
+[*] * Requires Register.jar in your plugins folder. [URL='http://mirror.nexua.org/Register/1/3/Register.jar']Download Register.jar[/URL]
 [/LIST]
 
 [B]Plugins That Support Towny[/B]
