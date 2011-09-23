@@ -900,10 +900,10 @@ public class Towny extends JavaPlugin {
         
         public boolean getPermission(Player player, TownBlockStatus status, WorldCoord pos, TownyPermission.ActionType actionType) {
                 if (status == TownBlockStatus.OFF_WORLD ||
-                        status == TownBlockStatus.ADMIN ||
                         status == TownBlockStatus.WARZONE ||
                         status == TownBlockStatus.PLOT_OWNER ||
-                        status == TownBlockStatus.TOWN_OWNER)
+                        status == TownBlockStatus.TOWN_OWNER ||
+                        isTownyAdmin(player)) // status == TownBlockStatus.ADMIN ||
                                 return true;
                 
                 if (status == TownBlockStatus.NOT_REGISTERED) {
