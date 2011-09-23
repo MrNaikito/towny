@@ -280,7 +280,6 @@ public class TownySettings {
         if (strArray != null) {
         for (int ctr=0; ctr < strArray.length; ctr++)
         	if (strArray[ctr] != null) {
-        		list.add(Integer.parseInt(strArray[ctr].trim()));
         		try {
         			list.add(Integer.parseInt(strArray[ctr].trim()));
             	} catch (NumberFormatException e) {

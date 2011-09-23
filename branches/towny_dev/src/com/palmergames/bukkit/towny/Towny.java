@@ -105,6 +105,8 @@ public class Towny extends JavaPlugin {
     @Override
     public void onEnable() {
     	
+    	Logger.getAnonymousLogger().info("====================      Towny      ========================");
+    	
     	version = this.getDescription().getVersion();
         //System.out.println("[Towny] Towny - create TownyUniverse Object...");
         townyUniverse = new TownyUniverse(this);
@@ -132,7 +134,10 @@ public class Towny extends JavaPlugin {
                 update();
         
         registerEvents();
+        
+        Logger.getAnonymousLogger().info("=============================================================");
         System.out.println("[Towny] Version: " + version + " - Mod Enabled");
+        Logger.getAnonymousLogger().info("=============================================================");
         
         // Re login anyone online. (In case of plugin reloading)
         for (Player player : getServer().getOnlinePlayers())
@@ -261,26 +266,31 @@ public class Towny extends JavaPlugin {
 
     @Override
     public void onDisable() {
-            if (TownyUniverse.getDataSource() != null && error == false)
-                    TownyUniverse.getDataSource().saveAll();
-            
-            if (error == false) TownyWar.onDisable();
-            
-            if (getTownyUniverse().isWarTime())
-                    getTownyUniverse().getWarEvent().toggleEnd();
-            townyUniverse.toggleTownyRepeatingTimer(false);
-            townyUniverse.toggleDailyTimer(false);
-            townyUniverse.toggleMobRemoval(false);
-            townyUniverse.toggleHealthRegen(false);
-            townyUniverse.toggleTeleportWarmup(false);
-            townyUniverse.cancelProtectionRegenTasks();
-            
-            playerCache.clear();
-            playerMode.clear();
-            
-            townyUniverse = null;
-            
-            Logger.getAnonymousLogger().severe("[Towny] Version: " + version + " - Mod Disabled");
+    	
+    	Logger.getAnonymousLogger().info("==============================================================");
+    	
+    	if (TownyUniverse.getDataSource() != null && error == false)
+            TownyUniverse.getDataSource().saveAll();
+    
+	    if (error == false) TownyWar.onDisable();
+	    
+	    if (getTownyUniverse().isWarTime())
+	            getTownyUniverse().getWarEvent().toggleEnd();
+	    townyUniverse.toggleTownyRepeatingTimer(false);
+	    townyUniverse.toggleDailyTimer(false);
+	    townyUniverse.toggleMobRemoval(false);
+	    townyUniverse.toggleHealthRegen(false);
+	    townyUniverse.toggleTeleportWarmup(false);
+	    townyUniverse.cancelProtectionRegenTasks();
+	    
+	    playerCache.clear();
+	    playerMode.clear();
+	    
+	    townyUniverse = null;
+	    
+	    
+	    Logger.getAnonymousLogger().info("[Towny] Version: " + version + " - Mod Disabled");
+	    Logger.getAnonymousLogger().info("=============================================================");
     }
 
     public boolean load() {
@@ -298,7 +308,8 @@ public class Towny extends JavaPlugin {
         
         if (!matcher.find() || matcher.group(1) == null) {
         	error = true;
-        	Logger.getAnonymousLogger().severe("[Towny Error] Unable to read CraftBukkit Version. Towny requires version " + bukkitVer + " or higher.");
+        	Logger.getAnonymousLogger().severe("[Towny Error] Unable to read CraftBukkit Version.");
+        	Logger.getAnonymousLogger().severe("[Towny Error] Towny requires version " + bukkitVer + " or higher.");
             getServer().getPluginManager().disablePlugin(this);
             return false;
         }
@@ -306,7 +317,8 @@ public class Towny extends JavaPlugin {
         
         if (curBuild < bukkitVer){
             error = true;
-            Logger.getAnonymousLogger().severe("[Towny Error] CraftBukkit Version is outdated: " + curBuild + ": Towny requires version " + bukkitVer + " or higher.");
+            Logger.getAnonymousLogger().severe("[Towny Error] CraftBukkit Version ("  + curBuild + ") is outdated! ");
+            Logger.getAnonymousLogger().severe("[Towny Error] Towny requires version " + bukkitVer + " or higher.");
             getServer().getPluginManager().disablePlugin(this);
             return false;
         }
