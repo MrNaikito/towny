@@ -1009,14 +1009,6 @@ public class TownySettings {
 		return getBoolean(ConfigNodes.PLUGIN_DAILY_BACKUPS);
 	}
 	
-	public static double getTownSpawnTravelPrice() {
-		return getDouble(ConfigNodes.ECO_PRICE_TOWN_SPAWN_TRAVEL);
-	}
-	
-	public static double getTownPublicSpawnTravelPrice() {
-		return getDouble(ConfigNodes.ECO_PRICE_TOWN_PUBLIC_SPAWN_TRAVEL);
-	}
-	
 	public static double getBaseSpoilsOfWar() {
 		return getDouble(ConfigNodes.WAR_EVENT_BASE_SPOILS);
 	}

@@ -588,3 +588,13 @@ v0.76.1.2:
 v0.76.1.3:
     - Tidied Startup log data
     - Fixed Wild permissions.
+v0.76.1.4:
+    - Refactored '/town spawn' with new config options for when the target town is part of your nation,
+      or an allied nation. Each can have their own cost and has their own permission.
+    - Town spawn permissions have been changed to:
+    
+      - towny.town.spawn.* : Grants all Spawn travel nodes
+      - towny.town.spawn.town : Ability to spawn to your own town.
+      - towny.town.spawn.nation : Ability to spawn to other towns in your nation.
+      - towny.town.spawn.ally : Ability to spawn to towns in nations allied with yours.
+      - towny.town.spawn.public : Ability to spawn to unaffilated public towns.

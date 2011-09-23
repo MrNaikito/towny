@@ -49,7 +49,6 @@ permissions:
             towny.town.*: true
             towny.nation.*: true
             towny.wild.*: true
-            towny.spawntp: true
             towny.publicspawntp: true
             towny.cheat.bypass: true
     towny.cheat.bypass:
@@ -68,7 +67,28 @@ permissions:
             towny.town.claim: true
             towny.town.resident: true
             towny.town.plot: true
+            towny.town.spawn.*: true
             towny.town.toggle.*: true
+    towny.town.spawn.*:
+        description: Grants all Spawn travel nodes
+        default: op
+        children:
+            towny.towny.spawn.town: true
+            towny.town.spawn.nation: true
+            towny.town.spawn.ally: true
+            towny.town.spawn.public: true
+    towny.town.spawn.town:
+        description: User is permitted to use /town spawn.
+        default: false
+    towny.town.spawn.nation:
+        description: Ability to spawn to other towns within your nation.
+        default: false
+    towny.town.spawn.ally:
+        description: Ability to spawn to towns in nations allied with yours.
+        default: false
+    towny.town.spawn.public:
+        description: Ability to spawn to unaffilated public towns.
+        default: false
     towny.town.toggle.*:
         description: User can access all town toggle commands (if a mayor or assistant).
         default: op

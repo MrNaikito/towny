@@ -20,10 +20,9 @@ import ca.xshade.questionmanager.Question;
 import com.earth2me.essentials.Essentials;
 import com.earth2me.essentials.Teleport;
 import com.earth2me.essentials.User;
-//import com.iConomy.iConomy;
 import com.palmergames.bukkit.towny.AlreadyRegisteredException;
-import com.palmergames.bukkit.towny.EmptyTownException;
 import com.palmergames.bukkit.towny.EconomyException;
+import com.palmergames.bukkit.towny.EmptyTownException;
 import com.palmergames.bukkit.towny.NotRegisteredException;
 import com.palmergames.bukkit.towny.Towny;
 import com.palmergames.bukkit.towny.TownyException;
@@ -37,6 +36,7 @@ import com.palmergames.bukkit.towny.object.Resident;
 import com.palmergames.bukkit.towny.object.Town;
 import com.palmergames.bukkit.towny.object.TownBlock;
 import com.palmergames.bukkit.towny.object.TownBlockOwner;
+import com.palmergames.bukkit.towny.object.TownSpawnLevel;
 import com.palmergames.bukkit.towny.object.TownyEconomyObject;
 import com.palmergames.bukkit.towny.object.TownyPermission;
 import com.palmergames.bukkit.towny.object.TownyRegenAPI;
@@ -120,139 +120,9 @@ public class TownCommand implements CommandExecutor  {
                         else
                                 // TODO: Check if player is an admin
                                 newTown(player, split[1], split[2]);
-                } else if (split[0].equalsIgnoreCase("leave"))
-                        townLeave(player);
-                else if (split[0].equalsIgnoreCase("spawn"))
-                		try {
-                                
-                                boolean isTownyAdmin = plugin.isTownyAdmin(player);
-                                Town town;
-                                String notAffordMSG;
-                                
-                                // Check permission to use spawn travel
-                                if (!isTownyAdmin && (
-                                                (split.length == 1 && (!TownySettings.isAllowingTownSpawn() || (!plugin.hasPermission(player, "towny.spawntp")))) ||
-                                                (split.length > 1 && (!TownySettings.isAllowingPublicTownSpawnTravel() || (!plugin.hasPermission(player, "towny.publicspawntp"))))))
-                                        throw new TownyException(TownySettings.getLangString("msg_err_town_spawn_forbidden"));
-                                
-                                Resident resident = plugin.getTownyUniverse().getResident(player.getName());
-                                
-                                // fetch the spawn location for the teleport
-                                // and setup the error message if they can't afford.
-                                if (split.length > 1) {
-                                        town = plugin.getTownyUniverse().getTown(split[1]);
-                                        if (!isTownyAdmin && !town.isPublic())
-                                                throw new TownyException(TownySettings.getLangString("msg_err_not_public"));
-                                        notAffordMSG = String.format(TownySettings.getLangString("msg_err_cant_afford_tp_town"),town.getName());
-                                } else {
-                                        town = resident.getTown();
-                                        notAffordMSG = TownySettings.getLangString("msg_err_cant_afford_tp");
-                                }
-
-                                // Prevent enemies from using spawn travel.
-                                if (!isTownyAdmin && resident.hasTown() && resident.hasNation())
-                                    if (town.hasNation())
-                                        if (town.getNation().hasEnemy(resident.getTown().getNation()))
-                                            throw new TownyException(TownySettings.getLangString("msg_err_public_spawn_enemy"));
-
-                                if (!isTownyAdmin) {
-                                    // Prevent spawn travel while in disallowed zones (if configured)
-                                    List<String> disallowedZones = TownySettings.getDisallowedTownSpawnZones();
-                                    
-                                    if (!disallowedZones.isEmpty()) {
-                                        String inTown = null;
-                                        try {
-                                                Location loc = plugin.getCache(player).getLastLocation();
-                                                inTown = plugin.getTownyUniverse().getTownName(loc);
-                                        } catch (NullPointerException e) {
-                                                inTown = plugin.getTownyUniverse().getTownName(player.getLocation());
-                                        }
-                                        
-                                        if (inTown == null && disallowedZones.contains("unclaimed"))
-                                            throw new TownyException(String.format(TownySettings.getLangString("msg_err_town_spawn_disallowed_from"), "the Wilderness"));
-                                        if (inTown != null && resident.hasNation() && plugin.getTownyUniverse().getTown(inTown).hasNation()) {
-                                            Nation inNation = plugin.getTownyUniverse().getTown(inTown).getNation();
-                                            Nation playerNation = resident.getTown().getNation();
-                                            if (inNation.getEnemies().contains(playerNation) && disallowedZones.contains("enemy"))
-                                                throw new TownyException(String.format(TownySettings.getLangString("msg_err_town_spawn_disallowed_from"), "Enemy areas"));
-                                            if (!inNation.getAllies().contains(playerNation) && !inNation.getEnemies().contains(playerNation) && disallowedZones.contains("neutral"))
-                                                    throw new TownyException(String.format(TownySettings.getLangString("msg_err_town_spawn_disallowed_from"), "Neutral towns"));
-
-                                        }
-                                    }
-                                }
-                                
-                                double travelCost;
-                                if (resident.hasTown() && resident.getTown() == town)
-                                        travelCost = TownySettings.getTownSpawnTravelPrice();
-                                else
-                                        travelCost = TownySettings.getTownPublicSpawnTravelPrice();
-                                
-                                // Check if need/can pay
-                                if (!isTownyAdmin && TownySettings.isUsingEconomy() && (resident.getHoldingBalance() < travelCost))
-                                        throw new TownyException(notAffordMSG);
-                                
-                                //essentials tests
-                                boolean notUsingESS = false;
-                                
-                                if (TownySettings.isUsingEssentials() && !isTownyAdmin) {
-                                        Plugin handle = plugin.getServer().getPluginManager().getPlugin("Essentials");
-                                        if (!handle.equals(null)) {
-                                                
-                                                Essentials essentials = (Essentials)handle;
-                                                plugin.sendDebugMsg("Using Essentials");
-                                                
-                                                try {
-                                                        User user = essentials.getUser(player);
-                                                        
-                                                        if (!user.isTeleportEnabled())
-                                                                //Ess teleport is disabled
-                                                                notUsingESS = true;
-                                                        
-                                                        if (!user.isJailed()){
-                                                                Teleport teleport = user.getTeleport();
-                                                                teleport.teleport(town.getSpawn(),null);
-                                                        }
-                                                } catch (Exception e) {
-                                                        plugin.sendErrorMsg(player, "Error: " + e.getMessage());
-                                                        // cooldown?
-                                                        return;
-                                                }
-                                        }
-                                }
-                                //show message if we are using Economy and are charging for spawn travel.
-                                if (!isTownyAdmin && TownySettings.isUsingEconomy() && resident.pay(travelCost, town))
-                                        plugin.sendMsg(player, String.format(TownySettings.getLangString("msg_cost_spawn"),
-                                                        travelCost + TownyEconomyObject.getEconomyCurrency()));
-                                
-                                
-                                // if an Admin or essentials teleport isn't being used, use our own.
-                                if(isTownyAdmin) {
-                                	if (player.getVehicle() != null)
-			                    		player.getVehicle().eject();
-                                    player.teleport(town.getSpawn());
-                                    return;
-				                }
-				                
-				                if (!notUsingESS) {
-				                    if (plugin.getTownyUniverse().isTeleportWarmupRunning()) { // Use teleport warmup
-				                        player.sendMessage(String.format(TownySettings.getLangString("msg_town_spawn_warmup"),
-				                                TownySettings.getTeleportWarmupTime()));
-				                        plugin.getTownyUniverse().requestTeleport(player, town);
-				                    } else { // Don't use teleport warmup
-				                    	if (player.getVehicle() != null)
-				                    		player.getVehicle().eject();
-				                        player.teleport(town.getSpawn());
-				                    }
-				                }
-                                
-                        } catch (TownyException e) {
-                                plugin.sendErrorMsg(player, e.getMessage());
-                                //e.printStackTrace();
-                        } catch (EconomyException e) {
-                                plugin.sendErrorMsg(player, e.getMessage());
-                        }
-                else if (split[0].equalsIgnoreCase("withdraw")) {
+                } else if (split[0].equalsIgnoreCase("leave")) {
+                    townLeave(player);
+        		} else if (split[0].equalsIgnoreCase("withdraw")) {
                         if (split.length == 2)
                                 try {
                                         townWithdraw(player, Integer.parseInt(split[1].trim()));
@@ -283,6 +153,8 @@ public class TownCommand implements CommandExecutor  {
                                 townMayor(player, newSplit);
                         else if (split[0].equalsIgnoreCase("assistant"))
                                 townAssistant(player, newSplit);
+                        else if (split[0].equalsIgnoreCase("spawn"))
+                     			townSpawn(player, newSplit);
                         else if (split[0].equalsIgnoreCase("delete"))
                                 townDelete(player, newSplit);
                         else if (split[0].equalsIgnoreCase("add"))
@@ -970,6 +842,150 @@ public class TownCommand implements CommandExecutor  {
                 
                 plugin.getTownyUniverse().sendTownMessage(town, String.format(TownySettings.getLangString("msg_left_town"), resident.getName()));
                 plugin.sendMsg(player, String.format(TownySettings.getLangString("msg_left_town"), resident.getName()));
+        }
+        
+        public static void townSpawn(Player player, String[] split) {
+        	try {
+                boolean isTownyAdmin = plugin.isTownyAdmin(player);
+                Resident resident = plugin.getTownyUniverse().getResident(player.getName());
+                Town town;
+                String notAffordMSG;
+                TownSpawnLevel townSpawnPermission;
+                
+                // Set target town and affiliated messages.
+                if (split.length == 0) {
+                	town = resident.getTown();
+                    notAffordMSG = TownySettings.getLangString("msg_err_cant_afford_tp");
+            	} else {
+            		// split.length > 1
+            		town = plugin.getTownyUniverse().getTown(split[0]);
+                	notAffordMSG = String.format(TownySettings.getLangString("msg_err_cant_afford_tp_town"), town.getName());
+            	}
+                
+                // Determine conditions
+                if (isTownyAdmin) {
+                	townSpawnPermission = TownSpawnLevel.ADMIN;
+                } else if (split.length == 0) {
+                	townSpawnPermission = TownSpawnLevel.TOWN_RESIDENT;
+                } else {
+                	// split.length > 1
+                	if (resident.getTown() == town) {
+                		townSpawnPermission = TownSpawnLevel.TOWN_RESIDENT;
+                	} else if (resident.hasNation() && town.hasNation()) {
+                		Nation playerNation = resident.getTown().getNation();
+                		Nation targetNation = town.getNation();
+                		
+                		if (playerNation == targetNation) {
+                			townSpawnPermission = TownSpawnLevel.PART_OF_NATION;
+                		} else if (targetNation.hasEnemy(playerNation)) {
+                			// Prevent enemies from using spawn travel.
+                            throw new TownyException(TownySettings.getLangString("msg_err_public_spawn_enemy"));
+                		} else if (targetNation.hasAlly(playerNation)) {
+                			townSpawnPermission = TownSpawnLevel.NATION_ALLY;
+                		} else {
+                    		townSpawnPermission = TownSpawnLevel.UNAFFILIATED;
+                    	}
+                	} else {
+                		townSpawnPermission = TownSpawnLevel.UNAFFILIATED;
+                	}
+                }
+                
+                plugin.sendDebugMsg(townSpawnPermission.toString() + " " + townSpawnPermission.isAllowed());
+                townSpawnPermission.checkIfAllowed();
+                
+                if (!isTownyAdmin) {
+                    // Prevent spawn travel while in disallowed zones (if configured)
+                    List<String> disallowedZones = TownySettings.getDisallowedTownSpawnZones();
+                    
+                    if (!disallowedZones.isEmpty()) {
+                        String inTown = null;
+                        try {
+                            Location loc = plugin.getCache(player).getLastLocation();
+                            inTown = plugin.getTownyUniverse().getTownName(loc);
+                        } catch (NullPointerException e) {
+                            inTown = plugin.getTownyUniverse().getTownName(player.getLocation());
+                        }
+                        
+                        if (inTown == null && disallowedZones.contains("unclaimed"))
+                            throw new TownyException(String.format(TownySettings.getLangString("msg_err_town_spawn_disallowed_from"), "the Wilderness"));
+                        if (inTown != null && resident.hasNation() && plugin.getTownyUniverse().getTown(inTown).hasNation()) {
+                            Nation inNation = plugin.getTownyUniverse().getTown(inTown).getNation();
+                            Nation playerNation = resident.getTown().getNation();
+                            if (inNation.hasEnemy(playerNation) && disallowedZones.contains("enemy"))
+                                throw new TownyException(String.format(TownySettings.getLangString("msg_err_town_spawn_disallowed_from"), "Enemy areas"));
+                            if (!inNation.hasAlly(playerNation) && !inNation.hasEnemy(playerNation) && disallowedZones.contains("neutral"))
+                                throw new TownyException(String.format(TownySettings.getLangString("msg_err_town_spawn_disallowed_from"), "Neutral towns"));
+                        }
+                    }
+                }
+                
+                double travelCost = townSpawnPermission.getCost();
+                
+                // Check if need/can pay
+                if (travelCost > 0 && TownySettings.isUsingEconomy() && (resident.getHoldingBalance() < travelCost))
+                	throw new TownyException(notAffordMSG);
+                
+                // Essentials tests
+                boolean notUsingESS = false;
+                
+                if (TownySettings.isUsingEssentials() && !isTownyAdmin) {
+                    Plugin handle = plugin.getServer().getPluginManager().getPlugin("Essentials");
+                    if (!handle.equals(null)) {
+                        Essentials essentials = (Essentials)handle;
+                        plugin.sendDebugMsg("Using Essentials");
+                        
+                        try {
+                            User user = essentials.getUser(player);
+                            
+                            if (!user.isTeleportEnabled()) {
+                                //Ess teleport is disabled
+                                notUsingESS = true;
+                            }
+                            if (!user.isJailed()) {
+                                Teleport teleport = user.getTeleport();
+                                teleport.teleport(town.getSpawn(),null);
+                            }
+                        } catch (Exception e) {
+                            plugin.sendErrorMsg(player, "Error: " + e.getMessage());
+                            // cooldown?
+                            return;
+                        }
+                    }
+                }
+                
+                // Show message if we are using iConomy and are charging for spawn travel.
+                if (travelCost > 0 && TownySettings.isUsingEconomy() && resident.pay(travelCost, town)) {
+                    plugin.sendMsg(player, String.format(TownySettings.getLangString("msg_cost_spawn"), 
+                    		travelCost + TownyEconomyObject.getEconomyCurrency()));
+                }
+                
+                
+                // If an Admin or Essentials teleport isn't being used, use our own.
+                if(isTownyAdmin) {
+                	if (player.getVehicle() != null)
+                		player.getVehicle().eject();
+                    player.teleport(town.getSpawn());
+                    return;
+                }
+                
+                if (!notUsingESS) {
+                    if (plugin.getTownyUniverse().isTeleportWarmupRunning()) {
+                    	// Use teleport warmup
+                        player.sendMessage(String.format(TownySettings.getLangString("msg_town_spawn_warmup"),
+                                TownySettings.getTeleportWarmupTime()));
+                        plugin.getTownyUniverse().requestTeleport(player, town);
+                    } else {
+                    	// Don't use teleport warmup
+                    	if (player.getVehicle() != null)
+                    		player.getVehicle().eject();
+                        player.teleport(town.getSpawn());
+                    }
+                }
+            } catch (TownyException e) {
+                plugin.sendErrorMsg(player, e.getMessage());
+            } catch (EconomyException e) {
+                plugin.sendErrorMsg(player, e.getMessage());
+            }
         }
         
         public void townDelete(Player player, String[] split) {
