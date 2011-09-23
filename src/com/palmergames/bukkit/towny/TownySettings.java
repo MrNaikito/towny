@@ -226,15 +226,30 @@ public class TownySettings {
     }
 
     public static double getDouble(ConfigNodes node) {
-        return Double.parseDouble(config.getString(node.getRoot().toLowerCase(), node.getDefault()));
+    	try {
+    		return Double.parseDouble(config.getString(node.getRoot().toLowerCase(), node.getDefault()).trim());
+    	} catch (NumberFormatException e) {
+    		sendError(node.getRoot().toLowerCase() + " from config.yml");
+    		return 0.0;
+    	}
     }
 
     public static int getInt(ConfigNodes node) {
-        return Integer.parseInt(config.getString(node.getRoot().toLowerCase(), node.getDefault()));
+        try {
+        	return Integer.parseInt(config.getString(node.getRoot().toLowerCase(), node.getDefault()).trim());
+    	} catch (NumberFormatException e) {
+    		sendError(node.getRoot().toLowerCase() + " from config.yml");
+    		return 0;
+    	}
     }
     /*
     private static long getLong(ConfigNodes node) {
-        return Long.parseLong(getString(node));
+        try {
+    		return Long.parseLong(getString(node).trim());
+    	} catch (NumberFormatException e) {
+    		sendError(node.getRoot().toLowerCase() + " from config.yml");
+    		return 0;
+    	}
     }
 	*/
     public static String getString(ConfigNodes node) {
@@ -264,8 +279,14 @@ public class TownySettings {
         List<Integer> list = new ArrayList<Integer>();
         if (strArray != null) {
         for (int ctr=0; ctr < strArray.length; ctr++)
-        	if (strArray[ctr] != null)
-        		list.add(Integer.parseInt(strArray[ctr]));
+        	if (strArray[ctr] != null) {
+        		list.add(Integer.parseInt(strArray[ctr].trim()));
+        		try {
+        			list.add(Integer.parseInt(strArray[ctr].trim()));
+            	} catch (NumberFormatException e) {
+            		sendError(node.getRoot().toLowerCase() + " from config.yml");
+            	}
+        	}
         }
         return list;
     }
@@ -286,7 +307,13 @@ public class TownySettings {
         if (Pattern.matches(".*[a-zA-Z].*", time)) {
             return (TimeTools.secondsFromDhms(time));
         }
-        return Long.parseLong(time);
+
+        try {
+        	return Long.parseLong(time.trim());
+    	} catch (NumberFormatException e) {
+    		sendError(node.getRoot().toLowerCase() + " from config.yml");
+    		return 1;
+    	}
     }
 
     public static void addComment(String root, String...comments) {
