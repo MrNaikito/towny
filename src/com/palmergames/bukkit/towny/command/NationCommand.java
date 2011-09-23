@@ -386,6 +386,12 @@ public class NationCommand implements CommandExecutor  {
         }
         
         public void nationAdd(Player player, String[] names) {
+        	
+        	if (names.length < 1) {
+                plugin.sendErrorMsg(player, "Eg: /nation add [names]");
+                return;
+            }
+        	
                 Resident resident;
                 Nation nation;
                 try {
@@ -477,6 +483,12 @@ public class NationCommand implements CommandExecutor  {
         }
         
         public void nationKick(Player player, String[] names) {
+        	
+        	if (names.length < 1) {
+                plugin.sendErrorMsg(player, "Eg: /nation kick [names]");
+                return;
+            }
+        	
                 Resident resident;
                 Nation nation;
                 try {
@@ -661,6 +673,12 @@ public class NationCommand implements CommandExecutor  {
         }
         
         public void nationAlly(Player player, String[] split) {
+        	
+        	if (split.length < 2) {
+                plugin.sendErrorMsg(player, "Eg: /nation ally [add/remove] [name]");
+                return;
+            }
+        	
                 Resident resident;
                 Nation nation;
                 try {
@@ -742,6 +760,12 @@ public class NationCommand implements CommandExecutor  {
         public void nationEnemy(Player player, String[] split) {
                 Resident resident;
                 Nation nation;
+                
+                if (split.length < 2) {
+                    plugin.sendErrorMsg(player, "Eg: /nation enemy [add/remove] [name]");
+                    return;
+                }
+                
                 try {
                         resident = plugin.getTownyUniverse().getResident(player.getName());
                         nation = resident.getTown().getNation();
