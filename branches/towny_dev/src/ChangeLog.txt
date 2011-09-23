@@ -598,3 +598,6 @@ v0.76.1.4:
       - towny.town.spawn.nation : Ability to spawn to other towns in your nation.
       - towny.town.spawn.ally : Ability to spawn to towns in nations allied with yours.
       - towny.town.spawn.public : Ability to spawn to unaffilated public towns.
+v0.76.1.5:
+    - Added missing permission nodes to support...
+      - towny.wild.*

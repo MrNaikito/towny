@@ -1036,7 +1036,9 @@ public class Towny extends JavaPlugin {
         }
         
         public boolean hasWildOverride(TownyWorld world, Player player, int blockId, TownyPermission.ActionType action) {
-                return world.isUnclaimedZoneIgnoreId(blockId) || hasPermission(player, "towny.wild.block." + blockId + "." + action.toString());
+                return (world.isUnclaimedZoneIgnoreId(blockId)
+                		|| hasPermission(player, "towny.wild." + action.toString().toLowerCase())
+                		|| hasPermission(player, "towny.wild.block." + blockId + "." + action.toString().toLowerCase()));
         }
         
         public void appendQuestion(Questioner questioner, Question question) throws Exception {
