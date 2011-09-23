@@ -275,10 +275,10 @@ public class TownyUniverse extends TownyObject {
                         Resident resident = plugin.getTownyUniverse().getResident(player.getName());
                         Town town = resident.getTown();
                         player.teleport(town.getSpawn());
-                        //show message if we are using iConomy and are charging for spawn travel.
+                        //show message if we are using Economy and are charging for spawn travel.
                         if (!plugin.isTownyAdmin(player) && TownySettings.isUsingEconomy() && TownySettings.getTownSpawnTravelPrice() != 0)
                                 plugin.sendMsg(player, String.format(TownySettings.getLangString("msg_cost_spawn"),
-                                                TownySettings.getTownSpawnTravelPrice() + TownyIConomyObject.getIConomyCurrency()));
+                                                TownySettings.getTownSpawnTravelPrice() + TownyEconomyObject.getEconomyCurrency()));
                         //player.teleportTo(town.getSpawn());
                 } catch (TownyException x) {
                         if (forceTeleport) {

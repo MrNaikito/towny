@@ -561,7 +561,7 @@ public class Town extends TownBlockOwner implements Walled, ResidentList {
                 if (!pay(amount, resident))
                         throw new TownyException("There is not enough money in the bank.");
         } else
-                throw new TownyException("iConomy has not been turned on.");
+                throw new TownyException("Economy has not been turned on.");
                 
     }
 
