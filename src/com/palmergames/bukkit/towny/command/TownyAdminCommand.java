@@ -129,7 +129,7 @@ public class TownyAdminCommand implements CommandExecutor  {
                                 
                                 Town town = plugin.getTownyUniverse().getTown(split[1]);
                                 try {
-                                        town.setBonusBlocks(town.getBonusBlocks() + Integer.parseInt(split[2]));
+                                        town.setBonusBlocks(town.getBonusBlocks() + Integer.parseInt(split[2].trim()));
                                         plugin.sendMsg(player, String.format(TownySettings.getLangString("msg_give_total"), town.getName(), split[2], town.getBonusBlocks()));
                                 } catch (NumberFormatException nfe) {
                                         throw new TownyException(TownySettings.getLangString("msg_error_must_be_int"));

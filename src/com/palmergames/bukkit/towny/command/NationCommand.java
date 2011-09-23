@@ -141,7 +141,7 @@ public class NationCommand implements CommandExecutor  {
                 else if (split[0].equalsIgnoreCase("withdraw")) {
                         if (split.length == 2)
                                 try {
-                                        nationWithdraw(player, Integer.parseInt(split[1]));
+                                        nationWithdraw(player, Integer.parseInt(split[1].trim()));
                                 } catch (NumberFormatException e) {
                                         plugin.sendErrorMsg(player, TownySettings.getLangString("msg_error_must_be_int"));
                                 }
@@ -150,7 +150,7 @@ public class NationCommand implements CommandExecutor  {
                 } else if (split[0].equalsIgnoreCase("deposit")) {
                         if (split.length == 2)
                                 try {
-                                        nationDeposit(player, Integer.parseInt(split[1]));
+                                        nationDeposit(player, Integer.parseInt(split[1].trim()));
                                 } catch (NumberFormatException e) {
                                         plugin.sendErrorMsg(player, TownySettings.getLangString("msg_error_must_be_int"));
                                 }
@@ -873,7 +873,7 @@ public class NationCommand implements CommandExecutor  {
                                 if (split.length < 2)
                                         plugin.sendErrorMsg(player, "Eg: /nation set taxes 70");
                                 else {
-                                        Integer amount = Integer.parseInt(split[1]);
+                                        Integer amount = Integer.parseInt(split[1].trim());
                                         if (amount < 0) {
                                                 plugin.sendErrorMsg(player, TownySettings.getLangString("msg_err_negative_money"));
                                                 return;

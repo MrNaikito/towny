@@ -359,7 +359,7 @@ public class TownyWorldCommand implements CommandExecutor  {
 						List<Integer> nums = new ArrayList<Integer>();
 						for (String s: StringMgmt.remFirstArg(split))
 							try {
-								nums.add(Integer.parseInt(s));
+								nums.add(Integer.parseInt(s.trim()));
 							} catch (NumberFormatException e) {
 							}
 						Globalworld.setUnclaimedZoneIgnore(nums);

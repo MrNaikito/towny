@@ -581,3 +581,4 @@ v0.76.1.0:
     - Towny will now check the Craftbukkit version and disable itself if it's too old.
 v0.76.1.1:
     - Fixed economy errors when using register and iCo6.
+    - Fixed an error caused by players setting a town or nation bank cap as a double (now accepts 0.0).
