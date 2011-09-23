@@ -101,7 +101,10 @@ public class TownyBlockListener extends BlockListener {
 			PlayerCache cache = plugin.getCache(player);
 			TownBlockStatus status = cache.getStatus();
 			
-			if (!(status == TownBlockStatus.UNCLAIMED_ZONE && plugin.hasWildOverride(worldCoord.getWorld(), player, event.getBlock().getTypeId(), TownyPermission.ActionType.DESTROY)))
+			if (status == TownBlockStatus.UNCLAIMED_ZONE){
+				if (!plugin.hasWildOverride(worldCoord.getWorld(), player, event.getBlock().getTypeId(), TownyPermission.ActionType.DESTROY))
+					event.setCancelled(true);
+			} else
 				if (!bDestroy) {
 				    long delay = TownySettings.getRegenDelay();
 				    if(delay > 0) {
@@ -118,14 +121,12 @@ public class TownyBlockListener extends BlockListener {
 				    }
 		            event.setCancelled(true);
 		        }
-			if (cache.hasBlockErrMsg())
+			if ((cache.hasBlockErrMsg()) && (event.isCancelled()))
 				plugin.sendErrorMsg(player, cache.getBlockErrMsg());
 			
 
 		} catch (NotRegisteredException e1) {
 			plugin.sendErrorMsg(player, TownySettings.getLangString("msg_err_not_configured"));
-			event.setCancelled(true);
-			return;
 		}
 
 		plugin.sendDebugMsg("onBlockBreakEvent took " + (System.currentTimeMillis() - start) + "ms ("+event.getPlayer().getName()+", "+event.isCancelled() +")");
@@ -153,7 +154,10 @@ public class TownyBlockListener extends BlockListener {
 			PlayerCache cache = plugin.getCache(player);
 			TownBlockStatus status = cache.getStatus();
 			
-			if (!(status == TownBlockStatus.UNCLAIMED_ZONE && plugin.hasWildOverride(worldCoord.getWorld(), player, event.getBlock().getTypeId(), TownyPermission.ActionType.BUILD)))
+			if (status == TownBlockStatus.UNCLAIMED_ZONE) {
+				if (!plugin.hasWildOverride(worldCoord.getWorld(), player, event.getBlock().getTypeId(), TownyPermission.ActionType.BUILD))
+					event.setCancelled(true);
+			} else
 				if (((status == TownBlockStatus.ENEMY && TownyWarConfig.isAllowingAttacks()) || status == TownBlockStatus.ADMIN)
 						&& event.getBlock().getType() == TownyWarConfig.getFlagBaseMaterial()) {
 						//&& plugin.hasPlayerMode(player, "warflag")) {
@@ -172,9 +176,10 @@ public class TownyBlockListener extends BlockListener {
 						event.setBuild(false);
 						event.setCancelled(true);
 					}
-					if (cache.hasBlockErrMsg())
-						plugin.sendErrorMsg(player, cache.getBlockErrMsg());
 				}
+			
+			if ((cache.hasBlockErrMsg()) && (event.isCancelled()))
+				plugin.sendErrorMsg(player, cache.getBlockErrMsg());
 			
 		} catch (NotRegisteredException e1) {
 			plugin.sendErrorMsg(player, TownySettings.getLangString("msg_err_not_configured"));
