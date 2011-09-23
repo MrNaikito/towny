@@ -1369,12 +1369,12 @@ public class TownySettings {
         return getInt(ConfigNodes.GTOWN_SETTINGS_SPAWN_TIMER);
     }
     
-    public static int getTownBankCap() {
-        return getInt(ConfigNodes.ECO_BANK_CAP_TOWN);
+    public static double getTownBankCap() {
+        return getDouble(ConfigNodes.ECO_BANK_CAP_TOWN);
     }
     
-    public static int getNationBankCap() {
-        return getInt(ConfigNodes.ECO_BANK_CAP_NATION);
+    public static double getNationBankCap() {
+        return getDouble(ConfigNodes.ECO_BANK_CAP_NATION);
     }
     
     public static boolean getTownBankAllowWithdrawls() {

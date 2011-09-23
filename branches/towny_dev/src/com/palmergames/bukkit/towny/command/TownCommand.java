@@ -255,7 +255,7 @@ public class TownCommand implements CommandExecutor  {
                 else if (split[0].equalsIgnoreCase("withdraw")) {
                         if (split.length == 2)
                                 try {
-                                        townWithdraw(player, Integer.parseInt(split[1]));
+                                        townWithdraw(player, Integer.parseInt(split[1].trim()));
                                 } catch (NumberFormatException e) {
                                         plugin.sendErrorMsg(player, TownySettings.getLangString("msg_error_must_be_int"));
                                 }
@@ -264,7 +264,7 @@ public class TownCommand implements CommandExecutor  {
                 } else if (split[0].equalsIgnoreCase("deposit")) {
                         if (split.length == 2)
                                 try {
-                                        townDeposit(player, Integer.parseInt(split[1]));
+                                        townDeposit(player, Integer.parseInt(split[1].trim()));
                                 } catch (NumberFormatException e) {
                                         plugin.sendErrorMsg(player, TownySettings.getLangString("msg_error_must_be_int"));
                                 }
@@ -776,7 +776,7 @@ public class TownCommand implements CommandExecutor  {
 	                if (split[0].equalsIgnoreCase("bonus")) {
 	                	if (split.length == 2) {
 	                        try {
-	                        	int bought = townBuyBonusTownBlocks(town, Integer.parseInt(split[1]));
+	                        	int bought = townBuyBonusTownBlocks(town, Integer.parseInt(split[1].trim()));
 	                        	double cost = bought * TownySettings.getPurchasedBonusBlocksCost();
 	                        	plugin.sendMsg(player, String.format(TownySettings.getLangString("msg_buy"), bought, "bonus town blocks", TownyFormatter.formatMoney(cost)));
 	                        } catch (NumberFormatException e) {
