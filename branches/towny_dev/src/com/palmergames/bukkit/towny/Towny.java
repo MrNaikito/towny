@@ -991,7 +991,7 @@ public class Towny extends JavaPlugin {
 		 */
 		public Register getRegister() throws EconomyException{
 			if (iconomy == null)
-                throw new EconomyException("iConomy is not installed");
+                throw new EconomyException("Economy is not installed");
 			else
 				return register;
 		}

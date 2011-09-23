@@ -181,8 +181,8 @@ public class TownyAdminCommand implements CommandExecutor  {
                                 + (TownySettings.isRemovingTownMobs() ? Colors.LightGreen + "On" : Colors.Rose + "Off"));
                 */
                 try {
-                        TownyEconomyObject.checkIConomy();
-                        ta_panel.add(Colors.Blue + "[" + Colors.LightBlue + "iConomy" + Colors.Blue + "] "
+                        TownyEconomyObject.checkEconomy();
+                        ta_panel.add(Colors.Blue + "[" + Colors.LightBlue + "Economy" + Colors.Blue + "] "
                                         + Colors.Green + TownySettings.getLangString("ta_panel_6") + Colors.LightGreen + TownyFormatter.formatMoney(getTotalEconomy()) + Colors.Gray + " | "
                                         + Colors.Green + TownySettings.getLangString("ta_panel_7") + Colors.LightGreen + getNumBankAccounts());
                 } catch (Exception e) {

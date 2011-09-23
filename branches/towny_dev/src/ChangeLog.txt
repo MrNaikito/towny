@@ -579,3 +579,5 @@ v0.76.1.0:
       TownyUniverse.getTownBlock(location)
       TownyUniverse.getCachePermission(player,location,action)
     - Towny will now check the Craftbukkit version and disable itself if it's too old.
+v0.76.1.1:
+    - Fixed economy errors when using register and iCo6.

@@ -15,7 +15,7 @@ import ca.xshade.bukkit.questioner.Questioner;
 import ca.xshade.questionmanager.Option;
 import ca.xshade.questionmanager.Question;
 
-import com.iConomy.iConomy;
+//import com.iConomy.iConomy;
 import com.palmergames.bukkit.towny.AlreadyRegisteredException;
 import com.palmergames.bukkit.towny.EmptyNationException;
 import com.palmergames.bukkit.towny.EconomyException;
@@ -308,8 +308,7 @@ public class NationCommand implements CommandExecutor  {
                 nation.setCapital(town);
                 if(TownySettings.isUsingEconomy())
                 {
-                        iConomy.getAccount("nation-"+name);
-                        iConomy.getAccount("nation-"+name).getHoldings().set(0);
+                        nation.setBalance(0);
                 }
                 TownyUniverse.getDataSource().saveTown(town);
                 TownyUniverse.getDataSource().saveNation(nation);
