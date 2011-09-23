@@ -1,5 +1,5 @@
 [B]Plugin: [/B]Towny
-[RIGHT]                                                     [URL='http://esper.net/publicirc.php?#Towny']IRC: Join channel #Towny[/URL][/RIGHT]
+[RIGHT]                                                     [URL='http://webchat.esper.net/?channels=towny']IRC: Join channel #Towny[/URL][/RIGHT]
 [RIGHT][URL='https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=8WWJ76KLFKM4G'][IMG]https://www.paypalobjects.com/en_GB/i/btn/btn_donate_LG.gif[/IMG][/URL][/RIGHT]
  [B]Version:[/B] v0.76.1.0
 
