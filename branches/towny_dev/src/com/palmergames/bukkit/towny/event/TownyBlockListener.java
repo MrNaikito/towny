@@ -158,7 +158,7 @@ public class TownyBlockListener extends BlockListener {
 				if (!plugin.hasWildOverride(worldCoord.getWorld(), player, event.getBlock().getTypeId(), TownyPermission.ActionType.BUILD))
 					event.setCancelled(true);
 			} else
-				if (((status == TownBlockStatus.ENEMY && TownyWarConfig.isAllowingAttacks()) || status == TownBlockStatus.ADMIN)
+				if ((status == TownBlockStatus.ENEMY && (TownyWarConfig.isAllowingAttacks() || status == TownBlockStatus.ADMIN))
 						&& event.getBlock().getType() == TownyWarConfig.getFlagBaseMaterial()) {
 						//&& plugin.hasPlayerMode(player, "warflag")) {
 					try {

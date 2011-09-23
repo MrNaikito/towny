@@ -601,3 +601,5 @@ v0.76.1.4:
 v0.76.1.5:
     - Added missing permission nodes to support...
       - towny.wild.*
+v0.76.1.6:
+    - Fixed a bug preventing players placing fences if they are admins.
