@@ -1,6 +1,6 @@
 ﻿name: Towny
 main: com.palmergames.bukkit.towny.Towny
-version: 0.76.1.3
+version: 0.76.1.5
 author: Shade, Modified by FuzzeWuzze. Forked by ElgarL
 website: http://code.google.com/a/eclipselabs.org/p/towny/
 description: >
@@ -159,6 +159,7 @@ permissions:
             towny.wild.switch: true
             towny.wild.destroy: true
             towny.wild.item_use: true
+            towny.wild.block.*: true
     towny.wild.build:
         description: User can build in wild.
         default: false
@@ -171,9 +172,24 @@ permissions:
     towny.wild.item_use:
         description: User can use use items in wild. 
         default: false
-    towny.spawntp:
-        description: User can use /town spawn when on in config.
+    towny.wild.block.*:
+        description: User is able to edit specified block types in the wild.
+        default: op
+        children:
+            towny.wild.Block.*.build: true
+            towny.wild.block.*.destroy: true
+            towny.wild.block.*.switch: true
+            towny.wild.block.*.item_use: true            
+    towny.wild.block.*.build:
+        description: User can build specified block types in the wild.
         default: false
-    towny.publicspawntp:
-        description: User can use /town spawn <town> when on in config.
+    towny.wild.block.*.destroy:
+        description: User can break specified block types in the wild.
         default: false
+    towny.wild.block.*.switch:
+        description: User can switch specified block types in the wild.
+        default: false
+    towny.wild.block.*.item_use:
+        description: User can use specified block types in the wild.
+        default: false
+        
