@@ -770,8 +770,8 @@ public class Towny extends JavaPlugin {
         
 
         public TownBlockStatus getStatusCache(Player player, WorldCoord worldCoord) {
-                if (isTownyAdmin(player))
-                        return TownBlockStatus.ADMIN;
+                //if (isTownyAdmin(player))
+                //        return TownBlockStatus.ADMIN;
                 
                 if (!worldCoord.getWorld().isUsingTowny())
                         return TownBlockStatus.OFF_WORLD;
