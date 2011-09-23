@@ -464,7 +464,7 @@ public enum ConfigNodes {
                     "# |            Warring Nation Enemies settings           | #",
                     "# +------------------------------------------------------+ #",
                     "############################################################", ""),
-            WAR_ENEMY_ALLOW_ATTACKS("war.enemy.allow_attacks","true",
+            WAR_ENEMY_ALLOW_ATTACKS("war.enemy.allow_attacks","false",
             		"#If false, players won't be able to place war flags, effectively disabling warzones."),
             WAR_ENEMY_MIN_PLAYERS_ONLINE_IN_TOWN("war.enemy.min_players_online_in_town","2",
                     "#This many people must be online in target town in order to place a war flag in their domain."),
