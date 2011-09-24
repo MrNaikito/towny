@@ -615,4 +615,5 @@ v0.76.1.7:
 	  '/townyworld set wildignore xx,xx,xx'
 	  '/townyworld set wildname Wildy'
 	- Added a fix for tags in data files crashing towny on load.
-	
+v0.76.1.8:
+	- Fixed town spawns to correctly follow config and permissions settings.

@@ -891,7 +891,10 @@ public class TownCommand implements CommandExecutor  {
                 }
                 
                 plugin.sendDebugMsg(townSpawnPermission.toString() + " " + townSpawnPermission.isAllowed());
-                townSpawnPermission.checkIfAllowed();
+                townSpawnPermission.checkIfAllowed(plugin, player);
+                
+                if (!(isTownyAdmin || townSpawnPermission == TownSpawnLevel.TOWN_RESIDENT) && !town.isPublic())
+                	throw new TownyException(TownySettings.getLangString("msg_err_not_public"));
                 
                 if (!isTownyAdmin) {
                     // Prevent spawn travel while in disallowed zones (if configured)
