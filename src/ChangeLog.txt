@@ -615,3 +615,5 @@ v0.76.1.7:
 	  '/townyworld set wildignore xx,xx,xx'
 	  '/townyworld set wildname Wildy'
 	- Added a fix for tags in data files crashing towny on load.
+v0.76.1.8:
+    - Moved the brackets around nation/town in the chat modifier to the config.yml, instead of hard coded (use '/townyadmin reset' to set config.yml to defaults).
