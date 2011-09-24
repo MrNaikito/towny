@@ -544,13 +544,13 @@ public class Towny extends JavaPlugin {
                                 String nation = "",town = "";
                                 
                                 if (resident.hasNation()) {
-                                	nation = resident.hasNation() ? resident.getTown().getNation().getName() : "";
-                                	nation = resident.getTown().getNation().hasTag() ? resident.getTown().getNation().getTag() : nation;
+                                	nation = resident.hasNation() ? "[" + resident.getTown().getNation().getName() + "]" : "";
+                                	nation = resident.getTown().getNation().hasTag() ? "[" + resident.getTown().getNation().getTag() + "]" : nation;
                                 }
                                 
                                 if (resident.hasTown()) {
-                                	town = resident.hasTown() ? resident.getTown().getName() : "";
-                                	town = resident.getTown().hasTag() ? resident.getTown().getTag() : town;
+                                	town = resident.hasTown() ? "[" + resident.getTown().getName() + "]" : "";
+                                	town = resident.getTown().hasTag() ? "[" + resident.getTown().getTag() + "]" : town;
                                 }
                                 
                                 formattedName = formattedName.replace("{nation}", nation);
