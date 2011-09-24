@@ -24,8 +24,8 @@ public enum TownSpawnLevel {
 		this.permissionNode = permissionNode;
 	}
 	
-	public void checkIfAllowed() throws TownyException {
-		if (!isAllowed())
+	public void checkIfAllowed(Towny plugin, Player player) throws TownyException {
+		if (!(isAllowed() && hasPermissionNode(plugin, player)))
 			throw new TownyException(TownySettings.getLangString(notAllowedLangNode));
 	}
 	
