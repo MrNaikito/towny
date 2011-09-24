@@ -1036,9 +1036,29 @@ public class Towny extends JavaPlugin {
         }
         
         public boolean hasWildOverride(TownyWorld world, Player player, int blockId, TownyPermission.ActionType action) {
-                return (world.isUnclaimedZoneIgnoreId(blockId)
-                		|| hasPermission(player, "towny.wild." + action.toString().toLowerCase())
-                		|| hasPermission(player, "towny.wild.block." + blockId + "." + action.toString().toLowerCase()));
+        	
+        	//check for permissions
+        	
+        	if (hasPermission(player, "towny.wild." + action.toString().toLowerCase())
+                	|| hasPermission(player, "towny.wild.block." + blockId + "." + action.toString().toLowerCase()))
+                	return true;
+            
+        	// No perms found so check world settings.
+        	
+            if (action.equals(TownyPermission.ActionType.BUILD)) {
+            	return world.getUnclaimedZoneBuild() || world.isUnclaimedZoneIgnoreId(blockId);
+            }
+            if (action.equals(TownyPermission.ActionType.DESTROY)) {
+            	return world.getUnclaimedZoneDestroy() || world.isUnclaimedZoneIgnoreId(blockId);
+            }
+            if (action.equals(TownyPermission.ActionType.SWITCH)) {
+            	return world.getUnclaimedZoneSwitch() || world.isUnclaimedZoneIgnoreId(blockId);
+            }
+            if (action.equals(TownyPermission.ActionType.ITEM_USE)) {
+            	return world.getUnclaimedZoneItemUse() || world.isUnclaimedZoneIgnoreId(blockId);
+            }
+                
+            return false;
         }
         
         public void appendQuestion(Questioner questioner, Question question) throws Exception {

@@ -13,7 +13,7 @@ import com.palmergames.bukkit.towny.TownySettings;
 public class TownyWorld extends TownyObject {
 	private List<Town> towns = new ArrayList<Town>();
 	private boolean isClaimable = true, isPVP, isForcePVP, isForceExpl, isForceFire, isForceTownMobs, hasWorldMobs, isDisablePlayerTrample,
-			isDisableCreatureTrample, usingDefault = true, isUsingTowny = true, isUsingPlotManagementDelete = true,
+			isDisableCreatureTrample, isUsingTowny = true, isUsingPlotManagementDelete = true,
 			isUsingPlotManagementRevert = true,
 			isUsingPlotManagementWildRevert = true;
 	private Long plotManagementRevertSpeed, plotManagementWildRevertDelay;
@@ -237,22 +237,14 @@ public class TownyWorld extends TownyObject {
 			return isClaimable;
 	}
 
-	public void setUsingDefault(boolean usingDefault) {
-		this.usingDefault = usingDefault;
-		if (usingDefault) {
-			setUnclaimedZoneBuild(null);
-			setUnclaimedZoneDestroy(null);
-			setUnclaimedZoneSwitch(null);
-			setUnclaimedZoneItemUse(null);
-			setUnclaimedZoneIgnore(null);
-			setUnclaimedZoneName(null);
-		}	
+	public void setUsingDefault() {
+		setUnclaimedZoneBuild(null);
+		setUnclaimedZoneDestroy(null);
+		setUnclaimedZoneSwitch(null);
+		setUnclaimedZoneItemUse(null);
+		setUnclaimedZoneIgnore(null);
+		setUnclaimedZoneName(null);
 	}
-
-	public boolean isUsingDefault() {
-		return usingDefault;
-	}
-	
 	
 	public void setUsingPlotManagementDelete(boolean using) {
 		isUsingPlotManagementDelete = using;
@@ -343,7 +335,7 @@ public class TownyWorld extends TownyObject {
 	}
 
 	public List<Integer> getUnclaimedZoneIgnoreIds() {
-		if (unclaimedZoneIgnoreIds == null || isUsingDefault())
+		if (unclaimedZoneIgnoreIds == null)
 			return TownySettings.getUnclaimedZoneIgnoreIds();
 		else
 			return unclaimedZoneIgnoreIds;
@@ -358,7 +350,7 @@ public class TownyWorld extends TownyObject {
 	}
 
 	public Boolean getUnclaimedZoneBuild() {
-		if (unclaimedZoneBuild == null || isUsingDefault())
+		if (unclaimedZoneBuild == null)
 			return TownySettings.getUnclaimedZoneBuildRights();
 		else
 			return unclaimedZoneBuild;
@@ -369,7 +361,7 @@ public class TownyWorld extends TownyObject {
 	}
 
 	public Boolean getUnclaimedZoneDestroy() {
-		if (unclaimedZoneDestroy == null || isUsingDefault())
+		if (unclaimedZoneDestroy == null)
 			return TownySettings.getUnclaimedZoneDestroyRights();
 		else
 			return unclaimedZoneDestroy;
@@ -380,7 +372,7 @@ public class TownyWorld extends TownyObject {
 	}
 
 	public Boolean getUnclaimedZoneSwitch() {
-		if (unclaimedZoneSwitch == null || isUsingDefault())
+		if (unclaimedZoneSwitch == null)
 			return TownySettings.getUnclaimedZoneSwitchRights();
 		else
 			return unclaimedZoneSwitch;
@@ -391,7 +383,7 @@ public class TownyWorld extends TownyObject {
 	}
 
 	public String getUnclaimedZoneName() {
-		if (unclaimedZoneName == null || isUsingDefault())
+		if (unclaimedZoneName == null)
 			return TownySettings.getUnclaimedZoneName();
 		else
 			return unclaimedZoneName;
@@ -414,7 +406,7 @@ public class TownyWorld extends TownyObject {
 	}
 
 	public Boolean getUnclaimedZoneItemUse() {
-		if (unclaimedZoneItemUse == null || isUsingDefault())
+		if (unclaimedZoneItemUse == null)
 			return TownySettings.getUnclaimedZoneItemUseRights();
 		else
 			return unclaimedZoneItemUse;

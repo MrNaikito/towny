@@ -101,26 +101,26 @@ public class TownyBlockListener extends BlockListener {
 			PlayerCache cache = plugin.getCache(player);
 			TownBlockStatus status = cache.getStatus();
 			
-			if (status == TownBlockStatus.UNCLAIMED_ZONE){
-				if (!plugin.hasWildOverride(worldCoord.getWorld(), player, event.getBlock().getTypeId(), TownyPermission.ActionType.DESTROY))
-					event.setCancelled(true);
-			} else
-				if (!bDestroy) {
-				    long delay = TownySettings.getRegenDelay();
-				    if(delay > 0) {
-				        if(!plugin.getTownyUniverse().isPlaceholder(block)) {
-					    	if (!plugin.getTownyUniverse().hasProtectionRegenTask(new BlockLocation(block.getLocation()))) {
-		        				ProtectionRegenTask task = new ProtectionRegenTask(plugin.getTownyUniverse(), block, true);
-		        				task.setTaskId(plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, task, 20*delay));
-		        				plugin.getTownyUniverse().addProtectionRegenTask(task);
-					    	}
-				        } else {
-				            plugin.getTownyUniverse().removePlaceholder(block);
-				            block.setTypeId(0, false);
-				        }
-				    }
-		            event.setCancelled(true);
-		        }
+			if ((status == TownBlockStatus.UNCLAIMED_ZONE) && (plugin.hasWildOverride(worldCoord.getWorld(), player, event.getBlock().getTypeId(), TownyPermission.ActionType.DESTROY)))
+				return;
+
+			if (!bDestroy) {
+			    long delay = TownySettings.getRegenDelay();
+			    if(delay > 0) {
+			        if(!plugin.getTownyUniverse().isPlaceholder(block)) {
+				    	if (!plugin.getTownyUniverse().hasProtectionRegenTask(new BlockLocation(block.getLocation()))) {
+	        				ProtectionRegenTask task = new ProtectionRegenTask(plugin.getTownyUniverse(), block, true);
+	        				task.setTaskId(plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, task, 20*delay));
+	        				plugin.getTownyUniverse().addProtectionRegenTask(task);
+				    	}
+			        } else {
+			            plugin.getTownyUniverse().removePlaceholder(block);
+			            block.setTypeId(0, false);
+			        }
+			    }
+	            event.setCancelled(true);
+	        }
+			
 			if ((cache.hasBlockErrMsg()) && (event.isCancelled()))
 				plugin.sendErrorMsg(player, cache.getBlockErrMsg());
 			
@@ -154,29 +154,28 @@ public class TownyBlockListener extends BlockListener {
 			PlayerCache cache = plugin.getCache(player);
 			TownBlockStatus status = cache.getStatus();
 			
-			if (status == TownBlockStatus.UNCLAIMED_ZONE) {
-				if (!plugin.hasWildOverride(worldCoord.getWorld(), player, event.getBlock().getTypeId(), TownyPermission.ActionType.BUILD))
-					event.setCancelled(true);
-			} else
-				if ((status == TownBlockStatus.ENEMY && TownyWarConfig.isAllowingAttacks())
-						&& event.getBlock().getType() == TownyWarConfig.getFlagBaseMaterial()) {
-						//&& plugin.hasPlayerMode(player, "warflag")) {
-					try {
-						if (TownyWar.callAttackCellEvent(plugin, player, block, worldCoord))
-							return;
-					} catch (TownyException e) {
-						plugin.sendErrorMsg(player, e.getMessage());
-					}
-					
+			if ((status == TownBlockStatus.UNCLAIMED_ZONE) && (plugin.hasWildOverride(worldCoord.getWorld(), player, event.getBlock().getTypeId(), TownyPermission.ActionType.BUILD)))
+				return;
+
+			if ((status == TownBlockStatus.ENEMY && TownyWarConfig.isAllowingAttacks())
+					&& event.getBlock().getType() == TownyWarConfig.getFlagBaseMaterial()) {
+					//&& plugin.hasPlayerMode(player, "warflag")) {
+				try {
+					if (TownyWar.callAttackCellEvent(plugin, player, block, worldCoord))
+						return;
+				} catch (TownyException e) {
+					plugin.sendErrorMsg(player, e.getMessage());
+				}
+				
+				event.setBuild(false);
+				event.setCancelled(true);
+				
+			} else {
+				if (!bBuild) {
 					event.setBuild(false);
 					event.setCancelled(true);
-					
-				} else {
-					if (!bBuild) {
-						event.setBuild(false);
-						event.setCancelled(true);
-					}
 				}
+			}
 			
 			if ((cache.hasBlockErrMsg()) && (event.isCancelled()))
 				plugin.sendErrorMsg(player, cache.getBlockErrMsg());
