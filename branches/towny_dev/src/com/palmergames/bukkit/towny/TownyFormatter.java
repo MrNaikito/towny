@@ -230,7 +230,7 @@ public class TownyFormatter {
                                 + Colors.Gray + " | "
                                 + Colors.Green + "ForceTownMobs: " + (world.isForceTownMobs() ? Colors.Rose + "On" : Colors.LightGreen + "Off"));
                 // Using Default Settings: Yes
-                out.add(Colors.Green + "Using Default Settings: " + (world.isUsingDefault() ? Colors.LightGreen + "Yes" : Colors.Rose + "No"));
+                //out.add(Colors.Green + "Using Default Settings: " + (world.isUsingDefault() ? Colors.LightGreen + "Yes" : Colors.Rose + "No"));
                 // Wilderness:
                 //     Build, Destroy, Switch
                 //     Ignored Blocks: 34, 45, 64

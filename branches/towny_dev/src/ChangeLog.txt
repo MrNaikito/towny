@@ -603,3 +603,14 @@ v0.76.1.5:
       - towny.wild.*
 v0.76.1.6:
     - Fixed a bug preventing players placing fences if they are admins.
+v0.76.1.7:
+	- Adjusted wilderness permissions
+	  Towny will first check for permisison nodes.
+	  If no permissions are found the wild_ignore list is checked.
+	  If none of the above give permissions the worlds Wilderness zone settings are checked.
+	- Enabled use of the following commands for admins while still using permissions.
+	  '/townyworld set usedefault'
+	  '/townyworld set wildperm'
+	  '/townyworld set wildperm [build,destroy,switch,ItemUse]'
+	  '/townyworld set wildignore xx,xx,xx'
+	  '/townyworld set wildname Wildy'

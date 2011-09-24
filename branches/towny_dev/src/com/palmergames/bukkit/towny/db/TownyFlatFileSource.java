@@ -743,57 +743,48 @@ public class TownyFlatFileSource extends TownyDataSource {
 					} catch (Exception e) {
 					}
 				
-				line = kvFile.get("usingDefault");
+				line = kvFile.get("unclaimedZoneBuild");
 				if (line != null)
 					try {
-						world.setUsingDefault(Boolean.parseBoolean(line));
+						world.setUnclaimedZoneBuild(Boolean.parseBoolean(line));
 					} catch (Exception e) {
 					}
-					
-				if (!world.isUsingDefault()) {
-					line = kvFile.get("unclaimedZoneBuild");
-					if (line != null)
-						try {
-							world.setUnclaimedZoneBuild(Boolean.parseBoolean(line));
-						} catch (Exception e) {
-						}
-					line = kvFile.get("unclaimedZoneDestroy");
-					if (line != null)
-						try {
-							world.setUnclaimedZoneDestroy(Boolean.parseBoolean(line));
-						} catch (Exception e) {
-						}
-					line = kvFile.get("unclaimedZoneSwitch");
-					if (line != null)
-						try {
-							world.setUnclaimedZoneSwitch(Boolean.parseBoolean(line));
-						} catch (Exception e) {
-						}
-					line = kvFile.get("unclaimedZoneItemUse");
-					if (line != null)
-						try {
-							world.setUnclaimedZoneItemUse(Boolean.parseBoolean(line));
-						} catch (Exception e) {
-						}
-					line = kvFile.get("unclaimedZoneName");
-					if (line != null)
-						try {
-							world.setUnclaimedZoneName(line);
-						} catch (Exception e) {
-						}
-					line = kvFile.get("unclaimedZoneIgnoreIds");
-					if (line != null)
-						try {
-							List<Integer> nums = new ArrayList<Integer>();
-							for (String s: line.split(","))
-								try {
-									nums.add(Integer.parseInt(s));
-								} catch (NumberFormatException e) {
-								}
-							world.setUnclaimedZoneIgnore(nums);
-						} catch (Exception e) {
-						}
-				}
+				line = kvFile.get("unclaimedZoneDestroy");
+				if (line != null)
+					try {
+						world.setUnclaimedZoneDestroy(Boolean.parseBoolean(line));
+					} catch (Exception e) {
+					}
+				line = kvFile.get("unclaimedZoneSwitch");
+				if (line != null)
+					try {
+						world.setUnclaimedZoneSwitch(Boolean.parseBoolean(line));
+					} catch (Exception e) {
+					}
+				line = kvFile.get("unclaimedZoneItemUse");
+				if (line != null)
+					try {
+						world.setUnclaimedZoneItemUse(Boolean.parseBoolean(line));
+					} catch (Exception e) {
+					}
+				line = kvFile.get("unclaimedZoneName");
+				if (line != null)
+					try {
+						world.setUnclaimedZoneName(line);
+					} catch (Exception e) {
+					}
+				line = kvFile.get("unclaimedZoneIgnoreIds");
+				if (line != null)
+					try {
+						List<Integer> nums = new ArrayList<Integer>();
+						for (String s: line.split(","))
+							try {
+								nums.add(Integer.parseInt(s));
+							} catch (NumberFormatException e) {
+							}
+						world.setUnclaimedZoneIgnore(nums);
+					} catch (Exception e) {
+					}
 				
 				line = kvFile.get("usingPlotManagementDelete");
 				if (line != null)
@@ -1209,8 +1200,7 @@ public class TownyFlatFileSource extends TownyDataSource {
 			fout.write("disableplayertrample=" + Boolean.toString(world.isDisablePlayerTrample()) + newLine);
 			// CreatureTrample
 			fout.write("disablecreaturetrample=" + Boolean.toString(world.isDisableCreatureTrample()) + newLine);
-			// Using Default
-			fout.write("usingDefault=" + Boolean.toString(world.isUsingDefault()) + newLine);
+
 			// Unclaimed Zone Build
 			if (world.getUnclaimedZoneBuild() != null)
 				fout.write("unclaimedZoneBuild=" + Boolean.toString(world.getUnclaimedZoneBuild()) + newLine);

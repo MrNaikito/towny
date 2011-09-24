@@ -143,8 +143,7 @@ public class TownyPlayerListener extends PlayerListener {
 			
 			if (TownySettings.isItemUseId(event.getItem().getTypeId()))
 			{
-				//System.out.println("onPlayerInteractEvent: IsItemUseId");
-				onPlayerInteractEvent(event, true);
+				onPlayerInteractEvent(event);
 				return;
 			}
 		}
@@ -152,18 +151,18 @@ public class TownyPlayerListener extends PlayerListener {
 		if (event.getClickedBlock() != null)
 			if (TownySettings.isSwitchId(event.getClickedBlock().getTypeId()) || event.getAction() == Action.PHYSICAL)
 			{
-				//System.out.println("onPlayerInteractEvent: isSwitchId");
-				onPlayerSwitchEvent(event, true, null);
+				onPlayerSwitchEvent(event, null);
 				return;
 			}
 			plugin.sendDebugMsg("onPlayerItemEvent took " + (System.currentTimeMillis() - start) + "ms");
 		//}
 	}
 	
-	public void onPlayerInteractEvent(PlayerInteractEvent event, boolean firstCall) {	
+	public void onPlayerInteractEvent(PlayerInteractEvent event) {
+		
 		Player player = event.getPlayer();
 
-		//Block block = event.getClickedBlock();
+		Block block = event.getClickedBlock();
 		WorldCoord worldCoord;
 		//System.out.println("onPlayerInteractEvent");
 		
@@ -175,31 +174,22 @@ public class TownyPlayerListener extends PlayerListener {
 			return;
 		}
 
+		//Get itemUse permissions (updates if none exist)
+		boolean bItemUse = plugin.getTownyUniverse().getCachePermission(player, block.getLocation(), TownyPermission.ActionType.ITEM_USE);
 		
-		// Check cached permissions first
-		try {
-			PlayerCache cache = plugin.getCache(player);
-			cache.updateCoord(worldCoord);
-			TownBlockStatus status = cache.getStatus();
-			if (status == TownBlockStatus.UNCLAIMED_ZONE && plugin.hasWildOverride(worldCoord.getWorld(), player, event.getItem().getTypeId(), TownyPermission.ActionType.ITEM_USE))
-				return;
-			if (!cache.getItemUsePermission())
-				event.setCancelled(true);
-			if (cache.hasBlockErrMsg())
-				plugin.sendErrorMsg(player, cache.getBlockErrMsg());
+		PlayerCache cache = plugin.getCache(player);
+		cache.updateCoord(worldCoord);
+		TownBlockStatus status = cache.getStatus();
+		if (status == TownBlockStatus.UNCLAIMED_ZONE && plugin.hasWildOverride(worldCoord.getWorld(), player, event.getItem().getTypeId(), TownyPermission.ActionType.ITEM_USE))
 			return;
-		} catch (NullPointerException e) {
-			if (firstCall) {
-				// New or old destroy permission was null, update it
-				TownBlockStatus status = plugin.cacheStatus(player, worldCoord, plugin.getStatusCache(player, worldCoord));
-				plugin.cacheItemUse(player, worldCoord, getItemUsePermission(player, status, worldCoord));
-				onPlayerInteractEvent(event, false);
-			} else
-				plugin.sendErrorMsg(player, TownySettings.getLangString("msg_err_updating_item_perms"));
-		}
+		if (!bItemUse)
+			event.setCancelled(true);
+		if (cache.hasBlockErrMsg())
+			plugin.sendErrorMsg(player, cache.getBlockErrMsg());
+
 	}
 	
-	public void onPlayerSwitchEvent(PlayerInteractEvent event, boolean firstCall, String errMsg) {
+	public void onPlayerSwitchEvent(PlayerInteractEvent event, String errMsg) {
 		
 		Player player = event.getPlayer();
 		Block block = event.getClickedBlock();
@@ -216,30 +206,20 @@ public class TownyPlayerListener extends PlayerListener {
 			return;
 		}
 
-		// Check cached permissions first
-		try {
+		//Get switch permissions (updates if none exist)
+		boolean bSwitch = plugin.getTownyUniverse().getCachePermission(player, block.getLocation(), TownyPermission.ActionType.SWITCH);
 			
-			PlayerCache cache = plugin.getCache(player);
-			cache.updateCoord(worldCoord);
-			TownBlockStatus status = cache.getStatus();
-			if (status == TownBlockStatus.UNCLAIMED_ZONE && plugin.hasWildOverride(worldCoord.getWorld(), player, event.getClickedBlock().getTypeId(), TownyPermission.ActionType.SWITCH))
-				return;
-			if (!cache.getSwitchPermission())
-			{
-				event.setCancelled(true);
-			}
-			if (cache.hasBlockErrMsg())
-				plugin.sendErrorMsg(player, cache.getBlockErrMsg());
+		PlayerCache cache = plugin.getCache(player);
+		cache.updateCoord(worldCoord);
+		TownBlockStatus status = cache.getStatus();
+		if (status == TownBlockStatus.UNCLAIMED_ZONE && plugin.hasWildOverride(worldCoord.getWorld(), player, block.getTypeId(), TownyPermission.ActionType.SWITCH))
 			return;
-		} catch (NullPointerException e) {
-			if (firstCall) {
-				// New or old build permission was null, update it
-				TownBlockStatus status = plugin.cacheStatus(player, worldCoord, plugin.getStatusCache(player, worldCoord));
-				plugin.cacheSwitch(player, worldCoord, getSwitchPermission(player, status, worldCoord));
-				onPlayerSwitchEvent(event, false, errMsg);
-			} else
-				plugin.sendErrorMsg(player, TownySettings.getLangString("msg_err_updating_switch_perms"));
+		if (!bSwitch)
+		{
+			event.setCancelled(true);
 		}
+		if (cache.hasBlockErrMsg())
+			plugin.sendErrorMsg(player, cache.getBlockErrMsg());
 	}
 	
 	@Override
