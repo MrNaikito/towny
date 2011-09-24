@@ -390,7 +390,11 @@ public class TownyFlatFileSource extends TownyDataSource {
 				
 				line = kvFile.get("tag");
 				if (line != null)
-					town.setTag(line);
+					try {
+						town.setTag(line);
+					} catch(TownyException e) {
+						town.setTag("");
+					}
 
 				line = kvFile.get("protectionStatus");
 				if (line != null)
@@ -603,7 +607,11 @@ public class TownyFlatFileSource extends TownyDataSource {
 				
 				line = kvFile.get("tag");
 				if (line != null)
-					nation.setTag(line);
+					try {
+						nation.setTag(line);
+					} catch(TownyException e) {
+						nation.setTag("");
+					}
 
 				line = kvFile.get("allies");
 				if (line != null) {

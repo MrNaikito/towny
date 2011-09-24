@@ -614,3 +614,4 @@ v0.76.1.7:
 	  '/townyworld set wildperm [build,destroy,switch,ItemUse]'
 	  '/townyworld set wildignore xx,xx,xx'
 	  '/townyworld set wildname Wildy'
+	- Added a fix for tags in data files crashing towny on load.
