@@ -223,37 +223,46 @@ public class TownyFlatFileSource extends TownyDataSource {
 	
 	@Override
 	public boolean loadWorldList() {
+		
+		if (plugin != null) {
+			sendDebugMsg("Loading Server World List");
+			for (World world : plugin.getServer().getWorlds())
+				try {
+					universe.newWorld(world.getName());
+				} catch (AlreadyRegisteredException e) {
+					//e.printStackTrace();
+				} catch (NotRegisteredException e) {
+					//e.printStackTrace();
+				}
+		}
+		
+		// Can no longer reply on Bukkit to report ALL available worlds.
+		
 		sendDebugMsg("Loading World List");
 		
-		// Can no longer reply on Bukkit to report ALl available worlds.
-		
-		//if (plugin != null)
-		//	return loadServerWorldsList();
-		//else {
-			String line;
-			BufferedReader fin;
+		String line;
+		BufferedReader fin;
 
-			try {
-				fin = new BufferedReader(new FileReader(rootFolder + dataFolder + FileMgmt.fileSeparator() + "worlds.txt"));
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-				return false;
-			}
-			try {
-				while ((line = fin.readLine()) != null)
-					if (!line.equals(""))
-						universe.newWorld(line);
-				fin.close();
+		try {
+			fin = new BufferedReader(new FileReader(rootFolder + dataFolder + FileMgmt.fileSeparator() + "worlds.txt"));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return false;
+		}
+		try {
+			while ((line = fin.readLine()) != null)
+				if (!line.equals(""))
+					universe.newWorld(line);
+			fin.close();
 
-			} catch (AlreadyRegisteredException e) {
-				e.printStackTrace();
-				confirmContinuation(e.getMessage() + " | Continuing will delete it's data.");
-			} catch (Exception e) {
-				e.printStackTrace();
-				return false;
-			}
-			return true;
-		//}
+		} catch (AlreadyRegisteredException e) {
+			// Ignore this as the world may have been passed to us by bukkit
+			//confirmContinuation(e.getMessage() + " | Continuing will delete it's data.");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
 	}
 	
 	@Override
