@@ -625,3 +625,5 @@ v0.76.1.9:
 v0.76.1.10:
 	- Permit residents not in town to use public spawns again.
 	- Corrected permissions node checking to match those in the config for spawn travel.
+v0.76.1.11:
+	- Removed a lot of debug spam from permission checking.

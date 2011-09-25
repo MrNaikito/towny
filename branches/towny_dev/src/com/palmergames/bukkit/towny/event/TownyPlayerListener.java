@@ -162,7 +162,7 @@ public class TownyPlayerListener extends PlayerListener {
 		
 		Player player = event.getPlayer();
 
-		Block block = event.getClickedBlock();
+		//Block block = event.getClickedBlock();
 		WorldCoord worldCoord;
 		//System.out.println("onPlayerInteractEvent");
 		
@@ -175,10 +175,13 @@ public class TownyPlayerListener extends PlayerListener {
 		}
 
 		//Get itemUse permissions (updates if none exist)
-		boolean bItemUse = plugin.getTownyUniverse().getCachePermission(player, block.getLocation(), TownyPermission.ActionType.ITEM_USE);
+		boolean bItemUse = plugin.getTownyUniverse().getCachePermission(player, player.getLocation(), TownyPermission.ActionType.ITEM_USE);
 		
 		PlayerCache cache = plugin.getCache(player);
-		cache.updateCoord(worldCoord);
+		//cache.updateCoord(worldCoord);
+		try {
+			
+
 		TownBlockStatus status = cache.getStatus();
 		if (status == TownBlockStatus.UNCLAIMED_ZONE && plugin.hasWildOverride(worldCoord.getWorld(), player, event.getItem().getTypeId(), TownyPermission.ActionType.ITEM_USE))
 			return;
@@ -186,6 +189,13 @@ public class TownyPlayerListener extends PlayerListener {
 			event.setCancelled(true);
 		if (cache.hasBlockErrMsg())
 			plugin.sendErrorMsg(player, cache.getBlockErrMsg());
+		
+		} catch (NullPointerException e) {
+			System.out.print("NPE generated!");
+			System.out.print("Player: " + event.getPlayer().getName());
+			System.out.print("Item: " + event.getItem().getType().toString());
+			//System.out.print("Block: " + block.getType().toString());
+		}
 
 	}
 	
@@ -210,7 +220,7 @@ public class TownyPlayerListener extends PlayerListener {
 		boolean bSwitch = plugin.getTownyUniverse().getCachePermission(player, block.getLocation(), TownyPermission.ActionType.SWITCH);
 			
 		PlayerCache cache = plugin.getCache(player);
-		cache.updateCoord(worldCoord);
+		//cache.updateCoord(worldCoord);
 		TownBlockStatus status = cache.getStatus();
 		if (status == TownBlockStatus.UNCLAIMED_ZONE && plugin.hasWildOverride(worldCoord.getWorld(), player, block.getTypeId(), TownyPermission.ActionType.SWITCH))
 			return;

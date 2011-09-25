@@ -663,9 +663,9 @@ public class Towny extends JavaPlugin {
         // Suppression is to clear warnings while retaining permissions 2.7 compatibility
 		public String getPermissionNode(Resident resident, String node) {
                 
-                sendDebugMsg("Perm Check: Does " + resident.getName() + " have the node '" + node + "'?");
+                //sendDebugMsg("Perm Check: Does " + resident.getName() + " have the node '" + node + "'?");
                 if (isPermissions()) {
-                        sendDebugMsg("    Permissions installed.");
+                        //sendDebugMsg("    Permissions installed.");
                         PermissionHandler handler = permissions.getHandler();
                         String group, user = ""; 
                         Player player = getServer().getPlayer(resident.getName());
@@ -676,7 +676,7 @@ public class Towny extends JavaPlugin {
                                 if (!group.equals(user))
                                         user = group + user;
                                 user = TownySettings.parseSingleLineString(user);
-                                sendDebugMsg("Prefix: " + user);
+                                //sendDebugMsg("Prefix: " + user);
                         }
                         
                         if (node == "suffix") {
@@ -685,7 +685,7 @@ public class Towny extends JavaPlugin {
                                 if (!group.equals(user))
                                         user = group + user;
                                 user = TownySettings.parseSingleLineString(user);
-                                sendDebugMsg("Suffix: " + user);
+                                //sendDebugMsg("Suffix: " + user);
                         }
                         
                         
@@ -693,7 +693,7 @@ public class Towny extends JavaPlugin {
                 // } else if (groupManager != null)
                 //      return groupManager.getHandler().permission(player, node);
                 } else {
-                        sendDebugMsg("    Does not have permission.");
+                        //sendDebugMsg("    Does not have permission.");
                         return "";
                 }               
                 
@@ -738,7 +738,7 @@ public class Towny extends JavaPlugin {
         public boolean hasPermission(Player player, String node) {
                 sendDebugMsg("Perm Check: Does " + player.getName() + " have the node '" + node + "'?");
                 if (isPermissions()) {
-                    sendDebugMsg("    Permissions installed.");
+                    //sendDebugMsg("    Permissions installed.");
                     PermissionHandler handler = permissions.getHandler();
                     boolean perm = handler.permission(player, node);
                     sendDebugMsg("    Permissions says "+perm+".");
@@ -746,7 +746,7 @@ public class Towny extends JavaPlugin {
                 // } else if (groupManager != null)
                 //      return groupManager.getHandler().permission(player, node);
                 } else {
-                	sendDebugMsg("    Using BukkitPerms installed.");
+                	//sendDebugMsg("    Using BukkitPerms installed.");
                 	boolean perm = player.hasPermission(node);
                     sendDebugMsg("    Permissions says "+perm+".");
                     return perm;
