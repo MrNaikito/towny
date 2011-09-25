@@ -415,14 +415,23 @@ public class TownyUniverse extends TownyObject {
 
                 List<Resident> toSave = new ArrayList<Resident>(town.getResidents());
                 
-                String oldName = town.getName();
-                towns.put(filteredName.toLowerCase(), town);
                 //Tidy up old files
                 // Has to be done here else the town no longer exists and the move command may fail.
                 getDataSource().deleteTown(town);
                 
+                String oldName = town.getName();
                 towns.remove(oldName.toLowerCase());
                 town.setName(filteredName);
+                
+                towns.put(filteredName.toLowerCase(), town);
+                
+                //Check if this is a nation capitol
+                if (town.isCapital()) {
+                	Nation nation = town.getNation();
+                	nation.setCapital(town);
+                	getDataSource().saveNation(nation);
+                }
+                
                 Town oldTown = new Town(oldName);
                 
                 try {
