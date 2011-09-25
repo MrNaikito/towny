@@ -155,7 +155,7 @@ public class NationCommand implements CommandExecutor  {
                                         plugin.sendErrorMsg(player, TownySettings.getLangString("msg_error_must_be_int"));
                                 }
                         else
-                                plugin.sendErrorMsg(player, String.format(TownySettings.getLangString("msg_must_specify_amnt"), nationCom));
+                                plugin.sendErrorMsg(player, String.format(TownySettings.getLangString("msg_must_specify_amnt"), nationCom + " deposit"));
                 } else {
                         String[] newSplit = StringMgmt.remFirstArg(split);
                         

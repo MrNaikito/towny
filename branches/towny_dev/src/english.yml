@@ -290,7 +290,7 @@ msg_town_set_shopprice: '&b%s has set the price of shop plots at %s'
 msg_town_set_nation_tax: '&b%s has set the nation tax at %s'
 
 msg_set_nation_tag: '&b%s has set the nation tag to [%s]'
-msg_set_town_tag: '&b%s has set the nation tag to [%s]'
+msg_set_town_tag: '&b%s has set the town tag to [%s]'
 
 msg_mayor_abandon: '&bYou would abandon your people? Choose another mayor with ''/town set mayor'' if your sure.'
 msg_new_day_tax: '&bA new day is here! Taxes and rent have been collected'

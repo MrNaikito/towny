@@ -563,7 +563,7 @@ public class TownCommand implements CommandExecutor  {
                                     
                         } else if (split[0].equalsIgnoreCase("tag")) {
                         	if (split.length < 2)
-                                plugin.sendErrorMsg(player, "Eg: /town set tag PLT");
+                                plugin.sendErrorMsg(player, "Eg: /town set tag PLTC");
                         	else
                                 try {
                                 	town.setTag(plugin.getTownyUniverse().checkAndFilterName(split[1]));
