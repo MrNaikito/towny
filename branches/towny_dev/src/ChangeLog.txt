@@ -633,3 +633,5 @@ v0.76.1.12:
 	- If your town/nation is attacked with warflags the attackers will automatically be set as enemies (allows you to attack back).
 	- Fixed renaming a town when it's also a capitol failing to update the nation.
 	- Removed dependency on Bukkit to report the world list at startup (it's not always complete).
+v0.76.1.13:
+	- Fixed a startup error on fresh installs.
