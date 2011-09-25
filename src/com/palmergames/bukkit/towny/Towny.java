@@ -381,6 +381,7 @@ public class Towny extends JavaPlugin {
                 pluginManager.registerEvent(Event.Type.CREATURE_SPAWN, entityListener, Priority.Lowest, this);
                 pluginManager.registerEvent(Event.Type.PAINTING_BREAK, entityListener, Priority.Normal, this);
                 
+                pluginManager.registerEvent(Event.Type.WORLD_INIT, worldListener, Priority.Normal, this);
                 pluginManager.registerEvent(Event.Type.WORLD_LOAD, worldListener, Priority.Normal, this);
                 
                 pluginManager.registerEvent(Event.Type.BLOCK_BREAK, townyWarBlockListener, Priority.Normal, this);

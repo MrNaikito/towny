@@ -776,20 +776,20 @@ public class TownyUniverse extends TownyObject {
         
         private void triggerCacheCreate(Player player, Location location, WorldCoord worldCoord, TownBlockStatus status, ActionType action) {
     		
-    		switch(action.ordinal()){
+    		switch(action){
     		
-    		case 0: // BUILD
+    		case BUILD: // BUILD
     			plugin.cacheBuild(player, worldCoord, plugin.getPermission(player, status, worldCoord, action));
-    			
-    		case 1: // DESTROY
+    			return;
+    		case DESTROY: // DESTROY
     			plugin.cacheDestroy(player, worldCoord, plugin.getPermission(player, status, worldCoord, action));		
-    			
-    		case 2: // SWITCH
+    			return;
+    		case SWITCH: // SWITCH
     			plugin.cacheSwitch(player, worldCoord, plugin.getPermission(player, status, worldCoord, action));			
-    			
-    		case 3: // ITEM_USE
+    			return;
+    		case ITEM_USE: // ITEM_USE
     			plugin.cacheItemUse(player, worldCoord, plugin.getPermission(player, status, worldCoord, action));
-    			
+    			return;
     		default:
     			//for future expansion of permissions
     			
