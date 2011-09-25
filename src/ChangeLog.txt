@@ -622,3 +622,6 @@ v0.76.1.9:
 	- Fixed message when setting Town tags to not say nation.
 	- Fixed '/nation deposit' error message.
 	- Added handling of World initialization to fix a bug when creating new worlds with Multiverse.
+v0.76.1.10:
+	- Permit residents not in town to use public spawns again.
+	- Corrected permissions node checking to match those in the config for spawn travel.
