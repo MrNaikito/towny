@@ -869,7 +869,9 @@ public class TownCommand implements CommandExecutor  {
                 	townSpawnPermission = TownSpawnLevel.TOWN_RESIDENT;
                 } else {
                 	// split.length > 1
-                	if (resident.getTown() == town) {
+                	if (!resident.hasTown()) {
+                		townSpawnPermission = TownSpawnLevel.UNAFFILIATED;
+                	} else if (resident.getTown() == town) {
                 		townSpawnPermission = TownSpawnLevel.TOWN_RESIDENT;
                 	} else if (resident.hasNation() && town.hasNation()) {
                 		Nation playerNation = resident.getTown().getNation();

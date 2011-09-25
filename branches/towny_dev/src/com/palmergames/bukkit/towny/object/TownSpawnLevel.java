@@ -8,10 +8,10 @@ import com.palmergames.bukkit.towny.TownyException;
 import com.palmergames.bukkit.towny.TownySettings;
 
 public enum TownSpawnLevel {
-	TOWN_RESIDENT(ConfigNodes.GTOWN_SETTINGS_ALLOW_TOWN_SPAWN, "msg_err_town_spawn_forbidden", ConfigNodes.ECO_PRICE_TOWN_SPAWN_TRAVEL, "towny.town.spawntp.town"),
-	PART_OF_NATION(ConfigNodes.GTOWN_SETTINGS_ALLOW_TOWN_SPAWN_TRAVEL_NATION, "msg_err_town_spawn_nation_forbidden", ConfigNodes.ECO_PRICE_TOWN_SPAWN_TRAVEL_NATION, "towny.town.spawntp.nation"),
-	NATION_ALLY(ConfigNodes.GTOWN_SETTINGS_ALLOW_TOWN_SPAWN_TRAVEL_ALLY, "msg_err_town_spawn_ally_forbidden", ConfigNodes.ECO_PRICE_TOWN_SPAWN_TRAVEL_ALLY, "towny.town.spawntp.ally"),
-	UNAFFILIATED(ConfigNodes.GTOWN_SETTINGS_ALLOW_TOWN_SPAWN_TRAVEL, "msg_err_public_spawn_forbidden", ConfigNodes.ECO_PRICE_TOWN_SPAWN_TRAVEL_PUBLIC, "towny.town.spawntp.public"),
+	TOWN_RESIDENT(ConfigNodes.GTOWN_SETTINGS_ALLOW_TOWN_SPAWN, "msg_err_town_spawn_forbidden", ConfigNodes.ECO_PRICE_TOWN_SPAWN_TRAVEL, "towny.town.spawn.town"),
+	PART_OF_NATION(ConfigNodes.GTOWN_SETTINGS_ALLOW_TOWN_SPAWN_TRAVEL_NATION, "msg_err_town_spawn_nation_forbidden", ConfigNodes.ECO_PRICE_TOWN_SPAWN_TRAVEL_NATION, "towny.town.spawn.nation"),
+	NATION_ALLY(ConfigNodes.GTOWN_SETTINGS_ALLOW_TOWN_SPAWN_TRAVEL_ALLY, "msg_err_town_spawn_ally_forbidden", ConfigNodes.ECO_PRICE_TOWN_SPAWN_TRAVEL_ALLY, "towny.town.spawn.ally"),
+	UNAFFILIATED(ConfigNodes.GTOWN_SETTINGS_ALLOW_TOWN_SPAWN_TRAVEL, "msg_err_public_spawn_forbidden", ConfigNodes.ECO_PRICE_TOWN_SPAWN_TRAVEL_PUBLIC, "towny.town.spawn.public"),
 	ADMIN(null, null, null, null);
 	
 	private ConfigNodes isAllowingConfigNode, ecoPriceConfigNode;
