@@ -51,7 +51,7 @@ public class TownyBlockListener extends BlockListener {
 			return;
 		}
 		
-		long start = System.currentTimeMillis();
+		//long start = System.currentTimeMillis();
 		
 		Block block = event.getBlock();
 		BlockLocation blockLocation = new BlockLocation(block.getLocation());
@@ -77,7 +77,7 @@ public class TownyBlockListener extends BlockListener {
 			}
 		}
 
-		plugin.sendDebugMsg("onBlockPhysics took " + (System.currentTimeMillis() - start) + "ms ("+event.isCancelled() +")");
+		//plugin.sendDebugMsg("onBlockPhysics took " + (System.currentTimeMillis() - start) + "ms ("+event.isCancelled() +")");
 	}
 	
 	@Override
@@ -140,7 +140,7 @@ public class TownyBlockListener extends BlockListener {
 			return;
 		}
 		
-		long start = System.currentTimeMillis();
+		//long start = System.currentTimeMillis();
 
 		Player player = event.getPlayer();
 		Block block = event.getBlock();
@@ -185,7 +185,7 @@ public class TownyBlockListener extends BlockListener {
 			event.setCancelled(true);
 		}
 
-		plugin.sendDebugMsg("onBlockPlacedEvent took " + (System.currentTimeMillis() - start) + "ms ("+event.getPlayer().getName()+", "+event.isCancelled() +")");
+		//plugin.sendDebugMsg("onBlockPlacedEvent took " + (System.currentTimeMillis() - start) + "ms ("+event.getPlayer().getName()+", "+event.isCancelled() +")");
 	}
 	
 	// prevent blocks igniting if within a protected town area when fire spread is set to off.
