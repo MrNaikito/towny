@@ -73,7 +73,7 @@ permissions:
         description: Grants all Spawn travel nodes
         default: op
         children:
-            towny.towny.spawn.town: true
+            towny.tow.spawn.town: true
             towny.town.spawn.nation: true
             towny.town.spawn.ally: true
             towny.town.spawn.public: true
