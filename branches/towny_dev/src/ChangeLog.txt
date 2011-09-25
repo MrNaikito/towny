@@ -627,3 +627,7 @@ v0.76.1.10:
 	- Corrected permissions node checking to match those in the config for spawn travel.
 v0.76.1.11:
 	- Removed a lot of debug spam from permission checking.
+v0.76.1.12:
+	- Fix for a possible error on shutdown with active warzones.
+	- Fix so players can only attack other towns IF the correct number of players are online on BOTH sides.
+	- If your town/nation is attacked with warflags the attackers will automaticalyl be set as enemies (allows you to attack back).
