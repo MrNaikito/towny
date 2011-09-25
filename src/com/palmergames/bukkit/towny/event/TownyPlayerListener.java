@@ -298,7 +298,7 @@ public class TownyPlayerListener extends PlayerListener {
 	}
 
 	public void onPlayerMoveChunk(Player player, WorldCoord from, WorldCoord to, Location fromLoc, Location toLoc) {
-		plugin.sendDebugMsg("onPlayerMoveChunk: " + player.getName());
+		//plugin.sendDebugMsg("onPlayerMoveChunk: " + player.getName());
 		
 		plugin.getCache(player).setLastLocation(toLoc);
 		plugin.getCache(player).updateCoord(to);		
@@ -394,7 +394,7 @@ public class TownyPlayerListener extends PlayerListener {
 			if (sendToMsg)
 				player.sendMessage(toMsg);
 			
-			plugin.sendDebugMsg("onPlayerMoveChunk: " + fromWild + " ^ " + toWild + " " + fromTown + " = " + toTown);
+			//plugin.sendDebugMsg("onPlayerMoveChunk: " + fromWild + " ^ " + toWild + " " + fromTown + " = " + toTown);
 		}
 	}
 	

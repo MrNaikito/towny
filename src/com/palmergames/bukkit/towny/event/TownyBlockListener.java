@@ -87,7 +87,7 @@ public class TownyBlockListener extends BlockListener {
 			return;
 		}
 		
-		long start = System.currentTimeMillis();
+		//long start = System.currentTimeMillis();
 
 		Player player = event.getPlayer();
 		Block block = event.getBlock();
@@ -129,7 +129,7 @@ public class TownyBlockListener extends BlockListener {
 			plugin.sendErrorMsg(player, TownySettings.getLangString("msg_err_not_configured"));
 		}
 
-		plugin.sendDebugMsg("onBlockBreakEvent took " + (System.currentTimeMillis() - start) + "ms ("+event.getPlayer().getName()+", "+event.isCancelled() +")");
+		//plugin.sendDebugMsg("onBlockBreakEvent took " + (System.currentTimeMillis() - start) + "ms ("+event.getPlayer().getName()+", "+event.isCancelled() +")");
 	}
 
 	@Override
