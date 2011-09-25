@@ -224,9 +224,12 @@ public class TownyFlatFileSource extends TownyDataSource {
 	@Override
 	public boolean loadWorldList() {
 		sendDebugMsg("Loading World List");
-		if (plugin != null)
-			return loadServerWorldsList();
-		else {
+		
+		// Can no longer reply on Bukkit to report ALl available worlds.
+		
+		//if (plugin != null)
+		//	return loadServerWorldsList();
+		//else {
 			String line;
 			BufferedReader fin;
 
@@ -250,7 +253,7 @@ public class TownyFlatFileSource extends TownyDataSource {
 				return false;
 			}
 			return true;
-		}
+		//}
 	}
 	
 	@Override
@@ -522,16 +525,22 @@ public class TownyFlatFileSource extends TownyDataSource {
 					if (tokens.length == 3)
 						try {
 							TownyWorld world = TownyUniverse.getWorld(tokens[0]);
-							int x = Integer.parseInt(tokens[1]);
-							int z = Integer.parseInt(tokens[2]);
-							TownBlock homeBlock = world.getTownBlock(x, z);
-							town.setHomeBlock(homeBlock);
-						} catch (NumberFormatException e) {
-							System.out.println("[Towny] [Warning] " + town.getName() + " homeBlock tried to load invalid location.");
+							
+							try {
+								int x = Integer.parseInt(tokens[1]);
+								int z = Integer.parseInt(tokens[2]);
+								TownBlock homeBlock = world.getTownBlock(x, z);
+								town.setHomeBlock(homeBlock);
+							} catch (NumberFormatException e) {
+								System.out.println("[Towny] [Warning] " + town.getName() + " homeBlock tried to load invalid location.");
+							} catch (NotRegisteredException e) {
+								System.out.println("[Towny] [Warning] " + town.getName() + " homeBlock tried to load invalid TownBlock.");
+							} catch (TownyException e) {
+								System.out.println("[Towny] [Warning] " + town.getName() + " does not have a home block.");
+							}
+							
 						} catch (NotRegisteredException e) {
 							System.out.println("[Towny] [Warning] " + town.getName() + " homeBlock tried to load invalid world.");
-						} catch (TownyException e) {
-							System.out.println("[Towny] [Warning] " + town.getName() + " does not have a home block.");
 						}
 				}
 
@@ -860,14 +869,16 @@ public class TownyFlatFileSource extends TownyDataSource {
 				// loadTownBlocks(world);
 
 			} catch (Exception e) {
-				System.out.println("[Towny] Loading Error: Exception while reading world file " + world.getName());
+				System.out.println("[Towny] Loading Error: Exception while reading world file " + path);
 				e.printStackTrace();
 				return false;
 			}
 
 			return true;
-		} else
+		} else {
+			System.out.println("[Towny] Loading Error: File error while reading " + world.getName());
 			return false;
+		}
 	}
 
 	public boolean loadTownBlocks(TownyWorld world) {
@@ -1289,14 +1300,16 @@ public class TownyFlatFileSource extends TownyDataSource {
 		String[] worlds = line.split("\\|");
 		for (String w : worlds) {
 			String[] split = w.split(":");
-			if (split.length != 2)
+			if (split.length != 2) {
+				System.out.println("[Towny] [Warning] " + town.getName() + " BlockList does not have a World or data.");
 				continue;
+			}
 			try {
 				TownyWorld world = TownyUniverse.getWorld(split[0]);
 				for (String s : split[1].split(";")) {
                     String blockTypeData = null;
                     int indexOfType = s.indexOf("[");
-                    if (indexOfType != -1) {
+                    if (indexOfType != -1) { //is found
                         int endIndexOfType = s.indexOf("]");
                         if (endIndexOfType != -1) {
                             blockTypeData = s.substring(indexOfType + 1, endIndexOfType);
