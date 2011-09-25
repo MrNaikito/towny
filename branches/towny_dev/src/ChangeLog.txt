@@ -630,6 +630,6 @@ v0.76.1.11:
 v0.76.1.12:
 	- Fix for a possible error on shutdown with active warzones.
 	- Fix so players can only attack other towns IF the correct number of players are online on BOTH sides.
-	- If your town/nation is attacked with warflags the attackers will automaticalyl be set as enemies (allows you to attack back).
+	- If your town/nation is attacked with warflags the attackers will automatically be set as enemies (allows you to attack back).
 	- Fixed renaming a town when it's also a capitol failing to update the nation.
 	- Removed dependency on Bukkit to report the world list at startup (it's not always complete).
