@@ -639,3 +639,4 @@ v0.76.1.14:
 	- Towns which have unclaimed their HomeBlock (or all TownBlocks) no longer corrupt the data files on a shutdown.
 	- Towns are now able to move worlds by moving their homeblock to that world.
 	- Fixed Account creation for towns and nations when using BOSEconomy.
+	- Towny now uses the correct currency type (coins/dollars) as defined in yoru Eco plugin.
