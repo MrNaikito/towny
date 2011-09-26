@@ -111,14 +111,14 @@ public class TownyWorldCommand implements CommandExecutor  {
 			
 		}
 		
-		if (split.length == 0)
+		if (split.length == 0) {
 			if (player == null) {
 				for (String line : plugin.getTownyUniverse().getStatus(Globalworld))
 					sender.sendMessage(Colors.strip(line));
 			} else
 				plugin.getTownyUniverse().sendMessage(player, plugin.getTownyUniverse().getStatus(Globalworld));				
 
-		else if (split[0].equalsIgnoreCase("?")) {
+		} else if (split[0].equalsIgnoreCase("?")) {
 			if (player == null) {
 				for (String line : townyworld_help)
 					sender.sendMessage(line);

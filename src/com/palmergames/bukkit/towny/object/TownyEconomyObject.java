@@ -137,8 +137,13 @@ public class TownyEconomyObject extends TownyObject {
         {
         	try 
             {
-            	if(TownySettings.isUsingRegister()) {                			
+            	if(TownySettings.isUsingRegister()) { 
+            		
+            		if (Methods.getMethod().getAccount(getEconomyName()) == null)
+            			Methods.getMethod().createAccount(getEconomyName());
+            		
             		return Methods.getMethod().getAccount(getEconomyName());
+            		
             	} else if(TownySettings.isUsingIConomy()){
                             return iConomy.getAccount(getEconomyName());
             	}
@@ -170,7 +175,12 @@ public class TownyEconomyObject extends TownyObject {
         }
         
         public static String getEconomyCurrency() {
-                return "";      
+        	if(TownySettings.isUsingRegister()) {
+        		return Methods.getMethod().format(0).split(" ")[1];
+        	} else if(TownySettings.isUsingIConomy()){
+        		return iConomy.format(0).split(" ")[1];
+        	}
+        	return ""; 
         }
         
         /* Used To Get Balance of Players holdings in String format for printing*/
