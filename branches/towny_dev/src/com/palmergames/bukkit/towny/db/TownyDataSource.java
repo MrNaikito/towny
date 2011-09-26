@@ -178,6 +178,8 @@ public abstract class TownyDataSource {
 			if (!loadWorld(world)){
 				System.out.println("[Towny] Loading Error: Could not read world data '" + world.getName() + "'.");
 				return false;
+			} else {
+				// Push all Towns belonging to this world
 			}
 		return true;
 	}

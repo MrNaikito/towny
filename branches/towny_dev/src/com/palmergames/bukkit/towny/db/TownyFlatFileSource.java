@@ -369,8 +369,8 @@ public class TownyFlatFileSource extends TownyDataSource {
 		String line;
 		String[] tokens;
 		String path = getTownFilename(town);
-		File fileResident = new File(path);
-		if (fileResident.exists() && fileResident.isFile()) {
+		File fileTown = new File(path);
+		if (fileTown.exists() && fileTown.isFile()) {
 			try {
 				KeyValueFile kvFile = new KeyValueFile(path);
 
@@ -701,8 +701,10 @@ public class TownyFlatFileSource extends TownyDataSource {
 					tokens = line.split(",");
 					for (String token : tokens) {
 						Town town = universe.getTown(token);
-						if (town != null)
-							world.addTown(town);
+						if (town != null) {
+							town.setWorld(world);
+							//world.addTown(town); not needed as it's handled in the Town object
+						}
 					}
 				}
 				
