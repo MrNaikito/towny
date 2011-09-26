@@ -139,7 +139,7 @@ public class TownyEconomyObject extends TownyObject {
             {
             	if(TownySettings.isUsingRegister()) { 
             		
-            		if (Methods.getMethod().getAccount(getEconomyName()) == null)
+            		if (!Methods.getMethod().hasAccount(getEconomyName()))
             			Methods.getMethod().createAccount(getEconomyName());
             		
             		return Methods.getMethod().getAccount(getEconomyName());
