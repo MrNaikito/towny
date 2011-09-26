@@ -332,6 +332,22 @@ public class TownyUniverse extends TownyObject {
         setChanged();
         notifyObservers(NEW_TOWN);
         }
+        
+        /**
+         * Returns the world a town belongs to
+         * 
+         * @param town
+         * @return
+         */
+        public static TownyWorld getTownWorld(String townName) {
+        	
+        	for (TownyWorld world: worlds.values()){
+        		if (world.hasTown(townName))
+        			return world;
+        	}
+
+        	return null;
+        }
 
         public void newNation(String name) throws AlreadyRegisteredException, NotRegisteredException {
                 String filteredName;

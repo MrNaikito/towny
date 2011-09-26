@@ -408,6 +408,8 @@ public class TownCommand implements CommandExecutor  {
                 } else {
                         Resident resident;
                         Town town;
+                        TownyWorld oldWorld = null;
+                        
                         try {
                                 resident = plugin.getTownyUniverse().getResident(player.getName());
                                 town = resident.getTown();
@@ -590,6 +592,7 @@ public class TownCommand implements CommandExecutor  {
                                                         throw new TownyException(TownySettings.getLangString("msg_too_far"));
                                         
 										townBlock = TownyUniverse.getWorld(player.getWorld().getName()).getTownBlock(coord);
+										oldWorld = town.getWorld();
                                         town.setHomeBlock(townBlock);
                                         plugin.sendMsg(player, String.format(TownySettings.getLangString("msg_set_town_home"), coord.toString()));
                                 } catch (TownyException e) {
@@ -614,6 +617,12 @@ public class TownCommand implements CommandExecutor  {
                         }
 
 						TownyUniverse.getDataSource().saveTown(town);
+						
+						// If the town (homeblock) has moved worlds we need to update the world files.
+						if (oldWorld != null) {
+							TownyUniverse.getDataSource().saveWorld(town.getWorld());
+							TownyUniverse.getDataSource().saveWorld(oldWorld);
+						}
                 }
         }
         
@@ -765,7 +774,7 @@ public class TownCommand implements CommandExecutor  {
                 townBlock.setTown(town);
                 town.setHomeBlock(townBlock);
                 town.setSpawn(spawn);
-                world.addTown(town);
+                //world.addTown(town);
                 
                 if (world.isUsingPlotManagementRevert()) {
                 	PlotBlockData plotChunk = TownyRegenAPI.getPlotChunk(townBlock);

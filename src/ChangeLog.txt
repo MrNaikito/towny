@@ -635,3 +635,6 @@ v0.76.1.12:
 	- Removed dependency on Bukkit to report the world list at startup (it's not always complete).
 v0.76.1.13:
 	- Fixed a startup error on fresh installs.
+v0.76.1.14:
+	- Towns which have unclaimed their HomeBlock (or all TownBlocks) no longer corrupt the data files on a shutdown.
+	- Towns are now able to move worlds by moving their homeblock to that world.
