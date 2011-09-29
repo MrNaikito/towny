@@ -208,7 +208,9 @@ public class TownyUniverse extends TownyObject {
 
         public void onLogin(Player player) throws AlreadyRegisteredException, NotRegisteredException {
                 Resident resident;
+                System.out.print("Player Login");
                 if (!hasResident(player.getName())) {
+                	System.out.print("Player Login - no resident found");
                         newResident(player.getName());
                         resident = getResident(player.getName());
                         
@@ -227,6 +229,7 @@ public class TownyUniverse extends TownyObject {
                         getDataSource().saveResidentList();
 
                 } else {
+                	System.out.print("Player Login - Resident found");
                         resident = getResident(player.getName());
                         resident.setLastOnline(System.currentTimeMillis());
                         
