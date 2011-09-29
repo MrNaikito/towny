@@ -9,39 +9,39 @@
 [LIST]
 [*]No other plugins, but is best with [URL='http://code.google.com/a/eclipselabs.org/p/towny/wiki/Questioner']Questioner[/URL] so that invitations are given by Towns and Nations to residents and towns.
 [/LIST]
-
 [B]Optional[/B]
+
 [LIST]
 [*]Questioner 0.4 - [URL='http://code.google.com/a/eclipselabs.org/p/towny/downloads/detail?name=Questioner.jar&can=2&q=']Download Jar[/URL]
 [*]Essentials 2.5+ - (Towny /town spawn's obey Essentials teleport cooldown)
 [*]All permissions plugins are supported and provide greater customization.
 [*]Economy plugin of your choice.
 [/LIST]
-
 [B]Supported Economy Plugins[/B]
+
 [LIST]
 [*]iConomy 5 - [URL='http://bukkit.org/deadfly.php?id=587691/51']Download Jar[/URL]
 [*][URL='http://forums.bukkit.org/threads/1080.40/']iConomy 6[/URL] *
 [*][URL='http://forums.bukkit.org/threads/1185.15312/']EssentialsEco[/URL] *
 [*][URL='http://forums.bukkit.org/threads/19025']BOSEconomy[/URL] *
-[*] * Requires Register.jar 1.3+ in your plugins folder. [URL='http://mirror.nexua.org/Register/1/3/Register.jar']Download Register.jar[/URL]
+[*] * Requires Register.jar 1.4+ in your plugins folder. [URL='http://mirror.nexua.org/Register/latest/edge/Register.jar']Download Register.jar[/URL]
 [/LIST]
-
 [B]Plugins That Support Towny[/B]
+
 [LIST]
 [*][URL='http://forums.bukkit.org/threads/4336']Lockette 1.4.3+[/URL]
 [*][URL='http://forums.bukkit.org/threads/35103']Deadbolt 1.2+[/URL]
 [*][URL='http://forums.bukkit.org/threads/4150']ChestShop 3.2+[/URL]
 [/LIST]
-
 [B]Download Towny[/B]
+
 [LIST]
-[*][B]Release version:[/B] [URL='http://towny.eclipselabs.org.codespot.com/files/Towny.jar']Download Jar[/URL] | [URL='http://code.google.com/a/eclipselabs.org/p/towny/']Source[/URL]
-[*][B]Dev Version:[/B] [URL='http://palmergames.com/downloads/Towny.jar']Download Jar[/URL] (Majorly Different - Visit IRC channel before using.)
-
+[*][B]Release version:[/B] [URL='http://towny.eclipselabs.org.codespot.com/files/Towny.jar']Download Jar[/URL] | [URL='http://code.google.com/a/eclipselabs.org/p/towny/']Source[/URL] (Get the dev as it's more stable with bug fixes)
+[*][B]Dev Version:[/B] [URL='http://code.google.com/a/eclipselabs.org/p/towny/downloads/detail?name=Towny_Dev.html&can=2&q=']Download Jar[/URL] (Majorly Different - Visit IRC channel before using.)
+[*]if using register REQUIRES Register 1.4 version
 [/LIST]
-
 [B]Installing and Upgrading[/B]
+
 [URL='http://code.google.com/a/eclipselabs.org/p/towny/wiki/InstallingTowny']Installing for the first time[/URL]
 [URL='http://code.google.com/a/eclipselabs.org/p/towny/wiki/UpgradingTowny']Upgrading Towny to latest Release[/URL]
 
@@ -114,7 +114,7 @@ Report an issue - [URL='http://code.google.com/a/eclipselabs.org/p/towny/issues/
 [*]Fixed overwriting custom language files.
 [*]Fixed default switch and item use permissions for ally and outsider.
 [*]Finally fixed the elusive error when getLastLocation() throws a NullPointerException.
-[*]Fixed an infinite loop when a player uses a fly hack over void.      
+[*]Fixed an infinite loop when a player uses a fly hack over void.
 [/LIST]
 [/LIST]
 [LIST]
@@ -124,22 +124,31 @@ Report an issue - [URL='http://code.google.com/a/eclipselabs.org/p/towny/issues/
 [*](Online) to title Resident Status
 [*]Neutral in Nation status.
 [*]Plot Regeneration
+  
+ 
+
 [INDENT=1]When a town plot is unclaimed (by a player or through upkeep) it will slowly begin to revert to a pre town state.
-Blocks will slowly change back to whatever blocks we're present at the moment the town block was claimed.
-You can configure certain block types you don't want restored to prevent players exploiting regen for diamond ores.
-Block types to not restore are configured in block_ignore in the worlds txt file data/worlds/worldname.txt
-Does not affect plots claimed pre-0.76.1[/INDENT]
+   Blocks will slowly change back to whatever blocks we're present at the moment the town block was claimed.
+   You can configure certain block types you don't want restored to prevent players exploiting regen for diamond ores.
+   Block types to not restore are configured in block_ignore in the worlds txt file data/worlds/worldname.txt
+   Does not affect plots claimed pre-0.76.1[/INDENT]
 [*] Added a block deletion function to remove specified blocks when a town block becomes unclaimed (By a player or through upkeep.)
+  
+ 
+
 [INDENT=1]This is useful for removing Lockette/Deadbolt signs on doors and chests.
-Default list includes doors, signs, torchs, redstone + redstone accessories and is set in the config.yml
-Block types to remove are configured in unclaim_delete in the worlds txt file data/worlds/worldname.txt[/INDENT]
+   Default list includes doors, signs, torchs, redstone + redstone accessories and is set in the config.yml
+   Block types to remove are configured in unclaim_delete in the worlds txt file data/worlds/worldname.txt[/INDENT]
 [*] Added a max_tax_amount and max_tax_percent to the config for towns. Defaults to 1000 and 25% respetively.
 [*] Titles and surnames can now contain spaces.
 [*] Added a new setting 'regen_delay'.
+  
+ 
+
 [INDENT=1]This setting is in seconds. It will allow players to break protected blocks in the wild and towns, even if they dont have permission.
-Blocks in the switchID list cannot be destroyed.
-The blocks will drop no loot and will regenerate after the specified time.
-Defaults to 0 (disabled). This shouldn't be used, will probably be worked into war updates.[/INDENT]
+   Blocks in the switchID list cannot be destroyed.
+   The blocks will drop no loot and will regenerate after the specified time.
+   Defaults to 0 (disabled). This shouldn't be used, will probably be worked into war updates.[/INDENT]
 [*] Added a broadcast if a Nation is disbanded due to a town deletion.
 [*] Added a new Default new world setting (wild_revert_on_mob_explosion). When enabled this will replace blocks destroyed by creature explosions in the wild.
 [*] Towny will now clean up it's backup folder. Default time to keep backups is 90 days (configurable in config).
@@ -150,6 +159,7 @@ Defaults to 0 (disabled). This shouldn't be used, will probably be worked into w
 [*]So much MORE! [URL='http://code.google.com/a/eclipselabs.org/p/towny/source/browse/trunk/Towny/src/ChangeLog.txt#510']Click here for a full changelog.[/URL]
 [/LIST]
 -Towny Advanced 0.76.0 received 2784 downloads.
+
 -Towny Advanced 0.75.1 received 1644 downloads.
 -Towny Advanced 0.75.0 received  126 downloads.
 -Towny Advanced 0.74.0 received 3012 downloads.
@@ -256,10 +266,10 @@ v0.76.1.0:
     - Finally fixed the elusive error when getLastLocation() throws a NullPointerException.
     - Fixed an infinite loop when a player uses a fly hack over void.
     - Added support for Register 2.0 (Register.jar) - Supports iConomy5, iConomy6, EssentialsEco, BOSEconomy.
-      (https://github.com/iConomy/Register/tree/master/dist)
+      ([URL]https://github.com/iConomy/Register/tree/master/dist[/URL])
     - Towny will no longer cause an exception if users attempt to use iConomy 6 instead of 5.01 natively.
     - Added some new permission nodes.
-    
+
       - towny.town.delete : player can delete their town
       - towny.town.rename : player can rename their town
       - towny.town.toggle.* : User has access to all town toggle commands (if a mayor or assistant).
@@ -272,14 +282,14 @@ v0.76.1.0:
       - towny.nation.rename : player can rename their nation
       - towny.nation.grant-titles : King can set nation members titles and surnames '/nation set [title/surname]'.
       - towny.nation.* : Grants all Nation permission nodes.
-      
+
     - Added 'towny time' : Displays the time until a new day is scheduled.
     - Players can no longer attack another players tamed wolf if in a non PVP area (can attack own).
     - Added new API functions
       TownyUniverse.getTownBlock(location)
       TownyUniverse.getCachePermission(player,location,action)
-    - Towny will now check the Craftbukkit version and disable itself if it's too old.  
-    
+    - Towny will now check the Craftbukkit version and disable itself if it's too old.
+
     [URL='http://code.google.com/a/eclipselabs.org/p/towny/source/browse/trunk/Towny/src/ChangeLog.txt']Full Changelog[/URL]
     [/spoiler]
 
