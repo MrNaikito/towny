@@ -651,3 +651,8 @@ v0.76.1.17:
 	- Added upkeep charging based upon the number of town plots (town_plotbased_upkeep) - thanks to phex
 	- Slight reorgnise of TownyUniverse (if you hook towny be sure your functions have not moved).
 	- Changed the daily timer to a set time each day. Configure new_day_time to set when you want taxes to be collected.
+	  eg. 15h30m would attempt to collect taxes at 3:30pm.
+v0.76.1.18:
+	- Returned the setting day_interval so you can configure the length of a day.
+	  If you set a day length of 12 hours (12h), taxes will be collected on a 12 hourly cycle, instead of a 24 hour one.
+	  new_day_time should be set to less than the day_interval, but it will default to the same, if it's incorrectly set.

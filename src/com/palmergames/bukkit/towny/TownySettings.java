@@ -977,15 +977,15 @@ public class TownySettings {
 	}
 	
 	public static long getDayInterval() {
-		return TimeTools.secondsFromDhms("24h");
-		//return getSeconds(ConfigNodes.PLUGIN_DAY_INTERVAL);
+		//return TimeTools.secondsFromDhms("24h");
+		return getSeconds(ConfigNodes.PLUGIN_DAY_INTERVAL);
 	}
 	
 	public static long getNewDayTime() {
 		long time = getSeconds(ConfigNodes.PLUGIN_NEWDAY_TIME);
 		long day = getDayInterval();
 		if (time > day) {
-			setProperty(ConfigNodes.PLUGIN_NEWDAY_TIME.getRoot(), "24h");
+			setProperty(ConfigNodes.PLUGIN_NEWDAY_TIME.getRoot(), day);
 			return day;
 		}
 		return time;
