@@ -39,7 +39,7 @@ public class CachePermissions extends TownyUniverse {
 			cache.updateCoord(worldCoord);
 			
 			plugin.sendDebugMsg("Cache permissions for " + action.toString() + " : " + cache.getCachePermission(action));
-			return cache.getCachePermission(action); // Throws NullPointerException if the cache is empty
+			return cache.getCachePermission(action) || plugin.isTownyAdmin(player); // Throws NullPointerException if the cache is empty
 			
 		} catch (NotRegisteredException e) {
 			// World not known
@@ -58,7 +58,7 @@ public class CachePermissions extends TownyUniverse {
 				cache.updateCoord(worldCoord);
 				
 				plugin.sendDebugMsg("New Cache permissions for " + action.toString() + " : " + cache.getCachePermission(action));
-				return cache.getCachePermission(action);
+				return cache.getCachePermission(action) || plugin.isTownyAdmin(player);
 				
 			} catch (NotRegisteredException e1) {
 				// Will never get here.
