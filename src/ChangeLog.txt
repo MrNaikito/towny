@@ -650,3 +650,4 @@ v0.76.1.16:
 v0.76.1.17:
 	- Added upkeep charging based upon the number of town plots (town_plotbased_upkeep) - thanks to phex
 	- Slight reorgnise of TownyUniverse (if you hook towny be sure your functions have not moved).
+	- Changed the daily timer to a set time each day. Configure new_day_time to set when you want taxes to be collected.

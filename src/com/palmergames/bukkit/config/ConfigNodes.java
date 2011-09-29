@@ -184,10 +184,15 @@ public enum ConfigNodes {
             PLUGIN_USING_PERMISSIONS("plugin.interfacing.using_permissions","true",
             		"# True to use Permissions 2.7x, 3.1x or GroupManager Bridge",
             		"# False to use Bukkits built in permissions/Groupmanager."),
-            		
-            PLUGIN_DAY_INTERVAL("plugin.day_interval","1d",
-                    "# The time taken between each \"day\". At the start of each day, taxes will be collected.",
-                    "# Judged in seconds. Default is 24 hours."),
+            
+            PLUGIN_DAY_HEADER("plugin.day_timer",""),
+            //PLUGIN_DAY_INTERVAL("plugin.day_timer.day_interval","1d",
+            //        "# The number of hours in each \"day\".",
+            //        "# Default is 24 hours."),
+            PLUGIN_NEWDAY_TIME("plugin.day_timer.new_day_time","12h",
+                    "# The time each \"day\", when taxes will be collected.",
+                    "# Default is 12h (midday)."),
+                    
             PLUGIN_DEBUG_MODE("plugin.debug_mode","false",
                     "# Lots of messages to tell you what's going on in the server with time taken for events."),
             PLUGIN_DEV_MODE("plugin.dev_mode","", "",
