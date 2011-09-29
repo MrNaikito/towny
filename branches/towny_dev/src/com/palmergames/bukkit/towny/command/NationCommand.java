@@ -851,7 +851,7 @@ public class NationCommand implements CommandExecutor  {
                         player.sendMessage(ChatTools.formatCommand("", "/nation set", "taxes [$]", ""));
                         player.sendMessage(ChatTools.formatCommand("", "/nation set", "name [name]", ""));
                         player.sendMessage(ChatTools.formatCommand("", "/nation set", "title/surname [resident] [text]", ""));
-                        player.sendMessage(ChatTools.formatCommand("", "/nation set", "tag [upto 4 letters]", ""));
+                        player.sendMessage(ChatTools.formatCommand("", "/nation set", "tag [upto 4 letters] or clear", ""));
                 } else {
                         Resident resident;
                         Nation nation;
@@ -928,14 +928,22 @@ public class NationCommand implements CommandExecutor  {
                         	if (split.length < 2)
                                 plugin.sendErrorMsg(player, "Eg: /nation set tag PLT");
                         	else
-                                try {
-                                	nation.setTag(plugin.getTownyUniverse().checkAndFilterName(split[1]));
-                                	plugin.getTownyUniverse().sendNationMessage(nation, String.format(TownySettings.getLangString("msg_set_nation_tag"), player.getName(), nation.getTag()));
-                                } catch (TownyException e) {
-                                	plugin.sendErrorMsg(player, e.getMessage());
-                                } catch (InvalidNameException e) {
-                                	plugin.sendErrorMsg(player, e.getMessage());
-								}
+                        		if (split[1].equalsIgnoreCase("clear")) {
+                        			try {
+										nation.setTag(" ");
+										plugin.getTownyUniverse().sendNationMessage(nation, String.format(TownySettings.getLangString("msg_reset_nation_tag"), player.getName()));
+									} catch (TownyException e) {
+										plugin.sendErrorMsg(player, e.getMessage());
+									}
+                        		} else
+	                                try {
+	                                	nation.setTag(plugin.getTownyUniverse().checkAndFilterName(split[1]));
+	                                	plugin.getTownyUniverse().sendNationMessage(nation, String.format(TownySettings.getLangString("msg_set_nation_tag"), player.getName(), nation.getTag()));
+	                                } catch (TownyException e) {
+	                                	plugin.sendErrorMsg(player, e.getMessage());
+	                                } catch (InvalidNameException e) {
+	                                	plugin.sendErrorMsg(player, e.getMessage());
+									}
                         } else if (split[0].equalsIgnoreCase("title")) {
                                 // Give the resident a title
                                 if (split.length < 2)
