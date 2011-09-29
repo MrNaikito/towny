@@ -246,7 +246,7 @@ public class CachePermissions extends TownyUniverse {
                          if (plugin.hasPermission(player, "towny.wild." + actionType.toString()))
                                  return true;
                  
-                         else if (!TownyPermission.getUnclaimedZone(actionType, pos.getWorld())) {
+                         else if (!TownyPermission.getUnclaimedZonePerm(actionType, pos.getWorld())) {
                                  // TODO: Have permission to destroy here
                                  cacheBlockErrMsg(player, String.format(TownySettings.getLangString("msg_cache_block_error_wild"), actionType.toString()));
                                  return false;
@@ -263,21 +263,21 @@ public class CachePermissions extends TownyUniverse {
                  Resident owner = townBlock.getResident();
                  
                  if (status == TownBlockStatus.PLOT_FRIEND) {
-                         if (owner.getPermissions().getResident(actionType))
+                         if (owner.getPermissions().getResidentPerm(actionType))
                                  return true;
                          else {
                                  cacheBlockErrMsg(player, String.format(TownySettings.getLangString("msg_cache_block_error_plot"), "friends", actionType.toString()));
                                  return false;
                          }
                  } else if (status == TownBlockStatus.PLOT_ALLY)
-                         if (owner.getPermissions().getAlly(actionType))
+                         if (owner.getPermissions().getAllyPerm(actionType))
                                  return true;
                          else {
                                  cacheBlockErrMsg(player, String.format(TownySettings.getLangString("msg_cache_block_error_plot"), "allies", actionType.toString()));
                                  return false;
                          }
                  else //TODO: (Remove) if (status == TownBlockStatus.OUTSIDER)
-                         if (owner.getPermissions().getOutsider(actionType))
+                         if (owner.getPermissions().getOutsiderPerm(actionType))
                                  return true;
                          else {
                                  cacheBlockErrMsg(player, String.format(TownySettings.getLangString("msg_cache_block_error_plot"), "outsiders", actionType.toString()));
@@ -288,21 +288,21 @@ public class CachePermissions extends TownyUniverse {
  
          // Town Permissions
          if (status == TownBlockStatus.TOWN_RESIDENT) {
-                 if (town.getPermissions().getResident(actionType))
+                 if (town.getPermissions().getResidentPerm(actionType))
                          return true;
                  else {
                          cacheBlockErrMsg(player, String.format(TownySettings.getLangString("msg_cache_block_error_town_resident"), actionType.toString()));
                          return false;
                  }
          } else if (status == TownBlockStatus.TOWN_ALLY)
-                 if (town.getPermissions().getAlly(actionType))
+                 if (town.getPermissions().getAllyPerm(actionType))
                          return true;
                  else {
                          cacheBlockErrMsg(player, String.format(TownySettings.getLangString("msg_cache_block_error_town_allies"), actionType.toString()));
                          return false;
                  }
          else if (status == TownBlockStatus.OUTSIDER || status == TownBlockStatus.ENEMY)
-                 if (town.getPermissions().getOutsider(actionType))
+                 if (town.getPermissions().getOutsiderPerm(actionType))
                          return true;
                  else {
                          cacheBlockErrMsg(player, String.format(TownySettings.getLangString("msg_cache_block_error_town_outsider"), actionType.toString()));
