@@ -1,4 +1,4 @@
-{{{[B]Plugin: [/B]Towny
+[B]Plugin: [/B]Towny
 [RIGHT]                                                     [URL='http://webchat.esper.net/?channels=towny']IRC: Join channel #Towny[/URL][/RIGHT]
 [RIGHT][URL='https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=8WWJ76KLFKM4G'][IMG]https://www.paypalobjects.com/en_GB/i/btn/btn_donate_LG.gif[/IMG][/URL][/RIGHT]
  [B]Version:[/B] v0.76.1.0
@@ -293,4 +293,4 @@ v0.76.1.0:
     [URL='http://code.google.com/a/eclipselabs.org/p/towny/source/browse/trunk/Towny/src/ChangeLog.txt']Full Changelog[/URL]
     [/spoiler]
 
-Credits: Many thanks to all contributers including, but not limited to: Fuzziewuzzie, Shadeness, [URL='http://forums.bukkit.org/members/llmdl.10585/']LlmDl[/URL], SwearWord and dumptruckman.}}}
+Credits: Many thanks to all contributers including, but not limited to: Fuzziewuzzie, Shadeness, [URL='http://forums.bukkit.org/members/llmdl.10585/']LlmDl[/URL], SwearWord and dumptruckman.
