@@ -70,7 +70,6 @@ import com.palmergames.bukkit.towny.war.WarSpoils;
 import com.palmergames.bukkit.util.ChatTools;
 import com.palmergames.bukkit.util.Colors;
 import com.palmergames.bukkit.util.MinecraftTools;
-import com.palmergames.bukkit.util.TimeTools;
 import com.palmergames.util.FileMgmt;
 import com.palmergames.util.TimeMgmt;
 
@@ -150,7 +149,7 @@ public class TownyUniverse extends TownyObject {
 		if (on && !isDailyTimerRunning()) {
             long timeTillNextDay = TownyUtil.townyTime();
             plugin.sendMsg("Time until a New Day: " + TimeMgmt.formatCountdownTime(timeTillNextDay));
-            dailyTask = getPlugin().getServer().getScheduler().scheduleSyncRepeatingTask(getPlugin(), new DailyTimerTask(this), MinecraftTools.convertToTicks(timeTillNextDay), MinecraftTools.convertToTicks(TimeTools.secondsFromDhms("24h")));
+            dailyTask = getPlugin().getServer().getScheduler().scheduleSyncRepeatingTask(getPlugin(), new DailyTimerTask(this), MinecraftTools.convertToTicks(timeTillNextDay), MinecraftTools.convertToTicks(TownySettings.getDayInterval()));
             if (dailyTask == -1)
                     plugin.sendErrorMsg("Could not schedule new day loop.");
 		} else if (!on && isDailyTimerRunning()) {

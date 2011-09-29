@@ -186,12 +186,12 @@ public enum ConfigNodes {
             		"# False to use Bukkits built in permissions/Groupmanager."),
             
             PLUGIN_DAY_HEADER("plugin.day_timer",""),
-            //PLUGIN_DAY_INTERVAL("plugin.day_timer.day_interval","1d",
-            //        "# The number of hours in each \"day\".",
-            //        "# Default is 24 hours."),
+            PLUGIN_DAY_INTERVAL("plugin.day_timer.day_interval","1d",
+                    "# The number of hours in each \"day\".",
+                    "# You can configure for 10 hour days. Default is 24 hours."),
             PLUGIN_NEWDAY_TIME("plugin.day_timer.new_day_time","12h",
                     "# The time each \"day\", when taxes will be collected.",
-                    "# Default is 12h (midday)."),
+                    "# MUST be less than day_interval. Default is 12h (midday)."),
                     
             PLUGIN_DEBUG_MODE("plugin.debug_mode","false",
                     "# Lots of messages to tell you what's going on in the server with time taken for events."),
