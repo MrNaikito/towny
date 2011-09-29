@@ -208,32 +208,29 @@ public class TownyUniverse extends TownyObject {
 
         public void onLogin(Player player) throws AlreadyRegisteredException, NotRegisteredException {
                 Resident resident;
-                System.out.print("Player Login");
                 if (!hasResident(player.getName())) {
-                	System.out.print("Player Login - no resident found");
-                        newResident(player.getName());
-                        resident = getResident(player.getName());
+                    newResident(player.getName());
+                    resident = getResident(player.getName());
                         
-                        sendMessage(player, TownySettings.getRegistrationMsg(player.getName()));
-                        resident.setRegistered(System.currentTimeMillis());
-                        if (!TownySettings.getDefaultTownName().equals(""))
-                                try {
-                                        Town town = getTown(TownySettings.getDefaultTownName());
-                                        town.addResident(resident);
-                                        getDataSource().saveTown(town);
-                                } catch (NotRegisteredException e) {
-                                } catch (AlreadyRegisteredException e) {
-                                }
+                    sendMessage(player, TownySettings.getRegistrationMsg(player.getName()));
+                    resident.setRegistered(System.currentTimeMillis());
+                    if (!TownySettings.getDefaultTownName().equals(""))
+                        try {
+                            Town town = getTown(TownySettings.getDefaultTownName());
+                            town.addResident(resident);
+                            getDataSource().saveTown(town);
+                        } catch (NotRegisteredException e) {
+                        } catch (AlreadyRegisteredException e) {
+                        }
                         
                         getDataSource().saveResident(resident);
                         getDataSource().saveResidentList();
 
                 } else {
-                	System.out.print("Player Login - Resident found");
-                        resident = getResident(player.getName());
-                        resident.setLastOnline(System.currentTimeMillis());
+                    resident = getResident(player.getName());
+                    resident.setLastOnline(System.currentTimeMillis());
                         
-                        getDataSource().saveResident(resident);
+                    getDataSource().saveResident(resident);
                 }
                 
 
