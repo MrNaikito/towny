@@ -92,7 +92,7 @@ public class TownyPlayerListener extends PlayerListener {
 	public void onPlayerInteract(PlayerInteractEvent event) {
 		
 		//System.out.println("onPlayerInteract2");
-		long start = System.currentTimeMillis();
+		//long start = System.currentTimeMillis();
 				
 		if (event.isCancelled()) {
 			// Fix for bucket bug.
@@ -154,7 +154,7 @@ public class TownyPlayerListener extends PlayerListener {
 				onPlayerSwitchEvent(event, null);
 				return;
 			}
-			plugin.sendDebugMsg("onPlayerItemEvent took " + (System.currentTimeMillis() - start) + "ms");
+			//plugin.sendDebugMsg("onPlayerItemEvent took " + (System.currentTimeMillis() - start) + "ms");
 		//}
 	}
 	
