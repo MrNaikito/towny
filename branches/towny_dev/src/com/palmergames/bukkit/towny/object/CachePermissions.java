@@ -111,8 +111,9 @@ public class CachePermissions extends TownyUniverse {
 
         Resident resident;
         try {
-                resident = getResident(player.getName());
+                resident = plugin.getTownyUniverse().getResident(player.getName());
         } catch (TownyException e) {
+        	System.out.print("Failed to fetch resident: " + player.getName());
                 return TownBlockStatus.NOT_REGISTERED;
         }
         
