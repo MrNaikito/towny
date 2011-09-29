@@ -435,6 +435,8 @@ public enum ConfigNodes {
             ECO_PRICE_TOWN_UPKEEP("economy.daily_taxes.price_town_upkeep","10.0",
                     "# The server's daily charge on each town. If a town fails to pay this upkeep",
                     "# all of it's residents are kicked and the town is removed."),
+            ECO_PRICE_TOWN_UPKEEP_PLOTBASED("economy.daily_taxes.town_plotbased_upkeep","false",
+                    "# Uses total amount of owned plots to determine upkeep instead of the town level (Number of residents)"),     
                     
             WAR("war","",
             		"", "",

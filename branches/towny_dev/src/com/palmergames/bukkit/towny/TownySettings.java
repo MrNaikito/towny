@@ -1052,8 +1052,14 @@ public class TownySettings {
 	public static double getTownUpkeepCost(Town town) {
 		double multiplier;
         
-		if (town != null)
-        	multiplier = Double.valueOf(getTownLevel(town).get(TownySettings.TownLevel.UPKEEP_MULTIPLIER).toString());
+		if (town != null) {
+			if (isUpkeepByPlot()) {
+				multiplier = town.getTownBlocks().size(); //town.getTotalBlocks();
+			}
+			else {
+				multiplier = Double.valueOf(getTownLevel(town).get(TownySettings.TownLevel.UPKEEP_MULTIPLIER).toString());
+			}
+		}
         else
         	multiplier = 1.0;
                 
@@ -1064,6 +1070,10 @@ public class TownySettings {
         return getDouble(ConfigNodes.ECO_PRICE_TOWN_UPKEEP);
     }
 
+    public static boolean isUpkeepByPlot() {
+        return getBoolean(ConfigNodes.ECO_PRICE_TOWN_UPKEEP_PLOTBASED);
+	}
+    
     public static double getNationUpkeep() {
         return getDouble(ConfigNodes.ECO_PRICE_NATION_UPKEEP);
     }

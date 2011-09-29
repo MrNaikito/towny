@@ -323,6 +323,8 @@ public class TownyCommand implements CommandExecutor {
                                 + Colors.Green + "Town: " + Colors.LightGreen + TownyFormatter.formatMoney(TownySettings.getTownUpkeepCost(town))
                                 + Colors.Gray + " | "
                                 + Colors.Green + "Nation: " + Colors.LightGreen + TownyFormatter.formatMoney(TownySettings.getNationUpkeepCost(nation)));
+                output.add(Colors.Gray + "Town upkeep is based on " + Colors.LightGreen + " the " + (TownySettings.isUpkeepByPlot() ? " number of plots" : " town size."));
+                
                 if (town != null) {
                         output.add(Colors.Yellow + "Town [" + TownyFormatter.getFormattedName(town)+"]");
                         output.add(Colors.Rose + "    [Price] "

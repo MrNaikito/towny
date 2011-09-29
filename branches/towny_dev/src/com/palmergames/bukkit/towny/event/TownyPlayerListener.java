@@ -175,7 +175,7 @@ public class TownyPlayerListener extends PlayerListener {
 		}
 
 		//Get itemUse permissions (updates if none exist)
-		boolean bItemUse = plugin.getTownyUniverse().getCachePermission(player, player.getLocation(), TownyPermission.ActionType.ITEM_USE);
+		boolean bItemUse = TownyUniverse.getCachePermissions().getCachePermission(player, player.getLocation(), TownyPermission.ActionType.ITEM_USE);
 		
 		PlayerCache cache = plugin.getCache(player);
 		//cache.updateCoord(worldCoord);
@@ -217,7 +217,7 @@ public class TownyPlayerListener extends PlayerListener {
 		}
 
 		//Get switch permissions (updates if none exist)
-		boolean bSwitch = plugin.getTownyUniverse().getCachePermission(player, block.getLocation(), TownyPermission.ActionType.SWITCH);
+		boolean bSwitch = TownyUniverse.getCachePermissions().getCachePermission(player, block.getLocation(), TownyPermission.ActionType.SWITCH);
 			
 		PlayerCache cache = plugin.getCache(player);
 		//cache.updateCoord(worldCoord);
@@ -397,22 +397,4 @@ public class TownyPlayerListener extends PlayerListener {
 			//plugin.sendDebugMsg("onPlayerMoveChunk: " + fromWild + " ^ " + toWild + " " + fromTown + " = " + toTown);
 		}
 	}
-	
-	public boolean getBuildPermission(Player player, TownBlockStatus status, WorldCoord pos) {
-		return plugin.getPermission(player, status, pos, TownyPermission.ActionType.BUILD);
-	}
-
-	public boolean getDestroyPermission(Player player, TownBlockStatus status, WorldCoord pos) {
-		return plugin.getPermission(player, status, pos, TownyPermission.ActionType.DESTROY);
-	}
-
-	public boolean getSwitchPermission(Player player, TownBlockStatus status, WorldCoord pos) {
-		return plugin.getPermission(player, status, pos, TownyPermission.ActionType.SWITCH);
-	}
-	
-	public boolean getItemUsePermission(Player player, TownBlockStatus status, WorldCoord pos) {
-		return plugin.getPermission(player, status, pos, TownyPermission.ActionType.ITEM_USE);
-	}
-	
-
 }
