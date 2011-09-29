@@ -95,12 +95,17 @@ public enum ConfigNodes {
             NWS_FORCE_TOWN_MONSTERS_ON("new_world_settings.force_town_monsters_on","false", "",
             		"# force_town_monsters_on is a global flag and overrides any towns flag setting"),
             NWS_FORCE_FIRE_ON("new_world_settings.force_fire_on","false", "# force_fire_on is a global flag and overrides any towns flag setting"),
-            NWS_PLOT_MANAGEMENT("new_world_settings.plot_management","", "",
+            
+            NWS_PLOT_MANAGEMENT_HEADER("new_world_settings.plot_management","", "",
             		"# World management settings to deal with un/claiming plots"),
             		
             NWS_PLOT_MANAGEMENT_DELETE_HEADER("new_world_settings.plot_management.block_delete","", ""),
-            NWS_PLOT_MANAGEMENT_ENABLE("new_world_settings.plot_management.block_delete.enabled","true"),
+            NWS_PLOT_MANAGEMENT_DELETE_ENABLE("new_world_settings.plot_management.block_delete.enabled","true"),
             NWS_PLOT_MANAGEMENT_DELETE("new_world_settings.plot_management.block_delete.unclaim_delete","26,50,55,63,64,68,70,71,72,75,76,93,94", "# These items will be deleted upon a plot being unclaimed"),
+            
+            NWS_PLOT_MANAGEMENT_MAYOR_DELETE_HEADER("new_world_settings.plot_management.mayor_plotblock_delete","", ""),
+            NWS_PLOT_MANAGEMENT_MAYOR_DELETE_ENABLE("new_world_settings.plot_management.mayor_plotblock_delete.enabled","true"),
+            NWS_PLOT_MANAGEMENT_MAYOR_DELETE("new_world_settings.plot_management.mayor_plotblock_delete.mayor_plot_delete","WALL_SIGN,SIGN_POST", "# These items will be deleted upon a mayor using /plot clear"),
             
             NWS_PLOT_MANAGEMENT_REVERT_HEADER("new_world_settings.plot_management.revert_on_unclaim","", ""),
             NWS_PLOT_MANAGEMENT_REVERT_ENABLE("new_world_settings.plot_management.revert_on_unclaim.enabled","true",

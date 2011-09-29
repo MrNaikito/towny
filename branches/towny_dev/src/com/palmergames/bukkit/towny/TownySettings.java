@@ -1120,11 +1120,19 @@ public class TownySettings {
 	}
         
     public static boolean isUsingPlotManagementDelete() {
-    	return getBoolean(ConfigNodes.NWS_PLOT_MANAGEMENT_ENABLE);
+    	return getBoolean(ConfigNodes.NWS_PLOT_MANAGEMENT_DELETE_ENABLE);
     }
     
     public static List<Integer> getPlotManagementDeleteIds() {
     	return getIntArr(ConfigNodes.NWS_PLOT_MANAGEMENT_DELETE);
+    }
+    
+    public static boolean isUsingPlotManagementMayorDelete() {
+    	return getBoolean(ConfigNodes.NWS_PLOT_MANAGEMENT_MAYOR_DELETE_ENABLE);
+    }
+    
+    public static List<String> getPlotManagementMayorDelete() {
+    	return getStrArr(ConfigNodes.NWS_PLOT_MANAGEMENT_MAYOR_DELETE);
     }
     
     public static boolean isUsingPlotManagementRevert() {
