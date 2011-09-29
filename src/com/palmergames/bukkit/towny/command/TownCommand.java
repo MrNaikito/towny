@@ -401,7 +401,7 @@ public class TownCommand implements CommandExecutor  {
             player.sendMessage(ChatTools.formatCommand("", "/town set", "shoptax [$]", ""));
                         player.sendMessage(ChatTools.formatCommand("", "/town set", "shopprice [$]", ""));
                         player.sendMessage(ChatTools.formatCommand("", "/town set", "name [name]", ""));
-                        player.sendMessage(ChatTools.formatCommand("", "/town set", "tag [upto 4 letters]", ""));
+                        player.sendMessage(ChatTools.formatCommand("", "/town set", "tag [upto 4 letters] or clear", ""));
                         //player.sendMessage(ChatTools.formatCommand("", "/town set", "public [on/off]", ""));
                         //player.sendMessage(ChatTools.formatCommand("", "/town set", "explosion [on/off]", ""));
                         //player.sendMessage(ChatTools.formatCommand("", "/town set", "fire [on/off]", ""));
@@ -567,14 +567,22 @@ public class TownCommand implements CommandExecutor  {
                         	if (split.length < 2)
                                 plugin.sendErrorMsg(player, "Eg: /town set tag PLTC");
                         	else
-                                try {
-                                	town.setTag(plugin.getTownyUniverse().checkAndFilterName(split[1]));
-                                	plugin.getTownyUniverse().sendTownMessage(town, String.format(TownySettings.getLangString("msg_set_town_tag"), player.getName(), town.getTag()));
-                                } catch (TownyException e) {
-                                	plugin.sendErrorMsg(player, e.getMessage());
-                                } catch (InvalidNameException e) {
-                                	plugin.sendErrorMsg(player, e.getMessage());
-								}
+                        		if (split[1].equalsIgnoreCase("clear")) {
+                        			try {
+										town.setTag(" ");
+										plugin.getTownyUniverse().sendTownMessage(town, String.format(TownySettings.getLangString("msg_reset_town_tag"), player.getName()));
+									} catch (TownyException e) {
+										plugin.sendErrorMsg(player, e.getMessage());
+									}
+                        		} else
+	                                try {
+	                                	town.setTag(plugin.getTownyUniverse().checkAndFilterName(split[1]));
+	                                	plugin.getTownyUniverse().sendTownMessage(town, String.format(TownySettings.getLangString("msg_set_town_tag"), player.getName(), town.getTag()));
+	                                } catch (TownyException e) {
+	                                	plugin.sendErrorMsg(player, e.getMessage());
+	                                } catch (InvalidNameException e) {
+	                                	plugin.sendErrorMsg(player, e.getMessage());
+									}
                         } else if (split[0].equalsIgnoreCase("homeblock")) {
                                 Coord coord = Coord.parseCoord(player);
                                 TownBlock townBlock;

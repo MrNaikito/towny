@@ -105,7 +105,7 @@ public class Towny extends JavaPlugin {
     @Override
     public void onEnable() {
     	
-    	Logger.getAnonymousLogger().info("====================      Towny      ========================");
+    	logger.info("====================      Towny      ========================");
     	
     	version = this.getDescription().getVersion();
         //System.out.println("[Towny] Towny - create TownyUniverse Object...");
@@ -135,9 +135,9 @@ public class Towny extends JavaPlugin {
         
         registerEvents();
         
-        Logger.getAnonymousLogger().info("=============================================================");
+        logger.info("=============================================================");
         System.out.println("[Towny] Version: " + version + " - Mod Enabled");
-        Logger.getAnonymousLogger().info("=============================================================");
+        logger.info("=============================================================");
         
         // Re login anyone online. (In case of plugin reloading)
         for (Player player : getServer().getOnlinePlayers())
@@ -267,7 +267,7 @@ public class Towny extends JavaPlugin {
     @Override
     public void onDisable() {
     	
-    	Logger.getAnonymousLogger().info("==============================================================");
+    	logger.info("==============================================================");
     	
     	if (TownyUniverse.getDataSource() != null && error == false)
             TownyUniverse.getDataSource().saveAll();
@@ -289,8 +289,8 @@ public class Towny extends JavaPlugin {
 	    townyUniverse = null;
 	    
 	    
-	    Logger.getAnonymousLogger().info("[Towny] Version: " + version + " - Mod Disabled");
-	    Logger.getAnonymousLogger().info("=============================================================");
+	    logger.info("[Towny] Version: " + version + " - Mod Disabled");
+	    logger.info("=============================================================");
     }
 
     public boolean load() {
@@ -308,8 +308,8 @@ public class Towny extends JavaPlugin {
         
         if (!matcher.find() || matcher.group(1) == null) {
         	error = true;
-        	Logger.getAnonymousLogger().severe("[Towny Error] Unable to read CraftBukkit Version.");
-        	Logger.getAnonymousLogger().severe("[Towny Error] Towny requires version " + bukkitVer + " or higher.");
+        	logger.severe("[Towny Error] Unable to read CraftBukkit Version.");
+        	logger.severe("[Towny Error] Towny requires version " + bukkitVer + " or higher.");
             getServer().getPluginManager().disablePlugin(this);
             return false;
         }
@@ -317,8 +317,8 @@ public class Towny extends JavaPlugin {
         
         if (curBuild < bukkitVer){
             error = true;
-            Logger.getAnonymousLogger().severe("[Towny Error] CraftBukkit Version ("  + curBuild + ") is outdated! ");
-            Logger.getAnonymousLogger().severe("[Towny Error] Towny requires version " + bukkitVer + " or higher.");
+            logger.severe("[Towny Error] CraftBukkit Version ("  + curBuild + ") is outdated! ");
+            logger.severe("[Towny Error] Towny requires version " + bukkitVer + " or higher.");
             getServer().getPluginManager().disablePlugin(this);
             return false;
         }
@@ -547,6 +547,9 @@ public class Towny extends JavaPlugin {
                                 if (resident.hasNation()) {
                                 	nation = resident.hasNation() ? "[" + resident.getTown().getNation().getName() + "]" : "";
                                 	nation = resident.getTown().getNation().hasTag() ? "[" + resident.getTown().getNation().getTag() + "]" : nation;
+                                } else if ((resident.hasTitle()) || (resident.hasSurname())) {
+                                	resident.setTitle(" ");
+                                	resident.setSurname(" ");
                                 }
                                 
                                 if (resident.hasTown()) {

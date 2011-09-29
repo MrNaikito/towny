@@ -1,6 +1,6 @@
 ﻿name: Towny
 main: com.palmergames.bukkit.towny.Towny
-version: 0.76.1.14
+version: 0.76.1.15
 author: Shade, Modified by FuzzeWuzze. Forked by ElgarL
 website: http://code.google.com/a/eclipselabs.org/p/towny/
 description: >
@@ -49,7 +49,6 @@ permissions:
             towny.town.*: true
             towny.nation.*: true
             towny.wild.*: true
-            towny.publicspawntp: true
             towny.cheat.bypass: true
     towny.cheat.bypass:
         description: Disables the anti cheat code for players with this node.
@@ -73,7 +72,7 @@ permissions:
         description: Grants all Spawn travel nodes
         default: op
         children:
-            towny.tow.spawn.town: true
+            towny.town.spawn.town: true
             towny.town.spawn.nation: true
             towny.town.spawn.ally: true
             towny.town.spawn.public: true

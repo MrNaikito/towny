@@ -639,4 +639,7 @@ v0.76.1.14:
 	- Towns which have unclaimed their HomeBlock (or all TownBlocks) no longer corrupt the data files on a shutdown.
 	- Towns are now able to move worlds by moving their homeblock to that world.
 	- Fixed Account creation for towns and nations when using BOSEconomy.
-	- Towny now uses the correct currency type (coins/dollars) as defined in yoru Eco plugin.
+	- Towny now uses the correct currency type (coins/dollars) as defined in your Eco plugin.
+v0.76.1.15:
+	- Added '/town set tag clear' and '/nation set tag clear' to reset tags.
+	- Titles and surnames are now reset if the player is not in a nation.
