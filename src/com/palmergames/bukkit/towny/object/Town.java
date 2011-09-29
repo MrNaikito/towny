@@ -259,6 +259,10 @@ public class Town extends TownBlockOwner implements Walled, ResidentList {
         this.bonusBlocks = bonusBlocks;
     }
 
+    public int getTotalBlocks() {
+    	return TownySettings.getMaxTownBlocks(this);
+    }
+    
     public int getBonusBlocks() {
         return bonusBlocks;
     }

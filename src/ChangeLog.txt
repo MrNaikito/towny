@@ -647,3 +647,6 @@ v0.76.1.16:
 	- Added '/plot clear' for mayors.
 	  If a plot is owned by the town (not a resident) the mayor can stand in the plot and type this command to remove all block types as specified in mayor_plotblock_delete.
 	  This setting is per world so transfers to the world data files at startup.
+v0.76.1.17:
+	- Added upkeep charging based upon the number of town plots (town_plotbased_upkeep) - thanks to phex
+	- Slight reorgnise of TownyUniverse (if you hook towny be sure your functions have not moved).

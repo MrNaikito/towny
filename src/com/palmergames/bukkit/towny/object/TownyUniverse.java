@@ -51,17 +51,14 @@ import com.palmergames.bukkit.towny.EmptyNationException;
 import com.palmergames.bukkit.towny.EmptyTownException;
 import com.palmergames.bukkit.towny.EconomyException;
 import com.palmergames.bukkit.towny.NotRegisteredException;
-import com.palmergames.bukkit.towny.PlayerCache;
 import com.palmergames.bukkit.towny.Towny;
 import com.palmergames.bukkit.towny.TownyException;
 import com.palmergames.bukkit.towny.TownyFormatter;
 import com.palmergames.bukkit.towny.TownySettings;
 import com.palmergames.bukkit.towny.TownyUtil;
-import com.palmergames.bukkit.towny.PlayerCache.TownBlockStatus;
 import com.palmergames.bukkit.towny.db.TownyDataSource;
 import com.palmergames.bukkit.towny.db.TownyFlatFileSource;
 import com.palmergames.bukkit.towny.db.TownyHModFlatFileSource;
-import com.palmergames.bukkit.towny.object.TownyPermission.ActionType;
 import com.palmergames.bukkit.towny.tasks.DailyTimerTask;
 import com.palmergames.bukkit.towny.tasks.HealthRegenTimerTask;
 import com.palmergames.bukkit.towny.tasks.MobRemovalTimerTask;
@@ -89,6 +86,7 @@ public class TownyUniverse extends TownyObject {
 
     // private List<Election> elections;
     private static TownyDataSource dataSource;
+    private static CachePermissions cachePermissions = new CachePermissions();
     private int townyRepeatingTask = -1;
     private int dailyTask = -1;
     private int mobRemoveTask = -1;
@@ -749,78 +747,6 @@ public class TownyUniverse extends TownyObject {
                         return null;
                 }     
         }
-        
-        /** getCachePermission
-         * 
-         * returns player cached permission for
-         * BUILD, DESTROY, SWITCH or ITEM_USE
-         * 
-         * @param player
-         * @param location
-         * @param action
-         * @return
-         */
-        public boolean getCachePermission(Player player, Location location, ActionType action ) {
-        	
-        	WorldCoord worldCoord;
-        	
-        	try {
-				worldCoord = new WorldCoord(TownyUniverse.getWorld(player.getWorld().getName()), Coord.parseCoord(location));
-				PlayerCache cache = plugin.getCache(player);
-				cache.updateCoord(worldCoord);
-				
-				plugin.sendDebugMsg("Cache permissions for " + action.toString() + " : " + cache.getCachePermission(action));
-				return cache.getCachePermission(action); // Throws NullPointerException if the cache is empty
-				
-			} catch (NotRegisteredException e) {
-				// World not known
-				e.printStackTrace();
-			} catch (NullPointerException e) {
-				// New or old cache permission was null, update it
-				
-				try {
-					worldCoord = new WorldCoord(TownyUniverse.getWorld(player.getWorld().getName()), Coord.parseCoord(location));
-					
-					TownBlockStatus status = plugin.cacheStatus(player, worldCoord, plugin.getStatusCache(player, worldCoord));
-					//plugin.cacheBuild(player, worldCoord, plugin.getPermission(player, status, worldCoord, action));
-					triggerCacheCreate(player, location, worldCoord, status, action);
-					
-					PlayerCache cache = plugin.getCache(player);
-					cache.updateCoord(worldCoord);
-					
-					plugin.sendDebugMsg("New Cache permissions for " + action.toString() + " : " + cache.getCachePermission(action));
-					return cache.getCachePermission(action);
-					
-				} catch (NotRegisteredException e1) {
-					// Will never get here.
-				}
-				
-			}
-			return false;
-    	}
-        
-        private void triggerCacheCreate(Player player, Location location, WorldCoord worldCoord, TownBlockStatus status, ActionType action) {
-    		
-    		switch(action){
-    		
-    		case BUILD: // BUILD
-    			plugin.cacheBuild(player, worldCoord, plugin.getPermission(player, status, worldCoord, action));
-    			return;
-    		case DESTROY: // DESTROY
-    			plugin.cacheDestroy(player, worldCoord, plugin.getPermission(player, status, worldCoord, action));		
-    			return;
-    		case SWITCH: // SWITCH
-    			plugin.cacheSwitch(player, worldCoord, plugin.getPermission(player, status, worldCoord, action));			
-    			return;
-    		case ITEM_USE: // ITEM_USE
-    			plugin.cacheItemUse(player, worldCoord, plugin.getPermission(player, status, worldCoord, action));
-    			return;
-    		default:
-    			//for future expansion of permissions
-    			
-    		}
-    		
-    	}
 
         public List<Resident> getResidents() {
                 return new ArrayList<Resident>(residents.values());
@@ -1107,6 +1033,10 @@ public class TownyUniverse extends TownyObject {
         public static TownyDataSource getDataSource() {
                 return dataSource;
         }
+	
+	    public static CachePermissions getCachePermissions() {
+	        return cachePermissions;
+	    }
 
         public boolean isWarTime() {
                 return warEvent != null ? warEvent.isWarTime() : false;

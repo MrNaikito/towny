@@ -96,7 +96,7 @@ public class TownyBlockListener extends BlockListener {
 			worldCoord = new WorldCoord(TownyUniverse.getWorld(block.getWorld().getName()), Coord.parseCoord(block));
 			
 			//Get build permissions (updates if none exist)
-			boolean bDestroy = plugin.getTownyUniverse().getCachePermission(player, block.getLocation(), TownyPermission.ActionType.DESTROY);
+			boolean bDestroy = TownyUniverse.getCachePermissions().getCachePermission(player, block.getLocation(), TownyPermission.ActionType.DESTROY);
 			
 			PlayerCache cache = plugin.getCache(player);
 			TownBlockStatus status = cache.getStatus();
@@ -149,7 +149,7 @@ public class TownyBlockListener extends BlockListener {
 			worldCoord = new WorldCoord(TownyUniverse.getWorld(block.getWorld().getName()), Coord.parseCoord(block));
 			
 			//Get build permissions (updates if none exist)
-			boolean bBuild = plugin.getTownyUniverse().getCachePermission(player, block.getLocation(), TownyPermission.ActionType.BUILD);
+			boolean bBuild = TownyUniverse.getCachePermissions().getCachePermission(player, block.getLocation(), TownyPermission.ActionType.BUILD);
 			
 			PlayerCache cache = plugin.getCache(player);
 			TownBlockStatus status = cache.getStatus();

@@ -250,7 +250,7 @@ public class TownyEntityListener extends EntityListener {
                     }
                     
                     //Get destroy permissions (updates if none exist)
-        			boolean bDestroy = plugin.getTownyUniverse().getCachePermission(player, painting.getLocation(), TownyPermission.ActionType.DESTROY);
+        			boolean bDestroy = TownyUniverse.getCachePermissions().getCachePermission(player, painting.getLocation(), TownyPermission.ActionType.DESTROY);
         			
         			PlayerCache cache = plugin.getCache(player);
                     cache.updateCoord(worldCoord);
@@ -290,7 +290,7 @@ public class TownyEntityListener extends EntityListener {
             }
                 
             //Get build permissions (updates if none exist)
-            boolean bBuild = plugin.getTownyUniverse().getCachePermission(player, painting.getLocation(), TownyPermission.ActionType.BUILD);
+            boolean bBuild = TownyUniverse.getCachePermissions().getCachePermission(player, painting.getLocation(), TownyPermission.ActionType.BUILD);
     			
             PlayerCache cache = plugin.getCache(player);
             TownBlockStatus status = cache.getStatus();
