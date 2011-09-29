@@ -832,6 +832,26 @@ public class TownyFlatFileSource extends TownyDataSource {
 						world.setPlotManagementDeleteIds(nums);
 					} catch (Exception e) {
 					}
+				
+				line = kvFile.get("usingPlotManagementMayorDelete");
+				if (line != null)
+					try {
+						world.setUsingPlotManagementMayorDelete(Boolean.parseBoolean(line));
+					} catch (Exception e) {
+					}
+				line = kvFile.get("plotManagementMayorDelete");
+				if (line != null)
+					try {
+						List<String> materials = new ArrayList<String>();
+						for (String s: line.split(","))
+							try {
+								materials.add(s.toUpperCase().trim());
+							} catch (NumberFormatException e) {
+							}
+						world.setPlotManagementMayorDelete(materials);
+					} catch (Exception e) {
+					}
+				
 				line = kvFile.get("usingPlotManagementRevert");
 				if (line != null)
 					try {
@@ -1255,6 +1275,12 @@ public class TownyFlatFileSource extends TownyDataSource {
 			// Plot Management Delete Ids
 			if (world.getPlotManagementDeleteIds() != null)
 				fout.write("plotManagementDeleteIds=" + StringMgmt.join(world.getPlotManagementDeleteIds(), ",") + newLine);
+			
+			// Using PlotManagement Mayor Delete
+			fout.write("usingPlotManagementMayorDelete=" + Boolean.toString(world.isUsingPlotManagementMayorDelete()) + newLine);
+			// Plot Management Mayor Delete
+			if (world.getPlotManagementMayorDelete() != null)
+				fout.write("plotManagementMayorDelete=" + StringMgmt.join(world.getPlotManagementMayorDelete(), ",") + newLine);
 			
 			// Using PlotManagement Revert
 			fout.write("usingPlotManagementRevert=" + Boolean.toString(world.isUsingPlotManagementRevert()) + newLine);

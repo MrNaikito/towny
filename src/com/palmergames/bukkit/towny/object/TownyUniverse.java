@@ -1488,6 +1488,40 @@ public class TownyUniverse extends TownyObject {
         	
         }
         
+		/**
+		 * Deletes all of a specified block type from a TownBlock
+		 * 
+		 * @param townBlock
+		 * @param material
+		 */
+		public void deleteTownBlockMaterial(TownBlock townBlock, int material) {
+        	
+        	Block block = null;
+        	int plotSize = TownySettings.getTownBlockSize();
+        	
+        	plugin.sendDebugMsg("Processing deleteTownBlockId");
+        	
+        	try {
+				World world = plugin.getServerWorld(townBlock.getWorld().getName());
+				int height = world.getMaxHeight()-1;
+				int worldx = townBlock.getX()*plotSize, worldz = townBlock.getZ()*plotSize;
+				
+				for (int z = 0; z < plotSize; z++)
+	        		for (int x = 0; x < plotSize; x++)
+	        			for (int y = height; y > 0; y--) { //Check from bottom up else minecraft won't remove doors
+	        				block = world.getBlockAt(worldx + x, y, worldz + z);
+	        				if (block.getTypeId() == material) {
+	        					block.setType(Material.AIR);
+	        				}	
+	        			}
+			} catch (NotRegisteredException e1) {
+				// Failed to get world.
+				e1.printStackTrace();
+			}
+        	
+        }
+		
+		
         public void removeTownBlocks(Town town) {
                 for (TownBlock townBlock : new ArrayList<TownBlock>(town.getTownBlocks()))
                         removeTownBlock(townBlock);

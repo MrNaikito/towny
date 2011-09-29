@@ -643,3 +643,7 @@ v0.76.1.14:
 v0.76.1.15:
 	- Added '/town set tag clear' and '/nation set tag clear' to reset tags.
 	- Titles and surnames are now reset if the player is not in a nation.
+v0.76.1.16:
+	- Added '/plot clear' for mayors.
+	  If a plot is owned by the town (not a resident) the mayor can stand in the plot and type this command to remove all block types as specified in mayor_plotblock_delete.
+	  This setting is per world so transfers to the world data files at startup.

@@ -13,12 +13,15 @@ import com.palmergames.bukkit.towny.TownySettings;
 public class TownyWorld extends TownyObject {
 	private List<Town> towns = new ArrayList<Town>();
 	private boolean isClaimable = true, isPVP, isForcePVP, isForceExpl, isForceFire, isForceTownMobs, hasWorldMobs, isDisablePlayerTrample,
-			isDisableCreatureTrample, isUsingTowny = true, isUsingPlotManagementDelete = true,
+			isDisableCreatureTrample, isUsingTowny = true,
+			isUsingPlotManagementDelete = true,
+			isUsingPlotManagementMayorDelete = true,
 			isUsingPlotManagementRevert = true,
 			isUsingPlotManagementWildRevert = true;
 	private Long plotManagementRevertSpeed, plotManagementWildRevertDelay;
 	private List<Integer> unclaimedZoneIgnoreIds = null;
 	private List<Integer> plotManagementDeleteIds = null;
+	private List<String> plotManagementMayorDelete = null;
 	private List<Integer> plotManagementIgnoreIds = null;
 	private Boolean unclaimedZoneBuild = null, unclaimedZoneDestroy = null, unclaimedZoneSwitch = null, unclaimedZoneItemUse = null;
 	private String unclaimedZoneName = null;
@@ -254,6 +257,14 @@ public class TownyWorld extends TownyObject {
 		return isUsingPlotManagementDelete;
 	}
 	
+	public void setUsingPlotManagementMayorDelete(boolean using) {
+		isUsingPlotManagementMayorDelete = using;
+	}
+	
+	public boolean isUsingPlotManagementMayorDelete( ) {
+		return isUsingPlotManagementMayorDelete;
+	}
+	
 	public void setUsingPlotManagementRevert(boolean using) {
 		isUsingPlotManagementRevert = using;
 	}
@@ -275,6 +286,21 @@ public class TownyWorld extends TownyObject {
 
 	public void setPlotManagementDeleteIds(List<Integer> plotManagementDeleteIds) {
 			this.plotManagementDeleteIds = plotManagementDeleteIds;
+	}
+	
+	public List<String> getPlotManagementMayorDelete() {
+		if (plotManagementMayorDelete == null)
+			return TownySettings.getPlotManagementMayorDelete();
+		else
+			return plotManagementMayorDelete;
+	}
+	
+	public boolean isPlotManagementMayorDelete(String material) {
+		return getPlotManagementMayorDelete().contains(material.toUpperCase());
+	}
+
+	public void setPlotManagementMayorDelete(List<String> plotManagementMayorDelete) {
+			this.plotManagementMayorDelete = plotManagementMayorDelete;
 	}
 	
 	public List<Integer> getPlotManagementIgnoreIds() {
@@ -460,4 +486,5 @@ public class TownyWorld extends TownyObject {
     public boolean isWarZone(Coord coord) {
     	return warZones.contains(coord);
     }
+
 }
