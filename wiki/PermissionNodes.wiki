@@ -15,6 +15,11 @@ Add a description of which nodes and when towny uses its nodes.
     * towny.town.plot : User is able to use the /plot commands, to buy or sell land personally.
     * towny.town.rename : player can rename their town
     * towny.town.resident : User is able to join a town.
+    * towny.town.spawn.{{{*}}} : Grants all Spawn travel nodes
+      * towny.town.spawn.town : Ability to spawn to your own town.
+      * towny.town.spawn.nation : Ability to spawn to other towns in your nation.
+      * towny.town.spawn.ally : Ability to spawn to towns in nations allied with yours.
+      * towny.town.spawn.public : Ability to spawn to unaffilated public towns.    
     * towny.town.toggle.{{{*}}} : User has access to all town toggle commands (if a mayor or assistant).
       * towny.town.toggle.pvp : If a mayor or assistant, the user is able to toggle pvp on/off in their town.
       * towny.town.toggle.public : If a mayor or assistant....
@@ -42,10 +47,7 @@ Add a description of which nodes and when towny uses its nodes.
       * towny.wild.block.{block id}.destroy
       * towny.wild.block.{block id}.switch
       * towny.wild.block.{block id}.itemuse
-
-  * towny.spawntp :Use /town spawn (requires allow_town_spawn: true set in the config.)
-  * towny.publicspawntp : Use "/town spawn {town}" (teleport to other towns) (requires allow_town_spawn_travel: true in set in the config.)
-
+ 
   * towny.cheat.bypass : User is allowed to fly, use WorldEdit's compass.
   
 = Info Nodes =
