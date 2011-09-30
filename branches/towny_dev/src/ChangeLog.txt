@@ -658,3 +658,5 @@ v0.76.1.18:
 	  new_day_time should be set to less than the day_interval, but it will default to the same, if it's incorrectly set.
 v0.76.1.19:
 	 - Fixed an error in fetching the resident on new cache creation (caused by code reorganising).
+v0.76.2.0:
+	- Release
