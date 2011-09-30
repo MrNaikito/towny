@@ -77,7 +77,7 @@ This is done with two sections in the [DefaultConfig config.yml]
         numResidents: 2 
     }}}
     * These are read as follows:
-      * upkeepModifier: 1.0 - Use a higher multiplier to increase the upkeep as towns get more residents.
+      * upkeepModifier: 1.0 - Use a higher multiplier to increase the upkeep as towns get more residents  (unless you use {{{town_plotbased_upkeep:true}}} in which case it is based off of plot-count rather than resident-count.)
       * namePostfix: ' (Settlement)' - This is added to the end of the town name.
       * mayorPrefix: 'Hermit ' - This is added to the front of the mayor's name.
       * mayorPostfix: '' - This is added to the end of the mayor's name.
@@ -109,7 +109,7 @@ This is done with two sections in the [DefaultConfig config.yml]
     }}}
     *These are read as follows:
       * capitolPostfix: '' - This is added to the end of the capital city of the nation.
-      * upkeepModifier: 1.0 - Use a higher multiplier to increase the upkeep as nations get more residents.
+      * upkeepModifier: 1.0 - Use a higher multiplier to increase the upkeep as nations get more residents (unless you use {{{town_plotbased_upkeep:true}}} in which case it is based off of plot-count rather than resident-count.)
       * namePostfix: ' (Nation)' - This is added to the end of the nation name.
       * kingPrefix: 'Count ' - This is added to the front of the nation-leader.
       * namePrefix: 'Federation of ' - This is added to the front of the nation name.
@@ -199,6 +199,9 @@ Block types to not restore are configured in block_ignore in the worlds txt file
 
 Another option aside from the revert_on_unclaim is the block_delete section. When block_delete is enabled in the config and when a townblock is unclaimed (by a player or through upkeep) the blockIDs listed in the config will be removed from the townblock.
 By default the list includes redstone, redstone accessories, doors, signs and more. This can be useful for delete all signs within a townblock, ensuring any chests locked with Lockette or Deadbolt signs are unlocked.
+
+Still another option available only to Town Mayors on public town land: /plot clear. This command is meant to be used after a plot was personally owned by a resident, who either moved to another plot or left town.
+The command will remove all blocks matching the mayor_plotblock_delete list in the config. By default this list includes only signs, useful for mayors to remove sign-protection on doors, chests, furnaces, dispensers and trapdoors given via Lockette or Deadbolt.
 
 Last but not least is a simple wild_revert_on_mob_explosion option in the config.
 This option will regenerate the ground affected by creeper explosions in the wilderness. 
@@ -329,7 +332,8 @@ The time of a 'Towny Day' can be set in [DefaultConfig config.yml] at {{{day_int
       * The server's daily charge on each town. If a town fails to pay this upkeep, all of it's residents are kicked and the town is removed.
       
   Upkeep can be modified in the [DefaultConfig config.yml] to affect different-sized towns differently.
-  
+  There are two ways to calculate the upkeep using the upkeep modifier found in the townLevel and nationLevel lines. By default the townLevel and nationLevel lines use the resident-count to determine upkeep via the upkeep modifier. The other option is to base it off plot-count rather than resident count. If you would like to set it based on plot-count set {{{town_plotbased_upkeep:true}}} in your config.yml.
+    
   More information on the townLevel line and how to configure it is [HowTownyWorks#Configuring_Mayor_and_King_Titles,_Town_and_Nation_Names here.]
 
 == Town and Nation Banks ==
