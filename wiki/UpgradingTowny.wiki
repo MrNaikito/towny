@@ -20,7 +20,23 @@ Here are instructions for upgrading to Towny 0.76.2.0:
       * If you are using Groupmanager set {{{using_permissions: true}}}
       * NOTE: The .csv files are no longer being used. Instead the entries in config.yml are used.
       * Save config.yml and optionally, discard config.properties.
-    * Upgrade from post-0.72 to a new version (Extra info for dev builds [UsingDevBuilds here.])
+      
+    * Upgrade from pre-0.76.2.0
+      * Start your server and let the config.yml + english.yml update themselves
+      * Stop your server and configure any new flags in config.yml, your old settings will remain but any new settings will be added and set to their defaults.
+      * Economy Settings: 
+        * Using iConomy 5.01:
+          * In the Plugin Interfacing section of the config.yml set:
+            * using_register: false
+            * using_iconomy: true
+        * Using iConomy 6, BOSEconomy or EssentialsEco:
+          * Download [http://mirror.nexua.org/Register/latest/edge/Register.jar Register.jar] and place into your plugins folder.
+          * In the Plugin Interfacing section of the config.yml set:
+            * using_register: true
+            * using_iconomy: false
+      * Save config.yml.    
+
+    * Upgrade from post-0.76.2.0 to a new version (Extra info for dev builds [UsingDevBuilds here.])
       * Start your server and let the config.yml + english.yml update themselves
       * Stop your server and configure any new flags in config.yml, your old settings will remain but any new settings will be added and set to their defaults.
       * Save config.yml.    
