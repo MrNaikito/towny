@@ -8,8 +8,8 @@ Here are instructions for upgrading to Towny 0.76.2.0:
 = Upgrade Instructions =
 
   * Stop your server completely.
-  * Download Towny.jar and save/copy it to your Plugins folder. (Optionally, Download Questioner as well.)
   * *Backup your entire server!*
+  * Download Towny.jar and save/copy it to your Plugins folder. (Optionally, Download Questioner as well.)
   * If you are upgrading from a Dev Build read [UsingDevBuilds here] for possible extra instructions. 
   * Start your server.
   * Stop your server.
