@@ -14,6 +14,7 @@ Here are instructions for upgrading to Towny 0.76.2.0:
   * Start your server.
   * Stop your server.
   * Navigate to /Plugins/Towny/Settings/
+
     * Upgrade from pre-0.72
       * Open *config.properties* (unused now) and *config.yml*
       * Carefully configure config.yml to the settings you used in config.properties, [http://code.google.com/a/eclipselabs.org/p/towny/source/browse/trunk/Towny/src/plugin.yml using this as a guide.]
