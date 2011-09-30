@@ -1,7 +1,7 @@
 [B]Plugin: [/B]Towny
 [RIGHT]                                                     [URL='http://webchat.esper.net/?channels=towny']IRC: Join channel #Towny[/URL][/RIGHT]
 [RIGHT][URL='https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=8WWJ76KLFKM4G'][IMG]https://www.paypalobjects.com/en_GB/i/btn/btn_donate_LG.gif[/IMG][/URL][/RIGHT]
- [B]Version:[/B] v0.76.1.0
+ [B]Version:[/B] v0.76.2.0
 
  Taking Shades Towny a step farther.
 
@@ -24,7 +24,7 @@
 [*][URL='http://forums.bukkit.org/threads/1080.40/']iConomy 6[/URL] *
 [*][URL='http://forums.bukkit.org/threads/1185.15312/']EssentialsEco[/URL] *
 [*][URL='http://forums.bukkit.org/threads/19025']BOSEconomy[/URL] *
-[*] * Requires Register.jar 1.4+ in your plugins folder. [URL='http://mirror.nexua.org/Register/latest/edge/Register.jar']Download Register.jar[/URL]
+[*] * Requires Register.jar 1.5+ in your plugins folder. [URL='http://mirror.nexua.org/Register/latest/stable/Register.jar']Download Register.jar[/URL]
 [/LIST]
 [B]Plugins That Support Towny[/B]
 
@@ -32,13 +32,14 @@
 [*][URL='http://forums.bukkit.org/threads/4336']Lockette 1.4.3+[/URL]
 [*][URL='http://forums.bukkit.org/threads/35103']Deadbolt 1.2+[/URL]
 [*][URL='http://forums.bukkit.org/threads/4150']ChestShop 3.2+[/URL]
+[*][URL='http://forums.bukkit.org/threads/29085']BarterSigns 1.2.1+[/URL]
 [/LIST]
 [B]Download Towny[/B]
 
 [LIST]
-[*][B]Release version:[/B] [URL='http://towny.eclipselabs.org.codespot.com/files/Towny.jar']Download Jar[/URL] | [URL='http://code.google.com/a/eclipselabs.org/p/towny/']Source[/URL] (Get the dev as it's more stable with bug fixes)
+[*][B]Release version:[/B] [URL='http://towny.eclipselabs.org.codespot.com/files/Towny.jar']Download Jar[/URL] | [URL='http://code.google.com/a/eclipselabs.org/p/towny/']Source[/URL]
 [*][B]Dev Version:[/B] [URL='http://code.google.com/a/eclipselabs.org/p/towny/downloads/detail?name=Towny_Dev.html&can=2&q=']Download Jar[/URL] (Majorly Different - Visit IRC channel before using.)
-[*]if using register REQUIRES Register 1.4 version
+[*]if using register REQUIRES Register 1.5+ version
 [/LIST]
 [B]Installing and Upgrading[/B]
 
@@ -64,102 +65,45 @@ Read this wikipage to learn how Towny works, this page is a must-read for every 
 Make a suggestion - [URL='http://code.google.com/a/eclipselabs.org/p/towny/issues/entry?template=Suggestion']Link[/URL]
 Report an issue - [URL='http://code.google.com/a/eclipselabs.org/p/towny/issues/entry?template=Defect%20report%20from%20user']Link[/URL]
 
-[spoiler=Whats new][B]New in 0.76.1.0[/B]
+[spoiler=Whats new][B]New in 0.76.2.0[/B]
 [LIST]
 [*]New commands:
 [LIST]
-[*]/towny time - Show how long until taxes and upkeep are collected.
-[*]/nation toggle neutral - Replaces /nation set neutral {on/off}
-[*]All + commands within the /town command have been combined with the non-plus commands. Ex: /town kick+ playername (for kicking offline players from town,) is now /town kick playername.
+[*]/plot clear - For mayors. If a plot is owned by the town (not a resident) the mayor can stand in the plot and type this command to remove all block types as specified in mayor_plotblock_delete. This setting is per world so transfers to the world data files at startup.
+[*]/nation set tag clear - Removes a tag for a nation.
+[*]/town set tag clear - Removes a tag for a town.
 [/LIST]
 [/LIST]
 [LIST]
 [*]New Permission Nodes:
 [LIST]
-[*]towny.town.delete : player can delete their town
-[*]towny.town.rename : player can rename their town
-[*]towny.town.toggle.{{{*}}} : User has access to all town toggle commands (if a mayor or assistant).
-[*]towny.town.toggle.pvp : If a mayor or assistant, the user is able to toggle pvp on/off in their town.
-[*]towny.town.toggle.public : If a mayor or assistant....
-[*]towny.town.toggle.explosions : If a mayor or assistant....
-[*]towny.town.toggle.fire : If a mayor or assistant....
-[*]towny.town.toggle.mobs :  If a mayor or assistant....
-[*]towny.nation.delete : player can delete their nation
-[*]towny.nation.rename : player can rename their nation
-[*]towny.nation.grant-titles : King can set nation members titles and surnames '/nation set [title/surname]'.
-[*]towny.nation.{{{*}}} : Grants all Nation permission nodes.
+[*]towny.town.spawn.{{{*}}} : Grants all Spawn travel nodes
+[*]towny.town.spawn.town : Ability to spawn to your own town.
+[*]towny.town.spawn.nation : Ability to spawn to other towns in your nation.
+[*]towny.town.spawn.ally : Ability to spawn to towns in nations allied with yours.
+[*]towny.town.spawn.public : Ability to spawn to unaffilated public towns.
 [/LIST]
 [/LIST]
 [LIST]
-[*]Support for iConomy 6, BOSEconomy, EssentialsEco, Register.jar added.
+[*]Added:
 [LIST]
-[*]Using iConomy6, EssentialsEco or BOSEconomy requires register.jar in your plugins folder.
+[*]Added upkeep charging based upon the number of town plots (town_plotbased_upkeep) rather than resident count. - thanks to phex
+[*]Changed the daily timer to a set time each day. Configure new_day_time to set when you want taxes to be collected. eg: 15h30m would attempt to collect taxes at 3:30pm.
 [/LIST]
 [/LIST]
 [LIST]
 [*]Bug Fixes!
 [LIST]
-[*]Fixed timers in the config.
-[*]Fixed and error with /town claim #|auto
-[*]Explosions in the nether caused by using beds are now blocked if a town is there and set to block explosions. However, the fires it generates can not be blocked.
-[*]Fixed when players are added to the default town they are unable to use '/town leave'.
-[*]Town data files should now be correctly deleted (moved to the deleted folder) upon removal.
-[*]Fixed Town and Nation tags size limit.
-[*]Fixed default Bukkit Permissions to deny instead of allow.
-[*]Fixed last timer for deleting old residents.
-[*]Fixed '/xxx claim auto' commands for town and resident.
-[*]Fixed '/plot unclaim xx' command. Now errors if it's an invalid entry.
-[*]No more sneak jump to avoid the cheat protection.
-[*]Fixed resetting tags using '/town set tag '.
-[*]Fixed overwriting custom language files.
-[*]Fixed default switch and item use permissions for ally and outsider.
-[*]Finally fixed the elusive error when getLastLocation() throws a NullPointerException.
-[*]Fixed an infinite loop when a player uses a fly hack over void.
+[*]Fixed economy errors when using register and iCo6.
+[*]Fixed Wild permissions.
+[*]Fixed all issues found in 0.76.1.0 release
 [/LIST]
 [/LIST]
 [LIST]
-[*]Added!
-[LIST]
-[*]Added nation bank caps and a toggle to enable/disable withdrawls from nation banks (prevent players  hiding money in nationbanks on PVP worlds)
-[*](Online) to title Resident Status
-[*]Neutral in Nation status.
-[*]Plot Regeneration
-  
- 
-
-[INDENT=1]When a town plot is unclaimed (by a player or through upkeep) it will slowly begin to revert to a pre town state.
-   Blocks will slowly change back to whatever blocks we're present at the moment the town block was claimed.
-   You can configure certain block types you don't want restored to prevent players exploiting regen for diamond ores.
-   Block types to not restore are configured in block_ignore in the worlds txt file data/worlds/worldname.txt
-   Does not affect plots claimed pre-0.76.1[/INDENT]
-[*] Added a block deletion function to remove specified blocks when a town block becomes unclaimed (By a player or through upkeep.)
-  
- 
-
-[INDENT=1]This is useful for removing Lockette/Deadbolt signs on doors and chests.
-   Default list includes doors, signs, torchs, redstone + redstone accessories and is set in the config.yml
-   Block types to remove are configured in unclaim_delete in the worlds txt file data/worlds/worldname.txt[/INDENT]
-[*] Added a max_tax_amount and max_tax_percent to the config for towns. Defaults to 1000 and 25% respetively.
-[*] Titles and surnames can now contain spaces.
-[*] Added a new setting 'regen_delay'.
-  
- 
-
-[INDENT=1]This setting is in seconds. It will allow players to break protected blocks in the wild and towns, even if they dont have permission.
-   Blocks in the switchID list cannot be destroyed.
-   The blocks will drop no loot and will regenerate after the specified time.
-   Defaults to 0 (disabled). This shouldn't be used, will probably be worked into war updates.[/INDENT]
-[*] Added a broadcast if a Nation is disbanded due to a town deletion.
-[*] Added a new Default new world setting (wild_revert_on_mob_explosion). When enabled this will replace blocks destroyed by creature explosions in the wild.
-[*] Towny will now clean up it's backup folder. Default time to keep backups is 90 days (configurable in config).
-[*] Players can no longer attack another players tamed wolf if in a non PVP area (can attack own).
+[*]Lots more bugfixes! [URL='http://code.google.com/a/eclipselabs.org/p/towny/source/browse/trunk/Towny/src/ChangeLog.txt#582']Click here for a full changelog.[/URL]
 [/LIST]
-[/LIST]
-[LIST]
-[*]So much MORE! [URL='http://code.google.com/a/eclipselabs.org/p/towny/source/browse/trunk/Towny/src/ChangeLog.txt#510']Click here for a full changelog.[/URL]
-[/LIST]
+-Towny Advanced 0.76.1 received 1758 downloads.
 -Towny Advanced 0.76.0 received 2784 downloads.
-
 -Towny Advanced 0.75.1 received 1644 downloads.
 -Towny Advanced 0.75.0 received  126 downloads.
 -Towny Advanced 0.74.0 received 3012 downloads.
@@ -289,7 +233,69 @@ v0.76.1.0:
       TownyUniverse.getTownBlock(location)
       TownyUniverse.getCachePermission(player,location,action)
     - Towny will now check the Craftbukkit version and disable itself if it's too old.
-
+v0.76.2.0:
+    - Fixed economy errors when using register and iCo6.
+    - Fixed an error caused by players setting a town or nation bank cap as a double (now accepts 0.0).
+    - Added sanity checking on values pulled from the config.yml.
+    - Updated a few nation commands to report the command format insted of throwing errors.
+    - Tidied Startup log data
+    - Fixed Wild permissions.
+    - Refactored '/town spawn' with new config options for when the target town is part of your nation,
+      or an allied nation. Each can have their own cost and has their own permission.
+    - Town spawn permissions have been changed to:
+    
+      - towny.town.spawn.* : Grants all Spawn travel nodes
+      - towny.town.spawn.town : Ability to spawn to your own town.
+      - towny.town.spawn.nation : Ability to spawn to other towns in your nation.
+      - towny.town.spawn.ally : Ability to spawn to towns in nations allied with yours.
+      - towny.town.spawn.public : Ability to spawn to unaffilated public towns.
+    - Added missing permission nodes to support...
+      - towny.wild.*
+    - Fixed a bug preventing players placing fences if they are admins.
+	- Adjusted wilderness permissions
+	  Towny will first check for permisison nodes.
+	  If no permissions are found the wild_ignore list is checked.
+	  If none of the above give permissions the worlds Wilderness zone settings are checked.
+	- Enabled use of the following commands for admins while still using permissions.
+	  '/townyworld set usedefault'
+	  '/townyworld set wildperm'
+	  '/townyworld set wildperm [build,destroy,switch,ItemUse]'
+	  '/townyworld set wildignore xx,xx,xx'
+	  '/townyworld set wildname Wildy'
+	- Added a fix for tags in data files crashing towny on load.
+	- Fixed town spawns to correctly follow config and permissions settings.
+	- Fixed NullPointerException generated by onPlayerInteractEvent.
+	- Fixed message when setting Town tags to not say nation.
+	- Fixed '/nation deposit' error message.
+	- Added handling of World initialization to fix a bug when creating new worlds with Multiverse.
+	- Permit residents not in town to use public spawns again.
+	- Corrected permissions node checking to match those in the config for spawn travel.
+	- Removed a lot of debug spam from permission checking.
+	- Fix for a possible error on shutdown with active warzones.
+	- Fix so players can only attack other towns IF the correct number of players are online on BOTH sides.
+	- If your town/nation is attacked with warflags the attackers will automatically be set as enemies (allows you to attack back).
+	- Fixed renaming a town when it's also a capitol failing to update the nation.
+	- Removed dependency on Bukkit to report the world list at startup (it's not always complete).
+	- Fixed a startup error on fresh installs.
+	- Towns which have unclaimed their HomeBlock (or all TownBlocks) no longer corrupt the data files on a shutdown.
+	- Towns are now able to move worlds by moving their homeblock to that world.
+	- Fixed Account creation for towns and nations when using BOSEconomy.
+	- Towny now uses the correct currency type (coins/dollars) as defined in your Eco plugin.
+	- Added '/town set tag clear' and '/nation set tag clear' to reset tags.
+	- Titles and surnames are now reset if the player is not in a nation.
+	- Added '/plot clear' for mayors.
+	  If a plot is owned by the town (not a resident) the mayor can stand in the plot and type this command to remove all block types as specified in mayor_plotblock_delete.
+	  This setting is per world so transfers to the world data files at startup.
+	- Added upkeep charging based upon the number of town plots (town_plotbased_upkeep) - thanks to phex
+	- Slight reorgnise of TownyUniverse (if you hook towny be sure your functions have not moved).
+	- Changed the daily timer to a set time each day. Configure new_day_time to set when you want taxes to be collected.
+	  eg. 15h30m would attempt to collect taxes at 3:30pm.
+	- Returned the setting day_interval so you can configure the length of a day.
+	  If you set a day length of 12 hours (12h), taxes will be collected on a 12 hourly cycle, instead of a 24 hour one.
+	  new_day_time should be set to less than the day_interval, but it will default to the same, if it's incorrectly set.
+        - Fixed an error in fetching the resident on new cache creation (caused by code reorganising).
+	 
+	 
     [URL='http://code.google.com/a/eclipselabs.org/p/towny/source/browse/trunk/Towny/src/ChangeLog.txt']Full Changelog[/URL]
     [/spoiler]
 
