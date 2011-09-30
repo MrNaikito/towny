@@ -51,7 +51,7 @@ protection:
     switch_ids: 25,54,61,62,64,69,70,71,72,77,96,84,93,94
  
     # The amount of time it takes for a protected block to regenerate.  Use zero for no delay.
-    regen_delay: 0s
+    regen_delay: 5s
  
  
 ############################################################
@@ -130,6 +130,8 @@ economy:
         # if a resident can't pay his town tax then he is kicked from the town.
         # if a town or nation fails to pay it's upkeep it is deleted.
         enabled: 'true'
+        # Uses total amount of owned plots to determine upkeep instead of the town level (Number of residents)
+        town_plotbased_upkeep: 'false'
         # Maximum tax amount allowed when using flat taxes
         max_tax_amount: '1000.0'
         # maximum tax percentage allowed when taxing by percentages
@@ -145,8 +147,12 @@ economy:
         # Cost to use /town spawn [town]
         # This is paid to the town you goto.
         price_town_public_spawn_travel: '10.0'
+        # Cost to use '/town spawn [town]' to another town in your nation.
+        price_town_nation_spawn_travel: '5.0'
         # Cost to use /town spawn
         price_town_spawn_travel: '0.0'
+        # Cost to use '/town spawn [town]' to another town in a nation that is allied with your nation.
+        price_town_ally_spawn_travel: '10.0'
  
     price_death_wartime: '200.0'
  
@@ -167,12 +173,12 @@ economy:
     banks:
         # Maximum amount of money allowed in town bank
         # Use 0 for no limit
-        town_bank_cap: '0'
+        town_bank_cap: '0.0'
         # Set to true to allow withdrawls from nation banks
         nation_allow_withdrawls: 'true'
         # Maximum amount of money allowed in nation bank
         # Use 0 for no limit
-        nation_bank_cap: '0'
+        nation_bank_cap: '0.0'
         # Set to true to allow withdrawls from town banks
         town_allow_withdrawls: 'true'
  
@@ -226,6 +232,11 @@ new_world_settings:
             # These block types will NOT be regenerated
             block_ignore: 21,50,52,56,63,68,89
  
+        mayor_plotblock_delete:
+            enabled: 'true'
+            # These items will be deleted upon a mayor using /plot clear
+            mayor_plot_delete: WALL_SIGN,SIGN_POST
+ 
     # force_town_monsters_on is a global flag and overrides any towns flag setting
     force_town_monsters_on: 'false'
     # Disable creatures trampling crops
@@ -245,6 +256,10 @@ new_world_settings:
 ############################################################
  
 global_town_settings:
+    # Allow regular residents to use /town spawn [town] to other towns in your nation.
+    allow_town_spawn_travel_nation: 'true'
+    # Allow regular residents to use /town spawn [town] to other towns in a nation allied with your nation.
+    allow_town_spawn_travel_ally: 'true'
  
     # Prevent players from using /town spawn while within unclaimed areas and/or enemy/neutral towns.
     # Allowed options: unclaimed,enemy,neutral
@@ -296,7 +311,7 @@ war:
         #This many people must be online in target nation in order to place a war flag in their domain.
         min_players_online_in_nation: '3'
         #If false, players won't be able to place war flags, effectively disabling warzones.
-        allow_attacks: 'true'
+        allow_attacks: 'false'
         beacon:
             draw: 'true'
             wireframe_block: glowstone
@@ -334,9 +349,13 @@ war:
 ############################################################
  
 plugin:
-    # The time taken between each "day". At the start of each day, taxes will be collected.
-    # Judged in seconds. Default is 24 hours.
-    day_interval: 1d
+    day_timer:
+        # The number of hours in each "day".
+        # You can configure for 10 hour days. Default is 24 hours.
+        day_interval: 1d
+        # The time each "day", when taxes will be collected.
+        # MUST be less than day_interval. Default is 12h (midday).
+        new_day_time: 12h
  
     interfacing:
         # Enable using_essentials if you are using cooldowns in essentials for teleports.
@@ -352,7 +371,7 @@ plugin:
         # See http://code.google.com/a/eclipselabs.org/p/towny/wiki/Questioner for more info.
         using_questioner: 'true'
         # Enable to retain iConomy 5 legacy support (overridden by the using_register setting).
-        using_iconomy: 'true'
+        using_iconomy: 'false'
  
     # Record all messages to the towny.log
     logging: 'true'
@@ -364,7 +383,7 @@ plugin:
     database:
         database_save: flatfile
         flatfile_backup: zip
-        backups_are_deteleted_after: 90d
+        backups_are_deteleted_after: 1d
         database_load: flatfile
         daily_backups: 'true'
  
@@ -377,9 +396,9 @@ version:
     # Minium required version of CraftBukkit.  Please do not edit.
     bukkit_version: '1185'
     # This is for showing the changelog on updates.  Please do not edit.
-    last_run_version: 0.76.1.0
+    last_run_version: 0.76.1.19
     # This is the current version of Towny.  Please do not edit.
-    version: 0.76.1.0
+    version: 0.76.1.19
  
 ############################################################
 # +------------------------------------------------------+ #
@@ -567,8 +586,11 @@ unclaimed:
 #        towny.wild.switch
 #        towny.wild.item_use
 #    towny.wild.block.[block id].* : User is able to edit [block id] in the wild.
-#    towny.spawntp :Use /town spawn
-#    towny.publicspawntp : Use ''/town spawn [town]'' (teleport to other towns)
+#    towny.town.spawn.*: Grants all Spawn travel nodes
+#        towny.town.spawn.town : Ability to spawn to your own town.
+#        towny.town.spawn.nation : Ability to spawn to other towns in your nation.
+#        towny.town.spawn.ally : Ability to spawn to towns in nations allied with yours.
+#        towny.town.spawn.public : Ability to spawn to unaffilated public towns.
 #
 # these will be moved to permissions nodes at a later date
 permissions:
@@ -639,8 +661,8 @@ filters_colour_chat:
  
     # The format below will specify the changes made to the player name when chatting.
     # keys are
-    # {nation} - Displays nation name in [ ] if a member of a nation.
-    # {town} - Displays town name in [ ] if a member of a town.
+    # {nation} - Displays nation name if a member of a nation.
+    # {town} - Displays town name if a member of a town.
     # {permprefix} - Permission group prefix
     # {townynameprefix} - Towny name prefix taken from the townLevel/nationLevels
     # {playername} - default player name
