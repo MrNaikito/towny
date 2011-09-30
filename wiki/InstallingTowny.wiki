@@ -16,34 +16,27 @@ Here are instructions for installing Towny for the first time.
     * Open *config.yml*
     * Carefully configure config.yml to your liking. Read the [http://code.google.com/a/eclipselabs.org/p/towny/source/browse/trunk/Towny/src/plugin.yml Default config.yml] wiki page.
     * Set townblock size, default 16x16 (Cannot be changed later!)
-    * Pay close attention to the Plugin Interfacing section, you'll enable Essentials, Questioner, the permissions plugin of your choice, and select your economy plugin here.
+    * Pay close attention to the Plugin Interfacing section, you'll enable Essentials, Questioner if you use them.
+      * Economy Settings: 
+        * Using iConomy 5.01:
+          * In the Plugin Interfacing section of the config.yml set:
+            * using_register: false
+            * using_iconomy: true
+        * Using iConomy 6, BOSEconomy or EssentialsEco:
+          * Download [http://mirror.nexua.org/Register/latest/edge/Register.jar Register.jar] and place into your plugins folder.
+          * In the Plugin Interfacing section of the config.yml set:
+            * using_register: true
+            * using_iconomy: false
+      * Permissions setting:
+        * Using a superperms plugin (BukkitPermissions, bPermissions):
+          * In the Plugin Interfacing section of the config.yml set:
+            * using_permissions: false
+        * Using old permissions (GroupManager, Permissions 2, 3):
+          * In the Plugin Interfacing section of the config.yml set:
+            * using_permissions: true
     * Set wilderness flags only if you are *not* using Permissions.
     * Save config.yml.
-  # *If you use Permissions you MUST configure your [PermissionNodes permission nodes], as they are required for players to be able to build/mine in the wilderness.*
-    * towny.wild.(asterisk) 
-    * *or*
-    * towny.wild.build
-    * towny.wild.destroy
-    * towny.wild.switch
-    * towny.wild.item_use
-    * towny.wild.block.{block id}.asterisk 
-    * towny.wild.block.{block id}.build 
-    * towny.wild.block.{block id}.destroy 
-    * towny.wild.block.{block id}.switch 
-    * towny.wild.block.{block id}.itemuse
-
-  # Depending on how you configured your config.yml you may need to grant these permission nodes:
-    * towny.town.new : User is able to create a town (used only when town_creation_admin_only: true)
-    * towny.town.claim : User is able to expand his town with /town claim (used when world is set as unclaimable in /townyworld)
-    * towny.town.resident : User is able to join a town.
-    * towny.town.plot : User is able to use the /plot command, to buy and sell land personally.
-    * towny.nation.new : User is able to create a nation (used only when nation_creation_admin_only: true)
-    * towny.spawntp :Use /town spawn (requires allow_town_spawn: true set in the config.)
-    * towny.publicspawntp : Use "/town spawn {town}" (teleport to other towns) (requires allow_town_spawn_travel: true in set in the config.)
-
-  # Last but not least grant yourself:
-    * towny.admin
-
+  # *If you use a permissions plugin you MUST configure your [PermissionNodes permission nodes]*
 
 Your server is ready to use Towny!
   
