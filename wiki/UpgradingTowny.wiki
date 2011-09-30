@@ -2,7 +2,7 @@
 
 = Introduction =
 
-Here are instructions for upgrading to Towny 0.76.1:
+Here are instructions for upgrading to Towny 0.76.2.0:
 
 
 = Upgrade Instructions =
@@ -27,6 +27,6 @@ Here are instructions for upgrading to Towny 0.76.1:
 
   * *If you use a permissions plugin you MUST configure your [PermissionNodes permission nodes], Check for any new nodes added in the current version.*
 
-Your server is ready to use Towny 0.76.1!
+Your server is ready to use Towny 0.76.2.0!
 
   * Start your server.
