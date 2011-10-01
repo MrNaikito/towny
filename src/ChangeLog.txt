@@ -660,3 +660,5 @@ v0.76.1.19:
 	 - Fixed an error in fetching the resident on new cache creation (caused by code reorganising).
 v0.76.2.0:
 	- Release
+v0.76.2.1:
+	- Fixed an error when not using a currency type with Essentials Eco.
