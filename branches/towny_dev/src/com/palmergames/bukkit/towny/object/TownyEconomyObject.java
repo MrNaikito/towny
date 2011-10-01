@@ -176,9 +176,11 @@ public class TownyEconomyObject extends TownyObject {
         
         public static String getEconomyCurrency() {
         	if(TownySettings.isUsingRegister()) {
-        		return Methods.getMethod().format(0).split(" ")[1];
+        		String[] split = Methods.getMethod().format(0).split("0");
+        		return split[split.length-1].trim();
         	} else if(TownySettings.isUsingIConomy()){
-        		return iConomy.format(0).split(" ")[1];
+        		String[] split = iConomy.format(0).split("0");
+        		return split[split.length-1].trim();
         	}
         	return ""; 
         }
