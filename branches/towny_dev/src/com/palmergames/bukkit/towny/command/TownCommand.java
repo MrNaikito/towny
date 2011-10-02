@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.naming.InvalidNameException;
 
+import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -947,6 +948,9 @@ public class TownCommand implements CommandExecutor  {
                 if (travelCost > 0 && TownySettings.isUsingEconomy() && (resident.getHoldingBalance() < travelCost))
                 	throw new TownyException(notAffordMSG);
                 
+                // Used later to make sure the chunk we teleport to is loaded.
+                Chunk chunk = town.getSpawn().getWorld().getChunkAt(town.getSpawn().getBlock());
+                
                 // Essentials tests
                 boolean notUsingESS = false;
                 
@@ -965,6 +969,7 @@ public class TownCommand implements CommandExecutor  {
                             }
                             if (!user.isJailed()) {
                                 Teleport teleport = user.getTeleport();
+                                if (!chunk.isLoaded()) chunk.load();
                                 teleport.teleport(town.getSpawn(),null);
                             }
                         } catch (Exception e) {
@@ -986,6 +991,7 @@ public class TownCommand implements CommandExecutor  {
                 if(isTownyAdmin) {
                 	if (player.getVehicle() != null)
                 		player.getVehicle().eject();
+                	if (!chunk.isLoaded()) chunk.load();
                     player.teleport(town.getSpawn());
                     return;
                 }
@@ -1000,6 +1006,7 @@ public class TownCommand implements CommandExecutor  {
                     	// Don't use teleport warmup
                     	if (player.getVehicle() != null)
                     		player.getVehicle().eject();
+                    	if (!chunk.isLoaded()) chunk.load();
                         player.teleport(town.getSpawn());
                     }
                 }
