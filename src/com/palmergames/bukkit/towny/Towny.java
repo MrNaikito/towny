@@ -228,6 +228,7 @@ public class Towny extends JavaPlugin {
 	            	test = getServer().getPluginManager().getPlugin("iConomy");
 	                if (test == null) {
 	                    //TownySettings.setUsingIConomy(false);
+	                	sendErrorMsg("No compatible Economy plugins found. You need iConomy 5.01, or the Register.jar with iConomy, BOSE or Essentials Eco.");
 	                } else {
 	                	if (!test.getDescription().getVersion().matches("5.01")) {
 	                		sendErrorMsg("Towny does not have native support for iConomy " + test.getDescription().getVersion() + ". You need the Register.jar.");
