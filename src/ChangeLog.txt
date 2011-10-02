@@ -664,3 +664,4 @@ v0.76.2.1:
 	- Fixed an error when not using a currency type with Essentials Eco.
 v0.76.2.2:
 	- Force load the destination chunk when teleporting. Attempt to prevent the falling through the world bug.
+	- If wild_revert_on_mob_explosion is enabled, the explosions no longer drop any blocks.
