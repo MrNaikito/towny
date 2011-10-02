@@ -211,39 +211,32 @@ public class Towny extends JavaPlugin {
             Plugin test;
 
             test = getServer().getPluginManager().getPlugin("Permissions");
-            if (test == null)
-                    TownySettings.setUsingPermissions(false);
-            else {
+            if (test == null) {
+                    //TownySettings.setUsingPermissions(false);
+            } else {
                     permissions = (Permissions)test;
                     if (TownySettings.isUsingPermissions())
                             using.add("Permissions");
             }
             
-            test = getServer().getPluginManager().getPlugin("Register");
-            if (test != null) {
-                    register = (Register)test;
-                    if (TownySettings.isUsingRegister()) {
-                            using.add("Register");
-                            TownySettings.setUsingIConomy(false);
-                    }
-            }else {
-            	TownySettings.setUsingRegister(false);
-            	
-            	test = getServer().getPluginManager().getPlugin("iConomy");
-                if (test == null) {
-                    TownySettings.setUsingIConomy(false);
-                } else {
-                	if (!test.getDescription().getVersion().matches("5.01")) {
-                		TownySettings.setUsingIConomy(false);
-                		sendErrorMsg("Towny does not have native support for iConomy " + test.getDescription().getVersion() + ". You need the Register.jar.");
-                	} else {
-                        iconomy = (iConomy)test;
-                        if (TownySettings.isUsingIConomy()) {
-                                using.add("iConomy");
-                                TownySettings.setUsingRegister(false);
-                        }
-                	}
-                }
+            if (TownySettings.isUsingEconomy()) {
+	            test = getServer().getPluginManager().getPlugin("Register");
+	            if (test != null) {
+	                    register = (Register)test;
+	                    using.add("Register");
+	            }else {
+	            	test = getServer().getPluginManager().getPlugin("iConomy");
+	                if (test == null) {
+	                    //TownySettings.setUsingIConomy(false);
+	                } else {
+	                	if (!test.getDescription().getVersion().matches("5.01")) {
+	                		sendErrorMsg("Towny does not have native support for iConomy " + test.getDescription().getVersion() + ". You need the Register.jar.");
+	                	} else {
+	                        iconomy = (iConomy)test;
+	                        using.add("iConomy");
+	                	}
+	                }
+	            }
             }
             
             test = getServer().getPluginManager().getPlugin("Essentials");
@@ -260,6 +253,21 @@ public class Towny extends JavaPlugin {
             
             if (using.size() > 0)
                     logger.info("[Towny] Using: " + StringMgmt.join(using, ", "));
+    }
+    
+    // is permissions active
+    public boolean isPermissions() {
+            return (TownySettings.isUsingPermissions() && permissions != null);
+    }
+    
+    // is register active
+    public boolean isRegister() {
+            return (TownySettings.isUsingEconomy() && register != null);
+    }
+    
+    // is iConomy active
+    public boolean isIConomy() {
+            return (TownySettings.isUsingEconomy() && iconomy != null);
     }
 
     @Override
@@ -644,13 +652,7 @@ public class Towny extends JavaPlugin {
                 }
                 
         }
-        */
-        
-        // is permissions active
-        public boolean isPermissions() {
-                return (TownySettings.isUsingPermissions() && permissions != null);
-        }
-        
+        */        
         
         /** getPermissionNode
          * 

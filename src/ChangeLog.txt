@@ -665,3 +665,6 @@ v0.76.2.1:
 v0.76.2.2:
 	- Force load the destination chunk when teleporting. Attempt to prevent the falling through the world bug.
 	- If wild_revert_on_mob_explosion is enabled, the explosions no longer drop any blocks.
+	- Simplfied Plugin interfacing for Economy plugins to a single setting of using_economy.
+	  Towny will first attempt to use Register.jar. If it's not present
+	  it will fall back to the legacy support for iConomy 5.01.

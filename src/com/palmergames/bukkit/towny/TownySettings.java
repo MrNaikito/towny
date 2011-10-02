@@ -742,7 +742,7 @@ public class TownySettings {
 	public static boolean isNationCreationAdminOnly() {
 		return getBoolean(ConfigNodes.PERMS_NATION_CREATION_ADMIN_ONLY);
 	}
-	
+	/*
 	public static boolean isUsingRegister() {
 		return getBoolean(ConfigNodes.PLUGIN_USING_REGISTER);
 	}
@@ -754,14 +754,15 @@ public class TownySettings {
 	public static boolean isUsingIConomy() {
 		return getBoolean(ConfigNodes.PLUGIN_USING_ICONOMY);
 	}
-	
-	public static boolean isUsingEconomy() {
-		return (isUsingIConomy() || isUsingRegister());
-	}
 
     public static void setUsingIConomy(boolean newSetting) {
         setProperty(ConfigNodes.PLUGIN_USING_ICONOMY.getRoot(), newSetting);
     }
+    */
+    public static boolean isUsingEconomy() {
+    	return getBoolean(ConfigNodes.PLUGIN_USING_ECONOMY);
+		//return (isUsingIConomy() || isUsingRegister());
+	}
         
 	public static boolean isUsingEssentials() {
 		return getBoolean(ConfigNodes.PLUGIN_USING_ESSENTIALS);

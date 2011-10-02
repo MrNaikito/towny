@@ -5,7 +5,6 @@ import com.iConomy.iConomy;
 import com.iConomy.system.Account;
 import com.palmergames.bukkit.towny.EconomyException;
 import com.palmergames.bukkit.towny.Towny;
-import com.palmergames.bukkit.towny.TownySettings;
 import com.nijikokun.register.payment.Method.MethodAccount;
 import com.nijikokun.register.payment.Methods;
 
@@ -23,7 +22,7 @@ public class TownyEconomyObject extends TownyObject {
             if(canPayFromHoldings(n))
             {
                 plugin.sendDebugMsg("Can Pay: " + n);
-                if(TownySettings.isUsingRegister())
+                if(plugin.isRegister())
                 	((MethodAccount) getEconomyAccount()).subtract(n);
                 else
                 	((Account) getEconomyAccount()).getHoldings().subtract(n);
@@ -35,7 +34,7 @@ public class TownyEconomyObject extends TownyObject {
         /* When collecting money add it to the Accounts bank */
         public void collect(double n) throws EconomyException 
         {
-        	if(TownySettings.isUsingRegister())
+        	if(plugin.isRegister())
         		((MethodAccount) getEconomyAccount()).add(n);
         	else
         		((Account) getEconomyAccount()).getHoldings().add(n);
@@ -64,7 +63,7 @@ public class TownyEconomyObject extends TownyObject {
         {
         	try
             {            	
-            	if(TownySettings.isUsingRegister()) {
+            	if(plugin.isRegister()) {
             		MethodAccount account = (MethodAccount)getEconomyAccount();
             		if(account!=null) {
                         account.set(value);                        
@@ -102,7 +101,7 @@ public class TownyEconomyObject extends TownyObject {
                 {
                 	plugin.sendDebugMsg("Economy Balance Name: " + getEconomyName());
                 	
-                	if(TownySettings.isUsingRegister()) {
+                	if(plugin.isRegister()) {
                 		MethodAccount account = (MethodAccount)getEconomyAccount();
                 		if(account!=null) {
                         	plugin.sendDebugMsg("Economy Balance: " + account.balance());
@@ -137,14 +136,14 @@ public class TownyEconomyObject extends TownyObject {
         {
         	try 
             {
-            	if(TownySettings.isUsingRegister()) { 
+            	if(plugin.isRegister()) { 
             		
             		if (!Methods.getMethod().hasAccount(getEconomyName()))
             			Methods.getMethod().createAccount(getEconomyName());
             		
             		return Methods.getMethod().getAccount(getEconomyName());
             		
-            	} else if(TownySettings.isUsingIConomy()){
+            	} else if(plugin.isIConomy()){
                             return iConomy.getAccount(getEconomyName());
             	}
                 return null;
@@ -166,19 +165,19 @@ public class TownyEconomyObject extends TownyObject {
         
         public static void checkEconomy() throws EconomyException {
                 
-                if(TownySettings.isUsingRegister()) {
+                if(plugin.isRegister()) {
                 	return;
-                } else if(TownySettings.isUsingIConomy()){
+                } else if(plugin.isIConomy()){
                 	return;
                 } else
                 	throw new EconomyException("No Economy plugins are configured.");
         }
         
         public static String getEconomyCurrency() {
-        	if(TownySettings.isUsingRegister()) {
+        	if(plugin.isRegister()) {
         		String[] split = Methods.getMethod().format(0).split("0");
         		return split[split.length-1].trim();
-        	} else if(TownySettings.isUsingIConomy()){
+        	} else if(plugin.isIConomy()){
         		String[] split = iConomy.format(0).split("0");
         		return split[split.length-1].trim();
         	}
@@ -190,9 +189,9 @@ public class TownyEconomyObject extends TownyObject {
 			try {
 				double balance = getHoldingBalance();
 				try {
-					if(TownySettings.isUsingRegister()) {
+					if(plugin.isRegister()) {
 						return Methods.getMethod().format(balance);
-					} else if(TownySettings.isUsingIConomy()){
+					} else if(plugin.isIConomy()){
 						return iConomy.format(balance);
 					}
 					
@@ -207,9 +206,9 @@ public class TownyEconomyObject extends TownyObject {
 		public static String getFormattedBalance(double balance) {
 
 			try {
-				if(TownySettings.isUsingRegister()) {
+				if(plugin.isRegister()) {
 					return Methods.getMethod().format(balance);
-				} else if(TownySettings.isUsingIConomy()){
+				} else if(plugin.isIConomy()){
 					return iConomy.format(balance);
 				}
 				
