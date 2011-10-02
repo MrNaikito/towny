@@ -662,3 +662,5 @@ v0.76.2.0:
 	- Release
 v0.76.2.1:
 	- Fixed an error when not using a currency type with Essentials Eco.
+v0.76.2.2:
+	- Force load the destination chunk when teleporting. Attempt to prevent the falling through the world bug.
