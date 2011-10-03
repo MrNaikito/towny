@@ -26,7 +26,6 @@ public class Perms3Source extends TownyPermissionSource {
      * @param node
      * @return
      */
-    @SuppressWarnings("deprecation")
     @Override
     // Suppression is to clear warnings while retaining permissions 2.7 compatibility
 	public String getPrefixSuffix(Resident resident, String node) {
@@ -60,7 +59,6 @@ public class Perms3Source extends TownyPermissionSource {
      * @return -1 = can't find
      */
     @Override
-	@SuppressWarnings("deprecation")
     // Suppression is to clear warnings while retaining permissions 2.7 compatibility
     public int getGroupPermissionIntNode(String playerName, String node) {
     	Player player = plugin.getServer().getPlayer(playerName);

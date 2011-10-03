@@ -235,11 +235,11 @@ public class Towny extends JavaPlugin {
 		            		getTownyUniverse().setPermissionSource(new bPermsSource(this, test));
 		            		using.add("bPermissions");
 		            	} else {
-			            	test = getServer().getPluginManager().getPlugin("Permissions(2/3)");
+			            	test = getServer().getPluginManager().getPlugin("Permissions");
 			            	if (test != null) {
 			            		//permissions = (Permissions)test;
 			            		getTownyUniverse().setPermissionSource(new Perms3Source(this, test));
-			            		using.add("Permissions");
+			            		using.add("Permissions(2/3)");
 			            	} else {
 			            		getTownyUniverse().setPermissionSource(new BukkitPermSource(this));
 			            		using.add("BukkitPermissions");
