@@ -167,7 +167,6 @@ public class TownySettings {
     }
 
 	public static void loadConfig(String filepath, String version) throws IOException {
-	
 		File file = FileMgmt.CheckYMLExists(new File(filepath));
 		if (file != null) {
 		        
@@ -192,12 +191,13 @@ public class TownySettings {
     	// Load Nation & Town level data into maps.
         loadTownLevelConfig();
         loadNationLevelConfig();
+        
+        ChunkNotification.loadFormatStrings();
     }
 	
 	// This will read the language entry in the config.yml to attempt to load custom languages
 	// if the file is not found it will load the default from resource
 	public static void loadLanguage (String filepath, String defaultRes) throws IOException {               
-	
 		String defaultName = filepath + FileMgmt.fileSeparator() + getString(ConfigNodes.LANGUAGE.getRoot(), defaultRes);
 		
 		File file = FileMgmt.unpackLanguageFile(defaultName, defaultRes);
@@ -272,6 +272,10 @@ public class TownySettings {
         	return "";
         }
         return parseSingleLineString(data);
+    }
+    
+    public static String getConfigLang(ConfigNodes node) {
+    	return parseSingleLineString(getString(node));
     }
 
     public static List<Integer> getIntArr(ConfigNodes node) {
@@ -1214,7 +1218,7 @@ public class TownySettings {
 	}
 	
 	public static int getMaxResidentPlots(Resident resident) {
-		int maxPlots = TownyUniverse.plugin.getGroupPermissionIntNode(resident.getName(), "towny_maxplots");
+		int maxPlots = TownyUniverse.getPermissionSource().getGroupPermissionIntNode(resident.getName(), "towny_maxplots");
 	    if (maxPlots == -1) 
 	    	maxPlots = getInt(ConfigNodes.TOWN_MAX_PLOTS_PER_RESIDENT);
 	    return maxPlots;

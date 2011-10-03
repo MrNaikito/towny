@@ -59,6 +59,7 @@ import com.palmergames.bukkit.towny.TownyUtil;
 import com.palmergames.bukkit.towny.db.TownyDataSource;
 import com.palmergames.bukkit.towny.db.TownyFlatFileSource;
 import com.palmergames.bukkit.towny.db.TownyHModFlatFileSource;
+import com.palmergames.bukkit.towny.permissions.TownyPermissionSource;
 import com.palmergames.bukkit.towny.tasks.DailyTimerTask;
 import com.palmergames.bukkit.towny.tasks.HealthRegenTimerTask;
 import com.palmergames.bukkit.towny.tasks.MobRemovalTimerTask;
@@ -87,6 +88,8 @@ public class TownyUniverse extends TownyObject {
     // private List<Election> elections;
     private static TownyDataSource dataSource;
     private static CachePermissions cachePermissions = new CachePermissions();
+    private static TownyPermissionSource permissionSource;
+    
     private int townyRepeatingTask = -1;
     private int dailyTask = -1;
     private int mobRemoveTask = -1;
@@ -1033,10 +1036,18 @@ public class TownyUniverse extends TownyObject {
         public static TownyDataSource getDataSource() {
                 return dataSource;
         }
+        
+    public void setPermissionSource(TownyPermissionSource permissionSource) {
+        TownyUniverse.permissionSource = permissionSource;
+    }
+
+    public static TownyPermissionSource getPermissionSource() {
+        return permissionSource;
+    }
 	
-	    public static CachePermissions getCachePermissions() {
-	        return cachePermissions;
-	    }
+	public static CachePermissions getCachePermissions() {
+	    return cachePermissions;
+	}
 
         public boolean isWarTime() {
                 return warEvent != null ? warEvent.isWarTime() : false;
