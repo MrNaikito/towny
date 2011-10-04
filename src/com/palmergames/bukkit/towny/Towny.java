@@ -212,82 +212,81 @@ public class Towny extends JavaPlugin {
     }
     
     private void checkPlugins() {
-            List<String> using = new ArrayList<String>();
-            Plugin test;
+        List<String> using = new ArrayList<String>();
+        Plugin test;
 
-            if (TownySettings.isUsingPermissions()) {
-	            test = getServer().getPluginManager().getPlugin("GroupManager");
-	            if (test != null) {
-	            	//groupManager = (GroupManager)test;
-	            	this.getTownyUniverse().setPermissionSource(new GroupManagerSource(this, test));
-	                using.add("GroupManager");
-	                    
-	            } else {
-	            	test = getServer().getPluginManager().getPlugin("PermissionsEx");
+        if (TownySettings.isUsingPermissions()) {
+            test = getServer().getPluginManager().getPlugin("GroupManager");
+            if (test != null) {
+            	//groupManager = (GroupManager)test;
+            	this.getTownyUniverse().setPermissionSource(new GroupManagerSource(this, test));
+                using.add(String.format("%s v%s", "GroupManager", test.getDescription().getVersion()));
+            } else {
+            	test = getServer().getPluginManager().getPlugin("PermissionsEx");
+            	if (test != null) {
+            		//permissions = (PermissionsEX)test;
+            		getTownyUniverse().setPermissionSource(new PEXSource(this, test));
+            		using.add(String.format("%s v%s", "PermissionsEX", test.getDescription().getVersion()));
+            	} else {
+	            	test = getServer().getPluginManager().getPlugin("bPermissions");
 	            	if (test != null) {
-	            		//permissions = (PermissionsEX)test;
-	            		getTownyUniverse().setPermissionSource(new PEXSource(this, test));
-	            		using.add("PermissionsEX");
+	            		//permissions = (Permissions)test;
+	            		getTownyUniverse().setPermissionSource(new bPermsSource(this, test));
+	            		using.add(String.format("%s v%s", "bPermissions", test.getDescription().getVersion()));
 	            	} else {
-		            	test = getServer().getPluginManager().getPlugin("bPermissions");
+		            	test = getServer().getPluginManager().getPlugin("Permissions");
 		            	if (test != null) {
 		            		//permissions = (Permissions)test;
-		            		getTownyUniverse().setPermissionSource(new bPermsSource(this, test));
-		            		using.add("bPermissions");
+		            		getTownyUniverse().setPermissionSource(new Perms3Source(this, test));
+		            		using.add(String.format("%s v%s", "Permissions", test.getDescription().getVersion()));
 		            	} else {
-			            	test = getServer().getPluginManager().getPlugin("Permissions");
-			            	if (test != null) {
-			            		//permissions = (Permissions)test;
-			            		getTownyUniverse().setPermissionSource(new Perms3Source(this, test));
-			            		using.add("Permissions(2/3)");
-			            	} else {
-			            		getTownyUniverse().setPermissionSource(new BukkitPermSource(this));
-			            		using.add("BukkitPermissions");
-			            	}
+		            		getTownyUniverse().setPermissionSource(new BukkitPermSource(this));
+		            		using.add("BukkitPermissions");
 		            	}
 	            	}
-	            }
+            	}
+            }
+        } else {
+        	// Not using Permissions
+        	getTownyUniverse().setPermissionSource(new NullPermSource(this));
+        }
+        
+        
+        if (TownySettings.isUsingEconomy()) {
+            test = getServer().getPluginManager().getPlugin("Register");
+            if (test != null) {
+                register = (Register)test;
+                using.add(String.format("%s v%s", "Register", test.getDescription().getVersion()));
             } else {
-            	// Not using Permissions
-            	getTownyUniverse().setPermissionSource(new NullPermSource(this));
+            	test = getServer().getPluginManager().getPlugin("iConomy");
+                if (test == null) {
+                    //TownySettings.setUsingIConomy(false);
+                	sendErrorMsg("No compatible Economy plugins found. You need iConomy 5.01, or the Register.jar with iConomy, BOSE or Essentials Eco.");
+                } else {
+                	if (!test.getDescription().getVersion().matches("5.01")) {
+                		sendErrorMsg("Towny does not have native support for iConomy " + test.getDescription().getVersion() + ". You need the Register.jar.");
+                	} else {
+                        iconomy = (iConomy)test;
+                        using.add(String.format("%s v%s", "iConomy", test.getDescription().getVersion()));
+                	}
+                }
             }
-            
-            
-            if (TownySettings.isUsingEconomy()) {
-	            test = getServer().getPluginManager().getPlugin("Register");
-	            if (test != null) {
-	                    register = (Register)test;
-	                    using.add("Register");
-	            }else {
-	            	test = getServer().getPluginManager().getPlugin("iConomy");
-	                if (test == null) {
-	                    //TownySettings.setUsingIConomy(false);
-	                	sendErrorMsg("No compatible Economy plugins found. You need iConomy 5.01, or the Register.jar with iConomy, BOSE or Essentials Eco.");
-	                } else {
-	                	if (!test.getDescription().getVersion().matches("5.01")) {
-	                		sendErrorMsg("Towny does not have native support for iConomy " + test.getDescription().getVersion() + ". You need the Register.jar.");
-	                	} else {
-	                        iconomy = (iConomy)test;
-	                        using.add("iConomy");
-	                	}
-	                }
-	            }
-            }
-            
-            test = getServer().getPluginManager().getPlugin("Essentials");
-            if (test == null)
-                    TownySettings.setUsingEssentials(false);
-            else if (TownySettings.isUsingEssentials())
-                    using.add("Essentials");
-            
-            test = getServer().getPluginManager().getPlugin("Questioner");
-            if (test == null)
-                    TownySettings.setUsingQuestioner(false);
-            else if (TownySettings.isUsingQuestioner())
-                    using.add("Questioner");
-            
-            if (using.size() > 0)
-                    logger.info("[Towny] Using: " + StringMgmt.join(using, ", "));
+        }
+        
+        test = getServer().getPluginManager().getPlugin("Essentials");
+        if (test == null)
+            TownySettings.setUsingEssentials(false);
+        else if (TownySettings.isUsingEssentials())
+            using.add(String.format("%s v%s", "Essentials", test.getDescription().getVersion()));
+        
+        test = getServer().getPluginManager().getPlugin("Questioner");
+        if (test == null)
+            TownySettings.setUsingQuestioner(false);
+        else if (TownySettings.isUsingQuestioner())
+            using.add(String.format("%s v%s", "Questioner", test.getDescription().getVersion()));
+        
+        if (using.size() > 0)
+            logger.info("[Towny] Using: " + StringMgmt.join(using, ", "));
     }
     
     // is permissions active
