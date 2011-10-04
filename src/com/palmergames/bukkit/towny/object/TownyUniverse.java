@@ -494,11 +494,12 @@ public class TownyUniverse extends TownyObject {
                 nation.setName(filteredName);
                 Nation oldNation = new Nation(oldName);
                 
-                try {
-                        nation.pay(nation.getHoldingBalance());
-                        oldNation.pay(oldNation.getHoldingBalance(), nation);
-                } catch (EconomyException e) {
-                }
+                if (plugin.isEcoActive())
+	                try {
+	                        nation.pay(nation.getHoldingBalance());
+	                        oldNation.pay(oldNation.getHoldingBalance(), nation);
+	                } catch (EconomyException e) {
+	                }
                 
                 for (Town town : toSave) {
                         getDataSource().saveTown(town);
@@ -1230,10 +1231,11 @@ public class TownyUniverse extends TownyObject {
             getDataSource().deleteNation(nation);
             List<Town> toSave = new ArrayList<Town>(nation.getTowns());
             nation.clear();
-            try {
-            	nation.pay(nation.getHoldingBalance(), new WarSpoils());
-            } catch (EconomyException e) {
-            }
+            if (plugin.isEcoActive())
+	            try {
+	            	nation.pay(nation.getHoldingBalance(), new WarSpoils());
+	            } catch (EconomyException e) {
+	            }
             nations.remove(nation.getName().toLowerCase());
                                                      
             plugin.updateCache();
@@ -1270,10 +1272,11 @@ public class TownyUniverse extends TownyObject {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
             }
-            try {
-                    town.pay(town.getHoldingBalance(), new WarSpoils());
-            } catch (EconomyException e) {
-            }
+            if (plugin.isEcoActive())
+	            try {
+	                    town.pay(town.getHoldingBalance(), new WarSpoils());
+	            } catch (EconomyException e) {
+	            }
             
             for (Resident resident : toSave) {
                     removeResident(resident);

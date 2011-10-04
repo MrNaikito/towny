@@ -293,12 +293,12 @@ public class Towny extends JavaPlugin {
     public boolean isPermissions() {
             return TownySettings.isUsingPermissions();
     }
-    /*
+    
     // is GroupManager active
-    public boolean isGroupManager() {
-            return (TownySettings.isUsingPermissions() && groupManager != null);
+    public boolean isEcoActive() {
+            return isRegister() || isIConomy();
     }
-    */
+    
     // is register active
     public boolean isRegister() {
             return (TownySettings.isUsingEconomy() && register != null);

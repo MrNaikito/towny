@@ -269,7 +269,7 @@ public class NationCommand implements CommandExecutor  {
         public void newNation(Player player, String name, String capitalName) {
                 TownyUniverse universe = plugin.getTownyUniverse();
                 try {
-                        if (!plugin.isTownyAdmin(player) && (TownySettings.isNationCreationAdminOnly() ||  (!TownyUniverse.getPermissionSource().hasPermission(player, "towny.nation.new"))))
+                        if (!plugin.isTownyAdmin(player) && (TownySettings.isNationCreationAdminOnly() ||  (plugin.isPermissions() &&  !TownyUniverse.getPermissionSource().hasPermission(player, "towny.nation.new"))))
                                 throw new TownyException(TownySettings.getNotPermToNewNationLine());
                         
                         Town town = universe.getTown(capitalName);
