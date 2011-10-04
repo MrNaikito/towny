@@ -731,7 +731,7 @@ public class TownCommand implements CommandExecutor  {
                         if (universe.isWarTime())
                                 throw new TownyException(TownySettings.getLangString("msg_war_cannot_do"));
                         
-                        if (!plugin.isTownyAdmin(player) && (TownySettings.isTownCreationAdminOnly() ||  (!TownyUniverse.getPermissionSource().hasPermission(player, "towny.town.new"))))
+                        if (!plugin.isTownyAdmin(player) && (TownySettings.isTownCreationAdminOnly() ||  (plugin.isPermissions() && !TownyUniverse.getPermissionSource().hasPermission(player, "towny.town.new"))))
                                 throw new TownyException(TownySettings.getNotPermToNewTownLine());
                         
                         if (TownySettings.hasTownLimit() && universe.getTowns().size() >= TownySettings.getTownLimit())
@@ -1096,13 +1096,13 @@ public class TownCommand implements CommandExecutor  {
                                 	if (plugin.getServer().matchPlayer(newMember.getName()).isEmpty()) { //Not online
                                         plugin.sendErrorMsg(player, String.format(TownySettings.getLangString("msg_offline_no_join"), newMember.getName()));
                                         remove.add(newMember);
-                                } else if (!TownyUniverse.getPermissionSource().hasPermission(plugin.getServer().getPlayer(newMember.getName()), "towny.town.resident")) {
+                                	} else if (!TownyUniverse.getPermissionSource().hasPermission(plugin.getServer().getPlayer(newMember.getName()), "towny.town.resident")) {
                                         plugin.sendErrorMsg(player, String.format(TownySettings.getLangString("msg_not_allowed_join"), newMember.getName()));
                                         remove.add(newMember);
-                                } else {
+                                	} else {
                                         town.addResidentCheck(newMember);
                                         townInviteResident(town, newMember);
-                                }
+                                	}
                                 } else {
                                         town.addResidentCheck(newMember);
                                         townInviteResident(town, newMember);

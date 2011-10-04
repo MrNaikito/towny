@@ -672,4 +672,6 @@ v0.76.2.3:
 	- Added a Permission handler to towny so it will now support GroupManager, PEX, bPermissions, Permissions 2/3 + (bridges) and Bukkit Perms.
 	- Admins can now pick, choose and modify which notifications are shown when a player walks from plot to plot. Check the new section 'Town Notifications' in the config.
 	- Town notifications now show a money formatted price.
-	
+v0.76.2.4:
+	- Fixed '/town new' and '/nation new' to properly follow the settings in config if permissions are disabled.
+	- If not using Eco Towny will not error when deleting/renaming towns/nations, or upon a new day.
