@@ -48,7 +48,7 @@ public class BukkitPermSource extends TownyPermissionSource {
     	Player player = plugin.getServer().getPlayer(playerName);
     	
     	for (PermissionAttachmentInfo test: player.getEffectivePermissions()) {
-    		if (test.getPermission().contains(node+".")) {
+    		if (test.getPermission().startsWith(node+".")) {
     			String[] split = test.getPermission().split("\\.");
     			try {
     				return Integer.parseInt(split[split.length-1]);
