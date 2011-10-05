@@ -25,7 +25,7 @@ public class BukkitPermSource extends TownyPermissionSource {
     	
     	for (PermissionAttachmentInfo test: player.getEffectivePermissions()) {
     		if (test.getPermission().startsWith(node+".")) {
-    			String[] split = test.getPermission().split(".");
+    			String[] split = test.getPermission().split("\\.");
     				return split[split.length-1];
     		}
     	}
@@ -49,7 +49,7 @@ public class BukkitPermSource extends TownyPermissionSource {
     	
     	for (PermissionAttachmentInfo test: player.getEffectivePermissions()) {
     		if (test.getPermission().contains(node+".")) {
-    			String[] split = test.getPermission().split(".");
+    			String[] split = test.getPermission().split("\\.");
     			try {
     				return Integer.parseInt(split[split.length-1]);
     			} catch (NumberFormatException e) {
