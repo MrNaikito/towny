@@ -674,4 +674,9 @@ v0.76.2.3:
 	- Town notifications now show a money formatted price.
 v0.76.2.4:
 	- Fixed '/town new' and '/nation new' to properly follow the settings in config if permissions are disabled.
-	- If not using Eco Towny will not error when deleting/renaming towns/nations, or upon a new day.
+	- If not using Eco, Towny will no longer error when deleting/renaming towns/nations, or upon a new day.
+v0.76.2.5:
+	- When using SuperPerms you can now use the following nodes with towny.
+	  prefix.prefixhere
+	  suffix.suffixhere
+	  towny_maxplots.x (with x being a number eg towny_maxplots.2)
