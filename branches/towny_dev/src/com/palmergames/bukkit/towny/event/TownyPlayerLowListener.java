@@ -48,10 +48,8 @@ public class TownyPlayerLowListener extends PlayerListener {
 		else if (plugin.hasPlayerMode(player, "nc")) 
 			parseNationChatCommand(player, event.getMessage());
 		else {
-			System.out.print("Format:" + event.getFormat() + ":");
 			// All chat modes are disabled, or this is open chat.
 			event.setFormat(resident.getChatFormattedName() + ": %2$s");
-			//event.setMessage(resident.getChatFormattedName());
 			return;
 		}
 		event.setCancelled(true);
