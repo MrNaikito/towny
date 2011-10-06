@@ -106,7 +106,9 @@ public enum ConfigNodes {
             
             NWS_PLOT_MANAGEMENT_MAYOR_DELETE_HEADER("new_world_settings.plot_management.mayor_plotblock_delete","", ""),
             NWS_PLOT_MANAGEMENT_MAYOR_DELETE_ENABLE("new_world_settings.plot_management.mayor_plotblock_delete.enabled","true"),
-            NWS_PLOT_MANAGEMENT_MAYOR_DELETE("new_world_settings.plot_management.mayor_plotblock_delete.mayor_plot_delete","WALL_SIGN,SIGN_POST", "# These items will be deleted upon a mayor using /plot clear"),
+            NWS_PLOT_MANAGEMENT_MAYOR_DELETE("new_world_settings.plot_management.mayor_plotblock_delete.mayor_plot_delete","WALL_SIGN,SIGN_POST",
+            		"# These items will be deleted upon a mayor using /plot clear",
+            		"# To disable deleting replace the current entries with NONE."),
             
             NWS_PLOT_MANAGEMENT_REVERT_HEADER("new_world_settings.plot_management.revert_on_unclaim","", ""),
             NWS_PLOT_MANAGEMENT_REVERT_ENABLE("new_world_settings.plot_management.revert_on_unclaim.enabled","true",
