@@ -8,7 +8,6 @@ import org.bukkit.entity.Player;
 
 import com.palmergames.bukkit.towny.NotRegisteredException;
 import com.palmergames.bukkit.towny.Towny;
-import com.palmergames.bukkit.towny.TownySettings;
 import com.palmergames.bukkit.towny.object.Resident;
 import com.palmergames.bukkit.towny.object.Town;
 import com.palmergames.bukkit.util.ChatTools;
@@ -49,9 +48,9 @@ public class TownChatCommand implements CommandExecutor  {
 			Resident resident = plugin.getTownyUniverse().getResident(player.getName());
 			Town town = resident.getTown();
 			
-			String prefix = TownySettings.getModifyChatFormat().contains("{town}") ? "" : "[" + town.getName() + "] ";
-			String line = Colors.Blue + "[TC] " + prefix
-					+ player.getDisplayName()
+			//String prefix = TownySettings.getModifyChatFormat().contains("{town}") ? "" : "[" + town.getName() + "] ";
+			String line = Colors.Blue + "[TC] " // + prefix
+					+ resident.getChatFormattedName()
 					+ Colors.White + ": "
 					+ Colors.LightBlue + msg;
 			plugin.getTownyUniverse().sendTownMessage(town, ChatTools.color(line));

@@ -681,3 +681,5 @@ v0.76.2.5:
 	  suffix.suffixhere
 	  towny_maxplots.x (with x being a number eg towny_maxplots.2)
 	- Town spawn cost now outputs correctly formatted by the settings in your economy plugin.
+v0.76.2.6:
+	- Fixed modplayername in chat format generating duplicate entries.

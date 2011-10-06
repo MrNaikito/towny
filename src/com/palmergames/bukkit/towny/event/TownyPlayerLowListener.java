@@ -33,6 +33,12 @@ public class TownyPlayerLowListener extends PlayerListener {
 			return;
 		
 		Player player = event.getPlayer();
+		Resident resident;
+		try {
+			resident = plugin.getTownyUniverse().getResident(player.getName());
+		} catch (NotRegisteredException e) {
+			return;
+		}
 		
 		// Setup the chat prefix BEFORE we speak.
 		plugin.setDisplayName(player);
@@ -42,7 +48,10 @@ public class TownyPlayerLowListener extends PlayerListener {
 		else if (plugin.hasPlayerMode(player, "nc")) 
 			parseNationChatCommand(player, event.getMessage());
 		else {
+			System.out.print("Format:" + event.getFormat() + ":");
 			// All chat modes are disabled, or this is open chat.
+			event.setFormat(resident.getChatFormattedName() + ": %2$s");
+			//event.setMessage(resident.getChatFormattedName());
 			return;
 		}
 		event.setCancelled(true);
@@ -55,7 +64,7 @@ public class TownyPlayerLowListener extends PlayerListener {
 			
 			String prefix = TownySettings.getModifyChatFormat().contains("{town}") ? "" : "[" + town.getName() + "] ";
 			String line = Colors.Blue + "[TC] " + prefix
-					+ player.getDisplayName()
+					+ resident.getChatFormattedName()
 					+ Colors.White + ": "
 					+ Colors.LightBlue + msg;
 			plugin.getTownyUniverse().sendTownMessage(town, ChatTools.color(line));

@@ -14,8 +14,10 @@ public class Resident extends TownBlockOwner {
 	private String title, surname;
     private long teleportRequestTime;
     private Town teleportDestination;
+    private String chatFormattedName;
 
 	public Resident(String name) {
+		setChatFormattedName(name);
 		setName(name);
 		setTitle("");
 		setSurname("");
@@ -200,4 +202,18 @@ public class Resident extends TownBlockOwner {
     public boolean hasRequestedTeleport() {
         return teleportRequestTime != -1;
     }
+
+	/**
+	 * @return the chatFormattedName
+	 */
+	public String getChatFormattedName() {
+		return chatFormattedName;
+	}
+
+	/**
+	 * @param chatFormattedName the chatFormattedName to set
+	 */
+	public void setChatFormattedName(String chatFormattedName) {
+		this.chatFormattedName = chatFormattedName;
+	}
 }

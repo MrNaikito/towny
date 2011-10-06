@@ -72,9 +72,9 @@ public class NationChatCommand implements CommandExecutor  {
 			Resident resident = plugin.getTownyUniverse().getResident(player.getName());
 			Nation nation = resident.getTown().getNation();
 			
-			String prefix = TownySettings.getModifyChatFormat().contains("{nation}") ? "" : "[" + nation.getName() + "] ";
-			String line = Colors.Gold + "[NC] " + prefix
-					+ player.getDisplayName()
+			//String prefix = TownySettings.getModifyChatFormat().contains("{nation}") ? "" : "[" + nation.getName() + "] ";
+			String line = Colors.Gold + "[NC] " // + prefix
+					+ resident.getChatFormattedName()
 					+ Colors.White + ": "
 					+ Colors.Yellow + msg;
 			plugin.getTownyUniverse().sendNationMessage(nation, ChatTools.color(line));
