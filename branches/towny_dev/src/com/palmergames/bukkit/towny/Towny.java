@@ -616,7 +616,8 @@ public class Towny extends JavaPlugin {
                                 //formattedName = ChatTools.parseSingleLineString(colour + (TownySettings.isUsingPermsPrefix() ? getPermissionNode(resident, "prefix") : "") + (TownySettings.isUsingChatPrefix() ? getTownyUniverse().getFormatter().getNamePrefix(resident) : "")
                                 //      + player.getName() + (TownySettings.isUsingChatPrefix() ? getTownyUniverse().getFormatter().getNamePostfix(resident) : "") + (TownySettings.isUsingPermsPrefix() ? getPermissionNode(resident, "suffix") : "")
                                 //      + Colors.White);
-                                player.setDisplayName(formattedName);
+                                //player.setDisplayName(formattedName);
+                                resident.setChatFormattedName(formattedName);
                         } catch (NotRegisteredException e) {
                                 log("Not Registered");
                         }
