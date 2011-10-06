@@ -680,3 +680,4 @@ v0.76.2.5:
 	  prefix.prefixhere
 	  suffix.suffixhere
 	  towny_maxplots.x (with x being a number eg towny_maxplots.2)
+	- Town spawn cost now outputs correctly formatted by the settings in your economy plugin.

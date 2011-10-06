@@ -983,7 +983,7 @@ public class TownCommand implements CommandExecutor  {
                 // Show message if we are using iConomy and are charging for spawn travel.
                 if (travelCost > 0 && TownySettings.isUsingEconomy() && resident.pay(travelCost, town)) {
                     plugin.sendMsg(player, String.format(TownySettings.getLangString("msg_cost_spawn"), 
-                    		travelCost + TownyEconomyObject.getEconomyCurrency()));
+                    		TownyEconomyObject.getFormattedBalance(travelCost))); // + TownyEconomyObject.getEconomyCurrency()));
                 }
                 
                 
