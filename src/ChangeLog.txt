@@ -683,3 +683,4 @@ v0.76.2.5:
 	- Town spawn cost now outputs correctly formatted by the settings in your economy plugin.
 v0.76.2.6:
 	- Fixed modplayername in chat format generating duplicate entries.
+	- Optimized Towny chat so it no longer performs lots of wasteful string parsing on every message.

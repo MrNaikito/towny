@@ -45,6 +45,7 @@ public class Resident extends TownBlockOwner {
 		if (title.matches(" "))
 			title = "";
 		this.title = title;
+		setChangedName(true);
 	}
 
 	public String getTitle() {
@@ -59,6 +60,7 @@ public class Resident extends TownBlockOwner {
 		if (surname.matches(" "))
 			surname = "";
 		this.surname = surname;
+		setChangedName(true);
 	}
 
 	public String getSurname() {
@@ -215,5 +217,7 @@ public class Resident extends TownBlockOwner {
 	 */
 	public void setChatFormattedName(String chatFormattedName) {
 		this.chatFormattedName = chatFormattedName;
+		setChangedName(false);
 	}
+
 }

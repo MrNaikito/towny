@@ -44,7 +44,6 @@ import com.palmergames.bukkit.towny.event.TownyPlayerListener;
 import com.palmergames.bukkit.towny.event.TownyPlayerLowListener;
 import com.palmergames.bukkit.towny.event.TownyWorldListener;
 import com.palmergames.bukkit.towny.object.Coord;
-import com.palmergames.bukkit.towny.object.Resident;
 import com.palmergames.bukkit.towny.object.Town;
 import com.palmergames.bukkit.towny.object.TownyEconomyObject;
 import com.palmergames.bukkit.towny.object.TownyPermission;
@@ -573,56 +572,7 @@ public class Towny extends JavaPlugin {
                 return TownyUniverse.getPermissionSource().hasPermission(player, "towny.admin");
         }
         
-        public void setDisplayName (Player player) {
-                
-                // Setup the chat prefix BEFORE we speak.
-                if (TownySettings.isUsingModifyChat()) {
-                        try {
-                                Resident resident = getTownyUniverse().getResident(player.getName());
-                                String colour, formattedName = "";
-                                if (resident.isKing())
-                                        colour = TownySettings.getKingColour();
-                                else if (resident.isMayor())
-                                        colour = TownySettings.getMayorColour();
-                                else
-                                        colour = "";
-                                formattedName = TownySettings.getModifyChatFormat();
-                                String nation = "",town = "";
-                                
-                                if (resident.hasNation()) {
-                                	nation = resident.hasNation() ? "[" + resident.getTown().getNation().getName() + "]" : "";
-                                	nation = resident.getTown().getNation().hasTag() ? "[" + resident.getTown().getNation().getTag() + "]" : nation;
-                                } else if ((resident.hasTitle()) || (resident.hasSurname())) {
-                                	resident.setTitle(" ");
-                                	resident.setSurname(" ");
-                                }
-                                
-                                if (resident.hasTown()) {
-                                	town = resident.hasTown() ? "[" + resident.getTown().getName() + "]" : "";
-                                	town = resident.getTown().hasTag() ? "[" + resident.getTown().getTag() + "]" : town;
-                                }
-                                
-                                formattedName = formattedName.replace("{nation}", nation);
-                                formattedName = formattedName.replace("{town}", town);
-                                formattedName = formattedName.replace("{permprefix}", TownyUniverse.getPermissionSource().getPrefixSuffix(resident, "prefix"));
-                                formattedName = formattedName.replace("{townynameprefix}", resident.hasTitle() ? resident.getTitle() : TownyFormatter.getNamePrefix(resident));
-                                formattedName = formattedName.replace("{playername}", player.getName());
-                                formattedName = formattedName.replace("{modplayername}", player.getDisplayName());
-                                formattedName = formattedName.replace("{townynamepostfix}", resident.hasSurname() ? resident.getSurname() : TownyFormatter.getNamePostfix(resident));
-                                formattedName = formattedName.replace("{permsuffix}", TownyUniverse.getPermissionSource().getPrefixSuffix(resident, "suffix"));
-                                
-                                formattedName = ChatTools.parseSingleLineString(colour + formattedName + Colors.White).trim();
-                                
-                                //formattedName = ChatTools.parseSingleLineString(colour + (TownySettings.isUsingPermsPrefix() ? getPermissionNode(resident, "prefix") : "") + (TownySettings.isUsingChatPrefix() ? getTownyUniverse().getFormatter().getNamePrefix(resident) : "")
-                                //      + player.getName() + (TownySettings.isUsingChatPrefix() ? getTownyUniverse().getFormatter().getNamePostfix(resident) : "") + (TownySettings.isUsingPermsPrefix() ? getPermissionNode(resident, "suffix") : "")
-                                //      + Colors.White);
-                                //player.setDisplayName(formattedName);
-                                resident.setChatFormattedName(formattedName);
-                        } catch (NotRegisteredException e) {
-                                log("Not Registered");
-                        }
-                }               
-        }
+        
         
         public void setPlayerMode(Player player, String[] modes) {
                 playerMode.put(player.getName(), Arrays.asList(modes));
