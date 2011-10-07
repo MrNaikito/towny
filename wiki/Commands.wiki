@@ -25,10 +25,10 @@
      * clearlist
     * set 
      * perm 
-     * {on/off}
-     * {friend/ally/outsider} {on/off}
-     * {build/destroy/switch/itemuse} {on/off}
-     * {friend/ally/outsider} {build/destroy/switch/itemuse} {on/off}
+       * {on/off}
+       * {friend/ally/outsider} {on/off}
+       * {build/destroy/switch/itemuse} {on/off}
+       * {friend/ally/outsider} {build/destroy/switch/itemuse} {on/off}
      * mode
        * map
        * townchat, tc
