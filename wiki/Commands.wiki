@@ -33,6 +33,7 @@
        * map
        * townchat, tc
        * nationchat, nc
+       * townclaim
        * reset  _(This turns off all modes that are active.)_
     * delete {resident}
     
