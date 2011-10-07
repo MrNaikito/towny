@@ -15,37 +15,46 @@
   * /resident 
     *    
     * ?
-    * list
     * {resident}
+    * delete {resident}
     * friend 
      * add {resident} .. {resident}
      * add+ {resident} .. {resident}
      * remove {resident} .. {resident}
      * remove+ {resident} .. {resident}
      * clearlist
+    * list
     * set 
-     * perm 
-       * {on/off}
-       * {friend/ally/outsider} {on/off}
-       * {build/destroy/switch/itemuse} {on/off}
-       * {friend/ally/outsider} {build/destroy/switch/itemuse} {on/off}
      * mode
        * map
        * townchat, tc
        * nationchat, nc
        * townclaim
        * reset  _(This turns off all modes that are active.)_
-    * delete {resident}
+     * perm 
+       * {on/off}
+       * {friend/ally/outsider} {on/off}
+       * {build/destroy/switch/itemuse} {on/off}
+       * {friend/ally/outsider} {build/destroy/switch/itemuse} {on/off}
+
     
 == /town ==  
   * /town 
     *
     * ?
     * {town}
+    * here
+    * leave
     * list
     * online
-    * leave
-    * here
+    * new 
+      * {townname}
+      * {townname} {mayor}
+    * add {resident} .. {resident}
+    * kick {resident} .. {resident}
+    * assistant 
+      * add {resident} .. {resident}
+      * remove {resident} .. {resident}
     * spawn
     * spawn {town}
     * claim 
@@ -59,20 +68,13 @@
     * deposit {$}
     * buy
       * bonus {amount}
-    * new 
-      * {townname}
-      * {townname} {mayor}
     * delete {town name}
-    * add {resident} .. {resident}
-    * kick {resident} .. {resident}
-    * assistant 
-      * add {resident} .. {resident}
-      * remove {resident} .. {resident}
     * set 
       * board {message}
       * mayor {resident}
       * homeblock
       * spawn
+      * name {name}
       * perm 
         * {on/off}
         * {resident/ally/outsider} {on/off}
@@ -85,7 +87,6 @@
       * plotprice {$}
       * shopprice $$
       * shoptax $$
-      * name {name}
     * toggle
       * explosion
       * fire
