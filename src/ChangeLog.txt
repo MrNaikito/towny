@@ -690,3 +690,5 @@ v0.76.2.7:
 v0.76.2.8:
 	- Fixed a world bug where Plot revert was following wild revent instead of it's own setting.
 	- Requires CraftBukkit 1302 as a minimum, to clear memory leaks.
+	- Added access from console for '/ta givebonus', and expanded to allow a town or a player to give the bonus to.
+	  (bonus given to the player is directly transfered to the town)
