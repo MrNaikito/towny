@@ -28,6 +28,7 @@ import com.palmergames.bukkit.towny.object.TownyEconomyObject;
 import com.palmergames.bukkit.towny.object.TownyUniverse;
 import com.palmergames.bukkit.towny.object.TownyWorld;
 import com.palmergames.bukkit.towny.object.WorldCoord;
+import com.palmergames.bukkit.towny.tasks.TownClaim;
 import com.palmergames.bukkit.util.ChatTools;
 import com.palmergames.bukkit.util.Colors;
 import com.palmergames.util.MemMgmt;
@@ -228,8 +229,10 @@ public class TownyAdminCommand implements CommandExecutor  {
                                         } catch (NotRegisteredException e) {
                                         }
                                         residentUnclaim(player, worldCoord);
-                                        TownCommand.townUnclaim(null, worldCoord, true);
+
+                                        //TownCommand.townUnclaim(null, worldCoord, true);
                                 }
+                                new TownClaim(plugin, player, null, selection, false, true).start();
 
                                 plugin.sendMsg(player, String.format(TownySettings.getLangString("msg_admin_unclaim_area"), Arrays.toString(selection.toArray(new WorldCoord[0]))));
                                 for (Resident resident : residents) {

@@ -1398,7 +1398,7 @@ public class TownyUniverse extends TownyObject {
                 // Move the plot to be restored
                 if (townBlock.getWorld().isUsingPlotManagementRevert()) {
                 	PlotBlockData plotData = TownyRegenAPI.getPlotChunkSnapshot(townBlock);
-                	if (plotData != null) {
+                	if (plotData != null && !plotData.getBlockList().isEmpty()) {
                 		TownyRegenAPI.addPlotChunk(plotData, true);
                 	}
                 }
@@ -1409,29 +1409,37 @@ public class TownyUniverse extends TownyObject {
         
 		public void deleteTownBlockIds(TownBlock townBlock) {
         	
-        	Block block = null;
+        	//Block block = null;
+        	World world = null;
         	int plotSize = TownySettings.getTownBlockSize();
         	
         	plugin.sendDebugMsg("Processing deleteTownBlockIds");
         	
         	try {
-				World world = plugin.getServerWorld(townBlock.getWorld().getName());
+				world = plugin.getServerWorld(townBlock.getWorld().getName());
+				/*
+				if (!world.isChunkLoaded(MinecraftTools.calcChunk(townBlock.getX()), MinecraftTools.calcChunk(townBlock.getZ())))
+					return;
+				*/
 				int height = world.getMaxHeight()-1;
 				int worldx = townBlock.getX()*plotSize, worldz = townBlock.getZ()*plotSize;
 				
 				for (int z = 0; z < plotSize; z++)
 	        		for (int x = 0; x < plotSize; x++)
 	        			for (int y = height; y > 0; y--) { //Check from bottom up else minecraft won't remove doors
-	        				block = world.getBlockAt(worldx + x, y, worldz + z);
+	        				Block block = world.getBlockAt(worldx + x, y, worldz + z);
 	        				if (townBlock.getWorld().isPlotManagementDeleteIds(block.getTypeId())) {
 	        					block.setType(Material.AIR);
-	        				}	
+	        				}
+	        				block = null;
 	        			}
 			} catch (NotRegisteredException e1) {
 				// Failed to get world.
 				e1.printStackTrace();
 			}
         	
+        	//block = null;
+        	world = null;        	
         }
         
 		/**
@@ -1442,23 +1450,28 @@ public class TownyUniverse extends TownyObject {
 		 */
 		public void deleteTownBlockMaterial(TownBlock townBlock, int material) {
         	
-        	Block block = null;
+        	//Block block = null;
         	int plotSize = TownySettings.getTownBlockSize();
         	
         	plugin.sendDebugMsg("Processing deleteTownBlockId");
         	
         	try {
 				World world = plugin.getServerWorld(townBlock.getWorld().getName());
+				/*
+				if (!world.isChunkLoaded(MinecraftTools.calcChunk(townBlock.getX()), MinecraftTools.calcChunk(townBlock.getZ())))
+					return;
+				*/
 				int height = world.getMaxHeight()-1;
 				int worldx = townBlock.getX()*plotSize, worldz = townBlock.getZ()*plotSize;
 				
 				for (int z = 0; z < plotSize; z++)
 	        		for (int x = 0; x < plotSize; x++)
 	        			for (int y = height; y > 0; y--) { //Check from bottom up else minecraft won't remove doors
-	        				block = world.getBlockAt(worldx + x, y, worldz + z);
+	        				Block block = world.getBlockAt(worldx + x, y, worldz + z);
 	        				if (block.getTypeId() == material) {
 	        					block.setType(Material.AIR);
-	        				}	
+	        				}
+	        				block = null;
 	        			}
 			} catch (NotRegisteredException e1) {
 				// Failed to get world.

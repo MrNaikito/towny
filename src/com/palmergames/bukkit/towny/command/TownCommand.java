@@ -25,6 +25,7 @@ import com.palmergames.bukkit.towny.AlreadyRegisteredException;
 import com.palmergames.bukkit.towny.EconomyException;
 import com.palmergames.bukkit.towny.EmptyTownException;
 import com.palmergames.bukkit.towny.NotRegisteredException;
+import com.palmergames.bukkit.towny.tasks.TownClaim;
 import com.palmergames.bukkit.towny.Towny;
 import com.palmergames.bukkit.towny.TownyException;
 import com.palmergames.bukkit.towny.TownyFormatter;
@@ -1490,14 +1491,16 @@ public class TownCommand implements CommandExecutor  {
                                         throw new TownyException("Economy Error");
                                 }
                                 
-                                for (WorldCoord worldCoord : selection)
-                                        townClaim(town, worldCoord);
-
-								TownyUniverse.getDataSource().saveTown(town);
-								TownyUniverse.getDataSource().saveWorld(world);
+                                new TownClaim(plugin, player, town, selection, true, false).start();
                                 
-                                plugin.sendMsg(player, String.format(TownySettings.getLangString("msg_annexed_area"), Arrays.toString(selection.toArray(new WorldCoord[0]))));
-                                plugin.updateCache();
+                                //for (WorldCoord worldCoord : selection)
+                                //        townClaim(town, worldCoord);
+
+								//TownyUniverse.getDataSource().saveTown(town);
+								//TownyUniverse.getDataSource().saveWorld(world);
+                                
+                                //plugin.sendMsg(player, String.format(TownySettings.getLangString("msg_annexed_area"), Arrays.toString(selection.toArray(new WorldCoord[0]))));
+                                //plugin.updateCache();
                         } catch (TownyException x) {
                                 plugin.sendErrorMsg(player, x.getError());
                                 return;
@@ -1529,13 +1532,17 @@ public class TownCommand implements CommandExecutor  {
                                 
                                 List<WorldCoord> selection;
                                 if (split.length == 1 && split[0].equalsIgnoreCase("all"))
-                                        townUnclaimAll(town);
+                                	new TownClaim(plugin, player, town, null, false, false).start();
+                                        //townUnclaimAll(town);
                                 else {
                                         selection = TownyUtil.selectWorldCoordArea(town, new WorldCoord(world, Coord.parseCoord(plugin.getCache(player).getLastLocation())), split);
                                         selection = TownyUtil.filterOwnedBlocks(town, selection);
                                         
-                                        for (WorldCoord worldCoord : selection)
-                                                townUnclaim(town, worldCoord, false);
+                                        // Set the area to unclaim
+                                        new TownClaim(plugin, player, town, selection, false, false).start();
+                                        
+                                        //for (WorldCoord worldCoord : selection)
+                                        //        townUnclaim(town, worldCoord, false);
         
                                         plugin.sendMsg(player, String.format(TownySettings.getLangString("msg_abandoned_area"), Arrays.toString(selection.toArray(new WorldCoord[0]))));
                                 }
@@ -1611,7 +1618,7 @@ public class TownCommand implements CommandExecutor  {
                         throw new TownyException("Economy Error");
                 }
         }
-        
+        /*
         public static boolean townClaim(Town town, WorldCoord worldCoord) throws TownyException {               
                 try {
                         TownBlock townBlock = worldCoord.getTownBlock();
@@ -1653,13 +1660,14 @@ public class TownCommand implements CommandExecutor  {
                         throw new TownyException(TownySettings.getLangString("msg_not_claimed_1"));
                 }
         }
-        
+
         public static boolean townUnclaimAll(Town town) {
                 plugin.getTownyUniverse().removeTownBlocks(town);
                 plugin.getTownyUniverse().sendTownMessage(town, TownySettings.getLangString("msg_abandoned_area_1"));
                 
                 return true;
         }
+        */
         
         private void townWithdraw(Player player, int amount) {
                 Resident resident;
