@@ -684,3 +684,9 @@ v0.76.2.5:
 v0.76.2.6:
 	- Fixed modplayername in chat format generating duplicate entries.
 	- Optimized Towny chat so it no longer performs lots of wasteful string parsing on every message.
+v0.76.2.7:
+	- Added a seperate thread for Town Claim to relieve the lag caused by Chunk snapshot generation.
+	- Towny World commands are now admin only again.
+v0.76.2.8:
+	- Fixed a world bug where Plot revert was following wild revent instead of it's own setting.
+	- Requires CraftBukkit 1302 as a minimum, to clear memory leaks.

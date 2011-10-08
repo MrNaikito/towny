@@ -45,7 +45,7 @@ public class TownyPlayerLowListener extends PlayerListener {
 			TownyChat.parseNationChatCommand(plugin, player, event.getMessage());
 		else {
 			// All chat modes are disabled, or this is open chat.
-			event.setFormat(resident.getChatFormattedName() + ": %2$s");
+			event.setFormat(event.getFormat().replace("%1$s", resident.getChatFormattedName()));
 			//player.setDisplayName(resident.getChatFormattedName());
 			return;
 		}
