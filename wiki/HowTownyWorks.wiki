@@ -184,27 +184,51 @@ Mayors have a command used in game to set the cost of all the plots in their tow
 The server admin can set a default plotprice in [DefaultConfig config.yml] at {{{price_claim_townblock: 25.0}}}, in this example a new town will automatically have a plotprice of 25 dollars.
 
 == Using the Maps ==
-
 The map in towny displays the grid system of plots. The map can be viewed once using {{{/towny map}}} one time or you can set the map to show every time you move from one block to another:
   * Use {{{/resident set mode map}}} to turn it on.
   * And use {{{/resident set mode reset}}} to turn it off.
 A large version of the map can be seen using /towny map big.
 
 == Plot Regeneration & Unclaimed Plots == 
+There are 4 options for affecting townblocks/plots.
 
-When a town plot is unclaimed (by a player or through upkeep) it will slowly begin to revert to a pre town state. This can be disabled in the config at new_world_settings.plot_management.revert_on_unclaim.enabled.
-Blocks will slowly change back to whatever blocks we're present at the moment the town block was claimed.
-You can configure certain block types you don't want restored to prevent players exploiting regen for diamond ores.
-Block types to not restore are configured in block_ignore in the worlds txt file data/worlds/worldname.txt
+  === Reverting unclaimed townblocks to their original state on unclaim ===
 
-Another option aside from the revert_on_unclaim is the block_delete section. When block_delete is enabled in the config and when a townblock is unclaimed (by a player or through upkeep) the blockIDs listed in the config will be removed from the townblock.
-By default the list includes redstone, redstone accessories, doors, signs and more. This can be useful for delete all signs within a townblock, ensuring any chests locked with Lockette or Deadbolt signs are unlocked.
+  When a town plot is unclaimed (by a player or through upkeep) it will slowly begin to revert to a pre town state. Blocks will slowly change back to whatever blocks we're present at the moment the town block was claimed. A townblock must revert completely before the snapshot of the townblock is removed. If townblock is reclaimed mid-revert, a new snapshot is not taken and if the townblock is unclaimed again it will revert to the original snapshot.
+    * Disabling this feature is done in the towny\data\worlds\worldname.txt @ {{{usingPlotManagementRevert=false}}}
+    * Disabling this feature for new worlds is done in the config at new_world_settings.plot_management.revert_on_unclaim.enabled
+  You can configure certain block types you don't want restored to prevent players exploiting regen for diamond ores.
+    * Block types to not restore are configured in block_ignore in the worlds txt file data/worlds/worldname.txt
+    * Defaults for new worlds are set in the config at new_world_settings.plot_management.revert_on_unclaim.block_ignore:
 
-Still another option available only to Town Mayors on public town land: /plot clear. This command is meant to be used after a plot was personally owned by a resident, who either moved to another plot or left town.
-The command will remove all blocks matching the mayor_plotblock_delete list in the config. By default this list includes only signs, useful for mayors to remove sign-protection on doors, chests, furnaces, dispensers and trapdoors given via Lockette or Deadbolt.
+  === Deleting pre-defined blockIDs on unclaim === 
+  
+  When a town plot is unclaimed (by a player or through upkeep) block IDs matching a list will be deleted within that townblock. This can be useful for deleting all signs within a townblock, ensuring any chests locked with Lockette or Deadbolt signs are unlocked.
+    * Disabling this feature is done in the towny\data\worlds\worldname.txt @ {{{usingPlotManagementdelete=false}}}
+    * Disabling this feature for new worlds is done in the config at new_world_settings.plot_management.block_delete.enabled
+  You can configure the list of blockIDs to be removed on a per-world basis.
+    * The blockIDs listed in the towny\data\worlds\worldname.txt @ {{{plotManagementDeleteIds=}}} will be removed from the townblock.
+    * Defaults for new worlds are set in the config at new_world_settings.plot_management.block_delete.unclaim_delete
 
-Last but not least is a simple wild_revert_on_mob_explosion option in the config.
-This option will regenerate the ground affected by creeper explosions in the wilderness. 
+  === Mayors' /plot clear command ===
+  
+  A feature available only to Town Mayors on public town land: /plot clear. This command is meant to be used after a plot was personally owned by a resident, who either moved to another plot or left town. By default this list includes only signs, useful for mayors to remove sign-protection on doors, chests, furnaces, dispensers and trapdoors given via Lockette or Deadbolt.
+    * Disabling this feature is done in the in the towny\data\worlds\worldname.txt @ {{{usingPlotManagementMayorDelete=false}}} 
+    * Disabling this feature for new worlds is done in the config at new_world_settings.plot_management.mayor_plotblock_delete.enabled
+  You configure the list of blockIDs to be removed when this command is used.
+    * The list of blockIDs is listed in the towny\data\worlds\worldname.txt @ {{{plotManagementMayorDelete=WALL_SIGN,SIGN_POST}}}
+    * Defaults for new worlds are set in the config.yml at new_world_settings.plot_management.mayor_plotblock_delete.mayor_plot_delete
+  
+  === Wilderness Regeneration ===
+  
+  A simple wild_revert_on_mob_explosion option. Will regenerate creeper explosions on a timer.
+    * Disabling this feature is done in the in the towny\data\worlds\worldname.txt @ {{{usingPlotManagementWildRegen=true}}} 
+    * Disabling this feature for new worlds is done in the config at new_world_settings.plot_management.wild_revert_on_mob_explosion.enabled
+  You can configure how quickly the blocks will regenerate, specifically how much time in between each block being reverted.
+    * The timer is changed in the towny\data\worlds\worldname.txt @ {{{usingPlotManagementWildRegenDelay=5}}}
+    * The default for new worlds is set in the config.yml at new_world_settings.plot_management.wild_revert_on_mob_explosion.delay
+    
+    
 ----
 
 = How Towny Lets Players Protect Their Blocks =
