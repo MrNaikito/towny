@@ -692,3 +692,6 @@ v0.76.2.8:
 	- Requires CraftBukkit 1302 as a minimum, to clear memory leaks.
 	- Added access from console for '/ta givebonus', and expanded to allow a town or a player to give the bonus to.
 	  (bonus given to the player is directly transfered to the town)
+v0.76.2.9:
+	- Towny now zero's economy accounts upon removal of resident/town/nation, to allow the account deletion.
+	- Pistons can now push between town owned townblocks.

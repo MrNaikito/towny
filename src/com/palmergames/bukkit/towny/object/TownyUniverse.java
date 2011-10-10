@@ -1239,6 +1239,9 @@ public class TownyUniverse extends TownyObject {
 	            } catch (EconomyException e) {
 	            }
             nations.remove(nation.getName().toLowerCase());
+            // Clear accounts
+            if(TownySettings.isUsingEconomy())
+            	nation.setBalance(0);
                                                      
             plugin.updateCache();
             for (Town town : toSave)
@@ -1286,14 +1289,17 @@ public class TownyUniverse extends TownyObject {
             }
             
             towns.remove(town.getName().toLowerCase());
+            // Clear accounts
+            if(TownySettings.isUsingEconomy())
+            	town.setBalance(0);
             plugin.updateCache();
 
             getDataSource().deleteTown(town);
             getDataSource().saveTownList();
             getDataSource().saveWorld(world);
 
-        setChanged();
-        notifyObservers(REMOVE_TOWN);
+            setChanged();
+            notifyObservers(REMOVE_TOWN);
         }
 
         public void removeResident(Resident resident) {
@@ -1366,6 +1372,9 @@ public class TownyUniverse extends TownyObject {
         getDataSource().deleteResident(resident);               
         
         residents.remove(name.toLowerCase());
+        // Clear accounts
+        if(TownySettings.isUsingEconomy())
+        	resident.setBalance(0);
         plugin.deleteCache(name);
         getDataSource().saveResidentList();
           
