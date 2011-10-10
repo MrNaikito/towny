@@ -26,6 +26,14 @@ public class TownClaim extends Thread {
 	List<WorldCoord> selection;
 	boolean claim, forced;
 	
+    /**
+     * @param plugin reference to towny
+     * @param player Doing the claiming, or null
+     * @param town The claiming town
+     * @param selection List of WoorldCoords to claim/unclaim
+     * @param claim or unclaim
+     * @param forced admin forced claim/unclaim
+     */
     public TownClaim(Towny plugin, Player player, Town town, List<WorldCoord> selection, boolean claim, boolean forced) {
         super();
         this.plugin = plugin;
