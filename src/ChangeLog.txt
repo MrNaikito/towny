@@ -695,3 +695,4 @@ v0.76.2.8:
 v0.76.2.9:
 	- Towny now zero's economy accounts upon removal of resident/town/nation, to allow the account deletion.
 	- Pistons can now push between town owned townblocks.
+	- Fixed town spawn when not using any permissiosn plugins.
