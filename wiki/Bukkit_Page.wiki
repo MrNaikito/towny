@@ -1,7 +1,7 @@
 [B]Plugin: [/B]Towny
 [RIGHT]                                                     [URL='http://webchat.esper.net/?channels=towny']IRC: Join channel #Towny[/URL][/RIGHT]
 [RIGHT][URL='https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=8WWJ76KLFKM4G'][IMG]https://www.paypalobjects.com/en_GB/i/btn/btn_donate_LG.gif[/IMG][/URL][/RIGHT]
- [B]Version:[/B] v0.76.2.0
+ [B]Version:[/B] v0.76.3.0
 
  Taking Shades Towny a step farther.
 
@@ -65,44 +65,52 @@ Read this wikipage to learn how Towny works, this page is a must-read for every 
 Make a suggestion - [URL='http://code.google.com/a/eclipselabs.org/p/towny/issues/entry?template=Suggestion']Link[/URL]
 Report an issue - [URL='http://code.google.com/a/eclipselabs.org/p/towny/issues/entry?template=Defect%20report%20from%20user']Link[/URL]
 
-[spoiler=Whats new][B]New in 0.76.2.0[/B]
+[spoiler=Whats new][B]New in 0.76.3.0[/B]
 [LIST]
 [*]New commands:
 [LIST]
-[*]/plot clear - For mayors. If a plot is owned by the town (not a resident) the mayor can stand in the plot and type this command to remove all block types as specified in mayor_plotblock_delete. This setting is per world so transfers to the world data files at startup.
-[*]/nation set tag clear - Removes a tag for a nation.
-[*]/town set tag clear - Removes a tag for a town.
+[*]None
 [/LIST]
 [/LIST]
 [LIST]
 [*]New Permission Nodes:
 [LIST]
-[*]towny.town.spawn.{{{*}}} : Grants all Spawn travel nodes
-[*]towny.town.spawn.town : Ability to spawn to your own town.
-[*]towny.town.spawn.nation : Ability to spawn to other towns in your nation.
-[*]towny.town.spawn.ally : Ability to spawn to towns in nations allied with yours.
-[*]towny.town.spawn.public : Ability to spawn to unaffilated public towns.
+[*]When using SuperPerms you can now use the following nodes with towny.
+[*]prefix.prefixhere
+[*]suffix.suffixhere
+[*]towny_maxplots.x (with x being a number eg towny_maxplots.2)
 [/LIST]
 [/LIST]
 [LIST]
 [*]Added:
 [LIST]
-[*]Added upkeep charging based upon the number of town plots (town_plotbased_upkeep) rather than resident count. - thanks to phex
-[*]Changed the daily timer to a set time each day. Configure new_day_time to set when you want taxes to be collected. eg: 15h30m would attempt to collect taxes at 3:30pm.
-[/LIST]
+[*]Force load of chunks when using /town spawn, to stop voids.
+[*]If wild_revert_on_mob_explosion is enabled, there are no drops anymore.
+[*]Simplfied Plugin interfacing for Economy plugins to a single setting of using_economy. Towny will first attempt to use Register.jar. If it's not present it will fall back to the legacy support for iConomy 5.01.
+[*]Added a permission handler, detecting and supporting all Permission plugins.
+[*]Admins can now pick, choose and modify which notifications are shown when a player walks from plot to plot. Check the new section 'Town Notifications' in the config.
+[*]Added a seperate thread for Town Claim to relieve the lag caused by Chunk snapshot generation.
+[*]Added access from console for '/ta givebonus', and expanded to allow a town or a player to give the bonus to. (bonus given to the player is directly transfered to the town)
+[*]Pistons can now push between town owned townblocks.[/LIST]
 [/LIST]
 [LIST]
 [*]Bug Fixes!
 [LIST]
 [*]Fixed economy errors when using register and iCo6.
 [*]Fixed Wild permissions.
-[*]Fixed all issues found in 0.76.1.0 release
+[*]Fixed an error with Essentials Eco's currency type.
+[*]Fixed '/town new' and '/nation new' to properly follow the settings in config if permissions are disabled.
+[*]Fixed modplayername in chat format generating duplicate entries.
+[*]Towny World commands are now admin only again.
+[*]Fixed a world bug where Plot revert was following wild revent instead of it's own setting.
+[*]Fixed town spawn when not using any permissiosn plugins.
 [/LIST]
 [/LIST]
 [LIST]
 [*]Lots more bugfixes! [URL='http://code.google.com/a/eclipselabs.org/p/towny/source/browse/trunk/Towny/src/ChangeLog.txt#582']Click here for a full changelog.[/URL]
 [/LIST]
--Towny Advanced 0.76.1 received 1758 downloads.
+-Towny Advanced 0.76.2.0 received 1809 downloads.
+-Towny Advanced 0.76.1.0 received 1758 downloads.
 -Towny Advanced 0.76.0 received 2784 downloads.
 -Towny Advanced 0.75.1 received 1644 downloads.
 -Towny Advanced 0.75.0 received  126 downloads.
@@ -294,7 +302,35 @@ v0.76.2.0:
 	  If you set a day length of 12 hours (12h), taxes will be collected on a 12 hourly cycle, instead of a 24 hour one.
 	  new_day_time should be set to less than the day_interval, but it will default to the same, if it's incorrectly set.
         - Fixed an error in fetching the resident on new cache creation (caused by code reorganising).
-	 
+v0.76.3.0:
+	- Fixed an error when not using a currency type with Essentials Eco.
+	- Force load the destination chunk when teleporting. Attempt to prevent the falling through the world bug.
+	- If wild_revert_on_mob_explosion is enabled, the explosions no longer drop any blocks.
+	- Simplfied Plugin interfacing for Economy plugins to a single setting of using_economy.
+	  Towny will first attempt to use Register.jar. If it's not present
+	  it will fall back to the legacy support for iConomy 5.01.
+	- Added a Permission handler to towny so it will now support GroupManager, PEX, bPermissions, Permissions 2/3 + (bridges) and Bukkit Perms.
+	- Admins can now pick, choose and modify which notifications are shown when a player walks from plot to plot. Check the new section 'Town Notifications' in the config.
+	- Town notifications now show a money formatted price.
+	- Fixed '/town new' and '/nation new' to properly follow the settings in config if permissions are disabled.
+	- If not using Eco, Towny will no longer error when deleting/renaming towns/nations, or upon a new day.
+	- When using SuperPerms you can now use the following nodes with towny.
+	  prefix.prefixhere
+	  suffix.suffixhere
+	  towny_maxplots.x (with x being a number eg towny_maxplots.2)
+	- Town spawn cost now outputs correctly formatted by the settings in your economy plugin.
+	- Fixed modplayername in chat format generating duplicate entries.
+	- Optimized Towny chat so it no longer performs lots of wasteful string parsing on every message.
+	- Added a seperate thread for Town Claim to relieve the lag caused by Chunk snapshot generation.
+	- Towny World commands are now admin only again.
+	- Fixed a world bug where Plot revert was following wild revent instead of it's own setting.
+	- Requires CraftBukkit 1302 as a minimum, to clear memory leaks.
+	- Added access from console for '/ta givebonus', and expanded to allow a town or a player to give the bonus to.
+	  (bonus given to the player is directly transfered to the town)
+	- Towny now zero's economy accounts upon removal of resident/town/nation, to allow the account deletion.
+	- Pistons can now push between town owned townblocks.
+	- Fixed town spawn when not using any permissiosn plugins.
+	- Update for Bukkit 1317's new YamlConfiguration.
 	 
     [URL='http://code.google.com/a/eclipselabs.org/p/towny/source/browse/trunk/Towny/src/ChangeLog.txt']Full Changelog[/URL]
     [/spoiler]
