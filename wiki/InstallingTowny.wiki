@@ -24,7 +24,7 @@ Here are instructions for installing Towny for the first time.
         * Using iConomy 6, BOSEconomy or EssentialsEco:
           * Download [http://mirror.nexua.org/Register/latest/edge/Register.jar Register.jar] and place into your plugins folder.
           * In the Plugin Interfacing section of the config.yml set:
-            * using_economy: false
+            * using_economy: true
       * Permissions setting:
         * Your permissions plugin should automatically be detected.
         * If you use no permissions plugin, settings from the config and world files will be used instead.
