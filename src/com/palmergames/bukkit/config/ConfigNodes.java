@@ -6,7 +6,7 @@ public enum ConfigNodes {
 			VERSION_HEADER("version","", ""),
             VERSION("version.version","", "# This is the current version of Towny.  Please do not edit."),
             LAST_RUN_VERSION("version.last_run_version","", "# This is for showing the changelog on updates.  Please do not edit."),
-            VERSION_BUKKIT("version.bukkit_version","1302", "# Minium required version of CraftBukkit.  Please do not edit."),
+            VERSION_BUKKIT("version.bukkit_version","1317", "# Minimum required version of CraftBukkit.  Please do not edit."),
             LANGUAGE("language","english.yml", "", "# The language file you wish to use"),
             PERMS("permissions","", "",
 				                    "############################################################",
@@ -93,7 +93,7 @@ public enum ConfigNodes {
             NWS_DISABLE_CREATURE_CROP_TRAMPLING("new_world_settings.disable_creature_crop_trampling","true", "# Disable creatures trampling crops"),
             NWS_WORLD_MONSTERS_ON("new_world_settings.world_monsters_on","true", "# world_monsters_on is a global flag setting per world."),
             NWS_FORCE_EXPLOSIONS_ON("new_world_settings.force_explosions_on","false", "# force_explosions_on is a global flag and overrides any towns flag setting"),
-            NWS_FORCE_TOWN_MONSTERS_ON("new_world_settings.force_town_monsters_on","false", "",
+            NWS_FORCE_TOWN_MONSTERS_ON("new_world_settings.force_town_monsters_on","false",
             		"# force_town_monsters_on is a global flag and overrides any towns flag setting"),
             NWS_FORCE_FIRE_ON("new_world_settings.force_fire_on","false", "# force_fire_on is a global flag and overrides any towns flag setting"),
             
@@ -125,7 +125,7 @@ public enum ConfigNodes {
             NWS_PLOT_MANAGEMENT_REVERT_TIME("new_world_settings.plot_management.revert_on_unclaim.speed","1s"),
             NWS_PLOT_MANAGEMENT_REVERT_IGNORE("new_world_settings.plot_management.revert_on_unclaim.block_ignore","21,50,52,56,63,68,89", "# These block types will NOT be regenerated"),
             
-            NWS_PLOT_MANAGEMENT_WILD_MOB_REVERT_ENABLE("new_world_settings.plot_management.wild_revert_on_mob_explosion.enabled","true",
+            NWS_PLOT_MANAGEMENT_WILD_MOB_REVERT_ENABLE("new_world_settings.plot_management.wild_revert_on_mob_explosion.enabled","true", "",
             		"# Enabling this will slowly regenerate holes created in the",
             		"# wilderness by monsters exploding."),
             NWS_PLOT_MANAGEMENT_WILD_MOB_REVERT_TIME("new_world_settings.plot_management.wild_revert_on_mob_explosion.delay","5s"),
@@ -197,7 +197,7 @@ public enum ConfigNodes {
                     "# The time each \"day\", when taxes will be collected.",
                     "# MUST be less than day_interval. Default is 12h (midday)."),
                     
-            PLUGIN_DEBUG_MODE("plugin.debug_mode","false",
+            PLUGIN_DEBUG_MODE("plugin.debug_mode","false", "",
                     "# Lots of messages to tell you what's going on in the server with time taken for events."),
             PLUGIN_DEV_MODE("plugin.dev_mode","", "",
                     "# Spams the player named in dev_name with all messages related to towny."),

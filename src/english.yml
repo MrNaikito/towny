@@ -1,8 +1,8 @@
 ﻿name: Towny
-version: 0.08
+version: 0.09
 language: english
 author: ElgarL
-website:
+website: 'http://code.google.com/a/eclipselabs.org/p/towny/'
 description: >
     Language file for all game messages.  Do not alter this file.
     If you wish to change any of the entries, make a copy named something else.
