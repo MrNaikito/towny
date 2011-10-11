@@ -2,7 +2,7 @@
 
 = Introduction =
 
-Here are instructions for upgrading to Towny 0.76.2.0:
+Here are instructions for upgrading to Towny 0.76.3.0:
 
 
 = Upgrade Instructions =
@@ -18,7 +18,6 @@ Here are instructions for upgrading to Towny 0.76.2.0:
     * Upgrade from pre-0.72
       * Open *config.properties* (unused now) and *config.yml*
       * Carefully configure config.yml to the settings you used in config.properties, [http://code.google.com/a/eclipselabs.org/p/towny/source/browse/trunk/Towny/src/plugin.yml using this as a guide.]
-      * If you are using Groupmanager set {{{using_permissions: true}}}
       * NOTE: The .csv files are no longer being used. Instead the entries in config.yml are used.
       * Save config.yml and optionally, discard config.properties.
       
@@ -28,13 +27,11 @@ Here are instructions for upgrading to Towny 0.76.2.0:
       * Economy Settings: 
         * Using iConomy 5.01:
           * In the Plugin Interfacing section of the config.yml set:
-            * using_register: false
-            * using_iconomy: true
+            * using_economy: true
         * Using iConomy 6, BOSEconomy or EssentialsEco:
           * Download [http://mirror.nexua.org/Register/latest/edge/Register.jar Register.jar] and place into your plugins folder.
           * In the Plugin Interfacing section of the config.yml set:
-            * using_register: true
-            * using_iconomy: false
+            * using_economy: true
       * Save config.yml.    
 
     * Upgrade from post-0.76.2.0 to a new version (Extra info for dev builds [UsingDevBuilds here.])
@@ -44,6 +41,6 @@ Here are instructions for upgrading to Towny 0.76.2.0:
 
   * *If you use a permissions plugin you MUST configure your [PermissionNodes permission nodes], Check for any new nodes added in the current version.*
 
-Your server is ready to use Towny 0.76.2.0!
+Your server is ready to use Towny 0.76.3.0!
 
   * Start your server.
