@@ -1,11 +1,37 @@
 #summary Information on old releases of Towny
-<wiki:toc max_depth="1" />
+<wiki:toc max_depth="2" />
 
 = Introduction =
 
 Here you can find information on old releases of Towny.
 
-== New in 0.76.1 ==
+== New in 0.76.2.0 ==
+
+    * New commands:
+      * /plot clear - For mayors. If a plot is owned by the town (not a resident) the mayor can stand in the plot and type this command to remove all block types as specified in mayor_plotblock_delete. This setting is per world so transfers to the world data files at startup.
+      * /nation set tag clear - Removes a tag for a nation.
+      * /town set tag clear - Removes a tag for a town.
+          
+    * New permission nodes:
+      * - towny.town.spawn.{{{*}}} : Grants all Spawn travel nodes
+      * - towny.town.spawn.town : Ability to spawn to your own town.
+      * - towny.town.spawn.nation : Ability to spawn to other towns in your nation.
+      * - towny.town.spawn.ally : Ability to spawn to towns in nations allied with yours.
+      * - towny.town.spawn.public : Ability to spawn to unaffilated public towns.    
+        
+    * Added:
+      * Added upkeep charging based upon the number of town plots (town_plotbased_upkeep) rather than resident count. - thanks to phex
+      * Changed the daily timer to a set time each day. Configure new_day_time to set when you want taxes to be collected.
+        eg. 15h30m would attempt to collect taxes at 3:30pm.
+        
+    * Bug Fixes!
+      * Fixed economy errors when using register and iCo6.
+      * Fixed Wild permissions.
+      * Fixed all issues found in 0.76.1.0 release
+      
+    * [http://code.google.com/a/eclipselabs.org/p/towny/source/browse/trunk/Towny/src/ChangeLog.txt#582 Click here for a full changelog.]
+
+== New in 0.76.1.0 ==
 
     * New commands:
       * /towny time - Shows how long until taxes and upkeep are collected.
