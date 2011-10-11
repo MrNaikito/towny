@@ -20,20 +20,14 @@ Here are instructions for installing Towny for the first time.
       * Economy Settings: 
         * Using iConomy 5.01:
           * In the Plugin Interfacing section of the config.yml set:
-            * using_register: false
-            * using_iconomy: true
+            * using_economy: true
         * Using iConomy 6, BOSEconomy or EssentialsEco:
           * Download [http://mirror.nexua.org/Register/latest/edge/Register.jar Register.jar] and place into your plugins folder.
           * In the Plugin Interfacing section of the config.yml set:
-            * using_register: true
-            * using_iconomy: false
+            * using_economy: false
       * Permissions setting:
-        * Using a superperms plugin (BukkitPermissions, bPermissions):
-          * In the Plugin Interfacing section of the config.yml set:
-            * using_permissions: false
-        * Using old permissions (GroupManager, Permissions 2, 3):
-          * In the Plugin Interfacing section of the config.yml set:
-            * using_permissions: true
+        * Your permissions plugin should automatically be detected.
+        * If you use no permissions plugin, settings from the config and world files will be used instead.
     * Set wilderness flags only if you are *not* using Permissions.
     * Save config.yml.
   # *If you use a permissions plugin you MUST configure your [PermissionNodes permission nodes]*
