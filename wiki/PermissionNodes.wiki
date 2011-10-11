@@ -50,6 +50,12 @@ Add a description of which nodes and when towny uses its nodes.
  
   * towny.cheat.bypass : User is allowed to fly, use WorldEdit's compass.
   
+  * For superperms users only:
+    * prefix.prefixhere 
+    * suffix.suffixhere
+      * Used for the towny chat configuration's {permprefix} and {permsuffix}.
+    * towny_maxplots.x {with x being a number eg towny_maxplots.2}
+
 = Info Nodes =
 
   This is similar to a permission node as it is added to your permission nodes file(s).
