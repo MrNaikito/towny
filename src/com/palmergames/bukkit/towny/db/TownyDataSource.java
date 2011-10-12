@@ -73,7 +73,7 @@ public abstract class TownyDataSource {
 
 	public boolean loadAll() {
 		return loadWorldList() && loadNationList() && loadTownList() && loadResidentList()
-			&& loadWorlds() && loadNations() && loadTowns() && loadResidents() && loadRegenList();
+			&& loadWorlds() && loadNations() && loadTowns() && loadResidents() && loadRegenList() && loadTownBlocks();
 	}
 
 	public boolean saveAll() {
@@ -86,6 +86,7 @@ public abstract class TownyDataSource {
 	abstract public boolean loadNationList();
 	abstract public boolean loadWorldList();
 	abstract public boolean loadRegenList();
+	abstract public boolean loadTownBlocks();
 	
 	abstract public boolean loadResident(Resident resident);
 	abstract public boolean loadTown(Town town);
@@ -102,6 +103,7 @@ public abstract class TownyDataSource {
 	abstract public boolean saveTown(Town town);
 	abstract public boolean saveNation(Nation nation);
 	abstract public boolean saveWorld(TownyWorld world);
+	abstract public boolean saveTownBlock(TownBlock townBlock);
 	
 	abstract public boolean savePlotData(PlotBlockData plotChunk);
 	
@@ -113,6 +115,7 @@ public abstract class TownyDataSource {
 	abstract public void deleteTown(Town town);
 	abstract public void deleteNation(Nation nation);
 	abstract public void deleteWorld(TownyWorld world);
+	abstract public void deleteTownBlock(TownBlock townBlock);
 	
 	abstract public void deleteFile(String file);
 	

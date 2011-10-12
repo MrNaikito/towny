@@ -831,6 +831,10 @@ public class TownyUniverse extends TownyObject {
                 return matches;
         }
         
+        public List<String> getStatus(TownBlock townBlock) {
+            return TownyFormatter.getStatus(townBlock);
+        }
+        
         public List<String> getStatus(Resident resident) {
                 return TownyFormatter.getStatus(resident);
         }
@@ -1395,7 +1399,10 @@ public class TownyUniverse extends TownyObject {
                 }
                 TownyWorld world = townBlock.getWorld();
                 world.removeTownBlock(townBlock);
+                
                 getDataSource().saveWorld(world);
+                getDataSource().deleteTownBlock(townBlock);
+                
                 if (resident != null)
                         getDataSource().saveResident(resident);
                 if (town != null)

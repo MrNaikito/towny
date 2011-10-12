@@ -143,7 +143,7 @@ public class ResidentCommand implements CommandExecutor  {
                         // TODO: Let admin's call a subfunction of this.
                         if (split[0].equalsIgnoreCase("perm")) {
                                 String[] newSplit = StringMgmt.remFirstArg(split);
-                                TownCommand.setTownBlockOwnerPermissions(player, resident, newSplit, true);
+                                TownCommand.setTownBlockPermissions(player, resident, resident.getPermissions(), newSplit, true);
                         } else if (split[0].equalsIgnoreCase("mode")) {
                                 String[] newSplit = StringMgmt.remFirstArg(split);
                                 setMode(player, newSplit);

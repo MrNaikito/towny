@@ -8,6 +8,8 @@ import com.palmergames.bukkit.towny.object.Nation;
 import com.palmergames.bukkit.towny.object.Resident;
 import com.palmergames.bukkit.towny.object.ResidentList;
 import com.palmergames.bukkit.towny.object.Town;
+import com.palmergames.bukkit.towny.object.TownBlock;
+import com.palmergames.bukkit.towny.object.TownBlockOwner;
 import com.palmergames.bukkit.towny.object.TownyEconomyObject;
 import com.palmergames.bukkit.towny.object.TownyObject;
 import com.palmergames.bukkit.towny.object.TownyWorld;
@@ -47,6 +49,27 @@ public class TownyFormatter {
         public static String getTime() {
                 SimpleDateFormat sdf = new SimpleDateFormat("hh:mm aa");
                 return sdf.format(System.currentTimeMillis());
+        }
+        
+        public static List<String> getStatus(TownBlock townBlock) {
+        	List<String> out = new ArrayList<String>();
+        	
+        	TownBlockOwner owner;
+        	try {
+	    		if (townBlock.hasResident()){
+					owner = townBlock.getResident();
+	    		} else {
+	    			owner = townBlock.getTown();
+	    		}
+	        	
+	        	out.add(ChatTools.formatTitle(TownyFormatter.getFormattedName(owner) + ((MinecraftTools.isOnline(owner.getName())) ? Colors.LightGreen + " (Online)" : "")));
+	        	out.add(Colors.Green + " Perm: " + townBlock.getPermissions().getColourString());
+        	
+        	} catch (NotRegisteredException e) {
+				out.add("Error: " + e.getError());
+			}
+    		
+        	return out;
         }
 
         public static List<String> getStatus(Resident resident) {

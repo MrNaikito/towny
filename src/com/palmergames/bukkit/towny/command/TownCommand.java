@@ -1349,10 +1349,10 @@ public class TownCommand implements CommandExecutor  {
         // wrapper function for non friend setting of perms
         public static void setTownBlockOwnerPermissions(Player player, TownBlockOwner townBlockOwner, String[] split) {
                 
-                setTownBlockOwnerPermissions(player, townBlockOwner, split, false);
+                setTownBlockPermissions(player, townBlockOwner, townBlockOwner.getPermissions(), split, false);
                 
         }
-        public static void setTownBlockOwnerPermissions(Player player, TownBlockOwner townBlockOwner, String[] split, boolean friend) {
+        public static void setTownBlockPermissions(Player player, TownBlockOwner townBlockOwner, TownyPermission perm, String[] split, boolean friend) {
                 
                 // TODO: switches
                 if (split.length == 0 || split[0].equalsIgnoreCase("?")) {
@@ -1362,12 +1362,14 @@ public class TownCommand implements CommandExecutor  {
                         player.sendMessage(ChatTools.formatCommand("", "set perm", "[on/off]", "Toggle all permissions"));
                         player.sendMessage(ChatTools.formatCommand("", "set perm", "[level/type] [on/off]", ""));
                         player.sendMessage(ChatTools.formatCommand("", "set perm", "[level] [type] [on/off]", ""));
-                        player.sendMessage(ChatTools.formatCommand("Eg", "/town set perm", "ally off", ""));
-                        player.sendMessage(ChatTools.formatCommand("Eg", "/resident set perm", "friend build on", ""));
+                        if (townBlockOwner instanceof Town)
+                        	player.sendMessage(ChatTools.formatCommand("Eg", "/town set perm", "ally off", ""));
+                        if (townBlockOwner instanceof Resident)
+                        	player.sendMessage(ChatTools.formatCommand("Eg", "/resident|plot set perm", "friend build on", ""));
                         player.sendMessage(String.format(TownySettings.getLangString("plot_perms"), "'friend'", "'resident'"));
                         player.sendMessage(TownySettings.getLangString("plot_perms_1"));
                 } else {
-                        TownyPermission perm = townBlockOwner.getPermissions();
+                        //TownyPermission perm = townBlockOwner.getPermissions();
                         
                         // reset the friend to resident so the perm settings don't fail
                         if (friend && split[0].equalsIgnoreCase("friend"))
@@ -1423,7 +1425,7 @@ public class TownCommand implements CommandExecutor  {
                                         perm.set(s, b);
                                 } catch (Exception e) {
                                 }
-                        String perms = townBlockOwner.getPermissions().toString();
+                        String perms = perm.toString();
                         //change perm name to friend is this is a resident setting
                         if (friend)
                                 perms = perms.replaceAll("resident", "friend");
