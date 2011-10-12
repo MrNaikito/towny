@@ -153,14 +153,11 @@ public class CommentedConfiguration extends YamlConfiguration {
             }
             try {
                 // Write the string to the config file
-            	System.out.print("Saving Commented Config...");
                 FileMgmt.stringToFile(newContents, file);
             } catch (IOException e) {
                 saved = false;
-                System.out.print("Failed to save Commented Config!");
             }
-        } else
-        	System.out.print("Not updating Config.");
+        }
 
         return saved;
     }
