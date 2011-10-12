@@ -262,7 +262,7 @@ public enum ConfigNodes {
                     "# 326 - water bucket",
                     "# 327 - lava bucket",
                     "# 351 - bone/bonemeal"),
-            PROT_SWITCH_ID("protection.switch_ids","25,54,61,62,64,69,70,71,72,77,96,84,93,94",
+            PROT_SWITCH_ID("protection.switch_ids","23,25,54,61,62,64,69,70,71,72,77,96,84,93,94,107",
             		"",
                     "# Items which can be blocked or enabled via town/plot flags",
                     "# 25 - noteblock",

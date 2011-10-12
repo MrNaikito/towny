@@ -20,6 +20,7 @@ import com.palmergames.bukkit.towny.object.Coord;
 import com.palmergames.bukkit.towny.object.Resident;
 import com.palmergames.bukkit.towny.object.Town;
 import com.palmergames.bukkit.towny.object.TownBlock;
+import com.palmergames.bukkit.towny.object.TownBlockOwner;
 import com.palmergames.bukkit.towny.object.TownyUniverse;
 import com.palmergames.bukkit.towny.object.TownyWorld;
 import com.palmergames.bukkit.towny.object.WorldCoord;
@@ -133,6 +134,7 @@ public class PlotCommand implements CommandExecutor  {
                                         try {
                                                 if (residentUnclaim(resident, worldCoord, false)) {
                                                         plugin.sendMsg(player, TownySettings.getLangString("msg_unclaimed") + " (" + worldCoord + ").");
+                                                        TownyUniverse.getDataSource().saveTownBlock(worldCoord.getTownBlock());
                                                         plugin.updateCache(worldCoord);
                                                 }
                                         } catch (TownyException x) {
@@ -179,8 +181,6 @@ public class PlotCommand implements CommandExecutor  {
                                         selection = new ArrayList<WorldCoord>();
                                         selection.add(pos);
                                 }
-                                
-                                
                         
                                 // Check that it's not: /plot forsale within rect 3
                                 if (areaSelectPivot != 1) {
@@ -198,16 +198,52 @@ public class PlotCommand implements CommandExecutor  {
                         } else {
                                 setPlotForSale(resident, pos, plotPrice);
                         }
+                	} else if (split[0].equalsIgnoreCase("perm")) {
+                		
+                		TownBlock townBlock = new WorldCoord(world, Coord.parseCoord(player)).getTownBlock();
+                		plugin.getTownyUniverse().sendMessage(player, plugin.getTownyUniverse().getStatus(townBlock));
+                		
                 	} else if (split[0].equalsIgnoreCase("set")) {
+                		
+                		split = StringMgmt.remFirstArg(split);
 
-	                    if (split.length > 1) {
+	                    if (split.length > 0) {
+	                    	if (split[0].equalsIgnoreCase("perm")) {
+	                    		
+	                    		//Set plot level permissions (if the plot owner) or Mayor/Assistant of the town.
+	                    		
+	                    		TownBlockOwner owner;
+	                    		
+	                    		TownBlock townBlock = new WorldCoord(world, Coord.parseCoord(player)).getTownBlock();
+	                    		town = townBlock.getTown();
+	                    		
+	                    		if (townBlock.hasResident()){
+	                    			owner = townBlock.getResident();
+	                    			
+	                    			if (resident != owner)
+	                    				throw new TownyException(TownySettings.getLangString("msg_area_not_own"));
+	                    			
+	                    		} else {
+	                    			owner = townBlock.getTown();
+	                    			
+	                    			if ((!resident.isMayor()) && (!town.hasAssistant(resident)))
+                                            throw new TownyException(TownySettings.getLangString("msg_not_mayor_ass"));
+	                    		}
+	                    		
+	                    		TownCommand.setTownBlockPermissions(player, owner, townBlock.getPermissions(), StringMgmt.remFirstArg(split), true);
+								TownyUniverse.getDataSource().saveTownBlock(townBlock);
+	                    		return;
+	                    	}
+	                    	
 	                        WorldCoord worldCoord = new WorldCoord(world, Coord.parseCoord(player));
-	                        setPlotType(resident, worldCoord, split[1]);
+	                        setPlotType(resident, worldCoord, split[0]);
+	                        TownyUniverse.getDataSource().saveTownBlock(worldCoord.getTownBlock());
 	                        player.sendMessage(String.format(TownySettings.getLangString("msg_plot_set_type"),split[1]));
 	
 	                    } else {
 	                        player.sendMessage(ChatTools.formatCommand("", "/plot set", "reset", ""));
 	                        player.sendMessage(ChatTools.formatCommand("", "/plot set", "shop", ""));
+	                        player.sendMessage(ChatTools.formatCommand("", "/plot set perm", "?", ""));
 	                    }
                 	} else if (split[0].equalsIgnoreCase("clear")) {
                 		
@@ -257,6 +293,8 @@ public class PlotCommand implements CommandExecutor  {
                                 try {
                                         Resident owner = townBlock.getResident();
                                         if (townBlock.getPlotPrice() != -1) {
+                                        	// Plot is for sale
+                                        	
                                                 if (TownySettings.isUsingEconomy() && !resident.pay(townBlock.getPlotPrice(), owner))
                                                         throw new TownyException(TownySettings.getLangString("msg_no_money_purchase_plot"));
                                                 
@@ -267,19 +305,34 @@ public class PlotCommand implements CommandExecutor  {
                                                 plugin.getTownyUniverse().sendTownMessage(town, TownySettings.getBuyResidentPlotMsg(resident.getName(), owner.getName(), townBlock.getPlotPrice()));
                                                 townBlock.setPlotPrice(-1);
                                                 townBlock.setResident(resident);
-												TownyUniverse.getDataSource().saveResident(owner);
+                                                
+                                                // Set the plot permissions to mirror the new owners.
+                                                townBlock.setPermissions(resident.getPermissions().toString());
+
+												TownyUniverse.getDataSource().saveResident(resident);
+												plugin.updateCache();
                                                 return true;
                                         } else if (town.isMayor(resident) || town.hasAssistant(resident)) {
+                                        	//Plot isn't for sale but reposessing for town.
+                                        	
                                                 if (TownySettings.isUsingEconomy() && !town.pay(townBlock.getPlotPrice(), owner))
                                                         throw new TownyException(TownySettings.getLangString("msg_town_no_money_purchase_plot"));
                                                 
                                                 plugin.getTownyUniverse().sendTownMessage(town, TownySettings.getBuyResidentPlotMsg(town.getName(), owner.getName(), townBlock.getPlotPrice()));
                                                 townBlock.setResident(null);
                                                 townBlock.setPlotPrice(-1);
+                                                
+                                                // Set the plot permissions to mirror the towns.
+                                                townBlock.setPermissions(town.getPermissions().toString());
+
+												TownyUniverse.getDataSource().saveResident(owner);
+												plugin.updateCache();
                                                 return true;
                                         } else
                                                 throw new AlreadyRegisteredException(String.format(TownySettings.getLangString("msg_already_claimed"), owner.getName()));
                                 } catch (NotRegisteredException e) {
+                                	//Plot has no owner so it's the town selling it
+                                	
                                         if (townBlock.getPlotPrice() == -1)
                                                 throw new TownyException(TownySettings.getLangString("msg_err_plot_nfs"));
                                         
@@ -288,6 +341,11 @@ public class PlotCommand implements CommandExecutor  {
                                         
                                         townBlock.setPlotPrice(-1);
                                         townBlock.setResident(resident);
+                                        
+                                        // Set the plot permissions to mirror the new owners.
+                                        townBlock.setPermissions(resident.getPermissions().toString());                                        
+										TownyUniverse.getDataSource().saveResident(resident);
+										plugin.updateCache();
                                         return true;
                                 }
                         } catch (NotRegisteredException e) {
@@ -307,7 +365,12 @@ public class PlotCommand implements CommandExecutor  {
                         if (resident == owner || force) {
                                 townBlock.setResident(null);
                                 townBlock.setPlotPrice(townBlock.getTown().getPlotPrice());
+                                
+                                // Set the plot permissions to mirror the towns.
+                                townBlock.getPermissions().loadDefault(owner.getTown());
+                                
 								TownyUniverse.getDataSource().saveResident(resident);
+								plugin.updateCache();
                                 return true;
                         } else
                                 throw new TownyException(TownySettings.getLangString("msg_not_own_area"));

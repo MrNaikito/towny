@@ -94,6 +94,11 @@ public class TownClaim extends Thread {
                 townBlock.setTown(town);
                 if (!town.hasHomeBlock())
                         town.setHomeBlock(townBlock);
+                
+                // Set the plot permissions to mirror the towns.
+                townBlock.setPermissions(town.getPermissions().toString());
+                TownyUniverse.getDataSource().saveTownBlock(townBlock);
+                
                 if (town.getWorld().isUsingPlotManagementRevert()) {
                 	PlotBlockData plotChunk = TownyRegenAPI.getPlotChunk(townBlock);
             		if (plotChunk != null) {
@@ -117,6 +122,7 @@ public class TownClaim extends Thread {
                         throw new TownyException(TownySettings.getLangString("msg_area_not_own"));
                 
                 plugin.getTownyUniverse().removeTownBlock(townBlock);
+                TownyUniverse.getDataSource().deleteTownBlock(townBlock);
                 
                 townBlock = null;
                 

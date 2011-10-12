@@ -705,3 +705,9 @@ v0.76.3.1:
 v0.76.3.2:
 	- Code change due to PEX changing .has() to static (PEX 1.15).
 	- Animals in towns can now only be killed by residents of that town. Unless PVP is enabled.
+v0.76.3.3:
+	- TownBlocks reposessed by the Mayor/Assistants now correctly remove the block from the Residents data files.
+	- Added Plot level permissions and commands to control them.
+	  '/plot perm' displays the current plots permissions.
+	  '/plot set perm [on/off] or [resident/friend/ally/outsider] [build/destroy/switch/itemuse] [on/off]'
+	- Added 23 and 107 to Switch Id's (Dispenser and Fence Gate).

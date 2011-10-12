@@ -259,32 +259,37 @@ public class CachePermissions extends TownyUniverse {
          }
          
          // Plot Permissions
-         try {
-                 Resident owner = townBlock.getResident();
-                 
+         //try {
+         //        Resident owner = townBlock.getResident();
+         if (townBlock.hasResident()) {   
+        	 System.out.print("Setting resident plot perms");
                  if (status == TownBlockStatus.PLOT_FRIEND) {
-                         if (owner.getPermissions().getResidentPerm(actionType))
+                         if (townBlock.getPermissions().getResidentPerm(actionType))
                                  return true;
                          else {
                                  cacheBlockErrMsg(player, String.format(TownySettings.getLangString("msg_cache_block_error_plot"), "friends", actionType.toString()));
                                  return false;
                          }
                  } else if (status == TownBlockStatus.PLOT_ALLY)
-                         if (owner.getPermissions().getAllyPerm(actionType))
+                         if (townBlock.getPermissions().getAllyPerm(actionType))
                                  return true;
                          else {
                                  cacheBlockErrMsg(player, String.format(TownySettings.getLangString("msg_cache_block_error_plot"), "allies", actionType.toString()));
                                  return false;
                          }
-                 else //TODO: (Remove) if (status == TownBlockStatus.OUTSIDER)
-                         if (owner.getPermissions().getOutsiderPerm(actionType))
+                 else {//TODO: (Remove) if (status == TownBlockStatus.OUTSIDER)
+                	 
+                         if (townBlock.getPermissions().getOutsiderPerm(actionType)) {
+                        	 System.out.print("Outsider true");
                                  return true;
-                         else {
+                         } else {
                                  cacheBlockErrMsg(player, String.format(TownySettings.getLangString("msg_cache_block_error_plot"), "outsiders", actionType.toString()));
                                  return false;
                          }
-         } catch (NotRegisteredException x) {
+                 }
          }
+         //} catch (NotRegisteredException x) {
+         //}
  
          // Town Permissions
          if (status == TownBlockStatus.TOWN_RESIDENT) {
