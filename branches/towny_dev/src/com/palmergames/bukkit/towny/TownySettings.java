@@ -55,7 +55,7 @@ public class TownySettings {
 	};	
 	
 	private static Pattern namePattern = null;      
-	private static CommentedConfiguration config, language; //newConfig, 
+	private static CommentedConfiguration config, newConfig, language;
 	//private static YamlConfiguration language;
 	
 	private static final SortedMap<Integer,Map<TownySettings.TownLevel,Object>> configTownLevel = 
@@ -200,7 +200,8 @@ public class TownySettings {
 		        
 			// read the config.yml into memory
 			config = new CommentedConfiguration(file);
-			config.load();
+			if(!config.load())
+				System.out.print("Failed to load Config!");
 			
 			setDefaults(version, file);
 			
@@ -349,7 +350,7 @@ public class TownySettings {
     }
 
     public static void addComment(String root, String...comments) {
-        config.addComment(root.toLowerCase(), comments);
+        newConfig.addComment(root.toLowerCase(), comments);
     }
     
     /**
@@ -357,8 +358,8 @@ public class TownySettings {
      */
     private static void setDefaults(String version, File file) {
     	
-    	//newConfig = new CommentedConfiguration(file);
-    	//newConfig.load();
+    	newConfig = new CommentedConfiguration(file);
+    	newConfig.load();
     	
         for (ConfigNodes root : ConfigNodes.values()) {
         	if (root.getComments().length > 0)
@@ -369,16 +370,16 @@ public class TownySettings {
         	else if ((root.getRoot() == ConfigNodes.LEVELS_TOWN_LEVEL.getRoot()) || (root.getRoot() == ConfigNodes.LEVELS_NATION_LEVEL.getRoot())) {
         		// Do nothing here as setDefaultLevels configured town and nation levels.
         	} else if (root.getRoot() == ConfigNodes.VERSION.getRoot()){
-        		setProperty(ConfigNodes.VERSION.getRoot(), version);
+        		setNewProperty(ConfigNodes.VERSION.getRoot(), version);
         	} else if (root.getRoot() == ConfigNodes.LAST_RUN_VERSION.getRoot()) {
-        		setProperty(ConfigNodes.LAST_RUN_VERSION.getRoot(), getLastRunVersion(version));
+        		setNewProperty(ConfigNodes.LAST_RUN_VERSION.getRoot(), getLastRunVersion(version));
         	} else
-        		setProperty(root.getRoot(), (config.get(root.getRoot().toLowerCase()) != null) ? config.getString(root.getRoot().toLowerCase()) : root.getDefault());
+        		setNewProperty(root.getRoot(), (config.getString(root.getRoot().toLowerCase()) != null) ? config.getString(root.getRoot().toLowerCase()) : root.getDefault());
         	
         }
         
-        //config = newConfig;
-        //newConfig = null;
+        config = newConfig;
+        newConfig = null;
     }
 
     private static void setDefaultLevels() {
@@ -470,9 +471,9 @@ public class TownySettings {
             level.put("upkeepModifier", 1.0);
             levels.add(new HashMap<String, Object>(level));
             level.clear();
-            config.set(ConfigNodes.LEVELS_TOWN_LEVEL.getRoot(), levels);
+            newConfig.set(ConfigNodes.LEVELS_TOWN_LEVEL.getRoot(), levels);
         } else
-        	config.set(ConfigNodes.LEVELS_TOWN_LEVEL.getRoot(), config.get(ConfigNodes.LEVELS_TOWN_LEVEL.getRoot()));
+        	newConfig.set(ConfigNodes.LEVELS_TOWN_LEVEL.getRoot(), config.get(ConfigNodes.LEVELS_TOWN_LEVEL.getRoot()));
         
         addComment(ConfigNodes.LEVELS_NATION_LEVEL.getRoot(), "",
         		"# default Nation levels.");
@@ -541,9 +542,9 @@ public class TownySettings {
             level.put("upkeepModifier", 1.0);
             levels.add(new HashMap<String, Object>(level));
             level.clear();
-            config.set(ConfigNodes.LEVELS_NATION_LEVEL.getRoot(), levels);
+            newConfig.set(ConfigNodes.LEVELS_NATION_LEVEL.getRoot(), levels);
         } else
-        	config.set(ConfigNodes.LEVELS_NATION_LEVEL.getRoot(), config.get(ConfigNodes.LEVELS_NATION_LEVEL.getRoot()));
+        	newConfig.set(ConfigNodes.LEVELS_NATION_LEVEL.getRoot(), config.get(ConfigNodes.LEVELS_NATION_LEVEL.getRoot()));
     }
 
     public static String[] getRegistrationMsg(String name) {                
@@ -993,7 +994,7 @@ public class TownySettings {
 	private static void setProperty(String root, Object value) {
 		config.set(root.toLowerCase(), value);
 	}
-	/*
+	
 	private static void setNewProperty(String root, Object value) {
 		
 		if (value == null) {
@@ -1002,7 +1003,7 @@ public class TownySettings {
 		}
 		newConfig.set(root.toLowerCase(), value);
 	}
-	*/      
+	      
 	public static Object getProperty(String root) {
 		return config.get(root.toLowerCase());
 	}
