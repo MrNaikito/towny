@@ -711,3 +711,4 @@ v0.76.3.3:
 	  '/plot perm' displays the current plots permissions.
 	  '/plot set perm [on/off] or [resident/friend/ally/outsider] [build/destroy/switch/itemuse] [on/off]'
 	- Added 23 and 107 to Switch Id's (Dispenser and Fence Gate).
+	- Changed saving of engligh.yml to ansi untill bukkit fix their utf-8 support.
