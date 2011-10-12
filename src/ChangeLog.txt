@@ -702,3 +702,5 @@ v0.76.3.0:
 	- Release.
 v0.76.3.1:
 	- Fixed overwriting of config.yml.
+v0.76.3.2:
+	- Code change due to PEX changing .has() to static (PEX 1.15).

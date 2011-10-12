@@ -89,7 +89,7 @@ public class PEXSource extends TownyPermissionSource {
     @Override
 	public boolean hasPermission(Player player, String node) {
         
-        return pex.has(player, node);
+        return PermissionsEx.has(player, node);
     }
 	
 	
