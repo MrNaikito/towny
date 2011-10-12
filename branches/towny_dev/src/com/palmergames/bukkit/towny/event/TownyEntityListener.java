@@ -25,6 +25,7 @@ import com.palmergames.bukkit.towny.TownySettings;
 import com.palmergames.bukkit.towny.PlayerCache.TownBlockStatus;
 import com.palmergames.bukkit.towny.object.BlockLocation;
 import com.palmergames.bukkit.towny.object.Coord;
+import com.palmergames.bukkit.towny.object.Resident;
 import com.palmergames.bukkit.towny.object.TownBlock;
 import com.palmergames.bukkit.towny.object.TownyPermission;
 import com.palmergames.bukkit.towny.object.TownyUniverse;
@@ -325,7 +326,12 @@ public class TownyEntityListener extends EntityListener {
                                 if (wolf.isTamed() && !wolf.getOwner().equals((AnimalTamer)a)) {
                                 	return true;
                                 }
-                            }      
+                            }
+                            if (b instanceof Animals) {
+                            	Resident resident = plugin.getTownyUniverse().getResident(ap.getName());
+                            	if ((!resident.hasTown()) || (resident.hasTown() && (resident.getTown() != townblock.getTown())))
+                            		return true;
+                            }
                     }
                     /*
                             else if (!TownySettings.isPvEWithinNonPvPZones()) // TODO: Allow EvE >.>
