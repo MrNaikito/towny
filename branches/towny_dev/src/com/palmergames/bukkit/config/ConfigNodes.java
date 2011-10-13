@@ -123,7 +123,7 @@ public enum ConfigNodes {
             		"# If you allow players to break/build in the wild the snapshot will",
             		"# include any changes made before the plot was claimed."),
             NWS_PLOT_MANAGEMENT_REVERT_TIME("new_world_settings.plot_management.revert_on_unclaim.speed","1s"),
-            NWS_PLOT_MANAGEMENT_REVERT_IGNORE("new_world_settings.plot_management.revert_on_unclaim.block_ignore","21,50,52,56,63,68,89", "# These block types will NOT be regenerated"),
+            NWS_PLOT_MANAGEMENT_REVERT_IGNORE("new_world_settings.plot_management.revert_on_unclaim.block_ignore","21,22,41,42,50,52,56,57,63,68,89", "# These block types will NOT be regenerated"),
             
             NWS_PLOT_MANAGEMENT_WILD_MOB_REVERT_ENABLE("new_world_settings.plot_management.wild_revert_on_mob_explosion.enabled","true", "",
             		"# Enabling this will slowly regenerate holes created in the",

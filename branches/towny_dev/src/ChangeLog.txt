@@ -712,3 +712,5 @@ v0.76.3.3:
 	  '/plot set perm [on/off] or [resident/friend/ally/outsider] [build/destroy/switch/itemuse] [on/off]'
 	- Added 23 and 107 to Switch Id's (Dispenser and Fence Gate).
 	- Changed saving of engligh.yml to ansi until bukkit fix their utf-8 support.
+V0.76.3.4:
+	- Added 57 (diamond block), 22 (lazuli block), 41 (gold block), 42 (iron block) to plot_management.revert_on_unclaim.block_ignore.
