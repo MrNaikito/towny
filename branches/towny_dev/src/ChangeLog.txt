@@ -720,3 +720,4 @@ V0.76.3.4:
 	- Moved all Towny messaging to it's own class. Depreciated old methods in TownyUniverse.
 	- All '/ta' commands are now accessable ingame and at the console, excluding '/ta town/nation name add' for console.
 	- Fixed an error with the new bukkit config failing to set a value (debug/devmode etc)
+	- Temporary fix for prefixes not being updated in Towny when a player changes permissions groups etc.
