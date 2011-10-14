@@ -21,6 +21,7 @@ import com.palmergames.bukkit.towny.NotRegisteredException;
 import com.palmergames.bukkit.towny.PlayerCache;
 import com.palmergames.bukkit.towny.Towny;
 import com.palmergames.bukkit.towny.TownyException;
+import com.palmergames.bukkit.towny.TownyMessaging;
 import com.palmergames.bukkit.towny.TownySettings;
 import com.palmergames.bukkit.towny.PlayerCache.TownBlockStatus;
 import com.palmergames.bukkit.towny.object.BlockLocation;
@@ -95,7 +96,7 @@ public class TownyEntityListener extends EntityListener {
             }
             
             
-            plugin.sendDebugMsg("onEntityDamagedByEntity took " + (System.currentTimeMillis() - start) + "ms");
+            TownyMessaging.sendDebugMsg("onEntityDamagedByEntity took " + (System.currentTimeMillis() - start) + "ms");
         }
     }
         
@@ -105,7 +106,7 @@ public class TownyEntityListener extends EntityListener {
                 
         if (entity instanceof Player) {
             Player player = (Player)entity;
-            plugin.sendDebugMsg("onPlayerDeath: " + player.getName() + "[ID: " + entity.getEntityId() + "]");
+            TownyMessaging.sendDebugMsg("onPlayerDeath: " + player.getName() + "[ID: " + entity.getEntityId() + "]");
         }
     }
         
@@ -127,8 +128,8 @@ public class TownyEntityListener extends EntityListener {
                     //remove from world if set to remove mobs globally
                     if (townyWorld.isUsingTowny())
                     if (!townyWorld.hasWorldMobs() && MobRemovalTimerTask.isRemovingWorldEntity(livingEntity)){
-                                            plugin.sendDebugMsg("onCreatureSpawn world: Canceled " + event.getCreatureType() + " from spawning within "+coord.toString()+".");
-                                            event.setCancelled(true);
+                    	TownyMessaging.sendDebugMsg("onCreatureSpawn world: Canceled " + event.getCreatureType() + " from spawning within "+coord.toString()+".");
+                        event.setCancelled(true);
                     }
                             
                     //remove from towns if in the list and set to remove            
@@ -137,8 +138,8 @@ public class TownyEntityListener extends EntityListener {
                             TownBlock townBlock = townyWorld.getTownBlock(coord);
                             if (townyWorld.isUsingTowny() && !townyWorld.isForceTownMobs())
                             if (!townBlock.getTown().hasMobs() && MobRemovalTimerTask.isRemovingTownEntity(livingEntity)) {
-                                    plugin.sendDebugMsg("onCreatureSpawn town: Canceled " + event.getCreatureType() + " from spawning within "+coord.toString()+".");
-                                    event.setCancelled(true);
+                            	TownyMessaging.sendDebugMsg("onCreatureSpawn town: Canceled " + event.getCreatureType() + " from spawning within "+coord.toString()+".");
+                                event.setCancelled(true);
                             }
                     } catch (TownyException x) {
                     }       
@@ -204,7 +205,7 @@ public class TownyEntityListener extends EntityListener {
                 // If explosions are off, or it's wartime and explosions are off and the towns has no nation
                 if (townyWorld.isUsingTowny()  && !townyWorld.isForceExpl())
                 if (!townBlock.getTown().isBANG() || (plugin.getTownyUniverse().isWarTime() && !townBlock.getTown().hasNation() && !townBlock.getTown().isBANG())) {
-                        if (event.getEntity() != null) plugin.sendDebugMsg("onEntityExplode: Canceled " + event.getEntity().getEntityId() + " from exploding within "+coord.toString()+".");
+                        if (event.getEntity() != null) TownyMessaging.sendDebugMsg("onEntityExplode: Canceled " + event.getEntity().getEntityId() + " from exploding within "+coord.toString()+".");
                         event.setCancelled(true);
                 }                    
             } catch (TownyException x) {
@@ -242,7 +243,7 @@ public class TownyEntityListener extends EntityListener {
                 try {
                 	worldCoord = new WorldCoord(TownyUniverse.getWorld(painting.getWorld().getName()), Coord.parseCoord(painting.getLocation()));
                 } catch (NotRegisteredException e1) {
-                    plugin.sendErrorMsg(player, TownySettings.getLangString("msg_err_not_configured"));
+                	TownyMessaging.sendErrorMsg(player, TownySettings.getLangString("msg_err_not_configured"));
                     event.setCancelled(true);
                      return;
                 }
@@ -258,11 +259,11 @@ public class TownyEntityListener extends EntityListener {
                 if (!bDestroy)
                     event.setCancelled(true);
                 if (cache.hasBlockErrMsg())
-                    plugin.sendErrorMsg(player, cache.getBlockErrMsg());
+                	TownyMessaging.sendErrorMsg(player, cache.getBlockErrMsg());
             }
         }
         
-        plugin.sendDebugMsg("onPaintingBreak took " + (System.currentTimeMillis() - start) + "ms ("+event.getCause().name()+", "+event.isCancelled() +")");                
+        TownyMessaging.sendDebugMsg("onPaintingBreak took " + (System.currentTimeMillis() - start) + "ms ("+event.getCause().name()+", "+event.isCancelled() +")");                
     }
     
     @Override
@@ -282,7 +283,7 @@ public class TownyEntityListener extends EntityListener {
         try {
         	worldCoord = new WorldCoord(TownyUniverse.getWorld(painting.getWorld().getName()), Coord.parseCoord(painting.getLocation()));
         } catch (NotRegisteredException e1) {
-        	plugin.sendErrorMsg(player, TownySettings.getLangString("msg_err_not_configured"));
+        	TownyMessaging.sendErrorMsg(player, TownySettings.getLangString("msg_err_not_configured"));
             event.setCancelled(true);
             return;
         }
@@ -297,9 +298,9 @@ public class TownyEntityListener extends EntityListener {
         if (!bBuild)
                 event.setCancelled(true);
         if (cache.hasBlockErrMsg())
-                plugin.sendErrorMsg(player, cache.getBlockErrMsg());
+        	TownyMessaging.sendErrorMsg(player, cache.getBlockErrMsg());
         
-        plugin.sendDebugMsg("onPaintingBreak took " + (System.currentTimeMillis() - start) + "ms ("+event.getEventName()+", "+event.isCancelled() +")");                  
+        TownyMessaging.sendDebugMsg("onPaintingBreak took " + (System.currentTimeMillis() - start) + "ms ("+event.getEventName()+", "+event.isCancelled() +")");                  
     }
     
     public boolean preventDamageCall(TownyWorld world, Entity a, Entity b, Player ap, Player bp) {

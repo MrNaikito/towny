@@ -103,9 +103,9 @@ public class TownyChat {
 					+ resident.getChatFormattedName().replace("%1$s", player.getName())
 					+ Colors.White + ": "
 					+ Colors.LightBlue + msg;
-			plugin.getTownyUniverse().sendTownMessage(town, ChatTools.color(line));
+			TownyMessaging.sendTownMessage(town, ChatTools.color(line));
 		} catch (NotRegisteredException x) {
-			plugin.sendErrorMsg(player, x.getError());
+			TownyMessaging.sendErrorMsg(player, x.getError());
 		}
 	}
 
@@ -119,9 +119,9 @@ public class TownyChat {
 					+ resident.getChatFormattedName().replace("%1$s", player.getName())
 					+ Colors.White + ": "
 					+ Colors.Yellow + msg;
-			plugin.getTownyUniverse().sendNationMessage(nation, ChatTools.color(line));
+			TownyMessaging.sendNationMessage(nation, ChatTools.color(line));
 		} catch (NotRegisteredException x) {
-			plugin.sendErrorMsg(player, x.getError());
+			TownyMessaging.sendErrorMsg(player, x.getError());
 		}
 	}
 	

@@ -55,6 +55,7 @@ import com.palmergames.bukkit.towny.Towny;
 import com.palmergames.bukkit.towny.TownyChat;
 import com.palmergames.bukkit.towny.TownyException;
 import com.palmergames.bukkit.towny.TownyFormatter;
+import com.palmergames.bukkit.towny.TownyMessaging;
 import com.palmergames.bukkit.towny.TownySettings;
 import com.palmergames.bukkit.towny.TownyUtil;
 import com.palmergames.bukkit.towny.db.TownyDataSource;
@@ -119,7 +120,7 @@ public class TownyUniverse extends TownyObject {
                     toggleDailyTimer(true);
             //dailyTimer.schedule(new DailyTimerTask(this), 0);
             if (getPlugin().getServer().getScheduler().scheduleSyncDelayedTask(getPlugin(), new DailyTimerTask(this)) == -1)
-                    plugin.sendErrorMsg("Could not schedule newDay.");
+            	TownyMessaging.sendErrorMsg("Could not schedule newDay.");
             setChanged();
             notifyObservers(NEW_DAY);
     }
@@ -128,7 +129,7 @@ public class TownyUniverse extends TownyObject {
         if (on && !isTownyRepeatingTaskRunning()) {
         	townyRepeatingTask = getPlugin().getServer().getScheduler().scheduleSyncRepeatingTask(getPlugin(), new RepeatingTimerTask(this), 0, MinecraftTools.convertToTicks(TownySettings.getPlotManagementSpeed()));
             if (townyRepeatingTask == -1)
-            	plugin.sendErrorMsg("Could not schedule Towny Timer Task.");
+            	TownyMessaging.sendErrorMsg("Could not schedule Towny Timer Task.");
         } else if (!on && isTownyRepeatingTaskRunning()) {
         	getPlugin().getServer().getScheduler().cancelTask(townyRepeatingTask);
             townyRepeatingTask = -1;
@@ -140,7 +141,7 @@ public class TownyUniverse extends TownyObject {
         if (on && !isMobRemovalRunning()) {
                 mobRemoveTask = getPlugin().getServer().getScheduler().scheduleSyncRepeatingTask(getPlugin(), new MobRemovalTimerTask(this, plugin.getServer()), 0, MinecraftTools.convertToTicks(TownySettings.getMobRemovalSpeed()));
                 if (mobRemoveTask == -1)
-                        plugin.sendErrorMsg("Could not schedule mob removal loop.");
+                	TownyMessaging.sendErrorMsg("Could not schedule mob removal loop.");
         } else if (!on && isMobRemovalRunning()) {
                 getPlugin().getServer().getScheduler().cancelTask(mobRemoveTask);
                 mobRemoveTask = -1;
@@ -152,10 +153,10 @@ public class TownyUniverse extends TownyObject {
 	public void toggleDailyTimer(boolean on) {
 		if (on && !isDailyTimerRunning()) {
             long timeTillNextDay = TownyUtil.townyTime();
-            plugin.sendMsg("Time until a New Day: " + TimeMgmt.formatCountdownTime(timeTillNextDay));
+            TownyMessaging.sendMsg("Time until a New Day: " + TimeMgmt.formatCountdownTime(timeTillNextDay));
             dailyTask = getPlugin().getServer().getScheduler().scheduleSyncRepeatingTask(getPlugin(), new DailyTimerTask(this), MinecraftTools.convertToTicks(timeTillNextDay), MinecraftTools.convertToTicks(TownySettings.getDayInterval()));
             if (dailyTask == -1)
-                    plugin.sendErrorMsg("Could not schedule new day loop.");
+            	TownyMessaging.sendErrorMsg("Could not schedule new day loop.");
 		} else if (!on && isDailyTimerRunning()) {
             getPlugin().getServer().getScheduler().cancelTask(dailyTask);
             dailyTask = -1;
@@ -168,7 +169,7 @@ public class TownyUniverse extends TownyObject {
 		if (on && !isHealthRegenRunning()) {
             healthRegenTask = getPlugin().getServer().getScheduler().scheduleSyncRepeatingTask(getPlugin(), new HealthRegenTimerTask(this, plugin.getServer()), 0, MinecraftTools.convertToTicks(TownySettings.getHealthRegenSpeed()));
             if (healthRegenTask == -1)
-                    plugin.sendErrorMsg("Could not schedule health regen loop.");
+            	TownyMessaging.sendErrorMsg("Could not schedule health regen loop.");
 		} else if (!on && isHealthRegenRunning()) {
             getPlugin().getServer().getScheduler().cancelTask(healthRegenTask);
             healthRegenTask = -1;
@@ -181,7 +182,7 @@ public class TownyUniverse extends TownyObject {
 		if (on && !isTeleportWarmupRunning()) {
 			teleportWarmupTask = getPlugin().getServer().getScheduler().scheduleSyncRepeatingTask(getPlugin(), new TeleportWarmupTimerTask(this), 0, 20);
 			if (teleportWarmupTask == -1)
-				plugin.sendErrorMsg("Could not schedule teleport warmup loop.");
+				TownyMessaging.sendErrorMsg("Could not schedule teleport warmup loop.");
 		} else if (!on && isTeleportWarmupRunning()) {
 			getPlugin().getServer().getScheduler().cancelTask(teleportWarmupTask);
 			teleportWarmupTask = -1;
@@ -212,6 +213,13 @@ public class TownyUniverse extends TownyObject {
 
         public void onLogin(Player player) throws AlreadyRegisteredException, NotRegisteredException {
                 Resident resident;
+                
+                // Test and kick any players with invalid names.
+                if (player.getName().trim() == null) {
+                	player.kickPlayer("Invalid name!");
+                	return;
+                }
+                
                 if (!hasResident(player.getName())) {
                     newResident(player.getName());
                     resident = getResident(player.getName());
@@ -563,43 +571,37 @@ public class TownyUniverse extends TownyObject {
                 return resident;
         }
 
+        @Deprecated
         public void sendMessage(Player player, List<String> lines) {
                 sendMessage(player, lines.toArray(new String[0]));
         }
-
+        @Deprecated
         public void sendTownMessage(Town town, List<String> lines) {
                 sendTownMessage(town, lines.toArray(new String[0]));
         }
-
+        @Deprecated
         public void sendNationMessage(Nation nation, List<String> lines) {
                 sendNationMessage(nation, lines.toArray(new String[0]));
         }
-
+        @Deprecated
         public void sendGlobalMessage(List<String> lines) {
                 sendGlobalMessage(lines.toArray(new String[0]));
         }
-
+        @Deprecated
         public void sendGlobalMessage(String line) {
                 for (Player player : getOnlinePlayers()) {
                         player.sendMessage(line);
                         plugin.log("[Global Message] " + player.getName() + ": " + line);
                 }
         }
-        
+        @Deprecated
         public void sendMessage(Player player, String[] lines) {
                 for (String line : lines) {
                         player.sendMessage(line);
                         //plugin.log("[send Message] " + player.getName() + ": " + line);
                 }
         }
-
-        public Player getPlayer(Resident resident) throws TownyException {
-                for (Player player : getOnlinePlayers())
-                        if (player.getName().equals(resident.getName()))
-                                return player;
-                throw new TownyException("Resident is not online");
-        }
-
+        @Deprecated
         public void sendResidentMessage(Resident resident, String[] lines) throws TownyException {
                 for (String line : lines)
                         plugin.log("[Resident Msg] " + resident.getName() + ": " + line);
@@ -608,7 +610,7 @@ public class TownyUniverse extends TownyObject {
                         player.sendMessage(line);
                 
         }
-
+        @Deprecated
         public void sendTownMessage(Town town, String[] lines) {
                 for (String line : lines)
                         plugin.log("[Town Msg] " + town.getName() + ": " + line);
@@ -617,7 +619,7 @@ public class TownyUniverse extends TownyObject {
                                 player.sendMessage(line);
                 }
         }
-
+        @Deprecated
         public void sendNationMessage(Nation nation, String[] lines) {
                 for (String line : lines)
                         plugin.log("[Nation Msg] " + nation.getName() + ": " + line);
@@ -625,7 +627,7 @@ public class TownyUniverse extends TownyObject {
                         for (String line : lines)
                                 player.sendMessage(line);
         }
-
+        @Deprecated
         public void sendGlobalMessage(String[] lines) {
                 for (String line : lines)
                         plugin.log("[Global Msg] " + line);
@@ -633,28 +635,35 @@ public class TownyUniverse extends TownyObject {
                         for (String line : lines)
                                 player.sendMessage(line);
         }
-
+        @Deprecated
         public void sendResidentMessage(Resident resident, String line) throws TownyException {
                 plugin.log("[Resident Msg] " + resident.getName() + ": " + line);
                 Player player = getPlayer(resident);
                 player.sendMessage(TownySettings.getLangString("default_towny_prefix") + line);
         }
-
+        @Deprecated
         public void sendTownMessage(Town town, String line) {
                 plugin.log("[Town Msg] " + town.getName() + ": " + line);
                 for (Player player : getOnlinePlayers(town))
                         player.sendMessage(TownySettings.getLangString("default_towny_prefix") + line);
         }
-        
+        @Deprecated
         public void sendNationMessage(Nation nation, String line) {
                 plugin.log("[Nation Msg] " + nation.getName() + ": " + line);
                 for (Player player : getOnlinePlayers(nation))
                         player.sendMessage(line);
         }
-
+        @Deprecated
         public void sendTownBoard(Player player, Town town) {
                 for (String line : ChatTools.color(Colors.Gold + "[" + town.getName() + "] " + Colors.Yellow + town.getTownBoard()))
                         player.sendMessage(line);
+        }
+        
+        public Player getPlayer(Resident resident) throws TownyException {
+            for (Player player : getOnlinePlayers())
+                    if (player.getName().equals(resident.getName()))
+                            return player;
+            throw new TownyException("Resident is not online");
         }
 
         public Player[] getOnlinePlayers() {
@@ -742,7 +751,7 @@ public class TownyUniverse extends TownyObject {
          */
         public TownBlock getTownBlock(Location loc) {
                 
-        	plugin.sendDebugMsg("Fetching TownBlock");
+        	TownyMessaging.sendDebugMsg("Fetching TownBlock");
         	
                 try {
                         WorldCoord worldCoord = new WorldCoord(getWorld(loc.getWorld().getName()), Coord.parseCoord(loc));
@@ -1350,10 +1359,10 @@ public class TownyUniverse extends TownyObject {
 		List<Resident> toSave = new ArrayList<Resident>();
 
 		for (Resident toCheck : new ArrayList<Resident>(getResidents())) {
-    		plugin.sendDebugMsg("Checking friends of: " + toCheck.getName());
+			TownyMessaging.sendDebugMsg("Checking friends of: " + toCheck.getName());
     		if (toCheck.hasFriend(resident)) {
     			try {
-    				plugin.sendDebugMsg("       - Removing Friend: " + resident.getName());
+    				TownyMessaging.sendDebugMsg("       - Removing Friend: " + resident.getName());
                     toCheck.removeFriend(resident);
                     toSave.add(toCheck);
                 } catch (NotRegisteredException e) {
@@ -1429,7 +1438,7 @@ public class TownyUniverse extends TownyObject {
         	World world = null;
         	int plotSize = TownySettings.getTownBlockSize();
         	
-        	plugin.sendDebugMsg("Processing deleteTownBlockIds");
+        	TownyMessaging.sendDebugMsg("Processing deleteTownBlockIds");
         	
         	try {
 				world = plugin.getServerWorld(townBlock.getWorld().getName());
@@ -1469,7 +1478,7 @@ public class TownyUniverse extends TownyObject {
         	//Block block = null;
         	int plotSize = TownySettings.getTownBlockSize();
         	
-        	plugin.sendDebugMsg("Processing deleteTownBlockId");
+        	TownyMessaging.sendDebugMsg("Processing deleteTownBlockId");
         	
         	try {
 				World world = plugin.getServerWorld(townBlock.getWorld().getName());
@@ -1508,7 +1517,7 @@ public class TownyUniverse extends TownyObject {
 				if (town.hasUpkeep())
 					if (!town.pay(TownySettings.getTownUpkeepCost(town))) {
 						removeTown(town);
-						sendGlobalMessage(town.getName() + TownySettings.getLangString("msg_bankrupt_town"));
+						TownyMessaging.sendGlobalMessage(town.getName() + TownySettings.getLangString("msg_bankrupt_town"));
 					}
 
 			setChanged();
@@ -1519,7 +1528,7 @@ public class TownyUniverse extends TownyObject {
                 for (Nation nation : new ArrayList<Nation>(nations.values())) {
                         if (!nation.pay(TownySettings.getNationUpkeepCost(nation))) {
                                 removeNation(nation);
-                                sendGlobalMessage(nation.getName() + TownySettings.getLangString("msg_bankrupt_nation"));
+                                TownyMessaging.sendGlobalMessage(nation.getName() + TownySettings.getLangString("msg_bankrupt_nation"));
                         }
                         if (nation.isNeutral())
                                 if (!nation.pay(TownySettings.getNationNeutralityCost())) {
@@ -1530,7 +1539,7 @@ public class TownyUniverse extends TownyObject {
                                                 e.printStackTrace();
                                         }
                                         getDataSource().saveNation(nation);
-                                        sendNationMessage(nation, TownySettings.getLangString("msg_nation_not_neutral"));
+                                        TownyMessaging.sendNationMessage(nation, TownySettings.getLangString("msg_nation_not_neutral"));
                                 }
                 }
 
@@ -1606,14 +1615,14 @@ public class TownyUniverse extends TownyObject {
                     String line = "Multiple players selected";
                     for (Player p : matches)
                             line += ", " + p.getName();
-                    plugin.sendErrorMsg(player, line);
+                    		TownyMessaging.sendErrorMsg(player, line);
         		} else if (matches.size() == 1) {
         			// Match found online
                     try {
                             Resident target = getResident(matches.get(0).getName());
                             invited.add(target);
                     } catch (TownyException x) {
-                            plugin.sendErrorMsg(player, x.getError());
+                    	TownyMessaging.sendErrorMsg(player, x.getError());
                     }
         		} else {
         			// No online matches so test for offline.
@@ -1622,7 +1631,7 @@ public class TownyUniverse extends TownyObject {
 						target = getResident(name);
 						invited.add(target);
 					} catch (NotRegisteredException x) {
-						plugin.sendErrorMsg(player, x.getError());
+						TownyMessaging.sendErrorMsg(player, x.getError());
 					}
         		}
         	}
@@ -1637,13 +1646,13 @@ public class TownyUniverse extends TownyObject {
             	String line = "Multiple players selected";
                 for (Player p : matches)
                     line += ", " + p.getName();
-                plugin.sendErrorMsg(player, line);
+                		TownyMessaging.sendErrorMsg(player, line);
             } else if (matches.size() == 1)
             	try {
                     Resident target = plugin.getTownyUniverse().getResident(matches.get(0).getName());
                     invited.add(target);
             	} catch (TownyException x) {
-                    plugin.sendErrorMsg(player, x.getError());
+            		TownyMessaging.sendErrorMsg(player, x.getError());
             }
         }
         return invited;
@@ -1678,7 +1687,7 @@ public class TownyUniverse extends TownyObject {
         try {
             TeleportWarmupTimerTask.requestTeleport(getResident(player.getName().toLowerCase()), town);
         } catch (TownyException x) {
-            plugin.sendErrorMsg(player, x.getError());
+        	TownyMessaging.sendErrorMsg(player, x.getError());
         }
 
         setChanged();

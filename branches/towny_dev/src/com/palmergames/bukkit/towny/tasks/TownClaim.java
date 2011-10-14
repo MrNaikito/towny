@@ -9,6 +9,7 @@ import com.palmergames.bukkit.towny.AlreadyRegisteredException;
 import com.palmergames.bukkit.towny.NotRegisteredException;
 import com.palmergames.bukkit.towny.Towny;
 import com.palmergames.bukkit.towny.TownyException;
+import com.palmergames.bukkit.towny.TownyMessaging;
 import com.palmergames.bukkit.towny.TownySettings;
 import com.palmergames.bukkit.towny.object.PlotBlockData;
 import com.palmergames.bukkit.towny.object.Town;
@@ -53,7 +54,7 @@ public class TownClaim extends Thread {
     @Override
 	public void run() {
     	if (world == null) {
-    		plugin.sendMsg(player, TownySettings.getLangString("msg_err_not_configured"));
+    		TownyMessaging.sendMsg(player, TownySettings.getLangString("msg_err_not_configured"));
     		return;
     	}
     	
@@ -77,16 +78,16 @@ public class TownClaim extends Thread {
 			if (player != null) {
 				
 				if (claim)
-					plugin.sendMsg(player, String.format(TownySettings.getLangString("msg_annexed_area"), Arrays.toString(selection.toArray(new WorldCoord[0]))));
+					TownyMessaging.sendMsg(player, String.format(TownySettings.getLangString("msg_annexed_area"), Arrays.toString(selection.toArray(new WorldCoord[0]))));
 				else if (forced)
-					plugin.sendMsg(player, String.format(TownySettings.getLangString("msg_admin_unclaim_area"), Arrays.toString(selection.toArray(new WorldCoord[0]))));
+					TownyMessaging.sendMsg(player, String.format(TownySettings.getLangString("msg_admin_unclaim_area"), Arrays.toString(selection.toArray(new WorldCoord[0]))));
 				
 			}
 			TownyUniverse.getDataSource().saveWorld(world);
 			plugin.updateCache();
 					
 		} catch (TownyException x) {
-            plugin.sendErrorMsg(player, x.getError());
+			TownyMessaging.sendErrorMsg(player, x.getError());
 		}
 		
     }
@@ -143,6 +144,6 @@ public class TownClaim extends Thread {
     
     private void townUnclaimAll(Town town) {
         plugin.getTownyUniverse().removeTownBlocks(town);
-        plugin.getTownyUniverse().sendTownMessage(town, TownySettings.getLangString("msg_abandoned_area_1"));
+        TownyMessaging.sendTownMessage(town, TownySettings.getLangString("msg_abandoned_area_1"));
     }
 }
