@@ -33,6 +33,9 @@ public class TownyChat {
 			try {
 				resident = plugin.getTownyUniverse().getResident(player.getName());
 				
+				// temporarily force an update on all chat until we find a better way to handle chat
+				update = true;
+				
 				//Flag if we need to update our chatFormattedName
 				if (resident.isChangedName())
 					update = true;
