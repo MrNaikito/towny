@@ -78,6 +78,9 @@ public class TownClaim extends Thread {
 				
 				if (claim)
 					plugin.sendMsg(player, String.format(TownySettings.getLangString("msg_annexed_area"), Arrays.toString(selection.toArray(new WorldCoord[0]))));
+				else if (forced)
+					plugin.sendMsg(player, String.format(TownySettings.getLangString("msg_admin_unclaim_area"), Arrays.toString(selection.toArray(new WorldCoord[0]))));
+				
 			}
 			TownyUniverse.getDataSource().saveWorld(world);
 			plugin.updateCache();

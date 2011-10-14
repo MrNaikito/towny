@@ -2,7 +2,6 @@ package com.palmergames.bukkit.towny.command;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -260,7 +259,7 @@ public class TownyAdminCommand implements CommandExecutor  {
                                 }
                                 new TownClaim(plugin, player, null, selection, false, true).start();
 
-                                plugin.sendMsg(player, String.format(TownySettings.getLangString("msg_admin_unclaim_area"), Arrays.toString(selection.toArray(new WorldCoord[0]))));
+                                //plugin.sendMsg(player, String.format(TownySettings.getLangString("msg_admin_unclaim_area"), Arrays.toString(selection.toArray(new WorldCoord[0]))));
                                 /* saving is taken care of in the claim/unclaim thread
                                 for (Resident resident : residents) {
 									TownyUniverse.getDataSource().saveResident(resident);
