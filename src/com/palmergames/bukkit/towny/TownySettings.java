@@ -992,7 +992,7 @@ public class TownySettings {
 	}
 	
 	private static void setProperty(String root, Object value) {
-		config.set(root.toLowerCase(), value);
+		config.set(root.toLowerCase(), value.toString());
 	}
 	
 	private static void setNewProperty(String root, Object value) {
@@ -1001,7 +1001,7 @@ public class TownySettings {
 			//System.out.print("value is null for " + root.toLowerCase());
 			value = "";
 		}
-		newConfig.set(root.toLowerCase(), value);
+		newConfig.set(root.toLowerCase(), value.toString());
 	}
 	      
 	public static Object getProperty(String root) {
