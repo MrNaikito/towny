@@ -714,3 +714,4 @@ v0.76.3.3:
 	- Changed saving of engligh.yml to ansi until bukkit fix their utf-8 support.
 V0.76.3.4:
 	- Added 57 (diamond block), 22 (lazuli block), 41 (gold block), 42 (iron block) to plot_management.revert_on_unclaim.block_ignore.
+	- Removed redundant code in '/ta unclaim' for clearing a resident data as it's already handled in the TownyUniverse.
