@@ -171,8 +171,8 @@ public class TownyMessaging {
 	 * @param player
 	 * @param lines
 	 */
-	public static void sendMessage(Player player, List<String> lines) {
-        sendMessage(player, lines.toArray(new String[0]));
+	public static void sendMessage(Object sender, List<String> lines) {
+        sendMessage(sender, lines.toArray(new String[0]));
 	}
 	
 	/**
@@ -181,10 +181,17 @@ public class TownyMessaging {
 	 * @param player
 	 * @param lines
 	 */
-	public static void sendMessage(Player player, String[] lines) {
+	public static void sendMessage(Object sender, String[] lines) {
+		
+		boolean isPlayer =  false;
+    	if (sender instanceof Player)
+    		isPlayer = true;
+    	
         for (String line : lines) {
-                player.sendMessage(line);
-                //plugin.log("[send Message] " + player.getName() + ": " + line);
+        	if (isPlayer)
+        		((Player) sender).sendMessage(line);
+        	else
+        		((CommandSender) sender).sendMessage(line);
         }
 	}
 
