@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 import com.palmergames.bukkit.towny.Towny;
+import com.palmergames.bukkit.towny.TownyMessaging;
 //import com.palmergames.bukkit.towny.TownySettings;
 import com.palmergames.bukkit.towny.object.Nation;
 import com.palmergames.bukkit.towny.object.PlotBlockData;
@@ -66,7 +67,7 @@ public abstract class TownyDataSource {
 	
 	public void sendDebugMsg(String msg) {
 		if (plugin != null)
-			plugin.sendDebugMsg(msg);
+			TownyMessaging.sendDebugMsg(msg);
 		else
 			System.out.println("[Towny] Debug: " + msg);
 	}

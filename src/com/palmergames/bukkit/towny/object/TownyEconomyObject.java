@@ -5,6 +5,7 @@ import com.iConomy.iConomy;
 import com.iConomy.system.Account;
 import com.palmergames.bukkit.towny.EconomyException;
 import com.palmergames.bukkit.towny.Towny;
+import com.palmergames.bukkit.towny.TownyMessaging;
 import com.nijikokun.register.payment.Method.MethodAccount;
 import com.nijikokun.register.payment.Methods;
 
@@ -21,7 +22,7 @@ public class TownyEconomyObject extends TownyObject {
     {
             if(canPayFromHoldings(n))
             {
-                plugin.sendDebugMsg("Can Pay: " + n);
+            	TownyMessaging.sendDebugMsg("Can Pay: " + n);
                 if(plugin.isRegister())
                 	((MethodAccount) getEconomyAccount()).subtract(n);
                 else
@@ -70,7 +71,7 @@ public class TownyEconomyObject extends TownyObject {
                     }
                     else
                     {
-                        plugin.sendDebugMsg("Account is still null!");
+                    	TownyMessaging.sendDebugMsg("Account is still null!");
                     }
             	} else {
             		Account account = (Account)getEconomyAccount();
@@ -79,7 +80,7 @@ public class TownyEconomyObject extends TownyObject {
                     }
                     else
                     {
-                        plugin.sendDebugMsg("Account is still null!");
+                    	TownyMessaging.sendDebugMsg("Account is still null!");
                     }
             	}
 
@@ -88,10 +89,10 @@ public class TownyEconomyObject extends TownyObject {
             catch(NoClassDefFoundError e)
             {
                 e.printStackTrace();
-                plugin.sendDebugMsg("Economy error getting holdings from " + getEconomyName());
+                TownyMessaging.sendDebugMsg("Economy error getting holdings from " + getEconomyName());
             } catch (EconomyException e) {
             	e.printStackTrace();
-            	plugin.sendDebugMsg("Economy error getting Account for " + getEconomyName());
+            	TownyMessaging.sendDebugMsg("Economy error getting Account for " + getEconomyName());
 			}
         }
         
@@ -99,28 +100,28 @@ public class TownyEconomyObject extends TownyObject {
         {
                 try
                 {
-                	plugin.sendDebugMsg("Economy Balance Name: " + getEconomyName());
+                	TownyMessaging.sendDebugMsg("Economy Balance Name: " + getEconomyName());
                 	
                 	if(plugin.isRegister()) {
                 		MethodAccount account = (MethodAccount)getEconomyAccount();
                 		if(account!=null) {
-                        	plugin.sendDebugMsg("Economy Balance: " + account.balance());
+                			TownyMessaging.sendDebugMsg("Economy Balance: " + account.balance());
                             return account.balance() ;
                         }
                         else
                         {
-                            plugin.sendDebugMsg("Account is still null!");
+                        	TownyMessaging.sendDebugMsg("Account is still null!");
                             return 0;
                         }
                 	} else {
                 		Account account = (Account)getEconomyAccount();
                 		if(account!=null) {
-                        	plugin.sendDebugMsg("Economy Balance: " + account.getHoldings().balance());
+                			TownyMessaging.sendDebugMsg("Economy Balance: " + account.getHoldings().balance());
                             return account.getHoldings().balance();
                         }
                         else
                         {
-                            plugin.sendDebugMsg("Account is still null!");
+                        	TownyMessaging.sendDebugMsg("Account is still null!");
                             return 0;
                         }
                 	} 

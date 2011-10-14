@@ -16,7 +16,6 @@ public class StringMgmt {
 		return join(arr, " ");
 	}
 	
-	
 	@SuppressWarnings("rawtypes")
 	public static String join(List arr, String separator) {
 		if (arr == null || arr.size() == 0)

@@ -22,6 +22,7 @@ import com.palmergames.bukkit.towny.PlayerCache;
 import com.palmergames.bukkit.towny.PlayerCache.TownBlockStatus;
 import com.palmergames.bukkit.towny.Towny;
 import com.palmergames.bukkit.towny.TownyException;
+import com.palmergames.bukkit.towny.TownyMessaging;
 import com.palmergames.bukkit.towny.TownySettings;
 import com.palmergames.bukkit.towny.object.BlockLocation;
 import com.palmergames.bukkit.towny.object.Coord;
@@ -122,11 +123,11 @@ public class TownyBlockListener extends BlockListener {
 	        }
 			
 			if ((cache.hasBlockErrMsg()) && (event.isCancelled()))
-				plugin.sendErrorMsg(player, cache.getBlockErrMsg());
+				TownyMessaging.sendErrorMsg(player, cache.getBlockErrMsg());
 			
 
 		} catch (NotRegisteredException e1) {
-			plugin.sendErrorMsg(player, TownySettings.getLangString("msg_err_not_configured"));
+			TownyMessaging.sendErrorMsg(player, TownySettings.getLangString("msg_err_not_configured"));
 		}
 
 		//plugin.sendDebugMsg("onBlockBreakEvent took " + (System.currentTimeMillis() - start) + "ms ("+event.getPlayer().getName()+", "+event.isCancelled() +")");
@@ -164,7 +165,7 @@ public class TownyBlockListener extends BlockListener {
 					if (TownyWar.callAttackCellEvent(plugin, player, block, worldCoord))
 						return;
 				} catch (TownyException e) {
-					plugin.sendErrorMsg(player, e.getMessage());
+					TownyMessaging.sendErrorMsg(player, e.getMessage());
 				}
 				
 				event.setBuild(false);
@@ -178,10 +179,10 @@ public class TownyBlockListener extends BlockListener {
 			}
 			
 			if ((cache.hasBlockErrMsg()) && (event.isCancelled()))
-				plugin.sendErrorMsg(player, cache.getBlockErrMsg());
+				TownyMessaging.sendErrorMsg(player, cache.getBlockErrMsg());
 			
 		} catch (NotRegisteredException e1) {
-			plugin.sendErrorMsg(player, TownySettings.getLangString("msg_err_not_configured"));
+			TownyMessaging.sendErrorMsg(player, TownySettings.getLangString("msg_err_not_configured"));
 			event.setCancelled(true);
 		}
 
@@ -325,7 +326,7 @@ public class TownyBlockListener extends BlockListener {
 			if (townyWorld.isUsingTowny())
 				if ((block.getRelative(BlockFace.DOWN).getType() != Material.OBSIDIAN && !townBlock.getTown().isFire() && !townyWorld.isForceFire())
 						|| (block.getRelative(BlockFace.DOWN).getType() != Material.OBSIDIAN && plugin.getTownyUniverse().isWarTime() && !townBlock.getTown().hasNation())) {
-				plugin.sendDebugMsg("onBlockIgnite: Canceled " + block.getTypeId() + " from igniting within "+coord.toString()+".");
+					TownyMessaging.sendDebugMsg("onBlockIgnite: Canceled " + block.getTypeId() + " from igniting within "+coord.toString()+".");
 				return true;
 			}
 		} catch (TownyException x) {
