@@ -54,6 +54,7 @@ public class TownClaim extends Thread {
 			if (selection != null) {
 			
 				for (WorldCoord worldCoord : selection) {
+					this.town = worldCoord.getTownBlock().getTown();
 					if (claim)
 						townClaim(town, worldCoord);
 					else

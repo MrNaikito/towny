@@ -261,14 +261,17 @@ public class TownyAdminCommand implements CommandExecutor  {
                                 new TownClaim(plugin, player, null, selection, false, true).start();
 
                                 plugin.sendMsg(player, String.format(TownySettings.getLangString("msg_admin_unclaim_area"), Arrays.toString(selection.toArray(new WorldCoord[0]))));
+                                /* saving is taken care of in the claim/unclaim thread
                                 for (Resident resident : residents) {
 									TownyUniverse.getDataSource().saveResident(resident);
 								}
                                 for (Town town : towns) {
 									TownyUniverse.getDataSource().saveTown(town);
 								}
+								
 								TownyUniverse.getDataSource().saveWorld(world);
                                 plugin.updateCache();
+                                */
                         } catch (TownyException x) {
                                 plugin.sendErrorMsg(player, x.getError());
                                 return;

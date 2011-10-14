@@ -1386,42 +1386,42 @@ public class TownyUniverse extends TownyObject {
         
         /////////////////////////////////////////////
 
-        public void removeTownBlock(TownBlock townBlock) {
-                Resident resident = null;
-                Town town = null;
-                try {
-                        resident = townBlock.getResident();
-                } catch (NotRegisteredException e) {
-                }
-                try {
-                        town = townBlock.getTown();
-                } catch (NotRegisteredException e) {
-                }
-                TownyWorld world = townBlock.getWorld();
-                world.removeTownBlock(townBlock);
-                
-                getDataSource().saveWorld(world);
-                getDataSource().deleteTownBlock(townBlock);
-                
-                if (resident != null)
-                        getDataSource().saveResident(resident);
-                if (town != null)
-                        getDataSource().saveTown(town);
-                
-                if (townBlock.getWorld().isUsingPlotManagementDelete())
-                	deleteTownBlockIds(townBlock);
-                
-                // Move the plot to be restored
-                if (townBlock.getWorld().isUsingPlotManagementRevert()) {
-                	PlotBlockData plotData = TownyRegenAPI.getPlotChunkSnapshot(townBlock);
-                	if (plotData != null && !plotData.getBlockList().isEmpty()) {
-                		TownyRegenAPI.addPlotChunk(plotData, true);
-                	}
-                }
+	public void removeTownBlock(TownBlock townBlock) {
+    	Resident resident = null;
+        Town town = null;
+        try {
+        	resident = townBlock.getResident();
+        } catch (NotRegisteredException e) {
+        }
+        try {
+        	town = townBlock.getTown();
+        } catch (NotRegisteredException e) {
+        }
+        TownyWorld world = townBlock.getWorld();
+        world.removeTownBlock(townBlock);
+        
+        getDataSource().saveWorld(world);
+        getDataSource().deleteTownBlock(townBlock);
+        
+        if (resident != null)
+        	getDataSource().saveResident(resident);
+        if (town != null)
+        	getDataSource().saveTown(town);
+        
+        if (townBlock.getWorld().isUsingPlotManagementDelete())
+        	deleteTownBlockIds(townBlock);
+        
+        // Move the plot to be restored
+        if (townBlock.getWorld().isUsingPlotManagementRevert()) {
+        	PlotBlockData plotData = TownyRegenAPI.getPlotChunkSnapshot(townBlock);
+        	if (plotData != null && !plotData.getBlockList().isEmpty()) {
+        		TownyRegenAPI.addPlotChunk(plotData, true);
+        	}
+        }
 
         setChanged();
         notifyObservers(REMOVE_TOWN_BLOCK);
-        }
+    }
         
 		public void deleteTownBlockIds(TownBlock townBlock) {
         	

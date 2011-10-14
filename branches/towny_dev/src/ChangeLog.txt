@@ -715,3 +715,4 @@ v0.76.3.3:
 V0.76.3.4:
 	- Added 57 (diamond block), 22 (lazuli block), 41 (gold block), 42 (iron block) to plot_management.revert_on_unclaim.block_ignore.
 	- Removed redundant code in '/ta unclaim' for clearing a resident data as it's already handled in the TownyUniverse.
+	- Fixed TownClaim/unclaim thread not correctly correctly selecting the town when the command was issued by an admin.
