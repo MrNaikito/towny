@@ -23,6 +23,7 @@ public class TownClaim extends Thread {
 	Towny plugin;
 	volatile Player player;
 	volatile Town town;
+	volatile TownyWorld world;
 	List<WorldCoord> selection;
 	boolean claim, forced;
 	
@@ -38,6 +39,10 @@ public class TownClaim extends Thread {
         super();
         this.plugin = plugin;
         this.player = player;
+        try {
+			this.world = TownyUniverse.getWorld(player.getWorld().getName());
+		} catch (NotRegisteredException e) {
+		}
         this.town = town;
         this.selection = selection;
         this.claim = claim;
@@ -47,10 +52,12 @@ public class TownClaim extends Thread {
     
     @Override
 	public void run() {
-    	TownyWorld world;
-		try {
-			world = TownyUniverse.getWorld(player.getWorld().getName());
-			
+    	if (world == null) {
+    		plugin.sendMsg(player, TownySettings.getLangString("msg_err_not_configured"));
+    		return;
+    	}
+    	
+		try {			
 			if (selection != null) {
 			
 				for (WorldCoord worldCoord : selection) {
@@ -62,7 +69,6 @@ public class TownClaim extends Thread {
 		            
 		            TownyUniverse.getDataSource().saveTown(town);
 				}
-				//TownyUniverse.getDataSource().saveTown(town);
 			} else if (!claim){
 				
 				townUnclaimAll(town);
