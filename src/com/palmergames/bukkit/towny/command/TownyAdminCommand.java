@@ -23,7 +23,6 @@ import com.palmergames.bukkit.towny.object.Coord;
 import com.palmergames.bukkit.towny.object.Nation;
 import com.palmergames.bukkit.towny.object.Resident;
 import com.palmergames.bukkit.towny.object.Town;
-import com.palmergames.bukkit.towny.object.TownBlock;
 import com.palmergames.bukkit.towny.object.TownyEconomyObject;
 import com.palmergames.bukkit.towny.object.TownyUniverse;
 import com.palmergames.bukkit.towny.object.TownyWorld;
@@ -255,7 +254,7 @@ public class TownyAdminCommand implements CommandExecutor  {
                                                         residents.add(resident);
                                         } catch (NotRegisteredException e) {
                                         }
-                                        residentUnclaim(player, worldCoord);
+                                        //residentUnclaim(player, worldCoord);
 
                                         //TownCommand.townUnclaim(null, worldCoord, true);
                                 }
@@ -392,7 +391,7 @@ public class TownyAdminCommand implements CommandExecutor  {
                         return;
                 }
         }
-        
+        /*
         private boolean residentUnclaim(Player player, WorldCoord worldCoord) throws TownyException {
                 if (plugin.getTownyUniverse().isWarTime())
                         throw new TownyException(TownySettings.getLangString("msg_war_cannot_do"));
@@ -412,7 +411,7 @@ public class TownyAdminCommand implements CommandExecutor  {
                         return false;
                 }
         }
-        
+        */
         public String nextNpcName() throws TownyException {
                 String name;
                 int i = 0;
