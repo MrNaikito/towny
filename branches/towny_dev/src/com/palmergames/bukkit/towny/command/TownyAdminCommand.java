@@ -236,6 +236,8 @@ public class TownyAdminCommand implements CommandExecutor  {
                                 
                                 List<WorldCoord> selection;
                                 selection = TownyUtil.selectWorldCoordArea(null, new WorldCoord(world, Coord.parseCoord(player)), split);
+                                
+                                /*
                                 List<Resident> residents = new ArrayList<Resident>();
                                 List<Town> towns = new ArrayList<Town>();
                                 
@@ -257,6 +259,7 @@ public class TownyAdminCommand implements CommandExecutor  {
 
                                         //TownCommand.townUnclaim(null, worldCoord, true);
                                 }
+                                */
                                 new TownClaim(plugin, player, null, selection, false, true).start();
 
                                 //plugin.sendMsg(player, String.format(TownySettings.getLangString("msg_admin_unclaim_area"), Arrays.toString(selection.toArray(new WorldCoord[0]))));
