@@ -714,8 +714,8 @@ v0.76.3.3:
 	- Changed saving of engligh.yml to ansi until bukkit fix their utf-8 support.
 V0.76.3.4:
 	- Added 57 (diamond block), 22 (lazuli block), 41 (gold block), 42 (iron block) to plot_management.revert_on_unclaim.block_ignore.
-	- Removed redundant code in '/ta unclaim' for clearing a resident data as it's already handled in the TownyUniverse.
-	- Fixed TownClaim/unclaim thread not correctly correctly selecting the town when the command was issued by an admin.
+	- Removed redundant code in '/ta unclaim' for clearing a resident data. It's already handled in TownyUniverse.
+	- Fixed TownClaim/unclaim thread not correctly selecting the town when the command was issued by an admin.
 	- Towny will now kick players who use hacked clients and join with no name, rather than crash.
 	- Moved all Towny messaging to it's own class. Depreciated old methods in TownyUniverse.
 	- All '/ta' commands are now accessable ingame and at the console, excluding '/ta town/nation name add' for console.
