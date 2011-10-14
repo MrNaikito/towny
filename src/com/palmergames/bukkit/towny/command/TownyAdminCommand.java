@@ -3,7 +3,6 @@ package com.palmergames.bukkit.towny.command;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -22,7 +21,6 @@ import com.palmergames.bukkit.towny.object.Coord;
 import com.palmergames.bukkit.towny.object.Nation;
 import com.palmergames.bukkit.towny.object.Resident;
 import com.palmergames.bukkit.towny.object.Town;
-import com.palmergames.bukkit.towny.object.TownyEconomyObject;
 import com.palmergames.bukkit.towny.object.TownyUniverse;
 import com.palmergames.bukkit.towny.object.TownyWorld;
 import com.palmergames.bukkit.towny.object.WorldCoord;
@@ -144,10 +142,12 @@ public class TownyAdminCommand implements CommandExecutor  {
                         plugin.getTownyUniverse().newDay();
                 else if (split[0].equalsIgnoreCase("unclaim"))
                         parseAdminUnclaimCommand(player, StringMgmt.remFirstArg(split));
+                /*
                 else if (split[0].equalsIgnoreCase("seed") && TownySettings.getDebug())
                         seedTowny();
                 else if (split[0].equalsIgnoreCase("warseed") && TownySettings.getDebug())
                         warSeed(player);
+                        */
                 else
                         plugin.sendErrorMsg(player, TownySettings.getLangString("msg_err_invalid_sub"));
         }
@@ -205,7 +205,7 @@ public class TownyAdminCommand implements CommandExecutor  {
                                 + Colors.Gray + " | "
                                 + Colors.Green + TownySettings.getLangString("ta_panel_4_1")
                                 + (TownySettings.isRemovingTownMobs() ? Colors.LightGreen + "On" : Colors.Rose + "Off"));
-                */
+                
                 try {
                         TownyEconomyObject.checkEconomy();
                         ta_panel.add(Colors.Blue + "[" + Colors.LightBlue + "Economy" + Colors.Blue + "] "
@@ -213,6 +213,7 @@ public class TownyAdminCommand implements CommandExecutor  {
                                         + Colors.Green + TownySettings.getLangString("ta_panel_7") + Colors.LightGreen + getNumBankAccounts());
                 } catch (Exception e) {
                 }
+                */
                 ta_panel.add(Colors.Blue + "[" + Colors.LightBlue + TownySettings.getLangString("ta_panel_8") + Colors.Blue + "] "
                                 + Colors.Green + TownySettings.getLangString("ta_panel_9") + Colors.LightGreen + MemMgmt.getMemSize(run.totalMemory()) + Colors.Gray + " | "
                                 + Colors.Green + TownySettings.getLangString("ta_panel_10") + Colors.LightGreen + Thread.getAllStackTraces().keySet().size() + Colors.Gray + " | "
@@ -453,10 +454,9 @@ public class TownyAdminCommand implements CommandExecutor  {
                         return;
                         
                 } else if (split[0].equalsIgnoreCase("war")) {
-                        boolean isWarTime = plugin.getTownyUniverse().isWarTime();
-                        choice = !isWarTime;
+                        choice = plugin.getTownyUniverse().isWarTime();
                         
-                        if (choice) {
+                        if (!choice) {
                                 plugin.getTownyUniverse().startWarEvent();
                                 plugin.sendMsg(player, TownySettings.getLangString("msg_war_started"));
                         } else {
@@ -539,16 +539,16 @@ public class TownyAdminCommand implements CommandExecutor  {
                         plugin.sendErrorMsg(player, TownySettings.getLangString("msg_err_invalid_choice"));
                 }
         }
-        
+        /*
         private void warSeed(Player player) {
-                /*Resident r1 = plugin.getTownyUniverse().newResident("r1");
+                Resident r1 = plugin.getTownyUniverse().newResident("r1");
                 Resident r2 = plugin.getTownyUniverse().newResident("r2");
                 Resident r3 = plugin.getTownyUniverse().newResident("r3");
                 Coord key = Coord.parseCoord(player);
                 Town t1 = newTown(plugin.getTownyUniverse(), player.getWorld(), "t1", r1, key, player.getLocation());
                 Town t2 = newTown(plugin.getTownyUniverse(), player.getWorld(), "t2", r2, new Coord(key.getX() + 1, key.getZ()), player.getLocation());
                 Town t3 = newTown(plugin.getTownyUniverse(), player.getWorld(), "t3", r3, new Coord(key.getX(), key.getZ() + 1), player.getLocation());
-                Nation n1 = */
+                Nation n1 = 
                 
         }
 
@@ -588,6 +588,5 @@ public class TownyAdminCommand implements CommandExecutor  {
                         return 0; 
                 }
         }
-                
-
+         */
 }
