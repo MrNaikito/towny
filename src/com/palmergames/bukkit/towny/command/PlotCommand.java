@@ -22,6 +22,7 @@ import com.palmergames.bukkit.towny.object.Resident;
 import com.palmergames.bukkit.towny.object.Town;
 import com.palmergames.bukkit.towny.object.TownBlock;
 import com.palmergames.bukkit.towny.object.TownBlockOwner;
+import com.palmergames.bukkit.towny.object.TownBlockType;
 import com.palmergames.bukkit.towny.object.TownyUniverse;
 import com.palmergames.bukkit.towny.object.TownyWorld;
 import com.palmergames.bukkit.towny.object.WorldCoord;
@@ -239,7 +240,7 @@ public class PlotCommand implements CommandExecutor  {
 	                        WorldCoord worldCoord = new WorldCoord(world, Coord.parseCoord(player));
 	                        setPlotType(resident, worldCoord, split[0]);
 	                        TownyUniverse.getDataSource().saveTownBlock(worldCoord.getTownBlock());
-	                        player.sendMessage(String.format(TownySettings.getLangString("msg_plot_set_type"),split[1]));
+	                        player.sendMessage(String.format(TownySettings.getLangString("msg_plot_set_type"),split[0]));
 	
 	                    } else {
 	                        player.sendMessage(ChatTools.formatCommand("", "/plot set", "reset", ""));
@@ -288,7 +289,7 @@ public class PlotCommand implements CommandExecutor  {
                         try {
                                 TownBlock townBlock = worldCoord.getTownBlock();
                                 Town town = townBlock.getTown();
-                                if (resident.getTown() != town)
+                                if (resident.getTown() != town && !townBlock.getType().equals(TownBlockType.EMBASSY))
                                         throw new TownyException(TownySettings.getLangString("msg_not_town"));
 
                                 try {

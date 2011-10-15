@@ -480,15 +480,15 @@ public class TownCommand implements CommandExecutor  {
                                 }
                         } else if (split[0].equalsIgnoreCase("plottax")) {
                                 if (split.length < 2) {
-                                        TownyMessaging.sendErrorMsg(player, "Eg: /town set plottax 10");
-                                        return;
+                                	TownyMessaging.sendErrorMsg(player, "Eg: /town set plottax 10");
+                                    return;
                                 } else {
-                    try {
-                        Double amount = Double.parseDouble(split[1]);
-                        if (amount < 0) {
-                            TownyMessaging.sendErrorMsg(player, TownySettings.getLangString("msg_err_negative_money"));
-                            return;
-                        }
+				                    try {
+				                        Double amount = Double.parseDouble(split[1]);
+				                        if (amount < 0) {
+				                            TownyMessaging.sendErrorMsg(player, TownySettings.getLangString("msg_err_negative_money"));
+				                            return;
+				                        }
                                                 town.setPlotTax(amount);
                                                 TownyMessaging.sendTownMessage(town, String.format(TownySettings.getLangString("msg_town_set_plottax"), player.getName(), split[1]));
                                         } catch (NumberFormatException e) {
@@ -501,30 +501,48 @@ public class TownCommand implements CommandExecutor  {
                                         TownyMessaging.sendErrorMsg(player, "Eg: /town set shoptax 10");
                                         return;
                                 } else {
-                    try {
-                        Double amount = Double.parseDouble(split[1]);
-                        if (amount < 0) {
-                            TownyMessaging.sendErrorMsg(player, TownySettings.getLangString("msg_err_negative_money"));
-                            return;
-                        }
+				                    try {
+				                        Double amount = Double.parseDouble(split[1]);
+				                        if (amount < 0) {
+				                            TownyMessaging.sendErrorMsg(player, TownySettings.getLangString("msg_err_negative_money"));
+				                            return;
+				                        }
                                                 town.setCommercialPlotTax(amount);
-                                                TownyMessaging.sendTownMessage(town, String.format(TownySettings.getLangString("msg_town_set_shoptax"), player.getName(), split[1]));
+                                                TownyMessaging.sendTownMessage(town, String.format(TownySettings.getLangString("msg_town_set_alttax"), player.getName(), "shop", split[1]));
                                         } catch (NumberFormatException e) {
                                                 TownyMessaging.sendErrorMsg(player, TownySettings.getLangString("msg_error_must_be_num"));
                                                 return;
                                         }
                                 }
+                        } else if (split[0].equalsIgnoreCase("embassytax")) {
+                            if (split.length < 2) {
+                                TownyMessaging.sendErrorMsg(player, "Eg: /town set embassytax 10");
+                                return;
+	                        } else {
+			                    try {
+			                        Double amount = Double.parseDouble(split[1]);
+			                        if (amount < 0) {
+			                            TownyMessaging.sendErrorMsg(player, TownySettings.getLangString("msg_err_negative_money"));
+			                            return;
+			                        }
+	                                        town.setEmbassyPlotTax(amount);
+	                                        TownyMessaging.sendTownMessage(town, String.format(TownySettings.getLangString("msg_town_set_alttax"), player.getName(), "embassy", split[1]));
+	                                } catch (NumberFormatException e) {
+	                                        TownyMessaging.sendErrorMsg(player, TownySettings.getLangString("msg_error_must_be_num"));
+	                                        return;
+	                                }
+	                        }
                         } else if (split[0].equalsIgnoreCase("plotprice")) {
                                 if (split.length < 2) {
                                         TownyMessaging.sendErrorMsg(player, "Eg: /town set plotprice 50");
                                         return;
                                 } else {
-                    try {
-                        Double amount = Double.parseDouble(split[1]);
-                        if (amount < 0) {
-                            TownyMessaging.sendErrorMsg(player, TownySettings.getLangString("msg_err_negative_money"));
-                            return;
-                        }
+				                    try {
+				                        Double amount = Double.parseDouble(split[1]);
+				                        if (amount < 0) {
+				                            TownyMessaging.sendErrorMsg(player, TownySettings.getLangString("msg_err_negative_money"));
+				                            return;
+				                        }
                                                 town.setPlotPrice(amount);
                                                 TownyMessaging.sendTownMessage(town, String.format(TownySettings.getLangString("msg_town_set_plotprice"), player.getName(), split[1]));
                                         } catch (NumberFormatException e) {
@@ -537,19 +555,37 @@ public class TownCommand implements CommandExecutor  {
                                         TownyMessaging.sendErrorMsg(player, "Eg: /town set shopprice 50");
                                         return;
                                 } else {
-                    try {
-                        Double amount = Double.parseDouble(split[1]);
-                        if (amount < 0) {
-                            TownyMessaging.sendErrorMsg(player, TownySettings.getLangString("msg_err_negative_money"));
-                            return;
-                        }
+				                    try {
+				                        Double amount = Double.parseDouble(split[1]);
+				                        if (amount < 0) {
+				                            TownyMessaging.sendErrorMsg(player, TownySettings.getLangString("msg_err_negative_money"));
+				                            return;
+				                        }
                                                 town.setCommercialPlotPrice(amount);
-                                                TownyMessaging.sendTownMessage(town, String.format(TownySettings.getLangString("msg_town_set_shopprice"), player.getName(), split[1]));
+                                                TownyMessaging.sendTownMessage(town, String.format(TownySettings.getLangString("msg_town_set_altprice"), player.getName(), "shop", split[1]));
                                         } catch (NumberFormatException e) {
                                                 TownyMessaging.sendErrorMsg(player, TownySettings.getLangString("msg_error_must_be_num"));
                                                 return;
                                         }
                                 }
+                        } else if (split[0].equalsIgnoreCase("embassyprice")) {
+                            if (split.length < 2) {
+                                TownyMessaging.sendErrorMsg(player, "Eg: /town set embassyprice 50");
+                                return;
+	                        } else {
+			                    try {
+			                        Double amount = Double.parseDouble(split[1]);
+			                        if (amount < 0) {
+			                            TownyMessaging.sendErrorMsg(player, TownySettings.getLangString("msg_err_negative_money"));
+			                            return;
+			                        }
+	                                        town.setEmbassyPlotPrice(amount);
+	                                        TownyMessaging.sendTownMessage(town, String.format(TownySettings.getLangString("msg_town_set_altprice"), player.getName(), "embassy", split[1]));
+	                                } catch (NumberFormatException e) {
+	                                        TownyMessaging.sendErrorMsg(player, TownySettings.getLangString("msg_error_must_be_num"));
+	                                        return;
+	                                }
+	                        }
                         } else if (split[0].equalsIgnoreCase("name")) {
                                 if (split.length < 2) {
                                         TownyMessaging.sendErrorMsg(player, "Eg: /town set name BillyBobTown");
@@ -1430,7 +1466,8 @@ public class TownCommand implements CommandExecutor  {
                         //change perm name to friend is this is a resident setting
                         if (friend)
                                 perms = perms.replaceAll("resident", "friend");
-                        TownyMessaging.sendMsg(player, String.format(TownySettings.getLangString("msg_set_perms"), perms));
+                        TownyMessaging.sendMsg(player, TownySettings.getLangString("msg_set_perms"));
+                        TownyMessaging.sendMessage(player, (Colors.Green + " Perm: " + perm.getColourString()));
                         plugin.updateCache();
                 }
         }
