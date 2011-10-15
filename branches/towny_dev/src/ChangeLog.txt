@@ -730,3 +730,5 @@ v0.76.3.6:
 	  '/town set embassyprice $' - Sets the default price for Embassy plots (can be overridden by '/plot fs $')
 	  '/town set embassytax $'   - This is charged on top of the towns normal plot tax.
 	- Changed response when setting resident/plot/town perms to be more readable.
+v0.76.3.7:
+	- Fixed '/town claim' which I broke when fixing admin unclaim.

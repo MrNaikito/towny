@@ -62,11 +62,14 @@ public class TownClaim extends Thread {
 			if (selection != null) {
 			
 				for (WorldCoord worldCoord : selection) {
-					this.town = worldCoord.getTownBlock().getTown();
+					
 					if (claim)
 						townClaim(town, worldCoord);
-					else
+					else {
+						this.town = worldCoord.getTownBlock().getTown();
 						townUnclaim(town, worldCoord, forced);
+					}
+						
 		            
 		            TownyUniverse.getDataSource().saveTown(town);
 				}
