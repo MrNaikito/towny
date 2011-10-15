@@ -274,7 +274,6 @@ public class TownyAdminCommand implements CommandExecutor  {
         }
         
         public void parseAdminNationCommand(String[] split) {
-                //TODO Make this use the actual town command procedually.
                 
                 if (split.length == 0 || split[0].equalsIgnoreCase("?")) {
                         

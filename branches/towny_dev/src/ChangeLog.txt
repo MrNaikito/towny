@@ -723,3 +723,10 @@ V0.76.3.4:
 	- Temporary fix for prefixes not being updated in Towny when a player changes permissions groups etc.
 v0.76.3.5:
 	- Revert the PEX change as they reverted their change of .has() for release.
+v0.76.3.6:
+	- Added Embassy plots. These may be leased by anyone, so long as they belong to a town (they don't have to be a member of the plot owning town).
+	- New commands:-
+	  '/plot set embassy'
+	  '/town set embassyprice $' - Sets the default price for Embassy plots (can be overridden by '/plot fs $')
+	  '/town set embassytax $'   - This is charged on top of the towns normal plot tax.
+	- Changed response when setting resident/plot/town perms to be more readable.

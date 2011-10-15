@@ -179,6 +179,16 @@ public class TownyMessaging {
 	 * Send a message to a player
 	 * 
 	 * @param player
+	 * @param line
+	 */
+	public static void sendMessage(Player sender, String line) {
+        sender.sendMessage(line);
+	}
+	
+	/**
+	 * Send a message to a player
+	 * 
+	 * @param player
 	 * @param lines
 	 */
 	public static void sendMessage(Object sender, String[] lines) {

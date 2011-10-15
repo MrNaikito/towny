@@ -24,7 +24,7 @@ public class Town extends TownBlockOwner implements Walled, ResidentList {
         private Wall wall = new Wall();
         private Resident mayor;
         private int bonusBlocks, purchasedBlocks;
-        private double taxes, plotTax, commercialPlotTax, plotPrice, commercialPlotPrice;
+        private double taxes, plotTax, commercialPlotTax, embassyPlotTax, plotPrice, commercialPlotPrice, embassyPlotPrice;
         private Nation nation;
         private boolean hasUpkeep, isPVP, hasMobs, isPublic, isBANG, isFire,isTaxPercentage;
         private String townBoard = "/town set board [msg]", tag;
@@ -548,6 +548,14 @@ public class Town extends TownBlockOwner implements Walled, ResidentList {
     public double getCommercialPlotPrice() {
         return commercialPlotPrice;
     }
+    
+    public void setEmbassyPlotPrice(double embassyPlotPrice) {
+        this.embassyPlotPrice = embassyPlotPrice;
+    }
+
+    public double getEmbassyPlotPrice() {
+        return embassyPlotPrice;
+    }
 
     @Override
     public Wall getWall() {
@@ -598,6 +606,14 @@ public class Town extends TownBlockOwner implements Walled, ResidentList {
 
     public double getCommercialPlotTax() {
         return commercialPlotTax;
+    }
+    
+    public void setEmbassyPlotTax(double embassyPlotTax) {
+        this.embassyPlotTax = embassyPlotTax;
+    }
+
+    public double getEmbassyPlotTax() {
+        return embassyPlotTax;
     }
         
     public void withdrawFromBank(Resident resident, int amount) throws EconomyException, TownyException {
