@@ -721,3 +721,5 @@ V0.76.3.4:
 	- All '/ta' commands are now accessable ingame and at the console, excluding '/ta town/nation name add' for console.
 	- Fixed an error with the new bukkit config failing to set a value (debug/devmode etc)
 	- Temporary fix for prefixes not being updated in Towny when a player changes permissions groups etc.
+v0.76.3.5:
+	- Revert the PEX change as they reverted their change of .has() for release.
