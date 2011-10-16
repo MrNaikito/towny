@@ -40,10 +40,6 @@ public class TownClaim extends Thread {
         super();
         this.plugin = plugin;
         this.player = player;
-        try {
-			this.world = TownyUniverse.getWorld(player.getWorld().getName());
-		} catch (NotRegisteredException e) {
-		}
         this.town = town;
         this.selection = selection;
         this.claim = claim;
@@ -53,13 +49,17 @@ public class TownClaim extends Thread {
     
     @Override
 	public void run() {
-    	if (world == null) {
-    		TownyMessaging.sendMsg(player, TownySettings.getLangString("msg_err_not_configured"));
-    		return;
-    	}
+    	
     	
 		try {			
 			if (selection != null) {
+				
+				try {
+					this.world = TownyUniverse.getWorld(selection.get(0).getWorld().getName());
+				} catch (NotRegisteredException e) {
+					TownyMessaging.sendMsg(player, TownySettings.getLangString("msg_err_not_configured"));
+		    		return;
+				}
 			
 				for (WorldCoord worldCoord : selection) {
 					
