@@ -22,10 +22,11 @@ import com.palmergames.bukkit.towny.object.Resident;
 import com.palmergames.bukkit.towny.object.Town;
 import com.palmergames.bukkit.towny.object.TownBlock;
 import com.palmergames.bukkit.towny.object.TownBlockOwner;
-import com.palmergames.bukkit.towny.object.TownBlockType;
+import com.palmergames.bukkit.towny.object.TownyEconomyObject;
 import com.palmergames.bukkit.towny.object.TownyUniverse;
 import com.palmergames.bukkit.towny.object.TownyWorld;
 import com.palmergames.bukkit.towny.object.WorldCoord;
+import com.palmergames.bukkit.towny.tasks.PlotClaim;
 import com.palmergames.bukkit.util.ChatTools;
 import com.palmergames.bukkit.util.Colors;
 import com.palmergames.util.StringMgmt;
@@ -105,48 +106,62 @@ public class PlotCommand implements CommandExecutor  {
 
                 try {
                 	if (split[0].equalsIgnoreCase("claim")) {
+                		
+                		if (plugin.getTownyUniverse().isWarTime())
+                            throw new TownyException(TownySettings.getLangString("msg_war_cannot_do"));
+                		
                         List<WorldCoord> selection = TownyUtil.selectWorldCoordArea(resident, new WorldCoord(world, Coord.parseCoord(player)), StringMgmt.remFirstArg(split));
                         selection = TownyUtil.filterUnownedPlots(selection);
                         int maxPlots = TownySettings.getMaxResidentPlots(resident);
+                        
                         if (maxPlots >= 0 && resident.getTownBlocks().size() + selection.size() > maxPlots)
                         	throw new TownyException(String.format(TownySettings.getLangString("msg_max_plot_own"), maxPlots));
+                        
                         if (selection.size() > 0) {
-                                for (WorldCoord worldCoord : selection) {
-                                        try {
-                                                if (residentClaim(resident, worldCoord)) {
-                                                	TownyMessaging.sendMsg(player, TownySettings.getLangString("msg_claimed") + " (" + worldCoord + ").");
-                                                        plugin.updateCache(worldCoord);
-                                                }       
-                                        } catch (TownyException x) {
-                                        	TownyMessaging.sendErrorMsg(player, x.getError());
-                                        }
-                                }
-								TownyUniverse.getDataSource().saveResident(resident);
-								TownyUniverse.getDataSource().saveWorld(world);
+                        	
+                        	double cost = 0;
+                            
+                            // Remove any plots Not for sale (if not the mayor) and tally up costs.
+                            for (WorldCoord worldCoord : new ArrayList<WorldCoord>(selection)) {
+                            	double price = worldCoord.getTownBlock().getPlotPrice();
+                            	if (price != -1)
+                            		cost += worldCoord.getTownBlock().getPlotPrice();
+                            	else {
+                            		if (worldCoord.getTownBlock().getTown().isMayor(resident) || worldCoord.getTownBlock().getTown().hasAssistant(resident))
+                            		selection.remove(worldCoord);
+                            	}
+                            }
+                            
+                            if (TownySettings.isUsingEconomy() && (!resident.canPayFromHoldings(cost)))
+                                    throw new TownyException(String.format(TownySettings.getLangString("msg_no_funds_claim"), selection.size(), TownyEconomyObject.getFormattedBalance(cost)));
+                    	
+                            // Start the claim task
+                            new PlotClaim(plugin, player, resident, selection, true).start();
+
                         } else {
                                 player.sendMessage(TownySettings.getLangString("msg_err_empty_area_selection"));
                         }
                 	} else if (split[0].equalsIgnoreCase("unclaim")) {
-                        List<WorldCoord> selection = TownyUtil.selectWorldCoordArea(resident, new WorldCoord(world, Coord.parseCoord(player)), StringMgmt.remFirstArg(split));
-                        //System.out.println("pre "+selection.size());
-                        selection = TownyUtil.filterOwnedBlocks(resident, selection);
-                        //System.out.println("post "+selection.size());
-                        if (selection.size() > 0) {
-                                for (WorldCoord worldCoord : selection) {
-                                        try {
-                                                if (residentUnclaim(resident, worldCoord, false)) {
-                                                	TownyMessaging.sendMsg(player, TownySettings.getLangString("msg_unclaimed") + " (" + worldCoord + ").");
-                                                        TownyUniverse.getDataSource().saveTownBlock(worldCoord.getTownBlock());
-                                                        plugin.updateCache(worldCoord);
-                                                }
-                                        } catch (TownyException x) {
-                                        	TownyMessaging.sendErrorMsg(player, x.getError());
-                                        }
-                                }
-								TownyUniverse.getDataSource().saveResident(resident);
-								TownyUniverse.getDataSource().saveWorld(world);
-                        } else {
-                                player.sendMessage(TownySettings.getLangString("msg_err_empty_area_selection"));
+                		
+                		if (plugin.getTownyUniverse().isWarTime())
+                            throw new TownyException(TownySettings.getLangString("msg_war_cannot_do"));
+                		
+                		if (split.length == 2 && split[1].equalsIgnoreCase("all"))
+                			// Start the unclaim task
+                        	new PlotClaim(plugin, player, resident, null, false).start();
+                		
+                        else {
+	                        List<WorldCoord> selection = TownyUtil.selectWorldCoordArea(resident, new WorldCoord(world, Coord.parseCoord(player)), StringMgmt.remFirstArg(split));
+	                        selection = TownyUtil.filterOwnedBlocks(resident, selection);
+	
+	                        if (selection.size() > 0) {
+	                        	
+	                        	// Start the unclaim task
+	                        	new PlotClaim(plugin, player, resident, selection, false).start();
+	                        	
+	                        } else {
+	                                player.sendMessage(TownySettings.getLangString("msg_err_empty_area_selection"));
+	                        }
                         }
                 	} else if (split[0].equalsIgnoreCase("notforsale") || split[0].equalsIgnoreCase("nfs")) {
                         List<WorldCoord> selection = TownyUtil.selectWorldCoordArea(resident, new WorldCoord(world, Coord.parseCoord(player)), StringMgmt.remFirstArg(split));
@@ -281,105 +296,7 @@ public class PlotCommand implements CommandExecutor  {
             }
         }
         
-        public boolean residentClaim(Resident resident, WorldCoord worldCoord) throws TownyException, EconomyException {
-                if (plugin.getTownyUniverse().isWarTime())
-                        throw new TownyException(TownySettings.getLangString("msg_war_cannot_do"));
-                
-                if (resident.hasTown())
-                        try {
-                                TownBlock townBlock = worldCoord.getTownBlock();
-                                Town town = townBlock.getTown();
-                                if (resident.getTown() != town && !townBlock.getType().equals(TownBlockType.EMBASSY))
-                                        throw new TownyException(TownySettings.getLangString("msg_not_town"));
-
-                                try {
-                                        Resident owner = townBlock.getResident();
-                                        if (townBlock.getPlotPrice() != -1) {
-                                        	// Plot is for sale
-                                        	
-                                                if (TownySettings.isUsingEconomy() && !resident.pay(townBlock.getPlotPrice(), owner))
-                                                        throw new TownyException(TownySettings.getLangString("msg_no_money_purchase_plot"));
-                                                
-                                                int maxPlots = TownySettings.getMaxResidentPlots(resident);
-                                                if (maxPlots >= 0 && resident.getTownBlocks().size() + 1 > maxPlots)
-                                                        throw new TownyException(String.format(TownySettings.getLangString("msg_max_plot_own"), maxPlots));
-                                                
-                                                TownyMessaging.sendTownMessage(town, TownySettings.getBuyResidentPlotMsg(resident.getName(), owner.getName(), townBlock.getPlotPrice()));
-                                                townBlock.setPlotPrice(-1);
-                                                townBlock.setResident(resident);
-                                                
-                                                // Set the plot permissions to mirror the new owners.
-                                                townBlock.setPermissions(resident.getPermissions().toString());
-
-												TownyUniverse.getDataSource().saveResident(resident);
-												plugin.updateCache();
-                                                return true;
-                                        } else if (town.isMayor(resident) || town.hasAssistant(resident)) {
-                                        	//Plot isn't for sale but reposessing for town.
-                                        	
-                                                if (TownySettings.isUsingEconomy() && !town.pay(townBlock.getPlotPrice(), owner))
-                                                        throw new TownyException(TownySettings.getLangString("msg_town_no_money_purchase_plot"));
-                                                
-                                                TownyMessaging.sendTownMessage(town, TownySettings.getBuyResidentPlotMsg(town.getName(), owner.getName(), townBlock.getPlotPrice()));
-                                                townBlock.setResident(null);
-                                                townBlock.setPlotPrice(-1);
-                                                
-                                                // Set the plot permissions to mirror the towns.
-                                                townBlock.setPermissions(town.getPermissions().toString());
-
-												TownyUniverse.getDataSource().saveResident(owner);
-												plugin.updateCache();
-                                                return true;
-                                        } else
-                                                throw new AlreadyRegisteredException(String.format(TownySettings.getLangString("msg_already_claimed"), owner.getName()));
-                                } catch (NotRegisteredException e) {
-                                	//Plot has no owner so it's the town selling it
-                                	
-                                        if (townBlock.getPlotPrice() == -1)
-                                                throw new TownyException(TownySettings.getLangString("msg_err_plot_nfs"));
-                                        
-                                        if (TownySettings.isUsingEconomy() && !resident.pay(townBlock.getPlotPrice(), town))
-                                                throw new TownyException(TownySettings.getLangString("msg_no_money_purchase_plot"));
-                                        
-                                        townBlock.setPlotPrice(-1);
-                                        townBlock.setResident(resident);
-                                        
-                                        // Set the plot permissions to mirror the new owners.
-                                        townBlock.setPermissions(resident.getPermissions().toString());                                        
-										TownyUniverse.getDataSource().saveResident(resident);
-										plugin.updateCache();
-                                        return true;
-                                }
-                        } catch (NotRegisteredException e) {
-                                throw new TownyException(TownySettings.getLangString("msg_err_not_part_town"));
-                        }
-                else
-                        throw new TownyException(TownySettings.getLangString("msg_err_not_in_town_claim"));
-        }
         
-        private boolean residentUnclaim(Resident resident, WorldCoord worldCoord, boolean force) throws TownyException {
-                if (plugin.getTownyUniverse().isWarTime())
-                        throw new TownyException(TownySettings.getLangString("msg_war_cannot_do"));
-                
-                try {
-                        TownBlock townBlock = worldCoord.getTownBlock();
-                        Resident owner = townBlock.getResident();
-                        if (resident == owner || force) {
-                                townBlock.setResident(null);
-                                townBlock.setPlotPrice(townBlock.getTown().getPlotPrice());
-                                
-                                // Set the plot permissions to mirror the towns.
-                                townBlock.getPermissions().loadDefault(owner.getTown());
-                                
-								TownyUniverse.getDataSource().saveResident(resident);
-								plugin.updateCache();
-                                return true;
-                        } else
-                                throw new TownyException(TownySettings.getLangString("msg_not_own_area"));
-                } catch (NotRegisteredException e) {
-                        throw new TownyException(TownySettings.getLangString("msg_not_own_place"));
-                }
-        }
 
     public void setPlotType(Resident resident, WorldCoord worldCoord, String type) throws TownyException {
         if (resident.hasTown())
