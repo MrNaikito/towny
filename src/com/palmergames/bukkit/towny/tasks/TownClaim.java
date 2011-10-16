@@ -58,19 +58,16 @@ public class TownClaim extends Thread {
     	List<Town> towns = new ArrayList<Town>();
     	TownyWorld world;
     	
-		try {			
-			if (selection != null) {
+    	if (player != null) TownyMessaging.sendMsg(player, "Processing " + ((claim) ? "Town Claim..." : "Town unclaim..."));
+    	
+    	if (selection != null) {
 
-				for (WorldCoord worldCoord : selection) {
-					
-					try {
-						world = TownyUniverse.getWorld(worldCoord.getWorld().getName());
-						if (!worlds.contains(world)) worlds.add(world);
-					} catch (NotRegisteredException e) {
-						TownyMessaging.sendMsg(player, TownySettings.getLangString("msg_err_not_configured"));
-			    		continue;
-					}
-					
+			for (WorldCoord worldCoord : selection) {
+				
+				try {
+					world = TownyUniverse.getWorld(worldCoord.getWorld().getName());
+					if (!worlds.contains(world)) worlds.add(world);
+				
 					if (claim)
 						townClaim(town, worldCoord);
 					else {
@@ -79,34 +76,39 @@ public class TownClaim extends Thread {
 					}
 					
 					if (!towns.contains(town)) towns.add(town);
-  
-				}
-			} else if (!claim){
-				
-				townUnclaimAll(town);
-			}
-			
-			if (!towns.isEmpty())
-				for (Town test : towns)
-					TownyUniverse.getDataSource().saveTown(test);
-			
-			if (!worlds.isEmpty())
-				for (TownyWorld test : worlds)
-					TownyUniverse.getDataSource().saveWorld(test);
-			
-			plugin.updateCache();
-						
-			if (player != null) {
-				if (claim)
-					TownyMessaging.sendMsg(player, String.format(TownySettings.getLangString("msg_annexed_area"), (selection.size() > 5) ? "Total TownBlocks: " + selection.size() : Arrays.toString(selection.toArray(new WorldCoord[0]))));
-				else if (forced)
-					TownyMessaging.sendMsg(player, String.format(TownySettings.getLangString("msg_admin_unclaim_area"), (selection.size() > 5) ? "Total TownBlocks: " + selection.size() : Arrays.toString(selection.toArray(new WorldCoord[0]))));
-			}
 					
-		} catch (TownyException x) {
-			TownyMessaging.sendErrorMsg(player, x.getError());
+				} catch (NotRegisteredException e) {
+					// Invalid world
+					TownyMessaging.sendMsg(player, TownySettings.getLangString("msg_err_not_configured"));
+				} catch (TownyException x) {
+					TownyMessaging.sendErrorMsg(player, x.getError());
+				}
+
+			}
+			
+    	} else if (!claim){
+			
+			townUnclaimAll(town);
 		}
 		
+		if (!towns.isEmpty())
+			for (Town test : towns)
+				TownyUniverse.getDataSource().saveTown(test);
+		
+		if (!worlds.isEmpty())
+			for (TownyWorld test : worlds)
+				TownyUniverse.getDataSource().saveWorld(test);
+		
+		plugin.updateCache();
+					
+		if (player != null) {
+			if (claim)
+				TownyMessaging.sendMsg(player, String.format(TownySettings.getLangString("msg_annexed_area"), (selection.size() > 5) ? "Total TownBlocks: " + selection.size() : Arrays.toString(selection.toArray(new WorldCoord[0]))));
+			else if (forced)
+				TownyMessaging.sendMsg(player, String.format(TownySettings.getLangString("msg_admin_unclaim_area"), (selection.size() > 5) ? "Total TownBlocks: " + selection.size() : Arrays.toString(selection.toArray(new WorldCoord[0]))));
+		}
+					
+
     }
     
     private void townClaim(Town town, WorldCoord worldCoord) throws TownyException {               
