@@ -20,6 +20,10 @@ import com.palmergames.bukkit.towny.object.TownyUniverse;
 import com.palmergames.bukkit.towny.object.TownyWorld;
 import com.palmergames.bukkit.towny.object.WorldCoord;
 
+/**
+ * @author ElgarL
+ *
+ */
 public class TownClaim extends Thread {
 	
 	Towny plugin;
