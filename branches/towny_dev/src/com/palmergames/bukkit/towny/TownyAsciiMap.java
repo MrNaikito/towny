@@ -6,6 +6,7 @@ import com.palmergames.bukkit.towny.object.Coord;
 import com.palmergames.bukkit.towny.object.Nation;
 import com.palmergames.bukkit.towny.object.Resident;
 import com.palmergames.bukkit.towny.object.TownBlock;
+import com.palmergames.bukkit.towny.object.TownBlockType;
 import com.palmergames.bukkit.towny.object.TownyUniverse;
 import com.palmergames.bukkit.towny.object.TownyWorld;
 import com.palmergames.bukkit.util.ChatTools;
@@ -116,6 +117,8 @@ public class TownyAsciiMap {
 						townyMap[y][x] += "$";
 					else if (townblock.isHomeBlock())
 						townyMap[y][x] += "H";
+					else if (townblock.getType().equals(TownBlockType.EMBASSY))
+						townyMap[y][x] += "E";
 					else
 						townyMap[y][x] += "+";
 				} catch (TownyException e) {

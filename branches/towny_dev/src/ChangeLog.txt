@@ -733,4 +733,5 @@ v0.76.3.6:
 v0.76.3.7:
 	- Fixed '/town claim' which I broke when fixing admin unclaim.
 v0.76.3.8:
-	- When claiming/unclaiming groups of TwonBlocks the message will no longer spam up your screen with the plot list.
+	- When claiming/unclaiming groups of TownBlocks the message will no longer spam up your screen with the plot list.
+	- Embassy plots now show up on the map as 'E'.
