@@ -75,9 +75,7 @@ public class TownClaim extends Thread {
 					}
 					
 					if (!towns.contains(town)) towns.add(town);
-						
-		            
-		            
+  
 				}
 			} else if (!claim){
 				
