@@ -732,3 +732,5 @@ v0.76.3.6:
 	- Changed response when setting resident/plot/town perms to be more readable.
 v0.76.3.7:
 	- Fixed '/town claim' which I broke when fixing admin unclaim.
+v0.76.3.8:
+	- When claiming/unclaiming groups of TwonBlocks the message will no longer spam up your screen with the plot list.
