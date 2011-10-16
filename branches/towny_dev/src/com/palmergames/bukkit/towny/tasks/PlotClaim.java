@@ -54,6 +54,8 @@ public class PlotClaim extends Thread {
     
     @Override
 	public void run() {
+    	
+    	if (player != null) TownyMessaging.sendMsg(player, "Processing " + ((claim) ? "Plot Claim..." : "Plot unclaim..."));
     			
     	if (selection != null) {
 
