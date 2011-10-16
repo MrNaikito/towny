@@ -1,5 +1,6 @@
 package com.palmergames.bukkit.towny.tasks;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -24,7 +25,6 @@ public class TownClaim extends Thread {
 	Towny plugin;
 	volatile Player player;
 	volatile Town town;
-	volatile TownyWorld world;
 	List<WorldCoord> selection;
 	boolean claim, forced;
 	
@@ -50,18 +50,22 @@ public class TownClaim extends Thread {
     @Override
 	public void run() {
     	
+    	List<TownyWorld> worlds = new ArrayList<TownyWorld>();
+    	List<Town> towns = new ArrayList<Town>();
+    	TownyWorld world;
     	
 		try {			
 			if (selection != null) {
-				
-				try {
-					this.world = TownyUniverse.getWorld(selection.get(0).getWorld().getName());
-				} catch (NotRegisteredException e) {
-					TownyMessaging.sendMsg(player, TownySettings.getLangString("msg_err_not_configured"));
-		    		return;
-				}
-			
+
 				for (WorldCoord worldCoord : selection) {
+					
+					try {
+						world = TownyUniverse.getWorld(worldCoord.getWorld().getName());
+						if (!worlds.contains(world)) worlds.add(world);
+					} catch (NotRegisteredException e) {
+						TownyMessaging.sendMsg(player, TownySettings.getLangString("msg_err_not_configured"));
+			    		continue;
+					}
 					
 					if (claim)
 						townClaim(town, worldCoord);
@@ -69,25 +73,33 @@ public class TownClaim extends Thread {
 						this.town = worldCoord.getTownBlock().getTown();
 						townUnclaim(town, worldCoord, forced);
 					}
+					
+					if (!towns.contains(town)) towns.add(town);
 						
 		            
-		            TownyUniverse.getDataSource().saveTown(town);
+		            
 				}
 			} else if (!claim){
 				
 				townUnclaimAll(town);
 			}
 			
+			if (!towns.isEmpty())
+				for (Town test : towns)
+					TownyUniverse.getDataSource().saveTown(test);
+			
+			if (!worlds.isEmpty())
+				for (TownyWorld test : worlds)
+					TownyUniverse.getDataSource().saveWorld(test);
+			
+			plugin.updateCache();
+						
 			if (player != null) {
-				
 				if (claim)
 					TownyMessaging.sendMsg(player, String.format(TownySettings.getLangString("msg_annexed_area"), Arrays.toString(selection.toArray(new WorldCoord[0]))));
 				else if (forced)
 					TownyMessaging.sendMsg(player, String.format(TownySettings.getLangString("msg_admin_unclaim_area"), Arrays.toString(selection.toArray(new WorldCoord[0]))));
-				
 			}
-			TownyUniverse.getDataSource().saveWorld(world);
-			plugin.updateCache();
 					
 		} catch (TownyException x) {
 			TownyMessaging.sendErrorMsg(player, x.getError());
