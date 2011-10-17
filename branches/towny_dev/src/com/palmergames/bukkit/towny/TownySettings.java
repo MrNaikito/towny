@@ -1413,11 +1413,19 @@ public class TownySettings {
 	}
 	
 	public static boolean isUsingQuestioner() {
-	        return getBoolean(ConfigNodes.PLUGIN_USING_QUESTIONER);
+	        return getBoolean(ConfigNodes.PLUGIN_USING_QUESTIONER_ENABLE);
 	}
         
     public static void setUsingQuestioner(boolean newSetting) {
-        setProperty(ConfigNodes.PLUGIN_USING_QUESTIONER.getRoot(), newSetting);
+        setProperty(ConfigNodes.PLUGIN_USING_QUESTIONER_ENABLE.getRoot(), newSetting);
+    }
+    
+    public static String questionerAccept() {
+        return getString(ConfigNodes.PLUGIN_QUESTIONER_ACCEPT);
+    }
+    
+    public static String questionerDeny() {
+        return getString(ConfigNodes.PLUGIN_QUESTIONER_DENY);
     }
         
     public static boolean isAppendingToLog() {

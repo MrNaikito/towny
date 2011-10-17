@@ -137,9 +137,10 @@ public class TownyEntityListener extends EntityListener {
                             
                             TownBlock townBlock = townyWorld.getTownBlock(coord);
                             if (townyWorld.isUsingTowny() && !townyWorld.isForceTownMobs())
-                            if (!townBlock.getTown().hasMobs() && MobRemovalTimerTask.isRemovingTownEntity(livingEntity)) {
-                            	TownyMessaging.sendDebugMsg("onCreatureSpawn town: Canceled " + event.getCreatureType() + " from spawning within "+coord.toString()+".");
-                                event.setCancelled(true);
+                            	if (!townBlock.getTown().hasMobs() && !townBlock.getPermissions().mobs)
+		                            if (MobRemovalTimerTask.isRemovingTownEntity(livingEntity)) {
+		                            	TownyMessaging.sendDebugMsg("onCreatureSpawn town: Canceled " + event.getCreatureType() + " from spawning within "+coord.toString()+".");
+		                                event.setCancelled(true);
                             }
                     } catch (TownyException x) {
                     }       
@@ -204,7 +205,7 @@ public class TownyEntityListener extends EntityListener {
                 
                 // If explosions are off, or it's wartime and explosions are off and the towns has no nation
                 if (townyWorld.isUsingTowny()  && !townyWorld.isForceExpl())
-                if (!townBlock.getTown().isBANG() || (plugin.getTownyUniverse().isWarTime() && !townBlock.getTown().hasNation() && !townBlock.getTown().isBANG())) {
+                	if ((!townBlock.getTown().isBANG() && !townBlock.getPermissions().explosion) || (plugin.getTownyUniverse().isWarTime() && !townBlock.getTown().hasNation() && !townBlock.getTown().isBANG())) {
                         if (event.getEntity() != null) TownyMessaging.sendDebugMsg("onEntityExplode: Canceled " + event.getEntity().getEntityId() + " from exploding within "+coord.toString()+".");
                         event.setCancelled(true);
                 }                    
@@ -316,9 +317,9 @@ public class TownyEntityListener extends EntityListener {
             try {
                     // Check Town PvP status
                     Coord key = Coord.parseCoord(b);
-                    TownBlock townblock = world.getTownBlock(key);
+                    TownBlock townBlock = world.getTownBlock(key);
                     //plugin.sendDebugMsg("is townblock");
-                    if (!townblock.getTown().isPVP() && !world.isForcePVP()) {
+                    if (!townBlock.getTown().isPVP() && !townBlock.getPermissions().pvp && !world.isForcePVP()) {
                             if (bp != null && (ap != null || a instanceof Arrow))
                                 return true;
                             
@@ -330,7 +331,7 @@ public class TownyEntityListener extends EntityListener {
                             }
                             if (b instanceof Animals) {
                             	Resident resident = plugin.getTownyUniverse().getResident(ap.getName());
-                            	if ((!resident.hasTown()) || (resident.hasTown() && (resident.getTown() != townblock.getTown())))
+                            	if ((!resident.hasTown()) || (resident.hasTown() && (resident.getTown() != townBlock.getTown())))
                             		return true;
                             }
                     }

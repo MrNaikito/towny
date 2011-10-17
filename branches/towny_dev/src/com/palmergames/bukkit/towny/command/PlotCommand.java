@@ -22,6 +22,7 @@ import com.palmergames.bukkit.towny.object.Resident;
 import com.palmergames.bukkit.towny.object.Town;
 import com.palmergames.bukkit.towny.object.TownBlock;
 import com.palmergames.bukkit.towny.object.TownBlockOwner;
+import com.palmergames.bukkit.towny.object.TownBlockType;
 import com.palmergames.bukkit.towny.object.TownyEconomyObject;
 import com.palmergames.bukkit.towny.object.TownyUniverse;
 import com.palmergames.bukkit.towny.object.TownyWorld;
@@ -220,6 +221,22 @@ public class PlotCommand implements CommandExecutor  {
                 		TownBlock townBlock = new WorldCoord(world, Coord.parseCoord(player)).getTownBlock();
                 		TownyMessaging.sendMessage(player, plugin.getTownyUniverse().getStatus(townBlock));
                 		
+                	} else if (split[0].equalsIgnoreCase("toggle")) {
+                		
+                		TownBlockOwner owner;
+                		
+                		TownBlock townBlock = new WorldCoord(world, Coord.parseCoord(player)).getTownBlock();
+                		town = townBlock.getTown();
+                		
+                		if (townBlock.hasResident()){
+                			owner = townBlock.getResident();
+                			
+                			if (resident != owner)
+                				throw new TownyException(TownySettings.getLangString("msg_area_not_own"));
+                		}
+                		
+                		plotToggle(player, new WorldCoord(world, Coord.parseCoord(player)).getTownBlock(), StringMgmt.remFirstArg(split));
+                		
                 	} else if (split[0].equalsIgnoreCase("set")) {
                 		
                 		split = StringMgmt.remFirstArg(split);
@@ -246,6 +263,9 @@ public class PlotCommand implements CommandExecutor  {
 	                    			if ((!resident.isMayor()) && (!town.hasAssistant(resident)))
                                             throw new TownyException(TownySettings.getLangString("msg_not_mayor_ass"));
 	                    		}
+	                    		
+	                    		// Check we are allowed to set these perms
+	                    		plotToggle(player, townBlock, StringMgmt.remFirstArg(split));
 	                    		
 	                    		TownCommand.setTownBlockPermissions(player, owner, townBlock.getPermissions(), StringMgmt.remFirstArg(split), true);
 								TownyUniverse.getDataSource().saveTownBlock(townBlock);
@@ -296,26 +316,107 @@ public class PlotCommand implements CommandExecutor  {
             }
         }
         
+        public void plotToggle(Player player, TownBlock townBlock, String[] split) {
+        	if (split.length == 0) {
+            	player.sendMessage(ChatTools.formatTitle("/res toggle"));
+            	player.sendMessage(ChatTools.formatCommand("", "/res toggle", "pvp", ""));
+                player.sendMessage(ChatTools.formatCommand("", "/res toggle", "explosion", ""));
+                player.sendMessage(ChatTools.formatCommand("", "/res toggle", "fire", ""));
+                player.sendMessage(ChatTools.formatCommand("", "/res toggle", "mobs", ""));
+            } else {
+
+                try {
+                    // TODO: Let admin's call a subfunction of this.
+                    if (split[0].equalsIgnoreCase("pvp")) {
+                    	//Make sure we are allowed to set these permissions.
+                    	toggleTest(player,townBlock,StringMgmt.join(split, " "));
+                    	townBlock.getPermissions().pvp = !townBlock.getPermissions().pvp;
+                        TownyMessaging.sendMessage(player, String.format(TownySettings.getLangString("msg_changed_pvp"), "Plot", townBlock.getPermissions().pvp ? "Enabled" : "Disabled"));
+                                        
+                    } else if (split[0].equalsIgnoreCase("explosion")) {
+                    	//Make sure we are allowed to set these permissions.
+                    	toggleTest(player,townBlock,StringMgmt.join(split, " "));
+                    	townBlock.getPermissions().explosion = !townBlock.getPermissions().explosion;
+                    	TownyMessaging.sendMessage(player, String.format(TownySettings.getLangString("msg_changed_expl"), "the Plot", townBlock.getPermissions().explosion ? "Enabled" : "Disabled"));
+
+                    } else if (split[0].equalsIgnoreCase("fire")) {
+                    	//Make sure we are allowed to set these permissions.
+                    	toggleTest(player,townBlock,StringMgmt.join(split, " "));
+                    	townBlock.getPermissions().fire = !townBlock.getPermissions().fire;
+                    	TownyMessaging.sendMessage(player, String.format(TownySettings.getLangString("msg_changed_fire"), "the Plot", townBlock.getPermissions().fire ? "Enabled" : "Disabled"));
+
+                    } else if (split[0].equalsIgnoreCase("mobs")) {
+                    	//Make sure we are allowed to set these permissions.
+                    	toggleTest(player,townBlock,StringMgmt.join(split, " "));
+                    	townBlock.getPermissions().mobs = !townBlock.getPermissions().mobs;
+                    	TownyMessaging.sendMessage(player, String.format(TownySettings.getLangString("msg_changed_mobs"), "the Plot", townBlock.getPermissions().mobs ? "Enabled" : "Disabled"));
+            
+                    } else {
+                    	TownyMessaging.sendErrorMsg(player, String.format(TownySettings.getLangString("msg_err_invalid_property"), "town"));
+                    	return;
+                    } 
+                } catch (Exception e) {
+                    TownyMessaging.sendErrorMsg(player, e.getMessage());
+                }
+
+				TownyUniverse.getDataSource().saveTownBlock(townBlock);
+            }
+        }  
         
+        private void toggleTest(Player player, TownBlock townBlock, String split) throws TownyException {
+        	
+        	//Make sure we are allowed to set these permissions.
+        	Town town = townBlock.getTown();
+        	
+        	if (split.contains("mobs")) {
+        		if (town.getWorld().isForceTownMobs()) 
+                    throw new TownyException(TownySettings.getLangString("msg_world_mobs"));
+        		if (plugin.isPermissions() && (!TownyUniverse.getPermissionSource().hasPermission(player, "towny.town.toggle.mobs"))) 
+        			throw new TownyException(TownySettings.getLangString("msg_err_command_disable"));
+        	}
+        	
+        	if (split.contains("fire")) {
+        		if (town.getWorld().isForceFire())
+        			throw new TownyException(TownySettings.getLangString("msg_world_fire"));
+        		if (plugin.isPermissions() && (!TownyUniverse.getPermissionSource().hasPermission(player, "towny.town.toggle.fire")))
+        			throw new TownyException(TownySettings.getLangString("msg_err_command_disable"));
+        	}
+        	
+        	if (split.contains("explosion")) {
+        		if (town.getWorld().isForceExpl())
+        			throw new TownyException(TownySettings.getLangString("msg_world_expl"));
+        		if (plugin.isPermissions() && (!TownyUniverse.getPermissionSource().hasPermission(player, "towny.town.toggle.explosions")))
+        			throw new TownyException(TownySettings.getLangString("msg_err_command_disable"));
+        	}
+        	
+        	if (split.contains("pvp")) {
+        		if (town.getWorld().isForcePVP())
+        			throw new TownyException(TownySettings.getLangString("msg_world_pvp"));
+        		if (plugin.isPermissions() && (!TownyUniverse.getPermissionSource().hasPermission(player, "towny.town.toggle.pvp")))
+        			throw new TownyException(TownySettings.getLangString("msg_err_command_disable"));
+        		if (townBlock.getType().equals(TownBlockType.ARENA))
+            		throw new TownyException(TownySettings.getLangString("msg_plot_pvp"));
+        	}
+        }
 
-    public void setPlotType(Resident resident, WorldCoord worldCoord, String type) throws TownyException {
-        if (resident.hasTown())
-                        try {
-                                TownBlock townBlock = worldCoord.getTownBlock();
-                                Town town = townBlock.getTown();
-                                if (resident.getTown() != town)
-                                        throw new TownyException(TownySettings.getLangString("msg_err_not_part_town"));
-
-                                if (town.isMayor(resident) || town.hasAssistant(resident))
-                                        townBlock.setType(type);
-                                else
-                    throw new TownyException(TownySettings.getLangString("msg_not_mayor_ass"));
-                        } catch (NotRegisteredException e) {
-                                throw new TownyException(TownySettings.getLangString("msg_err_not_part_town"));
-                        }
-                else
-                        throw new TownyException(TownySettings.getLangString("msg_err_must_belong_town"));
-    }
+	    public void setPlotType(Resident resident, WorldCoord worldCoord, String type) throws TownyException {
+	        if (resident.hasTown())
+	                        try {
+	                                TownBlock townBlock = worldCoord.getTownBlock();
+	                                Town town = townBlock.getTown();
+	                                if (resident.getTown() != town)
+	                                        throw new TownyException(TownySettings.getLangString("msg_err_not_part_town"));
+	
+	                                if (town.isMayor(resident) || town.hasAssistant(resident))
+	                                        townBlock.setType(type);
+	                                else
+	                    throw new TownyException(TownySettings.getLangString("msg_not_mayor_ass"));
+	                        } catch (NotRegisteredException e) {
+	                                throw new TownyException(TownySettings.getLangString("msg_err_not_part_town"));
+	                        }
+	                else
+	                        throw new TownyException(TownySettings.getLangString("msg_err_must_belong_town"));
+	    }
 
         public void setPlotForSale(Resident resident, WorldCoord worldCoord, double forSale) throws TownyException {
                 if (resident.hasTown())

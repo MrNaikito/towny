@@ -447,8 +447,8 @@ public class NationCommand implements CommandExecutor  {
                         questioner.loadClasses();
                         
                         List<Option> options = new ArrayList<Option>();
-                        options.add(new Option("accept", new JoinNationTask(townMayor, nation)));
-                        options.add(new Option("deny", new ResidentNationQuestionTask(townMayor, nation) {
+                        options.add(new Option(TownySettings.questionerAccept(), new JoinNationTask(townMayor, nation)));
+                        options.add(new Option(TownySettings.questionerDeny(), new ResidentNationQuestionTask(townMayor, nation) {
                                 @Override
                                 public void run() {
                                 	TownyMessaging.sendNationMessage(nation, String.format(TownySettings.getLangString("msg_deny_invite"), getResident().getName()));

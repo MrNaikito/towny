@@ -738,3 +738,12 @@ v0.76.3.8:
 	- Threaded plot claim/unclaim to eliminate lag on LARGE claims.
 	- plot claiming now supports the all suffix (/plot unclaim all).'
 	- Capped claiming by radius to 1000 TownBlocks.
+v0.76.3.9:
+	- Reduced default plots per resident to 8, instead of 16 (town_block_ratio).
+	- Added settings for Questioner accept/deny so server admins can change the default commands to accept or deny invites.
+	- Added Arena plots. These plots default to PVP enabled, and can not have PVP disabled.
+	- Added plot toggle commands...
+	  '/plot toggle pvp'
+	  '/plot toggle fire'
+	  '/plot toggle explosion'
+	  '/plot toggle mobs'
