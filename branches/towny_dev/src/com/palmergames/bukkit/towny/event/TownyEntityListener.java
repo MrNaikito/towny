@@ -7,6 +7,8 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.*;
 import org.bukkit.event.entity.CreatureSpawnEvent;
+import org.bukkit.event.entity.EndermanPickupEvent;
+import org.bukkit.event.entity.EndermanPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
@@ -174,6 +176,41 @@ public class TownyEntityListener extends EntityListener {
                                     return;
                     }
             
+    }
+    
+    @Override
+	public void onEndermanPickup(EndermanPickupEvent event) {
+    	
+    	Block block = event.getBlock();
+    	
+    	TownyWorld townyWorld = null;
+    	TownBlock townBlock;
+        
+        try {
+        	townyWorld = TownyUniverse.getWorld(block.getLocation().getWorld().getName());
+        	townBlock = townyWorld.getTownBlock(new Coord(Coord.parseCoord(block)));
+        	if (!townyWorld.isForceTownMobs() && !townBlock.getPermissions().mobs && !townBlock.getTown().hasMobs())
+        		event.setCancelled(true);
+        } catch (NotRegisteredException e) {
+                // not in a townblock so allow
+        }
+
+    }
+    
+    @Override
+	public void onEndermanPlace(EndermanPlaceEvent event) {
+    	
+    	TownyWorld townyWorld = null;
+    	TownBlock townBlock;
+        
+        try {
+        	townyWorld = TownyUniverse.getWorld(event.getLocation().getWorld().getName());
+        	townBlock = townyWorld.getTownBlock(new Coord(Coord.parseCoord(event.getLocation())));
+        	if (!townyWorld.isForceTownMobs() && !townBlock.getPermissions().mobs && !townBlock.getTown().hasMobs())
+        		event.setCancelled(true);
+        } catch (NotRegisteredException e) {
+        	// not in a townblock so allow
+        }
     }
         
     @Override
