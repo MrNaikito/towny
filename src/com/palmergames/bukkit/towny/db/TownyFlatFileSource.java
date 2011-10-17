@@ -496,7 +496,7 @@ public class TownyFlatFileSource extends TownyDataSource {
 					} catch (Exception e) {
 						town.setEmbassyPlotTax(0);
 					}
-
+				/*
 				line = kvFile.get("pvp");
 				if (line != null)
 					try {
@@ -512,7 +512,7 @@ public class TownyFlatFileSource extends TownyDataSource {
 					} catch (NumberFormatException nfe) {
 					} catch (Exception e) {
 					}
-				
+				*/
 				line = kvFile.get("public");
 				if (line != null)
 					try {
@@ -520,7 +520,7 @@ public class TownyFlatFileSource extends TownyDataSource {
 					} catch (NumberFormatException nfe) {
 					} catch (Exception e) {
 					}
-
+				/*
 				line = kvFile.get("explosion");
 				if (line != null)
 					try {
@@ -528,7 +528,7 @@ public class TownyFlatFileSource extends TownyDataSource {
 					} catch (NumberFormatException nfe) {
 					} catch (Exception e) {
 					}
-
+				 */
                 line = kvFile.get("taxpercent");
 				if (line != null)
 					try {
@@ -536,7 +536,7 @@ public class TownyFlatFileSource extends TownyDataSource {
 					} catch (NumberFormatException nfe) {
 					} catch (Exception e) {
 					}
-
+				/*
 				line = kvFile.get("fire");
 				if (line != null)
 					try {
@@ -544,7 +544,7 @@ public class TownyFlatFileSource extends TownyDataSource {
 					} catch (NumberFormatException nfe) {
 					} catch (Exception e) {
 					}
-
+	*/
 				line = kvFile.get("townBlocks");
 				if (line != null)
 					utilLoadTownBlocks(line, town, null);
@@ -1151,16 +1151,20 @@ public class TownyFlatFileSource extends TownyDataSource {
             fout.write("embassyPlotTax=" + Double.toString(town.getEmbassyPlotTax()) + newLine);
 			// Upkeep
 			fout.write("hasUpkeep=" + Boolean.toString(town.hasUpkeep()) + newLine);
+			/*
 			// PVP
 			fout.write("pvp=" + Boolean.toString(town.isPVP()) + newLine);
 			// Mobs
 			fout.write("mobs=" + Boolean.toString(town.hasMobs()) + newLine);
+			*/
 			// Public
 			fout.write("public=" + Boolean.toString(town.isPublic()) + newLine);
+			/*
 			// Explosions
 			fout.write("explosion=" + Boolean.toString(town.isBANG()) + newLine);
 			// Firespread
 			fout.write("fire=" + Boolean.toString(town.isFire()) + newLine);
+			*/
             // Taxpercent
 			fout.write("taxpercent=" + Boolean.toString(town.isTaxPercentage()) + newLine);
 			// TownBlocks

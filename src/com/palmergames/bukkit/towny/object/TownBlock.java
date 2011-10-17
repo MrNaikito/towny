@@ -119,6 +119,11 @@ public class TownBlock {
     	if (type != this.type)
     		this.permissions.reset();
         this.type = type;
+        // Custom plot settings here
+        switch(type) {
+        case ARENA:
+        	this.permissions.pvp = true;
+        }
     }
 
     public void setType(int typeId) {

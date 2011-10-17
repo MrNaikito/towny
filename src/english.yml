@@ -1,5 +1,5 @@
 name: Towny
-version: 0.10
+version: 0.11
 language: english
 author: ElgarL
 website: 'http://code.google.com/a/eclipselabs.org/p/towny/'
@@ -237,20 +237,21 @@ msg_town_rename_disabled: '&bTown Renaming Disabled'
 msg_town_set_name: '&b%s renamed town to %s.'
 msg_nation_set_name: '&b%s renamed nation to %s.'
 
-msg_changed_pvp: '&cTown PVP has been %s.'
+msg_changed_pvp: '&c%s PVP has been %s.'
 msg_changed_public: '&cThe Town''s public status is now %s.'
-msg_changed_expl: '&cExplosions in town are now %s.'
-msg_changed_fire: '&cFirespread in town is now %s.'
-msg_changed_mobs: '&cMonster spawns in town are now %s.'
+msg_changed_expl: '&cExplosions in %s are now %s.'
+msg_changed_fire: '&cFirespread in %s is now %s.'
+msg_changed_mobs: '&cMonster spawns in %s are now %s.'
 msg_changed_taxpercent: '&cPercentage based taxes are now %s.'
 
 msg_changed_world_setting: '&c%s for %s is: %s.'
-
 
 msg_world_pvp: '&cThis world is PvP only.'
 msg_world_mobs: '&cThis world has Monster spawns forced on.'
 msg_world_expl: '&cThis world has Explosions forced on.'
 msg_world_fire: '&cThis world has Fire spread forced on.'
+
+msg_plot_pvp: '&cPVP can not be toggled in an Arena Plot.'
 
 msg_reloaded: '&2Towny''s settings were reloaded.'
 msg_give_total: '&bGave %s bonus. (Total: %s)'

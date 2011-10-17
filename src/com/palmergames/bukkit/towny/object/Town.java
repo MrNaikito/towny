@@ -26,7 +26,7 @@ public class Town extends TownBlockOwner implements Walled, ResidentList {
         private int bonusBlocks, purchasedBlocks;
         private double taxes, plotTax, commercialPlotTax, embassyPlotTax, plotPrice, commercialPlotPrice, embassyPlotPrice;
         private Nation nation;
-        private boolean hasUpkeep, isPVP, hasMobs, isPublic, isBANG, isFire,isTaxPercentage;
+        private boolean hasUpkeep, isPublic, isTaxPercentage;
         private String townBoard = "/town set board [msg]", tag;
         private TownBlock homeBlock;
         private TownyWorld world;
@@ -40,14 +40,11 @@ public class Town extends TownBlockOwner implements Walled, ResidentList {
                 purchasedBlocks = 0;
                 taxes = 0.0;
                 plotTax = 0.0;
-        commercialPlotTax = 0;
+                commercialPlotTax = 0;
                 plotPrice = 0.0;
                 hasUpkeep = true;
-                isPVP = false;
-                isBANG = false;
-                hasMobs = false;
                 isPublic = true;
-        isTaxPercentage = false;
+                isTaxPercentage = false;
                 permissions.loadDefault(this);
         }
         
@@ -206,27 +203,27 @@ public class Town extends TownBlockOwner implements Walled, ResidentList {
         }
         
         public void setHasMobs(boolean hasMobs) {
-                this.hasMobs = hasMobs;
+                this.permissions.mobs = hasMobs;
         }
 
         public boolean hasMobs() {
-                return hasMobs;
+                return this.permissions.mobs;
         }
 
         public void setPVP(boolean isPVP) {
-                this.isPVP = isPVP;
+                this.permissions.pvp = isPVP;
         }
 
         public boolean isPVP() {
-                return isPVP;
+                return this.permissions.pvp;
         }
         
         public void setBANG(boolean isBANG) {
-                this.isBANG = isBANG;
+                this.permissions.explosion = isBANG;
         }
 
         public boolean isBANG() {
-                return isBANG;
+                return this.permissions.explosion;
         }
 
     public void setTaxPercentage (boolean isPercentage) {
@@ -241,11 +238,11 @@ public class Town extends TownBlockOwner implements Walled, ResidentList {
     }
         
     public void setFire(boolean isFire) {
-        this.isFire = isFire;
+    	this.permissions.fire = isFire;
     }
 
     public boolean isFire() {
-        return isFire;
+        return this.permissions.fire;
     }
 
     public void setTownBoard(String townBoard) {
