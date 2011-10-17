@@ -1016,6 +1016,10 @@ public class TownySettings {
 		return getBoolean(ConfigNodes.UNCLAIMED_ZONE_SWITCH);
 	}
 	
+	public static boolean getUnclaimedZoneEndermanProtect() {
+		return getBoolean(ConfigNodes.UNCLAIMED_ZONE_ENDERMAN);
+	}
+	
 	public static String getUnclaimedPlotName() {
 		return getLangString("UNCLAIMED_PLOT_NAME");
 	}

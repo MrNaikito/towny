@@ -752,3 +752,4 @@ v0.76.3.10:
 	- Town Health Regen is now disabled in Arean plots.
 v0.76.3.11:
 	- Added protection from Enderman griefing (if town mobs are off).
+	- Added unclaimed_zone_enderman_protect to prevent endermen moving blocks in the wild.
