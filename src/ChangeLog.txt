@@ -750,3 +750,5 @@ v0.76.3.9:
 v0.76.3.10:
 	- Arena plots now ignore Friendly fire settings.
 	- Town Health Regen is now disabled in Arean plots.
+v0.76.3.11:
+	- Added protection from Enderman griefing (if town mobs are off).
