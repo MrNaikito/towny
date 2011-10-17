@@ -28,6 +28,7 @@ import com.palmergames.bukkit.towny.object.BlockLocation;
 import com.palmergames.bukkit.towny.object.Coord;
 import com.palmergames.bukkit.towny.object.Resident;
 import com.palmergames.bukkit.towny.object.TownBlock;
+import com.palmergames.bukkit.towny.object.TownBlockType;
 import com.palmergames.bukkit.towny.object.TownyPermission;
 import com.palmergames.bukkit.towny.object.TownyUniverse;
 import com.palmergames.bukkit.towny.object.TownyWorld;
@@ -360,8 +361,19 @@ public class TownyEntityListener extends EntityListener {
     
     public boolean preventFriendlyFire(Player a, Player b) {
             TownyUniverse universe = plugin.getTownyUniverse();
-            if (!TownySettings.getFriendlyFire() && universe.isAlly(a.getName(), b.getName()))
+            if (!TownySettings.getFriendlyFire() && universe.isAlly(a.getName(), b.getName())) {
+            	
+            	try {
+                    TownyWorld world = TownyUniverse.getWorld(b.getWorld().getName());
+                    TownBlock townBlock = new WorldCoord(world, Coord.parseCoord(b)).getTownBlock();
+                    if (!townBlock.getType().equals(TownBlockType.ARENA))
+                    	return true;
+                } catch (TownyException x) {
+                	//world or townblock failure
                     return true;
+                }
+            	
+            }
 
             return false;
     }

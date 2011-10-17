@@ -747,3 +747,5 @@ v0.76.3.9:
 	  '/plot toggle fire'
 	  '/plot toggle explosion'
 	  '/plot toggle mobs'
+v0.76.3.10:
+	- Arena plots now ignore Friendly fire settings.
