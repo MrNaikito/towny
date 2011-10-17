@@ -192,7 +192,9 @@ public class TownyEntityListener extends EntityListener {
         	if (!townyWorld.isForceTownMobs() && !townBlock.getPermissions().mobs && !townBlock.getTown().hasMobs())
         		event.setCancelled(true);
         } catch (NotRegisteredException e) {
-                // not in a townblock so allow
+            // not in a townblock so test config
+        	if (TownySettings.getUnclaimedZoneEndermanProtect())
+        		event.setCancelled(true);
         }
 
     }
@@ -209,7 +211,9 @@ public class TownyEntityListener extends EntityListener {
         	if (!townyWorld.isForceTownMobs() && !townBlock.getPermissions().mobs && !townBlock.getTown().hasMobs())
         		event.setCancelled(true);
         } catch (NotRegisteredException e) {
-        	// not in a townblock so allow
+        	// not in a townblock so test config
+        	if (TownySettings.getUnclaimedZoneEndermanProtect())
+        		event.setCancelled(true);
         }
     }
         

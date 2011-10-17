@@ -317,6 +317,8 @@ public enum ConfigNodes {
             UNCLAIMED_ZONE_SWITCH("unclaimed.unclaimed_zone_switch","false"),
             //UNCLAIMED_ZONE_NAME("unclaimed.unclaimed_zone_name",""),
             //UNCLAIMED_PLOT_NAME("unclaimed.unclaimed_plot_name",""),
+            UNCLAIMED_ZONE_ENDERMAN("unclaimed.unclaimed_zone_enderman_protect","true"),
+            
             NOTIFICATION("notification","",
             		"", "",
                     "############################################################",
