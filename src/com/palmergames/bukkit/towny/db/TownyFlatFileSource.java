@@ -455,6 +455,14 @@ public class TownyFlatFileSource extends TownyDataSource {
 					} catch (Exception e) {
 					}
 
+				line = kvFile.get("taxpercent");
+				if (line != null)
+					try {
+						town.setTaxPercentage(Boolean.parseBoolean(line));
+					} catch (NumberFormatException nfe) {
+					} catch (Exception e) {
+					}
+				
 				line = kvFile.get("taxes");
 				if (line != null)
 					try {
@@ -534,15 +542,7 @@ public class TownyFlatFileSource extends TownyDataSource {
 					} catch (NumberFormatException nfe) {
 					} catch (Exception e) {
 					}
-				 */
-                line = kvFile.get("taxpercent");
-				if (line != null)
-					try {
-						town.setTaxPercentage(Boolean.parseBoolean(line));
-					} catch (NumberFormatException nfe) {
-					} catch (Exception e) {
-					}
-				/*
+				
 				line = kvFile.get("fire");
 				if (line != null)
 					try {
@@ -550,7 +550,7 @@ public class TownyFlatFileSource extends TownyDataSource {
 					} catch (NumberFormatException nfe) {
 					} catch (Exception e) {
 					}
-	*/
+				 */
 				line = kvFile.get("townBlocks");
 				if (line != null)
 					utilLoadTownBlocks(line, town, null);
@@ -1141,6 +1141,8 @@ public class TownyFlatFileSource extends TownyDataSource {
 			fout.write("bonusBlocks=" + Integer.toString(town.getBonusBlocks()) + newLine);
 			// Purchased Blocks
 			fout.write("purchasedBlocks=" + Integer.toString(town.getPurchasedBlocks()) + newLine);
+			// Taxpercent
+			fout.write("taxpercent=" + Boolean.toString(town.isTaxPercentage()) + newLine);
 			// Taxes
 			fout.write("taxes=" + Double.toString(town.getTaxes()) + newLine);
 			// Plot Price
@@ -1171,8 +1173,6 @@ public class TownyFlatFileSource extends TownyDataSource {
 			// Firespread
 			fout.write("fire=" + Boolean.toString(town.isFire()) + newLine);
 			*/
-            // Taxpercent
-			fout.write("taxpercent=" + Boolean.toString(town.isTaxPercentage()) + newLine);
 			// TownBlocks
 			fout.write("townBlocks=" + utilSaveTownBlocks(town.getTownBlocks()) + newLine);
 			// Home Block
