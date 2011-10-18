@@ -753,6 +753,8 @@ v0.76.3.10:
 v0.76.3.11:
 	- Added protection from Enderman griefing (if town mobs are off).
 	- Added unclaimed_zone_enderman_protect to prevent endermen moving blocks in the wild.
+	- Entity Attack Permissions: Always allow attacks in Warzones and enemy towns, regardless of town or world PvP settings.
+	- Warzone: Block permissions. Along with fire and explosions. Explosion regen will come at a later date. Check out the war.warzone.* nodes in the config.
 	- Changed EcoObject function pay(n, collector) -> payTo
 	- Added reason argument for all eco functions. Will be put in money log along with transaction details.
 	- logs folder is now placed in backups.
