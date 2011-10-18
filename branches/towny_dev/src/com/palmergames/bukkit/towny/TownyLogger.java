@@ -25,10 +25,10 @@ public class TownyLogger {
 		setupLogger(money, logFolder, "money.csv", new TownyMoneyLogFormatter(), TownySettings.isAppendingToLog());
 		money.setUseParentHandlers(false);
 		
-		if (TownySettings.getDebug()) {
+		//if (TownySettings.getDebug()) {
 			setupLogger(debug, logFolder, "debug.log", new TownyLogFormatter(), TownySettings.isAppendingToLog());
-			debug.setUseParentHandlers(false);
-		}
+			//debug.setUseParentHandlers(false);
+		//}
 	}
 	
 	
