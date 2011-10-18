@@ -28,7 +28,7 @@ public class TownyMessaging {
 	 * @param msg
 	 */
 	public static void sendErrorMsg(String msg) {
-		TownyUniverse.plugin.getLogger().warning("[Towny] Error: " + msg);
+		TownyLogger.log.warning("[Towny] Error: " + msg);
     }
 	
 	/**
@@ -159,7 +159,7 @@ public class TownyMessaging {
 	 */
 	public static void sendDebugMsg(String msg) {
         if (TownySettings.getDebug())
-        	TownyUniverse.plugin.getLogger().info("[Towny] Debug: " + msg);
+        	TownyLogger.debug.info("[Towny] Debug: " + msg);	
         sendDevMsg(msg);
 	}
 	

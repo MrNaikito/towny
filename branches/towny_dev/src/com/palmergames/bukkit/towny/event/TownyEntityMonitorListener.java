@@ -117,7 +117,7 @@ public class TownyEntityMonitorListener extends EntityListener {
                                 }
                                 
                                 if (price > 0) {
-                                        defenderResident.pay(price, attackerResident);
+                                        defenderResident.payTo(price, attackerResident, "Death Payment (War)");
                                         TownyMessaging.sendMsg(attackerPlayer, "You robbed " + defenderResident.getName() +" of " + price + " " + TownyEconomyObject.getEconomyCurrency() + ".");
                                         TownyMessaging.sendMsg(defenderPlayer, attackerResident.getName() + " robbed you of " + price + " " + TownyEconomyObject.getEconomyCurrency() + ".");
                                 }
@@ -136,7 +136,7 @@ public class TownyEntityMonitorListener extends EntityListener {
                                         } else
                                                 TownyMessaging.sendTownMessage(town, defenderResident.getName() + "'s wallet couldn't satisfy " + attackerResident.getName() + ". "
                                                                 + townPrice + " taken from town bank.");
-                                        town.pay(townPrice, attackerResident);
+                                        town.payTo(townPrice, attackerResident, String.format("Death Payment (War) (%s couldn't pay)", defenderResident.getName()));
                                 }
                         } catch (NotRegisteredException e) {
                         } catch (EconomyException e) {
@@ -149,7 +149,7 @@ public class TownyEntityMonitorListener extends EntityListener {
                                 if (!defenderResident.canPayFromHoldings(price))
                                         price = defenderResident.getHoldingBalance();
                         
-                                defenderResident.pay(price, new WarSpoils());
+                                defenderResident.payTo(price, new WarSpoils(), "Death Payment");
                                 TownyMessaging.sendMsg(defenderPlayer, "You lost " + price + " " + TownyEconomyObject.getEconomyCurrency() + ".");
                         } catch (EconomyException e) {
                         	TownyMessaging.sendErrorMsg(defenderPlayer, "Could not take death funds.");

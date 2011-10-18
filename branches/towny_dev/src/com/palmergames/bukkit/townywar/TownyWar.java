@@ -37,8 +37,8 @@ public class TownyWar {
 	}
 	
 	public static void onDisable() {
-		for (CellUnderAttack cell : cellsUnderAttack.values()) {
-			cell.destroyFlag();
+		for (CellUnderAttack cell : new ArrayList<CellUnderAttack>(cellsUnderAttack.values())) {
+			attackCanceled(cell);
 		}
 	}
 	

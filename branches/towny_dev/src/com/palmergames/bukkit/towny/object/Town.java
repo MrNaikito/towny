@@ -7,9 +7,9 @@ import java.util.List;
 import org.bukkit.Location;
 
 import com.palmergames.bukkit.towny.AlreadyRegisteredException;
+import com.palmergames.bukkit.towny.EconomyException;
 import com.palmergames.bukkit.towny.EmptyNationException;
 import com.palmergames.bukkit.towny.EmptyTownException;
-import com.palmergames.bukkit.towny.EconomyException;
 import com.palmergames.bukkit.towny.NotRegisteredException;
 import com.palmergames.bukkit.towny.TownyException;
 import com.palmergames.bukkit.towny.TownySettings;
@@ -618,7 +618,7 @@ public class Town extends TownBlockOwner implements Walled, ResidentList {
                 throw new TownyException("You don't have access to the town's bank.");
         
         if (TownySettings.isUsingEconomy()) {
-                if (!pay(amount, resident))
+                if (!payTo(amount, resident, "Town Widthdraw"))
                         throw new TownyException("There is not enough money in the bank.");
         } else
                 throw new TownyException("Economy has not been turned on.");

@@ -47,9 +47,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import com.palmergames.bukkit.towny.AlreadyRegisteredException;
+import com.palmergames.bukkit.towny.EconomyException;
 import com.palmergames.bukkit.towny.EmptyNationException;
 import com.palmergames.bukkit.towny.EmptyTownException;
-import com.palmergames.bukkit.towny.EconomyException;
 import com.palmergames.bukkit.towny.NotRegisteredException;
 import com.palmergames.bukkit.towny.Towny;
 import com.palmergames.bukkit.towny.TownyChat;
@@ -461,8 +461,8 @@ public class TownyUniverse extends TownyObject {
                 Town oldTown = new Town(oldName);
                 
                 try {
-                        town.pay(town.getHoldingBalance());
-                        oldTown.pay(oldTown.getHoldingBalance(), town);
+                        town.pay(town.getHoldingBalance(), "Rename Town - Empty account of new town name.");
+                        oldTown.payTo(oldTown.getHoldingBalance(), town, "Rename Town - Transfer to new account");
                 } catch (EconomyException e) {
                 }
                 
@@ -505,8 +505,8 @@ public class TownyUniverse extends TownyObject {
                 
                 if (plugin.isEcoActive())
 	                try {
-	                        nation.pay(nation.getHoldingBalance());
-	                        oldNation.pay(oldNation.getHoldingBalance(), nation);
+	                        nation.pay(nation.getHoldingBalance(), "Rename Nation - Empty account of new nation name.");
+	                        oldNation.payTo(oldNation.getHoldingBalance(), nation, "Rename Nation - Transfer to new account");
 	                } catch (EconomyException e) {
 	                }
                 
@@ -1005,6 +1005,26 @@ public class TownyUniverse extends TownyObject {
                 return false;
         }
         
+        public boolean canAttackEnemy(String a, String b) {
+	        try {
+                Resident residentA = getResident(a);
+                Resident residentB = getResident(b);
+                if (residentA.getTown() == residentB.getTown())
+                    return false;
+                if (residentA.getTown().getNation() == residentB.getTown().getNation())
+                    return false;
+                Nation nationA = residentA.getTown().getNation();
+                Nation nationB = residentB.getTown().getNation();
+                if (nationA.isNeutral() || nationB.isNeutral())
+                	return false;
+                if (nationA.hasEnemy(nationB))
+                    return true;
+	        } catch (NotRegisteredException e) {
+                return false;
+	        }
+	        return false;
+        }
+        
         public boolean isEnemy(String a, String b) {
 		        try {
 		                Resident residentA = getResident(a);
@@ -1081,7 +1101,7 @@ public class TownyUniverse extends TownyObject {
             for (Town town : new ArrayList<Town>(nation.getTowns())) {
             	if (town.isCapital() || !town.hasUpkeep())
                 	continue;
-                if (!town.pay(nation.getTaxes(), nation)) {
+                if (!town.payTo(nation.getTaxes(), nation, "Nation Tax")) {
                 	try {
                     	sendNationMessage(nation, TownySettings.getCouldntPayTaxesMsg(town, "nation"));
                         nation.removeTown(town);
@@ -1118,13 +1138,13 @@ public class TownyUniverse extends TownyObject {
         else if(town.isTaxPercentage())
         {
             double cost = resident.getHoldingBalance() * town.getTaxes()/100;
-            resident.pay(cost, town);
+            resident.payTo(cost, town, "Town Tax (Percentage)");
                                 try {
                                         sendResidentMessage(resident, TownySettings.getPayedResidentTaxMsg() + cost);
                                 } catch (TownyException e) {
                                 }
         }
-        else if (!resident.pay(town.getTaxes(), town)) {
+        else if (!resident.payTo(town.getTaxes(), town, "Town Tax")) {
         	sendTownMessage(town, TownySettings.getCouldntPayTaxesMsg(resident, "town"));
             	try {
             		//town.removeResident(resident);
@@ -1151,7 +1171,7 @@ public class TownyUniverse extends TownyObject {
                         if (town.isMayor(resident) || town.hasAssistant(resident)) {
                             continue;
                         }
-                        if (!resident.pay(townBlock.getType().getTax(town), town)) {
+                        if (!resident.payTo(townBlock.getType().getTax(town), town, String.format("Plot Tax (%s)", townBlock.getType()))) {
                             sendTownMessage(town,  String.format(TownySettings.getLangString("msg_couldnt_pay_plot_taxes"), resident));
                             townBlock.setResident(null);
                             getDataSource().saveResident(resident);
@@ -1248,7 +1268,7 @@ public class TownyUniverse extends TownyObject {
             nation.clear();
             if (plugin.isEcoActive())
 	            try {
-	            	nation.pay(nation.getHoldingBalance(), new WarSpoils());
+	            	nation.payTo(nation.getHoldingBalance(), new WarSpoils(), "Remove Nation");
 	            } catch (EconomyException e) {
 	            }
             nations.remove(nation.getName().toLowerCase());
@@ -1292,7 +1312,7 @@ public class TownyUniverse extends TownyObject {
             }
             if (plugin.isEcoActive())
 	            try {
-	                    town.pay(town.getHoldingBalance(), new WarSpoils());
+	                    town.payTo(town.getHoldingBalance(), new WarSpoils(), "Remove Town");
 	            } catch (EconomyException e) {
 	            }
             
@@ -1515,7 +1535,7 @@ public class TownyUniverse extends TownyObject {
 		public void collectTownCosts() throws EconomyException, TownyException {
 			for (Town town : new ArrayList<Town>(towns.values()))
 				if (town.hasUpkeep())
-					if (!town.pay(TownySettings.getTownUpkeepCost(town))) {
+					if (!town.pay(TownySettings.getTownUpkeepCost(town), "Town Upkeep")) {
 						removeTown(town);
 						TownyMessaging.sendGlobalMessage(town.getName() + TownySettings.getLangString("msg_bankrupt_town"));
 					}
@@ -1526,12 +1546,12 @@ public class TownyUniverse extends TownyObject {
         
         public void collectNationCosts() throws EconomyException {
                 for (Nation nation : new ArrayList<Nation>(nations.values())) {
-                        if (!nation.pay(TownySettings.getNationUpkeepCost(nation))) {
+                        if (!nation.pay(TownySettings.getNationUpkeepCost(nation), "Nation Upkeep")) {
                                 removeNation(nation);
                                 TownyMessaging.sendGlobalMessage(nation.getName() + TownySettings.getLangString("msg_bankrupt_nation"));
                         }
                         if (nation.isNeutral())
-                                if (!nation.pay(TownySettings.getNationNeutralityCost())) {
+                                if (!nation.pay(TownySettings.getNationNeutralityCost(), "Nation Neutrality Upkeep")) {
                                         try {
                                                 nation.setNeutral(false);
                                         } catch (TownyException e) {

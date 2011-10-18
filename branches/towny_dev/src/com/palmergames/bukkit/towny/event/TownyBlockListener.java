@@ -11,11 +11,10 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockBurnEvent;
 import org.bukkit.event.block.BlockIgniteEvent;
 import org.bukkit.event.block.BlockListener;
+import org.bukkit.event.block.BlockPhysicsEvent;
 import org.bukkit.event.block.BlockPistonExtendEvent;
 import org.bukkit.event.block.BlockPistonRetractEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
-
-import org.bukkit.event.block.BlockPhysicsEvent;
 
 import com.palmergames.bukkit.towny.NotRegisteredException;
 import com.palmergames.bukkit.towny.PlayerCache;
@@ -104,7 +103,13 @@ public class TownyBlockListener extends BlockListener {
 			
 			if ((status == TownBlockStatus.UNCLAIMED_ZONE) && (plugin.hasWildOverride(worldCoord.getWorld(), player, event.getBlock().getTypeId(), TownyPermission.ActionType.DESTROY)))
 				return;
-
+			if (status == TownBlockStatus.WARZONE) {
+				if (!TownyWarConfig.isEditableMaterialInWarZone(block.getType())) {
+					event.setCancelled(true);
+					TownyMessaging.sendErrorMsg(player, String.format(TownySettings.getLangString("msg_err_warzone_cannot_edit_material"), "destroy", block.getType().toString().toLowerCase()));
+				}
+				return;
+			}
 			if (!bDestroy) {
 			    long delay = TownySettings.getRegenDelay();
 			    if(delay > 0) {
@@ -171,6 +176,13 @@ public class TownyBlockListener extends BlockListener {
 				event.setBuild(false);
 				event.setCancelled(true);
 				
+			} else if (status == TownBlockStatus.WARZONE) {
+				if (!TownyWarConfig.isEditableMaterialInWarZone(block.getType())) {
+					event.setBuild(false);
+					event.setCancelled(true);
+					TownyMessaging.sendErrorMsg(player, String.format(TownySettings.getLangString("msg_err_warzone_cannot_edit_material"), "build", block.getType().toString().toLowerCase()));
+				}
+				return;
 			} else {
 				if (!bBuild) {
 					event.setBuild(false);
@@ -322,6 +334,16 @@ public class TownyBlockListener extends BlockListener {
 
 		try {
 			TownyWorld townyWorld = TownyUniverse.getWorld(loc.getWorld().getName());
+			
+			if (townyWorld.isWarZone(coord)) {
+				if (TownyWarConfig.isAllowingFireInWarZone()) {
+					return false;
+				} else {
+					TownyMessaging.sendDebugMsg("onBlockIgnite: Canceled " + block.getTypeId() + " from igniting within "+coord.toString()+".");
+					return true;
+				}
+			}
+			
 			TownBlock townBlock = townyWorld.getTownBlock(coord);
 			if (townyWorld.isUsingTowny())
 				if ((block.getRelative(BlockFace.DOWN).getType() != Material.OBSIDIAN && !townBlock.getTown().isFire() && !townyWorld.isForceFire() && !townBlock.getPermissions().fire)
