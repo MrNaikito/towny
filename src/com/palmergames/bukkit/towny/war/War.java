@@ -129,7 +129,7 @@ public class War {
                 
                 // Seed spoils of war
                 try {
-                        warSpoils.pay(TownySettings.getBaseSpoilsOfWar());
+                        warSpoils.pay(TownySettings.getBaseSpoilsOfWar(), "Start of War - Base Spoils");
                         TownyMessaging.sendMsg("[War] Seeding spoils of war with " + TownySettings.getBaseSpoilsOfWar());
                 } catch (EconomyException e) {
                 	TownyMessaging.sendErrorMsg("[War] Could not seed spoils of war.");
@@ -172,7 +172,7 @@ public class War {
                         try {
                                 double nationWinnings = halfWinnings / warringNations.size(); // Again, might leave residue.
                                 for (Nation winningNation : warringNations) {
-                                        getWarSpoils().pay(nationWinnings, winningNation);
+                                        getWarSpoils().payTo(nationWinnings, winningNation, "War - Nation Winnings");
                                         TownyMessaging.sendGlobalMessage(winningNation.getName() + " won " + nationWinnings + " " + TownyEconomyObject.getEconomyCurrency() + ".");
                                 }
                         } catch (ArithmeticException e) {
@@ -237,7 +237,7 @@ public class War {
                 townBlock.getTown().addBonusBlocks(-1);
                 attacker.addBonusBlocks(1);
                 try {
-                        if (!townBlock.getTown().pay(TownySettings.getWartimeTownBlockLossPrice(), attacker)) {
+                        if (!townBlock.getTown().payTo(TownySettings.getWartimeTownBlockLossPrice(), attacker, "War - TownBlock Loss")) {
                                 remove(townBlock.getTown());
                                 TownyMessaging.sendTownMessage(townBlock.getTown(), "Your town ran out of funds to support yourself in war.");
                         } else

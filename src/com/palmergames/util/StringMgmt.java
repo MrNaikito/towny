@@ -76,6 +76,19 @@ public class StringMgmt {
 	}
 	
 	/**
+	 * Shortens the string to fit in the specified size.
+	 * @return the shortened string
+	 */
+	public static String trimMaxLength(String str, int length) {
+		if (str.length() < length)
+			return str;
+		else if (length > 3)
+			return str.substring(0, length);
+		else
+			throw new UnsupportedOperationException("Minimum length of 3 characters.");
+	}
+	
+	/**
 	 * Shortens the string to fit in the specified size with an elipse "..." at the end.
 	 * @return the shortened string
 	 */

@@ -32,6 +32,7 @@ import com.palmergames.bukkit.towny.object.TownyPermission;
 import com.palmergames.bukkit.towny.object.TownyUniverse;
 import com.palmergames.bukkit.towny.object.TownyWorld;
 import com.palmergames.bukkit.towny.object.WorldCoord;
+import com.palmergames.bukkit.townywar.TownyWarConfig;
 
 
 /**
@@ -182,6 +183,13 @@ public class TownyPlayerListener extends PlayerListener {
 		TownBlockStatus status = cache.getStatus();
 		if (status == TownBlockStatus.UNCLAIMED_ZONE && plugin.hasWildOverride(worldCoord.getWorld(), player, event.getItem().getTypeId(), TownyPermission.ActionType.ITEM_USE))
 			return;
+		if (status == TownBlockStatus.WARZONE) {
+			if (!TownyWarConfig.isAllowingItemUseInWarZone()) {
+				event.setCancelled(true);
+				TownyMessaging.sendErrorMsg(player, TownySettings.getLangString("msg_err_warzone_cannot_use_item"));
+			}
+			return;
+		}
 		if (!bItemUse)
 			event.setCancelled(true);
 		if (cache.hasBlockErrMsg())
@@ -221,8 +229,14 @@ public class TownyPlayerListener extends PlayerListener {
 		TownBlockStatus status = cache.getStatus();
 		if (status == TownBlockStatus.UNCLAIMED_ZONE && plugin.hasWildOverride(worldCoord.getWorld(), player, block.getTypeId(), TownyPermission.ActionType.SWITCH))
 			return;
-		if (!bSwitch)
-		{
+		if (status == TownBlockStatus.WARZONE) {
+			if (!TownyWarConfig.isAllowingSwitchesInWarZone()) {
+				event.setCancelled(true);
+				TownyMessaging.sendErrorMsg(player, TownySettings.getLangString("msg_err_warzone_cannot_use_switches"));
+			}
+			return;
+		}
+		if (!bSwitch) {
 			event.setCancelled(true);
 		}
 		if (cache.hasBlockErrMsg())

@@ -118,7 +118,7 @@ public class PlotClaim extends Thread {
                                 if (townBlock.getPlotPrice() != -1) {
                                 	// Plot is for sale
                                 	
-                                        if (TownySettings.isUsingEconomy() && !resident.pay(townBlock.getPlotPrice(), owner))
+                                        if (TownySettings.isUsingEconomy() && !resident.payTo(townBlock.getPlotPrice(), owner, "Plot - Buy From Seller"))
                                                 throw new TownyException(TownySettings.getLangString("msg_no_money_purchase_plot"));
                                         
                                         int maxPlots = TownySettings.getMaxResidentPlots(resident);
@@ -139,7 +139,7 @@ public class PlotClaim extends Thread {
                                 } else if (town.isMayor(resident) || town.hasAssistant(resident)) {
                                 	//Plot isn't for sale but re-possessing for town.
                                 	
-                                        if (TownySettings.isUsingEconomy() && !town.pay(townBlock.getPlotPrice(), owner))
+                                        if (TownySettings.isUsingEconomy() && !town.payTo(townBlock.getPlotPrice(), owner, "Plot - Buy Back"))
                                                 throw new TownyException(TownySettings.getLangString("msg_town_no_money_purchase_plot"));
                                         
                                         TownyMessaging.sendTownMessage(town, TownySettings.getBuyResidentPlotMsg(town.getName(), owner.getName(), townBlock.getPlotPrice()));
@@ -163,7 +163,7 @@ public class PlotClaim extends Thread {
                                 if (townBlock.getPlotPrice() == -1)
                                         throw new TownyException(TownySettings.getLangString("msg_err_plot_nfs"));
                                 
-                                if (TownySettings.isUsingEconomy() && !resident.pay(townBlock.getPlotPrice(), town))
+                                if (TownySettings.isUsingEconomy() && !resident.payTo(townBlock.getPlotPrice(), town, "Plot - Buy From Town"))
                                         throw new TownyException(TownySettings.getLangString("msg_no_money_purchase_plot"));
                                 
                                 townBlock.setPlotPrice(-1);

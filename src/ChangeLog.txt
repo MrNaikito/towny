@@ -753,3 +753,9 @@ v0.76.3.10:
 v0.76.3.11:
 	- Added protection from Enderman griefing (if town mobs are off).
 	- Added unclaimed_zone_enderman_protect to prevent endermen moving blocks in the wild.
+	- Changed EcoObject function pay(n, collector) -> payTo
+	- Added reason argument for all eco functions. Will be put in money log along with transaction details.
+	- logs folder is now placed in backups.
+	- Debug now has it's own log file when it's turned on. (Your choice to uncomment the method that will hide the debug from the console).
+	- Towny/logs/money.csv is in the format 'timestamp,reason,obj,amount,collector'. In the case that there is no collector or obj, [Server] is entered. towny-war-spoils is shown as '[Server] towny-war-spoils'.
+	- Town and Nation economy accounts are now restricted to 32 characters in length.

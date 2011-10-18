@@ -15,10 +15,9 @@ import ca.xshade.bukkit.questioner.Questioner;
 import ca.xshade.questionmanager.Option;
 import ca.xshade.questionmanager.Question;
 
-//import com.iConomy.iConomy;
 import com.palmergames.bukkit.towny.AlreadyRegisteredException;
-import com.palmergames.bukkit.towny.EmptyNationException;
 import com.palmergames.bukkit.towny.EconomyException;
+import com.palmergames.bukkit.towny.EmptyNationException;
 import com.palmergames.bukkit.towny.NotRegisteredException;
 import com.palmergames.bukkit.towny.Towny;
 import com.palmergames.bukkit.towny.TownyException;
@@ -235,7 +234,7 @@ public class NationCommand implements CommandExecutor  {
                         if (amount < 0)
                                 throw new TownyException(TownySettings.getLangString("msg_err_negative_money"));
                         
-                        if (!resident.pay(amount, nation))
+                        if (!resident.payTo(amount, nation, "Nation Deposit"))
                                 throw new TownyException(TownySettings.getLangString("msg_insuf_funds"));
                         
                         TownyMessaging.sendNationMessage(nation, String.format(TownySettings.getLangString("msg_xx_deposited_xx"), resident.getName(), amount, "nation"));
@@ -280,7 +279,7 @@ public class NationCommand implements CommandExecutor  {
                         if (!TownySettings.isValidRegionName(name))
                                 throw new TownyException(String.format(TownySettings.getLangString("msg_err_invalid_name"), name));
                         
-                        if (TownySettings.isUsingEconomy() && !town.pay(TownySettings.getNewNationPrice()))
+                        if (TownySettings.isUsingEconomy() && !town.pay(TownySettings.getNewNationPrice(), "New Nation Cost"))
                                 throw new TownyException(TownySettings.getLangString("msg_no_funds_new_nation"));
 
                         newNation(universe, name, town);
@@ -1060,7 +1059,7 @@ public class NationCommand implements CommandExecutor  {
                     boolean choice = !nation.isNeutral();
                     Double cost = TownySettings.getNationNeutralityCost();
                     
-                    if (choice && TownySettings.isUsingEconomy() && !nation.pay(cost))
+                    if (choice && TownySettings.isUsingEconomy() && !nation.pay(cost, "Nation Neutrality Cost"))
                         throw new TownyException(TownySettings.getLangString("msg_nation_cant_neutral"));
                             
                     nation.setNeutral(choice);

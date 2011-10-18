@@ -40,6 +40,7 @@ public class TownyFlatFileSource extends TownyDataSource {
 	protected String rootFolder = "";
 	protected String dataFolder = FileMgmt.fileSeparator() + "data";
 	protected String settingsFolder = FileMgmt.fileSeparator() + "settings";
+	protected String logFolder = FileMgmt.fileSeparator() + "logs";
 	
 	private enum elements {
 		VER, novalue;
@@ -92,9 +93,14 @@ public class TownyFlatFileSource extends TownyDataSource {
 			if (backupType.equalsIgnoreCase("folder")) {
 				FileMgmt.checkFolders(new String[]{newBackupFolder});
 				FileMgmt.copyDirectory(new File(rootFolder + dataFolder), new File(newBackupFolder));
+				FileMgmt.copyDirectory(new File(rootFolder + logFolder), new File(newBackupFolder));
 				FileMgmt.copyDirectory(new File(rootFolder + settingsFolder), new File(newBackupFolder));
 			} else if (backupType.equalsIgnoreCase("zip"))
-				FileMgmt.zipDirectories(new File[]{new File(rootFolder + dataFolder), new File(rootFolder + settingsFolder)}, new File(newBackupFolder + ".zip"));
+				FileMgmt.zipDirectories(new File[]{
+						new File(rootFolder + dataFolder),
+						new File(rootFolder + logFolder),
+						new File(rootFolder + settingsFolder)
+						}, new File(newBackupFolder + ".zip"));
 			else
 				throw new IOException("Unsupported flatfile backup type (" + backupType + ")");
 		}

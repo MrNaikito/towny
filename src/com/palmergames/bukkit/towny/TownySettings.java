@@ -3,10 +3,13 @@ package com.palmergames.bukkit.towny;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.concurrent.ConcurrentHashMap;
@@ -221,6 +224,9 @@ public class TownySettings {
         loadTownLevelConfig();
         loadNationLevelConfig();
         
+        // Load allowed blocks in warzone.
+        TownyWarConfig.setEditableMaterialsInWarZone(getAllowedMaterials(ConfigNodes.WAR_WARZONE_EDITABLE_MATERIALS));
+        
         ChunkNotification.loadFormatStrings();
     }
 	
@@ -347,6 +353,20 @@ public class TownySettings {
     		sendError(node.getRoot().toLowerCase() + " from config.yml");
     		return 1;
     	}
+    }
+    
+    public static Set<Material> getAllowedMaterials(ConfigNodes node) {
+    	Set<Material> allowedMaterials = new HashSet<Material>();
+    	for (String material : getStrArr(node)) {
+    		if (material.equals("*")) {
+    			allowedMaterials.addAll(Arrays.asList(Material.values()));
+    		} else if (material.startsWith("-")) {
+    			allowedMaterials.remove(Material.matchMaterial(material));
+    		} else {
+    			allowedMaterials.add(Material.matchMaterial(material));
+    		}
+    	}
+    	return allowedMaterials;
     }
 
     public static void addComment(String root, String...comments) {
