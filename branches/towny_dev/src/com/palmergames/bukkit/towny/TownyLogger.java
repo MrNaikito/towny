@@ -27,7 +27,7 @@ public class TownyLogger {
 		
 		if (TownySettings.getDebug()) {
 			setupLogger(debug, logFolder, "debug.log", new TownyLogFormatter(), TownySettings.isAppendingToLog());
-			//debug.setUseParentHandlers(false);
+			debug.setUseParentHandlers(false);
 		}
 	}
 	
