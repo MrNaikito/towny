@@ -400,9 +400,6 @@ public class TownyEntityListener extends EntityListener {
             if (ap != null && bp != null) {
             	if (world.isWarZone(coord))
     				return false;
-    			
-    			if (plugin.getTownyUniverse().canAttackEnemy(ap.getName(), bp.getName()))
-    				return false;
             	
                 if (preventDamagePvP(world, ap, bp) || preventFriendlyFire(ap, bp))
                     return true;
@@ -430,6 +427,9 @@ public class TownyEntityListener extends EntityListener {
     			}
     		} catch (NotRegisteredException e) {
     		}
+            
+            if (plugin.getTownyUniverse().canAttackEnemy(ap.getName(), bp.getName()))
+				return false;
             
             return false;
     }
