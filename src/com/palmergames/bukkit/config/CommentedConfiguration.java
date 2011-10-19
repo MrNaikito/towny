@@ -167,6 +167,13 @@ public class CommentedConfiguration extends YamlConfiguration {
                 
                 
             }
+            /*
+             * Due to a bukkit bug we need to strip any extra new lines from the
+             * beginning of this file, else they will multiply.
+             */
+            while (newContents.startsWith(System.getProperty("line.separator")))
+            	newContents = newContents.replaceFirst(System.getProperty("line.separator"), "");
+            
             try {
                 // Write the string to the config file
                 FileMgmt.stringToFile(newContents, file);
