@@ -774,6 +774,7 @@ v0.76.2.12:
 	    /a (admin chat) permission node: towny.chat.admin
 	    /m (moderators chat) permission node: towny.chat.mod
 	  TownyChat also supports other chat plugins (herochat, iChat etc). To use another chat plugin with Towny...
-	   Set modify_chat.enable : false
-	   Then add any of the towny tags into your chat plugins format line.
-	 
+	    Set modify_chat.enable : false
+	    Then add any of the towny tags into your chat plugins format line.
+v0.77.0.0:
+	- Release.
