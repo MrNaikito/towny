@@ -33,7 +33,10 @@ Add a description of which nodes and when towny uses its nodes.
     * towny.nation.new : User is able to create a nation (used only when nation_creation_admin_only: true)
     * towny.nation.rename : player can rename their nation
 
-
+  * towny.chat.town : Allows a player to use townchat
+  * towny.chat.nation : Allows a player to use nationchat
+  * towny.chat.mod : Allows a player to use moderatorchat
+  * towny.chat.admin : Allows a playr to use adminchat
 
   * towny.top : Gives users access to /towny top command.
 
