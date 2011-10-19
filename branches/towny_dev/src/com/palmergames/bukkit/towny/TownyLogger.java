@@ -3,6 +3,7 @@ package com.palmergames.bukkit.towny;
 import java.io.IOException;
 import java.util.logging.FileHandler;
 import java.util.logging.Formatter;
+import java.util.logging.Handler;
 import java.util.logging.Logger;
 
 import com.palmergames.bukkit.towny.object.Nation;
@@ -31,6 +32,11 @@ public class TownyLogger {
 		//}
 	}
 	
+	public static void shutDown() {
+		CloseDownLogger(log);
+		CloseDownLogger(money);
+		CloseDownLogger(debug);
+	}
 	
 	
 	public static void setupLogger(Logger logger, String logFolder, String filename, Formatter formatter, boolean append) {
@@ -41,6 +47,15 @@ public class TownyLogger {
         } catch (IOException e) {
             e.printStackTrace();
         }
+	}
+	
+	public static void CloseDownLogger(Logger logger) {
+		
+		for (Handler fh: logger.getHandlers()) {
+			logger.removeHandler(fh);
+			fh.close();
+		}
+		
 	}
 	
 	public static void logMoneyTransaction(TownyEconomyObject a, double amount, TownyEconomyObject b, String reason) {
