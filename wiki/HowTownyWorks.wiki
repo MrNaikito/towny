@@ -136,7 +136,7 @@ Towny provides a server admin a hands-off approach to block-protection. Block pr
   === Setting How Many Towny Blocks A Town Receives ===   
   You can change how many town blocks a town gets to claim. This is done in two places. 
   
-  Towny checks first in the config.yml at {{{ town_block_ratio: 16 }}} and by default gives a town 16 townblocks per resident. 
+  Towny checks first in the config.yml at {{{ town_block_ratio: 8 }}} and by default gives a town 8 townblocks per resident. 
   
   You can override this by setting {{{ town_block_ratio: 0 }}} and using the townLevel section of the [DefaultConfig config.yml] 
   
@@ -161,11 +161,27 @@ As of now there are:
 
   === Shop Plots ===
 
-  Shop plots are designate with /plot set shop
+  Shop plots are designated with /plot set shop
 
   A mayor can use /town set shopprice {$$} to set how much shop plots are sold at by default. This can be overriden when a mayor puts the actual plot up for sale with /plot forsale {$$}.
   A mayor can also charge an additional shoptax with /town set shoptax {$$}. This tax is charged in addition to the normal plottax.
+  
+  === Arena Plots ===
+  
+  Arena plots are designated with /plot set arena.
+  
+  PVP is on all the time in arena plots as well as friendly-fire damage. Town health regen is also disabled in arena plots.
+  
+  === Embassy Plots ===
+  
+  Embassy plots are designated with /plot set embassy
 
+  A mayor can use /town set embassyprice {$$} to set how much embassy plots are sold at by default. This can be overriden when a mayor puts the actual plot up for sale with /plot forsale {$$}.
+  A mayor can also charge an additional embassytax with /town set embassytax {$$}. This tax is charged in addition to the normal plottax.
+
+  An embassy plot can be bought by any allied player, including players in your nation or players in a nation allied to your nation. The townblock remains owned by the host-town and a mayor from the host-town can take the plot from the owner at any time. If the player who owns the embassy plot becomes an enemy of the host-town they lose their embassy.
+  Embassy plots can also be changed into shop plots, allowing for larger shop towns, where many different towns' players can set up shops.
+  
 == Outposts ==
 Normally townblocks are claimed around the home block, always connected to the town. To claim a townblock out in the wilderness, a mayor or assistant must claim an outpost.
 
@@ -181,7 +197,6 @@ Land is sold by Mayors to Residents that are a part of their town. {{{using_icon
 Mayors have a command used in game to set the cost of all the plots in their town that are for sale.
   * {{{/town set plotprice {$} }}}
     * This sets the cost of every plot that is on sale. If it is not set, 
-The server admin can set a default plotprice in [DefaultConfig config.yml] at {{{price_claim_townblock: 25.0}}}, in this example a new town will automatically have a plotprice of 25 dollars.
 
 == Using the Maps ==
 The map in towny displays the grid system of plots. The map can be viewed once using {{{/towny map}}} one time or you can set the map to show every time you move from one block to another:
@@ -241,7 +256,9 @@ The first concept you need to digest are the 4 perm-types and 3 groups.
 
 There are 4 permission-type values, which can be set for personal plots and for town plots as well (town permissions can be set by the mayor and affect plots who are not owned by any player.) The basic command for this is either {{{/resident set perm}}} or {{{/town set perm}}} followed by the proper flags for each permission.
 
-Permissions are viewable by typing either {{{/resident}}} for personal plot perms or by typing {{{/town}}} for town permissions.
+Available in Towny 0.77.0.0 and onward are per-plot permissions. Plots start with the default settings for plot perms (be it a resident-owned or town-owned plot,) but the owner of the plots can set different perms to different plots. To view a plots perm type {{{/plot perm}}} and to set a plots' perms use {{{/plot set perm}}}.
+
+Default permissions are viewable by typing either {{{/resident}}} for personal plot perms or by typing {{{/town}}} for town permissions.
 
   === Perm-Types ===
   The 4 permission-types available are Build, Destroy, Switch and Itemuse.
@@ -258,7 +275,9 @@ Permissions are viewable by typing either {{{/resident}}} for personal plot perm
       * trapdoors,
       * noteblocks,
       * jukeboxes,
-      * redstone repeaters.
+      * redstone repeaters,
+      * dispensers,
+      * gates.
       
     * Itemuse covers the use of:
       * water and lava buckets, 
@@ -297,6 +316,26 @@ Permissions are viewable by typing either {{{/resident}}} for personal plot perm
     * /resident set perm friend {on/off} - This turns on or off all permissions for the resident's friend list.
     * /resident set perm ally {on/off} - This turns on or off all permissions for all perm-types to the resident's ally list. This consists of the resident's fellow townmembers, their nation's fellow towns and their nation's allied nations.
     * /resident set perm outsider switch {on/off} - This turns on or off permissions for switch use by outsiders.
+    
+  Lastly, don't forget those are just the defaults for plots, any owned plot can be set with it's own individual perms:
+    * /plot set perm {on/off} - This turns on or off all permissions for all perm-types and all perm-groups on the plot which is being stood in.
+    * /plot set perm friend {on/off} - This turns on or off all permissions for the resident's friend list on the plot which is being stood in.
+    * /plot set perm ally {on/off} - This turns on or off all permissions for all perm-types to the resident's ally list. This consists of the resident's fellow townmembers, their nation's fellow towns and their nation's allied nations. This affects the plot which is being stood in.
+    * /plot set perm outsider switch {on/off} - This turns on or off permissions for switch use by outsiders  on the plot which is being stood in.
+  
+  Mayors can changed the protection of their town with the following commands:
+    * /town toggle explosion
+    * /town toggle fire
+    * /town toggle pvp 
+    * /town toggle mobs
+  This will turn on/off for the entire town.
+  Mayors and Residents can change each of their plots individually using these commands:
+    * /plot toggle explosion
+    * /plot toggle fire
+    * /plot toggle pvp
+    * /plot toggle mobs
+  Per-plot toggles are overridden by a mayor's town toggles.
+ 
 
 == Protection Additions Found in Towny Advanced ==
 
@@ -305,7 +344,7 @@ New in Towny Advanced (0.72+) are three new protection types, anti-explosion and
 On the town level, a mayor can set these flags using:
   * /town toggle explosion
   * /town toggle fire
-
+  
 Explosion protection stops all explosions. This stops TNT, TNT cannons and creeper explosions.
 
 Firespread protection stops all fires from spreading, including lava, lightning and lighters. 
@@ -379,16 +418,28 @@ The cap on banks does not affect taxes which will still be put into the bank.
 
 Towny modifies the in-game chat appearance of town mayors and nation leaders only.
 
-The various chat modification can be turned on in [DefaultConfig config.yml] at {{{modify_chat: '{nation}{town}{permprefix}{townynameprefix}{playername}{townynamepostfix}{permsuffix}'}}}
-  * {nation} - The nation the player is a part of.
-  * {town} - The town player is a part of.
-  * {permprefix} - The group prefix set in your permissions plugin.
-  * {townynameprefix} - Mayor/king titles, and titles handed out by kings to their minions.
-  * {playername} - The basic minecraft player name in chat, should not be removed.
-  * {townynameprefix} - Mayor/king suffix, and surnames handed out by kings to their minions.
-  * {permsuffix} - The group suffix set in your permissions plugin.
-  Alternately you can try using {modplayername} instead of {playername}
-  * {modplayername} - modified player name (use if Towny is over writing some other plugins changes)
+The various chat modification can be turned on in [DefaultConfig config.yml] at {{{modify_chat.format: '{townytagoverride}{townycolor}{permprefix}{townyprefix}{playername}{townypostfix}{permsuffix}&f:'}}}
+  * {nation} - Displays nation name if a member of a nation.
+  * {town} - Displays town name if a member of a town.
+  * {townynameprefix} - Towny name prefix taken from the townLevel/nationLevels
+  * {townynamepostfix} - Towny name postfix taken from the townLevel/nationLevels.
+  * {townyprefix} - Towny name prefix (title)
+  * {townypostfix} - Towny name postfix (surname)
+  * {townyfullnames} - Displays the formated town/nation names as specified in modify_chat.tag_format.both.
+  * {townytag} - Displays the formated tag as specified in modify_chat.tag_format.both.
+  * {townytagoverride} - Displays the formated tag (if present) or falls back to the full names (using modify_chat.tag_format.both).
+  * {nationtag} - Displays the formated nation tag if a member of a nation (using modify_chat.tag_format.nation).
+  * {towntag} - Displays the formated town tag if a member of a town (using modify_chat.tag_format.town).
+  * {nationtagoverride} - Displays the formated nation tag if a member of a nation (if present or full name fallback - using modify_chat.tag_format.nation).
+  * {towntagoverride} - Displays the formated town tag if a member of a town (if present or full name fallback - using modify_chat.tag_format.town).
+  * {townycolor} - Towny name colour for king/mayor/resident
+ 
+The following keys are for use in modify_chat.format for if you don't have/want to use another plugin that changes the chat. They are also used for town/nation chat.
+  * {permprefix} - Permission group prefix
+  * {permsuffix} - Permission group suffix.
+  * {playername} - Default player name.
+  * {modplayername} - Modified player name (use if Towny is over writing some other plugins changes).
+  * {msg} - The message sent.
 
 Mayors chat name appears as blue by default (but can be configured in the config.yml @ colour_mayor: ) and includes the mayorPrefix and mayorPostfix found in the townLevel section of the config.yml.
 
@@ -415,7 +466,8 @@ There are two added chatmodes in Towny, townchat and nationchat.
     * Use to speak on nationchat by default.
   * /res set mode reset
     * Reset chat mode to default chat.
-
+  * /m - moderator chat.
+  * /a - admin chat. 
 ----
 
 = Multiworld =
