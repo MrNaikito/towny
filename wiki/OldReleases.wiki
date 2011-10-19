@@ -5,6 +5,37 @@
 
 Here you can find information on old releases of Towny.
 
+== New in 0.76.3.0 ==
+
+    * New commands:
+      * None
+          
+    * New permission nodes:
+      * When using SuperPerms you can now use the following nodes with towny.
+        * prefix.prefixhere
+        * suffix.suffixhere
+        * towny_maxplots.x (with x being a number eg towny_maxplots.2)
+        
+    * Added:
+      * Force load of chunks when using /town spawn, to stop voids.
+      * If wild_revert_on_mob_explosion is enabled, there are no drops anymore.
+      * Simplfied Plugin interfacing for Economy plugins to a single setting of using_economy. Towny will first attempt to use Register.jar. If it's not present it will fall back to the legacy support for iConomy 5.01.
+      * Added a permission handler, detecting and supporting all Permission plugins.
+      * Admins can now pick, choose and modify which notifications are shown when a player walks from plot to plot. Check the new section 'Town Notifications' in the config.
+      * Added a seperate thread for Town Claim to relieve the lag caused by Chunk snapshot generation.
+      * Added access from console for '/ta givebonus', and expanded to allow a town or a player to give the bonus to. (bonus given to the player is directly transfered to the town)
+      * Pistons can now push between town owned townblocks.
+      
+    * Bug Fixes!
+      * Fixed an error with Essentials Eco's currency type.
+      * Fixed '/town new' and '/nation new' to properly follow the settings in config if permissions are disabled.
+      * Fixed modplayername in chat format generating duplicate entries.
+      * Towny World commands are now admin only again.
+      * Fixed a world bug where Plot revert was following wild revent instead of it's own setting.
+      * Fixed town spawn when not using any permissiosn plugins.
+      
+    * [http://code.google.com/a/eclipselabs.org/p/towny/source/browse/trunk/Towny/src/ChangeLog.txt#663 Click here for a full changelog.]
+
 == New in 0.76.2.0 ==
 
     * New commands:
