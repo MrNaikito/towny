@@ -1,7 +1,7 @@
 [B]Plugin: [/B]Towny
 [RIGHT]                                                     [URL='http://webchat.esper.net/?channels=towny']IRC: Join channel #Towny[/URL][/RIGHT]
 [RIGHT][URL='https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=8WWJ76KLFKM4G'][IMG]https://www.paypalobjects.com/en_GB/i/btn/btn_donate_LG.gif[/IMG][/URL][/RIGHT]
- [B]Version:[/B] v0.76.3.0
+ [B]Version:[/B] v0.76.3.1
 
  Taking Shades Towny a step farther.
 
@@ -37,8 +37,8 @@
 [B]Download Towny[/B]
 
 [LIST]
-[*][B]Release version:[/B] [URL='http://towny.eclipselabs.org.codespot.com/files/Towny.jar']Download Jar[/URL] | [URL='http://code.google.com/a/eclipselabs.org/p/towny/']Source[/URL]
-[*][B]Dev Version:[/B] [URL='http://code.google.com/a/eclipselabs.org/p/towny/downloads/detail?name=Towny_Dev.html&can=2&q=']Download Jar[/URL] (Majorly Different - Visit IRC channel before using.)
+[*][B]Release version:[/B] [URL='http://palmergames.com/downloads/']Download Jar[/URL] | [URL='http://code.google.com/a/eclipselabs.org/p/towny/']Source[/URL]
+[*][B]Dev Version:[/B] [URL='http://palmergames.com/downloads/']Download Jar[/URL] (Majorly Different - Visit IRC channel before using.)
 [*]if using register REQUIRES Register 1.5+ version
 [/LIST]
 [B]Installing and Upgrading[/B]
@@ -91,7 +91,8 @@ Report an issue - [URL='http://code.google.com/a/eclipselabs.org/p/towny/issues/
 [*]Admins can now pick, choose and modify which notifications are shown when a player walks from plot to plot. Check the new section 'Town Notifications' in the config.
 [*]Added a seperate thread for Town Claim to relieve the lag caused by Chunk snapshot generation.
 [*]Added access from console for '/ta givebonus', and expanded to allow a town or a player to give the bonus to. (bonus given to the player is directly transfered to the town)
-[*]Pistons can now push between town owned townblocks.[/LIST]
+[*]Pistons can now push between town owned townblocks.
+[/LIST]
 [/LIST]
 [LIST]
 [*]Bug Fixes!
@@ -251,7 +252,7 @@ v0.76.2.0:
     - Refactored '/town spawn' with new config options for when the target town is part of your nation,
       or an allied nation. Each can have their own cost and has their own permission.
     - Town spawn permissions have been changed to:
-    
+
       - towny.town.spawn.* : Grants all Spawn travel nodes
       - towny.town.spawn.town : Ability to spawn to your own town.
       - towny.town.spawn.nation : Ability to spawn to other towns in your nation.
@@ -331,7 +332,7 @@ v0.76.3.0:
 	- Pistons can now push between town owned townblocks.
 	- Fixed town spawn when not using any permissiosn plugins.
 	- Update for Bukkit 1317's new YamlConfiguration.
-	 
+
     [URL='http://code.google.com/a/eclipselabs.org/p/towny/source/browse/trunk/Towny/src/ChangeLog.txt']Full Changelog[/URL]
     [/spoiler]
 
