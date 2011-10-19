@@ -26,11 +26,9 @@ import ca.xshade.questionmanager.Question;
 import com.iConomy.iConomy;
 import com.nijiko.permissions.PermissionHandler;
 import com.nijikokun.register.Register;
-import com.palmergames.bukkit.towny.command.NationChatCommand;
 import com.palmergames.bukkit.towny.command.NationCommand;
 import com.palmergames.bukkit.towny.command.PlotCommand;
 import com.palmergames.bukkit.towny.command.ResidentCommand;
-import com.palmergames.bukkit.towny.command.TownChatCommand;
 import com.palmergames.bukkit.towny.command.TownCommand;
 import com.palmergames.bukkit.towny.command.TownyAdminCommand;
 import com.palmergames.bukkit.towny.command.TownyCommand;
@@ -39,7 +37,7 @@ import com.palmergames.bukkit.towny.event.TownyBlockListener;
 import com.palmergames.bukkit.towny.event.TownyEntityListener;
 import com.palmergames.bukkit.towny.event.TownyEntityMonitorListener;
 import com.palmergames.bukkit.towny.event.TownyPlayerListener;
-import com.palmergames.bukkit.towny.event.TownyPlayerLowListener;
+//import com.palmergames.bukkit.towny.event.TownyPlayerLowListener;
 import com.palmergames.bukkit.towny.event.TownyWorldListener;
 import com.palmergames.bukkit.towny.object.Coord;
 import com.palmergames.bukkit.towny.object.Town;
@@ -82,7 +80,6 @@ public class Towny extends JavaPlugin {
     private final TownyPlayerListener playerListener = new TownyPlayerListener(this);
     private final TownyBlockListener blockListener = new TownyBlockListener(this);
     private final TownyEntityListener entityListener = new TownyEntityListener(this);
-    private final TownyPlayerLowListener playerLowListener = new TownyPlayerLowListener(this);
     private final TownyEntityMonitorListener entityMonitorListener = new TownyEntityMonitorListener(this);
     private final TownyWorldListener worldListener = new TownyWorldListener(this);
     private final TownyWarBlockListener townyWarBlockListener = new TownyWarBlockListener(this);
@@ -106,9 +103,7 @@ public class Towny extends JavaPlugin {
     	System.out.println("====================      Towny      ========================");
     	
     	version = this.getDescription().getVersion();
-        //System.out.println("[Towny] Towny - create TownyUniverse Object...");
         townyUniverse = new TownyUniverse(this);
-        //System.out.println("[Towny] Towny - Starting loadSettings...");
 
         if (!load())
         	return;
@@ -121,8 +116,6 @@ public class Towny extends JavaPlugin {
         getCommand("town").setExecutor(new TownCommand(this));
         getCommand("nation").setExecutor(new NationCommand(this));
         getCommand("plot").setExecutor(new PlotCommand(this));
-        getCommand("townchat").setExecutor(new TownChatCommand(this));
-        getCommand("nationchat").setExecutor(new NationChatCommand(this));
         
         TownyWar.onEnable();
         
@@ -329,6 +322,8 @@ public class Towny extends JavaPlugin {
 	    
 	    System.out.println("[Towny] Version: " + version + " - Mod Disabled");
 	    System.out.println("=============================================================");
+	    
+	    TownyLogger.shutDown();
     }
 
     public boolean load() {
@@ -392,15 +387,13 @@ public class Towny extends JavaPlugin {
     private void registerEvents() {
         
         final PluginManager pluginManager = getServer().getPluginManager();
-        //final Plugin towny = (Plugin)pluginManager.getPlugin("Towny");
         
         pluginManager.registerEvent(Event.Type.PLAYER_JOIN, playerListener, Priority.Normal, this);
         pluginManager.registerEvent(Event.Type.PLAYER_QUIT, playerListener, Priority.Normal, this);
-        //getServer().getPluginManager().registerEvent(Event.Type.PLAYER_COMMAND_PREPROCESS, playerListener, Priority.Normal, this);
+
         pluginManager.registerEvent(Event.Type.PLAYER_MOVE, playerListener, Priority.Normal, this);
         pluginManager.registerEvent(Event.Type.PLAYER_TELEPORT, playerListener, Priority.Normal, this);
-        // Used when player has tc or nc modes set.
-        pluginManager.registerEvent(Event.Type.PLAYER_CHAT, playerLowListener, Priority.Low, this);
+
         pluginManager.registerEvent(Event.Type.PLAYER_RESPAWN, playerListener, Priority.Normal, this);
         pluginManager.registerEvent(Event.Type.PLAYER_INTERACT, playerListener, Priority.Normal, this);
 

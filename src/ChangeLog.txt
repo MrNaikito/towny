@@ -762,3 +762,18 @@ v0.76.3.11:
 	- Debug now has it's own log file when it's turned on.
 	- Towny/logs/money.csv is in the format 'timestamp,reason,obj,amount,collector'. In the case that there is no collector or obj, [Server] is entered. towny-war-spoils is shown as '[Server] towny-war-spoils'.
 	- Town and Nation economy accounts are now restricted to 32 characters in length.
+v0.76.2.12:
+	- Possible fix for Essentials teleport refusing to engage and towny defaulting to it's own timer.
+	- Moved all chat handling to a seperate jar (TownyChat.jar).
+	  TownyChat is a Fully functional chat manager. If it's enabled it will handle all chat and supports custom chat channels.
+	  This new system supports total customization of chat.
+	  It supports custom chat channels, with access control via permission nodes.
+	  Current channels are:-
+	    /tc (town chat) permission node: towny.chat.town
+	    /nc (nation chat) permission node: towny.chat.nation
+	    /a (admin chat) permission node: towny.chat.admin
+	    /m (moderators chat) permission node: towny.chat.mod
+	  TownyChat also supports other chat plugins (herochat, iChat etc). To use another chat plugin with Towny...
+	   Set modify_chat.enable : false
+	   Then add any of the towny tags into your chat plugins format line.
+	 

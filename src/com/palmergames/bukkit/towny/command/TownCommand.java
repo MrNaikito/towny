@@ -996,6 +996,7 @@ public class TownCommand implements CommandExecutor  {
                             if (!user.isTeleportEnabled()) {
                                 //Ess teleport is disabled
                                 notUsingESS = true;
+                                return;
                             }
                             if (!user.isJailed()) {
                             	

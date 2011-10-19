@@ -52,7 +52,6 @@ import com.palmergames.bukkit.towny.EmptyNationException;
 import com.palmergames.bukkit.towny.EmptyTownException;
 import com.palmergames.bukkit.towny.NotRegisteredException;
 import com.palmergames.bukkit.towny.Towny;
-import com.palmergames.bukkit.towny.TownyChat;
 import com.palmergames.bukkit.towny.TownyException;
 import com.palmergames.bukkit.towny.TownyFormatter;
 import com.palmergames.bukkit.towny.TownyMessaging;
@@ -254,8 +253,6 @@ public class TownyUniverse extends TownyObject {
                 if (isWarTime())
                         getWarEvent().sendScores(player, 3);
                 
-                // Setup the chat prefix/suffix
-                TownyChat.setDisplayName(plugin, player);
         setChanged();
         notifyObservers(PLAYER_LOGIN);
         }

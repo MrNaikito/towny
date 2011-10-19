@@ -308,10 +308,22 @@ public class TownyMessaging {
 	 * @param town
 	 * @param lines
 	 */
-	public static void sendTownMessage(Town town, String line) {
+	public static void sendTownMessagePrefixed(Town town, String line) {
 		TownyUniverse.plugin.log("[Town Msg] " + town.getName() + ": " + line);
         for (Player player : TownyUniverse.plugin.getTownyUniverse().getOnlinePlayers(town))
                 player.sendMessage(TownySettings.getLangString("default_towny_prefix") + line);
+	}
+	
+	/**
+	 * Send a message to All online residents of a town and log
+	 * 
+	 * @param town
+	 * @param lines
+	 */
+	public static void sendTownMessage(Town town, String line) {
+		TownyUniverse.plugin.log("[Town Msg] " + town.getName() + ": " + line);
+        for (Player player : TownyUniverse.plugin.getTownyUniverse().getOnlinePlayers(town))
+                player.sendMessage(line);
 	}
 
 	/**
@@ -338,6 +350,18 @@ public class TownyMessaging {
 		TownyUniverse.plugin.log("[Nation Msg] " + nation.getName() + ": " + line);
         for (Player player : TownyUniverse.plugin.getTownyUniverse().getOnlinePlayers(nation))
                 player.sendMessage(line);
+	}
+	
+	/**
+	 * Send a message to All online residents of a nation and log
+	 * 
+	 * @param nation
+	 * @param lines
+	 */
+	public static void sendNationMessagePrefixed(Nation nation, String line) {
+		TownyUniverse.plugin.log("[Nation Msg] " + nation.getName() + ": " + line);
+        for (Player player : TownyUniverse.plugin.getTownyUniverse().getOnlinePlayers(nation))
+                player.sendMessage(TownySettings.getLangString("default_towny_prefix") + line);
 	}
 
 	/**
