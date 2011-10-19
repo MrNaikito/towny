@@ -94,7 +94,19 @@ public class PEXSource extends TownyPermissionSource {
         return pexPM.getUser(player).has(node);
     }
 	
-	
-	
+    /**
+     * Returns the players Group name.
+     * 
+     * @param player
+     * @return
+     */
+    @Override
+	public String getPlayerGroup(Player player) {
+
+    	PermissionManager pexPM = PermissionsEx.getPermissionManager();
+    	
+    	return pexPM.getUser(player).getGroupsNames()[0];
+		
+    }
 	
 }
