@@ -1,561 +1,15 @@
 #summary The Default Config.yml
 {{{
-############################################################
-# +------------------------------------------------------+ #
-# |             block/item/mob protection                | #
-# +------------------------------------------------------+ #
-############################################################
- 
-protection:
- 
-    # Prevent fly and double block jump cheats.
-    cheat_protection: 'true'
- 
-    # The maximum amount of time a mob could be inside a town's boundaries before being sent to the void.
-    # Lower values will check all entities more often at the risk of heavier burden and resource use.
-    # NEVER set below 1.
-    mob_removal_speed: 5s
- 
-    # Globally remove living entities in all worlds that have their flag set.
-    world_mob_removal_entities: WaterMob,Flying,Slime
- 
-    # Items that can be blocked within towns via town/plot flags
-    # 259 - flint and steel
-    # 325 - bucket
-    # 326 - water bucket
-    # 327 - lava bucket
-    # 351 - bone/bonemeal
-    item_use_ids: 259,325,326,327,351
- 
-    # permitted entities http://jd.bukkit.org/apidocs/org/bukkit/entity/package-summary.html
-    # Animals, Chicken, Cow, Creature, Creeper, Flying, Ghast, Giant, Monster, Pig, 
-    # PigZombie, Sheep, Skeleton, Slime, Spider, Squid, WaterMob, Wolf, Zombie
- 
-    # Remove living entities within a town's boundaries, if the town has the mob removal flag set.
-    town_mob_removal_entities: Monster,WaterMob,Flying,Slime
- 
-    # Items which can be blocked or enabled via town/plot flags
-    # 25 - noteblock
-    # 54 - chest
-    # 61 - furnace
-    # 62 - lit furnace
-    # 64 - wooden door
-    # 69 - lever
-    # 70 - stone pressure plate
-    # 71 - iron door
-    # 72 - wooden pressure plate
-    # 77 - stone button
-    # 96 - trap door
-    # 84 - jukebox
-    # 93/94 - redstone repeater
-    switch_ids: 25,54,61,62,64,69,70,71,72,77,96,84,93,94
- 
-    # The amount of time it takes for a protected block to regenerate.  Use zero for no delay.
-    regen_delay: 5s
- 
- 
-############################################################
-# +------------------------------------------------------+ #
-# |             Default Town/Plot flags                  | #
-# +------------------------------------------------------+ #
-############################################################
- 
- 
-default_perm_flags:
- 
-    # Default permission flags for towns
-    # These are copied into the town data file at creation
-    #
-    # Can allies/outsiders/residents perform certain actions in the town
-    #
-    # build - place blocks and other items
-    # destroy - break blocks and other items
-    # itemuse - use items such as flint and steel or buckets (as defined in item_use_ids)
-    # switch - trigger or activate switches (as defined in switch_ids)
-    town:
-        ally:
-            destroy: 'false'
-            item_use: 'false'
-            switch: 'false'
-            build: 'false'
-        outsider:
-            destroy: 'false'
-            item_use: 'false'
-            switch: 'false'
-            build: 'false'
-        resident:
-            destroy: 'true'
-            item_use: 'true'
-            switch: 'true'
-            build: 'true'
- 
-    # Default permission flags for residents plots within a town
-    #
-    # Can allies/friends/outsiders perform certain actions in the town
-    #
-    # build - place blocks and other items
-    # destroy - break blocks and other items
-    # itemuse - use items such as furnaces (as defined in item_use_ids)
-    # switch - trigger or activate switches (as defined in switch_ids)
-    resident:
-        ally:
-            destroy: 'false'
-            item_use: 'false'
-            switch: 'false'
-            build: 'false'
-        outsider:
-            destroy: 'false'
-            item_use: 'false'
-            switch: 'false'
-            build: 'false'
-        friend:
-            destroy: 'true'
-            item_use: 'true'
-            switch: 'true'
-            build: 'true'
- 
- 
-############################################################
-# +------------------------------------------------------+ #
-# |                  Economy settings                    | #
-# +------------------------------------------------------+ #
-############################################################
- 
-economy:
- 
-    daily_taxes:
-        # Enables taxes to be collected daily by town/nation
-        # If a town can't pay it's tax then it is kicked from the nation.
-        # if a resident can't pay his plot tax he loses his plot.
-        # if a resident can't pay his town tax then he is kicked from the town.
-        # if a town or nation fails to pay it's upkeep it is deleted.
-        enabled: 'true'
-        # Uses total amount of owned plots to determine upkeep instead of the town level (Number of residents)
-        town_plotbased_upkeep: 'false'
-        # Maximum tax amount allowed when using flat taxes
-        max_tax_amount: '1000.0'
-        # maximum tax percentage allowed when taxing by percentages
-        max_tax_percent: '25'
-        # The server's daily charge on each town. If a town fails to pay this upkeep
-        # all of it's residents are kicked and the town is removed.
-        price_town_upkeep: '10.0'
-        # The server's daily charge on each nation. If a nation fails to pay this upkeep
-        # all of it's member town are kicked and the Nation is removed.
-        price_nation_upkeep: '100.0'
- 
-    spawn_travel:
-        # Cost to use /town spawn [town]
-        # This is paid to the town you goto.
-        price_town_public_spawn_travel: '10.0'
-        # Cost to use '/town spawn [town]' to another town in your nation.
-        price_town_nation_spawn_travel: '5.0'
-        # Cost to use /town spawn
-        price_town_spawn_travel: '0.0'
-        # Cost to use '/town spawn [town]' to another town in a nation that is allied with your nation.
-        price_town_ally_spawn_travel: '10.0'
- 
-    price_death_wartime: '200.0'
- 
-    new_expand:
-        # How much it costs to make an outpost. An outpost isn't limited to being on the edge of town.
-        price_outpost: '500.0'
-        # How much it costs to start a town.
-        price_new_town: '250.0'
-        # The price for a town to expand one townblock.
-        price_claim_townblock: '25.0'
-        # How much it costs a player to buy extra blocks.
-        price_purchased_bonus_townblock: '25.0'
-        # How much it costs to start a nation.
-        price_new_nation: '1000.0'
- 
-    price_death: '1.0'
- 
-    banks:
-        # Maximum amount of money allowed in town bank
-        # Use 0 for no limit
-        town_bank_cap: '0.0'
-        # Set to true to allow withdrawls from nation banks
-        nation_allow_withdrawls: 'true'
-        # Maximum amount of money allowed in nation bank
-        # Use 0 for no limit
-        nation_bank_cap: '0.0'
-        # Set to true to allow withdrawls from town banks
-        town_allow_withdrawls: 'true'
- 
-    # The daily upkeep to remain neutral during a war. Neutrality will exclude you from a war event, as well as deterring enemies.
-    price_nation_neutrality: '100.0'
- 
- 
-############################################################
-# +------------------------------------------------------+ #
-# |             Default new world settings               | #
-# +------------------------------------------------------+ #
-############################################################
- 
-# These flags are only used at the initial setp of a new world.
- 
-# Once Towny is running each world can be altered from within game
-# using '/townyworld toggle'
- 
-new_world_settings:
-    # force_pvp_on is a global flag and overrides any towns flag setting
-    force_pvp_on: 'false'
-    # force_fire_on is a global flag and overrides any towns flag setting
-    force_fire_on: 'false'
- 
-    # World management settings to deal with un/claiming plots
-    plot_management:
-        wild_revert_on_mob_explosion:
-            # Enabling this will slowly regenerate holes created in the
-            # wilderness by monsters exploding.
-            enabled: 'true'
-            delay: 5s
- 
-        block_delete:
-            enabled: 'true'
-            # These items will be deleted upon a plot being unclaimed
-            unclaim_delete: 26,50,55,63,64,68,70,71,72,75,76,93,94
- 
-        revert_on_unclaim:
-            # *** WARNING***
-            # If this is enabled any town plots which become unclaimed will
-            # slowly be reverted to a snapshot taken before the plot was claimed.
-            #
-            # Regeneration will only work if the plot was
-            # claimed under version 0.76.2, or
-            # later with this feature enabled
-            #
-            # If you allow players to break/build in the wild the snapshot will
-            # include any changes made before the plot was claimed.
-            enabled: 'true'
-            speed: 1s
-            # These block types will NOT be regenerated
-            block_ignore: 21,50,52,56,63,68,89
- 
-        mayor_plotblock_delete:
-            enabled: 'true'
-            # These items will be deleted upon a mayor using /plot clear
-            mayor_plot_delete: WALL_SIGN,SIGN_POST
- 
-    # force_town_monsters_on is a global flag and overrides any towns flag setting
-    force_town_monsters_on: 'false'
-    # Disable creatures trampling crops
-    disable_creature_crop_trampling: 'true'
-    # force_explosions_on is a global flag and overrides any towns flag setting
-    force_explosions_on: 'false'
-    # Disable players trampling crops
-    disable_player_crop_trampling: 'true'
-    # world_monsters_on is a global flag setting per world.
-    world_monsters_on: 'true'
- 
- 
-############################################################
-# +------------------------------------------------------+ #
-# |                Global town settings                  | #
-# +------------------------------------------------------+ #
-############################################################
- 
-global_town_settings:
-    # Allow regular residents to use /town spawn [town] to other towns in your nation.
-    allow_town_spawn_travel_nation: 'true'
-    # Allow regular residents to use /town spawn [town] to other towns in a nation allied with your nation.
-    allow_town_spawn_travel_ally: 'true'
- 
-    # Prevent players from using /town spawn while within unclaimed areas and/or enemy/neutral towns.
-    # Allowed options: unclaimed,enemy,neutral
-    prevent_town_spawn_in: enemy
-    # Allow the use of /town spawn
-    allow_town_spawn: 'true'
- 
-    # Respawn the player at his town spawn point when he/she dies
-    town_respawn: 'false'
-    # can residents/Allies harm other residents when in a town with pvp enabled?
-    friendly_fire: 'true'
-    # If non zero it delays any spawn request by x seconds.
-    teleport_warmup_time: '0'
-    # Players within their town or allied towns will regenerate half a heart after every health_regen_speed seconds.
-    health_regen:
-        speed: 3s
-        enable: 'true'
-    # Allow regular residents to use /town spawn [town] (TP to other towns if they are public).
-    allow_town_spawn_travel: 'true'
-    # Allow towns to claim outposts (a townblock not connected to town).
-    allow_outposts: 'true'
-    # Enables the [~Home] message.
-    # If false it will make it harder for enemies to find the home block during a war
-    show_town_notifications: 'true'
- 
- 
-############################################################
-# +------------------------------------------------------+ #
-# |                     War settings                     | #
-# +------------------------------------------------------+ #
-############################################################
- 
-war:
-    ############################################################
-    # +------------------------------------------------------+ #
-    # |            Warring Nation Enemies settings           | #
-    # +------------------------------------------------------+ #
-    ############################################################
- 
-    enemy:
-        #This many people must be online in target town in order to place a war flag in their domain.
-        min_players_online_in_town: '2'
-        flag:
-            #This is the block a player must place to trigger the attack event.
-            base_block: fence
-            waiting_time: 1m
-            #This is the block a player must place to trigger the attack event.
-            light_block: torch
-        #This many people must be online in target nation in order to place a war flag in their domain.
-        min_players_online_in_nation: '3'
-        #If false, players won't be able to place war flags, effectively disabling warzones.
-        allow_attacks: 'false'
-        beacon:
-            draw: 'true'
-            wireframe_block: glowstone
-            #Must be smaller than half the size of town_block_size.
-            radius: '3'
-        max_active_flags_per_player: '1'
-    #This setting allows you disable the ability for a nation to pay to remain neutral during a war.
-    nation_can_be_neutral: 'true'
- 
- 
-    ############################################################
-    # +------------------------------------------------------+ #
-    # |                 War Event settings                   | #
-    # +------------------------------------------------------+ #
-    ############################################################
- 
-    event:
-        home_block_hp: '120'
-        warning_delay: '30'
-        points_townblock: '1'
-        points_kill: '1'
-        points_nation: '100'
-        remove_on_monarch_death: 'false'
-        town_block_hp: '60'
-        min_height: '60'
-        base_spoils: '100'
-        points_town: '10'
-    wartime_town_block_loss_price: '100'
- 
- 
-############################################################
-# +------------------------------------------------------+ #
-# |                 Plugin interfacing                   | #
-# +------------------------------------------------------+ #
-############################################################
- 
-plugin:
-    day_timer:
-        # The number of hours in each "day".
-        # You can configure for 10 hour days. Default is 24 hours.
-        day_interval: 1d
-        # The time each "day", when taxes will be collected.
-        # MUST be less than day_interval. Default is 12h (midday).
-        new_day_time: 12h
- 
-    interfacing:
-        # Enable using_essentials if you are using cooldowns in essentials for teleports.
-        using_essentials: 'false'
-        # True to use Permissions 2.7x, 3.1x or GroupManager Bridge
-        # False to use Bukkits built in permissions/Groupmanager.
-        using_permissions: 'true'
-        # Enable if you have the Register plugin to manage your Economy plugin.
-        # Register supports: iConomy5, iConomy6, EssentialsEco, BOSEconomy.
-        # https://github.com/iConomy/Register/tree/master/dist
-        using_register: 'true'
-        # Enable using_questioner if you are using questioner to send/receive invites to towns/nations.
-        # See http://code.google.com/a/eclipselabs.org/p/towny/wiki/Questioner for more info.
-        using_questioner: 'true'
-        # Enable to retain iConomy 5 legacy support (overridden by the using_register setting).
-        using_iconomy: 'false'
- 
-    # Record all messages to the towny.log
-    logging: 'true'
-    # Lots of messages to tell you what's going on in the server with time taken for events.
-    debug_mode: 'false'
-    # If true this will cause the log to be wiped at every startup.
-    reset_log_on_boot: 'true'
- 
-    database:
-        database_save: flatfile
-        flatfile_backup: zip
-        backups_are_deteleted_after: 1d
-        database_load: flatfile
-        daily_backups: 'true'
- 
-    # Spams the player named in dev_name with all messages related to towny.
-    dev_mode:
-        dev_name: ElgarL
-        enable: 'false'
- 
-version:
-    # Minium required version of CraftBukkit.  Please do not edit.
-    bukkit_version: '1185'
-    # This is for showing the changelog on updates.  Please do not edit.
-    last_run_version: 0.76.1.19
-    # This is the current version of Towny.  Please do not edit.
-    version: 0.76.1.19
- 
-############################################################
-# +------------------------------------------------------+ #
-# |                Town and Nation levels                | #
-# +------------------------------------------------------+ #
-############################################################
- 
-levels:
- 
-    # default Nation levels.
-    nation_level:
-    -   capitalPostfix: ''
-        upkeepModifier: 1.0
-        namePostfix: ' (Nation)'
-        kingPrefix: 'Leader '
-        namePrefix: 'Land of '
-        numResidents: 0
-        capitalPrefix: ''
-        kingPostfix: ''
-    -   capitalPostfix: ''
-        upkeepModifier: 1.0
-        namePostfix: ' (Nation)'
-        kingPrefix: 'Count '
-        namePrefix: 'Federation of '
-        numResidents: 10
-        capitalPrefix: ''
-        kingPostfix: ''
-    -   capitalPostfix: ''
-        upkeepModifier: 1.0
-        namePostfix: ' (Nation)'
-        kingPrefix: 'Duke '
-        namePrefix: 'Dominion of '
-        numResidents: 20
-        capitalPrefix: ''
-        kingPostfix: ''
-    -   capitalPostfix: ''
-        upkeepModifier: 1.0
-        namePostfix: ' (Nation)'
-        kingPrefix: 'King '
-        namePrefix: 'Kingdom of '
-        numResidents: 30
-        capitalPrefix: ''
-        kingPostfix: ''
-    -   capitalPostfix: ''
-        upkeepModifier: 1.0
-        namePostfix: ' Empire'
-        kingPrefix: 'Emperor '
-        namePrefix: 'The '
-        numResidents: 40
-        capitalPrefix: ''
-        kingPostfix: ''
-    -   capitalPostfix: ''
-        upkeepModifier: 1.0
-        namePostfix: ' Realm'
-        kingPrefix: 'God Emperor '
-        namePrefix: 'The '
-        numResidents: 60
-        capitalPrefix: ''
-        kingPostfix: ''
- 
-    # default Town levels.
-    town_level:
-    -   upkeepModifier: 1.0
-        namePostfix: ' Ruins'
-        mayorPrefix: 'Spirit '
-        mayorPostfix: ''
-        townBlockLimit: 1
-        namePrefix: ''
-        numResidents: 0
-    -   upkeepModifier: 1.0
-        namePostfix: ' (Settlement)'
-        mayorPrefix: 'Hermit '
-        mayorPostfix: ''
-        townBlockLimit: 16
-        namePrefix: ''
-        numResidents: 1
-    -   upkeepModifier: 1.0
-        namePostfix: ' (Hamlet)'
-        mayorPrefix: 'Chief '
-        mayorPostfix: ''
-        townBlockLimit: 32
-        namePrefix: ''
-        numResidents: 2
-    -   upkeepModifier: 1.0
-        namePostfix: ' (Village)'
-        mayorPrefix: 'Baron Von '
-        mayorPostfix: ''
-        townBlockLimit: 96
-        namePrefix: ''
-        numResidents: 6
-    -   upkeepModifier: 1.0
-        namePostfix: ' (Town)'
-        mayorPrefix: 'Viscount '
-        mayorPostfix: ''
-        townBlockLimit: 160
-        namePrefix: ''
-        numResidents: 10
-    -   upkeepModifier: 1.0
-        namePostfix: ' (Large Town)'
-        mayorPrefix: 'Count Von '
-        mayorPostfix: ''
-        townBlockLimit: 224
-        namePrefix: ''
-        numResidents: 14
-    -   upkeepModifier: 1.0
-        namePostfix: ' (City)'
-        mayorPrefix: 'Earl '
-        mayorPostfix: ''
-        townBlockLimit: 320
-        namePrefix: ''
-        numResidents: 20
-    -   upkeepModifier: 1.0
-        namePostfix: ' (Large City)'
-        mayorPrefix: 'Duke '
-        mayorPostfix: ''
-        townBlockLimit: 384
-        namePrefix: ''
-        numResidents: 24
-    -   upkeepModifier: 1.0
-        namePostfix: ' (Metropolis)'
-        mayorPrefix: 'Lord '
-        mayorPostfix: ''
-        townBlockLimit: 448
-        namePrefix: ''
-        numResidents: 28
- 
- 
-############################################################
-# +------------------------------------------------------+ #
-# |                  Resident settings                   | #
-# +------------------------------------------------------+ #
-############################################################
- 
-resident_settings:
-    # player is flagged as inactive after 1 hour (default)
-    inactive_after_time: 1h
-    # The name of the town a resident will automatically join when he first registers.
-    default_town_name: ''
-    # if enabled old residents will be kicked and deleted from a town
-    # after Two months (default) of not logging in
-    delete_old_residents:
-        enable: 'false'
-        deleted_after_time: 60d
- 
- 
-############################################################
-# +------------------------------------------------------+ #
-# |                Wilderness settings                   | #
-# +------------------------------------------------------+ #
-############################################################
- 
-unclaimed:
-    unclaimed_zone_switch: 'false'
-    unclaimed_zone_ignore: 6,14,15,16,17,18,21,31,37,38,39,40,50,56,65,66,73,74,81,82,83,86,89
-    unclaimed_zone_item_use: 'false'
-    unclaimed_zone_build: 'false'
-    unclaimed_zone_destroy: 'false'
+ version:
+  # This is the current version of Towny.  Please do not edit.
+  version: 0.76.3.12
+  # This is for showing the changelog on updates.  Please do not edit.
+  last_run_version: 0.76.3.12
+  # Minimum required version of CraftBukkit.  Please do not edit.
+  bukkit_version: '1321'
+ 
+# The language file you wish to use
+language: english.yml
  
 ############################################################
 # +------------------------------------------------------+ #
@@ -594,11 +48,133 @@ unclaimed:
 #
 # these will be moved to permissions nodes at a later date
 permissions:
-    town_creation_admin_only: 'false'
-    nation_creation_admin_only: 'false'
+  town_creation_admin_only: 'false'
+  nation_creation_admin_only: 'false'
  
-# The language file you wish to use
-language: english.yml
+############################################################
+# +------------------------------------------------------+ #
+# |                Town and Nation levels                | #
+# +------------------------------------------------------+ #
+############################################################
+ 
+levels:
+ 
+  # default Town levels.
+  town_level:
+  - upkeepModifier: 1.0
+    namePostfix: ' Ruins'
+    mayorPrefix: 'Spirit '
+    mayorPostfix: ''
+    townBlockLimit: 1
+    namePrefix: ''
+    numResidents: 0
+  - upkeepModifier: 1.0
+    namePostfix: ' (Settlement)'
+    mayorPrefix: 'Hermit '
+    mayorPostfix: ''
+    townBlockLimit: 16
+    namePrefix: ''
+    numResidents: 1
+  - upkeepModifier: 1.0
+    namePostfix: ' (Hamlet)'
+    mayorPrefix: 'Chief '
+    mayorPostfix: ''
+    townBlockLimit: 32
+    namePrefix: ''
+    numResidents: 2
+  - upkeepModifier: 1.0
+    namePostfix: ' (Village)'
+    mayorPrefix: 'Baron Von '
+    mayorPostfix: ''
+    townBlockLimit: 96
+    namePrefix: ''
+    numResidents: 6
+  - upkeepModifier: 1.0
+    namePostfix: ' (Town)'
+    mayorPrefix: 'Viscount '
+    mayorPostfix: ''
+    townBlockLimit: 160
+    namePrefix: ''
+    numResidents: 10
+  - upkeepModifier: 1.0
+    namePostfix: ' (Large Town)'
+    mayorPrefix: 'Count Von '
+    mayorPostfix: ''
+    townBlockLimit: 224
+    namePrefix: ''
+    numResidents: 14
+  - upkeepModifier: 1.0
+    namePostfix: ' (City)'
+    mayorPrefix: 'Earl '
+    mayorPostfix: ''
+    townBlockLimit: 320
+    namePrefix: ''
+    numResidents: 20
+  - upkeepModifier: 1.0
+    namePostfix: ' (Large City)'
+    mayorPrefix: 'Duke '
+    mayorPostfix: ''
+    townBlockLimit: 384
+    namePrefix: ''
+    numResidents: 24
+  - upkeepModifier: 1.0
+    namePostfix: ' (Metropolis)'
+    mayorPrefix: 'Lord '
+    mayorPostfix: ''
+    townBlockLimit: 448
+    namePrefix: ''
+    numResidents: 28
+ 
+  # default Nation levels.
+  nation_level:
+  - capitalPostfix: ''
+    upkeepModifier: 1.0
+    namePostfix: ' (Nation)'
+    kingPrefix: 'Leader '
+    namePrefix: 'Land of '
+    numResidents: 0
+    capitalPrefix: ''
+    kingPostfix: ''
+  - capitalPostfix: ''
+    upkeepModifier: 1.0
+    namePostfix: ' (Nation)'
+    kingPrefix: 'Count '
+    namePrefix: 'Federation of '
+    numResidents: 10
+    capitalPrefix: ''
+    kingPostfix: ''
+  - capitalPostfix: ''
+    upkeepModifier: 1.0
+    namePostfix: ' (Nation)'
+    kingPrefix: 'Duke '
+    namePrefix: 'Dominion of '
+    numResidents: 20
+    capitalPrefix: ''
+    kingPostfix: ''
+  - capitalPostfix: ''
+    upkeepModifier: 1.0
+    namePostfix: ' (Nation)'
+    kingPrefix: 'King '
+    namePrefix: 'Kingdom of '
+    numResidents: 30
+    capitalPrefix: ''
+    kingPostfix: ''
+  - capitalPostfix: ''
+    upkeepModifier: 1.0
+    namePostfix: ' Empire'
+    kingPrefix: 'Emperor '
+    namePrefix: 'The '
+    numResidents: 40
+    capitalPrefix: ''
+    kingPostfix: ''
+  - capitalPostfix: ''
+    upkeepModifier: 1.0
+    namePostfix: ' Realm'
+    kingPrefix: 'God Emperor '
+    namePrefix: 'The '
+    numResidents: 60
+    capitalPrefix: ''
+    kingPostfix: ''
  
 ############################################################
 # +------------------------------------------------------+ #
@@ -607,29 +183,190 @@ language: english.yml
 ############################################################
  
 town:
-    # Limits the maximum amount of bonus blocks a town can buy.
-    max_purchased_blocks: '0'
-    # maximum number of plots any single resident can own
-    max_plots_per_resident: '100'
+  # Limits the maximum amount of bonus blocks a town can buy.
+  max_purchased_blocks: '0'
+  # maximum number of plots any single resident can own
+  max_plots_per_resident: '100'
+  # Maximum number of towns allowed on the server.
+  town_limit: '3000'
  
-    # Minimum number of plots any towns home plot must be from the next town.
-    # This will prevent someone founding a town right on your doorstep
-    min_distance_from_town_homeblock: '5'
-    # The size of the square grid cell. Changing this value is suggested only when you first install Towny.
-    # Doing so after entering data will shift things unwantedly. Using smaller value will allow higher precision,
-    # at the cost of more work setting up. Also, extremely small values will render the caching done useless.
-    # Each cell is (town_block_size * town_block_size * 128) in size, with 128 being from bedrock to clouds.
-    town_block_size: '16'
-    # Maximum number of towns allowed on the server.
-    town_limit: '3000'
+  # Minimum number of plots any towns home plot must be from the next town.
+  # This will prevent someone founding a town right on your doorstep
+  min_distance_from_town_homeblock: '5'
  
-    # The maximum townblocks available to a town is (numResidents * ratio).
-    # Setting this value to 0 will instead use the level based jump values determined in the town level config.
-    town_block_ratio: '16'
+  # Maximum distance between homblocks.
+  # This will force players to build close together.
+  max_distance_between_homeblocks: '0'
  
-    # Maximum distance between homblocks.
-    # This will force players to build close together.
-    max_distance_between_homeblocks: '0'
+  # The maximum townblocks available to a town is (numResidents * ratio).
+  # Setting this value to 0 will instead use the level based jump values determined in the town level config.
+  town_block_ratio: '8'
+  # The size of the square grid cell. Changing this value is suggested only when you first install Towny.
+  # Doing so after entering data will shift things unwantedly. Using smaller value will allow higher precision,
+  # at the cost of more work setting up. Also, extremely small values will render the caching done useless.
+  # Each cell is (town_block_size * town_block_size * 128) in size, with 128 being from bedrock to clouds.
+  town_block_size: '16'
+ 
+ 
+############################################################
+# +------------------------------------------------------+ #
+# |             Default new world settings               | #
+# +------------------------------------------------------+ #
+############################################################
+ 
+# These flags are only used at the initial setp of a new world.
+ 
+# Once Towny is running each world can be altered from within game
+# using '/townyworld toggle'
+ 
+new_world_settings:
+  # force_pvp_on is a global flag and overrides any towns flag setting
+  force_pvp_on: 'false'
+  # Disable players trampling crops
+  disable_player_crop_trampling: 'true'
+  # Disable creatures trampling crops
+  disable_creature_crop_trampling: 'true'
+  # world_monsters_on is a global flag setting per world.
+  world_monsters_on: 'true'
+  # force_explosions_on is a global flag and overrides any towns flag setting
+  force_explosions_on: 'false'
+  # force_town_monsters_on is a global flag and overrides any towns flag setting
+  force_town_monsters_on: 'false'
+  # force_fire_on is a global flag and overrides any towns flag setting
+  force_fire_on: 'false'
+ 
+  # World management settings to deal with un/claiming plots
+  plot_management:
+ 
+    block_delete:
+      enabled: 'true'
+      # These items will be deleted upon a plot being unclaimed
+      unclaim_delete: 26,50,55,63,64,68,70,71,72,75,76,93,94
+ 
+    mayor_plotblock_delete:
+      enabled: 'true'
+      # These items will be deleted upon a mayor using /plot clear
+      # To disable deleting replace the current entries with NONE.
+      mayor_plot_delete: WALL_SIGN,SIGN_POST
+ 
+    revert_on_unclaim:
+      # *** WARNING***
+      # If this is enabled any town plots which become unclaimed will
+      # slowly be reverted to a snapshot taken before the plot was claimed.
+      #
+      # Regeneration will only work if the plot was
+      # claimed under version 0.76.2, or
+      # later with this feature enabled
+      #
+      # If you allow players to break/build in the wild the snapshot will
+      # include any changes made before the plot was claimed.
+      enabled: 'true'
+      speed: 1s
+      # These block types will NOT be regenerated
+      block_ignore: 21,22,41,42,50,52,56,57,63,68,89
+    wild_revert_on_mob_explosion:
+ 
+      # Enabling this will slowly regenerate holes created in the
+      # wilderness by monsters exploding.
+      enabled: 'true'
+      delay: 5s
+ 
+ 
+############################################################
+# +------------------------------------------------------+ #
+# |                Global town settings                  | #
+# +------------------------------------------------------+ #
+############################################################
+ 
+global_town_settings:
+  # can residents/Allies harm other residents when in a town with pvp enabled?
+  friendly_fire: 'true'
+  # Players within their town or allied towns will regenerate half a heart after every health_regen_speed seconds.
+  health_regen:
+    speed: 3s
+    enable: 'true'
+  # Allow towns to claim outposts (a townblock not connected to town).
+  allow_outposts: 'true'
+  # Allow the use of /town spawn
+  allow_town_spawn: 'true'
+  # Allow regular residents to use /town spawn [town] (TP to other towns if they are public).
+  allow_town_spawn_travel: 'true'
+  # Allow regular residents to use /town spawn [town] to other towns in your nation.
+  allow_town_spawn_travel_nation: 'true'
+  # Allow regular residents to use /town spawn [town] to other towns in a nation allied with your nation.
+  allow_town_spawn_travel_ally: 'true'
+  # If non zero it delays any spawn request by x seconds.
+  teleport_warmup_time: '0'
+  # Respawn the player at his town spawn point when he/she dies
+  town_respawn: 'false'
+  # Prevent players from using /town spawn while within unclaimed areas and/or enemy/neutral towns.
+  # Allowed options: unclaimed,enemy,neutral
+  prevent_town_spawn_in: enemy
+  # Enables the [~Home] message.
+  # If false it will make it harder for enemies to find the home block during a war
+  show_town_notifications: 'true'
+ 
+ 
+############################################################
+# +------------------------------------------------------+ #
+# |                 Plugin interfacing                   | #
+# +------------------------------------------------------+ #
+############################################################
+ 
+plugin:
+ 
+  database:
+    database_load: flatfile
+    database_save: flatfile
+    daily_backups: 'true'
+    backups_are_deteleted_after: 90d
+    flatfile_backup: zip
+ 
+  interfacing:
+ 
+    # Enable using_essentials if you are using cooldowns in essentials for teleports.
+    using_essentials: 'false'
+ 
+    # This will attempt to use Register (if present)
+    # Then it will attempt to access iConomy 5.01 directly
+    # Enable if you have either iConomy 5.01, or Register.jar to
+    # support: iConomy5, iConomy6, EssentialsEco, BOSEconomy.
+    # https://github.com/iConomy/Register/tree/master/dist
+    using_economy: 'true'
+ 
+    # Enable using_questioner if you are using questioner to send/receive invites to towns/nations.
+    # See http://code.google.com/a/eclipselabs.org/p/towny/wiki/Questioner for more info.
+    using_questioner:
+      enable: 'true'
+      # The command to accept invitations.
+      accept: accept
+      # The command to refuse invitations.
+      deny: deny
+ 
+    # True to attempt to use GroupManager, PEX, bPermissions, Permissions2/3 or BukkitPerms
+    # False to disable permission checks and rely on Towny settings.
+    using_permissions: 'true'
+ 
+  day_timer:
+    # The number of hours in each "day".
+    # You can configure for 10 hour days. Default is 24 hours.
+    day_interval: 1d
+    # The time each "day", when taxes will be collected.
+    # MUST be less than day_interval. Default is 12h (midday).
+    new_day_time: 12h
+ 
+  # Lots of messages to tell you what's going on in the server with time taken for events.
+  debug_mode: 'false'
+ 
+  # Spams the player named in dev_name with all messages related to towny.
+  dev_mode:
+    enable: 'false'
+    dev_name: ElgarL
+ 
+  # Record all messages to the towny.log
+  logging: 'true'
+  # If true this will cause the log to be wiped at every startup.
+  reset_log_on_boot: 'true'
  
  
 ############################################################
@@ -639,38 +376,409 @@ town:
 ############################################################
  
 filters_colour_chat:
+  # This is the name given to any NPC assigned mayor.
+  npc_prefix: NPC
+  # Regex fields used in validating inputs.
+  regex:
+    name_filter_regex: '[ /]'
+    name_check_regex: ^[a-zA-Z0-9._-]*$
+    name_remove_regex: '[^a-zA-Z0-9._-]'
  
-    # Text colouring
-    # --------------
-    # Black = &0, Navy = &1, Green = &2, Blue = &3, Red = &4
-    # Purple = &5, Gold = &6, LightGray = &7, Gray = &8
-    # DarkPurple = &9, LightGreen = &a, LightBlue = &b
-    # Rose = &c, LightPurple = &d, Yellow = &e, White = &f
+  # The format below will specify the changes made to the player name when chatting.
+  # These keys can be used in other plugins that modify the chat format like iChat.
  
-    # Chat colours
-    colour:
-        mayor: '&b'
-        king: '&6'
-    # This is the name given to any NPC assigned mayor.
-    npc_prefix: NPC
-    # Regex fields used in validating inputs.
-    regex:
-        name_remove_regex: '[^a-zA-Z0-9._-]'
-        name_check_regex: ^[a-zA-Z0-9._-]*$
-        name_filter_regex: '[ /]'
+  # {nation} - Displays nation name if a member of a nation.
+  # {town} - Displays town name if a member of a town.
+  # {townynameprefix} - Towny name prefix taken from the townLevel/nationLevels
+  # {townynamepostfix} - Towny name postfix taken from the townLevel/nationLevels.
+  # {townyprefix} - Towny name prefix (title)
+  # {townypostfix} - Towny name postfix (surname)
+  # {townyfullnames} - Displays the formated town/nation names as specified in modify_chat.tag_format.both.
+  # {townytag} - Displays the formated tag as specified in modify_chat.tag_format.both.
+  # {townytagoverride} - Displays the formated tag (if present) or falls back to the full names (using modify_chat.tag_format.both).
+  # {nationtag} - Displays the formated nation tag if a member of a nation (using modify_chat.tag_format.nation).
+  # {towntag} - Displays the formated town tag if a member of a town (using modify_chat.tag_format.town).
+  # {nationtagoverride} - Displays the formated nation tag if a member of a nation (if present or full name fallback - using modify_chat.tag_format.nation).
+  # {towntagoverride} - Displays the formated town tag if a member of a town (if present or full name fallback - using modify_chat.tag_format.town).
+  # {townycolor} - Towny name colour for king/mayor/resident
  
-    # The format below will specify the changes made to the player name when chatting.
-    # keys are
-    # {nation} - Displays nation name if a member of a nation.
-    # {town} - Displays town name if a member of a town.
-    # {permprefix} - Permission group prefix
-    # {townynameprefix} - Towny name prefix taken from the townLevel/nationLevels
-    # {playername} - default player name
-    # {modplayername} - modified player name (use if Towny is over writing some other plugins changes).
-    # {townynamepostfix} - Towny name postfix taken from the townLevel/nationLevels.
-    # {permsuffix} - Permission group suffix.
-    modify_chat:
-        enable: 'true'
-        max_title_length: '10'
-        format: '{nation}{town}{permprefix}{townynameprefix}{playername}{townynamepostfix}{permsuffix}'
+  # The following keys are for use in modify_chat.format for if you don't have/want to use another
+  # plugin that changes the chat. They are also used for town/nation chat.
+ 
+  # {permprefix} - Permission group prefix
+  # {permsuffix} - Permission group suffix.
+  # {playername} - Default player name.
+  # {modplayername} - Modified player name (use if Towny is over writing some other plugins changes).
+  # {msg} - The message sent.
+ 
+  # NOTICE: The config will automatically wrap really long strings. The long formats will be displayed ignoring
+  # the line break. This will hopefully be fixed soon.
+  modify_chat:
+    # This is used for when you don't have another plugin to format chat.
+    # It will cause Towny to overwrite any other plugins alterations to the format.
+    enable: 'true'
+    # This is the format for when you are not using another plugin to set the format and modify_chat.format is true.
+    # You can use text colouring shown in filters.colour as well.
+    format: '{townytagoverride}{townycolor}{permprefix}{townyprefix}{playername}{townypostfix}{permsuffix}&f:
+      {msg}'
+    tag_format:
+      town: '&f[&3%s&f] '
+      nation: '&f[&e%s&f] '
+      # First %s is the nation tag, second is the town tag.
+      both: '&f[&6%s&f|&3%s&f] '
+    channel_format:
+      town: '{channelTag} {townycolor}{permprefix}{townyprefix}{playername}{townypostfix}{permsuffix}&f:{msgcolour}
+        {msg}'
+      nation: '{channelTag}{towntagoverride}{townycolor}{permprefix}{townyprefix}{playername}{townypostfix}{permsuffix}&f:{msgcolour}
+        {msg}'
+      default: '{channelTag} {permprefix}{playername}{permsuffix}&f:{msgcolour} {msg}'
+    max_title_length: '10'
+ 
+    # Channels are in the format: command, channel-name, chat-colour, permission-node (to use channel).
+    # Do ***NOT*** alter the commands for /tc and /nc.
+    channels:
+    - /tc,&f[&3TC&f],&b,towny.chat.town
+    - /nc,&f[&6NC&f],&e,towny.chat.nation
+    - /a,&f[&4ADMIN&f],&c,towny.chat.admin
+    - /m,&f[&9MOD&f],&5,towny.chat.mod
+ 
+  # Text colouring
+  # --------------
+  # Black = &0, Navy = &1, Green = &2, Blue = &3, Red = &4
+  # Purple = &5, Gold = &6, LightGray = &7, Gray = &8
+  # DarkPurple = &9, LightGreen = &a, LightBlue = &b
+  # Rose = &c, LightPurple = &d, Yellow = &e, White = &f
+ 
+  # Chat colours
+  colour:
+    king: '&6'
+    mayor: '&f'
+ 
+ 
+############################################################
+# +------------------------------------------------------+ #
+# |             block/item/mob protection                | #
+# +------------------------------------------------------+ #
+############################################################
+ 
+protection:
+ 
+  # Items that can be blocked within towns via town/plot flags
+  # 259 - flint and steel
+  # 325 - bucket
+  # 326 - water bucket
+  # 327 - lava bucket
+  # 351 - bone/bonemeal
+  item_use_ids: 259,325,326,327,351
+ 
+  # Items which can be blocked or enabled via town/plot flags
+  # 25 - noteblock
+  # 54 - chest
+  # 61 - furnace
+  # 62 - lit furnace
+  # 64 - wooden door
+  # 69 - lever
+  # 70 - stone pressure plate
+  # 71 - iron door
+  # 72 - wooden pressure plate
+  # 77 - stone button
+  # 96 - trap door
+  # 84 - jukebox
+  # 93/94 - redstone repeater
+  switch_ids: 23,25,54,61,62,64,69,70,71,72,77,96,84,93,94,107
+ 
+  # permitted entities http://jd.bukkit.org/apidocs/org/bukkit/entity/package-summary.html
+  # Animals, Chicken, Cow, Creature, Creeper, Flying, Ghast, Giant, Monster, Pig, 
+  # PigZombie, Sheep, Skeleton, Slime, Spider, Squid, WaterMob, Wolf, Zombie
+ 
+  # Remove living entities within a town's boundaries, if the town has the mob removal flag set.
+  town_mob_removal_entities: Monster,WaterMob,Flying,Slime
+ 
+  # Globally remove living entities in all worlds that have their flag set.
+  world_mob_removal_entities: WaterMob,Flying,Slime
+ 
+  # The maximum amount of time a mob could be inside a town's boundaries before being sent to the void.
+  # Lower values will check all entities more often at the risk of heavier burden and resource use.
+  # NEVER set below 1.
+  mob_removal_speed: 5s
+ 
+  # Prevent fly and double block jump cheats.
+  cheat_protection: 'true'
+ 
+  # The amount of time it takes for a protected block to regenerate.  Use zero for no delay.
+  regen_delay: 0s
+ 
+ 
+############################################################
+# +------------------------------------------------------+ #
+# |                Wilderness settings                   | #
+# +------------------------------------------------------+ #
+############################################################
+ 
+unclaimed:
+  unclaimed_zone_build: 'false'
+  unclaimed_zone_destroy: 'false'
+  unclaimed_zone_item_use: 'false'
+  unclaimed_zone_ignore: 6,14,15,16,17,18,21,31,37,38,39,40,50,56,65,66,73,74,81,82,83,86,89
+  unclaimed_zone_switch: 'false'
+  unclaimed_zone_enderman_protect: 'true'
+ 
+ 
+############################################################
+# +------------------------------------------------------+ #
+# |                 Town Notifications                   | #
+# +------------------------------------------------------+ #
+############################################################
+ 
+# This is the format for the notifications sent as players move between plots.
+# Empty a particular format for it to be ignored.
+ 
+# Example:
+# [notification.format]
+# ~ [notification.area_[wilderness/town]][notification.splitter][notification.[no_]owner][notification.splitter][notification.plot.format]
+# ... [notification.plot.format]
+# ... [notification.plot.homeblock][notification.plot.splitter][notification.plot.forsale][notification.plot.splitter][notification.plot.type]
+# ~ Wak Town - Lord Jebus - [Home] [For Sale: 50 Beli] [Shop]
+ 
+notification:
+  format: '&6 ~ %s'
+  splitter: '&7 - '
+  area_wilderness: '&2%s'
+  area_town: '&6%s'
+  owner: '&a%s'
+  no_owner: '&a%s'
+  plot:
+    splitter: ' '
+    format: '%s'
+    homeblock: '&b[Home]'
+    forsale: '&e[For Sale: %s]'
+    type: '&6[%s]'
+ 
+ 
+############################################################
+# +------------------------------------------------------+ #
+# |             Default Town/Plot flags                  | #
+# +------------------------------------------------------+ #
+############################################################
+ 
+ 
+default_perm_flags:
+ 
+  # Default permission flags for residents plots within a town
+  #
+  # Can allies/friends/outsiders perform certain actions in the town
+  #
+  # build - place blocks and other items
+  # destroy - break blocks and other items
+  # itemuse - use items such as furnaces (as defined in item_use_ids)
+  # switch - trigger or activate switches (as defined in switch_ids)
+  resident:
+    friend:
+      build: 'true'
+      destroy: 'true'
+      item_use: 'true'
+      switch: 'true'
+    ally:
+      build: 'false'
+      destroy: 'false'
+      item_use: 'false'
+      switch: 'false'
+    outsider:
+      build: 'false'
+      destroy: 'false'
+      item_use: 'false'
+      switch: 'false'
+ 
+  # Default permission flags for towns
+  # These are copied into the town data file at creation
+  #
+  # Can allies/outsiders/residents perform certain actions in the town
+  #
+  # build - place blocks and other items
+  # destroy - break blocks and other items
+  # itemuse - use items such as flint and steel or buckets (as defined in item_use_ids)
+  # switch - trigger or activate switches (as defined in switch_ids)
+  town:
+    resident:
+      build: 'true'
+      destroy: 'true'
+      item_use: 'true'
+      switch: 'true'
+    ally:
+      build: 'false'
+      destroy: 'false'
+      item_use: 'false'
+      switch: 'false'
+    outsider:
+      build: 'false'
+      destroy: 'false'
+      item_use: 'false'
+      switch: 'false'
+ 
+ 
+############################################################
+# +------------------------------------------------------+ #
+# |                  Resident settings                   | #
+# +------------------------------------------------------+ #
+############################################################
+ 
+resident_settings:
+  # player is flagged as inactive after 1 hour (default)
+  inactive_after_time: 1h
+  # if enabled old residents will be kicked and deleted from a town
+  # after Two months (default) of not logging in
+  delete_old_residents:
+    enable: 'false'
+    deleted_after_time: 60d
+  # The name of the town a resident will automatically join when he first registers.
+  default_town_name: ''
+ 
+ 
+############################################################
+# +------------------------------------------------------+ #
+# |                  Economy settings                    | #
+# +------------------------------------------------------+ #
+############################################################
+ 
+economy:
+ 
+  spawn_travel:
+    # Cost to use /town spawn
+    price_town_spawn_travel: '0.0'
+    # Cost to use '/town spawn [town]' to another town in your nation.
+    price_town_nation_spawn_travel: '5.0'
+    # Cost to use '/town spawn [town]' to another town in a nation that is allied with your nation.
+    price_town_ally_spawn_travel: '10.0'
+    # Cost to use /town spawn [town]
+    # This is paid to the town you goto.
+    price_town_public_spawn_travel: '10.0'
+ 
+  # The daily upkeep to remain neutral during a war. Neutrality will exclude you from a war event, as well as deterring enemies.
+  price_nation_neutrality: '100.0'
+ 
+  new_expand:
+    # How much it costs to start a nation.
+    price_new_nation: '1000.0'
+    # How much it costs to start a town.
+    price_new_town: '250.0'
+    # How much it costs to make an outpost. An outpost isn't limited to being on the edge of town.
+    price_outpost: '500.0'
+    # The price for a town to expand one townblock.
+    price_claim_townblock: '25.0'
+    # How much it costs a player to buy extra blocks.
+    price_purchased_bonus_townblock: '25.0'
+ 
+  price_death: '1.0'
+ 
+  price_death_wartime: '200.0'
+ 
+  banks:
+    # Maximum amount of money allowed in town bank
+    # Use 0 for no limit
+    town_bank_cap: '0.0'
+    # Set to true to allow withdrawls from town banks
+    town_allow_withdrawls: 'true'
+    # Maximum amount of money allowed in nation bank
+    # Use 0 for no limit
+    nation_bank_cap: '0.0'
+    # Set to true to allow withdrawls from nation banks
+    nation_allow_withdrawls: 'true'
+ 
+  daily_taxes:
+    # Enables taxes to be collected daily by town/nation
+    # If a town can't pay it's tax then it is kicked from the nation.
+    # if a resident can't pay his plot tax he loses his plot.
+    # if a resident can't pay his town tax then he is kicked from the town.
+    # if a town or nation fails to pay it's upkeep it is deleted.
+    enabled: 'true'
+    # Maximum tax amount allowed when using flat taxes
+    max_tax_amount: '1000.0'
+    # maximum tax percentage allowed when taxing by percentages
+    max_tax_percent: '25'
+    # The server's daily charge on each nation. If a nation fails to pay this upkeep
+    # all of it's member town are kicked and the Nation is removed.
+    price_nation_upkeep: '100.0'
+    # The server's daily charge on each town. If a town fails to pay this upkeep
+    # all of it's residents are kicked and the town is removed.
+    price_town_upkeep: '10.0'
+    # Uses total amount of owned plots to determine upkeep instead of the town level (Number of residents)
+    # calculated by (number of claimed plots X price_town_upkeep).
+    town_plotbased_upkeep: 'false'
+ 
+ 
+############################################################
+# +------------------------------------------------------+ #
+# |                     War settings                     | #
+# +------------------------------------------------------+ #
+############################################################
+ 
+war:
+  #This setting allows you disable the ability for a nation to pay to remain neutral during a war.
+  nation_can_be_neutral: 'true'
+ 
+ 
+  ############################################################
+  # +------------------------------------------------------+ #
+  # |                 War Event settings                   | #
+  # +------------------------------------------------------+ #
+  ############################################################
+ 
+  event:
+    remove_on_monarch_death: 'false'
+    warning_delay: '30'
+    town_block_hp: '60'
+    home_block_hp: '120'
+    base_spoils: '100'
+    points_townblock: '1'
+    points_town: '10'
+    points_nation: '100'
+    points_kill: '1'
+    min_height: '60'
+  wartime_town_block_loss_price: '100'
+  ############################################################
+  # +------------------------------------------------------+ #
+  # |            Warring Nation Enemies settings           | #
+  # +------------------------------------------------------+ #
+  ############################################################
+ 
+  enemy:
+    #If false, players won't be able to place war flags, effectively disabling warzones.
+    allow_attacks: 'false'
+    #This many people must be online in target town in order to place a war flag in their domain.
+    min_players_online_in_town: '2'
+    #This many people must be online in target nation in order to place a war flag in their domain.
+    min_players_online_in_nation: '3'
+    max_active_flags_per_player: '1'
+    flag:
+      waiting_time: 1m
+      #This is the block a player must place to trigger the attack event.
+      base_block: fence
+      #This is the block a player must place to trigger the attack event.
+      light_block: torch
+    beacon:
+      #Must be smaller than half the size of town_block_size.
+      radius: '3'
+      draw: 'true'
+      wireframe_block: glowstone
+  ############################################################
+  # +------------------------------------------------------+ #
+  # |              Warzone Block Permissions               | #
+  # +------------------------------------------------------+ #
+  ############################################################
+ 
+  warzone:
+    # List of materaials that can be modified in a warzone.
+    # '*' = Allow all materials.
+    # Prepend a '-' in front of a material to remove it. Used in conjunction with when you use '*'.
+    # Eg: '*,-chest,-furnace'
+    editable_materials: tnt,fence,ladder,wood_door,iron_door,fire
+    item_use: 'true'
+    switch: 'true'
+    # Add '-fire' to editable materials for complete protection when setting is false. This prevents fire to be created and spread.
+    fire: 'true'
+    explosions: 'true'
+    explosions_break_blocks: 'true'
+    # TODO: Blocks will not regen as of yet. Stay tuned for later changes.
+    # Only under affect when explosions_break_blocks is true.
+    explosions_regen_blocks: 'true'
 }}}
