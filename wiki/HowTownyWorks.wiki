@@ -414,11 +414,35 @@ The cap on banks does not affect taxes which will still be put into the bank.
 
 = Chat =
 
+== Townychat.jar ==
+
+If you want Towny’s variables in chat, or the town/nation channels, you must download and install TownyChat.jar.
+
+  === Using TownyChat with Other Chat Plugins ===
+  To use Towny and another Chat plugin follow these instructions:
+    * Go into the Towny config.yml and locate: {{{filters_colour_chat.modify_chat.enable:}}} and be sure to set it to false like this: {{{filters_colour_chat.modify_chat.enable: 'false'}}}
+    * Now add Towny’s chat variables to your chat plugins config. The variables can be found in the comments just above filters_colour_chat.modify_chat or below this text in the Chat Modifications section.
+  
+  Examples:
+    * iChat:
+      * ingame-format: '[+prefix+group+suffix&f]{townytag} {townycolor}{townyprefix}+displayname{townypostfix}'
+    * mChat:
+      * mchat-message-format: '{townytag} +p{townycolor}{townyprefix}+dn{townypostfix}+s&f: +m'
+    * HeroChat: 
+      * default-message-format: '{townytag}{color}[{nick}] &f{prefix}{townycolor}{townyprefix}{player}{townypostfix}{suffix}{color}: '
+      * Note: This may not work.
+      
+  === Using TownyChat Without Another Chat Plugin ===
+  To use Towny as your sole chat plugin follow these instructions:
+    * Go into the Towny config.yml and locate: {{{filters_colour_chat.modify_chat.enable:}}} and be sure to set it to true like this: {{{filters_colour_chat.modify_chat.enable: 'true'}}}
+    * Configure the chat lines using the information found in the section below.
+
 == Chat Modifications == 
 
 Towny modifies the in-game chat appearance of town mayors and nation leaders only.
 
 The various chat modification can be turned on in [DefaultConfig config.yml] at {{{modify_chat.format: '{townytagoverride}{townycolor}{permprefix}{townyprefix}{playername}{townypostfix}{permsuffix}&f:'}}}
+These are also the bits you will add to another chat plugin's config.
   * {nation} - Displays nation name if a member of a nation.
   * {town} - Displays town name if a member of a town.
   * {townynameprefix} - Towny name prefix taken from the townLevel/nationLevels
