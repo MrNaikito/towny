@@ -785,3 +785,4 @@ v0.77.0.1:
 	  {townformatted} - Displays town name if a member of a town (using tag_format.town).
       {nationformatted} - Displays nation name if a member of a nation (using tag_format.nation).
     - Changed {townyfullnames} to {townyformatted}.
+    - Fixed an error on town loading caused by the new plot level permissions.
