@@ -882,18 +882,12 @@ public class TownyUniverse extends TownyObject {
                 try {
                         FileMgmt.checkFolders(new String[]{
                                         getRootFolder(),
-                                        getRootFolder() + FileMgmt.fileSeparator() + "settings"});
-                        /*
-                        FileMgmt.checkFiles(new String[]{
-                                        getRootFolder() + FileMgmt.fileSeparator() + "settings" + FileMgmt.fileSeparator() + "town-levels.csv",
-                                        getRootFolder() + FileMgmt.fileSeparator() + "settings" + FileMgmt.fileSeparator() + "nation-levels.csv"});
-                                        */
-                        //TownySettings.loadConfig(getRootFolder() + FileMgmt.fileSeparator() + "settings" + FileMgmt.fileSeparator() + "config.yml", "/plugin.yml");
-            TownySettings.loadConfig(getRootFolder() + FileMgmt.fileSeparator() + "settings" + FileMgmt.fileSeparator() + "config.yml", plugin.getVersion());
+                                        getRootFolder() + FileMgmt.fileSeparator() + "settings",
+                                        getRootFolder() + FileMgmt.fileSeparator() + "logs"}); // Setup the logs folder here as the logger will not yet be enabled.
+
+                        TownySettings.loadConfig(getRootFolder() + FileMgmt.fileSeparator() + "settings" + FileMgmt.fileSeparator() + "config.yml", plugin.getVersion());
                         TownySettings.loadLanguage(getRootFolder() + FileMgmt.fileSeparator() + "settings", "english.yml");
-            //TownySettings.loadPermissions(getRootFolder() + FileMgmt.fileSeparator() + "settings", "/permissions.yml");
-                        //TownySettings.loadTownLevelConfig(getRootFolder() + FileMgmt.fileSeparator() + "settings" + FileMgmt.fileSeparator() + "town-levels.csv");
-                        //TownySettings.loadNationLevelConfig(getRootFolder() + FileMgmt.fileSeparator() + "settings" + FileMgmt.fileSeparator() + "nation-levels.csv");
+
                 } catch (FileNotFoundException e) {
                         e.printStackTrace();
                         return false;
