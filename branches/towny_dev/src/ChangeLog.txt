@@ -778,3 +778,10 @@ v0.76.2.12:
 	    Then add any of the towny tags into your chat plugins format line.
 v0.77.0.0:
 	- Release.
+v0.77.0.1:
+	- Fixed resident colour in config.
+	- Fixed creation of the logs folder for new installs causing an error at startup.
+	- Added..
+	  {townformatted} - Displays town name if a member of a town (using tag_format.town).
+      {nationformatted} - Displays nation name if a member of a nation (using tag_format.nation).
+    - Changed {townyfullnames} to {townyformatted}.
