@@ -123,6 +123,10 @@ public class TownBlock {
         switch(type) {
         case ARENA:
         	this.permissions.pvp = true;
+        	break;
+        case WILDS:
+        	this.setPermissions("denyAll");
+        	break;
         }
     }
 

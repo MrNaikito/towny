@@ -788,3 +788,5 @@ v0.77.0.1:
     - Fixed an error on town loading caused by the new plot level permissions.
 v0.76.0.2:
 	- Towny now accepts worlds with spaces in their names.
+	- Added a 'wilds' plot type. This type allows mayors to set the plot to wilds and it follows wilderness build/break rules for residents only.
+	  Handy for adding a protection zones arround a town where residents and farm tree's and plant sapplings.
