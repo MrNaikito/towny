@@ -373,13 +373,14 @@ public class TownyUniverse extends TownyObject {
         }
 
         public void newWorld(String name) throws AlreadyRegisteredException, NotRegisteredException {
-                String filteredName;
+                String filteredName = name;
+                /*
                 try {
                         filteredName = checkAndFilterName(name);
                 } catch (InvalidNameException e) {
                         throw new NotRegisteredException(e.getMessage());
                 }
-                
+                */
                 if (worlds.containsKey(filteredName.toLowerCase()))
                         throw new AlreadyRegisteredException("The world " + filteredName + " is already in use.");
                 
@@ -1094,7 +1095,7 @@ public class TownyUniverse extends TownyObject {
                 	continue;
                 if (!town.payTo(nation.getTaxes(), nation, "Nation Tax")) {
                 	try {
-                    	sendNationMessage(nation, TownySettings.getCouldntPayTaxesMsg(town, "nation"));
+                		TownyMessaging.sendNationMessage(nation, TownySettings.getCouldntPayTaxesMsg(town, "nation"));
                         nation.removeTown(town);
                     } catch (EmptyNationException e) {
                         // Always has 1 town (capital) so ignore
@@ -1103,7 +1104,7 @@ public class TownyUniverse extends TownyObject {
                     getDataSource().saveTown(town);
                     getDataSource().saveNation(nation);
                 } else
-                    sendTownMessage(town, TownySettings.getPayedTownTaxMsg() + nation.getTaxes());
+                	TownyMessaging.sendTownMessage(town, TownySettings.getPayedTownTaxMsg() + nation.getTaxes());
             }
     }
 
@@ -1121,7 +1122,7 @@ public class TownyUniverse extends TownyObject {
                 for (Resident resident : new ArrayList<Resident>(town.getResidents()))
                         if (town.isMayor(resident) || town.hasAssistant(resident)) {
                                 try {
-                                        sendResidentMessage(resident, TownySettings.getTaxExemptMsg());
+                                	TownyMessaging.sendResidentMessage(resident, TownySettings.getTaxExemptMsg());
                                 } catch (TownyException e) {
                                 }
                                 continue;
@@ -1131,12 +1132,12 @@ public class TownyUniverse extends TownyObject {
             double cost = resident.getHoldingBalance() * town.getTaxes()/100;
             resident.payTo(cost, town, "Town Tax (Percentage)");
                                 try {
-                                        sendResidentMessage(resident, TownySettings.getPayedResidentTaxMsg() + cost);
+                                        TownyMessaging.sendResidentMessage(resident, TownySettings.getPayedResidentTaxMsg() + cost);
                                 } catch (TownyException e) {
                                 }
         }
         else if (!resident.payTo(town.getTaxes(), town, "Town Tax")) {
-        	sendTownMessage(town, TownySettings.getCouldntPayTaxesMsg(resident, "town"));
+        	TownyMessaging.sendTownMessage(town, TownySettings.getCouldntPayTaxesMsg(resident, "town"));
             	try {
             		//town.removeResident(resident);
                     resident.clear();
@@ -1146,7 +1147,7 @@ public class TownyUniverse extends TownyObject {
             getDataSource().saveTown(town);
         } else
         	try {
-            	sendResidentMessage(resident, TownySettings.getPayedResidentTaxMsg() + town.getTaxes());
+        		TownyMessaging.sendResidentMessage(resident, TownySettings.getPayedResidentTaxMsg() + town.getTaxes());
             } catch (TownyException e1) {
             }
                         
@@ -1163,7 +1164,7 @@ public class TownyUniverse extends TownyObject {
                             continue;
                         }
                         if (!resident.payTo(townBlock.getType().getTax(town), town, String.format("Plot Tax (%s)", townBlock.getType()))) {
-                            sendTownMessage(town,  String.format(TownySettings.getLangString("msg_couldnt_pay_plot_taxes"), resident));
+                        	TownyMessaging.sendTownMessage(town,  String.format(TownySettings.getLangString("msg_couldnt_pay_plot_taxes"), resident));
                             townBlock.setResident(null);
                             getDataSource().saveResident(resident);
                             getDataSource().saveWorld(townBlock.getWorld());
@@ -1179,7 +1180,7 @@ public class TownyUniverse extends TownyObject {
                 	try {
                 		int numPlots = townPlots.get(resident);
                         double totalCost = townTaxes.get(resident);
-                        sendResidentMessage(resident, String.format(TownySettings.getLangString("msg_payed_plot_cost"), totalCost, numPlots, town.getName()));
+                        TownyMessaging.sendResidentMessage(resident, String.format(TownySettings.getLangString("msg_payed_plot_cost"), totalCost, numPlots, town.getName()));
                 } catch (TownyException e) {
                 }
             }
@@ -1296,7 +1297,7 @@ public class TownyUniverse extends TownyObject {
                     town.clear();
             } catch (EmptyNationException e) {
                     removeNation(e.getNation());
-                    sendGlobalMessage(String.format(TownySettings.getLangString("msg_del_nation"), e.getNation()));
+                    TownyMessaging.sendGlobalMessage(String.format(TownySettings.getLangString("msg_del_nation"), e.getNation()));
             } catch (NotRegisteredException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
