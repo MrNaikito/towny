@@ -279,7 +279,7 @@ public class PlotCommand implements CommandExecutor  {
 	
 	                    } else {
 	                        player.sendMessage(ChatTools.formatCommand("", "/plot set", "reset", ""));
-	                        player.sendMessage(ChatTools.formatCommand("", "/plot set", "shop", ""));
+	                        player.sendMessage(ChatTools.formatCommand("", "/plot set", "shop|embassy|arena|wilds", ""));
 	                        player.sendMessage(ChatTools.formatCommand("", "/plot set perm", "?", ""));
 	                    }
                 	} else if (split[0].equalsIgnoreCase("clear")) {
