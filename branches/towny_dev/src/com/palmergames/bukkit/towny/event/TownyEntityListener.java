@@ -408,7 +408,7 @@ public class TownyEntityListener extends EntityListener {
             try {
     			// Check Town PvP status
     			TownBlock townblock = world.getTownBlock(coord);
-    			if (!townblock.getTown().isPVP() && !world.isForcePVP()) {
+    			if (!townblock.getTown().isPVP() && !world.isForcePVP() && (townblock.getType() != TownBlockType.ARENA)) {
     				if (bp != null && (ap != null || a instanceof Arrow))
     					return true;
     				
