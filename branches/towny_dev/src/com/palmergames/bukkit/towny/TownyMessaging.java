@@ -52,6 +52,7 @@ public class TownyMessaging {
         		((CommandSender) sender).sendMessage(Colors.strip(line));
         sendDevMsg(msg);
     }
+	
 	/**
 	 * Sends an Error message (red) to the Player or console
 	 * and to the named Dev if DevMode is enabled.
