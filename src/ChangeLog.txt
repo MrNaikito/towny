@@ -792,3 +792,4 @@ v0.77.0.2:
 	  Handy for adding a protection zones arround a town where residents can farm tree's and plant sapplings.
 v0.77.0.3:
 	- changed modify_chat.format to modify_chat.Chat_format so it will force an upgrade of the chat format for those having trouble with copy/paste.
+	- Fixed Arean plots so they properly allow PVP.
