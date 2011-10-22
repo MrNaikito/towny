@@ -155,12 +155,15 @@ public class TownyPlayerListener extends PlayerListener {
 
 		Player player = event.getPlayer();
 
-		//Block block = event.getClickedBlock();
+		Block block = event.getClickedBlock();
 		WorldCoord worldCoord;
 		//System.out.println("onPlayerInteractEvent");
 
 		try {
-			worldCoord = new WorldCoord(TownyUniverse.getWorld(player.getWorld().getName()), Coord.parseCoord(player));
+			if (block != null)
+				worldCoord = new WorldCoord(TownyUniverse.getWorld(player.getWorld().getName()), Coord.parseCoord(block));
+			else
+				worldCoord = new WorldCoord(TownyUniverse.getWorld(player.getWorld().getName()), Coord.parseCoord(player));
 		} catch (NotRegisteredException e1) {
 			TownyMessaging.sendErrorMsg(player, TownySettings.getLangString("msg_err_not_configured"));
 			event.setCancelled(true);
@@ -168,7 +171,12 @@ public class TownyPlayerListener extends PlayerListener {
 		}
 
 		//Get itemUse permissions (updates if none exist)
-		boolean bItemUse = TownyUniverse.getCachePermissions().getCachePermission(player, player.getLocation(), TownyPermission.ActionType.ITEM_USE);
+		boolean bItemUse;
+		
+		if (block != null)
+			bItemUse = TownyUniverse.getCachePermissions().getCachePermission(player, block.getLocation(), TownyPermission.ActionType.ITEM_USE);
+		else
+			bItemUse = TownyUniverse.getCachePermissions().getCachePermission(player, player.getLocation(), TownyPermission.ActionType.ITEM_USE);
 
 		PlayerCache cache = plugin.getCache(player);
 		//cache.updateCoord(worldCoord);

@@ -795,3 +795,4 @@ v0.77.0.3:
 	- Fixed Arena plots so they properly allow PVP.
 	- Towny cheat protection no longer opperates in worlds where towny is disabled.
 	- Fixed an error displaying the mayor error message when he attempts to leave town.
+	- Fixed Switch permissions allowing users to open chests with certain items in hand.
