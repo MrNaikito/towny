@@ -267,7 +267,7 @@ public enum ConfigNodes {
             FILTERS_MODIFY_CHAT_ENABLE("filters_colour_chat.modify_chat.enable","true",
             		"# This is used for when you don't have another plugin to format chat.",
             		"# It will cause Towny to overwrite any other plugins alterations to the format."),
-            FILTERS_MODIFY_CHAT_FORMAT("filters_colour_chat.modify_chat.format",
+            FILTERS_MODIFY_CHAT_FORMAT("filters_colour_chat.modify_chat.chat_format",
             		"{townytagoverride}{townycolor}{permprefix}{group} {townyprefix}{modplayername}{townypostfix}{permsuffix}&f: {msg}",
             		"# This is the format for when you are not using another plugin to set the format and modify_chat.format is true.",
             		"# You can use text colouring shown in filters.colour as well."),

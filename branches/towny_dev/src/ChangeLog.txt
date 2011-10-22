@@ -786,7 +786,9 @@ v0.77.0.1:
       {nationformatted} - Displays nation name if a member of a nation (using tag_format.nation).
     - Changed {townyfullnames} to {townyformatted}.
     - Fixed an error on town loading caused by the new plot level permissions.
-v0.76.0.2:
+v0.77.0.2:
 	- Towny now accepts worlds with spaces in their names.
 	- Added a 'wilds' plot type. This type allows mayors to set the plot to wilds and it follows wilderness build/break rules for residents only.
 	  Handy for adding a protection zones arround a town where residents can farm tree's and plant sapplings.
+v0.77.0.3:
+	- changed modify_chat.format to modify_chat.Chat_format so it will force an upgrade of the chat format for those having trouble with copy/paste.
