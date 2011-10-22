@@ -793,3 +793,4 @@ v0.77.0.2:
 v0.77.0.3:
 	- changed modify_chat.format to modify_chat.Chat_format so it will force an upgrade of the chat format for those having trouble with copy/paste.
 	- Fixed Arena plots so they properly allow PVP.
+	- Towny cheat protection no longer opperates in worlds where towny is disabled.
