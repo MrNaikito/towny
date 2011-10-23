@@ -798,3 +798,4 @@ v0.77.0.3:
 	- Fixed Switch permissions allowing users to open chests with certain items in hand.
 v0.77.0.4:
 	- You can no longer add your own nation as an enemy/ally.
+	- Extra parsing when loading comma delimited lines to prevent badly edited or empty elements causing issues.
