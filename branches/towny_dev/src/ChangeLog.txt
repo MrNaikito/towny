@@ -796,3 +796,5 @@ v0.77.0.3:
 	- Towny cheat protection no longer opperates in worlds where towny is disabled.
 	- Fixed an error displaying the mayor error message when he attempts to leave town.
 	- Fixed Switch permissions allowing users to open chests with certain items in hand.
+v0.77.0.4:
+	- You can no longer add your own nation as an enemy/ally.
