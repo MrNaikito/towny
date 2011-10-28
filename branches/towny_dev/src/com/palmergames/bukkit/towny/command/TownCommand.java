@@ -384,10 +384,9 @@ public class TownCommand implements CommandExecutor  {
                         player.sendMessage(ChatTools.formatCommand("", "/town set", "perm ...", "'/town set perm' " + TownySettings.getLangString("res_5")));
                         //player.sendMessage(ChatTools.formatCommand("", "/town set", "pvp [on/off]", ""));
                         player.sendMessage(ChatTools.formatCommand("", "/town set", "taxes [$]", ""));
-                        player.sendMessage(ChatTools.formatCommand("", "/town set", "plottax [$]", ""));
-                        player.sendMessage(ChatTools.formatCommand("", "/town set", "plotprice [$]", ""));
-            player.sendMessage(ChatTools.formatCommand("", "/town set", "shoptax [$]", ""));
-                        player.sendMessage(ChatTools.formatCommand("", "/town set", "shopprice [$]", ""));
+                        player.sendMessage(ChatTools.formatCommand("", "/town set", "[plottax/shoptax/embassytax] [$]", ""));
+                        //player.sendMessage(ChatTools.formatCommand("", "/town set", "shoptax [$]", ""));
+                        player.sendMessage(ChatTools.formatCommand("", "/town set", "[plotprice/shopprice/embassyprice] [$]", ""));
                         player.sendMessage(ChatTools.formatCommand("", "/town set", "name [name]", ""));
                         player.sendMessage(ChatTools.formatCommand("", "/town set", "tag [upto 4 letters] or clear", ""));
                         //player.sendMessage(ChatTools.formatCommand("", "/town set", "public [on/off]", ""));

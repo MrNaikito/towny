@@ -111,7 +111,7 @@ public class PlotClaim extends Thread {
                         TownBlock townBlock = worldCoord.getTownBlock();
                         Town town = townBlock.getTown();
                         if (resident.getTown() != town && !townBlock.getType().equals(TownBlockType.EMBASSY))
-                                throw new TownyException(TownySettings.getLangString("msg_not_town"));
+                                throw new TownyException(TownySettings.getLangString("msg_err_not_part_town"));
 
                         try {
                                 Resident owner = townBlock.getResident();
