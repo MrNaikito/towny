@@ -123,7 +123,7 @@ public class TownyFormatter {
 		TownyWorld world = town.getWorld();
 
 		// ___[ Raccoon City (PvP) ]___
-		out.add(ChatTools.formatTitle(getFormattedName(town)));
+		out.add(ChatTools.formatTitle(getFormattedName(town) + ((town.isPVP() || town.getWorld().isForcePVP()) ? Colors.Red + " (PvP)" : "")));
 
 		// Lord: Mayor Quimby
 		// Board: Get your fried chicken
@@ -284,8 +284,8 @@ public class TownyFormatter {
 
 	public static String getFormattedTownName(Town town) {
 		if (town.isCapital())
-			return TownySettings.getCapitalPrefix(town) + town.getName().replaceAll("_", " ") + TownySettings.getCapitalPostfix(town) + ((town.isPVP() || town.getWorld().isForcePVP()) ? Colors.Red + " (PvP)" : "");
-		return TownySettings.getTownPrefix(town) + town.getName().replaceAll("_", " ") + TownySettings.getTownPostfix(town) + ((town.isPVP() || town.getWorld().isForcePVP()) ? Colors.Red + " (PvP)" : "");
+			return TownySettings.getCapitalPrefix(town) + town.getName().replaceAll("_", " ") + TownySettings.getCapitalPostfix(town);
+		return TownySettings.getTownPrefix(town) + town.getName().replaceAll("_", " ") + TownySettings.getTownPostfix(town);
 	}
 
 	public static String getFormattedNationName(Nation nation) {
