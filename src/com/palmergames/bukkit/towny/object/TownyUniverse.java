@@ -1695,9 +1695,9 @@ public class TownyUniverse extends TownyObject {
 		return onlineResidents;
 	}
         
-	public void requestTeleport(Player player, Town town) {
+	public void requestTeleport(Player player, Town town, double cost) {
         try {
-            TeleportWarmupTimerTask.requestTeleport(getResident(player.getName().toLowerCase()), town);
+            TeleportWarmupTimerTask.requestTeleport(getResident(player.getName().toLowerCase()), town, cost);
         } catch (TownyException x) {
         	TownyMessaging.sendErrorMsg(player, x.getError());
         }
