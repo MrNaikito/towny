@@ -981,7 +981,7 @@ public class TownCommand implements CommandExecutor  {
                 Chunk chunk = town.getSpawn().getWorld().getChunkAt(town.getSpawn().getBlock());
                 
                 // Essentials tests
-                boolean notUsingESS = false;
+                boolean UsingESS = TownySettings.isUsingEssentials();
                 
                 if (TownySettings.isUsingEssentials() && !isTownyAdmin) {
                     Plugin handle = plugin.getServer().getPluginManager().getPlugin("Essentials");
@@ -994,13 +994,15 @@ public class TownCommand implements CommandExecutor  {
                             
                             if (!user.isTeleportEnabled()) {
                                 //Ess teleport is disabled
-                                notUsingESS = true;
+                            	UsingESS = false;
                                 return;
                             }
                             if (!user.isJailed()) {
                             	
                                 Teleport teleport = user.getTeleport();
                                 if (!chunk.isLoaded()) chunk.load();
+                                // Cause an essentials exception if in cooldown.
+                                teleport.cooldown(true);
                                 teleport.teleport(town.getSpawn(),null);
                             }
                         } catch (Exception e) {
@@ -1027,7 +1029,7 @@ public class TownCommand implements CommandExecutor  {
                     return;
                 }
                 
-                if (!notUsingESS) {
+                if (!UsingESS) {
                     if (plugin.getTownyUniverse().isTeleportWarmupRunning()) {
                     	// Use teleport warmup
                         player.sendMessage(String.format(TownySettings.getLangString("msg_town_spawn_warmup"),
