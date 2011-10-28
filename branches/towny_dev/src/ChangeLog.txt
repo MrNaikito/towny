@@ -807,3 +807,6 @@ v0.77.0.4:
 	- When using the Towny teleport delay, aborted teleports now refund the money.
 	- Added '/townyadmin purge x', where x is a number of days.
 	  Removes all residents who havn't logged in for X amount of days.
+v0.77.0.5:
+	- The notification when entering a town will now show if the town has PVP enabled.
+	- Plot PVP settings will now cause a notification if you move between plots with different settings.

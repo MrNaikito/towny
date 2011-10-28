@@ -2,6 +2,8 @@ package com.palmergames.bukkit.towny;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bukkit.Bukkit;
+
 import com.palmergames.bukkit.config.ConfigNodes;
 import com.palmergames.bukkit.towny.object.Resident;
 import com.palmergames.bukkit.towny.object.Town;
@@ -122,7 +124,7 @@ public class ChunkNotification {
 	public String getAreaNotification() {
 		if (fromWild ^ toWild || !fromWild && !toWild && fromTown != null && toTown != null && fromTown != toTown) {
 			if (toWild)
-				return String.format(areaWildernessNotificationFormat, to.getWorld().getUnclaimedZoneName());
+				return String.format(areaWildernessNotificationFormat, to.getWorld().getUnclaimedZoneName()) + ((Bukkit.getServer().getWorld(to.getWorld().getName()).getPVP()) ? Colors.Red + " (PvP)" : "");
 			else
 				return String.format(areaTownNotificationFormat, TownyFormatter.getFormattedName(toTown));
 		}
@@ -130,11 +132,12 @@ public class ChunkNotification {
 	}
 	
 	public String getOwnerNotification() {
-		if (fromResident != toResident && !toWild) {
+		if ((fromResident != toResident && !toWild) || ((fromResident == toResident && !toWild) && ((fromWild) || ((toTownBlock.getPermissions().pvp != fromTownBlock.getPermissions().pvp) && !toTown.isPVP()))))  {
             if (toResident != null)
-            	return String.format(ownerNotificationFormat, TownyFormatter.getFormattedName(toResident));
+            	return String.format(ownerNotificationFormat, TownyFormatter.getFormattedName(toResident))  + ((toTownBlock.getPermissions().pvp) ? Colors.Red + " (PvP)" : "");
 			else
-				return String.format(noOwnerNotificationFormat, TownySettings.getUnclaimedPlotName());
+				return String.format(noOwnerNotificationFormat, TownySettings.getUnclaimedPlotName())  + ((toTownBlock.getPermissions().pvp) ? Colors.Red + " (PvP)" : "");
+            
 		}
 		return null;
 	}
