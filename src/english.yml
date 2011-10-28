@@ -1,5 +1,5 @@
 name: Towny
-version: 0.12
+version: 0.13
 language: english
 author: ElgarL
 website: 'http://code.google.com/a/eclipselabs.org/p/towny/'
@@ -209,7 +209,6 @@ msg_not_claimable: '&cThis world is not claimable.'
 msg_abandoned_area: '&bAbandoned area %s'
 msg_admin_unclaim_area: '&cForcefully unclaimed area  %s'
 msg_abandoned_area_1: '&bYour town abandoned the area'
-msg_not_town: '&cSelected area is not part of your town.'
 msg_no_money_purchase_plot: '&cYou don''t have enough money to purchase this plot.'
 msg_town_no_money_purchase_plot: '&cThe town doesn''t have enough money to purchase back this plot.'
 msg_no_funds_new_town: '&c%s can''t afford to settle a new town here.'
