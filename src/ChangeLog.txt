@@ -803,3 +803,4 @@ v0.77.0.4:
 	- Removed 'msg_not_town' from english.yml as it's not longer used.
 	- Fixed '/res delete <name>' and made it admin only.
 	  Command will remove all traces of the resident (including deleting the residents data file).
+	- Towny now supports the Essentials Cooldown and delay.
