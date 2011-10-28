@@ -29,6 +29,7 @@ import com.palmergames.bukkit.towny.object.WorldCoord;
 import com.palmergames.bukkit.towny.tasks.TownClaim;
 import com.palmergames.bukkit.util.ChatTools;
 import com.palmergames.bukkit.util.Colors;
+import com.palmergames.bukkit.util.TimeTools;
 import com.palmergames.util.MemMgmt;
 import com.palmergames.util.StringMgmt;
 
@@ -55,8 +56,7 @@ public class TownyAdminCommand implements CommandExecutor {
 		ta_help.add(ChatTools.formatCommand("", "/townyadmin", "unclaim [radius]", ""));
 		ta_help.add(ChatTools.formatCommand("", "/townyadmin", "town/nation", ""));
 		ta_help.add(ChatTools.formatCommand("", "/townyadmin", "givebonus [town/player] [num]", ""));
-		ta_help.add(ChatTools.formatCommand("", "/townyadmin", "toggle neutral/war", ""));
-		ta_help.add(ChatTools.formatCommand("", "/townyadmin", "          debug/devmode", ""));
+		ta_help.add(ChatTools.formatCommand("", "/townyadmin", "toggle neutral/war/debug/devmode", ""));
 
 		//TODO: ta_help.add(ChatTools.formatCommand("", "/townyadmin", "npc rename [old name] [new name]", ""));
 		//TODO: ta_help.add(ChatTools.formatCommand("", "/townyadmin", "npc list", ""));
@@ -64,6 +64,7 @@ public class TownyAdminCommand implements CommandExecutor {
 		ta_help.add(ChatTools.formatCommand("", "/townyadmin", "reset", ""));
 		ta_help.add(ChatTools.formatCommand("", "/townyadmin", "backup", ""));
 		ta_help.add(ChatTools.formatCommand("", "/townyadmin", "newday", TownySettings.getLangString("admin_panel_3")));
+		ta_help.add(ChatTools.formatCommand("", "/townyadmin", "purge [number of days]", ""));
 
 		ta_unclaim.add(ChatTools.formatTitle("/townyadmin unclaim"));
 		ta_unclaim.add(ChatTools.formatCommand(TownySettings.getLangString("admin_sing"), "/townyadmin unclaim", "", TownySettings.getLangString("townyadmin_help_1")));
@@ -146,6 +147,8 @@ public class TownyAdminCommand implements CommandExecutor {
 			}
 		else if (split[0].equalsIgnoreCase("newday"))
 			plugin.getTownyUniverse().newDay();
+		else if (split[0].equalsIgnoreCase("purge"))
+			purge(StringMgmt.remFirstArg(split));
 		else if (split[0].equalsIgnoreCase("unclaim"))
 			parseAdminUnclaimCommand(StringMgmt.remFirstArg(split));
 		/*
@@ -389,6 +392,41 @@ public class TownyAdminCommand implements CommandExecutor {
 
 		TownyMessaging.sendMsg(sender, TownySettings.getLangString("msg_reloaded"));
 		//TownyMessaging.sendMsg(TownySettings.getLangString("msg_reloaded"));
+	}
+	
+	/**
+	 * Remove residents who havn't logged in for X amount of days.
+	 * 
+	 * @param split
+	 */
+	public void purge(String[] split) {
+		if (split.length == 0) {
+			//command was '/townyadmin purge'
+			player.sendMessage(ChatTools.formatTitle("/townyadmin purge"));
+			player.sendMessage(ChatTools.formatCommand("", "/townyadmin purge", "[number of days]", ""));
+			player.sendMessage(ChatTools.formatCommand("", "", "Removes offline residents not seen for this duration.", ""));
+
+			return;
+		}
+
+		int days = 1;
+
+		try {
+			days = Integer.parseInt(split[0]);
+		} catch (NumberFormatException e) {
+			TownyMessaging.sendErrorMsg(getSender(), TownySettings.getLangString("msg_error_must_be_int"));
+			return;
+		}
+
+		for (Resident resident : new ArrayList<Resident>(plugin.getTownyUniverse().getResidents())) {
+			if (!resident.isNPC() && (System.currentTimeMillis() - resident.getLastOnline() > (TimeTools.getMillis(days + "d"))) && !plugin.isOnline(resident.getName())) {
+				TownyMessaging.sendMsg("Deleting resident: " + resident.getName());
+				plugin.getTownyUniverse().removeResident(resident);
+				plugin.getTownyUniverse().removeResidentList(resident);
+
+			}
+		}
+
 	}
 
 	public void parseToggleCommand(String[] split) throws TownyException {
