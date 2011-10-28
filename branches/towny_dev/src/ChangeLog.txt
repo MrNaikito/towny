@@ -805,3 +805,5 @@ v0.77.0.4:
 	  Command will remove all traces of the resident (including deleting the residents data file).
 	- Towny now supports the Essentials Cooldown and delay.
 	- When using the Towny teleport delay, aborted teleports now refund the money.
+	- Added '/townyadmin purge x', where x is a number of days.
+	  Removes all residents who havn't logged in for X amount of days.
