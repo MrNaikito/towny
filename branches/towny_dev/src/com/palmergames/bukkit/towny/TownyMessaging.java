@@ -182,8 +182,15 @@ public class TownyMessaging {
 	 * @param player
 	 * @param line
 	 */
-	public static void sendMessage(Player sender, String line) {
-        sender.sendMessage(line);
+	public static void sendMessage(Object sender, String line) {
+		boolean isPlayer = false;
+		if (sender instanceof Player)
+			isPlayer = true;
+
+		if (isPlayer)
+			((Player) sender).sendMessage(line);
+		else
+			((CommandSender) sender).sendMessage(line);
 	}
 	
 	/**

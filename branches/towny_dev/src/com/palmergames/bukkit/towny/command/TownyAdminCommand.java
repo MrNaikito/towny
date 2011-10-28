@@ -420,7 +420,7 @@ public class TownyAdminCommand implements CommandExecutor {
 
 		for (Resident resident : new ArrayList<Resident>(plugin.getTownyUniverse().getResidents())) {
 			if (!resident.isNPC() && (System.currentTimeMillis() - resident.getLastOnline() > (TimeTools.getMillis(days + "d"))) && !plugin.isOnline(resident.getName())) {
-				TownyMessaging.sendMsg("Deleting resident: " + resident.getName());
+				TownyMessaging.sendMessage(this.sender, "Deleting resident: " + resident.getName());
 				plugin.getTownyUniverse().removeResident(resident);
 				plugin.getTownyUniverse().removeResidentList(resident);
 
