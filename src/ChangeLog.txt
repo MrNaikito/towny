@@ -815,3 +815,4 @@ v0.77.0.6:
 	- added new commands...
 	  '/town set perm reset' - resets all town owned (non resident) plots to the towns default permissions.
 	  '/plot set perm reset' - resets all plots owned by you to their default permissions.
+	- Fixed 'plot claim/unclaim' to set correct plot permissions based upon plot type.
