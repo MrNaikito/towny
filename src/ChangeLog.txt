@@ -812,3 +812,6 @@ v0.77.0.5:
 	- Plot PVP settings will now cause a notification if you move between plots with different settings.
 v0.77.0.6:
 	- Fixed ConcurrentModificationException in utilSaveTownBlocks.
+	- added new commands...
+	  '/town set perm reset' - resets all town owned (non resident) plots to the towns default permissions.
+	  '/plot set perm reset' - resets all plots owned by you to their default permissions.

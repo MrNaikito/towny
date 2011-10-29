@@ -1454,6 +1454,22 @@ public class TownCommand implements CommandExecutor  {
 		                                    perm.explosion = b;
 		                                } else if (split[0].equalsIgnoreCase("mobs")) {
 		                                    perm.mobs = b;
+		                                } else if (split[0].equalsIgnoreCase("reset")) {
+		                                	// reset all townBlock permissions (by town/resident)
+		                                	for (TownBlock townBlock: new ArrayList<TownBlock>(townBlockOwner.getTownBlocks())) {
+	                                			if (((townBlockOwner instanceof Town) && (!townBlock.hasResident()))
+	                                			|| ((townBlockOwner instanceof Resident) && (townBlock.hasResident()))) {
+	                                				// Reset permissions
+	                                				townBlock.setType(townBlock.getType());
+	                                			}	
+	                                		}
+	                                		if (townBlockOwner instanceof Town)
+	                                			TownyMessaging.sendMsg(player, String.format(TownySettings.getLangString("msg_set_perms_reset"), "Town owned"));
+	                                		else
+	                                			TownyMessaging.sendMsg(player, String.format(TownySettings.getLangString("msg_set_perms_reset"), "your"));
+		                                		
+	                                		 plugin.updateCache();
+	                                		 return;
 		                                }
                                         
                                 } catch (Exception e) {

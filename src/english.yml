@@ -1,5 +1,5 @@
 name: Towny
-version: 0.13
+version: 0.14
 language: english
 author: ElgarL
 website: 'http://code.google.com/a/eclipselabs.org/p/towny/'
@@ -273,6 +273,7 @@ msg_clear_plot_material: '&bThe plot was cleared of all %s''s.'
 
 msg_set_perms: '&bSuccessfully changed permissions to:'
 msg_set_claim: '&bSuccessfully changed %s''s claimability to %s'
+msg_set_perms_reset: '&bSuccessfully reset permissions on all %s plots.'
 
 msg_usedefault: '&bThis world (%s) is now using the global default settings.'
 msg_set_wild_perms: '&bSuccessfully changed %s''s wild permissions %s'
