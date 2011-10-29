@@ -1116,7 +1116,7 @@ public class TownyFlatFileSource extends TownyDataSource {
 				fout.write(friend.getName() + ",");
 			fout.write(newLine);
 			// TownBlocks
-			fout.write("townBlocks=" + utilSaveTownBlocks(resident.getTownBlocks()) + newLine);
+			fout.write("townBlocks=" + utilSaveTownBlocks(new ArrayList<TownBlock>(resident.getTownBlocks())) + newLine);
 			// Plot Protection
 			fout.write("protectionStatus=" + resident.getPermissions().toString() + newLine);
 			fout.close();
@@ -1194,7 +1194,7 @@ public class TownyFlatFileSource extends TownyDataSource {
 			fout.write("fire=" + Boolean.toString(town.isFire()) + newLine);
 			*/
 			// TownBlocks
-			fout.write("townBlocks=" + utilSaveTownBlocks(town.getTownBlocks()) + newLine);
+			fout.write("townBlocks=" + utilSaveTownBlocks(new ArrayList<TownBlock>(town.getTownBlocks())) + newLine);
 			// Home Block
 			if (town.hasHomeBlock())
 				fout.write("homeBlock=" + town.getHomeBlock().getWorld().getName() + ","

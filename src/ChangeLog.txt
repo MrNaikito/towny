@@ -810,3 +810,5 @@ v0.77.0.4:
 v0.77.0.5:
 	- The notification when entering a town will now show if the town has PVP enabled.
 	- Plot PVP settings will now cause a notification if you move between plots with different settings.
+v0.77.0.6:
+	- Fixed ConcurrentModificationException in utilSaveTownBlocks.
