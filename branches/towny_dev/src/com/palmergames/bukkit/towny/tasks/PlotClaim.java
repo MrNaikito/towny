@@ -130,7 +130,7 @@ public class PlotClaim extends Thread {
                                         townBlock.setResident(resident);
                                         
                                         // Set the plot permissions to mirror the new owners.
-                                        townBlock.setPermissions(resident.getPermissions().toString());
+                                        townBlock.setType(townBlock.getType());
 
 										TownyUniverse.getDataSource().saveResident(owner);
 										
@@ -147,7 +147,7 @@ public class PlotClaim extends Thread {
                                         townBlock.setPlotPrice(-1);
                                         
                                         // Set the plot permissions to mirror the towns.
-                                        townBlock.setPermissions(town.getPermissions().toString());
+                                        townBlock.setType(townBlock.getType());
 
 										TownyUniverse.getDataSource().saveResident(owner);
 
@@ -170,7 +170,7 @@ public class PlotClaim extends Thread {
                                 townBlock.setResident(resident);
                                 
                                 // Set the plot permissions to mirror the new owners.
-                                townBlock.setPermissions(resident.getPermissions().toString());                                        
+                                townBlock.setType(townBlock.getType());                                        
 
                                 return true;
                         }
@@ -190,7 +190,7 @@ public class PlotClaim extends Thread {
             townBlock.setPlotPrice(townBlock.getTown().getPlotPrice());
             
             // Set the plot permissions to mirror the towns.
-            townBlock.getPermissions().loadDefault(townBlock.getTown());
+            townBlock.setType(townBlock.getType());
             
 			plugin.updateCache();
                         
