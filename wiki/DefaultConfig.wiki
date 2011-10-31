@@ -1,10 +1,10 @@
 #summary The Default Config.yml
 {{{
- version:
+version:
   # This is the current version of Towny.  Please do not edit.
-  version: 0.76.3.12
+  version: 0.77.1.0
   # This is for showing the changelog on updates.  Please do not edit.
-  last_run_version: 0.76.3.12
+  last_run_version: 0.77.1.0
   # Minimum required version of CraftBukkit.  Please do not edit.
   bukkit_version: '1321'
  
@@ -249,23 +249,8 @@ new_world_settings:
       # To disable deleting replace the current entries with NONE.
       mayor_plot_delete: WALL_SIGN,SIGN_POST
  
-    revert_on_unclaim:
-      # *** WARNING***
-      # If this is enabled any town plots which become unclaimed will
-      # slowly be reverted to a snapshot taken before the plot was claimed.
-      #
-      # Regeneration will only work if the plot was
-      # claimed under version 0.76.2, or
-      # later with this feature enabled
-      #
-      # If you allow players to break/build in the wild the snapshot will
-      # include any changes made before the plot was claimed.
-      enabled: 'true'
-      speed: 1s
-      # These block types will NOT be regenerated
-      block_ignore: 21,22,41,42,50,52,56,57,63,68,89
+    revert_on_unclaim: ''
     wild_revert_on_mob_explosion:
- 
       # Enabling this will slowly regenerate holes created in the
       # wilderness by monsters exploding.
       enabled: 'true'
@@ -387,26 +372,35 @@ filters_colour_chat:
   # The format below will specify the changes made to the player name when chatting.
   # These keys can be used in other plugins that modify the chat format like iChat.
  
-  # {nation} - Displays nation name if a member of a nation.
   # {town} - Displays town name if a member of a town.
+  # {townformatted} - Displays town name (if a member of a town) using tag_format.town.
+  # {towntag} - Displays the formated town tag (if a member of a town) using modify_chat.tag_format.town.
+  # {towntagoverride} - Displays the formated town tag (if a member of a town and present) or falls back to the full name (using modify_chat.tag_format.town).
+ 
+  # {nation} - Displays nation name if a member of a nation.
+  # {nationformatted} - Displays nation name (if a member of a nation) using tag_format.town.
+  # {nationtag} - Displays the formated nation tag (if a member of a nation) using modify_chat.tag_format.nation.
+  # {nationtagoverride} - Displays the formated nation tag (if a member of a nation and present) or falls back to the full name (using modify_chat.tag_format.nation).
+ 
+  # {townytag} - Displays the formated town/nation tag as specified in modify_chat.tag_format.both.
+  # {townyformatted} - Displays the formated full town/nation names as specified in modify_chat.tag_format.both.
+  # {townytagoverride} - Displays the formated town/nation tag (if present) or falls back to the full names (using modify_chat.tag_format.both).
+ 
+  # {title} - Towny resident Title
+  # {surname} - Towny resident surname
   # {townynameprefix} - Towny name prefix taken from the townLevel/nationLevels
   # {townynamepostfix} - Towny name postfix taken from the townLevel/nationLevels.
-  # {townyprefix} - Towny name prefix (title)
-  # {townypostfix} - Towny name postfix (surname)
-  # {townyfullnames} - Displays the formated town/nation names as specified in modify_chat.tag_format.both.
-  # {townytag} - Displays the formated tag as specified in modify_chat.tag_format.both.
-  # {townytagoverride} - Displays the formated tag (if present) or falls back to the full names (using modify_chat.tag_format.both).
-  # {nationtag} - Displays the formated nation tag if a member of a nation (using modify_chat.tag_format.nation).
-  # {towntag} - Displays the formated town tag if a member of a town (using modify_chat.tag_format.town).
-  # {nationtagoverride} - Displays the formated nation tag if a member of a nation (if present or full name fallback - using modify_chat.tag_format.nation).
-  # {towntagoverride} - Displays the formated town tag if a member of a town (if present or full name fallback - using modify_chat.tag_format.town).
+  # {townyprefix} - Towny resident title, or townynameprefix if no title exists
+  # {townypostfix} - Towny resident surname, or townynamepostfix if no surname exists
+ 
   # {townycolor} - Towny name colour for king/mayor/resident
- 
-  # The following keys are for use in modify_chat.format for if you don't have/want to use another
-  # plugin that changes the chat. They are also used for town/nation chat.
- 
+  # {group} - Players group name pulled from your permissions plugin
   # {permprefix} - Permission group prefix
   # {permsuffix} - Permission group suffix.
+ 
+  # The following keys are for use in modify_chat.format for if you don't have/want to use another
+  # plugin that changes the chat.
+ 
   # {playername} - Default player name.
   # {modplayername} - Modified player name (use if Towny is over writing some other plugins changes).
   # {msg} - The message sent.
@@ -419,28 +413,32 @@ filters_colour_chat:
     enable: 'true'
     # This is the format for when you are not using another plugin to set the format and modify_chat.format is true.
     # You can use text colouring shown in filters.colour as well.
-    format: '{townytagoverride}{townycolor}{permprefix}{townyprefix}{playername}{townypostfix}{permsuffix}&f:
+    chat_format: '{townytagoverride}{townycolor}{permprefix}{group} {townyprefix}{modplayername}{townypostfix}{permsuffix}&f:
       {msg}'
+ 
     tag_format:
       town: '&f[&3%s&f] '
       nation: '&f[&e%s&f] '
       # First %s is the nation tag, second is the town tag.
       both: '&f[&6%s&f|&3%s&f] '
+ 
     channel_format:
       town: '{channelTag} {townycolor}{permprefix}{townyprefix}{playername}{townypostfix}{permsuffix}&f:{msgcolour}
         {msg}'
       nation: '{channelTag}{towntagoverride}{townycolor}{permprefix}{townyprefix}{playername}{townypostfix}{permsuffix}&f:{msgcolour}
         {msg}'
       default: '{channelTag} {permprefix}{playername}{permsuffix}&f:{msgcolour} {msg}'
-    max_title_length: '10'
  
-    # Channels are in the format: command, channel-name, chat-colour, permission-node (to use channel).
+    # Channels are in the format: command, channel-tag, chat-colour, permission-node (to use channel).
     # Do ***NOT*** alter the commands for /tc and /nc.
     channels:
     - /tc,&f[&3TC&f],&b,towny.chat.town
     - /nc,&f[&6NC&f],&e,towny.chat.nation
     - /a,&f[&4ADMIN&f],&c,towny.chat.admin
     - /m,&f[&9MOD&f],&5,towny.chat.mod
+ 
+    # Maximum length of titles and surnames.
+    max_title_length: '10'
  
   # Text colouring
   # --------------
@@ -452,7 +450,8 @@ filters_colour_chat:
   # Chat colours
   colour:
     king: '&6'
-    mayor: '&f'
+    mayor: '&b'
+    resident: '&f'
  
  
 ############################################################
