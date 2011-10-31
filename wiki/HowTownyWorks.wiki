@@ -182,6 +182,14 @@ As of now there are:
   An embassy plot can be bought by any allied player, including players in your nation or players in a nation allied to your nation. The townblock remains owned by the host-town and a mayor from the host-town can take the plot from the owner at any time. If the player who owns the embassy plot becomes an enemy of the host-town they lose their embassy.
   Embassy plots can also be changed into shop plots, allowing for larger shop towns, where many different towns' players can set up shops.
   
+  === Wilds Plots ===
+  
+  Wilds plots are designatid with /plot set wilds
+  
+  A wilds plot allows residents to destroy the blocks found on the wild ignore ID list. This includes ores, trees, flowers, mushrooms and other harvestable blocks.
+  It is useful for creating tree farms, and protecting the terrain around a town, while still allowing residents to cut trees and explore caves.
+  
+  
 == Outposts ==
 Normally townblocks are claimed around the home block, always connected to the town. To claim a townblock out in the wilderness, a mayor or assistant must claim an outpost.
 
@@ -449,7 +457,9 @@ These are also the bits you will add to another chat plugin's config.
   * {townynamepostfix} - Towny name postfix taken from the townLevel/nationLevels.
   * {townyprefix} - Towny name prefix (title)
   * {townypostfix} - Towny name postfix (surname)
-  * {townyfullnames} - Displays the formated town/nation names as specified in modify_chat.tag_format.both.
+  * {townyformatted} - Displays the formated town/nation names as specified in modify_chat.tag_format.both.
+  * {townformatted} - Displays town name if a member of a town (using tag_format.town).
+  * {nationformatted} - Displays nation name if a member of a nation (using tag_format.nation).
   * {townytag} - Displays the formated tag as specified in modify_chat.tag_format.both.
   * {townytagoverride} - Displays the formated tag (if present) or falls back to the full names (using modify_chat.tag_format.both).
   * {nationtag} - Displays the formated nation tag if a member of a nation (using modify_chat.tag_format.nation).
