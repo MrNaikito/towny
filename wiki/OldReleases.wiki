@@ -5,6 +5,70 @@
 
 Here you can find information on old releases of Towny.
 
+== New in 0.77.0.0 ==
+
+    * New commands:
+      * /plot perm - displays the current plots permissions.
+      * /plot toggle {pvp|fire|explosion|mobs} - toggles on/off protections per-plot.
+      * /plot set perm {resident/friend/ally/outsider} {build/destroy/switch/itemuse} {on/off} - set plot perms on a per-plot basis.
+      * /plot set arena - Change a plot into an arena plot.
+      * /plot set embassy - Change a plot into an embassy plot.
+      * /town set embassyprice $ - Set default price for embassy plots.
+      * /town set embassytax $ - Set default daily-tax on embassy plots.
+      * New chat channels: (requires townychat.jar)
+        * /tc - Town chat
+        * /nc - Nation chat
+        * /m - Moderator chat
+        * /a - Admin chat
+      
+          
+    * New permission nodes:
+      * Permission nodes for chat channels added:
+        * towny.chat.town
+        * towny.chat.nation
+        * towny.chat.mod
+        * towny.chat.admin
+        
+    * Added:
+      * Animals in towns can now only be killed by residents of that town. Unless PVP is enabled.
+      * Added 23 and 107 to Switch Id's (Dispenser and Fence Gate).
+      * Added 57 (diamond block), 22 (lazuli block), 41 (gold block), 42 (iron block) to plot_management.revert_on_unclaim.block_ignore.
+      * Towny will now kick players who use hacked clients and join with no name, rather than crash.
+      * Changed response when setting resident/plot/town perms to be more readable.
+      * Added per-plot perms and toggles.
+      * Added Embassy and Arena plots.
+      * Reduced default plots per resident to 8, instead of 16 (town_block_ratio).
+      * Threaded plot claim/unclaim to eliminate lag on LARGE claims.
+      * Capped claiming by radius to 1000 TownBlocks.
+      * Added settings for Questioner accept/deny so server admins can change the default commands to accept or deny invites.
+      * Added protection from Enderman griefing (if town mobs are off).
+      * Added unclaimed_zone_enderman_protect to prevent endermen moving blocks in the wild.
+      * Added economy transaction logging. Towny/logs/money.csv will store transactions/purchases made through Towny.
+      * Town and Nation economy accounts are now restricted to 32 characters in length.
+      * Moved all chat handling to a seperate jar (TownyChat.jar).
+      * TownyChat is a Fully functional chat manager. If it's enabled it will handle all chat and supports custom chat channels.
+        * This new system supports total customization of chat.
+        * It supports custom chat channels, with access control via permission nodes.
+        * Current channels are:-
+          * /tc (town chat) permission node: towny.chat.town
+          * /nc (nation chat) permission node: towny.chat.nation
+          * /a (admin chat) permission node: towny.chat.admin
+          * /m (moderators chat) permission node: towny.chat.mod
+        * TownyChat also supports other chat plugins (herochat, iChat etc). To use another chat plugin with Towny...
+          * Set modify_chat.enable : false
+          * Then add any of the towny tags into your chat plugins format line.
+      
+      
+    * Bug Fixes!
+      * Fixed overwriting of config.yml.
+      * Fixed PEX support.
+      * TownBlocks reposessed by the Mayor/Assistants now correctly remove the block from the Residents data files.
+      * Changed saving of engligh.yml to ansi until bukkit fix their utf-8 support.
+      * Fixed '/town claim'.
+      * Possible fix for Essentials teleport refusing to engage and towny defaulting to it's own timer.
+      
+    * [http://code.google.com/a/eclipselabs.org/p/towny/source/browse/trunk/Towny/src/ChangeLog.txt#663 Click here for a full changelog.]
+  
 == New in 0.76.3.0 ==
 
     * New commands:
