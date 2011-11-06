@@ -118,7 +118,7 @@ public class TownyUniverse extends TownyObject {
             if (!isDailyTimerRunning())
                     toggleDailyTimer(true);
             //dailyTimer.schedule(new DailyTimerTask(this), 0);
-            if (getPlugin().getServer().getScheduler().scheduleSyncDelayedTask(getPlugin(), new DailyTimerTask(this)) == -1)
+            if (getPlugin().getServer().getScheduler().scheduleAsyncDelayedTask(getPlugin(), new DailyTimerTask(this)) == -1)
             	TownyMessaging.sendErrorMsg("Could not schedule newDay.");
             setChanged();
             notifyObservers(NEW_DAY);
@@ -153,7 +153,7 @@ public class TownyUniverse extends TownyObject {
 		if (on && !isDailyTimerRunning()) {
             long timeTillNextDay = TownyUtil.townyTime();
             TownyMessaging.sendMsg("Time until a New Day: " + TimeMgmt.formatCountdownTime(timeTillNextDay));
-            dailyTask = getPlugin().getServer().getScheduler().scheduleSyncRepeatingTask(getPlugin(), new DailyTimerTask(this), MinecraftTools.convertToTicks(timeTillNextDay), MinecraftTools.convertToTicks(TownySettings.getDayInterval()));
+            dailyTask = getPlugin().getServer().getScheduler().scheduleAsyncRepeatingTask(getPlugin(), new DailyTimerTask(this), MinecraftTools.convertToTicks(timeTillNextDay), MinecraftTools.convertToTicks(TownySettings.getDayInterval()));
             if (dailyTask == -1)
             	TownyMessaging.sendErrorMsg("Could not schedule new day loop.");
 		} else if (!on && isDailyTimerRunning()) {
