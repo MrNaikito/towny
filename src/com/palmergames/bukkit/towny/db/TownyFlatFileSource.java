@@ -116,10 +116,23 @@ public class TownyFlatFileSource extends TownyDataSource {
 	
 	@Override
 	public void deleteUnusedResidentFiles() {
-		String path = rootFolder + dataFolder + FileMgmt.fileSeparator() + "residents";
-		Set<String> residents = plugin.getTownyUniverse().getResidentKeys();
+		String path;
+		Set<String> names;
 		
-		FileMgmt.deleteUnusedResidentFiles(new File(path), residents);
+		path = rootFolder + dataFolder + FileMgmt.fileSeparator() + "residents";
+		names = plugin.getTownyUniverse().getResidentKeys();
+		
+		FileMgmt.deleteUnusedFiles(new File(path), names);
+		
+		path = rootFolder + dataFolder + FileMgmt.fileSeparator() + "towns";
+		names = plugin.getTownyUniverse().getTownsKeys();
+		
+		FileMgmt.deleteUnusedFiles(new File(path), names);
+		
+		path = rootFolder + dataFolder + FileMgmt.fileSeparator() + "nations";
+		names = plugin.getTownyUniverse().getNationsKeys();
+		
+		FileMgmt.deleteUnusedFiles(new File(path), names);
 	}
 	
 	public String getResidentFilename(Resident resident) {
