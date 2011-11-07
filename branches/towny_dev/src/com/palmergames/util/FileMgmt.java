@@ -333,13 +333,14 @@ public class FileMgmt {
         			try {
         				String filename = child.getName();
         				if (child.isFile()) {
-        					if (filename.contains("."))
-        						filename = filename.split("\\.")[0];
-        				}
-        				// Delete the file if there is no matching resident.
-        				if (!fileNames.contains(filename.toLowerCase())) {
-        					deleteFile(child);
-        					count ++;
+        					if (filename.contains(".txt"))
+        						filename = filename.split("\\.txt")[0];
+        					
+        					// Delete the file if there is no matching resident.
+            				if (!fileNames.contains(filename.toLowerCase())) {
+            					deleteFile(child);
+            					count ++;
+            				}
         				}
 
         			} catch (Exception e) {
