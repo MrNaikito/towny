@@ -12,6 +12,7 @@ import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.util.Set;
 import java.util.TreeSet;
 import java.util.concurrent.TimeUnit;
 import java.util.zip.ZipEntry;
@@ -319,5 +320,38 @@ public class FileMgmt {
     						: String.format("%d days old", TimeUnit.MILLISECONDS.toDays(deleted.first()))
     						)));
     	} 
+    }
+    
+    public static void deleteUnusedResidentFiles(File residentDir, Set<String> residents) {
+    	
+    	int count = 0;
+    	
+    	if (residentDir.isDirectory()) {
+    		File[] children = residentDir.listFiles();
+        	if (children != null) {
+        		for (File child : children) {
+        			try {
+        				String filename = child.getName();
+        				if (child.isFile()) {
+        					if (filename.contains("."))
+        						filename = filename.split("\\.")[0];
+        				}
+        				// Delete the file if there is no matching resident.
+        				if (!residents.contains(filename.toLowerCase())) {
+        					deleteFile(child);
+        					count ++;
+        				}
+
+        			} catch (Exception e) {
+        				// Ignore file
+        			}
+        		}
+        		
+        		if (count > 0) {
+        			System.out.println(String.format("[Towny] Deleted %d old Resident files.", count));
+        		}
+        	}
+    	}
+    	
     }
 }
