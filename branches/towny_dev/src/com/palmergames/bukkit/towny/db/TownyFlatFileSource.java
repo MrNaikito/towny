@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -111,6 +112,14 @@ public class TownyFlatFileSource extends TownyDataSource {
 		long deleteAfter = TownySettings.getBackupLifeLength();
 		if (deleteAfter >= 0)
 			FileMgmt.deleteOldBackups(new File(rootFolder + FileMgmt.fileSeparator() + "backup"), deleteAfter);
+	}
+	
+	@Override
+	public void deleteUnusedResidentFiles() {
+		String path = rootFolder + dataFolder + FileMgmt.fileSeparator() + "residents";
+		Set<String> residents = plugin.getTownyUniverse().getResidentKeys();
+		
+		FileMgmt.deleteUnusedResidentFiles(new File(path), residents);
 	}
 	
 	public String getResidentFilename(Resident resident) {
