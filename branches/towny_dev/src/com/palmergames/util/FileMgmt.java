@@ -322,7 +322,7 @@ public class FileMgmt {
     	} 
     }
     
-    public static void deleteUnusedResidentFiles(File residentDir, Set<String> residents) {
+    public static void deleteUnusedFiles(File residentDir, Set<String> fileNames) {
     	
     	int count = 0;
     	
@@ -337,7 +337,7 @@ public class FileMgmt {
         						filename = filename.split("\\.")[0];
         				}
         				// Delete the file if there is no matching resident.
-        				if (!residents.contains(filename.toLowerCase())) {
+        				if (!fileNames.contains(filename.toLowerCase())) {
         					deleteFile(child);
         					count ++;
         				}
@@ -348,7 +348,7 @@ public class FileMgmt {
         		}
         		
         		if (count > 0) {
-        			System.out.println(String.format("[Towny] Deleted %d old Resident files.", count));
+        			System.out.println(String.format("[Towny] Deleted %d old files.", count));
         		}
         	}
     	}

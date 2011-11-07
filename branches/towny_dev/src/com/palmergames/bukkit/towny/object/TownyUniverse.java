@@ -767,6 +767,14 @@ public class TownyUniverse extends TownyObject {
         public Set<String> getResidentKeys() {
                 return residents.keySet();
         }
+        
+        public Set<String> getTownsKeys() {
+            return towns.keySet();
+        }
+        
+        public Set<String> getNationsKeys() {
+            return nations.keySet();
+        }
 
         public List<Town> getTowns() {
                 return new ArrayList<Town>(towns.values());
