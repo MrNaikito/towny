@@ -148,7 +148,7 @@ public class ChunkNotification {
 	
 	public String getPVPNotification() {
 		if (!toWild && ((fromWild) || ((toTownBlock.getPermissions().pvp != fromTownBlock.getPermissions().pvp) && !toTown.isPVP())))  {
-			return ((testWorldPVP() && (toTown.isPVP() || toTownBlock.getPermissions().pvp)) ? Colors.Red + " (PvP)" : Colors.Green + "(No PVP)");   
+			return ((testWorldPVP() && (to.getWorld().isForcePVP() || toTown.isPVP() || toTownBlock.getPermissions().pvp)) ? Colors.Red + " (PvP)" : Colors.Green + "(No PVP)");   
 		}
 		return null;
 	}

@@ -827,3 +827,4 @@ v0.77.1.1:
 v0.77.1.2:
 	- Fixed reading/saving of coma delimited lists (eg switch_ids).
 	  These can now be set to be empty, so long as you edit it to read (switch_ids: '').
+	- Town block notifications will now correctly reflect the worlds Forced PVP status.
