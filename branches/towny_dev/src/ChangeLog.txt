@@ -824,3 +824,6 @@ v0.77.1.1:
 	- Fix for PEX world based prefix/suffix.
 	- Moved resident purging to it's own thread.
 	- Towny will now remove any unused resident/town/nation files after it performs it's backup.
+v0.77.1.2:
+	- Fixed reading/saving of coma delimited lists (eg switch_ids).
+	  These can now be set to be empty, so long as you edit it to read (switch_ids: '').

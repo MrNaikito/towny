@@ -368,7 +368,7 @@ public class TownySettings {
     }
 
     public static List<Integer> getIntArr(ConfigNodes node) {
-        String[] strArray = getString(node.getRoot().toLowerCase(), node.getDefault()).split(",");
+        String[] strArray = getString(node.getRoot(), node.getDefault()).split(",");
         List<Integer> list = new ArrayList<Integer>();
         if (strArray != null) {
         for (int ctr=0; ctr < strArray.length; ctr++)
@@ -449,7 +449,7 @@ public class TownySettings {
         	} else if (root.getRoot() == ConfigNodes.LAST_RUN_VERSION.getRoot()) {
         		setNewProperty(ConfigNodes.LAST_RUN_VERSION.getRoot(), getLastRunVersion(version));
         	} else
-        		setNewProperty(root.getRoot(), (config.getString(root.getRoot().toLowerCase()) != null) ? config.getString(root.getRoot().toLowerCase()) : root.getDefault());
+        		setNewProperty(root.getRoot(), (config.get(root.getRoot().toLowerCase()) != null) ? config.get(root.getRoot().toLowerCase()) : root.getDefault());
         	
         }
         
