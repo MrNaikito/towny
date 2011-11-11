@@ -1035,7 +1035,7 @@ public class TownyFlatFileSource extends TownyDataSource {
 		try {
 			BufferedWriter fout = new BufferedWriter(new FileWriter(rootFolder + dataFolder + FileMgmt.fileSeparator() + "residents.txt"));
 			for (Resident resident : universe.getResidents())
-				fout.write(resident.getName() + newLine);
+				fout.write(universe.checkAndFilterName(resident.getName()) + newLine);
 			fout.close();
 			return true;
 		} catch (Exception e) {
