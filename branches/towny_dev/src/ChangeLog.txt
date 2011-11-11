@@ -830,3 +830,4 @@ v0.77.1.2:
 	- Town block notifications will now correctly reflect the worlds Forced PVP status.
 v0.77.1.3:
 	- Fixed revert_on_unclaim.block_ignore. It wasn't being written to the config so was being ignored.
+	- Players joining with spaces in their names (hacked clients) will no longer kill Towny.

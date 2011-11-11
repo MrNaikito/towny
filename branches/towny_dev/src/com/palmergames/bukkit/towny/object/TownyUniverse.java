@@ -214,7 +214,7 @@ public class TownyUniverse extends TownyObject {
                 Resident resident;
                 
                 // Test and kick any players with invalid names.
-                if (player.getName().trim() == null) {
+                if ((player.getName().trim() == null) || (player.getName().contains(" "))) {
                 	player.kickPlayer("Invalid name!");
                 	return;
                 }
@@ -300,7 +300,7 @@ public class TownyUniverse extends TownyObject {
         
         public Location getTownSpawnLocation(Player player) throws TownyException {
                 try {
-                        Resident resident = plugin.getTownyUniverse().getResident(player.getName());
+                        Resident resident = getResident(player.getName());
                         Town town = resident.getTown();
                         return town.getSpawn();
                 } catch (TownyException x) {
@@ -412,7 +412,11 @@ public class TownyUniverse extends TownyObject {
         
 
         public boolean hasResident(String name) {
-                return residents.containsKey(name.toLowerCase());
+                try {
+					return residents.containsKey(checkAndFilterName(name).toLowerCase());
+				} catch (InvalidNameException e) {
+					return false;
+				}
         }
 
         public boolean hasTown(String name) {
@@ -543,7 +547,11 @@ public class TownyUniverse extends TownyObject {
         }
 
         public Resident getResident(String name) throws NotRegisteredException {
-                Resident resident = residents.get(name.toLowerCase());
+                Resident resident = null;
+				try {
+					resident = residents.get(checkAndFilterName(name).toLowerCase());
+				} catch (InvalidNameException e) {
+				}
                 if (resident == null)
                         throw new NotRegisteredException(name + " is not registered.");
                 
