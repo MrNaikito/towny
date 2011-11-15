@@ -49,15 +49,20 @@ public class FileMgmt {
 			String[] children = sourceLocation.list();
 			for (int i=0; i<children.length; i++)
 				copyDirectory(new File(sourceLocation, children[i]), new File(targetLocation, children[i]));
-		} else {      
-			InputStream in = new FileInputStream(sourceLocation);
+		} else {
 			OutputStream out = new FileOutputStream(targetLocation);
-			// Copy the bits from in stream to out stream.
-			byte[] buf = new byte[1024];
-			int len;
-			while ((len = in.read(buf)) > 0)
-				out.write(buf, 0, len);
-			in.close();
+			try {
+				InputStream in = new FileInputStream(sourceLocation);
+				// Copy the bits from in stream to out stream.
+				byte[] buf = new byte[1024];
+				int len;
+				while ((len = in.read(buf)) > 0)
+					out.write(buf, 0, len);
+				in.close();
+				out.close();
+			} catch (IOException ex) {
+				// failed to access file.
+			}
 			out.close();
 		}
 	}
