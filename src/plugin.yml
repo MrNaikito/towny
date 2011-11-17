@@ -1,6 +1,6 @@
 ﻿name: Towny
 main: com.palmergames.bukkit.towny.Towny
-version: 0.77.1.3
+version: 0.77.1.4
 author: Shade, Modified by FuzzeWuzze. Forked by ElgarL
 website: http://code.google.com/a/eclipselabs.org/p/towny/
 description: >
@@ -64,6 +64,7 @@ permissions:
             towny.town.claim: true
             towny.town.resident: true
             towny.town.plot: true
+            towny.town.plottype: true
             towny.town.spawn.*: true
             towny.town.toggle.*: true
     towny.town.spawn.*:
@@ -121,6 +122,9 @@ permissions:
         default: true
     towny.town.plot:
         description: User is able to purchase and own town plots.
+        default: false
+    towny.town.plottype:
+        description: User is able to alter plot types on plots they own.
         default: false
     towny.town.toggle.pvp:
         description: If a mayor or assistant, the user is able to toggle pvp on/off in their town.

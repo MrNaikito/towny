@@ -952,7 +952,7 @@ public class NationCommand implements CommandExecutor {
 					TownyMessaging.sendErrorMsg(player, "Eg: /nation set title bilbo Jester ");
 				else
 					try {
-						if (plugin.isPermissions() && (!TownyUniverse.getPermissionSource().hasPermission(player, "towny.nation.titles"))) {
+						if (plugin.isPermissions() && (!TownyUniverse.getPermissionSource().hasPermission(player, "towny.nation.grant-titles"))) {
 							TownyMessaging.sendErrorMsg(player, TownySettings.getLangString("msg_err_command_disable"));
 							return;
 						}

@@ -39,6 +39,7 @@ public class TownyPermission {
 	}
 
 	public void set(String s, boolean b) {
+		
 		if (s.equalsIgnoreCase("denyAll"))
 			reset();
 		else if (s.equalsIgnoreCase("residentBuild"))
