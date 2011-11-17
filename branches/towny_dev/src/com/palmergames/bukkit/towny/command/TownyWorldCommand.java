@@ -12,7 +12,6 @@ import org.bukkit.entity.Player;
 
 import com.palmergames.bukkit.towny.NotRegisteredException;
 import com.palmergames.bukkit.towny.Towny;
-import com.palmergames.bukkit.towny.TownyException;
 import com.palmergames.bukkit.towny.TownyMessaging;
 import com.palmergames.bukkit.towny.TownySettings;
 import com.palmergames.bukkit.towny.object.TownyUniverse;
@@ -119,7 +118,16 @@ public class TownyWorldCommand implements CommandExecutor  {
 			} else
 				TownyMessaging.sendMessage(player, plugin.getTownyUniverse().getStatus(Globalworld));				
 
-		} else if (split[0].equalsIgnoreCase("?")) {
+			return;
+		} 
+		
+		// The following commands are only available at console or for admins.
+		if ((player != null) && !plugin.isTownyAdmin(player)) {
+			TownyMessaging.sendErrorMsg(player, TownySettings.getLangString("msg_err_admin_only"));
+			return;
+		}
+		
+		if (split[0].equalsIgnoreCase("?")) {
 			if (player == null) {
 				for (String line : townyworld_help)
 					sender.sendMessage(line);
@@ -177,11 +185,6 @@ public class TownyWorldCommand implements CommandExecutor  {
 			player.sendMessage(ChatTools.formatCommand("", "/TownyWorld toggle", "fire", ""));
 			player.sendMessage(ChatTools.formatCommand("", "/TownyWorld toggle", "townmobs/worldmobs", ""));
 		} else {
-
-			if ((sender == null) && !plugin.isTownyAdmin(player)) {
-				TownyMessaging.sendErrorMsg(player, TownySettings.getLangString("msg_err_admin_only"));
-				return;
-			}
 
 			String msg;
 			
@@ -285,15 +288,6 @@ public class TownyWorldCommand implements CommandExecutor  {
 					player.sendMessage(line);
 			}
 		} else {
-
-			try {
-				if (!plugin.isTownyAdmin(player))
-					throw new TownyException(TownySettings.getLangString("msg_err_admin_only"));
-				//Globalworld = plugin.getTownyUniverse().getWorld(player.getWorld().getName());
-			} catch (TownyException x) {
-				TownyMessaging.sendErrorMsg(player, x.getError());
-				return;
-			}
 
 			if (split[0].equalsIgnoreCase("usedefault")) {
 				

@@ -119,27 +119,30 @@ public class TownBlock {
     	if (type != this.type)
     		this.permissions.reset();
         this.type = type;
+
         // Custom plot settings here
         switch(type) {
         case RESIDENTIAL:
-        	if (this.hasResident())
-        		this.permissions.loadDefault(this.resident);
-        	else
-        		this.permissions.loadDefault(this.town);
-        	
+        	if (this.hasResident()) {
+        		setPermissions(this.resident.permissions.toString());
+        	} else {
+        		setPermissions(this.town.permissions.toString());
+        	}
+        	break;
+        case COMMERCIAL:
+        	setPermissions("residentSwitch,allySwitch,outsiderSwitch");
         	break;
         case ARENA:
-        	this.permissions.pvp = true;
+        	setPermissions("pvp");
         	break;
         case EMBASSY:
         	if (this.hasResident())
-        		this.permissions.loadDefault(this.resident);
+        		setPermissions(this.resident.permissions.toString());
         	else
-        		this.permissions.loadDefault(this.town);
-        	
+        		setPermissions(this.town.permissions.toString());
         	break;
         case WILDS:
-        	this.setPermissions("denyAll");
+        	setPermissions("denyAll");
         	break;
         }
     }

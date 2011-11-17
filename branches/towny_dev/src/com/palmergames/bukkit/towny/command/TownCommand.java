@@ -1411,7 +1411,7 @@ public class TownCommand implements CommandExecutor  {
 			if (split.length == 1) {
 				if (split[0].equalsIgnoreCase("reset")) {
 					// reset all townBlock permissions (by town/resident)
-					for (TownBlock townBlock : new ArrayList<TownBlock>(townBlockOwner.getTownBlocks())) {
+					for (TownBlock townBlock : townBlockOwner.getTownBlocks()) {
 						if (((townBlockOwner instanceof Town) && (!townBlock.hasResident())) || ((townBlockOwner instanceof Resident) && (townBlock.hasResident()))) {
 							// Reset permissions
 							townBlock.setType(townBlock.getType());

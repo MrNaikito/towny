@@ -62,6 +62,7 @@ public class FileMgmt {
 				out.close();
 			} catch (IOException ex) {
 				// failed to access file.
+				System.out.println("Error: Could not access: " + sourceLocation);
 			}
 			out.close();
 		}

@@ -832,3 +832,9 @@ v0.77.1.3:
 	- Fixed revert_on_unclaim.block_ignore. It wasn't being written to the config so was being ignored.
 	- Players joining with spaces in their names (hacked clients) will no longer kill Towny.
 	- Prevent locked files causing a corrupt backup.
+v0.77.1.4:
+	- Fixed TownyWorld commands to only be available for admins or at console.
+	- Fixed '/plot set perm reset' and '/town set perm reset'.
+	- Added a permission node 'towny.town.plottype' (User is able to alter plot types on plots they own).
+	- Fixed Nation command to correctly check 'towny.nation.grant-titles' instead of towny.nation.titles'.
+	- Added daily upkeep to the '/town' and '/nation' outputs.
