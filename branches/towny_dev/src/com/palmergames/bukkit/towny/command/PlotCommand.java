@@ -251,7 +251,10 @@ public class PlotCommand implements CommandExecutor {
 							return;
 						}
 
-						if ((!plugin.isTownyAdmin(player)) && ((plugin.isPermissions()) && (!TownyUniverse.getPermissionSource().hasPermission(player, "towny.town.plottype"))))
+						if ((!plugin.isTownyAdmin(player)) && ((plugin.isPermissions())
+							&& (!TownyUniverse.getPermissionSource().hasPermission(player, "towny.town.plottype")))
+							&& !town.isMayor(resident)
+							&& !town.hasAssistant(resident))
 							throw new TownyException(String.format(TownySettings.getLangString("msg_cache_block_error_town_resident"), "change plot types"));
 						
 						WorldCoord worldCoord = new WorldCoord(world, Coord.parseCoord(player));
