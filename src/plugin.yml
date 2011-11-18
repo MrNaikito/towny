@@ -202,6 +202,7 @@ permissions:
             towny.chat.mod: true
             towny.chat.town: true
             towny.chat.nation: true
+            towny.chat.global: true
     towny.chat.admin:
         description: User is able to talk in the admin channel
         default: false
@@ -214,4 +215,7 @@ permissions:
     towny.chat.nation:
         description: User is able to talk in the nation channel
         default: false
+    towny.chat.global:
+        description: User is able to talk in the nation channel
+        default: true
         

@@ -192,9 +192,16 @@ public class TownySettings {
 		for (String channel : chatChannels) {
 			String split[] = channel.split("\\,");
 			if (split.length == 4)
-				newChatChannel(split[0].trim(), split[1].trim(), split[2].trim(), split[3].trim());
-		}	
+				newChatChannel(split[0].trim().toLowerCase(), split[1].trim(), split[2].trim(), split[3].trim());
+		}
+		
+		if (!chatChannelExists("/g"))
+			newChatChannel("/g", null, null, "towny.chat.global");
 	}
+    
+    public static Set<String> getChatChannels() {
+    	return configChatChannel.keySet();
+    }
     
     public static boolean chatChannelExists(String command) {
     	return configChatChannel.containsKey(command);
@@ -465,13 +472,14 @@ public class TownySettings {
     		System.out.print("Loading NEW chatChannels!");
     		
     		List<String> newChannels = new ArrayList<String>();
+    		newChannels.add("/g,,,towny.chat.global");
     		newChannels.add("/tc,&f[&3TC&f],&b,towny.chat.town");
     		newChannels.add("/nc,&f[&6NC&f],&e,towny.chat.nation");
     		newChannels.add("/a,&f[&4ADMIN&f],&c,towny.chat.admin");
     		newChannels.add("/m,&f[&9MOD&f],&5,towny.chat.mod");
     		newConfig.set(ConfigNodes.FILTERS_MODIFY_CHAT_CHANNELS.getRoot(), newChannels);
         } else
-        	newConfig.set(ConfigNodes.FILTERS_MODIFY_CHAT_CHANNELS.getRoot(), config.get(ConfigNodes.FILTERS_MODIFY_CHAT_CHANNELS.getRoot()));    	
+        	newConfig.set(ConfigNodes.FILTERS_MODIFY_CHAT_CHANNELS.getRoot(), config.get(ConfigNodes.FILTERS_MODIFY_CHAT_CHANNELS.getRoot()));
     }
 
     private static void setDefaultLevels() {
