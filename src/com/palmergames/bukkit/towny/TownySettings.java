@@ -1639,6 +1639,10 @@ public class TownySettings {
 		return getString(ConfigNodes.FILTERS_MODIFY_CHAT_TAG_FORMAT_TOWN_NATION);
 	}
 	
+	public static String getChatWorldFormat() {
+		return getString(ConfigNodes.FILTERS_MODIFY_CHAT_TAG_FORMAT_WORLD);
+	}
+	
 	public static String getChatTownTagFormat() {
 		return getString(ConfigNodes.FILTERS_MODIFY_CHAT_TAG_FORMAT_TOWN);
 	}

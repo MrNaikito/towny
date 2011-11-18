@@ -848,3 +848,4 @@ v0.77.1.5:
 	  While in a chat mode you can talk in global chat with '/g text here'.
 	  to clear all chat modes '/g'.
 	- Added a new permission node for global chat ('/g') of 'towny.chat.global'.
+	- added {worldname} as a chat tag entry.
