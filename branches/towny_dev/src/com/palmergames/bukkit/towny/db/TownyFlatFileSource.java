@@ -20,6 +20,7 @@ import com.palmergames.bukkit.towny.AlreadyRegisteredException;
 import com.palmergames.bukkit.towny.NotRegisteredException;
 import com.palmergames.bukkit.towny.Towny;
 import com.palmergames.bukkit.towny.TownyException;
+import com.palmergames.bukkit.towny.TownyLogger;
 import com.palmergames.bukkit.towny.TownySettings;
 import com.palmergames.bukkit.towny.object.Nation;
 import com.palmergames.bukkit.towny.object.PlotBlockData;
@@ -88,6 +89,9 @@ public class TownyFlatFileSource extends TownyDataSource {
 	public void backup() throws IOException {
 		String backupType = TownySettings.getFlatFileBackupType();
 		if (!backupType.equalsIgnoreCase("none")) {
+			
+			TownyLogger.shutDown();
+			
 			long t = System.currentTimeMillis();
 			String newBackupFolder = rootFolder + FileMgmt.fileSeparator() + "backup" + FileMgmt.fileSeparator() + new SimpleDateFormat("yyyy-MM-dd HH-mm").format(t) + " - " + Long.toString(t);
 			FileMgmt.checkFolders(new String[]{ rootFolder, rootFolder + FileMgmt.fileSeparator() + "backup" });
@@ -102,8 +106,11 @@ public class TownyFlatFileSource extends TownyDataSource {
 						new File(rootFolder + logFolder),
 						new File(rootFolder + settingsFolder)
 						}, new File(newBackupFolder + ".zip"));
-			else
+			else {
+				plugin.setupLogger();
 				throw new IOException("Unsupported flatfile backup type (" + backupType + ")");
+			}
+			plugin.setupLogger();
 		}
 	}
 	
