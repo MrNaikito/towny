@@ -841,3 +841,4 @@ v0.77.1.4:
 v0.77.1.5:
 	- Active players now checks if a player is online, rather than only their last logged on time.
 	- Towny backup now correctly shuts down the loggers before backing up (no more corrupt/locked files).
+	- Towny now correctly removes economy accounts upon deletion of the resident/town/nation, instead of setting it to zero.

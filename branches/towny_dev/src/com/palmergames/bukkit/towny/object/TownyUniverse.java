@@ -1283,7 +1283,7 @@ public class TownyUniverse extends TownyObject {
             nations.remove(nation.getName().toLowerCase());
             // Clear accounts
             if(TownySettings.isUsingEconomy())
-            	nation.setBalance(0);
+            	nation.removeAccount();
                                                      
             plugin.updateCache();
             for (Town town : toSave)
@@ -1333,7 +1333,7 @@ public class TownyUniverse extends TownyObject {
             towns.remove(town.getName().toLowerCase());
             // Clear accounts
             if(TownySettings.isUsingEconomy())
-            	town.setBalance(0);
+            	town.removeAccount();
             plugin.updateCache();
 
             getDataSource().deleteTown(town);
@@ -1416,7 +1416,7 @@ public class TownyUniverse extends TownyObject {
         residents.remove(name.toLowerCase());
         // Clear accounts
         if(TownySettings.isUsingEconomy())
-        	resident.setBalance(0);
+        	resident.removeAccount();
         plugin.deleteCache(name);
         getDataSource().saveResidentList();
           
