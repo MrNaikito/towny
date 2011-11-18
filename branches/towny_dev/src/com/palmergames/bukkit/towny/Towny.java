@@ -539,6 +539,31 @@ public class Towny extends JavaPlugin {
                 TownyMessaging.sendMsg(player, ("Modes set: " + StringMgmt.join(modes, ",")));
         }
         
+        public void setPlayerChatMode(Player player, String newMode) {
+        	
+        	List<String> modes = getPlayerMode(player);
+        	
+        	// Clear all chat channels
+        	if (modes != null) {
+	        	for (String channel : TownySettings.getChatChannels()) {
+	        		if (modes.contains(channel.replace("/", "")))
+	        			if (modes.size() > 1)
+	        				modes.remove(channel.replace("/", ""));
+	        			else
+	        				modes = new ArrayList<String>();
+	        	}
+        	} else
+        		modes = new ArrayList<String>();
+        	
+        	if (!newMode.equalsIgnoreCase("g") && !hasPlayerMode(player, newMode))
+        		modes.add(newMode);
+        	
+        	if (modes.isEmpty())
+        		removePlayerMode(player);
+        	else
+        		setPlayerMode(player,(String[]) modes.toArray(new String[modes.size()]));
+        }
+        
         public void removePlayerMode(Player player) {
                 playerMode.remove(player.getName());
                 TownyMessaging.sendMsg(player, ("Mode removed."));
