@@ -821,7 +821,7 @@ public class TownyUniverse extends TownyObject {
         }
 
         public boolean isActiveResident(Resident resident) {
-                return System.currentTimeMillis() - resident.getLastOnline() < (20*TownySettings.getInactiveAfter());
+                return ((System.currentTimeMillis() - resident.getLastOnline() < (20*TownySettings.getInactiveAfter())) || (plugin.isOnline(resident.getName())));
         }
         
         public List<Resident> getResidents(String[] names) {

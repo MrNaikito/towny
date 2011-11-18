@@ -838,3 +838,4 @@ v0.77.1.4:
 	- Added a permission node 'towny.town.plottype' (User is able to alter plot types on plots they own).
 	- Fixed Nation command to correctly check 'towny.nation.grant-titles' instead of towny.nation.titles'.
 	- Added daily upkeep to the '/town' and '/nation' outputs.
+	- Active players now checks if a player is online, rather than only their last logged on time.
