@@ -196,7 +196,7 @@ public class TownySettings {
 		}
 		
 		if (!chatChannelExists("/g"))
-			newChatChannel("/g", null, null, "towny.chat.global");
+			newChatChannel("/g", "", "", "towny.chat.global");
 	}
     
     public static Set<String> getChatChannels() {
