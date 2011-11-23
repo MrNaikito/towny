@@ -851,4 +851,4 @@ v0.77.1.5:
 	- added {worldname} as a chat tag entry.
 v0.77.1.6:
 	- Fix residents accounts being wiped when a town is deleted.
-	- Rotate the Towny compass to reflect the sun setting in the west.
+	- Rotated the Towny compass to reflect the sun setting in the west.
