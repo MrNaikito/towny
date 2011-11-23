@@ -849,3 +849,5 @@ v0.77.1.5:
 	  to clear all chat modes '/g'.
 	- Added a new permission node for global chat ('/g') of 'towny.chat.global'.
 	- added {worldname} as a chat tag entry.
+v0.77.1.6:
+	- Fix residents accounts being wiped when a town is deleted.
