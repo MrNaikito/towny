@@ -1415,7 +1415,7 @@ public class TownyUniverse extends TownyObject {
         
         residents.remove(name.toLowerCase());
         // Clear accounts
-        if(TownySettings.isUsingEconomy())
+        if(TownySettings.isUsingEconomy() && TownySettings.isDeleteEcoAccount())
         	resident.removeAccount();
         plugin.deleteCache(name);
         getDataSource().saveResidentList();

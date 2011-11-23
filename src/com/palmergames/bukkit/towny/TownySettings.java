@@ -974,6 +974,10 @@ public class TownySettings {
         return getSeconds(ConfigNodes.RES_SETTING_DELETE_OLD_RESIDENTS_TIME);
 	}
 	
+    public static boolean isDeleteEcoAccount() {
+        return getBoolean(ConfigNodes.RES_SETTING_DELETE_OLD_RESIDENTS_ECO);
+	}
+    
 	public static boolean isDeletingOldResidents() {
 		return getBoolean(ConfigNodes.RES_SETTING_DELETE_OLD_RESIDENTS_ENABLE);
 	}

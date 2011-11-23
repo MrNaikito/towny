@@ -476,6 +476,7 @@ public enum ConfigNodes {
                     "# after Two months (default) of not logging in"),
             RES_SETTING_DELETE_OLD_RESIDENTS_ENABLE("resident_settings.delete_old_residents.enable","false"),
             RES_SETTING_DELETE_OLD_RESIDENTS_TIME("resident_settings.delete_old_residents.deleted_after_time","60d"),
+            RES_SETTING_DELETE_OLD_RESIDENTS_ECO("resident_settings.delete_old_residents.delete_economy_account","true"),
             RES_SETTING_DEFAULT_TOWN_NAME("resident_settings.default_town_name","",
                     "# The name of the town a resident will automatically join when he first registers."),
             ECO("economy","",

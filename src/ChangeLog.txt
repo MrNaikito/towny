@@ -852,3 +852,4 @@ v0.77.1.5:
 v0.77.1.6:
 	- Fix residents accounts being wiped when a town is deleted.
 	- Rotated the Towny compass to reflect the sun setting in the west.
+	- Added 'delete_economy_account' so admins can control whether Towny will delete the economy account when it deletes the resident.
