@@ -853,3 +853,5 @@ v0.77.1.6:
 	- Fix residents accounts being wiped when a town is deleted.
 	- Rotated the Towny compass to reflect the sun setting in the west.
 	- Added 'delete_economy_account' so admins can control whether Towny will delete the economy account when it deletes the resident.
+v0.77.1.7:
+	- '/plot claim' can again be used by mayors to recaim plots (which are not for sale) for the town.
