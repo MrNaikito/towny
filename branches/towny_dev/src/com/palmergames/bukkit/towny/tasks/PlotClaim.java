@@ -139,10 +139,10 @@ public class PlotClaim extends Thread {
                                 } else if (town.isMayor(resident) || town.hasAssistant(resident)) {
                                 	//Plot isn't for sale but re-possessing for town.
                                 	
-                                        if (TownySettings.isUsingEconomy() && !town.payTo(townBlock.getPlotPrice(), owner, "Plot - Buy Back"))
+                                        if (TownySettings.isUsingEconomy() && !town.payTo(0.0, owner, "Plot - Buy Back"))
                                                 throw new TownyException(TownySettings.getLangString("msg_town_no_money_purchase_plot"));
                                         
-                                        TownyMessaging.sendTownMessage(town, TownySettings.getBuyResidentPlotMsg(town.getName(), owner.getName(), townBlock.getPlotPrice()));
+                                        TownyMessaging.sendTownMessage(town, TownySettings.getBuyResidentPlotMsg(town.getName(), owner.getName(), 0.0));
                                         townBlock.setResident(null);
                                         townBlock.setPlotPrice(-1);
                                         
