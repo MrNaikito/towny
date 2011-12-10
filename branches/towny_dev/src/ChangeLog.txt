@@ -864,3 +864,7 @@ v0.77.1.9:
 	- Added a new entry in 'Default Town/Plot flags' so admins can configure the defaults for pvp,fire,explosions and mob spawns.
 	- Added new settings in 'Default new world settings' for fire, explosions and enderman pickup/place. Admins can now configure settings per world for the wilderness.
 	- Adjusted world PVP so it only affects the wilderness. You can now disable PVP in the wilderness yet allow it in towns (enabled town pvp overrides plot pvp).
+v0.77.1.10:
+	- Fixed War plot damage messages to correctly display.
+	- Fixed War timers so you can once again start wars with '/townyadmin toggle war'.
+	- Added a new toggle so you can disable block damage during a war event (allow_block_griefing).

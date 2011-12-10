@@ -121,7 +121,7 @@ public class CachePermissions extends TownyUniverse {
 
 		try {
 			// War Time switch rights
-			if (isWarTime())
+			if (isWarTime() && TownySettings.isAllowWarBlockGriefing())
 				try {
 					if (!resident.getTown().getNation().isNeutral() && !town.getNation().isNeutral())
 						return TownBlockStatus.WARZONE;

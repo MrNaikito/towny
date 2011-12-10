@@ -576,10 +576,12 @@ public class Towny extends JavaPlugin {
         
         public boolean hasPlayerMode(Player player, String mode) {
                 List<String> modes = getPlayerMode(player);
+                if (mode.isEmpty())
+                	return true;
                 if (modes == null)
-                        return false;
+                	return false;
                 else
-                        return modes.contains(mode); 
+                	return modes.contains(mode); 
         }
         
         public List<String> getPlayerMode(String name) {

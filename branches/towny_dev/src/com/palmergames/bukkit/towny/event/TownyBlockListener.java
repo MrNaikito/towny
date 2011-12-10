@@ -55,6 +55,10 @@ public class TownyBlockListener extends BlockListener {
 		//long start = System.currentTimeMillis();
 		
 		Block block = event.getBlock();
+		
+		if (block == null)
+			return;
+		
 		BlockLocation blockLocation = new BlockLocation(block.getLocation());
 		
 		// if this is a placeholder remove it, as it's no longer needed.
@@ -103,7 +107,8 @@ public class TownyBlockListener extends BlockListener {
 			TownBlockStatus status = cache.getStatus();
 			
 			if (((status == TownBlockStatus.UNCLAIMED_ZONE) && (plugin.hasWildOverride(worldCoord.getWorld(), player, event.getBlock().getTypeId(), TownyPermission.ActionType.DESTROY)))
-				|| ((status == TownBlockStatus.TOWN_RESIDENT) && (plugin.getTownyUniverse().getTownBlock(block.getLocation()).getType() == TownBlockType.WILDS) && (plugin.hasWildOverride(worldCoord.getWorld(), player, event.getBlock().getTypeId(), TownyPermission.ActionType.DESTROY))))
+				|| ((status == TownBlockStatus.TOWN_RESIDENT) && (plugin.getTownyUniverse().getTownBlock(block.getLocation()).getType() == TownBlockType.WILDS)
+					&& (plugin.hasWildOverride(worldCoord.getWorld(), player, event.getBlock().getTypeId(), TownyPermission.ActionType.DESTROY))))
 				return;
 			if (status == TownBlockStatus.WARZONE) {
 				if (!TownyWarConfig.isEditableMaterialInWarZone(block.getType())) {
@@ -355,7 +360,7 @@ public class TownyBlockListener extends BlockListener {
 				
 				TownBlock townBlock = townyWorld.getTownBlock(coord);
 				if ((block.getRelative(BlockFace.DOWN).getType() != Material.OBSIDIAN && !townBlock.getTown().isFire() && !townyWorld.isForceFire() && !townBlock.getPermissions().fire)
-						|| (block.getRelative(BlockFace.DOWN).getType() != Material.OBSIDIAN && plugin.getTownyUniverse().isWarTime() && !townBlock.getTown().hasNation())) {
+						|| (block.getRelative(BlockFace.DOWN).getType() != Material.OBSIDIAN && plugin.getTownyUniverse().isWarTime() && TownySettings.isAllowWarBlockGriefing() && !townBlock.getTown().hasNation())) {
 					TownyMessaging.sendDebugMsg("onBlockIgnite: Canceled " + block.getTypeId() + " from igniting within "+coord.toString()+".");
 					return true;
 				}

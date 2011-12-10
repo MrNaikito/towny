@@ -987,6 +987,10 @@ public class TownySettings {
 		return getInt(ConfigNodes.WAR_EVENT_WARNING_DELAY);
 	}
 	
+	public static boolean isAllowWarBlockGriefing() {
+		return getBoolean(ConfigNodes.WAR_EVENT_BLOCK_GRIEFING);
+	}
+	
 	public static int getWarzoneTownBlockHealth() {
 		return getInt(ConfigNodes.WAR_EVENT_TOWN_BLOCK_HP);
 	}
@@ -1182,7 +1186,7 @@ public class TownySettings {
 	}
 	
 	public static double getWartimeDeathPrice() {
-		return getDouble(ConfigNodes.ECO_PRICE_DEATH_WARTIME);
+		return getDouble(ConfigNodes.WAR_EVENT_PRICE_DEATH);
 	}
 	
 	public static double getDeathPrice() {
