@@ -1,6 +1,7 @@
 package com.palmergames.bukkit.towny.event;
 
 
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -263,7 +264,7 @@ public class TownyPlayerListener extends PlayerListener {
 		// Prevent fly/double jump cheats
 		try {
 			if (TownyUniverse.getWorld(player.getWorld().getName()).isUsingTowny())
-				if (TownySettings.isUsingCheatProtection() && !TownyUniverse.getPermissionSource().hasPermission(player, PermissionNodes.CHEAT_BYPASS.getNode()))
+				if (TownySettings.isUsingCheatProtection() && !TownyUniverse.getPermissionSource().hasPermission(player, PermissionNodes.CHEAT_BYPASS.getNode()) && (player.getGameMode() != GameMode.CREATIVE))
 					if (event.getEventName() != "PLAYER_TELEPORT" && from.getBlock().getRelative(BlockFace.DOWN).getType() == Material.AIR && player.getFallDistance() == 0 && player.getVelocity().getY() <= -0.6 && (player.getLocation().getY() > 0)) {
 						//plugin.sendErrorMsg(player, "Cheat Detected!");
 
