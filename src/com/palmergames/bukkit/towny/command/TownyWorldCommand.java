@@ -179,10 +179,9 @@ public class TownyWorldCommand implements CommandExecutor  {
 			player.sendMessage(ChatTools.formatTitle("/TownyWorld toggle"));
 			player.sendMessage(ChatTools.formatCommand("", "/TownyWorld toggle", "claimable", ""));
 			player.sendMessage(ChatTools.formatCommand("", "/TownyWorld toggle", "usingtowny", ""));
-			player.sendMessage(ChatTools.formatCommand("", "/TownyWorld toggle", "pvp", ""));
-			player.sendMessage(ChatTools.formatCommand("", "/TownyWorld toggle", "forcepvp", ""));
-			player.sendMessage(ChatTools.formatCommand("", "/TownyWorld toggle", "explosion", ""));
-			player.sendMessage(ChatTools.formatCommand("", "/TownyWorld toggle", "fire", ""));
+			player.sendMessage(ChatTools.formatCommand("", "/TownyWorld toggle", "pvp/forcepvp", ""));
+			player.sendMessage(ChatTools.formatCommand("", "/TownyWorld toggle", "explosion/forceexplosion", ""));
+			player.sendMessage(ChatTools.formatCommand("", "/TownyWorld toggle", "fire/forcefire", ""));
 			player.sendMessage(ChatTools.formatCommand("", "/TownyWorld toggle", "townmobs/worldmobs", ""));
 		} else {
 
@@ -220,7 +219,7 @@ public class TownyWorldCommand implements CommandExecutor  {
 			} else if (split[0].equalsIgnoreCase("forcepvp")) {
 
 					Globalworld.setForcePVP(!Globalworld.isForcePVP());
-					msg = String.format(TownySettings.getLangString("msg_changed_world_setting"), "PVP" ,Globalworld.getName(), Globalworld.isForcePVP() ? "Forced" : "Adjustable");
+					msg = String.format(TownySettings.getLangString("msg_changed_world_setting"), "Force town PVP" ,Globalworld.getName(), Globalworld.isForcePVP() ? "Forced" : "Adjustable");
 					if (player != null)
 						TownyMessaging.sendMsg(player, msg);
 					else
@@ -228,22 +227,40 @@ public class TownyWorldCommand implements CommandExecutor  {
 
 			} else if (split[0].equalsIgnoreCase("explosion")) {
 
-					Globalworld.setForceExpl(!Globalworld.isForceExpl());
-					msg = String.format(TownySettings.getLangString("msg_changed_world_setting"), "Explosions", Globalworld.getName(), Globalworld.isForceExpl() ? "Enabled" : "Disabled");
+					Globalworld.setExpl(!Globalworld.isExpl());
+					msg = String.format(TownySettings.getLangString("msg_changed_world_setting"), "Explosions", Globalworld.getName(), Globalworld.isExpl() ? "Enabled" : "Disabled");
 					if (player != null)
 						TownyMessaging.sendMsg(player, msg);
 					else
 						TownyMessaging.sendMsg(msg);
 
-			} else if (split[0].equalsIgnoreCase("fire")) {
+			} else if (split[0].equalsIgnoreCase("forceexplosion")) {
 
-					Globalworld.setForceFire(!Globalworld.isForceFire());
-					msg = String.format(TownySettings.getLangString("msg_changed_world_setting"), "Fire Spread", Globalworld.getName(), Globalworld.isForceFire() ? "Forced" : "Adjustable");
+				Globalworld.setForceExpl(!Globalworld.isForceExpl());
+				msg = String.format(TownySettings.getLangString("msg_changed_world_setting"), "Force town Explosions", Globalworld.getName(), Globalworld.isForceExpl() ? "Forced" : "Adjustable");
+				if (player != null)
+					TownyMessaging.sendMsg(player, msg);
+				else
+					TownyMessaging.sendMsg(msg);
+
+			}  else if (split[0].equalsIgnoreCase("fire")) {
+
+					Globalworld.setFire(!Globalworld.isFire());
+					msg = String.format(TownySettings.getLangString("msg_changed_world_setting"), "Fire Spread", Globalworld.getName(), Globalworld.isFire() ? "enabled" : "disabled");
 					if (player != null)
 						TownyMessaging.sendMsg(player, msg);
 					else
 						TownyMessaging.sendMsg(msg);
 				
+			}  else if (split[0].equalsIgnoreCase("forcefire")) {
+
+				Globalworld.setForceFire(!Globalworld.isForceFire());
+				msg = String.format(TownySettings.getLangString("msg_changed_world_setting"), "Force town Fire Spread", Globalworld.getName(), Globalworld.isForceFire() ? "Forced" : "Adjustable");
+				if (player != null)
+					TownyMessaging.sendMsg(player, msg);
+				else
+					TownyMessaging.sendMsg(msg);
+			
 			} else if (split[0].equalsIgnoreCase("townmobs")) {
 
 					Globalworld.setForceTownMobs(!Globalworld.isForceTownMobs());

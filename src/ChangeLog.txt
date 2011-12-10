@@ -857,3 +857,10 @@ v0.77.1.7:
 	- '/plot claim' can again be used by mayors to recaim plots (which are not for sale) for the town.
 v0.77.1.8:
 	- Fixed missing dependency when using '/towny top money all'.
+v0.77.1.9:
+	- Added minimum distance checks on outpost claims 'min_distance_from_town_homeblock'.
+	- Players are now able to create towns/nations if permissions are disabled 'using_permissions : false'.
+	- Updated permission nodes in config.yml.
+	- Added a new entry in 'Default Town/Plot flags' so admins can configure the defaults for pvp,fire,explosions and mob spawns.
+	- Added new settings in 'Default new world settings' for fire, explosions and enderman pickup/place. Admins can now configure settings per world for the wilderness.
+	- Adjusted world PVP so it only affects the wilderness. You can now disable PVP in the wilderness yet allow it in towns (enabled town pvp overrides plot pvp).

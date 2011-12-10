@@ -10,6 +10,7 @@ import com.palmergames.bukkit.towny.TownyMessaging;
 import com.palmergames.bukkit.towny.TownySettings;
 import com.palmergames.bukkit.towny.PlayerCache.TownBlockStatus;
 import com.palmergames.bukkit.towny.object.TownyPermission.ActionType;
+import com.palmergames.bukkit.towny.permissions.PermissionNodes;
 
 
 /**
@@ -239,7 +240,7 @@ public class CachePermissions extends TownyUniverse {
 
 			// Wilderness Permissions
 			if (status == TownBlockStatus.UNCLAIMED_ZONE)
-				if (TownyUniverse.getPermissionSource().hasPermission(player, "towny.wild." + actionType.toString()))
+				if (TownyUniverse.getPermissionSource().hasPermission(player, PermissionNodes.TOWNY_WILD_ALL.getNode(actionType.toString())))
 					return true;
 
 				else if (!TownyPermission.getUnclaimedZonePerm(actionType, pos.getWorld())) {

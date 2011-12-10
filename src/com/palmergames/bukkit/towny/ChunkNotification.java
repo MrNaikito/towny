@@ -128,7 +128,7 @@ public class ChunkNotification {
 	public String getAreaNotification() {
 		if (fromWild ^ toWild || !fromWild && !toWild && fromTown != null && toTown != null && fromTown != toTown) {
 			if (toWild)
-				return String.format(areaWildernessNotificationFormat, to.getWorld().getUnclaimedZoneName()) + ((testWorldPVP()) ? Colors.Red + " (PvP)" : "");
+				return String.format(areaWildernessNotificationFormat, to.getWorld().getUnclaimedZoneName()) + ((to.getWorld().isPVP() && testWorldPVP()) ? Colors.Red + " (PvP)" : "");
 			else
 				return String.format(areaTownNotificationFormat, TownyFormatter.getFormattedName(toTown));
 		}
@@ -154,7 +154,7 @@ public class ChunkNotification {
 	}
 	
 	private boolean testWorldPVP() {
-		return to.getWorld().isPVP() && Bukkit.getServer().getWorld(to.getWorld().getName()).getPVP();	
+		return Bukkit.getServer().getWorld(to.getWorld().getName()).getPVP();	
 	}
 	
 	public String getPlotNotification() {
