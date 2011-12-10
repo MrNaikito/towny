@@ -1289,7 +1289,7 @@ public class TownyFlatFileSource extends TownyDataSource {
 			for (Resident assistant : nation.getAssistants())
 				fout.write(assistant.getName() + ",");
 			fout.write(newLine);
-			fout.write("friends=");
+			fout.write("allies=");
 			for (Nation allyNation : nation.getAllies())
 				fout.write(allyNation.getName() + ",");
 			fout.write(newLine);

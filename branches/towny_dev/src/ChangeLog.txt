@@ -869,3 +869,4 @@ v0.77.1.10:
 	- Fixed War timers so you can once again start wars with '/townyadmin toggle war'.
 	- Added a new toggle so you can disable block damage during a war event (allow_block_griefing).
 	- Adjusted Towny cheat protection so it will not affect players in creative mode.
+	- Fixed loading of allies for nations.
