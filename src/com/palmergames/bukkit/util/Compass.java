@@ -17,9 +17,9 @@ public class Compass {
 			degrees += 360;
 		
 		if (0 <= degrees && degrees < 22.5)
-			return Compass.Point.NW;
+			return Compass.Point.W;
 		else if (22.5 <= degrees && degrees < 67.5)
-			return Compass.Point.N;
+			return Compass.Point.NW;
 		else if (67.5 <= degrees && degrees < 112.5)
 			return Compass.Point.N;
 		else if (112.5 <= degrees && degrees < 157.5)
