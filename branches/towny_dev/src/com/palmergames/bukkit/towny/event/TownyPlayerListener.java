@@ -32,6 +32,7 @@ import com.palmergames.bukkit.towny.object.TownyPermission;
 import com.palmergames.bukkit.towny.object.TownyUniverse;
 import com.palmergames.bukkit.towny.object.TownyWorld;
 import com.palmergames.bukkit.towny.object.WorldCoord;
+import com.palmergames.bukkit.towny.permissions.PermissionNodes;
 import com.palmergames.bukkit.townywar.TownyWarConfig;
 
 
@@ -262,7 +263,7 @@ public class TownyPlayerListener extends PlayerListener {
 		// Prevent fly/double jump cheats
 		try {
 			if (TownyUniverse.getWorld(player.getWorld().getName()).isUsingTowny())
-				if (TownySettings.isUsingCheatProtection() && !TownyUniverse.getPermissionSource().hasPermission(player, "towny.cheat.bypass"))
+				if (TownySettings.isUsingCheatProtection() && !TownyUniverse.getPermissionSource().hasPermission(player, PermissionNodes.CHEAT_BYPASS.getNode()))
 					if (event.getEventName() != "PLAYER_TELEPORT" && from.getBlock().getRelative(BlockFace.DOWN).getType() == Material.AIR && player.getFallDistance() == 0 && player.getVelocity().getY() <= -0.6 && (player.getLocation().getY() > 0)) {
 						//plugin.sendErrorMsg(player, "Cheat Detected!");
 

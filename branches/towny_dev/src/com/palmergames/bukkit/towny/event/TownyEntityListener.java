@@ -168,23 +168,24 @@ public class TownyEntityListener extends EntityListener {
         
         Block block = event.getBlock();
         Entity entity = event.getEntity();
-        TownyWorld townyWorld = null;
         
         try {
-			townyWorld = TownyUniverse.getWorld(block.getLocation().getWorld().getName());
+        	TownyWorld townyWorld = TownyUniverse.getWorld(block.getLocation().getWorld().getName());
+			
+			// Prevent creatures trampling crops
+	        if ((townyWorld.isUsingTowny()) && (townyWorld.isDisableCreatureTrample())) {
+	            if ((block.getType() == Material.SOIL) || (block.getType() == Material.CROPS)) {
+	                if (entity instanceof Creature)
+	                    event.setCancelled(true);
+	                return;
+	            }
+	        }
+	        
         } catch (NotRegisteredException e) {
-            // TODO Auto-generated catch block
+            // Failed to fetch world
             e.printStackTrace();
         }
         
-        // Prevent creatures trampling crops
-        if ((townyWorld.isUsingTowny()) && (townyWorld.isDisableCreatureTrample())) {
-            if ((block.getType() == Material.SOIL) || (block.getType() == Material.CROPS)) {
-                if (entity instanceof Creature)
-                    event.setCancelled(true);
-                return;
-            }
-        }
     }
     
     @Override
@@ -197,13 +198,17 @@ public class TownyEntityListener extends EntityListener {
         
         try {
         	townyWorld = TownyUniverse.getWorld(block.getLocation().getWorld().getName());
-        	townBlock = townyWorld.getTownBlock(new Coord(Coord.parseCoord(block)));
-        	if (!townyWorld.isForceTownMobs() && !townBlock.getPermissions().mobs && !townBlock.getTown().hasMobs())
-        		event.setCancelled(true);
+        	if (townyWorld.isEndermanProtect())
+	        	try {
+		        	townBlock = townyWorld.getTownBlock(new Coord(Coord.parseCoord(block)));
+		        	if (!townyWorld.isForceTownMobs() && !townBlock.getPermissions().mobs && !townBlock.getTown().hasMobs())
+		        		event.setCancelled(true);
+	        	} catch (NotRegisteredException e) {
+	        		// not in a townblock
+	            	event.setCancelled(true);
+	        	}
         } catch (NotRegisteredException e) {
-            // not in a townblock so test config
-        	if (TownySettings.getUnclaimedZoneEndermanProtect())
-        		event.setCancelled(true);
+            // Failed to fetch world
         }
     }
     
@@ -215,13 +220,17 @@ public class TownyEntityListener extends EntityListener {
         
         try {
         	townyWorld = TownyUniverse.getWorld(event.getLocation().getWorld().getName());
-        	townBlock = townyWorld.getTownBlock(new Coord(Coord.parseCoord(event.getLocation())));
-        	if (!townyWorld.isForceTownMobs() && !townBlock.getPermissions().mobs && !townBlock.getTown().hasMobs())
-        		event.setCancelled(true);
+        	if (townyWorld.isEndermanProtect())
+	        	try {
+		        	townBlock = townyWorld.getTownBlock(new Coord(Coord.parseCoord(event.getLocation())));
+		        	if (!townyWorld.isForceTownMobs() && !townBlock.getPermissions().mobs && !townBlock.getTown().hasMobs())
+		        		event.setCancelled(true);
+	        	} catch (NotRegisteredException e) {
+	            	// not in a townblock
+	            	event.setCancelled(true);
+	            }
         } catch (NotRegisteredException e) {
-        	// not in a townblock so test config
-        	if (TownySettings.getUnclaimedZoneEndermanProtect())
-        		event.setCancelled(true);
+        	// Failed to fetch world
         }
     }
         
@@ -296,16 +305,20 @@ public class TownyEntityListener extends EntityListener {
                 }                    
             } catch (TownyException x) {
             	// Wilderness explosion regeneration
-            	if ((townyWorld.isUsingTowny()) && (townyWorld.isUsingPlotManagementWildRevert())) {
-                	if (entity instanceof Creature) {
-                		if (!plugin.getTownyUniverse().hasProtectionRegenTask(new BlockLocation(block.getLocation()))) {
-	        				ProtectionRegenTask task = new ProtectionRegenTask(plugin.getTownyUniverse(), block, false);
-	        				task.setTaskId(plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, task, ((TownySettings.getPlotManagementWildRegenDelay() + count)*20)));
-	        				plugin.getTownyUniverse().addProtectionRegenTask(task);
-	        				event.setYield((float) 0.0);
-				    	}
-                	}
-            	}
+            	if (townyWorld.isUsingTowny())
+            		if (townyWorld.isExpl()) {
+            			if (townyWorld.isUsingPlotManagementWildRevert()) {
+		                	if (entity instanceof Creature) {
+		                		if (!plugin.getTownyUniverse().hasProtectionRegenTask(new BlockLocation(block.getLocation()))) {
+			        				ProtectionRegenTask task = new ProtectionRegenTask(plugin.getTownyUniverse(), block, false);
+			        				task.setTaskId(plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, task, ((TownySettings.getPlotManagementWildRegenDelay() + count)*20)));
+			        				plugin.getTownyUniverse().addProtectionRegenTask(task);
+			        				event.setYield((float) 0.0);
+						    	}
+		                	}
+		            	}
+            		} else
+            			event.setCancelled(true);
             }
     	}
     }
@@ -401,7 +414,7 @@ public class TownyEntityListener extends EntityListener {
             	if (world.isWarZone(coord))
     				return false;
             	
-                if (preventDamagePvP(world, ap, bp) || preventFriendlyFire(ap, bp))
+                if (preventFriendlyFire(ap, bp)) // (preventDamagePvP(world, ap, bp) || 
                     return true;
             }
             
@@ -426,6 +439,9 @@ public class TownyEntityListener extends EntityListener {
                     }
     			}
     		} catch (NotRegisteredException e) {
+    			// Not in a town
+    			if (!world.isPVP())
+                    return true;
     		}
             
             if (plugin.getTownyUniverse().canAttackEnemy(ap.getName(), bp.getName()))
@@ -456,7 +472,7 @@ public class TownyEntityListener extends EntityListener {
                 	return true;
             } catch (TownyException x) {
             	//world or townblock failure
-                return true;
+                return false;
             }
         }
         

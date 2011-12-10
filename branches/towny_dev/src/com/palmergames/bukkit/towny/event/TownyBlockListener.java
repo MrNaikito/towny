@@ -334,28 +334,42 @@ public class TownyBlockListener extends BlockListener {
 
 		Location loc = block.getLocation();
 		Coord coord = Coord.parseCoord(loc);
-
+		TownyWorld townyWorld;
+		
 		try {
-			TownyWorld townyWorld = TownyUniverse.getWorld(loc.getWorld().getName());
+			townyWorld = TownyUniverse.getWorld(loc.getWorld().getName());
 			
-			if (townyWorld.isWarZone(coord)) {
-				if (TownyWarConfig.isAllowingFireInWarZone()) {
-					return false;
-				} else {
+			if (!townyWorld.isUsingTowny())
+				return false;
+		
+			try {
+				
+				if (townyWorld.isWarZone(coord)) {
+					if (TownyWarConfig.isAllowingFireInWarZone()) {
+						return false;
+					} else {
+						TownyMessaging.sendDebugMsg("onBlockIgnite: Canceled " + block.getTypeId() + " from igniting within "+coord.toString()+".");
+						return true;
+					}
+				}
+				
+				TownBlock townBlock = townyWorld.getTownBlock(coord);
+				if ((block.getRelative(BlockFace.DOWN).getType() != Material.OBSIDIAN && !townBlock.getTown().isFire() && !townyWorld.isForceFire() && !townBlock.getPermissions().fire)
+						|| (block.getRelative(BlockFace.DOWN).getType() != Material.OBSIDIAN && plugin.getTownyUniverse().isWarTime() && !townBlock.getTown().hasNation())) {
+					TownyMessaging.sendDebugMsg("onBlockIgnite: Canceled " + block.getTypeId() + " from igniting within "+coord.toString()+".");
+					return true;
+				}
+			} catch (TownyException x) {
+				// Not a town so check the world setting for fire
+				if (!townyWorld.isFire()) {
 					TownyMessaging.sendDebugMsg("onBlockIgnite: Canceled " + block.getTypeId() + " from igniting within "+coord.toString()+".");
 					return true;
 				}
 			}
 			
-			TownBlock townBlock = townyWorld.getTownBlock(coord);
-			if (townyWorld.isUsingTowny())
-				if ((block.getRelative(BlockFace.DOWN).getType() != Material.OBSIDIAN && !townBlock.getTown().isFire() && !townyWorld.isForceFire() && !townBlock.getPermissions().fire)
-						|| (block.getRelative(BlockFace.DOWN).getType() != Material.OBSIDIAN && plugin.getTownyUniverse().isWarTime() && !townBlock.getTown().hasNation())) {
-					TownyMessaging.sendDebugMsg("onBlockIgnite: Canceled " + block.getTypeId() + " from igniting within "+coord.toString()+".");
-				return true;
-			}
-		} catch (TownyException x) {
-		}	
+		} catch (NotRegisteredException e) {
+			// Failed to fetch the world
+		}
 		
 		return false;
 	}

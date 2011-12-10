@@ -818,6 +818,13 @@ public class TownyFlatFileSource extends TownyDataSource {
 				line = kvFile.get("firespread");
 				if (line != null)
 					try {
+						world.setFire(Boolean.parseBoolean(line));
+					} catch (Exception e) {
+					}
+				
+				line = kvFile.get("forcefirespread");
+				if (line != null)
+					try {
 						world.setForceFire(Boolean.parseBoolean(line));
 					} catch (Exception e) {
 					}
@@ -826,6 +833,20 @@ public class TownyFlatFileSource extends TownyDataSource {
 				if (line != null)
 					try {
 						world.setForceExpl(Boolean.parseBoolean(line));
+					} catch (Exception e) {
+					}
+				
+				line = kvFile.get("forceexplosions");
+				if (line != null)
+					try {
+						world.setExpl(Boolean.parseBoolean(line));
+					} catch (Exception e) {
+					}
+				
+				line = kvFile.get("endermanprotect");
+				if (line != null)
+					try {
+						world.setEndermanProtect(Boolean.parseBoolean(line));
 					} catch (Exception e) {
 					}
 				
@@ -1317,9 +1338,13 @@ public class TownyFlatFileSource extends TownyDataSource {
 			// force town mob spawns			
 			fout.write("forcetownmobs=" + Boolean.toString(world.isForceTownMobs()) + newLine);
 			// has firespread enabled
+			fout.write("firespread=" + Boolean.toString(world.isFire()) + newLine);
 			fout.write("forcefirespread=" + Boolean.toString(world.isForceFire()) + newLine);
 			// has explosions enabled
+			fout.write("explosions=" + Boolean.toString(world.isExpl()) + newLine);
 			fout.write("forceexplosions=" + Boolean.toString(world.isForceExpl()) + newLine);
+			// Enderman block protection
+			fout.write("endermanprotect=" + Boolean.toString(world.isEndermanProtect()) + newLine);
 			// PlayerTrample
 			fout.write("disableplayertrample=" + Boolean.toString(world.isDisablePlayerTrample()) + newLine);
 			// CreatureTrample

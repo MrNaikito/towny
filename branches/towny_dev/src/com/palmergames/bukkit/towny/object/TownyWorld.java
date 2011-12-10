@@ -12,8 +12,13 @@ import com.palmergames.bukkit.towny.TownySettings;
 
 public class TownyWorld extends TownyObject {
 	private List<Town> towns = new ArrayList<Town>();
-	private boolean isClaimable = true, isPVP, isForcePVP, isForceExpl, isForceFire, isForceTownMobs, hasWorldMobs, isDisablePlayerTrample,
-			isDisableCreatureTrample, isUsingTowny = true,
+	private boolean isClaimable = true, isPVP, isForcePVP,
+		isExplosion, isForceExpl,
+		isFire, isForceFire,
+		isForceTownMobs, hasWorldMobs,
+		isDisableCreatureTrample, isDisablePlayerTrample,
+		isEndermanProtect,
+			isUsingTowny = true,
 			isUsingPlotManagementDelete = true,
 			isUsingPlotManagementMayorDelete = true,
 			isUsingPlotManagementRevert = true,
@@ -34,15 +39,19 @@ public class TownyWorld extends TownyObject {
 	public TownyWorld(String name) {
 		setName(name);
 		
-		isPVP =  true;
+		isPVP =  TownySettings.isPvP();
 		isForcePVP = TownySettings.isForcingPvP();
+		isFire = TownySettings.isFire();
 		isForceFire = TownySettings.isForcingFire();
+		hasWorldMobs = TownySettings.isWorldMonstersOn();
 		isForceTownMobs = TownySettings.isForcingMonsters();
+		isExplosion = TownySettings.isExplosions();
+		isForceExpl = TownySettings.isForcingExplosions();
+		isEndermanProtect = TownySettings.getEndermanProtect();
+		
 		isDisablePlayerTrample = TownySettings.isPlayerTramplingCropsDisabled();
 		isDisableCreatureTrample = TownySettings.isCreatureTramplingCropsDisabled();
-		hasWorldMobs = true;
-        //hasWorldMobs = TownySettings.isWorldMonstersOn(); ??
-		isForceExpl = TownySettings.isForcingExplosions();
+		
 		setUsingPlotManagementDelete(TownySettings.isUsingPlotManagementDelete());
 		setUsingPlotManagementRevert(TownySettings.isUsingPlotManagementRevert());
 		setPlotManagementRevertSpeed(TownySettings.getPlotManagementSpeed());
@@ -166,7 +175,6 @@ public class TownyWorld extends TownyObject {
 	public void setPVP(boolean isPVP) {
 		this.isPVP = isPVP;
 	}
-
 	public boolean isPVP() {
 		return this.isPVP;
 	}
@@ -174,23 +182,32 @@ public class TownyWorld extends TownyObject {
 	public void setForcePVP(boolean isPVP) {
 		this.isForcePVP = isPVP;
 	}
-
 	public boolean isForcePVP() {
 		return this.isForcePVP;
 	}
 	
+	public void setExpl(boolean isExpl) {
+		this.isExplosion = isExpl;
+	}
+	public boolean isExpl() {
+		return isExplosion;
+	}
 	public void setForceExpl(boolean isExpl) {
 		this.isForceExpl = isExpl;
 	}
-
 	public boolean isForceExpl() {
 		return isForceExpl;
 	}
 	
+	public void setFire(boolean isFire) {
+		this.isFire = isFire;
+	}
+	public boolean isFire() {
+		return isFire;
+	}
 	public void setForceFire(boolean isFire) {
 		this.isForceFire = isFire;
 	}
-
 	public boolean isForceFire() {
 		return isForceFire;
 	}
@@ -198,7 +215,6 @@ public class TownyWorld extends TownyObject {
 	public void setDisablePlayerTrample(boolean isDisablePlayerTrample) {
 		this.isDisablePlayerTrample = isDisablePlayerTrample;
 	}
-
 	public boolean isDisablePlayerTrample() {
 		return isDisablePlayerTrample;
 	}
@@ -206,7 +222,6 @@ public class TownyWorld extends TownyObject {
 	public void setDisableCreatureTrample(boolean isDisableCreatureTrample) {
 		this.isDisableCreatureTrample = isDisableCreatureTrample;
 	}
-
 	public boolean isDisableCreatureTrample() {
 		return isDisableCreatureTrample;
 	}
@@ -214,7 +229,6 @@ public class TownyWorld extends TownyObject {
 	public void setWorldMobs(boolean hasMobs) {
 		this.hasWorldMobs = hasMobs;
 	}
-
 	public boolean hasWorldMobs() {
 		return this.hasWorldMobs;
 	}
@@ -222,15 +236,20 @@ public class TownyWorld extends TownyObject {
 	public void setForceTownMobs(boolean setMobs) {
 		this.isForceTownMobs = setMobs;
 	}
-
 	public boolean isForceTownMobs() {
 		return isForceTownMobs;
+	}
+	
+	public void setEndermanProtect(boolean setEnder) {
+		this.isEndermanProtect = setEnder;
+	}
+	public boolean isEndermanProtect() {
+		return isEndermanProtect;
 	}
 
 	public void setClaimable(boolean isClaimable) {
 		this.isClaimable = isClaimable;
 	}
-
 	public boolean isClaimable() {
 		if (!isUsingTowny())
 			return false;

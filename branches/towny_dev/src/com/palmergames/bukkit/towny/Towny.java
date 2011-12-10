@@ -50,6 +50,7 @@ import com.palmergames.bukkit.towny.permissions.BukkitPermSource;
 import com.palmergames.bukkit.towny.permissions.GroupManagerSource;
 import com.palmergames.bukkit.towny.permissions.NullPermSource;
 import com.palmergames.bukkit.towny.permissions.PEXSource;
+import com.palmergames.bukkit.towny.permissions.PermissionNodes;
 import com.palmergames.bukkit.towny.permissions.Perms3Source;
 import com.palmergames.bukkit.towny.permissions.bPermsSource;
 import com.palmergames.bukkit.towny.questioner.TownyQuestionTask;
@@ -529,7 +530,7 @@ public class Towny extends JavaPlugin {
         public boolean isTownyAdmin(Player player) {
                 if (player.isOp())
                         return true;
-                return TownyUniverse.getPermissionSource().hasPermission(player, "towny.admin");
+                return TownyUniverse.getPermissionSource().hasPermission(player, PermissionNodes.TOWNY_ADMIN.getNode());
         }
         
         
@@ -680,8 +681,8 @@ public class Towny extends JavaPlugin {
         	
         	//check for permissions
         	
-        	if (TownyUniverse.getPermissionSource().hasPermission(player, "towny.wild." + action.toString().toLowerCase())
-                	|| TownyUniverse.getPermissionSource().hasPermission(player, "towny.wild.block." + blockId + "." + action.toString().toLowerCase()))
+        	if (TownyUniverse.getPermissionSource().hasPermission(player, PermissionNodes.TOWNY_WILD_ALL.getNode(action.toString().toLowerCase()))
+                	|| TownyUniverse.getPermissionSource().hasPermission(player, PermissionNodes.TOWNY_WILD_BLOCK_ALL.getNode(blockId + "." + action.toString().toLowerCase())))
                 	return true;
             
         	// No perms found so check world settings.
