@@ -1643,7 +1643,7 @@ public class TownyUniverse extends TownyObject {
                                 player.sendMessage(msg);
         }
         
-        public List<Resident> getValidatedResidents(Player player, String[] names) {
+        public List<Resident> getValidatedResidents(Object sender, String[] names) {
         	List<Resident> invited = new ArrayList<Resident>();
         	for (String name : names) {
         		List<Player> matches = plugin.getServer().matchPlayer(name);
@@ -1651,14 +1651,14 @@ public class TownyUniverse extends TownyObject {
                     String line = "Multiple players selected";
                     for (Player p : matches)
                             line += ", " + p.getName();
-                    		TownyMessaging.sendErrorMsg(player, line);
+                    		TownyMessaging.sendErrorMsg(sender, line);
         		} else if (matches.size() == 1) {
         			// Match found online
                     try {
                             Resident target = getResident(matches.get(0).getName());
                             invited.add(target);
                     } catch (TownyException x) {
-                    	TownyMessaging.sendErrorMsg(player, x.getError());
+                    	TownyMessaging.sendErrorMsg(sender, x.getError());
                     }
         		} else {
         			// No online matches so test for offline.
@@ -1667,7 +1667,7 @@ public class TownyUniverse extends TownyObject {
 						target = getResident(name);
 						invited.add(target);
 					} catch (NotRegisteredException x) {
-						TownyMessaging.sendErrorMsg(player, x.getError());
+						TownyMessaging.sendErrorMsg(sender, x.getError());
 					}
         		}
         	}
