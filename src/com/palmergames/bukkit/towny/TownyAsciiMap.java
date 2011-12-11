@@ -71,11 +71,11 @@ public class TownyAsciiMap {
 		int halfLineHeight = lineHeight / 2;
 		String[][] townyMap = new String[lineWidth][lineHeight];
 		int x, y = 0;
-		for (int tby = pos.getZ() - halfLineWidth; tby <= pos.getZ() + (lineWidth-halfLineWidth-1); tby++) {
+		for (int tby = pos.getX() + (lineWidth-halfLineWidth-1); tby >= pos.getX() - halfLineWidth; tby--) {
 			x = 0;
-			for (int tbx = pos.getX() - halfLineHeight; tbx <= pos.getX() + (lineHeight-halfLineHeight-1); tbx++) {
+			for (int tbx = pos.getZ() - halfLineHeight; tbx <= pos.getZ() + (lineHeight-halfLineHeight-1); tbx++) {
 				try {
-					TownBlock townblock = world.getTownBlock(tbx, tby);
+					TownBlock townblock = world.getTownBlock(tby, tbx);
 					//TODO: possibly claim outside of towns
 					if (!townblock.hasTown())
 						throw new TownyException();
