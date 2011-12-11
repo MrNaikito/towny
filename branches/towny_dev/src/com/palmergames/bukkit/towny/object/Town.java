@@ -46,6 +46,11 @@ public class Town extends TownBlockOwner implements Walled, ResidentList {
 		isPublic = true;
 		isTaxPercentage = false;
 		permissions.loadDefault(this);
+		// Set a few defaults in case they don't exist in the data file.
+		permissions.pvp = true;
+		permissions.fire = true;
+		permissions.explosion = true;
+		permissions.mobs = true;
 	}
 
 	@Override
@@ -528,6 +533,31 @@ public class Town extends TownBlockOwner implements Walled, ResidentList {
 	}
 
 	public double getPlotPrice() {
+		return plotPrice;
+	}
+	
+	public double getPlotTypePrice(TownBlockType type) {
+		
+		double plotPrice = 0;
+		switch (type.ordinal()) {
+
+		case 0:
+			plotPrice = getPlotPrice();
+			break;
+		case 1:
+			plotPrice = getCommercialPlotPrice();
+			break;
+		case 3:
+			plotPrice = getEmbassyPlotPrice();
+			break;
+		default:
+			plotPrice = getPlotPrice();
+			
+		}
+		// check price isn't negative
+		if (plotPrice < 0)
+			plotPrice = 0;
+		
 		return plotPrice;
 	}
 
