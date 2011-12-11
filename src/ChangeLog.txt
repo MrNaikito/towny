@@ -879,3 +879,4 @@ v0.77.1.11:
 	  W - Wilds
 	  C - Commercial/Shop
 	  A - Arena
+	  (shop plots which are for sale will show up as a blue $)
