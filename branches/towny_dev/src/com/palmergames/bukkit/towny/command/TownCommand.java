@@ -1109,59 +1109,68 @@ public class TownCommand implements CommandExecutor  {
                 
                 plugin.updateCache();
         }
-        /*
-        private static List<Resident> getResidents(Player player, String[] names) {
-                List<Resident> invited = new ArrayList<Resident>();
-                for (String name : names)
-                        try {
-                                Resident target = plugin.getTownyUniverse().getResident(name);
-                                invited.add(target);
-                        } catch (TownyException x) {
-                                TownyMessaging.sendErrorMsg(player, x.getError());
-                        }
-                return invited;
-        }
-        */
-        public static void townAddResidents(Player player, Town town, List<Resident> invited) {
-                ArrayList<Resident> remove = new ArrayList<Resident>();
-                for (Resident newMember : invited)
-                        try {
-                                // only add players with the right permissions.
-                                if (plugin.isPermissions()) {
-                                	if (plugin.getServer().matchPlayer(newMember.getName()).isEmpty()) { //Not online
-                                        TownyMessaging.sendErrorMsg(player, String.format(TownySettings.getLangString("msg_offline_no_join"), newMember.getName()));
-                                        remove.add(newMember);
-                                	} else if (!TownyUniverse.getPermissionSource().hasPermission(plugin.getServer().getPlayer(newMember.getName()), PermissionNodes.TOWNY_TOWN_RESIDENT.getNode())) {
-                                        TownyMessaging.sendErrorMsg(player, String.format(TownySettings.getLangString("msg_not_allowed_join"), newMember.getName()));
-                                        remove.add(newMember);
-                                	} else {
-                                        town.addResidentCheck(newMember);
-                                        townInviteResident(town, newMember);
-                                	}
-                                } else {
-                                        town.addResidentCheck(newMember);
-                                        townInviteResident(town, newMember);
-                                }
-                        } catch (AlreadyRegisteredException e) {
-                                remove.add(newMember);
-                                TownyMessaging.sendErrorMsg(player, e.getError());
-                        }
-                for (Resident newMember : remove)
-                        invited.remove(newMember);
 
-                if (invited.size() > 0) {
-                        String msg = "";
-                        for (Resident newMember : invited)
-                                msg += newMember.getName() + ", ";
-                        
-                        msg = msg.substring(0, msg.length()-2);
+	/*
+	private static List<Resident> getResidents(Player player, String[] names) {
+	        List<Resident> invited = new ArrayList<Resident>();
+	        for (String name : names)
+	                try {
+	                        Resident target = plugin.getTownyUniverse().getResident(name);
+	                        invited.add(target);
+	                } catch (TownyException x) {
+	                        TownyMessaging.sendErrorMsg(player, x.getError());
+	                }
+	        return invited;
+	}
+	*/
+	public static void townAddResidents(Object sender, Town town, List<Resident> invited) {
 
-                        msg = String.format(TownySettings.getLangString("msg_invited_join_town"), player.getName(), msg);
-                        TownyMessaging.sendTownMessage(town, ChatTools.color(msg));
-						TownyUniverse.getDataSource().saveTown(town);
-                } else
-                        TownyMessaging.sendErrorMsg(player, TownySettings.getLangString("msg_invalid_name"));
-        }
+		ArrayList<Resident> remove = new ArrayList<Resident>();
+		for (Resident newMember : invited)
+			try {
+				// only add players with the right permissions.
+				if (plugin.isPermissions()) {
+					if (plugin.getServer().matchPlayer(newMember.getName()).isEmpty()) { //Not online
+						TownyMessaging.sendErrorMsg(sender, String.format(TownySettings.getLangString("msg_offline_no_join"), newMember.getName()));
+						remove.add(newMember);
+					} else if (!TownyUniverse.getPermissionSource().hasPermission(plugin.getServer().getPlayer(newMember.getName()), PermissionNodes.TOWNY_TOWN_RESIDENT.getNode())) {
+						TownyMessaging.sendErrorMsg(sender, String.format(TownySettings.getLangString("msg_not_allowed_join"), newMember.getName()));
+						remove.add(newMember);
+					} else {
+						town.addResidentCheck(newMember);
+						townInviteResident(town, newMember);
+					}
+				} else {
+					town.addResidentCheck(newMember);
+					townInviteResident(town, newMember);
+				}
+			} catch (AlreadyRegisteredException e) {
+				remove.add(newMember);
+				TownyMessaging.sendErrorMsg(sender, e.getError());
+			}
+		for (Resident newMember : remove)
+			invited.remove(newMember);
+
+		if (invited.size() > 0) {
+			String msg = "";
+			for (Resident newMember : invited)
+				msg += newMember.getName() + ", ";
+
+			msg = msg.substring(0, msg.length() - 2);
+
+			String name;
+
+			if (sender instanceof Player) {
+				name = ((Player) sender).getName();
+			} else
+				name = "Console";
+
+			msg = String.format(TownySettings.getLangString("msg_invited_join_town"), name, msg);
+			TownyMessaging.sendTownMessage(town, ChatTools.color(msg));
+			TownyUniverse.getDataSource().saveTown(town);
+		} else
+			TownyMessaging.sendErrorMsg(sender, TownySettings.getLangString("msg_invalid_name"));
+	}
         
         public static void townAddResident(Town town, Resident resident) throws AlreadyRegisteredException {
                 town.addResident(resident);
