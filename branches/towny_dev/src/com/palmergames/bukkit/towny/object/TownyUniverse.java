@@ -66,6 +66,7 @@ import com.palmergames.bukkit.towny.tasks.HealthRegenTimerTask;
 import com.palmergames.bukkit.towny.tasks.MobRemovalTimerTask;
 import com.palmergames.bukkit.towny.tasks.ProtectionRegenTask;
 import com.palmergames.bukkit.towny.tasks.RepeatingTimerTask;
+import com.palmergames.bukkit.towny.tasks.SetDefaultModes;
 import com.palmergames.bukkit.towny.tasks.TeleportWarmupTimerTask;
 import com.palmergames.bukkit.towny.war.War;
 import com.palmergames.bukkit.towny.war.WarSpoils;
@@ -252,6 +253,12 @@ public class TownyUniverse extends TownyObject {
 
                 if (isWarTime())
                         getWarEvent().sendScores(player, 3);
+                
+                //Schedule to setup default modes when the player has finished loading
+                if (getPlugin().getServer().getScheduler().scheduleSyncDelayedTask(getPlugin(), new SetDefaultModes(this, player, false),1) == -1)
+                	TownyMessaging.sendErrorMsg("Could not set default modes for " + player.getName() + ".");
+                
+                
                 
         setChanged();
         notifyObservers(PLAYER_LOGIN);

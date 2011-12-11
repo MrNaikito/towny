@@ -1383,7 +1383,7 @@ public class TownySettings {
 	}
 	
 	public static int getMaxResidentPlots(Resident resident) {
-		int maxPlots = TownyUniverse.getPermissionSource().getGroupPermissionIntNode(resident.getName(), "towny_maxplots");
+		int maxPlots = TownyUniverse.getPermissionSource().getGroupPermissionIntNode(resident.getName(), PermissionNodes.TOWNY_MAX_PLOTS.getNode());
 	    if (maxPlots == -1) 
 	    	maxPlots = getInt(ConfigNodes.TOWN_MAX_PLOTS_PER_RESIDENT);
 	    return maxPlots;

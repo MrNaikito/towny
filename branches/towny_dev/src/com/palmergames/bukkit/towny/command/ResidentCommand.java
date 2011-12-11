@@ -171,7 +171,7 @@ public class ResidentCommand implements CommandExecutor {
 		} else if (split[0].equalsIgnoreCase("reset") || split[0].equalsIgnoreCase("clear"))
 			plugin.removePlayerMode(player);
 		else
-			plugin.setPlayerMode(player, split);
+			plugin.setPlayerMode(player, split, true);
 	}
 
 	public void residentFriend(Player player, String[] split) {

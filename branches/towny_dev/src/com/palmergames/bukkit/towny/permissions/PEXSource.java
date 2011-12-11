@@ -77,6 +77,25 @@ public class PEXSource extends TownyPermissionSource {
 		}    	
     	
     }
+    
+    /**
+     * 
+     * @param playerName
+     * @param node
+     * @return empty = can't find
+     */
+    @Override
+    public String getPlayerPermissionStringNode(String playerName, String node) {
+    	Player player = plugin.getServer().getPlayer(playerName);
+		String worldName = player.getWorld().getName();
+		
+		PermissionManager pexPM = PermissionsEx.getPermissionManager();
+		
+		//return pexPM.getUser(player).getOptionInteger(node, worldName, -1);
+		
+		return pexPM.getUser(player).getOption(node, worldName);
+
+    }
 	
     /** hasPermission
      * 

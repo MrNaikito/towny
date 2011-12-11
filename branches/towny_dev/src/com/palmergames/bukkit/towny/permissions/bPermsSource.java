@@ -76,6 +76,23 @@ public class bPermsSource extends TownyPermissionSource {
 		}    	
     	
     }
+    
+    /**
+     * 
+     * @param playerName
+     * @param node
+     * @return empty = can't find
+     */
+    @Override
+    public String getPlayerPermissionStringNode(String playerName, String node) {
+    	Player player = plugin.getServer().getPlayer(playerName);
+		
+		InfoReader bPermIR = Permissions.getInfoReader();
+		
+		return bPermIR.getValue(player, node);
+		   	
+    	
+    }
 	
     /** hasPermission
      * 
