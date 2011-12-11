@@ -113,9 +113,12 @@ public class TownyAsciiMap {
 						townyMap[y][x] = Colors.White;
 
 					// Registered town block
-					if (townblock.getPlotPrice() != -1)
+					if (townblock.getPlotPrice() != -1) {
+						// override the colour if it's a shop plot for sale
+						if (townblock.getType().equals(TownBlockType.COMMERCIAL))
+							townyMap[y][x] = Colors.Blue;
 						townyMap[y][x] += "$";
-					else if (townblock.isHomeBlock())
+					} else if (townblock.isHomeBlock())
 						townyMap[y][x] += "H";
 					else if (townblock.getType().equals(TownBlockType.EMBASSY))
 						townyMap[y][x] += "E";
