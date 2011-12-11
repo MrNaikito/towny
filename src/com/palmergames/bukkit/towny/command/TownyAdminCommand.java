@@ -257,10 +257,12 @@ public class TownyAdminCommand implements CommandExecutor {
 				if (split.length == 1)
 					TownyMessaging.sendMessage(getSender(), plugin.getTownyUniverse().getStatus(town));
 				else if (split[1].equalsIgnoreCase("add")) {
+					/*
 					if (isConsole) {
 						sender.sendMessage("[Towny] InputError: This command was designed for use in game only.");
 						return;
 					}
+					*/
 					TownCommand.townAdd(player, town, StringMgmt.remArgs(split, 2));
 				}
 

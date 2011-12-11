@@ -15,6 +15,7 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Painting;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
+import org.bukkit.entity.ThrownPotion;
 import org.bukkit.entity.Wolf;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EndermanPickupEvent;
@@ -426,7 +427,7 @@ public class TownyEntityListener extends EntityListener {
     			// Check Town PvP status
     			TownBlock townblock = world.getTownBlock(coord);
     			if (!townblock.getTown().isPVP() && !world.isForcePVP() && !townblock.getPermissions().pvp) {
-    				if (bp != null && (ap != null || a instanceof Arrow))
+    				if (bp != null && (ap != null || a instanceof Arrow || a instanceof ThrownPotion))
     					return true;
     				
     				if (b instanceof Wolf) {
