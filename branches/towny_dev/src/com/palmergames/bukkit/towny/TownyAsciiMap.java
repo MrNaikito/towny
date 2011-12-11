@@ -119,6 +119,12 @@ public class TownyAsciiMap {
 						townyMap[y][x] += "H";
 					else if (townblock.getType().equals(TownBlockType.EMBASSY))
 						townyMap[y][x] += "E";
+					else if (townblock.getType().equals(TownBlockType.WILDS))
+						townyMap[y][x] += "W";
+					else if (townblock.getType().equals(TownBlockType.COMMERCIAL))
+						townyMap[y][x] += "C";
+					else if (townblock.getType().equals(TownBlockType.ARENA))
+						townyMap[y][x] += "A";
 					else
 						townyMap[y][x] += "+";
 				} catch (TownyException e) {
