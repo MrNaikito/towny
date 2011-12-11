@@ -66,6 +66,23 @@ public class GroupManagerSource extends TownyPermissionSource {
     	
 
     }
+    
+    /**
+     * 
+     * @param playerName
+     * @param node
+     * @return empty = can't find
+     */
+    @Override
+	public String getPlayerPermissionStringNode(String playerName, String node) {
+    	Player player = plugin.getServer().getPlayer(playerName);
+		
+		AnjoPermissionsHandler handler = groupManager.getWorldsHolder().getWorldData(player).getPermissionsHandler();
+		
+		return handler.getPermissionString(playerName, node);
+    	
+
+    }
 	
     /** hasPermission
      * 

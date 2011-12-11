@@ -30,5 +30,6 @@ public abstract class TownyPermissionSource {
 	abstract public int getGroupPermissionIntNode(String playerName, String node);
 	abstract public boolean hasPermission(Player player, String node);
 	abstract public String getPlayerGroup(Player player);
+	abstract public String getPlayerPermissionStringNode(String playerName, String node);
 	
 }

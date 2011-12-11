@@ -54,6 +54,7 @@ import com.palmergames.bukkit.towny.permissions.PermissionNodes;
 import com.palmergames.bukkit.towny.permissions.Perms3Source;
 import com.palmergames.bukkit.towny.permissions.bPermsSource;
 import com.palmergames.bukkit.towny.questioner.TownyQuestionTask;
+import com.palmergames.bukkit.towny.tasks.SetDefaultModes;
 import com.palmergames.bukkit.townywar.TownyWar;
 import com.palmergames.bukkit.townywar.listener.TownyWarBlockListener;
 import com.palmergames.bukkit.townywar.listener.TownyWarCustomListener;
@@ -535,9 +536,10 @@ public class Towny extends JavaPlugin {
         
         
         
-        public void setPlayerMode(Player player, String[] modes) {
+        public void setPlayerMode(Player player, String[] modes, boolean notify) {
                 playerMode.put(player.getName(), Arrays.asList(modes));
-                TownyMessaging.sendMsg(player, ("Modes set: " + StringMgmt.join(modes, ",")));
+                if (notify)
+                	TownyMessaging.sendMsg(player, ("Modes set: " + StringMgmt.join(modes, ",")));
         }
         
         public void setPlayerChatMode(Player player, String newMode) {
@@ -562,12 +564,16 @@ public class Towny extends JavaPlugin {
         	if (modes.isEmpty())
         		removePlayerMode(player);
         	else
-        		setPlayerMode(player,(String[]) modes.toArray(new String[modes.size()]));
+        		setPlayerMode(player,(String[]) modes.toArray(new String[modes.size()]), true);
         }
         
         public void removePlayerMode(Player player) {
                 playerMode.remove(player.getName());
-                TownyMessaging.sendMsg(player, ("Mode removed."));
+                
+                if (getServer().getScheduler().scheduleSyncDelayedTask(this, new SetDefaultModes(getTownyUniverse(), player, true),1) == -1)
+                	TownyMessaging.sendErrorMsg("Could not set default modes for " + player.getName() + ".");
+                
+                //TownyMessaging.sendMsg(player, ("Mode removed."));
         }
         
         public List<String> getPlayerMode(Player player) {

@@ -880,3 +880,11 @@ v0.77.1.11:
 	  C - Commercial/Shop
 	  A - Arena
 	  (shop plots which are for sale will show up as a blue $)
+v0.77.1.12:
+	- You can now set default modes via permissions. To set a group/user to default to town chat and have the map as they walk...
+	  If using GroupManager...
+	    add an Info node to the group/user towny_default_modes: 'tc,map'
+	  If using PEX...
+	    add an Options node for towny_default_modes: 'tc,map'
+	  If using any other perms system (not guaranteed to work)
+	    add a permission node - towny_default_modes.tc,map
