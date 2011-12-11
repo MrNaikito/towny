@@ -874,3 +874,4 @@ v0.77.1.10:
 v0.77.1.11:
 	- Explosion regen now fills the hole from the bottom up (No more bouncing loot).
 	- Prevented 'plot fs $' from using negative values.
+	- Rotated 'towny map' so north is at the top again.
