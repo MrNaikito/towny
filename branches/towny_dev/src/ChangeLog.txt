@@ -890,4 +890,4 @@ v0.77.1.12:
 	    add a permission node - towny_default_modes.tc,map
 v0.77.1.13:
 	- Added thrown potions to the PVP protection tests (not fully implemented in Bukkit yet).
-	- '/townyadmin town' command is now useable at the console.
+	- '/townyadmin town/nation' command is now useable at the console.

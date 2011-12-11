@@ -263,7 +263,7 @@ public class TownyAdminCommand implements CommandExecutor {
 						return;
 					}
 					*/
-					TownCommand.townAdd(player, town, StringMgmt.remArgs(split, 2));
+					TownCommand.townAdd(sender, town, StringMgmt.remArgs(split, 2));
 				}
 
 			} catch (NotRegisteredException e) {
@@ -285,10 +285,13 @@ public class TownyAdminCommand implements CommandExecutor {
 				if (split.length == 1)
 					TownyMessaging.sendMessage(getSender(), plugin.getTownyUniverse().getStatus(nation));
 				else if (split[1].equalsIgnoreCase("add")) {
+					/*
 					if (isConsole) {
 						sender.sendMessage("[Towny] InputError: This command was designed for use in game only.");
 						return;
 					}
+					
+					*/
 					NationCommand.nationAdd(nation, plugin.getTownyUniverse().getTowns(StringMgmt.remArgs(split, 2)));
 				}
 

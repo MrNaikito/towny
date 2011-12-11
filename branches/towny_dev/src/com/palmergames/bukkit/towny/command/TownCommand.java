@@ -1367,24 +1367,34 @@ public class TownCommand implements CommandExecutor  {
          * @param names
          */
 
-        public static void townAdd(Player player, Town specifiedTown, String[] names) {
+        public static void townAdd(Object sender, Town specifiedTown, String[] names) {
+        	String name;
+        	if (sender instanceof Player) {
+        		name = ((Player)sender).getName();
+        	} else {
+        		name = "Console";
+        	}
                 Resident resident;
                 Town town;
                 try {
-                        resident = plugin.getTownyUniverse().getResident(player.getName());
+                	if (name.equalsIgnoreCase("Console")) {
+                		town = specifiedTown;
+                	} else {
+                        resident = plugin.getTownyUniverse().getResident(name);
                         if (specifiedTown == null)
                                 town = resident.getTown();
                         else
                                 town = specifiedTown;
-                        if (!plugin.isTownyAdmin(player) && !resident.isMayor() && !town.hasAssistant(resident))
+                        if (!plugin.isTownyAdmin((Player)sender) && !resident.isMayor() && !town.hasAssistant(resident))
                                 throw new TownyException(TownySettings.getLangString("msg_not_mayor_ass"));
+                	}
                         
                 } catch (TownyException x) {
-                        TownyMessaging.sendErrorMsg(player, x.getError());
+                        TownyMessaging.sendErrorMsg(sender, x.getError());
                         return;
                 }
 
-                townAddResidents(player, town, plugin.getTownyUniverse().getValidatedResidents(player, names));
+                townAddResidents(sender, town, plugin.getTownyUniverse().getValidatedResidents(sender, names));
                 
                 plugin.updateCache();
         }

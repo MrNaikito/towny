@@ -45,6 +45,9 @@ public class TownyMessaging {
     	if (sender instanceof Player)
     		isPlayer = true;
     	
+    	if (sender == null)
+    		System.out.print("Message called with null sender");
+    	
         for (String line : ChatTools.color(TownySettings.getLangString("default_towny_prefix") + Colors.Rose + msg))
         	if (isPlayer)
         		((Player) sender).sendMessage(line);
