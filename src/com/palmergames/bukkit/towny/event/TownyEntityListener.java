@@ -1,5 +1,6 @@
 package com.palmergames.bukkit.towny.event;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.bukkit.Location;
@@ -47,6 +48,7 @@ import com.palmergames.bukkit.towny.object.WorldCoord;
 import com.palmergames.bukkit.towny.tasks.MobRemovalTimerTask;
 import com.palmergames.bukkit.towny.tasks.ProtectionRegenTask;
 import com.palmergames.bukkit.townywar.TownyWarConfig;
+import com.palmergames.bukkit.util.ArraySort;
 
 public class TownyEntityListener extends EntityListener {
        
@@ -242,7 +244,9 @@ public class TownyEntityListener extends EntityListener {
     	List<Block> blocks = event.blockList();
     	Entity entity = event.getEntity();
     	int count = 0;
-            
+    	
+        Collections.sort(blocks, ArraySort.getInstance());
+        
     	for (Block block : blocks) {
     		loc = block.getLocation();
             coord = Coord.parseCoord(loc);

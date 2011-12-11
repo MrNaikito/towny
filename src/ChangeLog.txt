@@ -871,3 +871,6 @@ v0.77.1.10:
 	- Adjusted Towny cheat protection so it will not affect players in creative mode.
 	- Fixed loading of allies for nations.
 	- Fixed typo for towny.cheat.bypass in new permission node code.
+v0.77.1.11:
+	- Explosion regen now fills the hole from the bottom up (No more bouncing loot).
+	- Prevented 'plot fs $' from using negative values.

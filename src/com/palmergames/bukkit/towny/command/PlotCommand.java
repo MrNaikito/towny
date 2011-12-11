@@ -172,16 +172,7 @@ public class PlotCommand implements CommandExecutor {
 					}
 				} else if (split[0].equalsIgnoreCase("forsale") || split[0].equalsIgnoreCase("fs")) {
 					WorldCoord pos = new WorldCoord(world, Coord.parseCoord(player));
-					double plotPrice = 0;
-					switch (pos.getTownBlock().getType().ordinal()) {
-
-					case 0:
-						plotPrice = pos.getTownBlock().getTown().getPlotPrice();
-						break;
-					case 1:
-						plotPrice = pos.getTownBlock().getTown().getCommercialPlotPrice();
-						break;
-					}
+					double plotPrice = pos.getTownBlock().getTown().getPlotTypePrice(pos.getTownBlock().getType());
 
 					if (split.length > 1) {
 
@@ -202,7 +193,12 @@ public class PlotCommand implements CommandExecutor {
 						// Check that it's not: /plot forsale within rect 3
 						if (areaSelectPivot != 1) {
 							try {
+								// command was 'plot fs $'
 								plotPrice = Double.parseDouble(split[1]);
+								if (plotPrice < 0) {
+		                            TownyMessaging.sendErrorMsg(player, TownySettings.getLangString("msg_err_negative_money"));
+		                            return;
+		                        }
 							} catch (NumberFormatException e) {
 								player.sendMessage(String.format(TownySettings.getLangString("msg_error_must_be_num")));
 								return;
@@ -210,9 +206,13 @@ public class PlotCommand implements CommandExecutor {
 						}
 
 						for (WorldCoord worldCoord : selection) {
+							if (selection.size() > 1)
+								plotPrice = worldCoord.getTownBlock().getTown().getPlotTypePrice(worldCoord.getTownBlock().getType());
+								
 							setPlotForSale(resident, worldCoord, plotPrice);
 						}
 					} else {
+						// basic 'plot fs' command
 						setPlotForSale(resident, pos, plotPrice);
 					}
 				} else if (split[0].equalsIgnoreCase("perm")) {
