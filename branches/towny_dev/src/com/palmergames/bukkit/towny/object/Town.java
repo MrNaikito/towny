@@ -46,11 +46,6 @@ public class Town extends TownBlockOwner implements Walled, ResidentList {
 		isPublic = true;
 		isTaxPercentage = false;
 		permissions.loadDefault(this);
-		// Set a few defaults in case they don't exist in the data file.
-		permissions.pvp = true;
-		permissions.fire = true;
-		permissions.explosion = true;
-		permissions.mobs = true;
 	}
 
 	@Override

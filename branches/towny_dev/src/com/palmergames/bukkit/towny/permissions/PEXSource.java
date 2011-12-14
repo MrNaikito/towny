@@ -109,8 +109,11 @@ public class PEXSource extends TownyPermissionSource {
 		PermissionManager pexPM = PermissionsEx.getPermissionManager();
 		
 		//return pexPM.getUser(player).getOptionInteger(node, worldName, -1);
+		String result = pexPM.getUser(player).getOption(node, worldName);
+		if (result != null)
+			return result;
 		
-		return pexPM.getUser(player).getOption(node, worldName);
+		return "";
 
     }
 	

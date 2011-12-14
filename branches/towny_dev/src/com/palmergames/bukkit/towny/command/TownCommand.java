@@ -1436,6 +1436,7 @@ public class TownCommand implements CommandExecutor  {
 						if (((townBlockOwner instanceof Town) && (!townBlock.hasResident())) || ((townBlockOwner instanceof Resident) && (townBlock.hasResident()))) {
 							// Reset permissions
 							townBlock.setType(townBlock.getType());
+							TownyUniverse.getDataSource().saveTownBlock(townBlock);
 						}
 					}
 					if (townBlockOwner instanceof Town)
