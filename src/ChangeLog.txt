@@ -896,3 +896,6 @@ v0.77.1.14:
 	- Implemented new GM event system.
 	- '/g' global chat mode now applies chat formatting again.
 	- Implemented PEX events.
+V0.77.1.15:
+	- Fixed Null return from getPlayerPermissionStringNode when using PEX.
+	- '/town set perm reset' and '/res set perm reset' now correctly update the plot data files.
