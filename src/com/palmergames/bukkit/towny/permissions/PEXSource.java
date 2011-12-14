@@ -1,22 +1,39 @@
 package com.palmergames.bukkit.towny.permissions;
 
 
+import java.util.Arrays;
+
 import org.bukkit.entity.Player;
+import org.bukkit.event.CustomEventListener;
+import org.bukkit.event.Event;
+import org.bukkit.event.Event.Priority;
 import org.bukkit.plugin.Plugin;
 
+import ru.tehkode.permissions.PermissionEntity;
+import ru.tehkode.permissions.PermissionGroup;
 import ru.tehkode.permissions.PermissionManager;
+import ru.tehkode.permissions.PermissionUser;
 import ru.tehkode.permissions.bukkit.PermissionsEx;
+import ru.tehkode.permissions.events.PermissionEntityEvent;
+import ru.tehkode.permissions.events.PermissionSystemEvent;
 
+import com.palmergames.bukkit.towny.NotRegisteredException;
 import com.palmergames.bukkit.towny.Towny;
 import com.palmergames.bukkit.towny.TownySettings;
 import com.palmergames.bukkit.towny.object.Resident;
 
 
+/**
+ * @author ElgarL
+ *
+ */
 public class PEXSource extends TownyPermissionSource {
 	
 	public PEXSource(Towny towny, Plugin test) {
 		this.pex = (PermissionsEx)test;
 		this.plugin = towny;
+		
+		plugin.getServer().getPluginManager().registerEvent(Event.Type.CUSTOM_EVENT, new PEXCustomEventListener(), Priority.High, plugin);
 	}
 	
 	/** getPermissionNode
@@ -127,5 +144,75 @@ public class PEXSource extends TownyPermissionSource {
     	return pexPM.getUser(player).getGroupsNames()[0];
 		
     }
+    
+    /**
+     * Returns an array of Groups this player is a member of.
+     * 
+     * @param player
+     * @return
+     */
+    public PermissionGroup[] getPlayerGroups(Player player) {
+
+    	PermissionManager pexPM = PermissionsEx.getPermissionManager();
+    	
+    	return pexPM.getUser(player).getGroups();
+		
+    }
+    
+    protected class PEXCustomEventListener extends CustomEventListener {
+
+		public PEXCustomEventListener() {
+		}
+
+		@Override
+		public void onCustomEvent(Event event) {
+
+			Resident resident = null;
+			Player player = null;
+
+			if (event instanceof PermissionEntityEvent) {
+				if (Arrays.asList(PermissionEventEnums.PEXEntity_Action.values()).contains(event.getEventName())) {
+					PermissionEntityEvent EntityEvent = (PermissionEntityEvent) event;
+					PermissionEntity entity = EntityEvent.getEntity();
+					if (entity instanceof PermissionGroup) {
+						PermissionGroup group = (PermissionGroup)entity;
+						
+						// Update all players who are in this group.
+						for (Player toUpdate : plugin.getTownyUniverse().getOnlinePlayers()) {
+							if (Arrays.asList(getPlayerGroups(toUpdate)).contains(group)) {
+								//setup default modes
+								String[] modes = getPlayerPermissionStringNode(toUpdate.getName(), PermissionNodes.TOWNY_DEFAULT_MODES.getNode()).split(",");
+								plugin.setPlayerMode(player, modes, false);
+							}
+						}
+						
+					} else if (entity instanceof PermissionUser) {
+						
+						try {
+							resident = plugin.getTownyUniverse().getResident(((PermissionUser)entity).getName());
+							player = plugin.getServer().getPlayerExact(resident.getName());
+							if (player != null) {
+								//setup default modes for this player.
+								String[] modes = getPlayerPermissionStringNode(player.getName(), PermissionNodes.TOWNY_DEFAULT_MODES.getNode()).split(",");
+								plugin.setPlayerMode(player, modes, false);
+							}
+						} catch (NotRegisteredException x) {
+						}						
+					}
+				}
+
+			} else if (event instanceof PermissionSystemEvent) {
+				if (Arrays.asList(PermissionEventEnums.PEXSystem_Action.values()).contains(event.getEventName())) {
+					// Update all players.
+					for (Player toUpdate : plugin.getTownyUniverse().getOnlinePlayers()) {
+						//setup default modes
+						String[] modes = getPlayerPermissionStringNode(toUpdate.getName(), PermissionNodes.TOWNY_DEFAULT_MODES.getNode()).split(",");
+						plugin.setPlayerMode(player, modes, false);
+					}
+				}
+
+			}
+		}
+	}
 	
 }

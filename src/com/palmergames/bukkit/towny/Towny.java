@@ -435,6 +435,7 @@ public class Towny extends JavaPlugin {
         
         pluginManager.registerEvent(Event.Type.WORLD_INIT, worldListener, Priority.Normal, this);
         pluginManager.registerEvent(Event.Type.WORLD_LOAD, worldListener, Priority.Normal, this);
+        
     }
         
     private void update() {
@@ -558,7 +559,7 @@ public class Towny extends JavaPlugin {
         	} else
         		modes = new ArrayList<String>();
         	
-        	if (!newMode.equalsIgnoreCase("g") && !hasPlayerMode(player, newMode))
+        	if (!hasPlayerMode(player, newMode))
         		modes.add(newMode);
         	
         	if (modes.isEmpty())

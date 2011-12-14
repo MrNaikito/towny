@@ -891,3 +891,8 @@ v0.77.1.12:
 v0.77.1.13:
 	- Added thrown potions to the PVP protection tests (not fully implemented in Bukkit yet).
 	- '/townyadmin town/nation' command is now useable at the console.
+v0.77.1.14:
+	- If using GM this version requires latest Dev GroupManager 1.7.5+ for all features to work fully.
+	- Implemented new GM event system.
+	- '/g' global chat mode now applies chat formatting again.
+	- Implemented PEX events.
