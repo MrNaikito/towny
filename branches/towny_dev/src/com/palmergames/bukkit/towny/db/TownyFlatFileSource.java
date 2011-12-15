@@ -832,14 +832,14 @@ public class TownyFlatFileSource extends TownyDataSource {
 				line = kvFile.get("explosions");
 				if (line != null)
 					try {
-						world.setForceExpl(Boolean.parseBoolean(line));
+						world.setExpl(Boolean.parseBoolean(line));
 					} catch (Exception e) {
 					}
 				
 				line = kvFile.get("forceexplosions");
 				if (line != null)
 					try {
-						world.setExpl(Boolean.parseBoolean(line));
+						world.setForceExpl(Boolean.parseBoolean(line));
 					} catch (Exception e) {
 					}
 				

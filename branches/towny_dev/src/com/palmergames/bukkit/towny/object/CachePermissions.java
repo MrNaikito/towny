@@ -232,10 +232,10 @@ public class CachePermissions extends TownyUniverse {
 		}
 
 		TownBlock townBlock;
-		Town town;
+		//Town town;
 		try {
 			townBlock = pos.getTownBlock();
-			town = townBlock.getTown();
+			//town = townBlock.getTown();
 		} catch (NotRegisteredException e) {
 
 			// Wilderness Permissions
@@ -289,21 +289,21 @@ public class CachePermissions extends TownyUniverse {
 
 		// Town Permissions
 		if (status == TownBlockStatus.TOWN_RESIDENT) {
-			if (town.getPermissions().getResidentPerm(actionType))
+			if (townBlock.getPermissions().getResidentPerm(actionType))
 				return true;
 			else {
 				cacheBlockErrMsg(player, String.format(TownySettings.getLangString("msg_cache_block_error_town_resident"), actionType.toString()));
 				return false;
 			}
 		} else if (status == TownBlockStatus.TOWN_ALLY)
-			if (town.getPermissions().getAllyPerm(actionType))
+			if (townBlock.getPermissions().getAllyPerm(actionType))
 				return true;
 			else {
 				cacheBlockErrMsg(player, String.format(TownySettings.getLangString("msg_cache_block_error_town_allies"), actionType.toString()));
 				return false;
 			}
 		else if (status == TownBlockStatus.OUTSIDER || status == TownBlockStatus.ENEMY)
-			if (town.getPermissions().getOutsiderPerm(actionType))
+			if (townBlock.getPermissions().getOutsiderPerm(actionType))
 				return true;
 			else {
 				cacheBlockErrMsg(player, String.format(TownySettings.getLangString("msg_cache_block_error_town_outsider"), actionType.toString()));

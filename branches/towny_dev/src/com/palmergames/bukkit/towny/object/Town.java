@@ -169,11 +169,14 @@ public class Town extends TownBlockOwner implements Walled, ResidentList {
 			}
 	}
 
-	public void addAssistant(Resident resident) throws AlreadyRegisteredException {
+	public void addAssistant(Resident resident) throws AlreadyRegisteredException, NotRegisteredException {
 		if (hasAssistant(resident))
 			throw new AlreadyRegisteredException();
-		else
-			assistants.add(resident);
+		
+		if (!hasResident(resident))
+			throw new NotRegisteredException(resident.getName() + " doesn't belong to your town.");
+
+		assistants.add(resident);
 	}
 
 	public boolean isMayor(Resident resident) {

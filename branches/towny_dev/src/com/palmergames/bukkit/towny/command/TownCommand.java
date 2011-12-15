@@ -1279,7 +1279,10 @@ public class TownCommand implements CommandExecutor  {
 								TownyUniverse.getDataSource().saveResident(newMember);
                         } catch (AlreadyRegisteredException e) {
                                 remove.add(newMember);
-                        }
+                        } catch (NotRegisteredException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
                 for (Resident newMember : remove)
                         invited.remove(newMember);
 
