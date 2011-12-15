@@ -35,6 +35,7 @@ public class ResidentCommand implements CommandExecutor {
 		output.add(ChatTools.formatCommand("", "/resident", "", TownySettings.getLangString("res_1")));
 		output.add(ChatTools.formatCommand("", "/resident", TownySettings.getLangString("res_2"), TownySettings.getLangString("res_3")));
 		output.add(ChatTools.formatCommand("", "/resident", "list", TownySettings.getLangString("res_4")));
+		output.add(ChatTools.formatCommand("", "/resident", "tax", ""));
 		output.add(ChatTools.formatCommand("", "/resident", "set [] .. []", "'/resident set' " + TownySettings.getLangString("res_5")));
 		output.add(ChatTools.formatCommand("", "/resident", "friend [add/remove] " + TownySettings.getLangString("res_2"), TownySettings.getLangString("res_6")));
 		output.add(ChatTools.formatCommand("", "/resident", "friend [add+/remove+] " + TownySettings.getLangString("res_2") + " ", TownySettings.getLangString("res_7")));
@@ -79,7 +80,14 @@ public class ResidentCommand implements CommandExecutor {
 				player.sendMessage(line);
 		else if (split[0].equalsIgnoreCase("list"))
 			listResidents(player);
-		else if (split[0].equalsIgnoreCase("set")) {
+		else if (split[0].equalsIgnoreCase("tax")) {
+			try {
+				Resident resident = plugin.getTownyUniverse().getResident(player.getName());
+				TownyMessaging.sendMessage(player, plugin.getTownyUniverse().getTaxStatus(resident));
+			} catch (NotRegisteredException x) {
+				TownyMessaging.sendErrorMsg(player, TownySettings.getLangString("msg_err_not_registered"));
+			}			
+		} else if (split[0].equalsIgnoreCase("set")) {
 			String[] newSplit = StringMgmt.remFirstArg(split);
 			residentSet(player, newSplit);
 		} else if (split[0].equalsIgnoreCase("friend")) {
