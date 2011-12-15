@@ -904,3 +904,5 @@ v0.77.1.16:
 	- Fixed World settings for Explosions.
 	- Permissions are now correctly read from the plot rather than the town. Town level permisisons are defaults and changes propogate with '/town set perm reset'.
 	- You can no longer add town assistants who are not members of your town.
+	- Added a new command '/resident tax'.
+	  Shows the total taxes a player will have to pay at the next new day.
