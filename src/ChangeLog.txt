@@ -899,3 +899,8 @@ v0.77.1.14:
 V0.77.1.15:
 	- Fixed Null return from getPlayerPermissionStringNode when using PEX.
 	- '/town set perm reset' and '/res set perm reset' now correctly update the plot data files.
+v0.77.1.16:
+	- '/plot perm' on a town owned plot now correctly shows R for resident instead of F for friend.
+	- Fixed World settings for Explosions.
+	- Permissions are now correctly read from the plot rather than the town. Town level permisisons are defaults and changes propogate with '/town set perm reset'.
+	- You can no longer add town assistants who are not members of your town.
