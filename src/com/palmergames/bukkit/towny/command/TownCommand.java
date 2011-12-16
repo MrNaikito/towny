@@ -1508,12 +1508,12 @@ public class TownCommand implements CommandExecutor  {
 					perm.set(s, b);
 				} catch (Exception e) {
 				}
-			String perms = perm.toString();
+			//String perms = perm.toString();
 			//change perm name to friend is this is a resident setting
-			if (friend)
-				perms = perms.replaceAll("resident", "friend");
+			//if (friend)
+			//	perms = perms.replaceAll("resident", "friend");
 			TownyMessaging.sendMsg(player, TownySettings.getLangString("msg_set_perms"));
-			TownyMessaging.sendMessage(player, (Colors.Green + " Perm: " + perm.getColourString()));
+			TownyMessaging.sendMessage(player, (Colors.Green + " Perm: " + ((townBlockOwner instanceof Resident)  ? perm.getColourString().replace("f", "r") : perm.getColourString()) ));
 			TownyMessaging.sendMessage(player, Colors.Green + "PvP: " + ((perm.pvp) ? Colors.Red + "ON" : Colors.LightGreen + "OFF") + Colors.Green + "  Explosions: " + ((perm.explosion) ? Colors.Red + "ON" : Colors.LightGreen + "OFF") + Colors.Green + "  Firespread: " + ((perm.fire) ? Colors.Red + "ON" : Colors.LightGreen + "OFF") + Colors.Green + "  Mob Spawns: " + ((perm.mobs) ? Colors.Red + "ON" : Colors.LightGreen + "OFF"));
 			plugin.updateCache();
 		}

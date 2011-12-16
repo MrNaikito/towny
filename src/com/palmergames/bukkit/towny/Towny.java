@@ -23,6 +23,7 @@ import ca.xshade.bukkit.questioner.Questioner;
 import ca.xshade.questionmanager.Option;
 import ca.xshade.questionmanager.Question;
 
+import com.ensifera.animosity.craftirc.CraftIRC;
 import com.iConomy.iConomy;
 import com.nijiko.permissions.PermissionHandler;
 import com.nijikokun.register.Register;
@@ -93,6 +94,7 @@ public class Towny extends JavaPlugin {
     
     private Register register = null;
     private iConomy iconomy = null;
+    private CraftIRC craftircHandle = null;
 
     private boolean error = false;
    
@@ -272,6 +274,12 @@ public class Towny extends JavaPlugin {
             TownySettings.setUsingQuestioner(false);
         else if (TownySettings.isUsingQuestioner())
             using.add(String.format("%s v%s", "Questioner", test.getDescription().getVersion()));
+        
+        test = getServer().getPluginManager().getPlugin("CraftIRC");
+        if (test != null) {
+        	craftircHandle = (CraftIRC) test;
+            using.add(String.format("%s v%s", "CraftIRC", test.getDescription().getVersion()));
+        }
         
         if (using.size() > 0)
         	TownyLogger.log.info("[Towny] Using: " + StringMgmt.join(using, ", "));
@@ -675,6 +683,16 @@ public class Towny extends JavaPlugin {
 		 */
 		public void setRegister(Register register) {
 			this.register = register;
+		}
+		
+		/**
+		 * @return CraftIRC
+		 */
+		public CraftIRC getCraftIRC() throws TownyException{
+			if (craftircHandle == null)
+                throw new TownyException("CraftIRC is not installed");
+			else
+				return craftircHandle;
 		}
         
         public void log(String msg) {

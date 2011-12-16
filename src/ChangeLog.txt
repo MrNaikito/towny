@@ -906,3 +906,5 @@ v0.77.1.16:
 	- You can no longer add town assistants who are not members of your town.
 	- Added a new command '/resident tax'.
 	  Shows the total taxes a player will have to pay at the next new day.
+v0.77.1.17:
+	- Fix for bPermissions removing it's .has() function.
