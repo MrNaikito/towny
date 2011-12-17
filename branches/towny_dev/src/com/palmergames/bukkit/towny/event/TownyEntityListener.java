@@ -445,7 +445,7 @@ public class TownyEntityListener extends EntityListener {
     			}
     		} catch (NotRegisteredException e) {
     			// Not in a town
-    			if (!world.isPVP())
+    			if ((a instanceof Player) && (b instanceof Player) && (!world.isPVP()))
                     return true;
     		}
             
