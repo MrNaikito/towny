@@ -908,3 +908,5 @@ v0.77.1.16:
 	  Shows the total taxes a player will have to pay at the next new day.
 v0.77.1.17:
 	- Fix for bPermissions removing it's .has() function.
+v0.77.1.18:
+	- Allow killing of mobs in the wilderness for worlds with PVP disabled.
