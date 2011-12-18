@@ -708,8 +708,9 @@ public class Towny extends JavaPlugin {
         	
         	//check for permissions
         	
-        	if (TownyUniverse.getPermissionSource().hasPermission(player, PermissionNodes.TOWNY_WILD_ALL.getNode(action.toString().toLowerCase()))
-                	|| TownyUniverse.getPermissionSource().hasPermission(player, PermissionNodes.TOWNY_WILD_BLOCK_ALL.getNode(blockId + "." + action.toString().toLowerCase())))
+        	//if (TownyUniverse.getPermissionSource().hasPermission(player, PermissionNodes.TOWNY_WILD_ALL.getNode(action.toString().toLowerCase()))
+            //    	|| TownyUniverse.getPermissionSource().hasPermission(player, PermissionNodes.TOWNY_WILD_BLOCK_ALL.getNode(blockId + "." + action.toString().toLowerCase())))
+        	if (TownyUniverse.getPermissionSource().hasPermission(player, PermissionNodes.TOWNY_WILD_BLOCK_ALL.getNode(blockId + "." + action.toString().toLowerCase())))
                 	return true;
             
         	// No perms found so check world settings.

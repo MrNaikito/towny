@@ -910,3 +910,11 @@ v0.77.1.17:
 	- Fix for bPermissions removing it's .has() function.
 v0.77.1.18:
 	- Allow killing of mobs in the wilderness for worlds with PVP disabled.
+v0.77.1.19:
+	- Changed wild permission nodes to accept negation after '*'. You can now use wild perms as a whitelist and blacklist.
+	  If using GroupManager or any system which accepts wildcards...
+	    to use as a whitelist, use the existing...
+	      towny.wild.block.{id}.*
+	    to use as a blacklist...
+	      towny.wild.*
+	      -towny.wild.block.{id}.*
