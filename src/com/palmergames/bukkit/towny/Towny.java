@@ -728,7 +728,25 @@ public class Towny extends JavaPlugin {
             	return false;
         	}
         }
-        
+    /*    
+	public boolean hasPermission(final Player player, final String node) {
+		TownyPermissionSource permissions = TownyUniverse.getPermissionSource();
+		final String[] parts = node.split("\\.");
+		final StringBuilder builder = new StringBuilder(node.length());
+		for (String part : parts) {
+			builder.append('*');
+			if (permissions.hasPermission(player, "-" + builder.toString())) {
+				return false;
+			}
+			if (permissions.hasPermission(player, builder.toString())) {
+				return true;
+			}
+			builder.deleteCharAt(builder.length() - 1);
+			builder.append(part).append('.');
+		}
+		return permissions.hasPermission(player, node);
+	}
+    */   
         public void appendQuestion(Questioner questioner, Question question) throws Exception {
                 for (Option option : question.getOptions())
                         if (option.getReaction() instanceof TownyQuestionTask)
