@@ -436,9 +436,8 @@ If you want Towny’s variables in chat, or the town/nation channels, you must d
       * ingame-format: '[+prefix+group+suffix&f]{townytag} {townycolor}{townyprefix}+displayname{townypostfix}'
     * mChat:
       * mchat-message-format: '{townytag} +p{townycolor}{townyprefix}+dn{townypostfix}+s&f: +m'
-    * HeroChat: 
-      * default-message-format: '{townytag}{color}[{nick}] &f{prefix}{townycolor}{townyprefix}{player}{townypostfix}{suffix}{color}: '
-      * Note: This may not work.
+    * RoyalChat: 
+      * [http://dev.bukkit.org/server-mods/royalchat/pages/configuration/ Guide on configuring towny prefixes in RoyalChat]
       
   === Using TownyChat Without Another Chat Plugin ===
   To use Towny as your sole chat plugin follow these instructions:
