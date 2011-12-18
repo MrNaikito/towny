@@ -403,10 +403,12 @@ public class TownyMessaging {
 	}
 	
 	protected static void sendToIRC(String message) {
+		/*
 		try {
 			TownyUniverse.plugin.getCraftIRC().sendMessageToTag(message, "");
 		} catch (TownyException e) {
 		}
+		*/
 	}
 	
 }
