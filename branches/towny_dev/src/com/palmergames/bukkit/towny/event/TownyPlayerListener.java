@@ -159,13 +159,15 @@ public class TownyPlayerListener extends PlayerListener {
 
 		Block block = event.getClickedBlock();
 		WorldCoord worldCoord;
+		TownyWorld world = null;
 		//System.out.println("onPlayerInteractEvent");
 
 		try {
+			world = TownyUniverse.getWorld(player.getWorld().getName());
 			if (block != null)
-				worldCoord = new WorldCoord(TownyUniverse.getWorld(player.getWorld().getName()), Coord.parseCoord(block));
+				worldCoord = new WorldCoord(world, Coord.parseCoord(block));
 			else
-				worldCoord = new WorldCoord(TownyUniverse.getWorld(player.getWorld().getName()), Coord.parseCoord(player));
+				worldCoord = new WorldCoord(world, Coord.parseCoord(player));
 		} catch (NotRegisteredException e1) {
 			TownyMessaging.sendErrorMsg(player, TownySettings.getLangString("msg_err_not_configured"));
 			event.setCancelled(true);
@@ -194,8 +196,14 @@ public class TownyPlayerListener extends PlayerListener {
 				}
 				return;
 			}
-			if (!bItemUse)
+			if ((status == TownBlockStatus.UNCLAIMED_ZONE) || (!bItemUse)) {
+				if (status == TownBlockStatus.UNCLAIMED_ZONE)
+					TownyMessaging.sendErrorMsg(player, String.format(TownySettings.getLangString("msg_err_cannot_perform_action"), world.getUnclaimedZoneName()));
+				
 				event.setCancelled(true);
+			}
+			
+			
 			if (cache.hasBlockErrMsg())
 				TownyMessaging.sendErrorMsg(player, cache.getBlockErrMsg());
 
@@ -217,8 +225,10 @@ public class TownyPlayerListener extends PlayerListener {
 			return;
 
 		WorldCoord worldCoord;
+		TownyWorld world;
 		try {
-			worldCoord = new WorldCoord(TownyUniverse.getWorld(block.getWorld().getName()), Coord.parseCoord(block));
+			world = TownyUniverse.getWorld(player.getWorld().getName());
+			worldCoord = new WorldCoord(world, Coord.parseCoord(block));
 		} catch (NotRegisteredException e1) {
 			TownyMessaging.sendErrorMsg(player, TownySettings.getLangString("msg_err_not_configured"));
 			event.setCancelled(true);
@@ -240,7 +250,10 @@ public class TownyPlayerListener extends PlayerListener {
 			}
 			return;
 		}
-		if (!bSwitch) {
+		if ((status == TownBlockStatus.UNCLAIMED_ZONE) || (!bSwitch)) {
+			if (status == TownBlockStatus.UNCLAIMED_ZONE)
+				TownyMessaging.sendErrorMsg(player, String.format(TownySettings.getLangString("msg_err_cannot_perform_action"), world.getUnclaimedZoneName()));
+			
 			event.setCancelled(true);
 		}
 		if (cache.hasBlockErrMsg())

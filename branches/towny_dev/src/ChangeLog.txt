@@ -918,3 +918,5 @@ v0.77.1.19:
 	    to use as a blacklist...
 	      towny.wild.*
 	      -towny.wild.block.{id}.*
+v0.77.1.20:
+	- Fixed towny.wild.block.{id}... to allow overriding of Admin permissions.

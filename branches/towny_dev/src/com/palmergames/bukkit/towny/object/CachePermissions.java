@@ -41,7 +41,7 @@ public class CachePermissions extends TownyUniverse {
 			cache.updateCoord(worldCoord);
 
 			TownyMessaging.sendDebugMsg("Cache permissions for " + action.toString() + " : " + cache.getCachePermission(action));
-			return cache.getCachePermission(action) || plugin.isTownyAdmin(player); // Throws NullPointerException if the cache is empty
+			return cache.getCachePermission(action); // || plugin.isTownyAdmin(player); // Throws NullPointerException if the cache is empty
 
 		} catch (NotRegisteredException e) {
 			// World not known
@@ -60,7 +60,7 @@ public class CachePermissions extends TownyUniverse {
 				cache.updateCoord(worldCoord);
 
 				TownyMessaging.sendDebugMsg("New Cache permissions for " + action.toString() + " : " + cache.getCachePermission(action));
-				return cache.getCachePermission(action) || plugin.isTownyAdmin(player);
+				return cache.getCachePermission(action); // || plugin.isTownyAdmin(player);
 
 			} catch (NotRegisteredException e1) {
 				// Will never get here.
@@ -223,7 +223,7 @@ public class CachePermissions extends TownyUniverse {
 	}
 
 	public boolean getPermission(Player player, TownBlockStatus status, WorldCoord pos, TownyPermission.ActionType actionType) {
-		if (status == TownBlockStatus.OFF_WORLD || status == TownBlockStatus.WARZONE || status == TownBlockStatus.PLOT_OWNER || status == TownBlockStatus.TOWN_OWNER || plugin.isTownyAdmin(player)) // status == TownBlockStatus.ADMIN ||
+		if (status == TownBlockStatus.OFF_WORLD || status == TownBlockStatus.WARZONE || status == TownBlockStatus.PLOT_OWNER || status == TownBlockStatus.TOWN_OWNER) // || plugin.isTownyAdmin(player)) // status == TownBlockStatus.ADMIN ||
 			return true;
 
 		if (status == TownBlockStatus.NOT_REGISTERED) {
@@ -240,10 +240,10 @@ public class CachePermissions extends TownyUniverse {
 
 			// Wilderness Permissions
 			if (status == TownBlockStatus.UNCLAIMED_ZONE)
-				if (TownyUniverse.getPermissionSource().hasPermission(player, PermissionNodes.TOWNY_WILD_ALL.getNode(actionType.toString())))
+				if (TownyUniverse.getPermissionSource().hasPermission(player, PermissionNodes.TOWNY_WILD_ALL.getNode(actionType.toString()))) {
 					return true;
 
-				else if (!TownyPermission.getUnclaimedZonePerm(actionType, pos.getWorld())) {
+				} else if (!TownyPermission.getUnclaimedZonePerm(actionType, pos.getWorld())) {
 					// TODO: Have permission to destroy here
 					cacheBlockErrMsg(player, String.format(TownySettings.getLangString("msg_cache_block_error_wild"), actionType.toString()));
 					return false;
@@ -254,6 +254,10 @@ public class CachePermissions extends TownyUniverse {
 				return false;
 			}
 		}
+		
+		// Allow admins to have ALL permissions over towns.
+		if (plugin.isTownyAdmin(player))
+			return true;
 
 		// Plot Permissions
 		//try {
