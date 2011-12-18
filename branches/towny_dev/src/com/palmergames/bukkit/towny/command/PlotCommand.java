@@ -473,7 +473,7 @@ public class PlotCommand implements CommandExecutor {
 			Resident owner = townBlock.getResident();
 
 			// If not the plot owner or the towns mayor
-			if ((resident != owner) && (!townBlock.getTown().getMayor().equals(resident)))
+			if ((resident != owner) && (!townBlock.getTown().getMayor().equals(resident)) && (!townBlock.getTown().hasAssistant(resident)))
 				throw new TownyException(TownySettings.getLangString("msg_area_not_own"));
 
 			return owner;
