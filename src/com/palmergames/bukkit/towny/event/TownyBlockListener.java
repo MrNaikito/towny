@@ -98,7 +98,8 @@ public class TownyBlockListener extends BlockListener {
 		Block block = event.getBlock();
 		WorldCoord worldCoord;
 		try {
-			worldCoord = new WorldCoord(TownyUniverse.getWorld(block.getWorld().getName()), Coord.parseCoord(block));
+			TownyWorld world = TownyUniverse.getWorld(block.getWorld().getName());
+			worldCoord = new WorldCoord(world, Coord.parseCoord(block));
 			
 			//Get build permissions (updates if none exist)
 			boolean bDestroy = TownyUniverse.getCachePermissions().getCachePermission(player, block.getLocation(), TownyPermission.ActionType.DESTROY);
@@ -117,22 +118,29 @@ public class TownyBlockListener extends BlockListener {
 				}
 				return;
 			}
-			if (!bDestroy) {
-			    long delay = TownySettings.getRegenDelay();
-			    if(delay > 0) {
-			        if(!plugin.getTownyUniverse().isPlaceholder(block)) {
-				    	if (!plugin.getTownyUniverse().hasProtectionRegenTask(new BlockLocation(block.getLocation()))) {
-	        				ProtectionRegenTask task = new ProtectionRegenTask(plugin.getTownyUniverse(), block, true);
-	        				task.setTaskId(plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, task, 20*delay));
-	        				plugin.getTownyUniverse().addProtectionRegenTask(task);
-				    	}
-			        } else {
-			            plugin.getTownyUniverse().removePlaceholder(block);
-			            block.setTypeId(0, false);
-			        }
-			    }
-	            event.setCancelled(true);
-	        }
+			
+			if ((status == TownBlockStatus.UNCLAIMED_ZONE) || (!bDestroy)) {
+				if (status == TownBlockStatus.UNCLAIMED_ZONE)
+					TownyMessaging.sendErrorMsg(player, String.format(TownySettings.getLangString("msg_err_cannot_perform_action"), world.getUnclaimedZoneName()));
+			
+				if (!bDestroy) {
+				    long delay = TownySettings.getRegenDelay();
+				    if(delay > 0) {
+				        if(!plugin.getTownyUniverse().isPlaceholder(block)) {
+					    	if (!plugin.getTownyUniverse().hasProtectionRegenTask(new BlockLocation(block.getLocation()))) {
+		        				ProtectionRegenTask task = new ProtectionRegenTask(plugin.getTownyUniverse(), block, true);
+		        				task.setTaskId(plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, task, 20*delay));
+		        				plugin.getTownyUniverse().addProtectionRegenTask(task);
+					    	}
+				        } else {
+				            plugin.getTownyUniverse().removePlaceholder(block);
+				            block.setTypeId(0, false);
+				        }
+				    }
+		        }
+				event.setCancelled(true);
+				
+			}
 			
 			if ((cache.hasBlockErrMsg()) && (event.isCancelled()))
 				TownyMessaging.sendErrorMsg(player, cache.getBlockErrMsg());
@@ -159,7 +167,8 @@ public class TownyBlockListener extends BlockListener {
 		Block block = event.getBlock();
 		WorldCoord worldCoord;
 		try {
-			worldCoord = new WorldCoord(TownyUniverse.getWorld(block.getWorld().getName()), Coord.parseCoord(block));
+			TownyWorld world = TownyUniverse.getWorld(block.getWorld().getName());
+			worldCoord = new WorldCoord(world, Coord.parseCoord(block));
 			
 			//Get build permissions (updates if none exist)
 			boolean bBuild = TownyUniverse.getCachePermissions().getCachePermission(player, block.getLocation(), TownyPermission.ActionType.BUILD);
@@ -191,11 +200,13 @@ public class TownyBlockListener extends BlockListener {
 					TownyMessaging.sendErrorMsg(player, String.format(TownySettings.getLangString("msg_err_warzone_cannot_edit_material"), "build", block.getType().toString().toLowerCase()));
 				}
 				return;
-			} else {
-				if (!bBuild) {
-					event.setBuild(false);
-					event.setCancelled(true);
-				}
+			} else if ((status == TownBlockStatus.UNCLAIMED_ZONE) || (!bBuild)) {
+				
+				if (status == TownBlockStatus.UNCLAIMED_ZONE)
+					TownyMessaging.sendErrorMsg(player, String.format(TownySettings.getLangString("msg_err_cannot_perform_action"), world.getUnclaimedZoneName()));
+				
+				event.setBuild(false);
+				event.setCancelled(true);
 			}
 			
 			if ((cache.hasBlockErrMsg()) && (event.isCancelled()))
