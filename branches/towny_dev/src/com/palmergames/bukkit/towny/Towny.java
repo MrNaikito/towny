@@ -710,10 +710,14 @@ public class Towny extends JavaPlugin {
         	
         	//if (TownyUniverse.getPermissionSource().hasPermission(player, PermissionNodes.TOWNY_WILD_ALL.getNode(action.toString().toLowerCase()))
             //    	|| TownyUniverse.getPermissionSource().hasPermission(player, PermissionNodes.TOWNY_WILD_BLOCK_ALL.getNode(blockId + "." + action.toString().toLowerCase())))
-        	if (TownyUniverse.getPermissionSource().hasPermission(player, PermissionNodes.TOWNY_WILD_BLOCK_ALL.getNode(blockId + "." + action.toString().toLowerCase())))
-                	return true;
+        	
+        	if (isPermissions()) {
+	        	if (TownyUniverse.getPermissionSource().hasPermission(player, PermissionNodes.TOWNY_WILD_BLOCK_ALL.getNode(blockId + "." + action.toString().toLowerCase())))
+	                	return true;
+        		return false;
+        	}
             
-        	// No perms found so check world settings.
+        	// Not using perms so check world settings.
         	switch(action) {
         	
         	case BUILD:
