@@ -801,7 +801,7 @@ public class TownyFlatFileSource extends TownyDataSource {
 					} catch (Exception e) {
 					}
 				
-				line = kvFile.get("townmobs");
+				line = kvFile.get("forcetownmobs");
 				if (line != null)
 					try {
 						world.setForceTownMobs(Boolean.parseBoolean(line));
