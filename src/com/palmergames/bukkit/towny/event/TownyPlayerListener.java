@@ -240,7 +240,7 @@ public class TownyPlayerListener extends PlayerListener {
 		//Get switch permissions (updates if none exist)
 		boolean bSwitch = TownyUniverse.getCachePermissions().getCachePermission(player, block.getLocation(), TownyPermission.ActionType.SWITCH);
 		
-		boolean wildOverride = plugin.hasWildOverride(worldCoord.getWorld(), player, event.getItem().getTypeId(), TownyPermission.ActionType.SWITCH);
+		boolean wildOverride = plugin.hasWildOverride(worldCoord.getWorld(), player, block.getTypeId(), TownyPermission.ActionType.SWITCH);
 
 		PlayerCache cache = plugin.getCache(player);
 		//cache.updateCoord(worldCoord);
