@@ -106,7 +106,21 @@ public class bPermsSource extends TownyPermissionSource {
 	public boolean hasPermission(Player player, String node) {
     	//PermissionSet bPermPM = Permissions.getWorldPermissionsManager().getPermissionSet(player.getWorld());
     	
-        return player.hasPermission(node);
+    	final String[] parts = node.split("\\.");
+		final StringBuilder builder = new StringBuilder(node.length());
+		for (String part : parts) {
+			builder.append('*');
+			if (player.hasPermission("-" + builder.toString())) {
+				return false;
+			}
+			if (player.hasPermission(builder.toString())) {
+				return true;
+			}
+			builder.deleteCharAt(builder.length() - 1);
+			builder.append(part).append('.');
+		}
+		return player.hasPermission(node);
+        //return player.hasPermission(node);
     }
 	
     /**

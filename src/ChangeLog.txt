@@ -925,3 +925,5 @@ v0.77.1.20:
 v0.77.1.21:
 	- Fixed world loading of the force town mobs setting.
 	- Fixed wild perms for non admins.
+v0.77.1.22:
+	- Fix for bPerms not supporting wildcards.
