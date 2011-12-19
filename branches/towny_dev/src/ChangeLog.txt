@@ -928,3 +928,5 @@ v0.77.1.21:
 v0.77.1.22:
 	- Fix for bPerms not supporting wildcards.
 	- Wild permissions no longer fall back to world settings if set to use a permissions provider.
+v0.77.1.23:
+	- Removed spammy wilderness action messages.

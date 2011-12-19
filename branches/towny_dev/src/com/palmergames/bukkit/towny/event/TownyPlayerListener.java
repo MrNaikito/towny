@@ -200,13 +200,13 @@ public class TownyPlayerListener extends PlayerListener {
 				return;
 			}
 			if (((status == TownBlockStatus.UNCLAIMED_ZONE) && (!wildOverride)) || ((!bItemUse) && (status != TownBlockStatus.UNCLAIMED_ZONE))) {
-				if (status == TownBlockStatus.UNCLAIMED_ZONE)
-					TownyMessaging.sendErrorMsg(player, String.format(TownySettings.getLangString("msg_err_cannot_perform_action"), world.getUnclaimedZoneName()));
+				//if (status == TownBlockStatus.UNCLAIMED_ZONE)
+				//	TownyMessaging.sendErrorMsg(player, String.format(TownySettings.getLangString("msg_err_cannot_perform_action"), world.getUnclaimedZoneName()));
 				
 				event.setCancelled(true);
 			}
 			
-			if ((cache.hasBlockErrMsg()) && (status != TownBlockStatus.UNCLAIMED_ZONE))
+			if ((cache.hasBlockErrMsg())) // && (status != TownBlockStatus.UNCLAIMED_ZONE))
 				TownyMessaging.sendErrorMsg(player, cache.getBlockErrMsg());
 
 		} catch (NullPointerException e) {
@@ -255,8 +255,8 @@ public class TownyPlayerListener extends PlayerListener {
 			return;
 		}
 		if (((status == TownBlockStatus.UNCLAIMED_ZONE) && (!wildOverride)) || ((!bSwitch) && (status != TownBlockStatus.UNCLAIMED_ZONE))) {
-			if (status == TownBlockStatus.UNCLAIMED_ZONE)
-				TownyMessaging.sendErrorMsg(player, String.format(TownySettings.getLangString("msg_err_cannot_perform_action"), world.getUnclaimedZoneName()));
+			//if (status == TownBlockStatus.UNCLAIMED_ZONE)
+			//	TownyMessaging.sendErrorMsg(player, String.format(TownySettings.getLangString("msg_err_cannot_perform_action"), world.getUnclaimedZoneName()));
 			
 			event.setCancelled(true);
 		}
