@@ -924,3 +924,4 @@ v0.77.1.20:
 	- Mayors and assistants can once again change the plot type on resident owned plots.
 v0.77.1.21:
 	- Fixed world loading of the force town mobs setting.
+	- Fixed wild perms for non admins.
