@@ -935,3 +935,5 @@ v0.77.1.24:
 	- Extended default wild regen setting to 20 seconds.
 	- Added a german translation file Set to german in config.
 	- Fixed processing of GM/PEX events.
+v0.77.1.25:
+	- Allow op to override in all permissions.

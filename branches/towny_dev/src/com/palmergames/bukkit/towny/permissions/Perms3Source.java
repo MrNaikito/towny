@@ -111,6 +111,10 @@ public class Perms3Source extends TownyPermissionSource {
      */
     @Override
 	public boolean hasPermission(Player player, String node) {
+    	
+    	if (player.isOp())
+    		return true;
+    	
     	PermissionHandler handler = permissions.getHandler();
         return handler.permission(player, node);
     }
