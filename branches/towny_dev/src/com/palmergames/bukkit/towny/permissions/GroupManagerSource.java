@@ -1,7 +1,5 @@
 package com.palmergames.bukkit.towny.permissions;
 
-import java.util.Arrays;
-
 import org.anjocaido.groupmanager.GroupManager;
 import org.anjocaido.groupmanager.data.Group;
 import org.anjocaido.groupmanager.events.GMGroupEvent;
@@ -135,48 +133,54 @@ public class GroupManagerSource extends TownyPermissionSource {
 			Resident resident = null;
 			Player player = null;
 
-			if (event instanceof GMUserEvent) {
-				if (Arrays.asList(PermissionEventEnums.GMUser_Action.values()).contains(event.getEventName())) {
-					GMUserEvent UserEvent = (GMUserEvent) event;
-					try {
-						resident = plugin.getTownyUniverse().getResident(UserEvent.getUserName());
-						player = plugin.getServer().getPlayerExact(resident.getName());
-						if (player != null) {
-							//setup default modes for this player.
-							String[] modes = getPlayerPermissionStringNode(player.getName(), PermissionNodes.TOWNY_DEFAULT_MODES.getNode()).split(",");
-							plugin.setPlayerMode(player, modes, false);
+			try {
+				if (event instanceof GMUserEvent) {
+					
+					if (PermissionEventEnums.GMUser_Action.valueOf(event.getEventName()) != null) {
+						GMUserEvent UserEvent = (GMUserEvent) event;
+						try {
+							resident = plugin.getTownyUniverse().getResident(UserEvent.getUserName());
+							player = plugin.getServer().getPlayerExact(resident.getName());
+							if (player != null) {
+								//setup default modes for this player.
+								String[] modes = getPlayerPermissionStringNode(player.getName(), PermissionNodes.TOWNY_DEFAULT_MODES.getNode()).split(",");
+								plugin.setPlayerMode(player, modes, false);
+							}
+						} catch (NotRegisteredException x) {
 						}
-					} catch (NotRegisteredException x) {
+	
 					}
-
-				}
-			} else if (event instanceof GMGroupEvent) {
-				if (Arrays.asList(PermissionEventEnums.GMGroup_Action.values()).contains(event.getEventName())) {
-					GMGroupEvent GroupEvent = (GMGroupEvent) event;
-					Group group = GroupEvent.getGroup();
-					// Update all players who are in this group.
-					for (Player toUpdate : plugin.getTownyUniverse().getOnlinePlayers()) {
-						if (group.equals(getPlayerGroup(toUpdate))) {
+				} else if (event instanceof GMGroupEvent) {
+					if (PermissionEventEnums.GMGroup_Action.valueOf(event.getEventName()) != null) {
+						GMGroupEvent GroupEvent = (GMGroupEvent) event;
+						Group group = GroupEvent.getGroup();
+						// Update all players who are in this group.
+						for (Player toUpdate : plugin.getTownyUniverse().getOnlinePlayers()) {
+							if (group.equals(getPlayerGroup(toUpdate))) {
+								//setup default modes
+								String[] modes = getPlayerPermissionStringNode(toUpdate.getName(), PermissionNodes.TOWNY_DEFAULT_MODES.getNode()).split(",");
+								plugin.setPlayerMode(player, modes, false);
+							}
+						}
+	
+					}
+	
+				} else if (event instanceof GMSystemEvent) {
+					if (PermissionEventEnums.GMGroup_Action.valueOf(event.getEventName()) != null) {
+						// Update all players.
+						for (Player toUpdate : plugin.getTownyUniverse().getOnlinePlayers()) {
 							//setup default modes
 							String[] modes = getPlayerPermissionStringNode(toUpdate.getName(), PermissionNodes.TOWNY_DEFAULT_MODES.getNode()).split(",");
 							plugin.setPlayerMode(player, modes, false);
 						}
+	
 					}
-
+	
 				}
-
-			} else if (event instanceof GMSystemEvent) {
-				if (Arrays.asList(PermissionEventEnums.GMGroup_Action.values()).contains(event.getEventName())) {
-					// Update all players.
-					for (Player toUpdate : plugin.getTownyUniverse().getOnlinePlayers()) {
-						//setup default modes
-						String[] modes = getPlayerPermissionStringNode(toUpdate.getName(), PermissionNodes.TOWNY_DEFAULT_MODES.getNode()).split(",");
-						plugin.setPlayerMode(player, modes, false);
-					}
-
-				}
-
+			} catch (IllegalArgumentException ex) {
+				// We are not looking for this event type.
 			}
+
 		}
 	}
 }

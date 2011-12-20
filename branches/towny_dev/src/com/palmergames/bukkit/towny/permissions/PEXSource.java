@@ -173,47 +173,51 @@ public class PEXSource extends TownyPermissionSource {
 			Resident resident = null;
 			Player player = null;
 
-			if (event instanceof PermissionEntityEvent) {
-				if (Arrays.asList(PermissionEventEnums.PEXEntity_Action.values()).contains(event.getEventName())) {
-					PermissionEntityEvent EntityEvent = (PermissionEntityEvent) event;
-					PermissionEntity entity = EntityEvent.getEntity();
-					if (entity instanceof PermissionGroup) {
-						PermissionGroup group = (PermissionGroup)entity;
-						
-						// Update all players who are in this group.
-						for (Player toUpdate : plugin.getTownyUniverse().getOnlinePlayers()) {
-							if (Arrays.asList(getPlayerGroups(toUpdate)).contains(group)) {
-								//setup default modes
-								String[] modes = getPlayerPermissionStringNode(toUpdate.getName(), PermissionNodes.TOWNY_DEFAULT_MODES.getNode()).split(",");
-								plugin.setPlayerMode(player, modes, false);
+			try {
+				if (event instanceof PermissionEntityEvent) {
+					if (PermissionEventEnums.PEXEntity_Action.valueOf(event.getEventName()) != null) {
+						PermissionEntityEvent EntityEvent = (PermissionEntityEvent) event;
+						PermissionEntity entity = EntityEvent.getEntity();
+						if (entity instanceof PermissionGroup) {
+							PermissionGroup group = (PermissionGroup)entity;
+							
+							// Update all players who are in this group.
+							for (Player toUpdate : plugin.getTownyUniverse().getOnlinePlayers()) {
+								if (Arrays.asList(getPlayerGroups(toUpdate)).contains(group)) {
+									//setup default modes
+									String[] modes = getPlayerPermissionStringNode(toUpdate.getName(), PermissionNodes.TOWNY_DEFAULT_MODES.getNode()).split(",");
+									plugin.setPlayerMode(player, modes, false);
+								}
 							}
+							
+						} else if (entity instanceof PermissionUser) {
+							
+							try {
+								resident = plugin.getTownyUniverse().getResident(((PermissionUser)entity).getName());
+								player = plugin.getServer().getPlayerExact(resident.getName());
+								if (player != null) {
+									//setup default modes for this player.
+									String[] modes = getPlayerPermissionStringNode(player.getName(), PermissionNodes.TOWNY_DEFAULT_MODES.getNode()).split(",");
+									plugin.setPlayerMode(player, modes, false);
+								}
+							} catch (NotRegisteredException x) {
+							}						
 						}
-						
-					} else if (entity instanceof PermissionUser) {
-						
-						try {
-							resident = plugin.getTownyUniverse().getResident(((PermissionUser)entity).getName());
-							player = plugin.getServer().getPlayerExact(resident.getName());
-							if (player != null) {
-								//setup default modes for this player.
-								String[] modes = getPlayerPermissionStringNode(player.getName(), PermissionNodes.TOWNY_DEFAULT_MODES.getNode()).split(",");
-								plugin.setPlayerMode(player, modes, false);
-							}
-						} catch (NotRegisteredException x) {
-						}						
 					}
-				}
-
-			} else if (event instanceof PermissionSystemEvent) {
-				if (Arrays.asList(PermissionEventEnums.PEXSystem_Action.values()).contains(event.getEventName())) {
-					// Update all players.
-					for (Player toUpdate : plugin.getTownyUniverse().getOnlinePlayers()) {
-						//setup default modes
-						String[] modes = getPlayerPermissionStringNode(toUpdate.getName(), PermissionNodes.TOWNY_DEFAULT_MODES.getNode()).split(",");
-						plugin.setPlayerMode(player, modes, false);
+	
+				} else if (event instanceof PermissionSystemEvent) {
+					if (PermissionEventEnums.PEXSystem_Action.valueOf(event.getEventName()) != null) {
+						// Update all players.
+						for (Player toUpdate : plugin.getTownyUniverse().getOnlinePlayers()) {
+							//setup default modes
+							String[] modes = getPlayerPermissionStringNode(toUpdate.getName(), PermissionNodes.TOWNY_DEFAULT_MODES.getNode()).split(",");
+							plugin.setPlayerMode(player, modes, false);
+						}
 					}
+	
 				}
-
+			} catch (IllegalArgumentException ex) {
+				// We are not looking for this event type.
 			}
 		}
 	}
