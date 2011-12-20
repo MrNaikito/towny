@@ -930,3 +930,8 @@ v0.77.1.22:
 	- Wild permissions no longer fall back to world settings if set to use a permissions provider.
 v0.77.1.23:
 	- Removed spammy wilderness action messages.
+v0.77.1.24:
+	- Added comments to World data files.
+	- Extended default wild regen setting to 20 seconds.
+	- Added a german translation file Set to german in config.
+	- Fixed processing of GM/PEX events.

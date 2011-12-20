@@ -1350,6 +1350,10 @@ public class TownyFlatFileSource extends TownyDataSource {
 			// CreatureTrample
 			fout.write("disablecreaturetrample=" + Boolean.toString(world.isDisableCreatureTrample()) + newLine);
 
+			// Unclaimed
+			fout.write(newLine);
+			fout.write("# The following settings are only used if you are not using any permissions provider plugin" + newLine);
+			
 			// Unclaimed Zone Build
 			if (world.getUnclaimedZoneBuild() != null)
 				fout.write("unclaimedZoneBuild=" + Boolean.toString(world.getUnclaimedZoneBuild()) + newLine);
@@ -1369,31 +1373,54 @@ public class TownyFlatFileSource extends TownyDataSource {
 			if (world.getUnclaimedZoneIgnoreIds() != null)
 				fout.write("unclaimedZoneIgnoreIds=" + StringMgmt.join(world.getUnclaimedZoneIgnoreIds(), ",") + newLine);
 			
+			// PlotManagement Delete
+			fout.write(newLine);
+			fout.write("# The following settings control what blocks are deleted upon a townblock being unclaimed" + newLine);
+						
 			// Using PlotManagement Delete
 			fout.write("usingPlotManagementDelete=" + Boolean.toString(world.isUsingPlotManagementDelete()) + newLine);
 			// Plot Management Delete Ids
 			if (world.getPlotManagementDeleteIds() != null)
 				fout.write("plotManagementDeleteIds=" + StringMgmt.join(world.getPlotManagementDeleteIds(), ",") + newLine);
 			
+			// PlotManagement
+			fout.write(newLine);
+			fout.write("# The following settings control what blocks are deleted upon a mayor issuing a '/plot clear' command" + newLine);
+						
 			// Using PlotManagement Mayor Delete
 			fout.write("usingPlotManagementMayorDelete=" + Boolean.toString(world.isUsingPlotManagementMayorDelete()) + newLine);
 			// Plot Management Mayor Delete
 			if (world.getPlotManagementMayorDelete() != null)
 				fout.write("plotManagementMayorDelete=" + StringMgmt.join(world.getPlotManagementMayorDelete(), ",") + newLine);
 			
+			// PlotManagement Revert
+			fout.write(newLine + "# If enabled when a town claims a townblock a snapshot will be taken at the time it is claimed." + newLine);
+			fout.write("# When the townblock is unclaimded its blocks will begin to revert to the original snapshot." + newLine);
+						
 			// Using PlotManagement Revert
 			fout.write("usingPlotManagementRevert=" + Boolean.toString(world.isUsingPlotManagementRevert()) + newLine);
 			// Using PlotManagement Revert Speed
 			fout.write("usingPlotManagementRevertSpeed=" + Long.toString(world.getPlotManagementRevertSpeed()) + newLine);
+			
+			fout.write("# Any block Id's listed here will not be respawned. Instead it will revert to air." + newLine);
+			
 			// Plot Management Ignore Ids
 			if (world.getPlotManagementIgnoreIds() != null)
 				fout.write("plotManagementIgnoreIds=" + StringMgmt.join(world.getPlotManagementIgnoreIds(), ",") + newLine);
+			
+			// PlotManagement Wild Regen
+			fout.write(newLine);
+			fout.write("# If enabled any damage caused by explosions will repair itself." + newLine);
 			
 			// Using PlotManagement Wild Regen
 			fout.write("usingPlotManagementWildRegen=" + Boolean.toString(world.isUsingPlotManagementWildRevert()) + newLine);
 			// Using PlotManagement Wild Regen Delay
 			fout.write("usingPlotManagementWildRegenDelay=" + Long.toString(world.getPlotManagementWildRevertDelay()) + newLine);
 			
+			// Using Towny
+			fout.write(newLine);
+			fout.write("# This setting is used to enable or disable Towny in this world." + newLine);
+						
 			// Using Towny
 			fout.write("usingTowny=" + Boolean.toString(world.isUsingTowny()) + newLine);
 			

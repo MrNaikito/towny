@@ -546,34 +546,39 @@ public class Towny extends JavaPlugin {
         
         
         public void setPlayerMode(Player player, String[] modes, boolean notify) {
+        	
+        	if (!modes[0].isEmpty()) {
                 playerMode.put(player.getName(), Arrays.asList(modes));
                 if (notify)
                 	TownyMessaging.sendMsg(player, ("Modes set: " + StringMgmt.join(modes, ",")));
+        	}
         }
         
         public void setPlayerChatMode(Player player, String newMode) {
         	
-        	List<String> modes = getPlayerMode(player);
+        	List<String> modes = new ArrayList<String>();
+        	List<String> currentModes = getPlayerMode(player);
         	
-        	// Clear all chat channels
-        	if (modes != null) {
-	        	for (String channel : TownySettings.getChatChannels()) {
+        	if ((currentModes != null) && (!currentModes.isEmpty())) {
+        		modes.addAll(currentModes);
+        		
+        		// Clear all chat channels
+        		for (String channel : TownySettings.getChatChannels()) {
 	        		if (modes.contains(channel.replace("/", "")))
 	        			if (modes.size() > 1)
 	        				modes.remove(channel.replace("/", ""));
 	        			else
 	        				modes = new ArrayList<String>();
 	        	}
-        	} else
-        		modes = new ArrayList<String>();
+        	}
         	
-        	if (!hasPlayerMode(player, newMode))
+        	if (!modes.contains(newMode))
         		modes.add(newMode);
         	
         	if (modes.isEmpty())
         		removePlayerMode(player);
         	else
-        		setPlayerMode(player,(String[]) modes.toArray(new String[modes.size()]), true);
+        		setPlayerMode(player, modes.toArray(new String[modes.size()]), true);
         }
         
         public void removePlayerMode(Player player) {
@@ -589,27 +594,25 @@ public class Towny extends JavaPlugin {
                 return playerMode.get(player.getName());
         }
         
-        public boolean hasPlayerMode(Player player, String mode) {
-                List<String> modes = getPlayerMode(player);
-                if (mode.isEmpty())
-                	return true;
-                if (modes == null)
-                	return false;
-                else
-                	return modes.contains(mode); 
-        }
+	public boolean hasPlayerMode(Player player, String mode) {
+		List<String> modes = getPlayerMode(player);
+		if (modes == null)
+			return false;
+		else
+			return modes.contains(mode);
+	}
         
-        public List<String> getPlayerMode(String name) {
-                return playerMode.get(name);
-        }
+	public List<String> getPlayerMode(String name) {
+		return playerMode.get(name);
+	}
         
-        public boolean hasPlayerMode(String name, String mode) {
-                List<String> modes = getPlayerMode(name);
-                if (modes == null)
-                        return false;
-                else
-                        return modes.contains(mode); 
-        }
+	public boolean hasPlayerMode(String name, String mode) {
+		List<String> modes = getPlayerMode(name);
+		if (modes == null)
+			return false;
+		else
+			return modes.contains(mode);
+	}
 
         /*
         public boolean checkEssentialsTeleport(Player player, Location lctn) {
