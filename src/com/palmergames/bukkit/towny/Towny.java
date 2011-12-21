@@ -714,24 +714,23 @@ public class Towny extends JavaPlugin {
         	//if (TownyUniverse.getPermissionSource().hasPermission(player, PermissionNodes.TOWNY_WILD_ALL.getNode(action.toString().toLowerCase()))
             //    	|| TownyUniverse.getPermissionSource().hasPermission(player, PermissionNodes.TOWNY_WILD_BLOCK_ALL.getNode(blockId + "." + action.toString().toLowerCase())))
         	
-        	if (isPermissions()) {
+        	if (isPermissions())
 	        	if ((TownyUniverse.getPermissionSource().hasPermission(player, PermissionNodes.TOWNY_WILD_ALL.getNode(action.toString().toLowerCase())))
 	        		|| (TownyUniverse.getPermissionSource().hasPermission(player, PermissionNodes.TOWNY_WILD_BLOCK_ALL.getNode(blockId + "." + action.toString().toLowerCase()))))
 	                	return true;
-        		return false;
-        	}
+
             
         	// Not using perms so check world settings.
         	switch(action) {
         	
         	case BUILD:
-            	return world.getUnclaimedZoneBuild() || world.isUnclaimedZoneIgnoreId(blockId);
+            	return world.getUnclaimedZoneBuild();// || world.isUnclaimedZoneIgnoreId(blockId);
         	case DESTROY:
-            	return world.getUnclaimedZoneDestroy() || world.isUnclaimedZoneIgnoreId(blockId);
+            	return world.getUnclaimedZoneDestroy();// || world.isUnclaimedZoneIgnoreId(blockId);
         	case SWITCH:
-            	return world.getUnclaimedZoneSwitch() || world.isUnclaimedZoneIgnoreId(blockId);
+            	return world.getUnclaimedZoneSwitch();// || world.isUnclaimedZoneIgnoreId(blockId);
         	case ITEM_USE:
-            	return world.getUnclaimedZoneItemUse() || world.isUnclaimedZoneIgnoreId(blockId);
+            	return world.getUnclaimedZoneItemUse();// || world.isUnclaimedZoneIgnoreId(blockId);
             default:
             	return false;
         	}

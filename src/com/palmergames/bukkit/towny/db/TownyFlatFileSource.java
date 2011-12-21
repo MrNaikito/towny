@@ -438,7 +438,7 @@ public class TownyFlatFileSource extends TownyDataSource {
 					for (String token : tokens) {
 						if (!token.isEmpty()){
 							Resident assistant = universe.getResident(token);
-							if (assistant != null)
+							if ((assistant != null) && (town.hasResident(assistant)))
 								town.addAssistant(assistant);
 						}
 					}
@@ -1326,12 +1326,14 @@ public class TownyFlatFileSource extends TownyDataSource {
 			}
 				
 			fout.write(newLine);
-
+			fout.write(newLine);
+			
 			// PvP
 			fout.write("pvp=" + Boolean.toString(world.isPVP()) + newLine);
 			// Force PvP
 			fout.write("forcepvp=" + Boolean.toString(world.isForcePVP()) + newLine);
 			// Claimable
+			fout.write("# Can players found towns and claim plots in this world?" + newLine);
 			fout.write("claimable=" + Boolean.toString(world.isClaimable()) + newLine);
 			// has monster spawns			
 			fout.write("worldmobs=" + Boolean.toString(world.hasWorldMobs()) + newLine);
@@ -1352,7 +1354,7 @@ public class TownyFlatFileSource extends TownyDataSource {
 
 			// Unclaimed
 			fout.write(newLine);
-			fout.write("# The following settings are only used if you are not using any permissions provider plugin" + newLine);
+			fout.write("# Unclaimed Zone settings." + newLine);
 			
 			// Unclaimed Zone Build
 			if (world.getUnclaimedZoneBuild() != null)
@@ -1369,6 +1371,10 @@ public class TownyFlatFileSource extends TownyDataSource {
 			// Unclaimed Zone Name
 			if (world.getUnclaimedZoneName() != null)
 				fout.write("unclaimedZoneName=" + world.getUnclaimedZoneName() + newLine);
+			
+			fout.write(newLine);
+			fout.write("# The following settings are only used if you are not using any permissions provider plugin" + newLine);
+			
 			// Unclaimed Zone Ignore Ids
 			if (world.getUnclaimedZoneIgnoreIds() != null)
 				fout.write("unclaimedZoneIgnoreIds=" + StringMgmt.join(world.getUnclaimedZoneIgnoreIds(), ",") + newLine);
