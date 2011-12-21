@@ -87,7 +87,7 @@ public class TownyAdminCommand implements CommandExecutor {
 			isConsole = false;
 			System.out.println("[PLAYER_COMMAND] " + player.getName() + ": /" + commandLabel + " " + StringMgmt.join(args));
 
-			if (!plugin.isTownyAdmin(player)) {
+			if (!TownyUniverse.getPermissionSource().isTownyAdmin(player)) {
 				TownyMessaging.sendErrorMsg(getSender(), TownySettings.getLangString("msg_err_admin_only"));
 				return true;
 			}
@@ -250,7 +250,7 @@ public class TownyAdminCommand implements CommandExecutor {
 		if (split.length == 0 || split[0].equalsIgnoreCase("?")) {
 			sender.sendMessage(ChatTools.formatTitle("/townyadmin town"));
 			sender.sendMessage(ChatTools.formatCommand(TownySettings.getLangString("admin_sing"), "/townyadmin town", "[town]", ""));
-			sender.sendMessage(ChatTools.formatCommand(TownySettings.getLangString("admin_sing"), "/townyadmin town", "[town] add/delete [] .. []", ""));
+			sender.sendMessage(ChatTools.formatCommand(TownySettings.getLangString("admin_sing"), "/townyadmin town", "[town] add/kick [] .. []", ""));
 		} else {
 			try {
 				Town town = plugin.getTownyUniverse().getTown(split[0]);
@@ -264,6 +264,9 @@ public class TownyAdminCommand implements CommandExecutor {
 					}
 					*/
 					TownCommand.townAdd(sender, town, StringMgmt.remArgs(split, 2));
+				} else if (split[1].equalsIgnoreCase("kick")) {
+
+					TownCommand.townKickResidents(player, town.getMayor(), town, plugin.getTownyUniverse().getValidatedResidents(player, StringMgmt.remArgs(split, 2)));
 				}
 
 			} catch (NotRegisteredException e) {

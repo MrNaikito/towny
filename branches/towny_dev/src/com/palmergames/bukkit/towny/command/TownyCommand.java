@@ -184,7 +184,7 @@ public class TownyCommand implements CommandExecutor {
         
         private void TopCommand(Player player, String[] args) {
                 
-                if (!plugin.isTownyAdmin(player) && (!TownyUniverse.getPermissionSource().hasPermission(player, PermissionNodes.TOWNY_TOP.getNode()))) {
+                if (!TownyUniverse.getPermissionSource().isTownyAdmin(player) && (!TownyUniverse.getPermissionSource().hasPermission(player, PermissionNodes.TOWNY_TOP.getNode()))) {
                         sendErrorMsg(player, TownySettings.getLangString("msg_err_command_disable"));
                         return;
                 }

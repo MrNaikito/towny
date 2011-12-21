@@ -52,7 +52,6 @@ import com.palmergames.bukkit.towny.permissions.BukkitPermSource;
 import com.palmergames.bukkit.towny.permissions.GroupManagerSource;
 import com.palmergames.bukkit.towny.permissions.NullPermSource;
 import com.palmergames.bukkit.towny.permissions.PEXSource;
-import com.palmergames.bukkit.towny.permissions.PermissionNodes;
 import com.palmergames.bukkit.towny.permissions.Perms3Source;
 import com.palmergames.bukkit.towny.permissions.bPermsSource;
 import com.palmergames.bukkit.towny.questioner.TownyQuestionTask;
@@ -242,7 +241,7 @@ public class Towny extends JavaPlugin {
 		if (TownySettings.isUsingEconomy()) {
 			test = getServer().getPluginManager().getPlugin("Register");
 			if (test != null) {
-				register = (Register) test;
+				this.register = (Register) test;
 				using.add(String.format("%s v%s", "Register", test.getDescription().getVersion()));
 			} else {
 				test = getServer().getPluginManager().getPlugin("iConomy");
@@ -253,7 +252,7 @@ public class Towny extends JavaPlugin {
 					if (!test.getDescription().getVersion().matches("5.01")) {
 						TownyMessaging.sendErrorMsg("Towny does not have native support for iConomy " + test.getDescription().getVersion() + ". You need the Register.jar.");
 					} else {
-						iconomy = (iConomy) test;
+						this.iconomy = (iConomy) test;
 						using.add(String.format("%s v%s", "iConomy", test.getDescription().getVersion()));
 					}
 				}
@@ -282,31 +281,6 @@ public class Towny extends JavaPlugin {
 
 		if (using.size() > 0)
 			TownyLogger.log.info("[Towny] Using: " + StringMgmt.join(using, ", "));
-	}
-
-	// is permissions active
-	public boolean isPermissions() {
-		return TownySettings.isUsingPermissions();
-	}
-
-	// is Essentials active
-	public boolean isEssentials() {
-		return TownySettings.isUsingEssentials();
-	}
-
-	// is GroupManager active
-	public boolean isEcoActive() {
-		return isRegister() || isIConomy();
-	}
-
-	// is register active
-	public boolean isRegister() {
-		return (TownySettings.isUsingEconomy() && register != null);
-	}
-
-	// is iConomy active
-	public boolean isIConomy() {
-		return (TownySettings.isUsingEconomy() && iconomy != null);
 	}
 
 	@Override
@@ -470,12 +444,86 @@ public class Towny extends JavaPlugin {
 		TownySettings.setLastRunVersion(getVersion());
 	}
 
+	/**
+	 * Fetch the TownyUniverse object
+	 * 
+	 * @return TownyUniverse
+	 */
 	public TownyUniverse getTownyUniverse() {
 		return townyUniverse;
 	}
 
 	public String getVersion() {
 		return version;
+	}
+
+	// is permissions active
+	public boolean isPermissions() {
+		return TownySettings.isUsingPermissions();
+	}
+
+	// is Essentials active
+	public boolean isEssentials() {
+		return TownySettings.isUsingEssentials() && this.essentials != null;
+	}
+
+	// is GroupManager active
+	public boolean isEcoActive() {
+		return isRegister() || isIConomy();
+	}
+
+	// is register active
+	public boolean isRegister() {
+		return (TownySettings.isUsingEconomy() && register != null);
+	}
+
+	// is iConomy active
+	public boolean isIConomy() {
+		return (TownySettings.isUsingEconomy() && iconomy != null);
+	}
+
+	/**
+	 * @return Essentials object
+	 * @throws TownyException
+	 */
+	public Essentials getEssentials() throws TownyException {
+		if (essentials == null)
+			throw new TownyException("Essentials is not installed, or not enabled!");
+		else
+			return essentials;
+	}
+
+	/**
+	 * @return Economy object
+	 * @throws EconomyException
+	 */
+	public iConomy getIConomy() throws EconomyException {
+		if (iconomy == null)
+			throw new EconomyException("iConomy is not installed, or not enabled!");
+		else
+			return iconomy;
+	}
+
+	/**
+	 * @return Register object
+	 * @throws EconomyException
+	 */
+	public Register getRegister() throws EconomyException {
+		if (iconomy == null)
+			throw new EconomyException("Economy is not installed, or not enabled!");
+		else
+			return register;
+	}
+
+	/**
+	 * @return CraftIRC object
+	 * @throws TownyException
+	 */
+	public CraftIRC getCraftIRC() throws TownyException {
+		if (craftircHandle == null)
+			throw new TownyException("CraftIRC is not installed, or not enabled!");
+		else
+			return craftircHandle;
 	}
 
 	public World getServerWorld(String name) throws NotRegisteredException {
@@ -536,12 +584,6 @@ public class Towny extends JavaPlugin {
 			} catch (NotRegisteredException e) {
 				deleteCache(player);
 			}
-	}
-
-	public boolean isTownyAdmin(Player player) {
-		if (player.isOp())
-			return true;
-		return TownyUniverse.getPermissionSource().hasPermission(player, PermissionNodes.TOWNY_ADMIN.getNode());
 	}
 
 	public void setPlayerMode(Player player, String[] modes, boolean notify) {
@@ -661,48 +703,6 @@ public class Towny extends JavaPlugin {
 		return TownySettings.getProperty(root);
 	}
 
-	public Essentials getEssentials() throws TownyException {
-		if (essentials == null)
-			throw new TownyException("Essentials is not installed, or not enabled!");
-		else
-			return essentials;
-	}
-
-	public iConomy getIConomy() throws EconomyException {
-		if (iconomy == null)
-			throw new EconomyException("iConomy is not installed, or not enabled!");
-		else
-			return iconomy;
-	}
-
-	/**
-	 * @return the register
-	 */
-	public Register getRegister() throws EconomyException {
-		if (iconomy == null)
-			throw new EconomyException("Economy is not installed, or not enabled!");
-		else
-			return register;
-	}
-
-	/**
-	 * @param register
-	 *            the register to set
-	 */
-	public void setRegister(Register register) {
-		this.register = register;
-	}
-
-	/**
-	 * @return CraftIRC
-	 */
-	public CraftIRC getCraftIRC() throws TownyException {
-		if (craftircHandle == null)
-			throw new TownyException("CraftIRC is not installed, or not enabled!");
-		else
-			return craftircHandle;
-	}
-
 	public void log(String msg) {
 		if (TownySettings.isLogging())
 			TownyLogger.log.info(ChatColor.stripColor(msg));
@@ -711,54 +711,7 @@ public class Towny extends JavaPlugin {
 	public void setupLogger() {
 		TownyLogger.setup(getTownyUniverse().getRootFolder(), TownySettings.isAppendingToLog());
 	}
-
-	public boolean hasWildOverride(TownyWorld world, Player player, int blockId, TownyPermission.ActionType action) {
-
-		//check for permissions
-
-		boolean bpermissions;
-		//if (TownyUniverse.getPermissionSource().hasPermission(player, PermissionNodes.TOWNY_WILD_ALL.getNode(action.toString().toLowerCase()))
-		//    	|| TownyUniverse.getPermissionSource().hasPermission(player, PermissionNodes.TOWNY_WILD_BLOCK_ALL.getNode(blockId + "." + action.toString().toLowerCase())))
-
-		if (bpermissions = isPermissions())
-			if ((TownyUniverse.getPermissionSource().hasPermission(player, PermissionNodes.TOWNY_WILD_ALL.getNode(action.toString().toLowerCase()))) || (TownyUniverse.getPermissionSource().hasPermission(player, PermissionNodes.TOWNY_WILD_BLOCK_ALL.getNode(blockId + "." + action.toString().toLowerCase()))))
-				return true;
-
-		// Not using perms so check world settings.
-		switch (action) {
-
-		case BUILD:
-			return world.getUnclaimedZoneBuild() || (!bpermissions && world.isUnclaimedZoneIgnoreId(blockId));
-		case DESTROY:
-			return world.getUnclaimedZoneDestroy() || (!bpermissions && world.isUnclaimedZoneIgnoreId(blockId));
-		case SWITCH:
-			return world.getUnclaimedZoneSwitch() || (!bpermissions && world.isUnclaimedZoneIgnoreId(blockId));
-		case ITEM_USE:
-			return world.getUnclaimedZoneItemUse() || (!bpermissions && world.isUnclaimedZoneIgnoreId(blockId));
-		default:
-			return false;
-		}
-	}
-
-	/*    
-	public boolean hasPermission(final Player player, final String node) {
-		TownyPermissionSource permissions = TownyUniverse.getPermissionSource();
-		final String[] parts = node.split("\\.");
-		final StringBuilder builder = new StringBuilder(node.length());
-		for (String part : parts) {
-			builder.append('*');
-			if (permissions.hasPermission(player, "-" + builder.toString())) {
-				return false;
-			}
-			if (permissions.hasPermission(player, builder.toString())) {
-				return true;
-			}
-			builder.deleteCharAt(builder.length() - 1);
-			builder.append(part).append('.');
-		}
-		return permissions.hasPermission(player, node);
-	}
-	*/
+	
 	public void appendQuestion(Questioner questioner, Question question) throws Exception {
 		for (Option option : question.getOptions())
 			if (option.getReaction() instanceof TownyQuestionTask)
@@ -773,5 +726,14 @@ public class Towny extends JavaPlugin {
 			return false;
 		else
 			throw new Exception(String.format(TownySettings.getLangString("msg_err_invalid_input"), " on/off."));
+	}
+	
+	@Deprecated
+	public boolean isTownyAdmin(Player player) {
+		return TownyUniverse.getPermissionSource().isTownyAdmin(player);
+	}
+	@Deprecated
+	public boolean hasWildOverride(TownyWorld world, Player player, int blockId, TownyPermission.ActionType action) {
+		return TownyUniverse.getPermissionSource().hasWildOverride(world, player, blockId, action);
 	}
 }

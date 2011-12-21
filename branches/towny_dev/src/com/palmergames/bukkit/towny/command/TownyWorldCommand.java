@@ -122,7 +122,7 @@ public class TownyWorldCommand implements CommandExecutor  {
 		} 
 		
 		// The following commands are only available at console or for admins.
-		if ((player != null) && !plugin.isTownyAdmin(player)) {
+		if ((player != null) && !TownyUniverse.getPermissionSource().isTownyAdmin(player)) {
 			TownyMessaging.sendErrorMsg(player, TownySettings.getLangString("msg_err_admin_only"));
 			return;
 		}

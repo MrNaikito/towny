@@ -12,6 +12,7 @@ import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Creature;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Monster;
 import org.bukkit.entity.Painting;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
@@ -122,6 +123,23 @@ public class TownyEntityListener extends EntityListener {
         if (entity instanceof Player) {
             Player player = (Player)entity;
             TownyMessaging.sendDebugMsg("onPlayerDeath: " + player.getName() + "[ID: " + entity.getEntityId() + "]");
+        } else if (entity instanceof Monster) {
+        	
+        	Location loc = entity.getLocation();
+        	TownyWorld townyWorld = null;
+            
+            try {
+				townyWorld = TownyUniverse.getWorld(loc.getWorld().getName());
+				
+				//remove drops from monster deaths if in an arena plot           
+	            if (townyWorld.isUsingTowny()) {
+	            	if (townyWorld.getTownBlock(Coord.parseCoord(loc)).getType() == TownBlockType.ARENA)
+	            		event.getDrops().clear();
+	                }
+
+            } catch (NotRegisteredException e) {
+                // Unknown world or not in a town
+            }
         }
     }
         
@@ -359,7 +377,7 @@ public class TownyEntityListener extends EntityListener {
     			PlayerCache cache = plugin.getCache(player);
                 cache.updateCoord(worldCoord);
                 TownBlockStatus status = cache.getStatus();
-                if (status == TownBlockStatus.UNCLAIMED_ZONE && plugin.hasWildOverride(worldCoord.getWorld(), player, painting.getEntityId(), TownyPermission.ActionType.DESTROY))
+                if (status == TownBlockStatus.UNCLAIMED_ZONE && TownyUniverse.getPermissionSource().hasWildOverride(worldCoord.getWorld(), player, painting.getEntityId(), TownyPermission.ActionType.DESTROY))
                         return;
                 if (!bDestroy)
                     event.setCancelled(true);
@@ -398,7 +416,7 @@ public class TownyEntityListener extends EntityListener {
 			
         PlayerCache cache = plugin.getCache(player);
         TownBlockStatus status = cache.getStatus();
-        if (status == TownBlockStatus.UNCLAIMED_ZONE && plugin.hasWildOverride(worldCoord.getWorld(), player, painting.getEntityId(), TownyPermission.ActionType.BUILD))
+        if (status == TownBlockStatus.UNCLAIMED_ZONE && TownyUniverse.getPermissionSource().hasWildOverride(worldCoord.getWorld(), player, painting.getEntityId(), TownyPermission.ActionType.BUILD))
                 return;
         if (!bBuild)
                 event.setCancelled(true);

@@ -271,7 +271,7 @@ public class NationCommand implements CommandExecutor {
 	public void newNation(Player player, String name, String capitalName) {
 		TownyUniverse universe = plugin.getTownyUniverse();
 		try {
-			if (!plugin.isTownyAdmin(player) && ((TownySettings.isNationCreationAdminOnly() && !plugin.isPermissions())
+			if (!TownyUniverse.getPermissionSource().isTownyAdmin(player) && ((TownySettings.isNationCreationAdminOnly() && !plugin.isPermissions())
 				|| (plugin.isPermissions() && !TownyUniverse.getPermissionSource().hasPermission(player, PermissionNodes.TOWNY_NATION_NEW.getNode()))))
 				throw new TownyException(TownySettings.getNotPermToNewNationLine());
 
@@ -367,7 +367,7 @@ public class NationCommand implements CommandExecutor {
 			}
 		else
 			try {
-				if (!plugin.isTownyAdmin(player))
+				if (!TownyUniverse.getPermissionSource().isTownyAdmin(player))
 					throw new TownyException(TownySettings.getLangString("msg_err_admin_only_delete_nation"));
 				Nation nation = plugin.getTownyUniverse().getNation(split[0]);
 				plugin.getTownyUniverse().removeNation(nation);
