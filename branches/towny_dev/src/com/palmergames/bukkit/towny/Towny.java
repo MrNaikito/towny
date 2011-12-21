@@ -725,13 +725,13 @@ public class Towny extends JavaPlugin {
         	switch(action) {
         	
         	case BUILD:
-            	return world.getUnclaimedZoneBuild() || (bpermissions && world.isUnclaimedZoneIgnoreId(blockId));
+            	return world.getUnclaimedZoneBuild() || (!bpermissions && world.isUnclaimedZoneIgnoreId(blockId));
         	case DESTROY:
-            	return world.getUnclaimedZoneDestroy() || (bpermissions && world.isUnclaimedZoneIgnoreId(blockId));
+            	return world.getUnclaimedZoneDestroy() || (!bpermissions && world.isUnclaimedZoneIgnoreId(blockId));
         	case SWITCH:
-            	return world.getUnclaimedZoneSwitch() || (bpermissions && world.isUnclaimedZoneIgnoreId(blockId));
+            	return world.getUnclaimedZoneSwitch() || (!bpermissions && world.isUnclaimedZoneIgnoreId(blockId));
         	case ITEM_USE:
-            	return world.getUnclaimedZoneItemUse() || (bpermissions && world.isUnclaimedZoneIgnoreId(blockId));
+            	return world.getUnclaimedZoneItemUse() || (!bpermissions && world.isUnclaimedZoneIgnoreId(blockId));
             default:
             	return false;
         	}
