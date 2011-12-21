@@ -85,7 +85,7 @@ public class PlotCommand implements CommandExecutor {
 
 	public void parsePlotCommand(Player player, String[] split) throws TownyException {
 
-		if ((!plugin.isTownyAdmin(player)) && ((plugin.isPermissions()) && (!TownyUniverse.getPermissionSource().hasPermission(player, PermissionNodes.TOWNY_TOWN_PLOT.getNode()))))
+		if ((!TownyUniverse.getPermissionSource().isTownyAdmin(player)) && ((plugin.isPermissions()) && (!TownyUniverse.getPermissionSource().hasPermission(player, PermissionNodes.TOWNY_TOWN_PLOT.getNode()))))
 			throw new TownyException(TownySettings.getLangString("msg_err_command_disable"));
 
 		if (split.length == 0 || split[0].equalsIgnoreCase("?")) {
@@ -252,7 +252,7 @@ public class PlotCommand implements CommandExecutor {
 							return;
 						}
 
-						if ((!plugin.isTownyAdmin(player)) && ((plugin.isPermissions())
+						if ((!TownyUniverse.getPermissionSource().isTownyAdmin(player)) && ((plugin.isPermissions())
 							&& (!TownyUniverse.getPermissionSource().hasPermission(player, PermissionNodes.TOWNY_TOWN_PLOTTYPE.getNode())))
 							&& !town.isMayor(resident)
 							&& !town.hasAssistant(resident))

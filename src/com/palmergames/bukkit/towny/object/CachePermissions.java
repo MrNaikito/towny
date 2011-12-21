@@ -256,7 +256,7 @@ public class CachePermissions extends TownyUniverse {
 		}
 		
 		// Allow admins to have ALL permissions over towns.
-		if (plugin.isTownyAdmin(player))
+		if (TownyUniverse.getPermissionSource().isTownyAdmin(player))
 			return true;
 
 		// Plot Permissions

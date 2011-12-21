@@ -943,3 +943,7 @@ v0.77.1.26:
 	- Fixed '/town claim auto'... again.
 	- Fixed a NullPointerException in SetDefaultModes task caused by another plugin kicking a player at login.
 	- New functions allowing Townychat to observe Essentials mute and ignore functions.
+v0.77.1.27:
+	- Added a kick function to '/townyadmin town <name> kick []..[]'.
+	- Monsters killed in an area plot no longer drop any loot.
+	- refactoring of some code.

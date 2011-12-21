@@ -303,7 +303,7 @@ public class ResidentCommand implements CommandExecutor {
 			TownyMessaging.sendErrorMsg(player, TownySettings.getLangString("msg_invalid_name"));
 		else
 			try {
-				if (!plugin.isTownyAdmin(player))
+				if (!TownyUniverse.getPermissionSource().isTownyAdmin(player))
 					throw new TownyException(TownySettings.getLangString("msg_err_admin_only_delete"));
 				
 				for (String name: split) {

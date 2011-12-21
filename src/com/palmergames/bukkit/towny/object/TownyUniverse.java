@@ -70,8 +70,6 @@ import com.palmergames.bukkit.towny.tasks.SetDefaultModes;
 import com.palmergames.bukkit.towny.tasks.TeleportWarmupTimerTask;
 import com.palmergames.bukkit.towny.war.War;
 import com.palmergames.bukkit.towny.war.WarSpoils;
-import com.palmergames.bukkit.util.ChatTools;
-import com.palmergames.bukkit.util.Colors;
 import com.palmergames.bukkit.util.MinecraftTools;
 import com.palmergames.util.FileMgmt;
 import com.palmergames.util.TimeMgmt;
@@ -584,6 +582,7 @@ public class TownyUniverse extends TownyObject {
                 return resident;
         }
 
+        /*
         @Deprecated
         public void sendMessage(Player player, List<String> lines) {
                 sendMessage(player, lines.toArray(new String[0]));
@@ -671,6 +670,7 @@ public class TownyUniverse extends TownyObject {
                 for (String line : ChatTools.color(Colors.Gold + "[" + town.getName() + "] " + Colors.Yellow + town.getTownBoard()))
                         player.sendMessage(line);
         }
+        */
         
         public Player getPlayer(Resident resident) throws TownyException {
             for (Player player : getOnlinePlayers())

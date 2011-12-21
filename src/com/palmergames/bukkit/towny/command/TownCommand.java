@@ -760,7 +760,7 @@ public class TownCommand implements CommandExecutor  {
                         if (universe.isWarTime())
                                 throw new TownyException(TownySettings.getLangString("msg_war_cannot_do"));
                         
-                        if (!plugin.isTownyAdmin(player) && ((TownySettings.isTownCreationAdminOnly() && !plugin.isPermissions())
+                        if (!TownyUniverse.getPermissionSource().isTownyAdmin(player) && ((TownySettings.isTownCreationAdminOnly() && !plugin.isPermissions())
                         	|| (plugin.isPermissions() && !TownyUniverse.getPermissionSource().hasPermission(player, PermissionNodes.TOWNY_TOWN_NEW.getNode()))))
                                 throw new TownyException(TownySettings.getNotPermToNewTownLine());
                         
@@ -894,7 +894,7 @@ public class TownCommand implements CommandExecutor  {
         
         public static void townSpawn(Player player, String[] split) {
         	try {
-                boolean isTownyAdmin = plugin.isTownyAdmin(player);
+                boolean isTownyAdmin = TownyUniverse.getPermissionSource().isTownyAdmin(player);
                 Resident resident = plugin.getTownyUniverse().getResident(player.getName());
                 Town town;
                 String notAffordMSG;
@@ -1064,7 +1064,7 @@ public class TownCommand implements CommandExecutor  {
                         }
                 else
                         try {
-                                if (!plugin.isTownyAdmin(player))
+                                if (!TownyUniverse.getPermissionSource().isTownyAdmin(player))
                                         throw new TownyException(TownySettings.getLangString("msg_err_admin_only_delete_town"));
                                 Town town = plugin.getTownyUniverse().getTown(split[0]);
                                 plugin.getTownyUniverse().removeTown(town);
@@ -1084,7 +1084,7 @@ public class TownCommand implements CommandExecutor  {
          * @param names
          */
 
-        public void townKick(Player player, String[] names) {
+        public static void townKick(Player player, String[] names) {
                 Resident resident;
                 Town town;
                 try {
@@ -1200,7 +1200,7 @@ public class TownCommand implements CommandExecutor  {
                         }
         }
         
-        public void townKickResidents(Player player, Resident resident, Town town, List<Resident> kicking) {
+        public static void townKickResidents(Player player, Resident resident, Town town, List<Resident> kicking) {
                 ArrayList<Resident> remove = new ArrayList<Resident>();
                 for (Resident member : kicking)
                         if (resident == member || member.isMayor() || town.hasAssistant(member))
@@ -1381,7 +1381,7 @@ public class TownCommand implements CommandExecutor  {
                                 town = resident.getTown();
                         else
                                 town = specifiedTown;
-                        if (!plugin.isTownyAdmin((Player)sender) && !resident.isMayor() && !town.hasAssistant(resident))
+                        if (!TownyUniverse.getPermissionSource().isTownyAdmin((Player)sender) && !resident.isMayor() && !town.hasAssistant(resident))
                                 throw new TownyException(TownySettings.getLangString("msg_not_mayor_ass"));
                 	}
                         
@@ -1528,7 +1528,7 @@ public class TownCommand implements CommandExecutor  {
 				if (plugin.getTownyUniverse().isWarTime())
 					throw new TownyException(TownySettings.getLangString("msg_war_cannot_do"));
 
-				if (!plugin.isTownyAdmin(player) && plugin.isPermissions() && !TownyUniverse.getPermissionSource().hasPermission(player, PermissionNodes.TOWNY_TOWN_CLAIM.getNode()))
+				if (!TownyUniverse.getPermissionSource().isTownyAdmin(player) && plugin.isPermissions() && !TownyUniverse.getPermissionSource().hasPermission(player, PermissionNodes.TOWNY_TOWN_CLAIM.getNode()))
 					throw new TownyException(TownySettings.getLangString("msg_no_perms_claim"));
 
 				resident = plugin.getTownyUniverse().getResident(player.getName());
