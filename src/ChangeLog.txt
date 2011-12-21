@@ -942,3 +942,4 @@ v0.77.1.26:
 	- Mayors of other towns can no longer perform '/plot set perm reset' in your town.
 	- Fixed '/town claim auto'... again.
 	- Fixed a NullPointerException in SetDefaultModes task caused by another plugin kicking a player at login.
+	- New functions allowing Townychat to observe Essentials mute and ignore functions.
