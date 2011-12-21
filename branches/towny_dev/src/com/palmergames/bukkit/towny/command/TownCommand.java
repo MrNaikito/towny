@@ -18,7 +18,6 @@ import ca.xshade.bukkit.questioner.Questioner;
 import ca.xshade.questionmanager.Option;
 import ca.xshade.questionmanager.Question;
 
-import com.earth2me.essentials.Essentials;
 import com.earth2me.essentials.Teleport;
 import com.earth2me.essentials.User;
 import com.palmergames.bukkit.towny.AlreadyRegisteredException;
@@ -983,16 +982,11 @@ public class TownCommand implements CommandExecutor  {
                 Chunk chunk = town.getSpawn().getWorld().getChunkAt(town.getSpawn().getBlock());
                 
                 // Essentials tests
-                boolean UsingESS = TownySettings.isUsingEssentials();
+                boolean UsingESS = plugin.isEssentials();
                 
-                if (TownySettings.isUsingEssentials() && !isTownyAdmin) {
-                    Plugin handle = plugin.getServer().getPluginManager().getPlugin("Essentials");
-                    if (!handle.equals(null)) {
-                        Essentials essentials = (Essentials)handle;
-                        TownyMessaging.sendDebugMsg("Using Essentials");
-                        
+                if (UsingESS && !isTownyAdmin) {
                         try {
-                            User user = essentials.getUser(player);
+                            User user = plugin.getEssentials().getUser(player);
                             
                             if (!user.isTeleportEnabled()) {
                                 //Ess teleport is disabled
@@ -1012,7 +1006,6 @@ public class TownCommand implements CommandExecutor  {
                             // cooldown?
                             return;
                         }
-                    }
                 }
                 
                 // Show message if we are using iConomy and are charging for spawn travel.
