@@ -941,3 +941,4 @@ v0.77.1.26:
 	- When loading data files assistants will only be added to the town if they are also a resident (no more errors).
 	- Mayors of other towns can no longer perform '/plot set perm reset' in your town.
 	- Fixed '/town claim auto'... again.
+	- Fixed a NullPointerException in SetDefaultModes task caused by another plugin kicking a player at login.
