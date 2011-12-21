@@ -947,3 +947,4 @@ v0.77.1.27:
 	- Added a kick function to '/townyadmin town <name> kick []..[]'.
 	- Monsters killed in an area plot no longer drop any loot.
 	- refactoring of some code.
+	- Minimum version of CraftBukkit updated to 1597.

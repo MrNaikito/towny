@@ -330,20 +330,13 @@ public class Towny extends JavaPlugin {
 		int bukkitVer = TownySettings.getMinBukkitVersion();
 
 		if (!matcher.find() || matcher.group(1) == null) {
-			// Test for 1.9 beta builds
-			pattern = Pattern.compile("-b(\\d*?)-1.9jnks", Pattern.CASE_INSENSITIVE);
-			matcher = pattern.matcher(getServer().getVersion());
-
-			if (!matcher.find() || matcher.group(1) == null) {
-				error = true;
-				TownyLogger.log.severe("[Towny Error] Unable to read CraftBukkit Version.");
-				TownyLogger.log.severe("[Towny Error] Towny requires version " + bukkitVer + " or higher.");
-				getServer().getPluginManager().disablePlugin(this);
-				return false;
-			}
-			bukkitVer = 14;
-
+			error = true;
+			TownyLogger.log.severe("[Towny Error] Unable to read CraftBukkit Version.");
+			TownyLogger.log.severe("[Towny Error] Towny requires version " + bukkitVer + " or higher.");
+			getServer().getPluginManager().disablePlugin(this);
+			return false;
 		}
+
 		int curBuild = Integer.parseInt(matcher.group(1));
 
 		if (curBuild < bukkitVer) {
@@ -395,7 +388,6 @@ public class Towny extends JavaPlugin {
 
 		// Have War Events get launched before regular events.
 		pluginManager.registerEvent(Event.Type.BLOCK_BREAK, townyWarBlockListener, Priority.Lowest, this);
-		pluginManager.registerEvent(Event.Type.CUSTOM_EVENT, customListener, Priority.Normal, this);
 		pluginManager.registerEvent(Event.Type.BLOCK_BURN, townyWarBlockListener, Priority.Lowest, this);
 		pluginManager.registerEvent(Event.Type.BLOCK_PISTON_EXTEND, townyWarBlockListener, Priority.Lowest, this);
 		pluginManager.registerEvent(Event.Type.ENTITY_EXPLODE, townyWarEntityListener, Priority.Lowest, this);
@@ -419,6 +411,8 @@ public class Towny extends JavaPlugin {
 		pluginManager.registerEvent(Event.Type.CREATURE_SPAWN, entityListener, Priority.Lowest, this);
 		pluginManager.registerEvent(Event.Type.PAINTING_BREAK, entityListener, Priority.Normal, this);
 
+		pluginManager.registerEvent(Event.Type.CUSTOM_EVENT, customListener, Priority.Normal, this);
+		
 		pluginManager.registerEvent(Event.Type.WORLD_INIT, worldListener, Priority.Normal, this);
 		pluginManager.registerEvent(Event.Type.WORLD_LOAD, worldListener, Priority.Normal, this);
 

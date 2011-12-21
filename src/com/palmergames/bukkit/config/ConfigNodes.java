@@ -6,7 +6,7 @@ public enum ConfigNodes {
 			VERSION_HEADER("version","", ""),
             VERSION("version.version","", "# This is the current version of Towny.  Please do not edit."),
             LAST_RUN_VERSION("version.last_run_version","", "# This is for showing the changelog on updates.  Please do not edit."),
-            VERSION_BUKKIT("version.bukkit_version","1321", "# Minimum required version of CraftBukkit.  Please do not edit."),
+            VERSION_BUKKIT("version.bukkit_version","1597", "# Minimum required version of CraftBukkit.  Please do not edit."),
             LANGUAGE("language","english.yml", "", "# The language file you wish to use"),
             PERMS("permissions","", "",
 				                    "############################################################",
