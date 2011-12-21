@@ -481,7 +481,7 @@ public class PlotCommand implements CommandExecutor {
 		} else {
 			Town owner = townBlock.getTown();
 
-			if ((!resident.isMayor()) && (!owner.hasAssistant(resident)))
+			if ((!owner.isMayor(resident)) && (!owner.hasAssistant(resident)))
 				throw new TownyException(TownySettings.getLangString("msg_not_mayor_ass"));
 
 			if ((resident.getTown() != owner))

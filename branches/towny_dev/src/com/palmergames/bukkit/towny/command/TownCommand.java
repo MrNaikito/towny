@@ -1700,6 +1700,7 @@ public class TownCommand implements CommandExecutor  {
                         //Town town = (Town)owner;
                         int available = TownySettings.getMaxTownBlocks(town) - town.getTownBlocks().size();
                         TownyMessaging.sendDebugMsg("Claim Check Available: " + available);
+                        TownyMessaging.sendDebugMsg("Claim Selection Size: " + selection.size());
                         if (available - selection.size() < 0)
                                 throw new TownyException(TownySettings.getLangString("msg_err_not_enough_blocks"));
                 }
