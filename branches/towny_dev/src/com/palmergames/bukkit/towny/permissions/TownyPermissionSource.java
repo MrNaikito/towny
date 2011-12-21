@@ -2,7 +2,6 @@ package com.palmergames.bukkit.towny.permissions;
 
 import org.anjocaido.groupmanager.GroupManager;
 import org.bukkit.entity.Player;
-
 import ru.tehkode.permissions.bukkit.PermissionsEx;
 
 import com.palmergames.bukkit.towny.Towny;
