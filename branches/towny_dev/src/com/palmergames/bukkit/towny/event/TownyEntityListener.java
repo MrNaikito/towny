@@ -467,8 +467,8 @@ public class TownyEntityListener extends EntityListener {
                     return true;
     		}
             
-            if (plugin.getTownyUniverse().canAttackEnemy(ap.getName(), bp.getName()))
-				return false;
+            //if (plugin.getTownyUniverse().canAttackEnemy(ap.getName(), bp.getName()))
+			//	return false;
             
             return false;
     }

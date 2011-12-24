@@ -12,6 +12,5 @@
 	<classpathentry kind="lib" path="../../lib/Register.jar"/>
 	<classpathentry kind="lib" path="../../lib/bukkit-1.0.0-R1-SNAPSHOT.jar"/>
 	<classpathentry kind="lib" path="../../lib/craftbukkit-1.0.0-SNAPSHOT.jar"/>
-	<classpathentry kind="lib" path="E:/ElgarL/lib/CraftIRC_2.13..jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

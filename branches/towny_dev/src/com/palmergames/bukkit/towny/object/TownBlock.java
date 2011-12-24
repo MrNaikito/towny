@@ -17,12 +17,14 @@ public class TownBlock {
 	
 	//Plot level permissions
     protected TownyPermission permissions = new TownyPermission();
+    protected boolean isChanged;
 
 	public TownBlock(int x, int z, TownyWorld world) {
 		this.x = x;
 		this.z = z;
 		this.setWorld(world);
         this.type = TownBlockType.RESIDENTIAL;
+        isChanged = false;
 	}
 
 	public void setTown(Town town) {
@@ -111,7 +113,25 @@ public class TownBlock {
         return permissions;
     }
 
-    public TownBlockType getType() {
+    /**
+     * Have the permissions been manually changed.
+     * 
+	 * @return the isChanged
+	 */
+	public boolean isChanged() {
+		return isChanged;
+	}
+
+	/**
+	 * Flag the permissions as changed.
+	 * 
+	 * @param isChanged the isChanged to set
+	 */
+	public void setChanged(boolean isChanged) {
+		this.isChanged = isChanged;
+	}
+
+	public TownBlockType getType() {
         return type;
     }
 
