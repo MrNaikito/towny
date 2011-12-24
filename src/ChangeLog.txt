@@ -948,3 +948,25 @@ v0.77.1.27:
 	- Monsters killed in an area plot no longer drop any loot.
 	- refactoring of some code.
 	- Minimum version of CraftBukkit updated to 1597.
+v0.77.1.28:
+	- Fix default Town PVP/FIRE/EXPLOSION/MOB settings.
+	- Setting town perms now propogate to any tonBlock which have not been manually altered.
+	- Setting plot perms will flag that plot as altered so it will not longer update with the towns perms.
+	- Performing '/town set perm reset' will propogate all permission changes to town owned plots, and reset any changed flags.
+	- Performing '/res set perm reset' will propogate all permission changes to that residents owned plots, and reset any changed flags.
+	- Added CraftIRC support to TownyChat.
+	
+	  Add a channel tag of 'admin' to the
+	  receiving channel in the craftIRC config.
+	  
+	  Disable Auto paths and add the following to the 'paths:' section
+
+	    - source: 'minecraft'
+	      target: 'admin'
+	      formatting:
+	        chat: '%message%'
+	      
+	    - source: 'admin'     # These are endpoint tags
+	      target: 'minecraft'    #
+	      formatting:
+	        chat: '%foreground%[%red%%ircPrefix%%sender%%foreground%] %message%'

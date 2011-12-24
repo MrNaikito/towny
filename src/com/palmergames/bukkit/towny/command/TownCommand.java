@@ -290,22 +290,22 @@ public class TownCommand implements CommandExecutor  {
                 }
                 
                 try {
-                    // TODO: Let admin's call a subfunction of this.
-                    if (split[0].equalsIgnoreCase("pvp")) {
+                	// TODO: Let admin's call a subfunction of this.
+                	if (split[0].equalsIgnoreCase("public")) {
+                     	
+                     	if (plugin.isPermissions() && (!TownyUniverse.getPermissionSource().hasPermission(player, PermissionNodes.TOWNY_TOGGLE_PUBLIC.getNode()))) {
+                     		TownyMessaging.sendErrorMsg(player, TownySettings.getLangString("msg_err_command_disable"));
+                     		return;
+                     	}
+                     	town.setPublic(!town.isPublic());
+                         TownyMessaging.sendTownMessage(town, String.format(TownySettings.getLangString("msg_changed_public"), town.isPublic() ? "Enabled" : "Disabled"));
+                          
+                     } else if (split[0].equalsIgnoreCase("pvp")) {
                     	//Make sure we are allowed to set these permissions.
                     	toggleTest(player,town,StringMgmt.join(split, " "));   
                         town.setPVP(!town.isPVP());
                         TownyMessaging.sendTownMessage(town, String.format(TownySettings.getLangString("msg_changed_pvp"), "Town", town.isPVP() ? "Enabled" : "Disabled"));
                                         
-                    } else if (split[0].equalsIgnoreCase("public")) {
-                    	
-                    	if (plugin.isPermissions() && (!TownyUniverse.getPermissionSource().hasPermission(player, PermissionNodes.TOWNY_TOGGLE_PUBLIC.getNode()))) {
-                    		TownyMessaging.sendErrorMsg(player, TownySettings.getLangString("msg_err_command_disable"));
-                    		return;
-                    	}
-                    	town.setPublic(!town.isPublic());
-                        TownyMessaging.sendTownMessage(town, String.format(TownySettings.getLangString("msg_changed_public"), town.isPublic() ? "Enabled" : "Disabled"));
-                         
                     } else if (split[0].equalsIgnoreCase("explosion")) {
                     	//Make sure we are allowed to set these permissions.
                     	toggleTest(player,town,StringMgmt.join(split, " "));
@@ -333,6 +333,14 @@ public class TownCommand implements CommandExecutor  {
                     	TownyMessaging.sendErrorMsg(player, String.format(TownySettings.getLangString("msg_err_invalid_property"), "town"));
                     	return;
                     } 
+                	
+                	// Propagate perms to all unchanged, town owned, townblocks
+        			for (TownBlock townBlock : town.getTownBlocks()) {
+        				if (!townBlock.hasResident() && !townBlock.isChanged()) {
+        					townBlock.setType(townBlock.getType());
+        					TownyUniverse.getDataSource().saveTownBlock(townBlock);
+        				}
+        			}
                 } catch (Exception e) {
                     TownyMessaging.sendErrorMsg(player, e.getMessage());
                 }
@@ -1432,6 +1440,7 @@ public class TownCommand implements CommandExecutor  {
 						if (((townBlockOwner instanceof Town) && (!townBlock.hasResident())) || ((townBlockOwner instanceof Resident) && (townBlock.hasResident()))) {
 							// Reset permissions
 							townBlock.setType(townBlock.getType());
+							townBlock.setChanged(false);
 							TownyUniverse.getDataSource().saveTownBlock(townBlock);
 						}
 					}
@@ -1501,6 +1510,16 @@ public class TownCommand implements CommandExecutor  {
 					perm.set(s, b);
 				} catch (Exception e) {
 				}
+
+			// Propagate perms to all unchanged, town owned, townblocks
+			for (TownBlock townBlock : townBlockOwner.getTownBlocks()) {
+				if ((townBlockOwner instanceof Town) && (!townBlock.hasResident())) {
+					if (!townBlock.isChanged()) {
+						townBlock.setType(townBlock.getType());
+						TownyUniverse.getDataSource().saveTownBlock(townBlock);
+					}
+				}
+			}
 			//String perms = perm.toString();
 			//change perm name to friend is this is a resident setting
 			//if (friend)

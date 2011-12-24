@@ -24,7 +24,6 @@ import ca.xshade.questionmanager.Option;
 import ca.xshade.questionmanager.Question;
 
 import com.earth2me.essentials.Essentials;
-import com.ensifera.animosity.craftirc.CraftIRC;
 import com.iConomy.iConomy;
 import com.nijiko.permissions.PermissionHandler;
 import com.nijikokun.register.Register;
@@ -95,7 +94,6 @@ public class Towny extends JavaPlugin {
 	private Essentials essentials = null;
 	private Register register = null;
 	private iConomy iconomy = null;
-	private CraftIRC craftircHandle = null;
 
 	private boolean error = false;
 
@@ -272,12 +270,6 @@ public class Towny extends JavaPlugin {
 			TownySettings.setUsingQuestioner(false);
 		else if (TownySettings.isUsingQuestioner())
 			using.add(String.format("%s v%s", "Questioner", test.getDescription().getVersion()));
-
-		test = getServer().getPluginManager().getPlugin("CraftIRC");
-		if (test != null) {
-			craftircHandle = (CraftIRC) test;
-			using.add(String.format("%s v%s", "CraftIRC", test.getDescription().getVersion()));
-		}
 
 		if (using.size() > 0)
 			TownyLogger.log.info("[Towny] Using: " + StringMgmt.join(using, ", "));
@@ -507,17 +499,6 @@ public class Towny extends JavaPlugin {
 			throw new EconomyException("Economy is not installed, or not enabled!");
 		else
 			return register;
-	}
-
-	/**
-	 * @return CraftIRC object
-	 * @throws TownyException
-	 */
-	public CraftIRC getCraftIRC() throws TownyException {
-		if (craftircHandle == null)
-			throw new TownyException("CraftIRC is not installed, or not enabled!");
-		else
-			return craftircHandle;
 	}
 
 	public World getServerWorld(String name) throws NotRegisteredException {

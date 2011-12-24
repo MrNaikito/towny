@@ -227,7 +227,6 @@ public class PlotCommand implements CommandExecutor {
 					plotTestOwner(resident, townBlock); //ignore the return as we are only checking for an exception
 					town = townBlock.getTown();
 
-
 					plotToggle(player, new WorldCoord(world, Coord.parseCoord(player)).getTownBlock(), StringMgmt.remFirstArg(split));
 
 				} else if (split[0].equalsIgnoreCase("set")) {
@@ -248,6 +247,7 @@ public class PlotCommand implements CommandExecutor {
 							toggleTest(player, townBlock, StringMgmt.join(StringMgmt.remFirstArg(split), ""));
 
 							TownCommand.setTownBlockPermissions(player, owner, townBlock.getPermissions(), StringMgmt.remFirstArg(split), true);
+							townBlock.setChanged(true);
 							TownyUniverse.getDataSource().saveTownBlock(townBlock);
 							return;
 						}
@@ -259,8 +259,10 @@ public class PlotCommand implements CommandExecutor {
 							throw new TownyException(String.format(TownySettings.getLangString("msg_cache_block_error_town_resident"), "change plot types"));
 						
 						WorldCoord worldCoord = new WorldCoord(world, Coord.parseCoord(player));
+						TownBlock townBlock = worldCoord.getTownBlock();
 						setPlotType(resident, worldCoord, split[0]);
-						TownyUniverse.getDataSource().saveTownBlock(worldCoord.getTownBlock());
+						townBlock.setChanged(true);
+						TownyUniverse.getDataSource().saveTownBlock(townBlock);
 						player.sendMessage(String.format(TownySettings.getLangString("msg_plot_set_type"), split[0]));
 
 					} else {
@@ -404,6 +406,10 @@ public class PlotCommand implements CommandExecutor {
 					TownyMessaging.sendErrorMsg(player, String.format(TownySettings.getLangString("msg_err_invalid_property"), "plot"));
 					return;
 				}
+				
+    			townBlock.setChanged(true);
+    			TownyUniverse.getDataSource().saveTownBlock(townBlock);
+    			
 			} catch (Exception e) {
 				TownyMessaging.sendErrorMsg(player, e.getMessage());
 			}

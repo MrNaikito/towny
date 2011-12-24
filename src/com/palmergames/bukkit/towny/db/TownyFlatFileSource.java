@@ -1029,7 +1029,15 @@ public class TownyFlatFileSource extends TownyDataSource {
 							townBlock.setPermissions(line.trim());
 							set = true;
 						} catch (Exception e) {
-						}				
+						}	
+					
+					line = kvFile.get("changed");
+					if (line != null)
+						try {
+							townBlock.setChanged(Boolean.parseBoolean(line.trim()));
+							set = true;
+						} catch (Exception e) {
+						}
 					
 				} catch (Exception e) {
 					System.out.println("[Towny] Loading Error: Exception while reading TownBlock file " + path);
@@ -1462,7 +1470,9 @@ public class TownyFlatFileSource extends TownyDataSource {
 			
 			// permissions
 			fout.write("permissions=" + townBlock.getPermissions().toString() + newLine);
-			
+			// Have permissions bene manually changed
+			fout.write("changed=" + Boolean.toString(townBlock.isChanged()) + newLine);
+						
 			fout.close();
 
 		} catch (Exception e) {
