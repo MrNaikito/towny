@@ -970,3 +970,6 @@ v0.77.1.28:
 	      target: 'minecraft'    #
 	      formatting:
 	        chat: '%foreground%[%red%%ircPrefix%%sender%%foreground%] %message%'
+v0.77.1.29:
+	- '/Plot claim x' will no longer throw a Not Registered error when it selects plots outside the town.
+	- Improve file handle closing to prevent too many open file errors.

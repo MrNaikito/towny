@@ -195,13 +195,19 @@ public class TownyFlatFileSource extends TownyDataSource {
 			while ((line = fin.readLine()) != null)
 				if (!line.equals(""))
 					universe.newResident(line);
-			fin.close();
+
 		} catch (AlreadyRegisteredException e) {
 			e.printStackTrace();
 			confirmContinuation(e.getMessage() + " | Continuing will delete it's data.");
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
+		} finally {
+			try {
+				fin.close();
+			} catch (IOException e) {
+				// Failed to close file.
+			}
 		}
 		return true;
 	}
@@ -222,7 +228,7 @@ public class TownyFlatFileSource extends TownyDataSource {
 			while ((line = fin.readLine()) != null)
 				if (!line.equals(""))
 					universe.newTown(line);
-			fin.close();
+
 		} catch (AlreadyRegisteredException e) {
 			e.printStackTrace();
 			confirmContinuation(e.getMessage() + " | Continuing will delete it's data.");
@@ -230,6 +236,12 @@ public class TownyFlatFileSource extends TownyDataSource {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
+		} finally {
+			try {
+				fin.close();
+			} catch (IOException e) {
+				// Failed to close file.
+			}
 		}
 		return true;
 	}
@@ -250,13 +262,19 @@ public class TownyFlatFileSource extends TownyDataSource {
 			while ((line = fin.readLine()) != null)
 				if (!line.equals(""))
 					universe.newNation(line);
-			fin.close();
+			
 		} catch (AlreadyRegisteredException e) {
 			e.printStackTrace();
 			confirmContinuation(e.getMessage() + " | Continuing will delete it's data.");
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
+		} finally {
+			try {
+				fin.close();
+			} catch (IOException e) {
+				// Failed to close file.
+			}
 		}
 		return true;
 	}
@@ -293,7 +311,6 @@ public class TownyFlatFileSource extends TownyDataSource {
 			while ((line = fin.readLine()) != null)
 				if (!line.equals(""))
 					universe.newWorld(line);
-			fin.close();
 
 		} catch (AlreadyRegisteredException e) {
 			// Ignore this as the world may have been passed to us by bukkit
@@ -301,6 +318,12 @@ public class TownyFlatFileSource extends TownyDataSource {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
+		} finally {
+			try {
+				fin.close();
+			} catch (IOException e) {
+				// Failed to close file
+			}
 		}
 		return true;
 	}
@@ -329,11 +352,17 @@ public class TownyFlatFileSource extends TownyDataSource {
                 		TownyRegenAPI.addPlotChunk(plotData, false);
                 	}
 				}
-			fin.close();
+			
 
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
+		} finally {
+			try {
+				fin.close();
+			} catch (IOException e) {
+				// Failed to close file.
+			}
 		}
 		return true;
 
