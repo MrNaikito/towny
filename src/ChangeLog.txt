@@ -950,7 +950,7 @@ v0.77.1.27:
 	- Minimum version of CraftBukkit updated to 1597.
 v0.77.1.28:
 	- Fix default Town PVP/FIRE/EXPLOSION/MOB settings.
-	- Setting town perms now propogate to any tonBlock which have not been manually altered.
+	- Setting town perms now propogate to any townBlock which have not been manually altered.
 	- Setting plot perms will flag that plot as altered so it will not longer update with the towns perms.
 	- Performing '/town set perm reset' will propogate all permission changes to town owned plots, and reset any changed flags.
 	- Performing '/res set perm reset' will propogate all permission changes to that residents owned plots, and reset any changed flags.
