@@ -119,12 +119,16 @@ public class PlotCommand implements CommandExecutor {
 
 						// Remove any plots Not for sale (if not the mayor) and tally up costs.
 						for (WorldCoord worldCoord : new ArrayList<WorldCoord>(selection)) {
-							double price = worldCoord.getTownBlock().getPlotPrice();
-							if (price != -1)
-								cost += worldCoord.getTownBlock().getPlotPrice();
-							else {
-								if (!worldCoord.getTownBlock().getTown().isMayor(resident)) // || worldCoord.getTownBlock().getTown().hasAssistant(resident))
-									selection.remove(worldCoord);
+							try {
+								double price = worldCoord.getTownBlock().getPlotPrice();
+								if (price > -1)
+									cost += worldCoord.getTownBlock().getPlotPrice();
+								else {
+									if (!worldCoord.getTownBlock().getTown().isMayor(resident)) // || worldCoord.getTownBlock().getTown().hasAssistant(resident))
+										selection.remove(worldCoord);
+								}
+							} catch (NotRegisteredException e) {
+								selection.remove(worldCoord);
 							}
 						}
 						
