@@ -574,10 +574,14 @@ public class Towny extends JavaPlugin {
 
 		List<String> modes = new ArrayList<String>();
 		List<String> currentModes = getPlayerMode(player);
+		boolean toggle = false;
 
 		if ((currentModes != null) && (!currentModes.isEmpty())) {
 			modes.addAll(currentModes);
-
+			
+			if (modes.contains(newMode))
+				toggle = true;
+			
 			// Clear all chat channels
 			for (String channel : TownySettings.getChatChannels()) {
 				if (modes.contains(channel.replace("/", "")))
@@ -588,7 +592,7 @@ public class Towny extends JavaPlugin {
 			}
 		}
 
-		if (!modes.contains(newMode))
+		if (!modes.contains(newMode) && !toggle)
 			modes.add(newMode);
 
 		if (modes.isEmpty())
