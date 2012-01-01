@@ -38,6 +38,7 @@ import com.palmergames.bukkit.towny.event.TownyBlockListener;
 import com.palmergames.bukkit.towny.event.TownyEntityListener;
 import com.palmergames.bukkit.towny.event.TownyEntityMonitorListener;
 import com.palmergames.bukkit.towny.event.TownyPlayerListener;
+import com.palmergames.bukkit.towny.event.TownyWeatherListener;
 //import com.palmergames.bukkit.towny.event.TownyPlayerLowListener;
 import com.palmergames.bukkit.towny.event.TownyWorldListener;
 import com.palmergames.bukkit.towny.object.Coord;
@@ -82,6 +83,7 @@ public class Towny extends JavaPlugin {
 	private final TownyPlayerListener playerListener = new TownyPlayerListener(this);
 	private final TownyBlockListener blockListener = new TownyBlockListener(this);
 	private final TownyEntityListener entityListener = new TownyEntityListener(this);
+	private final TownyWeatherListener weatherListener = new TownyWeatherListener(this);
 	private final TownyEntityMonitorListener entityMonitorListener = new TownyEntityMonitorListener(this);
 	private final TownyWorldListener worldListener = new TownyWorldListener(this);
 	private final TownyWarBlockListener townyWarBlockListener = new TownyWarBlockListener(this);
@@ -402,6 +404,9 @@ public class Towny extends JavaPlugin {
 		pluginManager.registerEvent(Event.Type.ENTITY_DEATH, entityListener, Priority.Lowest, this);
 		pluginManager.registerEvent(Event.Type.CREATURE_SPAWN, entityListener, Priority.Lowest, this);
 		pluginManager.registerEvent(Event.Type.PAINTING_BREAK, entityListener, Priority.Normal, this);
+		pluginManager.registerEvent(Event.Type.PAINTING_PLACE, entityListener, Priority.Normal, this);
+		
+		pluginManager.registerEvent(Event.Type.LIGHTNING_STRIKE, weatherListener, Priority.Lowest, this);
 
 		pluginManager.registerEvent(Event.Type.CUSTOM_EVENT, customListener, Priority.Normal, this);
 		

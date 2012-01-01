@@ -453,9 +453,11 @@ public class TownySettings {
         	} else if (root.getRoot() == ConfigNodes.FILTERS_MODIFY_CHAT_CHANNELS.getRoot()) {
         		setChannels();
         	} else if (root.getRoot() == ConfigNodes.VERSION.getRoot()){
-        		setNewProperty(ConfigNodes.VERSION.getRoot(), version);
+        		setNewProperty(root.getRoot(), version);
         	} else if (root.getRoot() == ConfigNodes.LAST_RUN_VERSION.getRoot()) {
-        		setNewProperty(ConfigNodes.LAST_RUN_VERSION.getRoot(), getLastRunVersion(version));
+        		setNewProperty(root.getRoot(), getLastRunVersion(version));
+        	} else if (root.getRoot() == ConfigNodes.VERSION_BUKKIT.getRoot()) {
+        		setNewProperty(root.getRoot(), ConfigNodes.VERSION_BUKKIT.getDefault());
         	} else
         		setNewProperty(root.getRoot(), (config.get(root.getRoot().toLowerCase()) != null) ? config.get(root.getRoot().toLowerCase()) : root.getDefault());
         	
@@ -958,6 +960,10 @@ public class TownySettings {
     public static boolean isUsingModifyChat() {
         return getBoolean(ConfigNodes.FILTERS_MODIFY_CHAT_ENABLE);
     }
+    
+    public static boolean isModifyChatPerWorld() {
+        return getBoolean(ConfigNodes.FILTERS_MODIFY_CHAT_PER_WORLD);
+    }
 
     public static String getKingColour() {
         return getString(ConfigNodes.FILTERS_COLOUR_KING);
@@ -1046,6 +1052,10 @@ public class TownySettings {
 	
 	public static boolean hasHealthRegen() {
 		return getBoolean(ConfigNodes.GTOWN_SETTINGS_REGEN_ENABLE);
+	}
+	
+	public static boolean getTownDefaultPublic() {
+		return getBoolean(ConfigNodes.TOWN_DEF_PUBLIC);
 	}
 	
 	public static boolean hasTownLimit() {
