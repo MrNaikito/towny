@@ -280,7 +280,7 @@ public class CachePermissions extends TownyUniverse {
 			else {//TODO: (Remove) if (status == TownBlockStatus.OUTSIDER)
 
 				if (townBlock.getPermissions().getOutsiderPerm(actionType)) {
-					System.out.print("Outsider true");
+					//System.out.print("Outsider true");
 					return true;
 				} else {
 					cacheBlockErrMsg(player, String.format(TownySettings.getLangString("msg_cache_block_error_plot"), "outsiders", actionType.toString()));
