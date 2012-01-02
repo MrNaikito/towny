@@ -540,7 +540,8 @@ public class TownyEntityListener extends EntityListener {
 					return true;
 			} catch (TownyException x) {
 				//world or townblock failure
-				return false;
+				// But we want to prevent friendly fire in the wilderness too.
+				return true;
 			}
 		}
 

@@ -168,7 +168,7 @@ public enum ConfigNodes {
 								                      "# |                Global town settings                  | #",
 								                      "# +------------------------------------------------------+ #",
 								                      "############################################################", ""),
-            GTOWN_SETTINGS_FRIENDLY_FIRE("global_town_settings.friendly_fire","true", "# can residents/Allies harm other residents when in a town with pvp enabled?"),
+            GTOWN_SETTINGS_FRIENDLY_FIRE("global_town_settings.friendly_fire","true", "# can residents/Allies harm other residents when in an area with pvp enabled? Other than an Arena plot."),
             GTOWN_SETTINGS_HEALTH_REGEN("global_town_settings.health_regen","", "# Players within their town or allied towns will regenerate half a heart after every health_regen_speed seconds."),
             GTOWN_SETTINGS_REGEN_SPEED("global_town_settings.health_regen.speed","3s"),
             GTOWN_SETTINGS_REGEN_ENABLE("global_town_settings.health_regen.enable","true"),

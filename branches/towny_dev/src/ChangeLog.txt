@@ -983,3 +983,6 @@ v0.77.1.30:
 	- bukkit_version in the config now correctly updates for the minimum required CraftBukkit.
 	- Each world now supports seperate chat formatting, if enabled in the Towny config (per_world).
 	  Modify the channel formats in the worlds data file instead of in the config (plugins/towny/data/worlds).
+v0.77.1.31:
+	- friendly_fire now prevents allies from fighting in the wilderness as well as in town (excluding Arena plots).
+	- TownyChat now passes player chat to Dynmap.
