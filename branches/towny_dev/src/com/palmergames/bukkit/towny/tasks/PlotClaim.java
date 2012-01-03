@@ -133,6 +133,7 @@ public class PlotClaim extends Thread {
                                         townBlock.setType(townBlock.getType());
 
 										TownyUniverse.getDataSource().saveResident(owner);
+										TownyUniverse.getDataSource().saveTownBlock(townBlock);
 										
 										plugin.updateCache();
                                         return true;
@@ -150,6 +151,7 @@ public class PlotClaim extends Thread {
                                         townBlock.setType(townBlock.getType());
 
 										TownyUniverse.getDataSource().saveResident(owner);
+										TownyUniverse.getDataSource().saveTownBlock(townBlock);
 
                                         return true;
                                 } else {
@@ -170,7 +172,8 @@ public class PlotClaim extends Thread {
                                 townBlock.setResident(resident);
                                 
                                 // Set the plot permissions to mirror the new owners.
-                                townBlock.setType(townBlock.getType());                                        
+                                townBlock.setType(townBlock.getType());
+                                TownyUniverse.getDataSource().saveTownBlock(townBlock);
 
                                 return true;
                         }
@@ -191,6 +194,7 @@ public class PlotClaim extends Thread {
             
             // Set the plot permissions to mirror the towns.
             townBlock.setType(townBlock.getType());
+            TownyUniverse.getDataSource().saveTownBlock(townBlock);
             
 			plugin.updateCache();
                         

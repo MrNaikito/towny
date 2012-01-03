@@ -986,3 +986,4 @@ v0.77.1.30:
 v0.77.1.31:
 	- friendly_fire now prevents allies from fighting in the wilderness as well as in town (excluding Arena plots).
 	- TownyChat now passes player chat to Dynmap.
+	- '/Plot claim' now correctly updates the data files with the plot owners permissions.
