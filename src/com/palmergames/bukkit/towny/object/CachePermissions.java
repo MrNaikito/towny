@@ -244,7 +244,7 @@ public class CachePermissions extends TownyUniverse {
 					return true;
 
 				} else if (!TownyPermission.getUnclaimedZonePerm(actionType, pos.getWorld())) {
-					// TODO: Have permission to destroy here
+					// Don't have permission to build/destroy/switch/item_use here
 					cacheBlockErrMsg(player, String.format(TownySettings.getLangString("msg_cache_block_error_wild"), actionType.toString()));
 					return false;
 				} else

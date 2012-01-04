@@ -1565,7 +1565,8 @@ public class TownCommand implements CommandExecutor  {
 				Coord key = Coord.parseCoord(plugin.getCache(player).getLastLocation());
 
 				if (split.length == 1 && split[0].equalsIgnoreCase("outpost")) {
-					if (TownySettings.isAllowingOutposts()) {
+					if ((TownySettings.isAllowingOutposts())
+						&& (!plugin.isPermissions() || ((plugin.isPermissions()) && TownyUniverse.getPermissionSource().hasPermission(player, PermissionNodes.TOWNY_TOWN_CLAIM_OUTPOST.getNode())))){
 
 						if (world.hasTownBlock(key))
 							throw new TownyException(String.format(TownySettings.getLangString("msg_already_claimed_1"), key));
