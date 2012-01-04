@@ -15,6 +15,7 @@ public enum PermissionNodes {
 			TOWNY_TOWN_DELETE("towny.town.delete"),
 			TOWNY_TOWN_RENAME("towny.town.rename"),
 			TOWNY_TOWN_CLAIM("towny.town.claim"),
+			TOWNY_TOWN_CLAIM_OUTPOST("towny.town.claim.outpost"),
 			TOWNY_TOWN_PLOT("towny.town.plot"),
 			TOWNY_TOWN_PLOTTYPE("towny.town.plottype"),
 			
@@ -53,6 +54,27 @@ public enum PermissionNodes {
 			TOWNY_WILD_BLOCK_DESTROY("towny.wild.block.*.destroy"),
 			TOWNY_WILD_BLOCK_SWITCH("towny.wild.block.*.switch"),
 			TOWNY_WILD_BLOCK_ITEM_USE("towny.wild.block.*.item_use"),
+			
+		TOWNY_CLAIMED_ALL("towny.claimed.*"),
+			
+			TOWNY_CLAIMED_BUILD("towny.claimed.build"),
+			TOWNY_CLAIMED_DESTROY("towny.claimed.destroy"),
+			TOWNY_CLAIMED_SWITCH("towny.claimed.switch"),
+			TOWNY_CLAIMED_ITEM_USE("towny.claimed.item_use"),
+			
+		TOWNY_CLAIMED_ALL_BLOCK("towny.claimed.alltown.block.*"),
+		
+			TOWNY_CLAIMED_ALL_BLOCK_BUILD("towny.claimed.alltown.block.*.build"),
+			TOWNY_CLAIMED_ALL_BLOCK_DESTROY("towny.claimed.alltown.block.*.destroy"),
+			TOWNY_CLAIMED_ALL_BLOCK_SWITCH("towny.claimed.alltown.block.*.switch"),
+			TOWNY_CLAIMED_ALL_BLOCK_ITEM_USE("towny.claimed.alltown.block.*.item_use"),
+			
+		TOWNY_CLAIMED_OWNTOWN_BLOCK("towny.claimed.owntown.block.*"),
+			
+			TOWNY_CLAIMED_OWNTOWN_BLOCK_BUILD("towny.claimed.owntown.block.*.build"),
+			TOWNY_CLAIMED_OWNTOWN_BLOCK_DESTROY("towny.claimed.owntown.block.*.destroy"),
+			TOWNY_CLAIMED_OWNTOWN_BLOCK_SWITCH("towny.claimed.owntown.block.*.switch"),
+			TOWNY_CLAIMED_OWNTOWN_BLOCK_ITEM_USE("towny.claimed.owntown.block.*.item_use"),
 		
 		TOWNY_CHAT_ALL("towny.chat.*"),
 			

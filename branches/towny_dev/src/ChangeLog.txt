@@ -987,3 +987,28 @@ v0.77.1.31:
 	- friendly_fire now prevents allies from fighting in the wilderness as well as in town (excluding Arena plots).
 	- TownyChat now passes player chat to Dynmap.
 	- '/Plot claim' now correctly updates the data files with the plot owners permissions.
+v0.77.1.32:
+	- Denied switch use in the wild now generates a readable error message again.
+	- Wild block permissions now support wildcards. eg. towny.wild.block.*.build
+	- Added a new set of permissions for town overrides (ideal for moderators).
+	
+	  towny.claimed.* : User can build/destroy/switch/item_use in all towns.
+	  towny.claimed.build : User can build in all towns.
+	  towny.claimed.destroy : User can destroy in all towns.
+	  towny.claimed.switch : User can switch in all towns.
+	  towny.claimed.item_use : User can use use items in all towns. 
+	  
+	  towny.claimed.alltown.block.* : User is able to edit specified/all block types in all towns.
+	  towny.claimed.alltown.block.*.build
+	  towny.claimed.alltown.block.*.destroy
+	  towny.claimed.alltown.block.*.switch : User can switch specified/all block types in all towns.
+	  towny.claimed.alltown.block.*.item_use
+	  
+	  towny.claimed.owntown.block.* : User is able to edit specified/all block types in their own town.
+	  towny.claimed.owntown.block.*.build
+	  towny.claimed.owntown.block.*.destroy : (handy to allow clearing of snow '78')
+	  towny.claimed.owntown.block.*.switch
+	  towny.claimed.owntown.block.*.item_use
+	
+	- Added a new node 'towny.town.claim.outpost' to allow/block claiming of outposts via permissions.
+	  Will still require outposts to be enabled in the config.

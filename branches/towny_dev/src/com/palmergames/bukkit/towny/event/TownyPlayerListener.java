@@ -192,6 +192,11 @@ public class TownyPlayerListener extends PlayerListener {
 			if (status == TownBlockStatus.UNCLAIMED_ZONE && wildOverride)
 				return;
 			
+			// Allow item_use if we have an override
+			if (((status == TownBlockStatus.TOWN_RESIDENT) && (TownyUniverse.getPermissionSource().hasOwnTownOverride(player, event.getItem().getTypeId(), TownyPermission.ActionType.ITEM_USE)))
+				|| ((status == TownBlockStatus.OUTSIDER) && (TownyUniverse.getPermissionSource().hasAllTownOverride(player, event.getItem().getTypeId(), TownyPermission.ActionType.ITEM_USE))))
+				return;
+			
 			if (status == TownBlockStatus.WARZONE) {
 				if (!TownyWarConfig.isAllowingItemUseInWarZone()) {
 					event.setCancelled(true);
@@ -243,10 +248,16 @@ public class TownyPlayerListener extends PlayerListener {
 		boolean wildOverride = TownyUniverse.getPermissionSource().hasWildOverride(worldCoord.getWorld(), player, block.getTypeId(), TownyPermission.ActionType.SWITCH);
 
 		PlayerCache cache = plugin.getCache(player);
-		//cache.updateCoord(worldCoord);
+		
 		TownBlockStatus status = cache.getStatus();
 		if (status == TownBlockStatus.UNCLAIMED_ZONE && wildOverride)
 			return;
+		
+		// Allow item_use if we have an override
+		if (((status == TownBlockStatus.TOWN_RESIDENT) && (TownyUniverse.getPermissionSource().hasOwnTownOverride(player, block.getTypeId(), TownyPermission.ActionType.SWITCH)))
+			|| ((status == TownBlockStatus.OUTSIDER) && (TownyUniverse.getPermissionSource().hasAllTownOverride(player, block.getTypeId(), TownyPermission.ActionType.SWITCH))))
+			return;
+					
 		if (status == TownBlockStatus.WARZONE) {
 			if (!TownyWarConfig.isAllowingSwitchesInWarZone()) {
 				event.setCancelled(true);
@@ -260,7 +271,7 @@ public class TownyPlayerListener extends PlayerListener {
 			
 			event.setCancelled(true);
 		}
-		if ((cache.hasBlockErrMsg()) && (status != TownBlockStatus.UNCLAIMED_ZONE))
+		if (cache.hasBlockErrMsg()) // && (status != TownBlockStatus.UNCLAIMED_ZONE))
 			TownyMessaging.sendErrorMsg(player, cache.getBlockErrMsg());
 	}
 

@@ -47,13 +47,74 @@ public abstract class TownyPermissionSource {
 		switch (action) {
 
 		case BUILD:
-			return world.getUnclaimedZoneBuild() || (!bpermissions && world.isUnclaimedZoneIgnoreId(blockId));
+			return world.getUnclaimedZoneBuild()
+				|| (bpermissions && hasPermission(player, PermissionNodes.TOWNY_WILD_BLOCK_BUILD.getNode()))
+				|| (!bpermissions && world.isUnclaimedZoneIgnoreId(blockId));
 		case DESTROY:
-			return world.getUnclaimedZoneDestroy() || (!bpermissions && world.isUnclaimedZoneIgnoreId(blockId));
+			return world.getUnclaimedZoneDestroy()
+				|| (bpermissions && hasPermission(player, PermissionNodes.TOWNY_WILD_BLOCK_DESTROY.getNode()))
+				|| (!bpermissions && world.isUnclaimedZoneIgnoreId(blockId));
 		case SWITCH:
-			return world.getUnclaimedZoneSwitch() || (!bpermissions && world.isUnclaimedZoneIgnoreId(blockId));
+			return world.getUnclaimedZoneSwitch()
+				|| (bpermissions && hasPermission(player, PermissionNodes.TOWNY_WILD_BLOCK_SWITCH.getNode()))
+				|| (!bpermissions && world.isUnclaimedZoneIgnoreId(blockId));
 		case ITEM_USE:
-			return world.getUnclaimedZoneItemUse() || (!bpermissions && world.isUnclaimedZoneIgnoreId(blockId));
+			return world.getUnclaimedZoneItemUse()
+				|| (bpermissions && hasPermission(player, PermissionNodes.TOWNY_WILD_BLOCK_ITEM_USE.getNode()))
+				|| (!bpermissions && world.isUnclaimedZoneIgnoreId(blockId));
+		default:
+			return false;
+		}
+	}
+	
+	public boolean hasOwnTownOverride(Player player, int blockId, TownyPermission.ActionType action) {
+
+		boolean bpermissions;
+		
+		//check for permissions
+		if (bpermissions = plugin.isPermissions())
+			if ((hasPermission(player, PermissionNodes.TOWNY_CLAIMED_ALL.getNode(action.toString().toLowerCase())))
+				|| (hasPermission(player, PermissionNodes.TOWNY_CLAIMED_ALL_BLOCK.getNode(blockId + "." + action.toString().toLowerCase())))
+				|| (hasPermission(player, PermissionNodes.TOWNY_CLAIMED_OWNTOWN_BLOCK.getNode(blockId + "." + action.toString().toLowerCase()))))
+				return true;
+
+		// No perms so check global settings.
+		switch (action) {
+		
+		case BUILD:
+			return (bpermissions && (hasPermission(player, PermissionNodes.TOWNY_CLAIMED_BUILD.getNode()) || hasPermission(player, PermissionNodes.TOWNY_CLAIMED_OWNTOWN_BLOCK_BUILD.getNode())));
+		case DESTROY:
+			return (bpermissions && (hasPermission(player, PermissionNodes.TOWNY_CLAIMED_DESTROY.getNode()) || hasPermission(player, PermissionNodes.TOWNY_CLAIMED_OWNTOWN_BLOCK_DESTROY.getNode())));
+		case SWITCH:
+			return (bpermissions && (hasPermission(player, PermissionNodes.TOWNY_CLAIMED_SWITCH.getNode()) || hasPermission(player, PermissionNodes.TOWNY_CLAIMED_OWNTOWN_BLOCK_SWITCH.getNode())));
+		case ITEM_USE:
+			return (bpermissions && (hasPermission(player, PermissionNodes.TOWNY_CLAIMED_ITEM_USE.getNode()) || hasPermission(player, PermissionNodes.TOWNY_CLAIMED_OWNTOWN_BLOCK_ITEM_USE.getNode())));
+		default:
+			return false;
+		}
+	}
+	
+	public boolean hasAllTownOverride(Player player, int blockId, TownyPermission.ActionType action) {
+
+		boolean bpermissions;
+		
+		//check for permissions
+		if (bpermissions = plugin.isPermissions())
+			if ((hasPermission(player, PermissionNodes.TOWNY_CLAIMED_ALL.getNode(action.toString().toLowerCase())))
+				|| (hasPermission(player, PermissionNodes.TOWNY_CLAIMED_ALL_BLOCK.getNode(blockId + "." + action.toString().toLowerCase()))))
+				return true;
+
+		// No perms so check global settings.
+		switch (action) {
+				
+		case BUILD:
+			return (bpermissions && (hasPermission(player, PermissionNodes.TOWNY_CLAIMED_BUILD.getNode()) || hasPermission(player, PermissionNodes.TOWNY_CLAIMED_ALL_BLOCK_BUILD.getNode())));
+		case DESTROY:
+			return (bpermissions && (hasPermission(player, PermissionNodes.TOWNY_CLAIMED_DESTROY.getNode()) || hasPermission(player, PermissionNodes.TOWNY_CLAIMED_ALL_BLOCK_DESTROY.getNode())));
+		case SWITCH:
+			return (bpermissions && (hasPermission(player, PermissionNodes.TOWNY_CLAIMED_SWITCH.getNode()) || hasPermission(player, PermissionNodes.TOWNY_CLAIMED_ALL_BLOCK_SWITCH.getNode())));
+		case ITEM_USE:
+			return (bpermissions && (hasPermission(player, PermissionNodes.TOWNY_CLAIMED_ITEM_USE.getNode()) || hasPermission(player, PermissionNodes.TOWNY_CLAIMED_ALL_BLOCK_ITEM_USE.getNode())));
 		default:
 			return false;
 		}
