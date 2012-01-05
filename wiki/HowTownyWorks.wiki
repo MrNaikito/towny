@@ -184,7 +184,7 @@ As of now there are:
   
   === Wilds Plots ===
   
-  Wilds plots are designatid with /plot set wilds
+  Wilds plots are designated with /plot set wilds
   
   A wilds plot allows residents to destroy the blocks found on the wild ignore ID list. This includes ores, trees, flowers, mushrooms and other harvestable blocks.
   It is useful for creating tree farms, and protecting the terrain around a town, while still allowing residents to cut trees and explore caves.
@@ -192,6 +192,8 @@ As of now there are:
   
 == Outposts ==
 Normally townblocks are claimed around the home block, always connected to the town. To claim a townblock out in the wilderness, a mayor or assistant must claim an outpost.
+
+In order for players to claim outposts, the config must be set to {{{allow_outposts: true}}} and players require towny.town.claim.outpost in their permission node group.
 
 Outposts cannot be claimed too close to other home blocks, just like when a mayor starts a town they cannot be too close. The exact number is set in the [DefaultConfig config.yml] at {{{min_distance_from_town_homeblock: 5}}}. 
 In the default setting an outpost cannot be claimed within 5 townblocks of any other homeblock.
@@ -204,7 +206,9 @@ Outposts have two settings in [DefaultConfig config.yml]
 Land is sold by Mayors to Residents that are a part of their town. {{{using_iconomy: true}}} must be set in [DefaultConfig config.yml] in order for costs to be applied.
 Mayors have a command used in game to set the cost of all the plots in their town that are for sale.
   * {{{/town set plotprice {$} }}}
-    * This sets the cost of every plot that is on sale. If it is not set, 
+    * This sets the cost of every plot that is on sale. If it is not set, the plots will cost $0 by default.
+To put a plot up for sale a mayor, while standing in the plot, type /plot forsale {optional cost}
+The resident would then type /plot claim while standing in the plot to buy it. 
 
 == Using the Maps ==
 The map in towny displays the grid system of plots. The map can be viewed once using {{{/towny map}}} one time or you can set the map to show every time you move from one block to another:
@@ -313,8 +317,8 @@ Default permissions are viewable by typing either {{{/resident}}} for personal p
   === Setting perms in-game with commands ===
   Setting perms for your town's public land or your personal plots is easy! There are two distinct levels of protection provided by towns.
   
-  First are the town blocks protected because they are part of a town and not owned by anyone. When you enter one of these plots from the wilderness or an owned plot the notification will show "~ Unowned". 
-  Mayors are able to set the permission for unowned plots using the the {{{/town set perm}}} command. A full list of commands is on the [Commands commands] page, here are some examples:
+  First are the town blocks, protected because they are part of a town and not owned by anyone. When you enter one of these plots from the wilderness or an owned plot the notification will show "~ Unowned". 
+  Mayors are able to set the permission for  unowned plots using the the {{{/town set perm}}} command. A full list of commands is on the [Commands commands] page, here are some examples:
     * /town set perm {on/off} - This turns on or off all permissions for all perm-types and all perm-groups.
     * /town set perm ally {on/off} - This turns on or off all perm-types and for the town's allies (Towns in their nation, nations to which their nation is allied with.)
     * /town set perm resident build {on/off} - This turns on or off all permissions for building done by residents of the town.
@@ -336,13 +340,19 @@ Default permissions are viewable by typing either {{{/resident}}} for personal p
     * /town toggle fire
     * /town toggle pvp 
     * /town toggle mobs
-  This will turn on/off for the entire town.
+  
   Mayors and Residents can change each of their plots individually using these commands:
     * /plot toggle explosion
     * /plot toggle fire
     * /plot toggle pvp
     * /plot toggle mobs
   Per-plot toggles are overridden by a mayor's town toggles.
+  
+  The preceding commands by themselves will change the perm line seen from /town or /res. They will also change any plots that were using the previously-set default perm line (town-owned or player-owned plots.)
+  They will not change plots which were not set to the default perm line see in /town or /res. In order to change all plots a mayor or resident must use the following command, which will propagate the current perm line seen in /town or /res to ALL plots owned by the town or resident.
+    * /res set perm reset - Propagates the perm line in /res to ALL plots owned by that resident.
+    * /town set perm reset - Propagates the perm line in /town to ALL town-owned plots owned by that town.
+    * These commands also affect the /town toggle and /plot toggle settings.
  
 
 == Protection Additions Found in Towny Advanced ==
@@ -372,6 +382,8 @@ The time of a 'Towny Day' can be set in [DefaultConfig config.yml] at {{{day_int
   === Taxes ===
   Taxes are collected on the town level from residents and on the nation level from towns.
   The [DefaultConfig config.yml] has an entry to turn taxation on or off at {{{daily_taxes: true}}}
+  
+  Any player can check the taxes which apply to them with the ingame command /res tax
 
   Town mayors can use two commands to set their taxrates.
     * /town set taxes {$}
@@ -392,21 +404,27 @@ The time of a 'Towny Day' can be set in [DefaultConfig config.yml] at {{{day_int
       * If a town can't pay it's tax then it is kicked from the nation.
   
   Admins can set two options in the config.yml for controlling maximum tax amounts on towns. There is max_tax_amount which defaults to 1000 and max_tax_percent which defaults to 25%. Which one is used depends on how the town is taxing, a flat rate or by percentage.
-    
+  
+    ==== How to pay landowners ====
+    A new option added to post-0.78.0.0 versions of Towny allows you to pay players money each day, based on the number of plots they own.
+    To use this do the following:
+      * Set a negative town upkeep and enable {{{use_plot_payments: true}}} in the config.yml
+      * At a new day the negative upkeep will be used to calculate the towns upkeep, but instead of taking it from the town, it will be divided between the plot owners.
+      * These funds are paid by the server, not the town.
+      
   === Upkeep ===
-  Upkeep collection can be set on towns and on nations seperately. Upkeep money is taken from townbanks and nationbanks and removed from the game.
-  Upkeep is used by a server admin to remove inactive towns and nations from the server.
+  Upkeep collection can be set on towns and on nations seperately. Upkeep money is taken from townbanks and nationbanks and removed from the game. You can set the upkeep amounts to negative numbers to pay towns and nations instead of charging them.
+  Upkeep is used by a server admin to remove inactive towns and nations from the server. Setting the upkeep to a negative number gives the town or nation-banks that amount each new day.
   Upkeep is set in [DefaultConfig config.yml] with two flags:
     * {{{price_nation_upkeep: 100.0}}}
       * The server's daily charge on each nation. If a nation fails to pay this upkeep, all of it's member towns are kicked and the Nation is removed.
     * {{{price_town_upkeep: 10.0}}}
-      * The server's daily charge on each town. If a town fails to pay this upkeep, all of it's residents are kicked and the town is removed.
-      
+      * The server's daily charge on each town. If a town fails to pay this upkeep, all of it's residents are kicked and the town is removed.      
   Upkeep can be modified in the [DefaultConfig config.yml] to affect different-sized towns differently.
   There are two ways to calculate the upkeep using the upkeep modifier found in the townLevel and nationLevel lines. By default the townLevel and nationLevel lines use the resident-count to determine upkeep via the upkeep modifier. The other option is to base it off plot-count rather than resident count. If you would like to set it based on plot-count set {{{town_plotbased_upkeep:true}}} in your config.yml.
     
   More information on the townLevel line and how to configure it is [HowTownyWorks#Configuring_Mayor_and_King_Titles,_Town_and_Nation_Names here.]
-
+  
 == Town and Nation Banks ==
 
 Towns and Nations both have banks, to which any resident can deposit money but only town mayors and nation kings (and assistants) can withdraw from.
@@ -449,6 +467,7 @@ If you want Towny’s variables in chat, or the town/nation channels, you must d
 Towny modifies the in-game chat appearance of town mayors and nation leaders only.
 
 The various chat modification can be turned on in [DefaultConfig config.yml] at {{{modify_chat.format: '{townytagoverride}{townycolor}{permprefix}{townyprefix}{playername}{townypostfix}{permsuffix}&f:'}}}
+The globalchat line can be modified in the worldname.txt's located in \towny\data\worlds\ so that different worlds have different globalchat lines.
 These are also the bits you will add to another chat plugin's config.
   * {nation} - Displays nation name if a member of a nation.
   * {town} - Displays town name if a member of a town.
@@ -466,6 +485,7 @@ These are also the bits you will add to another chat plugin's config.
   * {nationtagoverride} - Displays the formated nation tag if a member of a nation (if present or full name fallback - using modify_chat.tag_format.nation).
   * {towntagoverride} - Displays the formated town tag if a member of a town (if present or full name fallback - using modify_chat.tag_format.town).
   * {townycolor} - Towny name colour for king/mayor/resident
+  * {world} - Add worldname to chat line.
  
 The following keys are for use in modify_chat.format for if you don't have/want to use another plugin that changes the chat. They are also used for town/nation chat.
   * {permprefix} - Permission group prefix
@@ -487,20 +507,28 @@ Kings of nations can use two commands to change the displayed chat names of thei
 
 == Chat Modes ==
 
-There are two added chatmodes in Towny, townchat and nationchat.
+There are five chat channels by default in Towny, although an admin can create as many chat channels as they'd like in the config.
+  {{{
+  channels:
+      - /tc,&f[&3TC&f],&b,towny.chat.town
+      - /nc,&f[&6NC&f],&e,towny.chat.nation
+      - /a,&f[&4ADMIN&f],&c,towny.chat.admin
+      - /m,&f[&9MOD&f],&5,towny.chat.mod
+  }}}
 
   * /townchat, /tc
-    * Put in from of text to speak with members of your town only.
+    * Put in from of text to speak with members of your town only, or without text afterwards to enter the channel.
   * /nationchat, /nc
-    * Put in from of text to speak with members of your nation only.
-  * /res set mode tc
-    * Use to speak on townchat by default.
-  * /res set mode nc
-    * Use to speak on nationchat by default.
+    * Put in from of text to speak with members of your nation only, or without text afterwards to enter the channel.
+  * /global, /g
+    * Put in from of text to speak in globalchat, or without text afterwards to enter the channel.
   * /res set mode reset
     * Reset chat mode to default chat.
-  * /m - moderator chat.
-  * /a - admin chat. 
+  * /a 
+    * Put in from of text to speak in adminchat, or without text afterwards to enter the channel.
+  * /m 
+    * Put in from of text to speak in modchat, or without text afterwards to enter the channel.
+
 ----
 
 = Multiworld =
