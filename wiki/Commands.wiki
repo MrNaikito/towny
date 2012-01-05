@@ -36,6 +36,7 @@
        * {friend/ally/outsider} {on/off}
        * {build/destroy/switch/itemuse} {on/off}
        * {friend/ally/outsider} {build/destroy/switch/itemuse} {on/off}
+     * tax - shows taxes a player pays.
 
     
 == /town ==  
