@@ -1019,3 +1019,5 @@ v0.77.1.33:
 	  instead of taking it from the town, it will be divided between the plot owners.
 	  These funds are paid by the server, not the town.
 	- You can now disable the CraftBukkit version check if you wish to take a risk with untested builds (bypass_version_check).
+v0.78.0.0:
+	- Release.
