@@ -1,7 +1,7 @@
 [B]Plugin: [/B]Towny
 [RIGHT]                                                     [URL='http://webchat.esper.net/?channels=towny']IRC: Join channel #Towny[/URL][/RIGHT]
 [RIGHT][URL='https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=8WWJ76KLFKM4G'][IMG]https://www.paypalobjects.com/en_GB/i/btn/btn_donate_LG.gif[/IMG][/URL][/RIGHT]
- [B]Version:[/B] v0.77.1.0
+ [B]Version:[/B] v0.78.0.0
 
  Taking Shades Towny a step farther.
 
@@ -12,7 +12,7 @@
 [B]Optional[/B]
 
 [LIST]
-[*]Questioner 0.4 - [URL='http://code.google.com/a/eclipselabs.org/p/towny/downloads/detail?name=Questioner.jar&can=2&q=']Download Jar[/URL]
+[*]Questioner 0.5 - [URL='http://palmergames.com/downloads/qrel/Questioner.jar']Download Jar[/URL]
 [*]Essentials 2.5+ - (Towny /town spawn's obey Essentials teleport cooldown)
 [*]All permissions plugins are supported and provide greater customization.
 [*]Economy plugin of your choice.
@@ -66,46 +66,128 @@ Read this wikipage to learn how Towny works, this page is a must-read for every 
 Make a suggestion - [URL='http://code.google.com/a/eclipselabs.org/p/towny/issues/entry?template=Suggestion']Link[/URL]
 Report an issue - [URL='http://code.google.com/a/eclipselabs.org/p/towny/issues/entry?template=Defect%20report%20from%20user']Link[/URL]
 
-[spoiler=Whats new][B]New in 0.77.0.0[/B]
+[spoiler=Whats new][B]New in 0.78.0.0[/B]
 [LIST]
 [*]New commands:
 [LIST]
-[*] /townyadmin purge x - where x is a number of days, removing old residents who haven't logged in.
-[*] /town set perm reset - Reset all town plots to the perm line shown in /town.
-[*] /plot set perm reset - Reset all personally-owned plots to the perm line shown in /res.
-[*] /plot set wilds - Makes a plot into a Wilds plot-type.
+[*] /g - Enters global chat, or /g texthere to speak in global chat while remaining in another chatchannel.
+[*] /tc - Enters townchat, or /tc texthere to speak in townchat while remaining in another chatchannel.
+[*] /nc - Enters nationchat, or /nc texthere to speak in nationchat while remaining in another chatchannel.
+[*] /a - Enters adminchat, or /a texthere to speak in adminchat while remaining in another chatchannel.
+[*] /m - Enters modchat, or /m texthere to speak in modchat while remaining in another chatchannel.
+[*] /res tax - Shows the total taxes a player will have to pay at the next new day.
+[*] /townyadmin town {townname} kick {residentname} - Kick players from a town.
 [/LIST]
 [LIST]
 [*]New Permission Nodes:
 [LIST]
-[*] none
+[*] towny.town.plottype : Users can use the /plot set {plottype} commands (Mayors can always use this command, without the node.)
+[*] towny.claimed.* : User can build/destroy/switch/item_use in all towns. These new nodes are useful for moderators, without giving them towny.admin.
+[*] towny.claimed.build : User can build in all towns.
+[*] towny.claimed.destroy : User can destroy in all towns.
+[*] towny.claimed.switch : User can switch in all towns.
+[*] towny.claimed.item_use : User can use use items in all towns. 
+[*] towny.claimed.alltown.block.* : User is able to edit specified/all block types in all towns.
+[*] towny.claimed.alltown.block.*.build
+[*] towny.claimed.alltown.block.*.destroy
+[*] towny.claimed.alltown.block.*.switch : User can switch specified/all block types in all towns.
+[*] towny.claimed.alltown.block.*.item_use
+[*] towny.claimed.owntown.block.* : User is able to edit specified/all block types in their own town.
+[*] towny.claimed.owntown.block.*.build
+[*] towny.claimed.owntown.block.*.destroy : (handy to allow clearing of snow '78')
+[*] towny.claimed.owntown.block.*.switch
+[*] towny.claimed.owntown.block.*.item_use
+[*] towny.town.claim.outpost : to allow/block claiming of outposts via permissions. (Will still require outposts to be enabled in the config.)     
 [/LIST]
 [/LIST]
 [LIST]
 [*]Added:
 [LIST]
-[*] Wilds plot type - A plot type which allows residents to affect the blocks listed in wild ignore ID list (ores, trees, flowers.)
-[*] Towny now accepts worlds with spaces in their name.
-[*] Notification when entering plots with PVP on.
+[*] Support for CraftIRC admin chat channel, useful for monitoring all chat channels via an IRC channel.
+[code]
+      	  Add a channel tag of 'admin' to the
+      	  receiving channel in the craftIRC config.
+      	  
+      	  Disable Auto paths and add the following to the 'paths:' section
+      
+      	    - source: 'minecraft'
+      	      target: 'admin'
+      	      formatting:
+      	        chat: '%message%'
+      	      
+      	    - source: 'admin'     # These are endpoint tags
+      	      target: 'minecraft'    #
+      	      formatting:
+	        chat: '%foreground%[%red%%ircPrefix%%sender%%foreground%] %message%'
+[/code]
+[*] Added daily upkeep to the '/town' and '/nation' outputs.
+[*] Added auto modes for chat. (See above new commands.)
+[*] Added {worldname} as a chat tag entry.
+[*] Added 'delete_economy_account' so admins can control whether Towny will delete the economy account when it deletes the resident.
+[*] Added minimum distance checks on outpost claims 'min_distance_from_town_homeblock'.
+[*] Added a new entry in 'Default Town/Plot flags' so admins can configure the defaults for pvp,fire,explosions and mob spawns.
+[*] Added new settings in 'Default new world settings' for fire, explosions and enderman pickup/place. Admins can now configure settings per world for the wilderness.
+[*] Adjusted world PVP so it only affects the wilderness. You can now disable PVP in the wilderness yet allow it in towns (enabled town pvp overrides plot pvp).
+[*] Added a new toggle so you can disable block damage during a war event (allow_block_griefing).
+[*] Added new plot type identifiers on the towny map.
+[LIST]
+[*] W - Wilds
+[*] C - Commercial/Shop
+[*] A - Arena
+[*] (shop plots which are for sale will show up as a blue $)
+[/LIST]
+[*] You can now set default modes via permissions. To set a group/user to default to town chat and have the map as they walk...
+[LIST]
+[*] If using GroupManager...
+[LIST]
+[*] add an Info node to the group/user towny_default_modes: 'tc,map'
+[/LIST]
+[/LIST]
+[LIST] 
+[*] If using PEX...
+[LIST]
+[*] add an Options node for towny_default_modes: 'tc,map'
+[/LIST]
+[/LIST]
+[LIST]
+[*] If using any other perms system (not guaranteed to work)
+[LIST]
+[*] add a permission node - towny_default_modes.tc,map
+[/LIST]
+[/LIST]
+[*] Added thrown potions to the PVP protection tests (not fully implemented in Bukkit yet).
+[*] '/townyadmin town/nation' command is now useable at the console.
+[*] Implemented new GM event system.
+[*] Implemented PEX events.
+[*] Added comments to World data files.
+[*] Wild block ignore permissions no longer fall back to world settings, if set to use a permissions provider.
+[*] Setting town perms now propogate to any townBlock which have not been manually altered.
+[*] Setting plot perms will flag that plot as altered so it will not longer update with the towns perms.
+[*] Each world now supports seperate chat formatting, if enabled in the Towny config (per_world).
+[*] Modify the channel formats in the worlds data file instead of in the config (plugins/towny/data/worlds).
+[LIST]
+[*] Added a new taxing system where you can pay plot owners an income for each plot they own.
+[LIST]
+[*] Set a negative town upkeep and enable 'use_plot_payments'.
+[*] At a new day the negative upkeep will be used to calculate the towns upkeep, but instead of taking it from the town, it will be divided between the plot owners.
+[*] These funds are paid by the server, not the town.
+[/LIST]
+[/LIST]
+
 [/LIST]
 [/LIST]
 [LIST]
 [*]Bug Fixes!
 [LIST]
-[*] Fixed resident colour in the config.
-[*] Fixed Arena plots so they properly allow PVP.
-[*] Towny cheat protection no longer opperates in worlds where towny is disabled.
-[*] Fixed an error displaying the mayor error message when he attempts to leave town.
-[*] Fixed Switch permissions allowing users to open chests with certain items in hand.
-[*] Only plot owners/mayors and assistants can now use plot toggle.
-[*] Fixed '/res delete <name>' and made it admin only.
-[*] Fixed 'plot claim/unclaim' to set correct plot permissions based upon plot type.
+[*] The long span of time between proper releases of Towny saw A Very Great Number of bugfixes, these included the required changes for Minecraft and Bukkit's releases of  1.0.0
+[*] Please read the changelog linked direcly below in order to get a full list of bugfixes.
 [/LIST]
 [/LIST]
 [LIST]
-[*]Lots more bugfixes! [URL='http://code.google.com/a/eclipselabs.org/p/towny/source/browse/trunk/Towny/src/ChangeLog.txt#781']Click here for a full changelog.[/URL]
+[*][URL='http://code.google.com/a/eclipselabs.org/p/towny/source/browse/trunk/Towny/src/ChangeLog.txt#832']Click here for a full changelog.[/URL]
 [/LIST]
--Towny Advanced 0.77.0.0 received 5004 downloads.
+   -Towny Advanced 0.77.1.0 received 18204 downloads.
+   -Towny Advanced 0.77.0.0 received 5004 downloads.
    -Towny Advanced 0.76.3.1 received 2627 downloads.
    -Towny Advanced 0.76.2.0 received 1809 downloads.
    -Towny Advanced 0.76.1.0 received 1758 downloads.
@@ -120,36 +202,6 @@ Report an issue - [URL='http://code.google.com/a/eclipselabs.org/p/towny/issues/
    [/spoiler]
    
    [spoiler=Changelog][B]Changelog[/B]
-   
-   v0.76.3.0:
-   	- Fixed an error when not using a currency type with Essentials Eco.
-   	- Force load the destination chunk when teleporting. Attempt to prevent the falling through the world bug.
-   	- If wild_revert_on_mob_explosion is enabled, the explosions no longer drop any blocks.
-   	- Simplfied Plugin interfacing for Economy plugins to a single setting of using_economy.
-   	  Towny will first attempt to use Register.jar. If it's not present
-   	  it will fall back to the legacy support for iConomy 5.01.
-   	- Added a Permission handler to towny so it will now support GroupManager, PEX, bPermissions, Permissions 2/3 + (bridges) and Bukkit Perms.
-   	- Admins can now pick, choose and modify which notifications are shown when a player walks from plot to plot. Check the new section 'Town Notifications' in the config.
-   	- Town notifications now show a money formatted price.
-   	- Fixed '/town new' and '/nation new' to properly follow the settings in config if permissions are disabled.
-   	- If not using Eco, Towny will no longer error when deleting/renaming towns/nations, or upon a new day.
-   	- When using SuperPerms you can now use the following nodes with towny.
-   	  prefix.prefixhere
-   	  suffix.suffixhere
-   	  towny_maxplots.x (with x being a number eg towny_maxplots.2)
-   	- Town spawn cost now outputs correctly formatted by the settings in your economy plugin.
-   	- Fixed modplayername in chat format generating duplicate entries.
-   	- Optimized Towny chat so it no longer performs lots of wasteful string parsing on every message.
-   	- Added a seperate thread for Town Claim to relieve the lag caused by Chunk snapshot generation.
-   	- Towny World commands are now admin only again.
-   	- Fixed a world bug where Plot revert was following wild revent instead of it's own setting.
-   	- Requires CraftBukkit 1302 as a minimum, to clear memory leaks.
-   	- Added access from console for '/ta givebonus', and expanded to allow a town or a player to give the bonus to.
-   	  (bonus given to the player is directly transfered to the town)
-   	- Towny now zero's economy accounts upon removal of resident/town/nation, to allow the account deletion.
-   	- Pistons can now push between town owned townblocks.
-   	- Fixed town spawn when not using any permissiosn plugins.
-   	- Update for Bukkit 1317's new YamlConfiguration.
    v0.77.0.0:
    	- Fixed overwriting of config.yml.
    	- Code change due to PEX changing .has() to static (PEX 1.15).
