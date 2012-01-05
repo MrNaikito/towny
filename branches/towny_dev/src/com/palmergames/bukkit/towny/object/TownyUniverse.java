@@ -1554,12 +1554,34 @@ public class TownyUniverse extends TownyObject {
        
 		public void collectTownCosts() throws EconomyException, TownyException {
 			for (Town town : new ArrayList<Town>(towns.values()))
-				if (town.hasUpkeep())
-					if (!town.pay(TownySettings.getTownUpkeepCost(town), "Town Upkeep")) {
-						removeTown(town);
-						TownyMessaging.sendGlobalMessage(town.getName() + TownySettings.getLangString("msg_bankrupt_town"));
+				if (town.hasUpkeep()) {
+					double upkeep = TownySettings.getTownUpkeepCost(town);
+					
+					if (upkeep > 0) {
+						// Town is paying upkeep
+						if (!town.pay(TownySettings.getTownUpkeepCost(town), "Town Upkeep")) {
+							removeTown(town);
+							TownyMessaging.sendGlobalMessage(town.getName() + TownySettings.getLangString("msg_bankrupt_town"));
+						}
+					} else {
+						// Negative upkeep
+						if (TownySettings.isUpkeepPayingPlots()) {
+							// Pay each plot owner a share of the negative upkeep
+							for (TownBlock townBlock : new ArrayList<TownBlock>(town.getTownBlocks())) {
+								if (townBlock.hasResident())
+									townBlock.getResident().pay((upkeep / town.getTotalBlocks()), "Negative Town Upkeep - Plot income");
+								else
+									town.pay((upkeep / town.getTotalBlocks()), "Negative Town Upkeep - Plot income");
+							}
+							
+						} else {
+							//Not paying plot owners so just pay the town
+							town.pay(upkeep, "Negative Town Upkeep");
+						}
+						
 					}
-
+				}
+					
 			setChanged();
 			notifyObservers(UPKEEP_TOWN);
         }
