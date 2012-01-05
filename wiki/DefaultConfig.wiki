@@ -2,11 +2,13 @@
 {{{
 version:
   # This is the current version of Towny.  Please do not edit.
-  version: 0.77.1.0
+  version: 0.77.1.33
   # This is for showing the changelog on updates.  Please do not edit.
-  last_run_version: 0.77.1.0
+  last_run_version: 0.77.1.33
   # Minimum required version of CraftBukkit.  Please do not edit.
-  bukkit_version: '1321'
+  bukkit_version: '1597'
+  # If enabled we will not check the CraftBukkit version at startup.
+  bypass_version_check: 'true'
  
 # The language file you wish to use
 language: english.yml
@@ -21,31 +23,63 @@ language: english.yml
 #
 #    towny.admin: User is able to use /townyadmin, as well as the ability to build/destroy anywhere. User is also able to make towns or nations when set to admin only.
 #    towny.cheat.bypass : User is able to use any fly mods and double block jump (disables towny cheat protection for this user).
-#    towny.town.new :User is able to create a town
-#    towny.town.delete :User is able to delete their town
-#    towny.town.claim : User is able to expand his town with /town claim
-#    towny.town.plot : User is able to use the /plot commands
-#    towny.town.resident : User is able to join towns upon invite.
+#    towny.top : User can access the command towny top
+#    towny.town.* : User has access to all town permission nodes.
+#        towny.town.new :User is able to create a town
+#        towny.town.delete :User is able to delete their town
+#        towny.town.claim : User is able to expand his town with /town claim
+#        towny.town.plot : User is able to use the /plot commands
+#        towny.town.resident : User is able to join towns upon invite.
 #    towny.town.toggle.*: User can access all town toggle commands (if a mayor or assistant).
 #        towny.town.toggle.pvp
 #        towny.town.toggle.public
 #        towny.town.toggle.explosions
 #        towny.town.toggle.fire
 #        towny.town.toggle.mobs
-#    towny.nation.new :User is able to create a nation
-#    towny.nation.delete :User is able to delete their nation
+#    towny.town.* : User has access to all town permission nodes.
+#        towny.nation.new :User is able to create a nation
+#        towny.nation.delete :User is able to delete their nation (if king)
+#        towny.nation.rename :User is able to rename their nation (if king/assistant)
+#        towny.nation.grant-titles :User is able to grant titles/surnames to the nation residents (if King)
 #    towny.wild.*: User is able to build/destroy in wild regardless.
 #        towny.wild.build
 #        towny.wild.destroy
 #        towny.wild.switch
 #        towny.wild.item_use
 #    towny.wild.block.[block id].* : User is able to edit [block id] in the wild.
+#        towny.wild.[block id].build
+#        towny.wild.[block id].destroy
+#        towny.wild.[block id].switch
+#        towny.wild.[block id].item_use
+#
+#    towny.claimed.* : User can build/destroy/switch/item_use in all towns.
+#        towny.claimed.build : User can build in all towns.
+#        towny.claimed.destroy : User can destroy in all towns.
+#        towny.claimed.switch : User can switch in all towns.
+#        towny.claimed.item_use : User can use use items in all towns. 
+#    towny.claimed.alltown.block.* : User is able to edit specified/all block types in all towns.
+#        towny.claimed.alltown.block.[block id].build
+#        towny.claimed.alltown.block.[block id].destroy
+#        towny.claimed.alltown.block.[block id].switch : User can switch specified/all block types in all towns.
+#        towny.claimed.alltown.block.[block id].item_use
+#    towny.claimed.owntown.block.* : User is able to edit specified/all block types in their own town.
+#        towny.claimed.owntown.block.[block id].build
+#        towny.claimed.owntown.block.[block id].destroy : (handy to allow clearing of snow '78')
+#        towny.claimed.owntown.block.[block id].switch
+#        towny.claimed.owntown.block.[block id].item_use
+#
 #    towny.town.spawn.*: Grants all Spawn travel nodes
 #        towny.town.spawn.town : Ability to spawn to your own town.
 #        towny.town.spawn.nation : Ability to spawn to other towns in your nation.
 #        towny.town.spawn.ally : Ability to spawn to towns in nations allied with yours.
 #        towny.town.spawn.public : Ability to spawn to unaffilated public towns.
 #
+#    towny.chat.* : user is able to talk in all chat channels.
+#        towny.chat.town : user is able to talk in town chat.
+#        towny.chat.nation
+#        towny.chat.global : user is able to talk in global chat (/g)
+#        towny.chat.admin
+#        towny.chat.mod
 # these will be moved to permissions nodes at a later date
 permissions:
   town_creation_admin_only: 'false'
@@ -183,6 +217,8 @@ levels:
 ############################################################
  
 town:
+  # Default public status of the town (used for /town spawn)
+  default_public: 'true'
   # Limits the maximum amount of bonus blocks a town can buy.
   max_purchased_blocks: '0'
   # maximum number of plots any single resident can own
@@ -220,20 +256,37 @@ town:
 # using '/townyworld toggle'
  
 new_world_settings:
-  # force_pvp_on is a global flag and overrides any towns flag setting
-  force_pvp_on: 'false'
+ 
+  pvp:
+    # Set if PVP is enabled in this world
+    world_pvp: 'true'
+    # force_pvp_on is a global flag and overrides any towns flag setting
+    force_pvp_on: 'false'
+ 
+  mobs:
+    # world_monsters_on is a global flag setting per world.
+    world_monsters_on: 'true'
+    # force_town_monsters_on is a global flag and overrides any towns flag setting
+    force_town_monsters_on: 'false'
+ 
+  explosions:
+    # Allow explosions in this world
+    world_explosions_enabled: 'true'
+    # force_explosions_on is a global flag and overrides any towns flag setting
+    force_explosions_on: 'false'
+ 
+  fire:
+    # Allow fire to be lit and spread in this world.
+    world_firespread_enabled: 'true'
+    # force_fire_on is a global flag and overrides any towns flag setting
+    force_fire_on: 'false'
+ 
+  # Prevent Endermen from picking up and placing blocks.
+  enderman_protect: 'true'
   # Disable players trampling crops
   disable_player_crop_trampling: 'true'
   # Disable creatures trampling crops
   disable_creature_crop_trampling: 'true'
-  # world_monsters_on is a global flag setting per world.
-  world_monsters_on: 'true'
-  # force_explosions_on is a global flag and overrides any towns flag setting
-  force_explosions_on: 'false'
-  # force_town_monsters_on is a global flag and overrides any towns flag setting
-  force_town_monsters_on: 'false'
-  # force_fire_on is a global flag and overrides any towns flag setting
-  force_fire_on: 'false'
  
   # World management settings to deal with un/claiming plots
   plot_management:
@@ -249,12 +302,27 @@ new_world_settings:
       # To disable deleting replace the current entries with NONE.
       mayor_plot_delete: WALL_SIGN,SIGN_POST
  
-    revert_on_unclaim: ''
+    revert_on_unclaim:
+      # *** WARNING***
+      # If this is enabled any town plots which become unclaimed will
+      # slowly be reverted to a snapshot taken before the plot was claimed.
+      #
+      # Regeneration will only work if the plot was
+      # claimed under version 0.76.2, or
+      # later with this feature enabled
+      #
+      # If you allow players to break/build in the wild the snapshot will
+      # include any changes made before the plot was claimed.
+      enabled: 'true'
+      speed: 1s
+      # These block types will NOT be regenerated
+      block_ignore: 14,21,22,41,42,48,50,52,56,57,63,68,89
+ 
     wild_revert_on_mob_explosion:
       # Enabling this will slowly regenerate holes created in the
       # wilderness by monsters exploding.
       enabled: 'true'
-      delay: 5s
+      delay: 20s
  
  
 ############################################################
@@ -264,7 +332,7 @@ new_world_settings:
 ############################################################
  
 global_town_settings:
-  # can residents/Allies harm other residents when in a town with pvp enabled?
+  # can residents/Allies harm other residents when in an area with pvp enabled? Other than an Arena plot.
   friendly_fire: 'true'
   # Players within their town or allied towns will regenerate half a heart after every health_regen_speed seconds.
   health_regen:
@@ -372,6 +440,7 @@ filters_colour_chat:
   # The format below will specify the changes made to the player name when chatting.
   # These keys can be used in other plugins that modify the chat format like iChat.
  
+  # {worldname} - Displays the world the player is currently in.
   # {town} - Displays town name if a member of a town.
   # {townformatted} - Displays town name (if a member of a town) using tag_format.town.
   # {towntag} - Displays the formated town tag (if a member of a town) using modify_chat.tag_format.town.
@@ -411,12 +480,17 @@ filters_colour_chat:
     # This is used for when you don't have another plugin to format chat.
     # It will cause Towny to overwrite any other plugins alterations to the format.
     enable: 'true'
+    # If true the chat formats will be copied to each worlds data file
+    # These can then be altered individually.
+    per_world: 'false'
     # This is the format for when you are not using another plugin to set the format and modify_chat.format is true.
+    # This is the format which will be used for Global Chat
     # You can use text colouring shown in filters.colour as well.
-    chat_format: '{townytagoverride}{townycolor}{permprefix}{group} {townyprefix}{modplayername}{townypostfix}{permsuffix}&f:
+    chat_format: '{worldname}{townytagoverride}{townycolor}{permprefix}{group} {townyprefix}{modplayername}{townypostfix}{permsuffix}&f:
       {msg}'
  
     tag_format:
+      world: '&f[&f%s&f] '
       town: '&f[&3%s&f] '
       nation: '&f[&e%s&f] '
       # First %s is the nation tag, second is the town tag.
@@ -432,6 +506,7 @@ filters_colour_chat:
     # Channels are in the format: command, channel-tag, chat-colour, permission-node (to use channel).
     # Do ***NOT*** alter the commands for /tc and /nc.
     channels:
+    - /g,,,towny.chat.global
     - /tc,&f[&3TC&f],&b,towny.chat.town
     - /nc,&f[&6NC&f],&e,towny.chat.nation
     - /a,&f[&4ADMIN&f],&c,towny.chat.admin
@@ -514,13 +589,15 @@ protection:
 # +------------------------------------------------------+ #
 ############################################################
  
+# These Settings defaults only. They are copied to each worlds data files upon first detection
+# To make changes for each world edit the settings in the relevant worlds data file 'plugins/Towny/data/worlds/'
+ 
 unclaimed:
   unclaimed_zone_build: 'false'
   unclaimed_zone_destroy: 'false'
   unclaimed_zone_item_use: 'false'
   unclaimed_zone_ignore: 6,14,15,16,17,18,21,31,37,38,39,40,50,56,65,66,73,74,81,82,83,86,89
   unclaimed_zone_switch: 'false'
-  unclaimed_zone_enderman_protect: 'true'
  
  
 ############################################################
@@ -598,6 +675,11 @@ default_perm_flags:
   # itemuse - use items such as flint and steel or buckets (as defined in item_use_ids)
   # switch - trigger or activate switches (as defined in switch_ids)
   town:
+    default:
+      pvp: 'true'
+      fire: 'false'
+      explosion: 'false'
+      mobs: 'false'
     resident:
       build: 'true'
       destroy: 'true'
@@ -629,6 +711,7 @@ resident_settings:
   delete_old_residents:
     enable: 'false'
     deleted_after_time: 60d
+    delete_economy_account: 'true'
   # The name of the town a resident will automatically join when he first registers.
   default_town_name: ''
  
@@ -669,8 +752,6 @@ economy:
  
   price_death: '1.0'
  
-  price_death_wartime: '200.0'
- 
   banks:
     # Maximum amount of money allowed in town bank
     # Use 0 for no limit
@@ -703,6 +784,10 @@ economy:
     # Uses total amount of owned plots to determine upkeep instead of the town level (Number of residents)
     # calculated by (number of claimed plots X price_town_upkeep).
     town_plotbased_upkeep: 'false'
+    # If enabled and you set a negative upkeep for the town
+    # any funds the town gains via upkeep at a new day
+    # will be shared out between the plot owners.
+    use_plot_payments: 'false'
  
  
 ############################################################
@@ -722,21 +807,53 @@ war:
   # +------------------------------------------------------+ #
   ############################################################
  
+  # This is started with /townyadmnin toggle war
+ 
+  # In peace time War spoils are accumulated from towns and nations being
+  # deleted with any money left in the bank.
+  #
+  # These funds are increased during a war event upon a player death.
+  # An additional bonus to the war chest is set in base_spoils.
+  #
+  # During the event a town losing a townblock pays the wartime_town_block_loss_price to the attacking town.
+  # The war is won when the only nations left in the battle are allies, or only a single nation.
+  #
+  # The winning nations share half of the war spoils.
+  # The remaining half is paid to the town which took the most town blocks, and lost the least.
+ 
   event:
-    remove_on_monarch_death: 'false'
     warning_delay: '30'
-    town_block_hp: '60'
-    home_block_hp: '120'
-    base_spoils: '100'
-    points_townblock: '1'
-    points_town: '10'
-    points_nation: '100'
-    points_kill: '1'
+ 
+    # If true and the monarch/king dies the nation is removed from the war.
+    remove_on_monarch_death: 'false'
+    # If enabled players will be able to break/place blocks in enemy plots during a war.
+    allow_block_griefing: 'true'
+ 
+    # A townblock takes damage every 5 seconds that an enemy is stood in it.
+    block_hp:
+      town_block_hp: '60'
+      home_block_hp: '120'
+ 
+    eco:
+      # This amount is new money injected into the economy with a war event.
+      base_spoils: '100.0'
+      # This amount is taken from the losing town for each plot lost.
+      wartime_town_block_loss_price: '100.0'
+      # This amount is taken from the player if they die during the event
+      price_death_wartime: '200.0'
+ 
+    points:
+      points_townblock: '1'
+      points_town: '10'
+      points_nation: '100'
+      points_kill: '1'
+ 
+    # The minimum height at which a player must stand to count as an attacker.
     min_height: '60'
-  wartime_town_block_loss_price: '100'
+ 
   ############################################################
   # +------------------------------------------------------+ #
-  # |            Warring Nation Enemies settings           | #
+  # |                   Flag war settings                  | #
   # +------------------------------------------------------+ #
   ############################################################
  
