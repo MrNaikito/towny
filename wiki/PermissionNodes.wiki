@@ -8,11 +8,31 @@ Add a description of which nodes and when towny uses its nodes.
 
   * towny.admin: User is able to use /townyadmin, as well as the ability to build/destroy anywhere. User can also able to make towns or nations when set to admin only.
 
+  * towny.claimed.{{{*}}} : User can build/destroy/switch/item_use in all towns.
+    * towny.claimed.build : User can build in all towns.
+    * towny.claimed.destroy : User can destroy in all towns.
+    * towny.claimed.switch : User can switch in all towns.
+    * towny.claimed.item_use : User can use use items in all towns. 
+
+    * towny.claimed.alltown.block.{{{*}}} : User is able to edit specified/all block types in all towns.
+    * towny.claimed.alltown.block.{{{*}}}.build
+    * towny.claimed.alltown.block.{{{*}}}.destroy
+    * towny.claimed.alltown.block.{{{*}}}.switch : User can switch specified/all block types in all towns.
+    * towny.claimed.alltown.block.{{{*}}}.item_use
+
+    * towny.claimed.owntown.block.{{{*}}} : User is able to edit specified/all block types in their own town.
+    * towny.claimed.owntown.block.{{{*}}}.build
+    * towny.claimed.owntown.block.{{{*}}}.destroy : (handy to allow clearing of snow '78')
+    * towny.claimed.owntown.block.{{{*}}}.switch
+    * towny.claimed.owntown.block.{{{*}}}.item_use
+
   * towny.town.{{{*}}} : User has access to all .town permission nodes.
     * towny.town.claim : User is able to expand his town with /town claim (used when world is set as unclaimable in /townyworld)
+    * towny.town.claim.outpost : to allow/block claiming of outposts via permissions. (Will still require outposts to be enabled in the config.)
     * towny.town.delete : player can delete their town
     * towny.town.new : User is able to create a town (used only when town_creation_admin_only: true)
     * towny.town.plot : User is able to use the /plot commands, to buy or sell land personally.
+    * towny.town.plottype : Users can use the /plot set {plottype} commands (Mayors can always use this command, without the node.)
     * towny.town.rename : player can rename their town
     * towny.town.resident : User is able to join a town.
     * towny.town.spawn.{{{*}}} : Grants all Spawn travel nodes
@@ -33,6 +53,7 @@ Add a description of which nodes and when towny uses its nodes.
     * towny.nation.new : User is able to create a nation (used only when nation_creation_admin_only: true)
     * towny.nation.rename : player can rename their nation
 
+  * towny.chat.global : Allows a player to use the globalchat channel
   * towny.chat.town : Allows a player to use townchat
   * towny.chat.nation : Allows a player to use nationchat
   * towny.chat.mod : Allows a player to use moderatorchat
@@ -59,9 +80,14 @@ Add a description of which nodes and when towny uses its nodes.
       * Used for the towny chat configuration's {permprefix} and {permsuffix}.
     * towny_maxplots.x {with x being a number eg towny_maxplots.2}
 
-= Info Nodes =
+= Info/Option Nodes =
 
-  This is similar to a permission node as it is added to your permission nodes file(s).
+  This is similar to a permission node as it is added to your permission nodes file(s). Added to the info: section of Groupmanagers' groups or the options: section of PEX's groups.
+  
+  * Setting default chat channels/modes on join to the server.
+    * towny_default_modes: 'tc,nc,a,m,map,townclaim'
+      * sets the default modes on residents, found in the /res set mode command stub.
+  
   
   * towny_maxplots: {number}
     This info node is used to limit the number of plots a player can own based on what permissions group they are in. If a group doesn't have this node or the node is set to -1 Towny will default back to the max_plots_per_resident in config.
@@ -91,3 +117,4 @@ Add a description of which nodes and when towny uses its nodes.
   		      suffix: ''
 		      towny_maxplots: -1
     }}}
+    
