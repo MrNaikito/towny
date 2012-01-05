@@ -320,25 +320,31 @@ public class Towny extends JavaPlugin {
 		}
 
 		setupLogger();
+		
+		if (TownySettings.isBypassVersionCheck()) {
+			TownyLogger.log.info("[Towny] Bypassing CraftBukkit Version check.");
+		} else {
 
-		int bukkitVer = TownySettings.getMinBukkitVersion();
-
-		if (!matcher.find() || matcher.group(1) == null) {
-			error = true;
-			TownyLogger.log.severe("[Towny Error] Unable to read CraftBukkit Version.");
-			TownyLogger.log.severe("[Towny Error] Towny requires version " + bukkitVer + " or higher.");
-			getServer().getPluginManager().disablePlugin(this);
-			return false;
-		}
-
-		int curBuild = Integer.parseInt(matcher.group(1));
-
-		if (curBuild < bukkitVer) {
-			error = true;
-			TownyLogger.log.severe("[Towny Error] CraftBukkit Version (" + curBuild + ") is outdated! ");
-			TownyLogger.log.severe("[Towny Error] Towny requires version " + bukkitVer + " or higher.");
-			getServer().getPluginManager().disablePlugin(this);
-			return false;
+			int bukkitVer = TownySettings.getMinBukkitVersion();
+	
+			if (!matcher.find() || matcher.group(1) == null) {
+				error = true;
+				TownyLogger.log.severe("[Towny Error] Unable to read CraftBukkit Version.");
+				TownyLogger.log.severe("[Towny Error] Towny requires version " + bukkitVer + " or higher.");
+				getServer().getPluginManager().disablePlugin(this);
+				return false;
+			}
+	
+			int curBuild = Integer.parseInt(matcher.group(1));
+	
+			if (curBuild < bukkitVer) {
+				error = true;
+				TownyLogger.log.severe("[Towny Error] CraftBukkit Version (" + curBuild + ") is outdated! ");
+				TownyLogger.log.severe("[Towny Error] Towny requires version " + bukkitVer + " or higher.");
+				getServer().getPluginManager().disablePlugin(this);
+				return false;
+			}
+		
 		}
 
 		//Coord.setCellSize(TownySettings.getTownBlockSize());
