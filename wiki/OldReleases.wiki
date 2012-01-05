@@ -5,6 +5,34 @@
 
 Here you can find information on old releases of Towny.
 
+== New in 0.77.1.0 ==
+
+    * New commands:
+      * /townyadmin purge x - where x is a number of days, removing old residents who haven't logged in.
+      * /town set perm reset - Reset all town plots to the perm line shown in /town.
+      * /plot set perm reset - Reset all personally-owned plots to the perm line shown in /res.
+      * /plot set wilds - Makes a plot into a Wilds plot-type.
+          
+    * New permission nodes:
+      * None
+        
+    * Added:
+      * Wilds plot type - A plot type which allows residents to affect the blocks listed in wild ignore ID list (ores, trees, flowers.) 
+      * Towny now accepts worlds with spaces in their name.
+      * Notification when entering plots with PVP on. 
+      
+    * Bug Fixes!
+      * Fixed resident colour in the config.
+      * Fixed Arena plots so they properly allow PVP.
+      * Towny cheat protection no longer opperates in worlds where towny is disabled.
+      * Fixed an error displaying the mayor error message when he attempts to leave town.
+      * Fixed Switch permissions allowing users to open chests with certain items in hand.
+      * Only plot owners/mayors and assistants can now use plot toggle.
+      * Fixed '/res delete <name>' and made it admin only.
+      * Fixed 'plot claim/unclaim' to set correct plot permissions based upon plot type.
+      
+    * [http://code.google.com/a/eclipselabs.org/p/towny/source/browse/trunk/Towny/src/ChangeLog.txt#781 Click here for a full changelog.]
+
 == New in 0.77.0.0 ==
 
     * New commands:
@@ -353,9 +381,6 @@ Here you can find information on old releases of Towny.
     
   * More! [http://code.google.com/a/eclipselabs.org/p/towny/source/browse/trunk/Towny/src/ChangeLog.txt Click here for a full changelog.]
   
-  *0.73.0 - Downloaded 412 times.*
-
-
 == New in 0.72 ==
 
 0.72 is a very big update to Towny, including but not limited to:
@@ -425,4 +450,32 @@ Here you can find information on old releases of Towny.
   
   * More! [http://code.google.com/a/eclipselabs.org/p/towny/source/browse/trunk/Towny/src/ChangeLog.txt Click here for a full changelog.]
 
-*0.72.1 - Downloaded 1230 times.*
+== New in 0.77.1.0 ==
+
+    * New commands:
+      * /townyadmin purge x - where x is a number of days, removing old residents who haven't logged in.
+      * /town set perm reset - Reset all town plots to the perm line shown in /town.
+      * /plot set perm reset - Reset all personally-owned plots to the perm line shown in /res.
+      * /plot set wilds - Makes a plot into a Wilds plot-type.
+          
+    * New permission nodes:
+      * None
+        
+    * Added:
+      * Wilds plot type - A plot type which allows residents to affect the blocks listed in wild ignore ID list (ores, trees, flowers.) 
+      * Towny now accepts worlds with spaces in their name.
+      * Notification when entering plots with PVP on. 
+      
+    * Bug Fixes!
+      * Fixed resident colour in the config.
+      * Fixed Arena plots so they properly allow PVP.
+      * Towny cheat protection no longer opperates in worlds where towny is disabled.
+      * Fixed an error displaying the mayor error message when he attempts to leave town.
+      * Fixed Switch permissions allowing users to open chests with certain items in hand.
+      * Only plot owners/mayors and assistants can now use plot toggle.
+      * Fixed '/res delete <name>' and made it admin only.
+      * Fixed 'plot claim/unclaim' to set correct plot permissions based upon plot type.
+      
+    * [http://code.google.com/a/eclipselabs.org/p/towny/source/browse/trunk/Towny/src/ChangeLog.txt#781 Click here for a full changelog.]
+  
+  
