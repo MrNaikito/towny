@@ -217,9 +217,8 @@
     * ?
     * town {town} 
       * add {resident} .. {resident}
-      * add+ {resident} .. {resident}
       * remove {resident} .. {resident}
-      * remove+ {resident} .. {resident}
+      * kick {resident}
     * nation {nation} add {town}
     * reset
     * toggle
@@ -243,13 +242,11 @@
 
 == Chat Commands ==
   * /townchat, /tc
-    * Put in from of text to speak with members of your town only.
+    * Put in from of text to speak with members of your town only, or without text afterwards to enter the channel.
   * /nationchat, /nc
-    * Put in from of text to speak with members of your nation only.
-  * /res set mode tc
-    * Use to speak on townchat by default.
-  * /res set mode nc
-    * Use to speak on nationchat by default.
+    * Put in from of text to speak with members of your nation only, or without text afterwards to enter the channel.
+  * /global, /g
+    * Put in from of text to speak in globalchat, or without text afterwards to enter the channel.
   * /res set mode reset
     * Reset chat mode to default chat.
   * /a - admin chat.
