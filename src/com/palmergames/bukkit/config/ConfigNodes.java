@@ -603,6 +603,13 @@ public enum ConfigNodes {
             ECO_PRICE_TOWN_UPKEEP_PLOTBASED("economy.daily_taxes.town_plotbased_upkeep","false",
                     "# Uses total amount of owned plots to determine upkeep instead of the town level (Number of residents)",
                     "# calculated by (number of claimed plots X price_town_upkeep)."),     
+            ECO_UPKEEP_PLOTPAYMENTS("economy.daily_taxes.use_plot_payments","false",
+                    "# If enabled and you set a negative upkeep for the town",
+                    "# any funds the town gains via upkeep at a new day",
+                    "# will be shared out between the plot owners."),         
+                    
+                    
+                    
                     
             WAR("war","",
             		"", "",

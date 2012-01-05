@@ -1012,3 +1012,9 @@ v0.77.1.32:
 	
 	- Added a new node 'towny.town.claim.outpost' to allow/block claiming of outposts via permissions.
 	  Will still require outposts to be enabled in the config.
+v0.77.1.33:
+	- Added a new taxing system where you can pay plot owners an income for each plot they own.
+	  Set a negative town upkeep and enable 'use_plot_payments'.
+	  At a new day the negative upkeep will be used to calculate the towns upkeep, but
+	  instead of taking it from the town, it will be divided between the plot owners.
+	  These funds are paid by the server, not the town.

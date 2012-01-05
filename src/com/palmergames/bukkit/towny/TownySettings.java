@@ -1256,6 +1256,10 @@ public class TownySettings {
         return getBoolean(ConfigNodes.ECO_PRICE_TOWN_UPKEEP_PLOTBASED);
 	}
     
+    public static boolean isUpkeepPayingPlots() {
+        return getBoolean(ConfigNodes.ECO_UPKEEP_PLOTPAYMENTS);
+	}
+    
     public static double getNationUpkeep() {
         return getDouble(ConfigNodes.ECO_PRICE_NATION_UPKEEP);
     }
