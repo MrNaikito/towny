@@ -121,10 +121,7 @@ public class TownyEntityListener extends EntityListener {
 	public void onEntityDeath(EntityDeathEvent event) {
 		Entity entity = event.getEntity();
 
-		if (entity instanceof Player) {
-			Player player = (Player) entity;
-			TownyMessaging.sendDebugMsg("onPlayerDeath: " + player.getName() + "[ID: " + entity.getEntityId() + "]");
-		} else if (entity instanceof Monster) {
+		if (entity instanceof Monster) {
 
 			Location loc = entity.getLocation();
 			TownyWorld townyWorld = null;

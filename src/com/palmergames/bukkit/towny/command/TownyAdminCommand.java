@@ -251,6 +251,7 @@ public class TownyAdminCommand implements CommandExecutor {
 			sender.sendMessage(ChatTools.formatTitle("/townyadmin town"));
 			sender.sendMessage(ChatTools.formatCommand(TownySettings.getLangString("admin_sing"), "/townyadmin town", "[town]", ""));
 			sender.sendMessage(ChatTools.formatCommand(TownySettings.getLangString("admin_sing"), "/townyadmin town", "[town] add/kick [] .. []", ""));
+			sender.sendMessage(ChatTools.formatCommand(TownySettings.getLangString("admin_sing"), "/townyadmin town", "[town] rename [newname]", ""));
 		} else {
 			try {
 				Town town = plugin.getTownyUniverse().getTown(split[0]);
@@ -264,12 +265,23 @@ public class TownyAdminCommand implements CommandExecutor {
 					}
 					*/
 					TownCommand.townAdd(sender, town, StringMgmt.remArgs(split, 2));
+
 				} else if (split[1].equalsIgnoreCase("kick")) {
 
 					TownCommand.townKickResidents(player, town.getMayor(), town, plugin.getTownyUniverse().getValidatedResidents(player, StringMgmt.remArgs(split, 2)));
+
+				} else if (split[1].equalsIgnoreCase("rename")) {
+
+					if (TownySettings.isValidRegionName(split[2])) {
+						plugin.getTownyUniverse().renameTown(town, split[2]);
+						TownyMessaging.sendTownMessage(town, String.format(TownySettings.getLangString("msg_town_set_name"), ((getSender() instanceof Player)? player.getName() : "CONSOLE") , town.getName()));
+					} else
+						TownyMessaging.sendErrorMsg(getSender(), TownySettings.getLangString("msg_invalid_name"));
 				}
 
 			} catch (NotRegisteredException e) {
+				TownyMessaging.sendErrorMsg(getSender(), e.getError());
+			} catch (TownyException e) {
 				TownyMessaging.sendErrorMsg(getSender(), e.getError());
 			}
 		}
@@ -282,12 +294,13 @@ public class TownyAdminCommand implements CommandExecutor {
 			sender.sendMessage(ChatTools.formatTitle("/townyadmin nation"));
 			sender.sendMessage(ChatTools.formatCommand(TownySettings.getLangString("admin_sing"), "/townyadmin nation", "[nation]", ""));
 			sender.sendMessage(ChatTools.formatCommand(TownySettings.getLangString("admin_sing"), "/townyadmin nation", "[nation] add [] .. []", ""));
+			sender.sendMessage(ChatTools.formatCommand(TownySettings.getLangString("admin_sing"), "/townyadmin nation", "[nation] rename [newname]", ""));
 		} else {
 			try {
 				Nation nation = plugin.getTownyUniverse().getNation(split[0]);
-				if (split.length == 1)
+				if (split.length == 1) {
 					TownyMessaging.sendMessage(getSender(), plugin.getTownyUniverse().getStatus(nation));
-				else if (split[1].equalsIgnoreCase("add")) {
+				} else if (split[1].equalsIgnoreCase("add")) {
 					/*
 					if (isConsole) {
 						sender.sendMessage("[Towny] InputError: This command was designed for use in game only.");
@@ -296,6 +309,14 @@ public class TownyAdminCommand implements CommandExecutor {
 					
 					*/
 					NationCommand.nationAdd(nation, plugin.getTownyUniverse().getTowns(StringMgmt.remArgs(split, 2)));
+
+				} else if (split[1].equalsIgnoreCase("rename")) {
+
+					if (TownySettings.isValidRegionName(split[2])) {
+						plugin.getTownyUniverse().renameNation(nation, split[2]);
+						TownyMessaging.sendNationMessage(nation, String.format(TownySettings.getLangString("msg_nation_set_name"), ((getSender() instanceof Player)? player.getName() : "CONSOLE"), nation.getName()));
+					} else
+						TownyMessaging.sendErrorMsg(getSender(), TownySettings.getLangString("msg_invalid_name"));
 				}
 
 			} catch (NotRegisteredException e) {

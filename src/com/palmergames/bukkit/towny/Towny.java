@@ -406,11 +406,14 @@ public class Towny extends JavaPlugin {
 		pluginManager.registerEvent(Event.Type.ENDERMAN_PICKUP, entityListener, Priority.Lowest, this);
 		pluginManager.registerEvent(Event.Type.ENDERMAN_PLACE, entityListener, Priority.Lowest, this);
 		pluginManager.registerEvent(Event.Type.ENTITY_INTERACT, entityListener, Priority.Lowest, this);
-		pluginManager.registerEvent(Event.Type.ENTITY_DAMAGE, entityMonitorListener, Priority.Lowest, this);
 		pluginManager.registerEvent(Event.Type.ENTITY_DEATH, entityListener, Priority.Lowest, this);
 		pluginManager.registerEvent(Event.Type.CREATURE_SPAWN, entityListener, Priority.Lowest, this);
+		
 		pluginManager.registerEvent(Event.Type.PAINTING_BREAK, entityListener, Priority.Normal, this);
 		pluginManager.registerEvent(Event.Type.PAINTING_PLACE, entityListener, Priority.Normal, this);
+		
+		// Manage player deaths and death payments
+		pluginManager.registerEvent(Event.Type.ENTITY_DEATH, entityMonitorListener, Priority.Lowest, this);
 		
 		pluginManager.registerEvent(Event.Type.LIGHTNING_STRIKE, weatherListener, Priority.Lowest, this);
 

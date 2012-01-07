@@ -426,7 +426,7 @@ public class TownyFlatFileSource extends TownyDataSource {
 
 			} catch (Exception e) {
 				System.out.println("[Towny] Loading Error: Exception while reading resident file " + resident.getName());
-				e.printStackTrace();
+				//e.printStackTrace();
 				return false;
 			}
 

@@ -1032,3 +1032,10 @@ v0.78.0.1:
 	- Slight change to onLogin to try and stop 0kb resident file creation (suspect some other plugin is running in it's own thread kicking a player at the wrong time).
 	- Any residents who are corrupt/missing at startup will no longer prevent Towny loading. They will be removed and the files tidied up.
 	- Fixed saving of plot regens, so they will now resume after a server restart.
+v0.78.0.2:
+	- Added '/ta town {name} rename {newname}'
+	- Added '/ta nation {name} rename {newname}'
+	- Fixed '/towny prices' to correctly display your own towns prices (if you are a resident in a town).
+	- Rework of player death and death costs to trigger on a player death and not on damage (no more multiple charges).
+	  Players will be charged only when killed by another player,monster or trap like a dispenser firing arrows.
+	  Deaths from falling etc will not incur a cost.
