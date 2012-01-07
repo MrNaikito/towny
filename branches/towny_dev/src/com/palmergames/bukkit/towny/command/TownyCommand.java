@@ -135,7 +135,7 @@ public class TownyCommand implements CommandExecutor {
                                         sendErrorMsg(player, x.getError());
                                         return;
                                 }
-                        } else if (split.length == 0)
+                        } else if (split.length == 1)
                                 try {
                                         Resident resident = plugin.getTownyUniverse().getResident(player.getName());
                                         town = resident.getTown();
