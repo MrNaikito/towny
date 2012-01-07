@@ -1,5 +1,5 @@
 name: Towny
-version: 0.15
+version: 0.16
 language: english
 author: ElgarL
 website: 'http://code.google.com/a/eclipselabs.org/p/towny/'
@@ -107,7 +107,7 @@ world_help_1: 'Current world''s status'
 world_help_2: '[world]'
 world_help_3: 'Target worlds''s status'
 world_help_4: 'List all worlds'
-
+world_help_5: 'Regenerate this chunk'
 townyadmin_help_1: 'Unclaim this town block'
 townyadmin_help_2: 'Attempt to unclaim around you.'
 
@@ -253,6 +253,7 @@ msg_world_expl: '&cThis world has Explosions forced on.'
 msg_world_fire: '&cThis world has Fire spread forced on.'
 
 msg_plot_pvp: '&cPVP can not be toggled in an Arena Plot.'
+msg_plot_regen_wrong_size: '&cRegen can only be performed when the default plot size (16) is used.'
 
 msg_reloaded: '&2Towny''s settings were reloaded.'
 msg_give_total: '&bGave %s bonus. (Total: %s)'
