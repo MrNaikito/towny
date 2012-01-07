@@ -57,7 +57,7 @@ public class DailyTimerTask extends TownyTimerTask {
                             TownyUniverse.getDataSource().backup();
                         } catch (IOException e) {
                         	TownyMessaging.sendErrorMsg("Could not create backup.");
-                            System.out.print(e.getStackTrace());
+                        	e.printStackTrace();
                         }
                 
                 TownyMessaging.sendDebugMsg("Finished New Day Code");

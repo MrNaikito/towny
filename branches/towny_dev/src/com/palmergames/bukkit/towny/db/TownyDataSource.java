@@ -1,6 +1,8 @@
 package com.palmergames.bukkit.towny.db;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import com.palmergames.bukkit.towny.Towny;
@@ -28,6 +30,7 @@ import com.palmergames.bukkit.towny.object.TownyWorld;
  */
 
 public abstract class TownyDataSource {
+
 	protected TownyUniverse universe;
 	//protected TownySettings settings;
 	protected Towny plugin;
@@ -37,17 +40,17 @@ public abstract class TownyDataSource {
 		this.universe = universe;
 		this.plugin = plugin;
 	}
-	
+
 	public void backup() throws IOException {
 	}
-	
+
 	public void cleanupBackups() {
 	}
-	
+
 	public void deleteUnusedResidentFiles() {
-		
+
 	}
-	
+
 	public boolean confirmContinuation(String msg) {
 		Boolean choice = null;
 		String input = null;
@@ -68,7 +71,7 @@ public abstract class TownyDataSource {
 		System.out.println("[Towny] Error recieving input, exiting.");
 		return false;
 	}
-	
+
 	public void sendDebugMsg(String msg) {
 		if (plugin != null)
 			TownyMessaging.sendDebugMsg(msg);
@@ -78,12 +81,14 @@ public abstract class TownyDataSource {
 
 	public boolean loadAll() {
 		return loadWorldList() && loadNationList() && loadTownList() && loadResidentList()
-			&& loadWorlds() && loadNations() && loadTowns() && loadResidents() && loadRegenList() && loadTownBlocks();
+			&& loadWorlds() && loadNations() && loadTowns() && loadResidents()
+			&& loadRegenList() && loadTownBlocks();
 	}
 
 	public boolean saveAll() {
-		return loadRegenList() && saveWorldList() && saveNationList() && saveTownList() && saveResidentList()
-			&& saveWorlds() && saveNations() && saveTowns() && saveResidents();
+		return saveWorldList() && saveNationList() && saveTownList() && saveResidentList()
+			&& saveWorlds() && saveNations() && saveTowns() && saveResidents()
+			&& saveRegenList();
 	}
 
 	abstract public boolean loadResidentList();
@@ -108,22 +113,21 @@ public abstract class TownyDataSource {
 	abstract public boolean saveTown(Town town);
 	abstract public boolean saveNation(Nation nation);
 	abstract public boolean saveWorld(TownyWorld world);
-	abstract public boolean saveTownBlock(TownBlock townBlock);
 	
+	abstract public boolean saveTownBlock(TownBlock townBlock);
 	abstract public boolean savePlotData(PlotBlockData plotChunk);
 	
 	abstract public PlotBlockData loadPlotData(String worldName, int x, int z);
 	abstract public PlotBlockData loadPlotData(TownBlock townBlock);
-
+	
 	abstract public void deletePlotData(PlotBlockData plotChunk);
 	abstract public void deleteResident(Resident resident);
 	abstract public void deleteTown(Town town);
 	abstract public void deleteNation(Nation nation);
 	abstract public void deleteWorld(TownyWorld world);
 	abstract public void deleteTownBlock(TownBlock townBlock);
-	
 	abstract public void deleteFile(String file);
-	
+
 	/*
 	public boolean loadWorldList() {
 		return loadServerWorldsList();
@@ -152,11 +156,22 @@ public abstract class TownyDataSource {
 
 	public boolean loadResidents() {
 		sendDebugMsg("Loading Residents");
-		for (Resident resident : universe.getResidents())
+
+		List<Resident> toRemove = new ArrayList<Resident>();
+
+		for (Resident resident : new ArrayList<Resident>(universe.getResidents()))
 			if (!loadResident(resident)) {
 				System.out.println("[Towny] Loading Error: Could not read resident data '" + resident.getName() + "'.");
-				return false;
+				toRemove.add(resident);
+				//return false;
 			}
+
+		// Remove any resident which failed to load.
+		for (Resident resident : toRemove) {
+			System.out.println("[Towny] Loading Error: Removing resident data for '" + resident.getName() + "'.");
+			universe.removeResidentList(resident);
+		}
+
 		return true;
 	}
 
@@ -183,7 +198,7 @@ public abstract class TownyDataSource {
 	public boolean loadWorlds() {
 		sendDebugMsg("Loading Worlds");
 		for (TownyWorld world : universe.getWorlds())
-			if (!loadWorld(world)){
+			if (!loadWorld(world)) {
 				System.out.println("[Towny] Loading Error: Could not read world data '" + world.getName() + "'.");
 				return false;
 			} else {

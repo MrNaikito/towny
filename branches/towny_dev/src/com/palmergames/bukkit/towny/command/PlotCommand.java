@@ -51,6 +51,7 @@ public class PlotCommand implements CommandExecutor {
 		output.add(ChatTools.formatCommand(TownySettings.getLangString("res_sing") + "/" + TownySettings.getLangString("mayor_sing"), "/plot forsale [$]", "within [rect/circle] [radius]", ""));
 		output.add(ChatTools.formatCommand(TownySettings.getLangString("res_sing") + "/" + TownySettings.getLangString("mayor_sing"), "/plot clear", "", ""));
 		output.add(ChatTools.formatCommand(TownySettings.getLangString("res_sing") + "/" + TownySettings.getLangString("mayor_sing"), "/plot set ...", "", TownySettings.getLangString("msg_plot_fs")));
+		output.add(ChatTools.formatCommand(TownySettings.getLangString("res_sing"), "/plot toggle", "[pvp/fire/explosion/mobs]", ""));
 		output.add(TownySettings.getLangString("msg_nfs_abr"));
 	}
 
@@ -150,11 +151,11 @@ public class PlotCommand implements CommandExecutor {
 					if (plugin.getTownyUniverse().isWarTime())
 						throw new TownyException(TownySettings.getLangString("msg_war_cannot_do"));
 
-					if (split.length == 2 && split[1].equalsIgnoreCase("all"))
+					if (split.length == 2 && split[1].equalsIgnoreCase("all")) {
 						// Start the unclaim task
 						new PlotClaim(plugin, player, resident, null, false).start();
 
-					else {
+					} else {
 						List<WorldCoord> selection = TownyUtil.selectWorldCoordArea(resident, new WorldCoord(world, Coord.parseCoord(player)), StringMgmt.remFirstArg(split));
 						selection = TownyUtil.filterOwnedBlocks(resident, selection);
 

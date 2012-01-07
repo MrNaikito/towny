@@ -1021,3 +1021,14 @@ v0.77.1.33:
 	- You can now disable the CraftBukkit version check if you wish to take a risk with untested builds (bypass_version_check).
 v0.78.0.0:
 	- Release.
+v0.78.0.1:
+	- Fix upkeep so it won't attempt to make payments of zero amounts.
+	- Added a regenerate command for admins '/townyworld regen' (not decided if this will stay yet).
+	  This command will regenerate the chunk the player is in using the current world seed.
+	  It will only work on FULL (16x16x128) chunks, and only if your default plot size is still set to 16.
+	  *BEWARE* ths command has no undo feature. Once issued there is no going back.
+	- Added '/plot toggle' to the plot help screen.
+	- Fixed the error report when Towny fails to perform a daily backup.
+	- Slight change to onLogin to try and stop 0kb resident file creation (suspect some other plugin is running in it's own thread kicking a player at the wrong time).
+	- Any residents who are corrupt/missing at startup will no longer prevent Towny loading. They will be removed and the files tidied up.
+	- Fixed saving of plot regens, so they will now resume after a server restart.

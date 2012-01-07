@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -14,6 +15,7 @@ import com.palmergames.bukkit.towny.NotRegisteredException;
 import com.palmergames.bukkit.towny.Towny;
 import com.palmergames.bukkit.towny.TownyMessaging;
 import com.palmergames.bukkit.towny.TownySettings;
+import com.palmergames.bukkit.towny.object.Coord;
 import com.palmergames.bukkit.towny.object.TownyUniverse;
 import com.palmergames.bukkit.towny.object.TownyWorld;
 import com.palmergames.bukkit.util.ChatTools;
@@ -46,6 +48,7 @@ public class TownyWorldCommand implements CommandExecutor  {
 		townyworld_help.add(ChatTools.formatCommand("", "/townyworld", "list", TownySettings.getLangString("world_help_4")));
 		townyworld_help.add(ChatTools.formatCommand("", "/townyworld", "toggle",""));
 		townyworld_help.add(ChatTools.formatCommand(TownySettings.getLangString("admin_sing"), "/townyworld", "set [] .. []", ""));
+		townyworld_help.add(ChatTools.formatCommand(TownySettings.getLangString("admin_sing"), "/townyworld", "regen", TownySettings.getLangString("world_help_5")));
 		
 		townyworld_set.add(ChatTools.formatTitle("/townyworld set"));
 		townyworld_set.add(ChatTools.formatCommand("", "/townyworld set", "wildname [name]", ""));
@@ -140,6 +143,27 @@ public class TownyWorldCommand implements CommandExecutor  {
 			worldSet(player, sender, StringMgmt.remFirstArg(split));
 		} else if (split[0].equalsIgnoreCase("toggle")) {
 			worldToggle(player, sender, StringMgmt.remFirstArg(split));
+		} else if (split[0].equalsIgnoreCase("regen")) {
+
+			if (plugin.getTownyUniverse().isWarTime()) {
+				TownyMessaging.sendErrorMsg(player, TownySettings.getLangString("msg_war_cannot_do"));
+				return;
+			}
+			
+			if (!TownyUniverse.getPermissionSource().isTownyAdmin(player)) {
+				TownyMessaging.sendErrorMsg(player, TownySettings.getLangString("msg_err_admin_only"));
+				return;
+			}
+			
+			if (TownySettings.getTownBlockSize() != 16) {
+				TownyMessaging.sendErrorMsg(player, TownySettings.getLangString("msg_plot_regen_wrong_size"));
+				return;
+			}
+				
+			// Regen this chunk
+			Coord coord = Coord.parseCoord(player);
+			Bukkit.getWorld(player.getWorld().getName()).regenerateChunk(coord.getX(), coord.getZ());
+
 		} else {
 			/*
 			try {
