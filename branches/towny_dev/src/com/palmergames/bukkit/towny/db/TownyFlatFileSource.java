@@ -61,11 +61,6 @@ public class TownyFlatFileSource extends TownyDatabaseHandler {
 		this.universe = universe;
 		this.plugin = plugin;
 		this.rootFolder = universe.getRootFolder();
-		
-		worlds.clear();
-		nations.clear();
-		towns.clear();
-		residents.clear();
 
 		// Create files and folders if non-existent
 		try {
