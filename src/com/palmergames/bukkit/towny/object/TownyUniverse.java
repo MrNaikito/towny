@@ -457,8 +457,9 @@ public class TownyUniverse extends TownyObject {
 
 		try {
 			getDataSource().cleanupBackups();
-			//setDataSource(TownySettings.getSaveDatabase());
-			//getDataSource().initialize(plugin, this);
+			// Set the new class for saving.
+			setDataSource(TownySettings.getSaveDatabase());
+			getDataSource().initialize(plugin, this);
 			try {
 				getDataSource().backup();
 				getDataSource().deleteUnusedResidentFiles();
