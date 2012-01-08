@@ -99,7 +99,7 @@ public class TownyBlockListener extends BlockListener {
 		WorldCoord worldCoord;
 			
 		try {
-			TownyWorld world = TownyUniverse.getWorld(block.getWorld().getName());
+			TownyWorld world = TownyUniverse.getDataSource().getWorld(block.getWorld().getName());
 			worldCoord = new WorldCoord(world, Coord.parseCoord(block));
 
 			//Get build permissions (updates if none exist)
@@ -172,7 +172,7 @@ public class TownyBlockListener extends BlockListener {
 		Block block = event.getBlock();
 		WorldCoord worldCoord;
 		try {
-			TownyWorld world = TownyUniverse.getWorld(block.getWorld().getName());
+			TownyWorld world = TownyUniverse.getDataSource().getWorld(block.getWorld().getName());
 			worldCoord = new WorldCoord(world, Coord.parseCoord(block));
 			
 			//Get build permissions (updates if none exist)
@@ -315,7 +315,7 @@ public class TownyBlockListener extends BlockListener {
 		TownBlock CurrentTownBlock = null, destinationTownBlock = null;
 		
 		try {
-			townyWorld = TownyUniverse.getWorld(loc.getWorld().getName());
+			townyWorld = TownyUniverse.getDataSource().getWorld(loc.getWorld().getName());
 			CurrentTownBlock = townyWorld.getTownBlock(coord);
 		} catch (NotRegisteredException e) {
 			//System.out.print("Failed to fetch TownBlock");
@@ -365,7 +365,7 @@ public class TownyBlockListener extends BlockListener {
 		TownyWorld townyWorld;
 		
 		try {
-			townyWorld = TownyUniverse.getWorld(loc.getWorld().getName());
+			townyWorld = TownyUniverse.getDataSource().getWorld(loc.getWorld().getName());
 			
 			if (!townyWorld.isUsingTowny())
 				return false;

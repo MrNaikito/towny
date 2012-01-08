@@ -361,7 +361,7 @@ public class Town extends TownBlockOwner implements Walled, ResidentList {
 		if (world != null)
 			return world;
 
-		return TownyUniverse.getTownWorld(this.getName());
+		return TownyUniverse.getDataSource().getTownWorld(this.getName());
 	}
 
 	public boolean hasMayor() {

@@ -17,6 +17,7 @@ import com.palmergames.bukkit.towny.object.Nation;
 import com.palmergames.bukkit.towny.object.Resident;
 import com.palmergames.bukkit.towny.object.Town;
 import com.palmergames.bukkit.towny.object.TownyEconomyObject;
+import com.palmergames.bukkit.towny.object.TownyUniverse;
 import com.palmergames.bukkit.towny.war.War;
 import com.palmergames.bukkit.towny.war.WarSpoils;
 
@@ -54,7 +55,7 @@ public class TownyEntityMonitorListener extends EntityListener {
 				Resident defenderResident = null;
 
 				try {
-					defenderResident = plugin.getTownyUniverse().getResident(defenderPlayer.getName());
+					defenderResident = TownyUniverse.getDataSource().getResident(defenderPlayer.getName());
 				} catch (NotRegisteredException e) {
 					return;
 				}
@@ -66,7 +67,7 @@ public class TownyEntityMonitorListener extends EntityListener {
 						attackerPlayer = (Player) projectile.getShooter();
 
 						try {
-							attackerResident = plugin.getTownyUniverse().getResident(attackerPlayer.getName());
+							attackerResident = TownyUniverse.getDataSource().getResident(attackerPlayer.getName());
 						} catch (NotRegisteredException e) {
 						}
 					}
@@ -75,7 +76,7 @@ public class TownyEntityMonitorListener extends EntityListener {
 					// This was a player kill
 					attackerPlayer = (Player) attackerEntity;
 					try {
-						attackerResident = plugin.getTownyUniverse().getResident(attackerPlayer.getName());
+						attackerResident = TownyUniverse.getDataSource().getResident(attackerPlayer.getName());
 					} catch (NotRegisteredException e) {
 					}
 				}

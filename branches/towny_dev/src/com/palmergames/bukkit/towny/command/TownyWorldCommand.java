@@ -13,6 +13,7 @@ import org.bukkit.entity.Player;
 
 import com.palmergames.bukkit.towny.NotRegisteredException;
 import com.palmergames.bukkit.towny.Towny;
+import com.palmergames.bukkit.towny.TownyFormatter;
 import com.palmergames.bukkit.towny.TownyMessaging;
 import com.palmergames.bukkit.towny.TownySettings;
 import com.palmergames.bukkit.towny.object.Coord;
@@ -87,7 +88,7 @@ public class TownyWorldCommand implements CommandExecutor  {
 		if (sender instanceof Player) {
 			player = (Player)sender;
 			try {
-				Globalworld = TownyUniverse.getWorld(player.getWorld().getName());
+				Globalworld = TownyUniverse.getDataSource().getWorld(player.getWorld().getName());
 			} catch (NotRegisteredException e) {
 				TownyMessaging.sendErrorMsg(player, TownySettings.getLangString("msg_area_not_recog"));
 				return;
@@ -100,7 +101,7 @@ public class TownyWorldCommand implements CommandExecutor  {
 			if ((!split[0].equalsIgnoreCase("?")) && (!split[0].equalsIgnoreCase("list")))
 			try {
 				if ((split.length >= 1)) {
-					Globalworld = TownyUniverse.getWorld(split[split.length-1].toLowerCase());
+					Globalworld = TownyUniverse.getDataSource().getWorld(split[split.length-1].toLowerCase());
 					split = StringMgmt.remLastArg(split);
 				} else {
 					sender.sendMessage(TownySettings.getLangString("msg_area_not_recog"));
@@ -116,10 +117,10 @@ public class TownyWorldCommand implements CommandExecutor  {
 		
 		if (split.length == 0) {
 			if (player == null) {
-				for (String line : plugin.getTownyUniverse().getStatus(Globalworld))
+				for (String line : TownyFormatter.getStatus(Globalworld))
 					sender.sendMessage(Colors.strip(line));
 			} else
-				TownyMessaging.sendMessage(player, plugin.getTownyUniverse().getStatus(Globalworld));				
+				TownyMessaging.sendMessage(player, TownyFormatter.getStatus(Globalworld));				
 
 			return;
 		} 
@@ -184,7 +185,7 @@ public class TownyWorldCommand implements CommandExecutor  {
 		
 		ArrayList<String> formatedList = new ArrayList<String>();
 		HashMap<String,Integer> playersPerWorld = MinecraftTools.getPlayersPerWorld(plugin.getServer());
-		for (TownyWorld world : plugin.getTownyUniverse().getWorlds()) {
+		for (TownyWorld world : TownyUniverse.getDataSource().getWorlds()) {
 			int numPlayers = playersPerWorld.containsKey(world.getName()) ? playersPerWorld.get(world.getName()) : 0;
 			formatedList.add(Colors.LightBlue + world.getName() + Colors.Blue + " [" + numPlayers + "]" + Colors.White);
 		}

@@ -152,7 +152,7 @@ public class Towny extends JavaPlugin {
 
 	public void SetWorldFlags() {
 
-		for (Town town : getTownyUniverse().getTowns()) {
+		for (Town town : TownyUniverse.getDataSource().getTowns()) {
 			TownyMessaging.sendDebugMsg("[Towny] Setting flags for: " + town.getName());
 
 			if (town.getWorld() == null) {
@@ -530,7 +530,7 @@ public class Towny extends JavaPlugin {
 	public void newCache(Player player) {
 		try {
 			getTownyUniverse();
-			playerCache.put(player.getName().toLowerCase(), new PlayerCache(TownyUniverse.getWorld(player.getWorld().getName()), player));
+			playerCache.put(player.getName().toLowerCase(), new PlayerCache(TownyUniverse.getDataSource().getWorld(player.getWorld().getName()), player));
 		} catch (NotRegisteredException e) {
 			TownyMessaging.sendErrorMsg(player, "Could not create permission cache for this world (" + player.getWorld().getName() + ".");
 		}
@@ -550,7 +550,7 @@ public class Towny extends JavaPlugin {
 			newCache(player);
 			try {
 				getTownyUniverse();
-				getCache(player).setLastTownBlock(new WorldCoord(TownyUniverse.getWorld(player.getWorld().getName()), Coord.parseCoord(player)));
+				getCache(player).setLastTownBlock(new WorldCoord(TownyUniverse.getDataSource().getWorld(player.getWorld().getName()), Coord.parseCoord(player)));
 			} catch (NotRegisteredException e) {
 				deleteCache(player);
 			}
@@ -569,7 +569,7 @@ public class Towny extends JavaPlugin {
 		for (Player player : getServer().getOnlinePlayers())
 			try {
 				getTownyUniverse();
-				getCache(player).setLastTownBlock(new WorldCoord(TownyUniverse.getWorld(player.getWorld().getName()), Coord.parseCoord(player)));
+				getCache(player).setLastTownBlock(new WorldCoord(TownyUniverse.getDataSource().getWorld(player.getWorld().getName()), Coord.parseCoord(player)));
 			} catch (NotRegisteredException e) {
 				deleteCache(player);
 			}

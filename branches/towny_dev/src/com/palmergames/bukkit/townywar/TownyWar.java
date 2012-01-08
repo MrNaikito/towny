@@ -153,7 +153,7 @@ public class TownyWar {
 		Nation landOwnerNation, attackingNation;
 		
 		try {
-			attackingResident = plugin.getTownyUniverse().getResident(player.getName());
+			attackingResident = TownyUniverse.getDataSource().getResident(player.getName());
 			attackingTown = attackingResident.getTown();
 			attackingNation = attackingTown.getNation();
 		} catch (NotRegisteredException e) {

@@ -131,7 +131,7 @@ public class PlotBlockData {
 				// If this block isn't correct, replace
 				// and return as done.
 				if ((blockId != storedData.getTypeID())) {
-					if (!TownyUniverse.getWorld(worldName).isPlotManagementIgnoreIds(storedData.getTypeID())) {
+					if (!TownyUniverse.getDataSource().getWorld(worldName).isPlotManagementIgnoreIds(storedData.getTypeID())) {
 						
 						//System.out.print("regen x: " + x + " y: " + y + " z: " + z + " ID: " + blockId); 
 						

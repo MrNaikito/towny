@@ -4,7 +4,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
+import org.bukkit.entity.Player;
+
+import com.palmergames.bukkit.towny.AlreadyRegisteredException;
+import com.palmergames.bukkit.towny.NotRegisteredException;
 import com.palmergames.bukkit.towny.Towny;
 import com.palmergames.bukkit.towny.TownyMessaging;
 //import com.palmergames.bukkit.towny.TownySettings;
@@ -159,7 +164,7 @@ public abstract class TownyDataSource {
 
 		List<Resident> toRemove = new ArrayList<Resident>();
 
-		for (Resident resident : new ArrayList<Resident>(universe.getResidents()))
+		for (Resident resident : new ArrayList<Resident>(getResidents()))
 			if (!loadResident(resident)) {
 				System.out.println("[Towny] Loading Error: Could not read resident data '" + resident.getName() + "'.");
 				toRemove.add(resident);
@@ -169,7 +174,7 @@ public abstract class TownyDataSource {
 		// Remove any resident which failed to load.
 		for (Resident resident : toRemove) {
 			System.out.println("[Towny] Loading Error: Removing resident data for '" + resident.getName() + "'.");
-			universe.removeResidentList(resident);
+			removeResidentList(resident);
 		}
 
 		return true;
@@ -177,7 +182,7 @@ public abstract class TownyDataSource {
 
 	public boolean loadTowns() {
 		sendDebugMsg("Loading Towns");
-		for (Town town : universe.getTowns())
+		for (Town town : getTowns())
 			if (!loadTown(town)) {
 				System.out.println("[Towny] Loading Error: Could not read town data " + town.getName() + "'.");
 				return false;
@@ -187,7 +192,7 @@ public abstract class TownyDataSource {
 
 	public boolean loadNations() {
 		sendDebugMsg("Loading Nations");
-		for (Nation nation : universe.getNations())
+		for (Nation nation : getNations())
 			if (!loadNation(nation)) {
 				System.out.println("[Towny] Loading Error: Could not read nation data '" + nation.getName() + "'.");
 				return false;
@@ -197,7 +202,7 @@ public abstract class TownyDataSource {
 
 	public boolean loadWorlds() {
 		sendDebugMsg("Loading Worlds");
-		for (TownyWorld world : universe.getWorlds())
+		for (TownyWorld world : getWorlds())
 			if (!loadWorld(world)) {
 				System.out.println("[Towny] Loading Error: Could not read world data '" + world.getName() + "'.");
 				return false;
@@ -213,29 +218,75 @@ public abstract class TownyDataSource {
 
 	public boolean saveResidents() {
 		sendDebugMsg("Saving Residents");
-		for (Resident resident : universe.getResidents())
+		for (Resident resident : getResidents())
 			saveResident(resident);
 		return true;
 	}
 
 	public boolean saveTowns() {
 		sendDebugMsg("Saving Towns");
-		for (Town town : universe.getTowns())
+		for (Town town : getTowns())
 			saveTown(town);
 		return true;
 	}
 
 	public boolean saveNations() {
 		sendDebugMsg("Saving Nations");
-		for (Nation nation : universe.getNations())
+		for (Nation nation : getNations())
 			saveNation(nation);
 		return true;
 	}
 
 	public boolean saveWorlds() {
 		sendDebugMsg("Saving Worlds");
-		for (TownyWorld world : universe.getWorlds())
+		for (TownyWorld world : getWorlds())
 			saveWorld(world);
 		return true;
 	}
+
+	
+	// Database functions
+	abstract public List<Resident> getResidents(Player player, String[] names);
+	abstract public List<Resident> getResidents();
+	abstract public List<Resident> getResidents(String[] names);
+	abstract public Resident getResident(String name) throws NotRegisteredException;
+	
+	abstract public void removeResidentList(Resident resident);
+	abstract public void removeNation(Nation nation);
+	abstract public boolean hasResident(String name);
+	abstract public boolean hasTown(String name);
+	abstract public boolean hasNation(String name);
+	
+	abstract public List<Town> getTowns(String[] names);
+	abstract public List<Town> getTowns();
+	abstract public Town getTown(String name) throws NotRegisteredException;
+	abstract public List<Nation> getNations(String[] names);
+	abstract public List<Nation> getNations();
+	abstract public Nation getNation(String name) throws NotRegisteredException;
+	abstract public TownyWorld getWorld(String name) throws NotRegisteredException;
+	abstract public List<TownyWorld> getWorlds();
+	abstract public TownyWorld getTownWorld(String townName);
+	abstract public void removeResident(Resident resident);
+	abstract public void removeTownBlock(TownBlock townBlock);
+	abstract public void removeTownBlocks(Town town);
+	abstract public List<TownBlock> getAllTownBlocks();
+	abstract public void newResident(String name) throws AlreadyRegisteredException, NotRegisteredException;
+	abstract public void newTown(String name) throws AlreadyRegisteredException, NotRegisteredException;
+	abstract public void newNation(String name) throws AlreadyRegisteredException, NotRegisteredException;
+	abstract public void newWorld(String name) throws AlreadyRegisteredException, NotRegisteredException;
+	abstract public void removeTown(Town town);
+	abstract public void removeWorld(TownyWorld world) throws UnsupportedOperationException;
+
+	abstract public Set<String> getResidentKeys();
+	abstract public Set<String> getTownsKeys();
+	abstract public Set<String> getNationsKeys();
+	
+	abstract public List<Town> getTownsWithoutNation();
+	abstract public List<Resident> getResidentsWithoutTown();
+	
+	abstract public void renameTown(Town town, String newName) throws AlreadyRegisteredException, NotRegisteredException;
+	abstract public void renameNation(Nation nation, String newName) throws AlreadyRegisteredException, NotRegisteredException;
+
+
+	
 }

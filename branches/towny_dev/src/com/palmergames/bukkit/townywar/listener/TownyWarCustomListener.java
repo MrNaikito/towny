@@ -53,7 +53,7 @@ public class TownyWarCustomListener extends CustomEventListener {
 			
 			TownyUniverse universe = plugin.getTownyUniverse();
 			try {
-				TownyWorld world = TownyUniverse.getWorld(cell.getWorldName());
+				TownyWorld world = TownyUniverse.getDataSource().getWorld(cell.getWorldName());
 				WorldCoord worldCoord = new WorldCoord(world, cell.getX(), cell.getZ());
 				universe.removeWarZone(worldCoord);
 				
@@ -68,7 +68,7 @@ public class TownyWarCustomListener extends CustomEventListener {
 			} else {
 				playerName = player.getName();
 				try {
-					playerName = plugin.getTownyUniverse().getResident(player.getName()).getFormattedName();
+					playerName = TownyUniverse.getDataSource().getResident(player.getName()).getFormattedName();
 				} catch (TownyException e) {
 				}
 			}
@@ -82,16 +82,16 @@ public class TownyWarCustomListener extends CustomEventListener {
 			
 			TownyUniverse universe = plugin.getTownyUniverse();
 			try {
-				Resident resident = universe.getResident(cell.getNameOfFlagOwner());
+				Resident resident = TownyUniverse.getDataSource().getResident(cell.getNameOfFlagOwner());
 				Town town = resident.getTown();
 				Nation nation = town.getNation();
 				
-				TownyWorld world = TownyUniverse.getWorld(cell.getWorldName());
+				TownyWorld world = TownyUniverse.getDataSource().getWorld(cell.getWorldName());
 				WorldCoord worldCoord = new WorldCoord(world, cell.getX(), cell.getZ());
 				universe.removeWarZone(worldCoord);
 				
 				TownBlock townBlock = worldCoord.getTownBlock();
-				universe.removeTownBlock(townBlock);
+				TownyUniverse.getDataSource().removeTownBlock(townBlock);
 				
 				try {
 					List<WorldCoord> selection = new ArrayList<WorldCoord>();
@@ -127,7 +127,7 @@ public class TownyWarCustomListener extends CustomEventListener {
 			
 			TownyUniverse universe = plugin.getTownyUniverse();
 			try {
-				TownyWorld world = TownyUniverse.getWorld(cell.getWorldName());
+				TownyWorld world = TownyUniverse.getDataSource().getWorld(cell.getWorldName());
 				WorldCoord worldCoord = new WorldCoord(world, cell.getX(), cell.getZ());
 				universe.removeWarZone(worldCoord);
 				plugin.updateCache(worldCoord);

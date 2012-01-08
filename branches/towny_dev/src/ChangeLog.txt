@@ -1046,3 +1046,8 @@ v0.78.0.3:
 	  Building/breaking in the plot will be disabled until the snapshot is finished.
 	- Fixed hook for bPermissions to work with bPerms v2.
 	- Fixed '/ta town {name} kick {player}'.
+v0.78.0.4:
+	- Allow ops all access rights when not using permissions.
+	- Removed a lot of New Day spam to cut down on the lag during the accounting.
+	- Major reorganization of code in advance of SQL support.
+	  Any plugins which hooked TownyUniverse to read data should find the same functions in TownyUniverse.getDataSource().

@@ -46,7 +46,7 @@ public class TownyAsciiMap {
 		boolean hasTown = false;
 		Resident resident;
 		try {
-			resident = plugin.getTownyUniverse().getResident(player.getName());
+			resident = TownyUniverse.getDataSource().getResident(player.getName());
 			if (resident.hasTown())
 				hasTown = true;
 		} catch (TownyException x) {
@@ -56,7 +56,7 @@ public class TownyAsciiMap {
 
 		TownyWorld world;
 		try {
-			world = TownyUniverse.getWorld(player.getWorld().getName());
+			world = TownyUniverse.getDataSource().getWorld(player.getWorld().getName());
 		} catch (NotRegisteredException e1) {
 			TownyMessaging.sendErrorMsg(player, "You are not in a registered world.");
 			return;

@@ -13,6 +13,7 @@ import com.palmergames.bukkit.towny.EconomyException;
 import com.palmergames.bukkit.towny.NotRegisteredException;
 import com.palmergames.bukkit.towny.Towny;
 import com.palmergames.bukkit.towny.TownyException;
+import com.palmergames.bukkit.towny.TownyFormatter;
 import com.palmergames.bukkit.towny.TownyMessaging;
 import com.palmergames.bukkit.towny.TownySettings;
 import com.palmergames.bukkit.towny.TownyUtil;
@@ -97,8 +98,8 @@ public class PlotCommand implements CommandExecutor {
 			TownyWorld world;
 			Town town;
 			try {
-				resident = plugin.getTownyUniverse().getResident(player.getName());
-				world = TownyUniverse.getWorld(player.getWorld().getName());
+				resident = TownyUniverse.getDataSource().getResident(player.getName());
+				world = TownyUniverse.getDataSource().getWorld(player.getWorld().getName());
 				town = resident.getTown();
 			} catch (TownyException x) {
 				TownyMessaging.sendErrorMsg(player, x.getError());
@@ -223,7 +224,7 @@ public class PlotCommand implements CommandExecutor {
 				} else if (split[0].equalsIgnoreCase("perm")) {
 
 					TownBlock townBlock = new WorldCoord(world, Coord.parseCoord(player)).getTownBlock();
-					TownyMessaging.sendMessage(player, plugin.getTownyUniverse().getStatus(townBlock));
+					TownyMessaging.sendMessage(player, TownyFormatter.getStatus(townBlock));
 
 				} else if (split[0].equalsIgnoreCase("toggle")) {
 
