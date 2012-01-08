@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import com.palmergames.bukkit.towny.AlreadyRegisteredException;
@@ -102,10 +103,15 @@ public class TownClaim extends Thread {
 		plugin.updateCache();
 					
 		if (player != null) {
-			if (claim)
+			if (claim) {
 				TownyMessaging.sendMsg(player, String.format(TownySettings.getLangString("msg_annexed_area"), (selection.size() > 5) ? "Total TownBlocks: " + selection.size() : Arrays.toString(selection.toArray(new WorldCoord[0]))));
-			else if (forced)
+				if (town.getWorld().isUsingPlotManagementRevert())
+					TownyMessaging.sendMsg(player, TownySettings.getLangString("msg_wait_locked"));
+			} else if (forced) {
 				TownyMessaging.sendMsg(player, String.format(TownySettings.getLangString("msg_admin_unclaim_area"), (selection.size() > 5) ? "Total TownBlocks: " + selection.size() : Arrays.toString(selection.toArray(new WorldCoord[0]))));
+				if (town.getWorld().isUsingPlotManagementRevert())
+					TownyMessaging.sendMsg(player, TownySettings.getLangString("msg_wait_locked"));
+			}
 		}
 					
 
@@ -133,12 +139,19 @@ public class TownClaim extends Thread {
                 	PlotBlockData plotChunk = TownyRegenAPI.getPlotChunk(townBlock);
             		if (plotChunk != null) {
             			TownyRegenAPI.deletePlotChunk(plotChunk); // just claimed so stop regeneration.
+            			townBlock.setLocked(false);
             		} else {
-            			plotChunk = new PlotBlockData(townBlock); // Not regenerating so create a new snapshot.
-            			plotChunk.initialize();
+            			//plotChunk = new PlotBlockData(townBlock); // Not regenerating so create a new snapshot.
+            			//plotChunk.initialize();
+            			
+            			// Push the TownBlock location to the queue for a snapshot.
+            			TownyRegenAPI.addWorldCoord(townBlock.getWorldCoord());
+            			townBlock.setLocked(true);
+            			
+            			TownyUniverse.getDataSource().saveTownBlock(townBlock);
             		}
-            		if (!plotChunk.getBlockList().isEmpty() && !(plotChunk.getBlockList() == null))
-            			TownyRegenAPI.addPlotChunkSnapshot(plotChunk); // Save a snapshot.
+            		//if (!plotChunk.getBlockList().isEmpty() && !(plotChunk.getBlockList() == null))
+            		//	TownyRegenAPI.addPlotChunkSnapshot(plotChunk); // Save a snapshot.
             		
             		plotChunk = null;
                 }
@@ -147,22 +160,30 @@ public class TownClaim extends Thread {
     
     private void townUnclaim(Town town, WorldCoord worldCoord, boolean force) throws TownyException {
         try {
-                TownBlock townBlock = worldCoord.getTownBlock();
+                final TownBlock townBlock = worldCoord.getTownBlock();
                 if (town != townBlock.getTown() && !force)
                         throw new TownyException(TownySettings.getLangString("msg_area_not_own"));
                 
-                plugin.getTownyUniverse().removeTownBlock(townBlock);
-                TownyUniverse.getDataSource().deleteTownBlock(townBlock);
-                
-                townBlock = null;
+                Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+
+        			@Override
+        			public void run() {
+        				plugin.getTownyUniverse().removeTownBlock(townBlock);
+        			}}, 1);
                 
         } catch (NotRegisteredException e) {
                 throw new TownyException(TownySettings.getLangString("msg_not_claimed_1"));
         }
     }
     
-    private void townUnclaimAll(Town town) {
-        plugin.getTownyUniverse().removeTownBlocks(town);
-        TownyMessaging.sendTownMessage(town, TownySettings.getLangString("msg_abandoned_area_1"));
+    private void townUnclaimAll(final Town town) {
+    	Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+
+			@Override
+			public void run() {
+				plugin.getTownyUniverse().removeTownBlocks(town);
+		        TownyMessaging.sendTownMessage(town, TownySettings.getLangString("msg_abandoned_area_1"));
+			}}, 1);
+        
     }
 }

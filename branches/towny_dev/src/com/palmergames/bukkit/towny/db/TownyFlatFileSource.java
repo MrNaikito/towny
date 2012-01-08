@@ -1095,7 +1095,13 @@ public class TownyFlatFileSource extends TownyDataSource {
 					if (line != null)
 						try {
 							townBlock.setChanged(Boolean.parseBoolean(line.trim()));
-							set = true;
+						} catch (Exception e) {
+						}
+					
+					line = kvFile.get("locked");
+					if (line != null)
+						try {
+							townBlock.setLocked(Boolean.parseBoolean(line.trim()));
 						} catch (Exception e) {
 						}
 					
@@ -1549,8 +1555,10 @@ public class TownyFlatFileSource extends TownyDataSource {
 			
 			// permissions
 			fout.write("permissions=" + townBlock.getPermissions().toString() + newLine);
-			// Have permissions bene manually changed
+			// Have permissions been manually changed
 			fout.write("changed=" + Boolean.toString(townBlock.isChanged()) + newLine);
+			
+			fout.write("locked=" + Boolean.toString(townBlock.isLocked()) + newLine);
 						
 			fout.close();
 

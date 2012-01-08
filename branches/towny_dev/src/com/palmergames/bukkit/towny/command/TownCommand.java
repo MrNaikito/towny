@@ -1208,42 +1208,48 @@ public class TownCommand implements CommandExecutor  {
                         }
         }
         
-        public static void townKickResidents(Player player, Resident resident, Town town, List<Resident> kicking) {
-                ArrayList<Resident> remove = new ArrayList<Resident>();
-                for (Resident member : kicking)
-                        if (resident == member || member.isMayor() || town.hasAssistant(member))
-                                remove.add(member);
-                        else
-                                try {
-                                        town.removeResident(member);
-                                        plugin.deleteCache(member.getName());
-										TownyUniverse.getDataSource().saveResident(member);
-                                } catch (NotRegisteredException e) {
-                                        remove.add(member);
-                                } catch (EmptyTownException e) {
-                                        // You can't kick yourself and only the mayor can kick
-                                        // assistants
-                                        // so there will always be at least one resident.
-                                }
-                
-                for (Resident member : remove)
-                        kicking.remove(member);
+	public static void townKickResidents(Object sender, Resident resident, Town town, List<Resident> kicking) {
 
-                if (kicking.size() > 0) {
-                        String msg = "";
-                        for (Resident member : kicking) {
-                                msg += member.getName() + ", ";
-                                Player p = plugin.getServer().getPlayer(member.getName());
-                                if (p != null)
-                                        p.sendMessage(String.format(TownySettings.getLangString("msg_kicked_by"), player.getName()));
-                        }
-                        msg = msg.substring(0, msg.length()-2);
-                        msg = String.format(TownySettings.getLangString("msg_kicked"), player.getName(), msg);
-                        TownyMessaging.sendTownMessage(town, ChatTools.color(msg));
-						TownyUniverse.getDataSource().saveTown(town);
-                } else
-                        TownyMessaging.sendErrorMsg(player, TownySettings.getLangString("msg_invalid_name"));
-        }
+		Player player = null;
+
+		if (sender instanceof Player)
+			player = (Player) sender;
+
+		ArrayList<Resident> remove = new ArrayList<Resident>();
+		for (Resident member : kicking)
+			if (resident == member || member.isMayor() || town.hasAssistant(member))
+				remove.add(member);
+			else
+				try {
+					town.removeResident(member);
+					plugin.deleteCache(member.getName());
+					TownyUniverse.getDataSource().saveResident(member);
+				} catch (NotRegisteredException e) {
+					remove.add(member);
+				} catch (EmptyTownException e) {
+					// You can't kick yourself and only the mayor can kick
+					// assistants
+					// so there will always be at least one resident.
+				}
+
+		for (Resident member : remove)
+			kicking.remove(member);
+
+		if (kicking.size() > 0) {
+			String msg = "";
+			for (Resident member : kicking) {
+				msg += member.getName() + ", ";
+				Player p = plugin.getServer().getPlayer(member.getName());
+				if (p != null)
+					p.sendMessage(String.format(TownySettings.getLangString("msg_kicked_by"), (player != null)? player.getName() : "CONSOLE"));
+			}
+			msg = msg.substring(0, msg.length() - 2);
+			msg = String.format(TownySettings.getLangString("msg_kicked"), (player != null)? player.getName() : "CONSOLE", msg);
+			TownyMessaging.sendTownMessage(town, ChatTools.color(msg));
+			TownyUniverse.getDataSource().saveTown(town);
+		} else
+			TownyMessaging.sendErrorMsg(sender, TownySettings.getLangString("msg_invalid_name"));
+	}
         
         /**
          * Confirm player is a mayor or assistant, then get list of filter names

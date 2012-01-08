@@ -22,7 +22,7 @@ public abstract class TownyPermissionSource {
 	protected Towny plugin;
 	
 	protected GroupManager groupManager = null;
-	protected de.bananaco.permissions.Permissions bPermissions = null;
+	//protected de.bananaco.permissions.Permissions bPermissions = null;
 	protected com.nijikokun.bukkit.Permissions.Permissions permissions = null;
 	protected PermissionsEx pex = null;
 

@@ -16,7 +16,7 @@ import com.palmergames.bukkit.towny.object.Resident;
 public class bPermsSource extends TownyPermissionSource {
 	
 	public bPermsSource(Towny towny, Plugin test) {
-		this.bPermissions = (Permissions)test;
+		//this.bPermissions = (Permissions)test;
 		this.plugin = towny;
 	}
 	

@@ -1037,5 +1037,12 @@ v0.78.0.2:
 	- Added '/ta nation {name} rename {newname}'
 	- Fixed '/towny prices' to correctly display your own towns prices (if you are a resident in a town).
 	- Rework of player death and death costs to trigger on a player death and not on damage (no more multiple charges).
-	  Players will be charged only when killed by another player,monster or trap like a dispenser firing arrows.
+	  Players will be charged only when killed by another player, monster or trap like a dispenser firing arrows.
 	  Deaths from falling etc will not incur a cost.
+v0.78.0.3:
+	- Town explosion settings no longer override individual plot settings. They only control the town owned plots.
+	- Reworked claiming/unclaim to be threadsafe (no longer throws errors in NoLagg).
+	- When claiming new townBlocks and using PlotManagementRevert all new claims will be locked until the snapshot has been taken.
+	  Building/breaking in the plot will be disabled until the snapshot is finished.
+	- Fixed hook for bPermissions to work with bPerms v2.
+	- Fixed '/ta town {name} kick {player}'.

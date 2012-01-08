@@ -268,7 +268,7 @@ public class TownyAdminCommand implements CommandExecutor {
 
 				} else if (split[1].equalsIgnoreCase("kick")) {
 
-					TownCommand.townKickResidents(player, town.getMayor(), town, plugin.getTownyUniverse().getValidatedResidents(player, StringMgmt.remArgs(split, 2)));
+					TownCommand.townKickResidents(getSender(), town.getMayor(), town, plugin.getTownyUniverse().getValidatedResidents(getSender(), StringMgmt.remArgs(split, 2)));
 
 				} else if (split[1].equalsIgnoreCase("rename")) {
 

@@ -1,12 +1,49 @@
 package com.palmergames.bukkit.towny.object;
 
+import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
 
 
 
+/**
+ * @author ElgarL
+ *
+ */
 public class TownyRegenAPI extends TownyUniverse {
 	
+	// table containing snapshot data of active reversions.
 	private static Hashtable<String, PlotBlockData> PlotChunks = new Hashtable<String, PlotBlockData>();
+	
+	// A list of worldCoords which are needing snapshots
+	private static List<WorldCoord> worldCoords = new ArrayList<WorldCoord>();
+	
+	/**
+	 * Add a TownBlocks WorldCoord for a snapshot to be taken.
+	 * 
+	 * @param worldCoord
+	 */
+	public static void addWorldCoord(WorldCoord worldCoord) {
+		if (!worldCoords.contains(worldCoord))
+			worldCoords.add(worldCoord);
+	}
+	/**
+	 * @return true if there are any TownBlocks to be processed.
+	 */
+	public static boolean hasWorldCoords() {
+		return worldCoords.size() != 0;
+	}
+	/**
+	 * @return First WorldCoord to be processed.
+	 */
+	public static WorldCoord getWorldCoord() {
+		if (!worldCoords.isEmpty()) {
+			WorldCoord wc = worldCoords.get(0);
+			worldCoords.remove(0);
+			return wc;
+		}
+		return null;
+	}
 	
 	 /**
 	 * @return the plotChunks which are being processed
