@@ -1051,3 +1051,4 @@ v0.78.0.4:
 	- Removed a lot of New Day spam to cut down on the lag during the accounting.
 	- Major reorganization of code in advance of SQL support.
 	  Any plugins which hooked TownyUniverse to read data should find the same functions in TownyUniverse.getDataSource().
+	- Added group prefix support as well as player for bPermissionsV2.
