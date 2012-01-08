@@ -996,11 +996,6 @@ public class TownCommand implements CommandExecutor  {
                         try {
                             User user = plugin.getEssentials().getUser(player);
                             
-                            if (!user.isTeleportEnabled()) {
-                                //Ess teleport is disabled
-                            	UsingESS = false;
-                                return;
-                            }
                             if (!user.isJailed()) {
                             	
                                 Teleport teleport = user.getTeleport();
