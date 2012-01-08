@@ -89,8 +89,12 @@ public class bPermsSource extends TownyPermissionSource {
 		
 		InfoReader bPermIR = Permissions.getInfoReader();
 		
-		return bPermIR.getValue(player, node);
+		String result =  bPermIR.getValue(player, node);
 		   	
+		if (result == null)
+			return "";
+		
+		return result;
     	
     }
 	
