@@ -12,7 +12,6 @@ import static com.palmergames.bukkit.towny.object.TownyObservableType.RENAME_NAT
 import static com.palmergames.bukkit.towny.object.TownyObservableType.RENAME_TOWN;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.List;
 import java.util.Set;
 
@@ -40,11 +39,6 @@ import com.palmergames.bukkit.towny.war.WarSpoils;
 
 
 public abstract class TownyDatabaseHandler extends TownyDataSource {
-	
-	protected Hashtable<String, Resident> residents = new Hashtable<String, Resident>();
-	protected Hashtable<String, Town> towns = new Hashtable<String, Town>();
-	protected Hashtable<String, Nation> nations = new Hashtable<String, Nation>();
-	protected static Hashtable<String, TownyWorld> worlds = new Hashtable<String, TownyWorld>();
 
 	@Override
 	public boolean hasResident(String name) {
