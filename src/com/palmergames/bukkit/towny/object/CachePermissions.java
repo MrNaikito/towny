@@ -110,6 +110,9 @@ public class CachePermissions extends TownyUniverse {
 			// Unclaimed Zone switch rights
 			return TownBlockStatus.UNCLAIMED_ZONE;
 		}
+		
+		if (townBlock.isLocked())
+			return TownBlockStatus.LOCKED;
 
 		Resident resident;
 		try {
@@ -228,6 +231,11 @@ public class CachePermissions extends TownyUniverse {
 
 		if (status == TownBlockStatus.NOT_REGISTERED) {
 			cacheBlockErrMsg(player, TownySettings.getLangString("msg_cache_block_error"));
+			return false;
+		}
+		
+		if (status == TownBlockStatus.LOCKED) {
+			cacheBlockErrMsg(player, TownySettings.getLangString("msg_cache_block_error_locked"));
 			return false;
 		}
 

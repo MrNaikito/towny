@@ -97,6 +97,7 @@ public class TownyBlockListener extends BlockListener {
 		Player player = event.getPlayer();
 		Block block = event.getBlock();
 		WorldCoord worldCoord;
+			
 		try {
 			TownyWorld world = TownyUniverse.getWorld(block.getWorld().getName());
 			worldCoord = new WorldCoord(world, Coord.parseCoord(block));

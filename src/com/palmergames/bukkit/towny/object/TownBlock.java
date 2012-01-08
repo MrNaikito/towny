@@ -14,6 +14,7 @@ public class TownBlock {
     private TownBlockType type;
 	private int x, z;
 	private double plotPrice = -1;
+	private boolean locked = false;
 	
 	//Plot level permissions
     protected TownyPermission permissions = new TownyPermission();
@@ -209,6 +210,22 @@ public class TownBlock {
 	
 	public WorldCoord getWorldCoord() {
 		return new WorldCoord(world, x, z);
+	}
+
+	/**
+	 * Is the TownBlock locked
+	 * 
+	 * @return the locked
+	 */
+	public boolean isLocked() {
+		return locked;
+	}
+
+	/**
+	 * @param locked is the to locked to set
+	 */
+	public void setLocked(boolean locked) {
+		this.locked = locked;
 	}
 
 	public void setWorld(TownyWorld world) {
