@@ -38,14 +38,14 @@ public class bPermsSource extends TownyPermissionSource {
         InfoReader bPermIR = Permissions.getInfoReader();
         
         if (node == "prefix") {
-        	group = bPermIR.getPrefix(player);
-        	//user = bPermIR.getPrefix(player);
+        	group = bPermIR.getGroupPrefix(getPlayerGroup(player), player.getWorld().getName());
+        	user = bPermIR.getPrefix(player);
         } else if (node == "suffix") {
-        	group = bPermIR.getSuffix(player);
-        	//user = bPermIR.getSuffix(player);
+        	group = bPermIR.getGroupSuffix(getPlayerGroup(player), player.getWorld().getName());
+        	user = bPermIR.getSuffix(player);
         }
         if (group == null) group = "";
-        //if (user == null) user = "";
+        if (user == null) user = "";
     	
     	if (!group.equals(user))
             user = group + user;
