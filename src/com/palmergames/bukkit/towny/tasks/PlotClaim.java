@@ -63,7 +63,7 @@ public class PlotClaim extends Thread {
 				
 				// Make sure this is a valid world (mainly when unclaiming).
 				try {
-					this.world = TownyUniverse.getWorld(worldCoord.getWorld().getName());
+					this.world = TownyUniverse.getDataSource().getWorld(worldCoord.getWorld().getName());
 				} catch (NotRegisteredException e) {
 					TownyMessaging.sendMsg(player, TownySettings.getLangString("msg_err_not_configured"));
 		    		continue;

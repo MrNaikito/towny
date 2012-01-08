@@ -36,7 +36,7 @@ public class CachePermissions extends TownyUniverse {
 		WorldCoord worldCoord;
 
 		try {
-			worldCoord = new WorldCoord(TownyUniverse.getWorld(player.getWorld().getName()), Coord.parseCoord(location));
+			worldCoord = new WorldCoord(TownyUniverse.getDataSource().getWorld(player.getWorld().getName()), Coord.parseCoord(location));
 			PlayerCache cache = plugin.getCache(player);
 			cache.updateCoord(worldCoord);
 
@@ -50,7 +50,7 @@ public class CachePermissions extends TownyUniverse {
 			// New or old cache permission was null, update it
 
 			try {
-				worldCoord = new WorldCoord(TownyUniverse.getWorld(player.getWorld().getName()), Coord.parseCoord(location));
+				worldCoord = new WorldCoord(TownyUniverse.getDataSource().getWorld(player.getWorld().getName()), Coord.parseCoord(location));
 
 				TownBlockStatus status = cacheStatus(player, worldCoord, getStatusCache(player, worldCoord));
 				//plugin.cacheBuild(player, worldCoord, plugin.getPermission(player, status, worldCoord, action));
@@ -116,7 +116,7 @@ public class CachePermissions extends TownyUniverse {
 
 		Resident resident;
 		try {
-			resident = plugin.getTownyUniverse().getResident(player.getName());
+			resident = TownyUniverse.getDataSource().getResident(player.getName());
 		} catch (TownyException e) {
 			System.out.print("Failed to fetch resident: " + player.getName());
 			return TownBlockStatus.NOT_REGISTERED;

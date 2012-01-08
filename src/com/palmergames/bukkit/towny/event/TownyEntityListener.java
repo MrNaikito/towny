@@ -91,7 +91,7 @@ public class TownyEntityListener extends EntityListener {
 
 			TownyUniverse universe = plugin.getTownyUniverse();
 			try {
-				TownyWorld world = TownyUniverse.getWorld(defender.getWorld().getName());
+				TownyWorld world = TownyUniverse.getDataSource().getWorld(defender.getWorld().getName());
 
 				// Wartime
 				if (universe.isWarTime()) {
@@ -127,7 +127,7 @@ public class TownyEntityListener extends EntityListener {
 			TownyWorld townyWorld = null;
 
 			try {
-				townyWorld = TownyUniverse.getWorld(loc.getWorld().getName());
+				townyWorld = TownyUniverse.getDataSource().getWorld(loc.getWorld().getName());
 
 				//remove drops from monster deaths if in an arena plot           
 				if (townyWorld.isUsingTowny()) {
@@ -150,7 +150,7 @@ public class TownyEntityListener extends EntityListener {
 			TownyWorld townyWorld = null;
 
 			try {
-				townyWorld = TownyUniverse.getWorld(loc.getWorld().getName());
+				townyWorld = TownyUniverse.getDataSource().getWorld(loc.getWorld().getName());
 			} catch (NotRegisteredException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -189,7 +189,7 @@ public class TownyEntityListener extends EntityListener {
 		Entity entity = event.getEntity();
 
 		try {
-			TownyWorld townyWorld = TownyUniverse.getWorld(block.getLocation().getWorld().getName());
+			TownyWorld townyWorld = TownyUniverse.getDataSource().getWorld(block.getLocation().getWorld().getName());
 
 			// Prevent creatures trampling crops
 			if ((townyWorld.isUsingTowny()) && (townyWorld.isDisableCreatureTrample())) {
@@ -216,7 +216,7 @@ public class TownyEntityListener extends EntityListener {
 		TownBlock townBlock;
 
 		try {
-			townyWorld = TownyUniverse.getWorld(block.getLocation().getWorld().getName());
+			townyWorld = TownyUniverse.getDataSource().getWorld(block.getLocation().getWorld().getName());
 			
 			if (!townyWorld.isUsingTowny())
 				return;
@@ -242,7 +242,7 @@ public class TownyEntityListener extends EntityListener {
 		TownBlock townBlock;
 
 		try {
-			townyWorld = TownyUniverse.getWorld(event.getLocation().getWorld().getName());
+			townyWorld = TownyUniverse.getDataSource().getWorld(event.getLocation().getWorld().getName());
 			
 			if (!townyWorld.isUsingTowny())
 				return;
@@ -279,7 +279,7 @@ public class TownyEntityListener extends EntityListener {
 			TownyWorld townyWorld;
 
 			try {
-				townyWorld = TownyUniverse.getWorld(loc.getWorld().getName());
+				townyWorld = TownyUniverse.getDataSource().getWorld(loc.getWorld().getName());
 				
 				if (!townyWorld.isUsingTowny())
 					return;
@@ -373,7 +373,7 @@ public class TownyEntityListener extends EntityListener {
 			WorldCoord worldCoord;
 			
 			try {
-				TownyWorld townyWorld = TownyUniverse.getWorld(painting.getWorld().getName());
+				TownyWorld townyWorld = TownyUniverse.getDataSource().getWorld(painting.getWorld().getName());
 					
 				if (!townyWorld.isUsingTowny())
 					return;
@@ -438,7 +438,7 @@ public class TownyEntityListener extends EntityListener {
 
 		WorldCoord worldCoord;
 		try {
-			TownyWorld townyWorld = TownyUniverse.getWorld(painting.getWorld().getName());
+			TownyWorld townyWorld = TownyUniverse.getDataSource().getWorld(painting.getWorld().getName());
 			
 			if (!townyWorld.isUsingTowny())
 				return;
@@ -498,7 +498,7 @@ public class TownyEntityListener extends EntityListener {
 				}
 
 				if (b instanceof Animals) {
-					Resident resident = plugin.getTownyUniverse().getResident(ap.getName());
+					Resident resident = TownyUniverse.getDataSource().getResident(ap.getName());
 					if ((!resident.hasTown()) || (resident.hasTown() && (resident.getTown() != townblock.getTown())))
 						return true;
 				}
@@ -531,7 +531,7 @@ public class TownyEntityListener extends EntityListener {
 		TownyUniverse universe = plugin.getTownyUniverse();
 		if (!TownySettings.getFriendlyFire() && universe.isAlly(a.getName(), b.getName())) {
 			try {
-				TownyWorld world = TownyUniverse.getWorld(b.getWorld().getName());
+				TownyWorld world = TownyUniverse.getDataSource().getWorld(b.getWorld().getName());
 				TownBlock townBlock = new WorldCoord(world, Coord.parseCoord(b)).getTownBlock();
 				if (!townBlock.getType().equals(TownBlockType.ARENA))
 					return true;

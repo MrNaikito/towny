@@ -66,7 +66,7 @@ public class TownClaim extends Thread {
 			for (WorldCoord worldCoord : selection) {
 				
 				try {
-					world = TownyUniverse.getWorld(worldCoord.getWorld().getName());
+					world = TownyUniverse.getDataSource().getWorld(worldCoord.getWorld().getName());
 					if (!worlds.contains(world)) worlds.add(world);
 				
 					if (claim)
@@ -168,7 +168,7 @@ public class TownClaim extends Thread {
 
         			@Override
         			public void run() {
-        				plugin.getTownyUniverse().removeTownBlock(townBlock);
+        				TownyUniverse.getDataSource().removeTownBlock(townBlock);
         			}}, 1);
                 
         } catch (NotRegisteredException e) {
@@ -181,7 +181,7 @@ public class TownClaim extends Thread {
 
 			@Override
 			public void run() {
-				plugin.getTownyUniverse().removeTownBlocks(town);
+				TownyUniverse.getDataSource().removeTownBlocks(town);
 		        TownyMessaging.sendTownMessage(town, TownySettings.getLangString("msg_abandoned_area_1"));
 			}}, 1);
         

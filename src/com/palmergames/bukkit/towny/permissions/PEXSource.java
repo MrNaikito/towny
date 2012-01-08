@@ -21,6 +21,7 @@ import com.palmergames.bukkit.towny.NotRegisteredException;
 import com.palmergames.bukkit.towny.Towny;
 import com.palmergames.bukkit.towny.TownySettings;
 import com.palmergames.bukkit.towny.object.Resident;
+import com.palmergames.bukkit.towny.object.TownyUniverse;
 
 
 /**
@@ -196,7 +197,7 @@ public class PEXSource extends TownyPermissionSource {
 						} else if (entity instanceof PermissionUser) {
 							
 							try {
-								resident = plugin.getTownyUniverse().getResident(((PermissionUser)entity).getName());
+								resident = TownyUniverse.getDataSource().getResident(((PermissionUser)entity).getName());
 								player = plugin.getServer().getPlayerExact(resident.getName());
 								if (player != null) {
 									//setup default modes for this player.

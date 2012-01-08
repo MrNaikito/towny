@@ -12,10 +12,10 @@ import com.palmergames.bukkit.towny.object.TownyUniverse;
 import com.palmergames.bukkit.towny.object.TownyWorld;
 
 public class TownyWorldListener extends WorldListener {
-	private final Towny plugin;
+	//private final Towny plugin;
 
 	public TownyWorldListener(Towny instance) {
-		plugin = instance;
+		//plugin = instance;
 	}
 	
 	@Override
@@ -33,8 +33,8 @@ public class TownyWorldListener extends WorldListener {
 		
 		//String worldName = event.getWorld().getName();
 		try {
-			plugin.getTownyUniverse().newWorld(worldName);
-			TownyWorld world = TownyUniverse.getWorld(worldName);
+			TownyUniverse.getDataSource().newWorld(worldName);
+			TownyWorld world = TownyUniverse.getDataSource().getWorld(worldName);
 			if (world == null)
 				TownyMessaging.sendErrorMsg("Could not create data for " + worldName);
 			else {

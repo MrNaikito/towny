@@ -67,7 +67,7 @@ public class TownyPlayerListener extends PlayerListener {
 		// Remove from teleport queue (if exists)
 		try {
 			if (plugin.getTownyUniverse().isTeleportWarmupRunning())
-				plugin.getTownyUniverse().abortTeleportRequest(plugin.getTownyUniverse().getResident(event.getPlayer().getName().toLowerCase()));
+				plugin.getTownyUniverse().abortTeleportRequest(TownyUniverse.getDataSource().getResident(event.getPlayer().getName().toLowerCase()));
 		} catch (NotRegisteredException e) {
 		}
 
@@ -108,7 +108,7 @@ public class TownyPlayerListener extends PlayerListener {
 		TownyWorld townyWorld = null;
 
 		try {
-			townyWorld = TownyUniverse.getWorld(block.getLocation().getWorld().getName());
+			townyWorld = TownyUniverse.getDataSource().getWorld(block.getLocation().getWorld().getName());
 		} catch (NotRegisteredException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -163,7 +163,7 @@ public class TownyPlayerListener extends PlayerListener {
 		//System.out.println("onPlayerInteractEvent");
 
 		try {
-			world = TownyUniverse.getWorld(player.getWorld().getName());
+			world = TownyUniverse.getDataSource().getWorld(player.getWorld().getName());
 			if (block != null)
 				worldCoord = new WorldCoord(world, Coord.parseCoord(block));
 			else
@@ -234,7 +234,7 @@ public class TownyPlayerListener extends PlayerListener {
 		WorldCoord worldCoord;
 		TownyWorld world;
 		try {
-			world = TownyUniverse.getWorld(player.getWorld().getName());
+			world = TownyUniverse.getDataSource().getWorld(player.getWorld().getName());
 			worldCoord = new WorldCoord(world, Coord.parseCoord(block));
 		} catch (NotRegisteredException e1) {
 			TownyMessaging.sendErrorMsg(player, TownySettings.getLangString("msg_err_not_configured"));
@@ -291,7 +291,7 @@ public class TownyPlayerListener extends PlayerListener {
 
 		// Prevent fly/double jump cheats
 		try {
-			if (TownyUniverse.getWorld(player.getWorld().getName()).isUsingTowny())
+			if (TownyUniverse.getDataSource().getWorld(player.getWorld().getName()).isUsingTowny())
 				if (TownySettings.isUsingCheatProtection() && !TownyUniverse.getPermissionSource().hasPermission(player, PermissionNodes.CHEAT_BYPASS.getNode()) && (player.getGameMode() != GameMode.CREATIVE))
 					if (event.getEventName() != "PLAYER_TELEPORT" && from.getBlock().getRelative(BlockFace.DOWN).getType() == Material.AIR && player.getFallDistance() == 0 && player.getVelocity().getY() <= -0.6 && (player.getLocation().getY() > 0)) {
 						//plugin.sendErrorMsg(player, "Cheat Detected!");
@@ -315,9 +315,9 @@ public class TownyPlayerListener extends PlayerListener {
 		}
 
 		try {
-			TownyWorld fromWorld = TownyUniverse.getWorld(from.getWorld().getName());
+			TownyWorld fromWorld = TownyUniverse.getDataSource().getWorld(from.getWorld().getName());
 			WorldCoord fromCoord = new WorldCoord(fromWorld, Coord.parseCoord(from));
-			TownyWorld toWorld = TownyUniverse.getWorld(to.getWorld().getName());
+			TownyWorld toWorld = TownyUniverse.getDataSource().getWorld(to.getWorld().getName());
 			WorldCoord toCoord = new WorldCoord(toWorld, Coord.parseCoord(to));
 			if (!fromCoord.equals(toCoord))
 				onPlayerMoveChunk(player, fromCoord, toCoord, from, to);

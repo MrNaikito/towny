@@ -124,7 +124,7 @@ public class MobRemovalTimerTask extends TownyTimerTask {
 					Coord coord = Coord.parseCoord(livingEntity.getLocation());
 					TownyWorld townyWorld = null;
 					try {
-						townyWorld = TownyUniverse.getWorld(world.getName());
+						townyWorld = TownyUniverse.getDataSource().getWorld(world.getName());
 					} catch (NotRegisteredException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

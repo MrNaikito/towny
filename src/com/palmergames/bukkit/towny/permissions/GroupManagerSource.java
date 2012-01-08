@@ -16,6 +16,7 @@ import com.palmergames.bukkit.towny.NotRegisteredException;
 import com.palmergames.bukkit.towny.Towny;
 import com.palmergames.bukkit.towny.TownySettings;
 import com.palmergames.bukkit.towny.object.Resident;
+import com.palmergames.bukkit.towny.object.TownyUniverse;
 
 /**
  * @author ElgarL
@@ -143,7 +144,7 @@ public class GroupManagerSource extends TownyPermissionSource {
 					if (PermissionEventEnums.GMUser_Action.valueOf(event.getEventName()) != null) {
 						GMUserEvent UserEvent = (GMUserEvent) event;
 						try {
-							resident = plugin.getTownyUniverse().getResident(UserEvent.getUserName());
+							resident = TownyUniverse.getDataSource().getResident(UserEvent.getUserName());
 							player = plugin.getServer().getPlayerExact(resident.getName());
 							if (player != null) {
 								//setup default modes for this player.
