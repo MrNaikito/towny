@@ -1054,3 +1054,4 @@ v0.78.0.4:
 	- Added group prefix support as well as player for bPermissionsV2.
 v0.78.0.5:
 	- Fixed '/town spawn' when players have teleport disable toggled in essentials.
+	- Changed 'towny.town.claim' to default to false in superperms.
