@@ -2,7 +2,7 @@ package com.palmergames.bukkit.towny.db;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Hashtable;
+//import java.util.Hashtable;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
@@ -36,29 +36,10 @@ import com.palmergames.bukkit.towny.object.TownyWorld;
  */
 
 public abstract class TownyDataSource {
-
-	protected Hashtable<String, Resident> residents = new Hashtable<String, Resident>();
-	protected Hashtable<String, Town> towns = new Hashtable<String, Town>();
-	protected Hashtable<String, Nation> nations = new Hashtable<String, Nation>();
-	protected static Hashtable<String, TownyWorld> worlds = new Hashtable<String, TownyWorld>();
 	
 	protected TownyUniverse universe;
-	//protected TownySettings settings;
 	protected Towny plugin;
 	protected boolean firstRun = true;
-	
-	/*
-	public TownyDataSource() {
-		
-		if (this.firstRun) {
-			worlds.clear();
-			nations.clear();
-			towns.clear();
-			residents.clear();
-			this.firstRun = false;
-		}
-	}
-	*/
 
 	public void initialize(Towny plugin, TownyUniverse universe) {
 		this.universe = universe;

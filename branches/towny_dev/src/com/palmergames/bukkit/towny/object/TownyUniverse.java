@@ -59,10 +59,12 @@ import com.palmergames.util.TimeMgmt;
 public class TownyUniverse extends TownyObject {
 	
 	public static Towny plugin;
-	//private Hashtable<String, Resident> residents = new Hashtable<String, Resident>();
-	//private Hashtable<String, Town> towns = new Hashtable<String, Town>();
-	//private Hashtable<String, Nation> nations = new Hashtable<String, Nation>();
-	//private static Hashtable<String, TownyWorld> worlds = new Hashtable<String, TownyWorld>();
+	
+	protected Hashtable<String, Resident> residents = new Hashtable<String, Resident>();
+	protected Hashtable<String, Town> towns = new Hashtable<String, Town>();
+	protected Hashtable<String, Nation> nations = new Hashtable<String, Nation>();
+	protected Hashtable<String, TownyWorld> worlds = new Hashtable<String, TownyWorld>();
+	
 	private Hashtable<BlockLocation, ProtectionRegenTask> protectionRegenTasks = new Hashtable<BlockLocation, ProtectionRegenTask>();
 	private Set<Block> protectionPlaceholders = new HashSet<Block>();
 	//private static Hashtable<String, PlotBlockData> PlotChunks = new Hashtable<String, PlotBlockData>();
@@ -450,6 +452,12 @@ public class TownyUniverse extends TownyObject {
 		Coord.setCellSize(TownySettings.getTownBlockSize());
 
 		System.out.println("[Towny] Database: [Load] " + TownySettings.getLoadDatabase() + " [Save] " + TownySettings.getSaveDatabase());
+		
+		worlds.clear();
+		nations.clear();
+		towns.clear();
+		residents.clear();
+		
 		if (!loadDatabase(TownySettings.getLoadDatabase())) {
 			System.out.println("[Towny] Error: Failed to load!");
 			return false;
@@ -458,8 +466,8 @@ public class TownyUniverse extends TownyObject {
 		try {
 			getDataSource().cleanupBackups();
 			// Set the new class for saving.
-			setDataSource(TownySettings.getSaveDatabase());
-			getDataSource().initialize(plugin, this);
+			//setDataSource(TownySettings.getSaveDatabase());
+			//getDataSource().initialize(plugin, this);
 			try {
 				getDataSource().backup();
 				getDataSource().deleteUnusedResidentFiles();
@@ -488,6 +496,72 @@ public class TownyUniverse extends TownyObject {
 		getDataSource().initialize(plugin, this);
 
 		return getDataSource().loadAll();
+	}
+	
+	public void setDataSource(String databaseType) throws UnsupportedOperationException {
+		if (databaseType.equalsIgnoreCase("flatfile"))
+			setDataSource(new TownyFlatFileSource());
+		else if (databaseType.equalsIgnoreCase("flatfile-hmod"))
+			setDataSource(new TownyHModFlatFileSource());
+		else
+			throw new UnsupportedOperationException();
+	}
+
+	public void setDataSource(TownyDataSource dataSource) {
+		TownyUniverse.dataSource = dataSource;
+	}
+
+	public static TownyDataSource getDataSource() {
+		return dataSource;
+	}
+
+	public void setPermissionSource(TownyPermissionSource permissionSource) {
+		TownyUniverse.permissionSource = permissionSource;
+	}
+
+	public static TownyPermissionSource getPermissionSource() {
+		return permissionSource;
+	}
+
+	public static CachePermissions getCachePermissions() {
+		return cachePermissions;
+	}
+	
+	/**
+	 * @param residents the residents to set
+	 */
+	public void setResidentsMap(Hashtable<String, Resident> residents) {
+		this.residents = residents;
+	}
+	public Hashtable<String, Resident> getResidentMap() {
+		return this.residents;
+	}
+	/**
+	 * @param towns the towns to set
+	 */
+	public void setTownsMap(Hashtable<String, Town> towns) {
+		this.towns = towns;
+	}
+	public Hashtable<String, Town> getTownsMap() {
+		return this.towns;
+	}
+	/**
+	 * @param nations the nations to set
+	 */
+	public void setNationsMap(Hashtable<String, Nation> nation) {
+		this.nations = nation;
+	}
+	public Hashtable<String, Nation> getNationsMap() {
+		return this.nations;
+	}
+	/**
+	 * @param nations the nations to set
+	 */
+	public void setWorldsMap(Hashtable<String, TownyWorld> world) {
+		this.worlds = world;
+	}
+	public Hashtable<String, TownyWorld> getWorldMap() {
+		return this.worlds;
 	}
 
 	public boolean isAlly(String a, String b) {
@@ -568,35 +642,6 @@ public class TownyUniverse extends TownyObject {
 			return false;
 		}
 		return false;
-	}
-
-	public void setDataSource(String databaseType) throws UnsupportedOperationException {
-		if (databaseType.equalsIgnoreCase("flatfile"))
-			setDataSource(new TownyFlatFileSource());
-		else if (databaseType.equalsIgnoreCase("flatfile-hmod"))
-			setDataSource(new TownyHModFlatFileSource());
-		else
-			throw new UnsupportedOperationException();
-	}
-
-	public void setDataSource(TownyDataSource dataSource) {
-		TownyUniverse.dataSource = dataSource;
-	}
-
-	public static TownyDataSource getDataSource() {
-		return dataSource;
-	}
-
-	public void setPermissionSource(TownyPermissionSource permissionSource) {
-		TownyUniverse.permissionSource = permissionSource;
-	}
-
-	public static TownyPermissionSource getPermissionSource() {
-		return permissionSource;
-	}
-
-	public static CachePermissions getCachePermissions() {
-		return cachePermissions;
 	}
 
 	public boolean isWarTime() {
