@@ -527,39 +527,28 @@ public class TownyUniverse extends TownyObject {
 		return cachePermissions;
 	}
 	
+
 	/**
-	 * @param residents the residents to set
+	 * @return
 	 */
-	public void setResidentsMap(Hashtable<String, Resident> residents) {
-		this.residents = residents;
-	}
 	public Hashtable<String, Resident> getResidentMap() {
 		return this.residents;
 	}
 	/**
-	 * @param towns the towns to set
+	 * @return
 	 */
-	public void setTownsMap(Hashtable<String, Town> towns) {
-		this.towns = towns;
-	}
 	public Hashtable<String, Town> getTownsMap() {
 		return this.towns;
 	}
 	/**
-	 * @param nations the nations to set
+	 * @return
 	 */
-	public void setNationsMap(Hashtable<String, Nation> nation) {
-		this.nations = nation;
-	}
 	public Hashtable<String, Nation> getNationsMap() {
 		return this.nations;
 	}
 	/**
-	 * @param nations the nations to set
+	 * @return
 	 */
-	public void setWorldsMap(Hashtable<String, TownyWorld> world) {
-		this.worlds = world;
-	}
 	public Hashtable<String, TownyWorld> getWorldMap() {
 		return this.worlds;
 	}
