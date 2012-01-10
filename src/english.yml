@@ -202,6 +202,7 @@ msg_added_ally: '&b%s allied with your nation.'
 msg_removed_ally: '&b%s canceled the alliance with your nation.'
 msg_added_enemy: '&b%s has developed a hatred towards your nation.'
 msg_removed_enemy: '&b%s has become peaceful towards your nation.'
+msg_unable_ally_enemy: '&cUnable to ally %s as they have us as enemies.'
 
 msg_claimed: '&2Successfully claimed'
 msg_unclaimed: '&2Successfully unclaimed'

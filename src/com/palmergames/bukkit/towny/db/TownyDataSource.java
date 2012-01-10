@@ -87,13 +87,13 @@ public abstract class TownyDataSource {
 	public boolean loadAll() {
 		return loadWorldList() && loadNationList() && loadTownList() && loadResidentList()
 			&& loadWorlds() && loadNations() && loadTowns() && loadResidents()
-			&& loadRegenList() && loadTownBlocks();
+			&& loadRegenList() && loadSnapshotList() && loadTownBlocks();
 	}
 
 	public boolean saveAll() {
 		return saveWorldList() && saveNationList() && saveTownList() && saveResidentList()
 			&& saveWorlds() && saveNations() && saveTowns() && saveResidents()
-			&& saveRegenList();
+			&& saveRegenList() && saveSnapshotList();
 	}
 
 	abstract public boolean loadResidentList();
@@ -101,6 +101,7 @@ public abstract class TownyDataSource {
 	abstract public boolean loadNationList();
 	abstract public boolean loadWorldList();
 	abstract public boolean loadRegenList();
+	abstract public boolean loadSnapshotList();
 	abstract public boolean loadTownBlocks();
 	
 	abstract public boolean loadResident(Resident resident);
@@ -113,6 +114,7 @@ public abstract class TownyDataSource {
 	abstract public boolean saveNationList();
 	abstract public boolean saveWorldList();
 	abstract public boolean saveRegenList();
+	abstract public boolean saveSnapshotList();
 	
 	abstract public boolean saveResident(Resident resident);
 	abstract public boolean saveTown(Town town);
@@ -286,7 +288,6 @@ public abstract class TownyDataSource {
 	
 	abstract public void renameTown(Town town, String newName) throws AlreadyRegisteredException, NotRegisteredException;
 	abstract public void renameNation(Nation nation, String newName) throws AlreadyRegisteredException, NotRegisteredException;
-
 
 	
 }

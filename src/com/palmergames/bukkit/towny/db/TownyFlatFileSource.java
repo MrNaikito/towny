@@ -30,6 +30,7 @@ import com.palmergames.bukkit.towny.object.TownBlock;
 import com.palmergames.bukkit.towny.object.TownyRegenAPI;
 import com.palmergames.bukkit.towny.object.TownyUniverse;
 import com.palmergames.bukkit.towny.object.TownyWorld;
+import com.palmergames.bukkit.towny.object.WorldCoord;
 import com.palmergames.util.FileMgmt;
 import com.palmergames.util.KeyValueFile;
 import com.palmergames.util.StringMgmt;
@@ -80,7 +81,8 @@ public class TownyFlatFileSource extends TownyDatabaseHandler {
 					rootFolder + dataFolder + FileMgmt.fileSeparator() + "towns.txt",
 					rootFolder + dataFolder + FileMgmt.fileSeparator() + "nations.txt",
 					rootFolder + dataFolder + FileMgmt.fileSeparator() + "worlds.txt",
-					rootFolder + dataFolder + FileMgmt.fileSeparator() + "regen.txt"});
+					rootFolder + dataFolder + FileMgmt.fileSeparator() + "regen.txt",
+					rootFolder + dataFolder + FileMgmt.fileSeparator() + "snapshot_queue.txt"});
 		} catch (IOException e) {
 			System.out.println("[Towny] Error: Could not create flatfile default files and folders.");
 		}
@@ -365,6 +367,45 @@ public class TownyFlatFileSource extends TownyDatabaseHandler {
 				// Failed to close file.
 			}
 		}
+		return true;
+
+	}
+	
+	@Override
+	public boolean loadSnapshotList() {
+		sendDebugMsg("Loading Snapshot Queue");
+
+		String line;
+		BufferedReader fin;
+		String[] split;
+
+		try {
+			fin = new BufferedReader(new FileReader(rootFolder + dataFolder + FileMgmt.fileSeparator() + "snapshot_queue.txt"));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+		try {
+			while ((line = fin.readLine()) != null)
+				if (!line.equals("")) {
+					split = line.split(",");
+					TownyWorld world = getWorld(split[0]);
+					WorldCoord worldCoord = new WorldCoord(world, Integer.parseInt(split[1]),Integer.parseInt(split[2]));
+					TownyRegenAPI.addWorldCoord(worldCoord);
+				}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			try {
+				fin.close();
+			} catch (IOException e) {
+				// Failed to close file.
+			}
+		}
+		
 		return true;
 
 	}
@@ -1209,6 +1250,26 @@ public class TownyFlatFileSource extends TownyDatabaseHandler {
 			return true;
 		} catch (Exception e) {
 			System.out.println("[Towny] Saving Error: Exception while saving regen file");
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	@Override
+	public boolean saveSnapshotList() {
+		try {
+			
+			//System.out.print("[Towny] save active snapshot queue");
+			
+			BufferedWriter fout = new BufferedWriter(new FileWriter(rootFolder + dataFolder + FileMgmt.fileSeparator() + "snapshot_queue.txt"));
+			while (TownyRegenAPI.hasWorldCoords()) {
+				WorldCoord worldCoord = TownyRegenAPI.getWorldCoord();
+				fout.write(worldCoord.getWorld().getName() + "," + worldCoord.getX() + "," + worldCoord.getZ() + newLine);
+			}
+			fout.close();
+			return true;
+		} catch (Exception e) {
+			System.out.println("[Towny] Saving Error: Exception while saving snapshot_queue file");
 			e.printStackTrace();
 			return false;
 		}

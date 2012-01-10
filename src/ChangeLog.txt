@@ -1051,8 +1051,12 @@ v0.78.0.4:
 	- Removed a lot of New Day spam to cut down on the lag during the accounting.
 	- Major reorganization of code in advance of SQL support.
 	  Any plugins which hooked TownyUniverse to read data should find the same functions in TownyUniverse.getDataSource().
-	- Added group prefix support as well as player for bPermissionsV2.
+	- Added group prefix support as well as player prefix for bPermissionsV2.
 v0.78.0.5:
 	- Fixed '/town spawn' when players have teleport disable toggled in essentials.
 	- Changed 'towny.town.claim' to default to false in superperms.
 	- Fixed Changing database types between load and save (new code).
+v0.78.0.6:
+	- Nations breaking an alliance will now result in the opposing nation removing the ally status too (they can retaliate).
+	- If another nation has you set as an enemy you can no longer set them as an ally to avoid conflict (PvP).
+	- Fixed NullPointerError when reading default modes using Perms 3.x.
