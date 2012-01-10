@@ -1,6 +1,7 @@
 package com.palmergames.bukkit.towny.command;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.naming.InvalidNameException;
@@ -723,11 +724,21 @@ public class NationCommand implements CommandExecutor {
 		for (Nation targetNation : allies)
 			try {
 				if (add && !nation.getAllies().contains(targetNation)) {
-					nation.addAlly(targetNation);
-					TownyMessaging.sendNationMessage(targetNation, String.format(TownySettings.getLangString("msg_added_ally"), nation.getName()));
+					if (!targetNation.hasEnemy(nation)) {
+						// We are not set as an enemy so we can set as ally.
+						nation.addAlly(targetNation);
+						TownyMessaging.sendNationMessage(targetNation, String.format(TownySettings.getLangString("msg_added_ally"), nation.getName()));
+					} else {
+						// We are set as an enemy so can't ally.
+						remove.add(targetNation);
+						TownyMessaging.sendNationMessage(nation, String.format(TownySettings.getLangString("msg_unable_ally_enemy"), targetNation.getName()));
+					}
 				} else if (nation.getAllies().contains(targetNation)) {
 					nation.removeAlly(targetNation);
 					TownyMessaging.sendNationMessage(targetNation, String.format(TownySettings.getLangString("msg_removed_ally"), nation.getName()));
+					// Remove any mirrored ally settings from the target nation
+					if (targetNation.hasAlly(nation))
+						nationAlly(player, targetNation, Arrays.asList(nation), false);
 				}
 
 				plugin.updateCache();
@@ -813,6 +824,10 @@ public class NationCommand implements CommandExecutor {
 				if (add && !nation.getEnemies().contains(targetNation)) {
 					nation.addEnemy(targetNation);
 					TownyMessaging.sendNationMessage(targetNation, String.format(TownySettings.getLangString("msg_added_enemy"), nation.getName()));
+					// Remove any ally settings from the target nation
+					if (targetNation.hasAlly(nation))
+						nationAlly(player, targetNation, Arrays.asList(nation), false);
+					
 				} else if (nation.getEnemies().contains(targetNation)) {
 					nation.removeEnemy(targetNation);
 					TownyMessaging.sendNationMessage(targetNation, String.format(TownySettings.getLangString("msg_removed_enemy"), nation.getName()));

@@ -92,8 +92,10 @@ public class Perms3Source extends TownyPermissionSource {
 		try {
 			PermissionHandler handler = permissions.getHandler();
     		groupName = handler.getGroup(worldName, playerName);
+    		String perm = handler.getGroupPermissionString(worldName, groupName, node);
     		
-    		return handler.getGroupPermissionString(worldName, groupName, node);
+    		if (perm != null)
+    			return perm;
 		} catch (Exception e) {
 			// Ignore UnsupportedOperationException on certain Permission APIs
 		}
