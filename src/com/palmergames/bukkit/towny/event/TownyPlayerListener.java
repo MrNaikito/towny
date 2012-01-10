@@ -35,6 +35,7 @@ import com.palmergames.bukkit.towny.object.TownyWorld;
 import com.palmergames.bukkit.towny.object.WorldCoord;
 import com.palmergames.bukkit.towny.permissions.PermissionNodes;
 import com.palmergames.bukkit.townywar.TownyWarConfig;
+import com.palmergames.bukkit.util.Colors;
 
 
 /**
@@ -52,7 +53,14 @@ public class TownyPlayerListener extends PlayerListener {
 
 	@Override
 	public void onPlayerJoin(PlayerJoinEvent event) {
+		
 		Player player = event.getPlayer();
+		
+		if (plugin.isError()) {
+			player.sendMessage(Colors.Rose + "[Towny Error] Locked in Safe mode!");
+			return;
+		}
+		
 		try {
 			plugin.getTownyUniverse().onLogin(player);
 		} catch (TownyException x) {
@@ -62,6 +70,11 @@ public class TownyPlayerListener extends PlayerListener {
 
 	@Override
 	public void onPlayerQuit(PlayerQuitEvent event) {
+		
+		if (plugin.isError()) {
+			return;
+		}
+		
 		plugin.getTownyUniverse().onLogout(event.getPlayer());
 
 		// Remove from teleport queue (if exists)
@@ -76,6 +89,11 @@ public class TownyPlayerListener extends PlayerListener {
 
 	@Override
 	public void onPlayerRespawn(PlayerRespawnEvent event) {
+		
+		if (plugin.isError()) {
+			return;
+		}
+		
 		Player player = event.getPlayer();
 		TownyMessaging.sendDebugMsg("onPlayerDeath: " + player.getName());
 		if (TownySettings.isTownRespawning())
@@ -89,6 +107,11 @@ public class TownyPlayerListener extends PlayerListener {
 
 	@Override
 	public void onPlayerInteract(PlayerInteractEvent event) {
+		
+		if (event.isCancelled() || plugin.isError()) {
+			event.setCancelled(true);
+			return;
+		}
 
 		//System.out.println("onPlayerInteract2");
 		//long start = System.currentTimeMillis();
@@ -154,7 +177,7 @@ public class TownyPlayerListener extends PlayerListener {
 	}
 
 	public void onPlayerInteractEvent(PlayerInteractEvent event) {
-
+		
 		Player player = event.getPlayer();
 
 		Block block = event.getClickedBlock();
@@ -277,6 +300,12 @@ public class TownyPlayerListener extends PlayerListener {
 
 	@Override
 	public void onPlayerMove(PlayerMoveEvent event) {
+		
+		if (event.isCancelled() || plugin.isError()) {
+			event.setCancelled(true);
+			return;
+		}
+		
 		Player player = event.getPlayer();
 		Location from;
 		try {

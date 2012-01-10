@@ -258,6 +258,7 @@ msg_plot_pvp: '&cPVP can not be toggled in an Arena Plot.'
 msg_plot_regen_wrong_size: '&cRegen can only be performed when the default plot size (16) is used.'
 
 msg_reloaded: '&2Towny''s settings were reloaded.'
+msg_undo_complete: '&2Undo complete.'
 msg_give_total: '&bGave %s bonus. (Total: %s)'
 mag_backup_success: '&2Backup successful.'
 msg_xx_withdrew_xx: '&b%s withdrew %s from the %s bank.'

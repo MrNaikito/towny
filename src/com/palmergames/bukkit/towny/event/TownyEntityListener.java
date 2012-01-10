@@ -65,8 +65,10 @@ public class TownyEntityListener extends EntityListener {
 	@Override
 	public void onEntityDamage(EntityDamageEvent event) {
 
-		if (event.isCancelled())
+		if (event.isCancelled() || plugin.isError()) {
+			event.setCancelled(true);
 			return;
+		}
 
 		long start = System.currentTimeMillis();
 
@@ -119,6 +121,11 @@ public class TownyEntityListener extends EntityListener {
 
 	@Override
 	public void onEntityDeath(EntityDeathEvent event) {
+		
+		if (plugin.isError()) {
+			return;
+		}
+		
 		Entity entity = event.getEntity();
 
 		if (entity instanceof Monster) {
@@ -143,6 +150,12 @@ public class TownyEntityListener extends EntityListener {
 
 	@Override
 	public void onCreatureSpawn(CreatureSpawnEvent event) {
+		
+		if (event.isCancelled() || plugin.isError()) {
+			event.setCancelled(true);
+			return;
+		}
+		
 		if (event.getEntity() instanceof LivingEntity) {
 			LivingEntity livingEntity = (LivingEntity) event.getEntity();
 			Location loc = event.getLocation();
@@ -182,8 +195,10 @@ public class TownyEntityListener extends EntityListener {
 	@Override
 	public void onEntityInteract(EntityInteractEvent event) {
 
-		if (event.isCancelled())
+		if (event.isCancelled() || plugin.isError()) {
+			event.setCancelled(true);
 			return;
+		}
 
 		Block block = event.getBlock();
 		Entity entity = event.getEntity();
@@ -209,6 +224,11 @@ public class TownyEntityListener extends EntityListener {
 
 	@Override
 	public void onEndermanPickup(EndermanPickupEvent event) {
+		
+		if (event.isCancelled() || plugin.isError()) {
+			event.setCancelled(true);
+			return;
+		}
 
 		Block block = event.getBlock();
 
@@ -237,6 +257,11 @@ public class TownyEntityListener extends EntityListener {
 
 	@Override
 	public void onEndermanPlace(EndermanPlaceEvent event) {
+		
+		if (event.isCancelled() || plugin.isError()) {
+			event.setCancelled(true);
+			return;
+		}
 
 		TownyWorld townyWorld = null;
 		TownBlock townBlock;
@@ -263,6 +288,11 @@ public class TownyEntityListener extends EntityListener {
 
 	@Override
 	public void onEntityExplode(EntityExplodeEvent event) {
+		
+		if (event.isCancelled() || plugin.isError()) {
+			event.setCancelled(true);
+			return;
+		}
 
 		Location loc;
 		Coord coord;
@@ -359,7 +389,7 @@ public class TownyEntityListener extends EntityListener {
 	@Override
 	public void onPaintingBreak(PaintingBreakEvent event) {
 		
-		if (event.isCancelled()) {
+		if (event.isCancelled() || plugin.isError()) {
 			event.setCancelled(true);
 			return;
 		}
@@ -426,7 +456,7 @@ public class TownyEntityListener extends EntityListener {
 	@Override
 	public void onPaintingPlace(PaintingPlaceEvent event) {
 
-		if (event.isCancelled()) {
+		if (event.isCancelled() || plugin.isError()) {
 			event.setCancelled(true);
 			return;
 		}

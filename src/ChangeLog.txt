@@ -1060,3 +1060,8 @@ v0.78.0.6:
 	- Nations breaking an alliance will now result in the opposing nation removing the ally status too (they can retaliate).
 	- If another nation has you set as an enemy you can no longer set them as an ally to avoid conflict (PvP).
 	- Fixed NullPointerError when reading default modes using Perms 3.x.
+	- Added '/tw undo' with five levels of undo for the '/tw regen' command.
+	  The undo memory is for the last 5 regen actions and is persistant between logins (not server restarts).
+v0.78.0.7:
+	- If Towny fails to load it 'should' now lock everything into safe mode until it's fixed.
+	  No one will be able to do anything at all until the fault is fixed.

@@ -46,8 +46,9 @@ public class TownyBlockListener extends BlockListener {
 
 	@Override
 	public void onBlockPhysics(BlockPhysicsEvent event) {
+		
 
-		if (event.isCancelled()) {
+		if (event.isCancelled() || plugin.isError()) {
 			event.setCancelled(true);
 			return;
 		}
@@ -87,7 +88,8 @@ public class TownyBlockListener extends BlockListener {
 	
 	@Override
 	public void onBlockBreak(BlockBreakEvent event) {
-		if (event.isCancelled()) {
+
+		if (event.isCancelled() || plugin.isError()) {
 			event.setCancelled(true);
 			return;
 		}
@@ -161,7 +163,7 @@ public class TownyBlockListener extends BlockListener {
 	@Override
 	public void onBlockPlace(BlockPlaceEvent event) {
 		
-		if (event.isCancelled()) {
+		if (event.isCancelled() || plugin.isError()) {
 			event.setCancelled(true);
 			return;
 		}
@@ -236,7 +238,7 @@ public class TownyBlockListener extends BlockListener {
 	@Override
 	public void onBlockBurn(BlockBurnEvent event) {
 		
-		if (event.isCancelled()) {
+		if (event.isCancelled() || plugin.isError()) {
 			event.setCancelled(true);
 			return;
 		}
@@ -248,7 +250,7 @@ public class TownyBlockListener extends BlockListener {
 	@Override
 	public void onBlockIgnite(BlockIgniteEvent event) {
 		
-		if (event.isCancelled()) {
+		if (event.isCancelled() || plugin.isError()) {
 			event.setCancelled(true);
 			return;
 		}
@@ -261,7 +263,7 @@ public class TownyBlockListener extends BlockListener {
 	@Override
 	public void onBlockPistonRetract(BlockPistonRetractEvent event) {
 		
-		if (event.isCancelled()) {
+		if (event.isCancelled() || plugin.isError()) {
 			event.setCancelled(true);
 			return;
 		}
@@ -286,7 +288,7 @@ public class TownyBlockListener extends BlockListener {
 	@Override
 	public void onBlockPistonExtend(BlockPistonExtendEvent event) {
 		
-		if (event.isCancelled()) {
+		if (event.isCancelled() || plugin.isError()) {
 			event.setCancelled(true);
 			return;
 		}
