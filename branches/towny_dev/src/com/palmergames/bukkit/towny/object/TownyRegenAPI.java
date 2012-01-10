@@ -4,6 +4,15 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
+import org.bukkit.Bukkit;
+import org.bukkit.Chunk;
+import org.bukkit.ChunkSnapshot;
+import org.bukkit.World;
+
+import com.palmergames.bukkit.towny.TownyMessaging;
+import com.palmergames.bukkit.towny.TownySettings;
+import com.palmergames.bukkit.util.MinecraftTools;
+
 
 
 /**
@@ -137,6 +146,34 @@ public class TownyRegenAPI extends TownyUniverse {
 	
 	public static String getPlotKey(TownBlock townBlock) {
 		return "[" + townBlock.getWorld().getName() + "|" + townBlock.getX() + "|" + townBlock.getZ() + "]";	
+	}
+	
+	/**
+	 * Restore the relevant chunk using the snapshot data.
+	 * 
+	 * @param snapshot
+	 * @param resident
+	 */
+	public static void regenUndo (ChunkSnapshot snapshot, Resident resident) {
+			
+			byte data;
+			int typeId;
+			World world = Bukkit.getWorld(snapshot.getWorldName());
+			Chunk chunk = world.getChunkAt(MinecraftTools.calcChunk(snapshot.getX()), MinecraftTools.calcChunk(snapshot.getZ()));
+
+			for (int x = 0 ; x < 16 ; x++) {
+				for (int z = 0 ; z < 16 ; z++) {
+					for (int y = 0 ; y < world.getMaxHeight() ; y++) {
+						data = (byte) snapshot.getBlockData(x, y, z);
+						typeId = snapshot.getBlockTypeId(x, y, z);
+						chunk.getBlock(x, y, z).setTypeIdAndData(typeId, data, false);
+					}
+				}
+				
+			}
+			
+			TownyMessaging.sendMessage(Bukkit.getPlayerExact(resident.getName()), TownySettings.getLangString("msg_undo_complete"));
+
 	}
 
 	

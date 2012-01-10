@@ -162,9 +162,29 @@ public class TownyWorldCommand implements CommandExecutor  {
 			}
 				
 			// Regen this chunk
-			Coord coord = Coord.parseCoord(player);
-			Bukkit.getWorld(player.getWorld().getName()).regenerateChunk(coord.getX(), coord.getZ());
+			if (player != null) {
+				try {
+					Coord coord = Coord.parseCoord(player);
+					TownyUniverse.getDataSource().getResident(player.getName())
+						.addUndo(Bukkit.getWorld(player.getWorld().getName()).getChunkAt(player.getLocation()).getChunkSnapshot());
+					
+					Bukkit.getWorld(player.getWorld().getName()).regenerateChunk(coord.getX(), coord.getZ());
+					
+				} catch (NotRegisteredException e) {
+					// Failed to get resident
+				}
+			}
+			
 
+		} else if (split[0].equalsIgnoreCase("undo")) {
+			
+			if (player != null)
+				try {
+					TownyUniverse.getDataSource().getResident(player.getName()).regenUndo();
+				} catch (NotRegisteredException e) {
+					// Failed to get resident
+				}
+			
 		} else {
 			/*
 			try {
