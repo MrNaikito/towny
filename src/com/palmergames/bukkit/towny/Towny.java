@@ -127,7 +127,7 @@ public class Towny extends JavaPlugin {
 
 		TownyLogger.log.info("=============================================================");
 		if (isError())
-			TownyLogger.log.info("[WARNING] - ***** SAFE MODE *****");
+			TownyLogger.log.info("[WARNING] - ***** SAFE MODE ***** " + version);
 		else
 			TownyLogger.log.info("[Towny] Version: " + version + " - Mod Enabled");
 		TownyLogger.log.info("=============================================================");
