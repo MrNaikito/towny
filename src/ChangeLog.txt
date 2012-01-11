@@ -1064,4 +1064,6 @@ v0.78.0.6:
 	  The undo memory is for the last 5 regen actions and is persistant between logins (not server restarts).
 v0.78.0.7:
 	- If Towny fails to load it 'should' now lock everything into safe mode until it's fixed.
-	  No one will be able to do anything at all until the fault is fixed.
+	  No one will be able to do anything at all until the fault is cleared.
+v0.78.0.8:
+	- Fix for not being able to eat (caused in 0.78.0.7).

@@ -292,10 +292,11 @@ public class TownySettings {
 	
 	// This will read the language entry in the config.yml to attempt to load custom languages
 	// if the file is not found it will load the default from resource
-	public static void loadLanguage (String filepath, String defaultRes) throws IOException {               
-		String defaultName = filepath + FileMgmt.fileSeparator() + getString(ConfigNodes.LANGUAGE.getRoot(), defaultRes);
+	public static void loadLanguage (String filepath, String defaultRes) throws IOException { 
+		String res = getString(ConfigNodes.LANGUAGE.getRoot(), defaultRes);
+		String defaultName = filepath + FileMgmt.fileSeparator() + res;
 		
-		File file = FileMgmt.unpackLanguageFile(defaultName, defaultRes);
+		File file = FileMgmt.unpackLanguageFile(defaultName, res);
 		if (file != null) {
 
 			// read the (language).yml into memory
