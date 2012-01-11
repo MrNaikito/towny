@@ -108,7 +108,7 @@ public class TownyPlayerListener extends PlayerListener {
 	@Override
 	public void onPlayerInteract(PlayerInteractEvent event) {
 		
-		if (event.isCancelled() || plugin.isError()) {
+		if (plugin.isError()) {
 			event.setCancelled(true);
 			return;
 		}
@@ -301,7 +301,7 @@ public class TownyPlayerListener extends PlayerListener {
 	@Override
 	public void onPlayerMove(PlayerMoveEvent event) {
 		
-		if (event.isCancelled() || plugin.isError()) {
+		if (plugin.isError()) {
 			event.setCancelled(true);
 			return;
 		}
