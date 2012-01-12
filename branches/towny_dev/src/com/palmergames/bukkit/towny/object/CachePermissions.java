@@ -37,7 +37,7 @@ public class CachePermissions extends TownyUniverse {
 
 		try {
 			worldCoord = new WorldCoord(TownyUniverse.getDataSource().getWorld(player.getWorld().getName()), Coord.parseCoord(location));
-			PlayerCache cache = plugin.getCache(player);
+			PlayerCache cache = TownyUniverse.getPlugin().getCache(player);
 			cache.updateCoord(worldCoord);
 
 			TownyMessaging.sendDebugMsg("Cache permissions for " + action.toString() + " : " + cache.getCachePermission(action));
@@ -56,7 +56,7 @@ public class CachePermissions extends TownyUniverse {
 				//plugin.cacheBuild(player, worldCoord, plugin.getPermission(player, status, worldCoord, action));
 				triggerCacheCreate(player, location, worldCoord, status, action);
 
-				PlayerCache cache = plugin.getCache(player);
+				PlayerCache cache = TownyUniverse.getPlugin().getCache(player);
 				cache.updateCoord(worldCoord);
 
 				TownyMessaging.sendDebugMsg("New Cache permissions for " + action.toString() + " : " + cache.getCachePermission(action));
@@ -180,7 +180,7 @@ public class CachePermissions extends TownyUniverse {
 	}
 
 	public TownBlockStatus cacheStatus(Player player, WorldCoord worldCoord, TownBlockStatus townBlockStatus) {
-		PlayerCache cache = plugin.getCache(player);
+		PlayerCache cache = TownyUniverse.getPlugin().getCache(player);
 		cache.updateCoord(worldCoord);
 		cache.setStatus(townBlockStatus);
 
@@ -189,7 +189,7 @@ public class CachePermissions extends TownyUniverse {
 	}
 
 	public void cacheBuild(Player player, WorldCoord worldCoord, boolean buildRight) {
-		PlayerCache cache = plugin.getCache(player);
+		PlayerCache cache = TownyUniverse.getPlugin().getCache(player);
 		cache.updateCoord(worldCoord);
 		cache.setBuildPermission(buildRight);
 
@@ -197,7 +197,7 @@ public class CachePermissions extends TownyUniverse {
 	}
 
 	public void cacheDestroy(Player player, WorldCoord worldCoord, boolean destroyRight) {
-		PlayerCache cache = plugin.getCache(player);
+		PlayerCache cache = TownyUniverse.getPlugin().getCache(player);
 		cache.updateCoord(worldCoord);
 		cache.setDestroyPermission(destroyRight);
 
@@ -205,7 +205,7 @@ public class CachePermissions extends TownyUniverse {
 	}
 
 	public void cacheSwitch(Player player, WorldCoord worldCoord, boolean switchRight) {
-		PlayerCache cache = plugin.getCache(player);
+		PlayerCache cache = TownyUniverse.getPlugin().getCache(player);
 		cache.updateCoord(worldCoord);
 		cache.setSwitchPermission(switchRight);
 
@@ -213,7 +213,7 @@ public class CachePermissions extends TownyUniverse {
 	}
 
 	public void cacheItemUse(Player player, WorldCoord worldCoord, boolean itemUseRight) {
-		PlayerCache cache = plugin.getCache(player);
+		PlayerCache cache = TownyUniverse.getPlugin().getCache(player);
 		cache.updateCoord(worldCoord);
 		cache.setItemUsePermission(itemUseRight);
 
@@ -221,7 +221,7 @@ public class CachePermissions extends TownyUniverse {
 	}
 
 	public void cacheBlockErrMsg(Player player, String msg) {
-		PlayerCache cache = plugin.getCache(player);
+		PlayerCache cache = TownyUniverse.getPlugin().getCache(player);
 		cache.setBlockErrMsg(msg);
 	}
 

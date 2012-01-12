@@ -160,7 +160,7 @@ public class GroupManagerSource extends TownyPermissionSource {
 						GMGroupEvent GroupEvent = (GMGroupEvent) event;
 						Group group = GroupEvent.getGroup();
 						// Update all players who are in this group.
-						for (Player toUpdate : plugin.getTownyUniverse().getOnlinePlayers()) {
+						for (Player toUpdate : TownyUniverse.getOnlinePlayers()) {
 							if (group.equals(getPlayerGroup(toUpdate))) {
 								//setup default modes
 								String[] modes = getPlayerPermissionStringNode(toUpdate.getName(), PermissionNodes.TOWNY_DEFAULT_MODES.getNode()).split(",");
@@ -173,7 +173,7 @@ public class GroupManagerSource extends TownyPermissionSource {
 				} else if (event instanceof GMSystemEvent) {
 					if (PermissionEventEnums.GMGroup_Action.valueOf(event.getEventName()) != null) {
 						// Update all players.
-						for (Player toUpdate : plugin.getTownyUniverse().getOnlinePlayers()) {
+						for (Player toUpdate : TownyUniverse.getOnlinePlayers()) {
 							//setup default modes
 							String[] modes = getPlayerPermissionStringNode(toUpdate.getName(), PermissionNodes.TOWNY_DEFAULT_MODES.getNode()).split(",");
 							plugin.setPlayerMode(player, modes, false);

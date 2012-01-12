@@ -273,7 +273,7 @@ public class PlotCommand implements CommandExecutor {
 
 					} else {
 						player.sendMessage(ChatTools.formatCommand("", "/plot set", "reset", ""));
-						player.sendMessage(ChatTools.formatCommand("", "/plot set", "shop|embassy|arena|wilds", ""));
+						player.sendMessage(ChatTools.formatCommand("", "/plot set", "shop|embassy|arena|wilds|spleef", ""));
 						player.sendMessage(ChatTools.formatCommand("", "/plot set perm", "?", ""));
 					}
 				} else if (split[0].equalsIgnoreCase("clear")) {
@@ -357,7 +357,7 @@ public class PlotCommand implements CommandExecutor {
 				if (forSale != -1)
 					TownyMessaging.sendTownMessage(townBlock.getTown(), TownySettings.getPlotForSaleMsg(resident.getName(), worldCoord));
 				else
-					plugin.getTownyUniverse().getPlayer(resident).sendMessage(TownySettings.getLangString("msg_err_plot_nfs"));
+					TownyUniverse.getPlayer(resident).sendMessage(TownySettings.getLangString("msg_err_plot_nfs"));
 			} catch (NotRegisteredException e) {
 				throw new TownyException(TownySettings.getLangString("msg_err_not_part_town"));
 			}

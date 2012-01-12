@@ -165,6 +165,9 @@ public class TownBlock {
         case WILDS:
         	setPermissions("denyAll");
         	break;
+        case SPLEEF:
+        	setPermissions("denyAll");
+        	break;
         }
     }
 

@@ -1067,3 +1067,20 @@ v0.78.0.7:
 	  No one will be able to do anything at all until the fault is cleared.
 v0.78.0.8:
 	- Fix for not being able to eat (caused in 0.78.0.7).
+v0.78.0.9:
+	- Towny no longer complains if you have an empty mob removal list ('').
+	- Added the ability to restrict channel ranges in TownyChat.
+	
+	  All custom channels (not town or nation) can now have an extra value
+	  appended to signify a range limit on chat.
+	  
+	  -1 = no limits
+	  0 = same world only
+	  any positive value = limited range in the same world.
+	  
+	  eg. - /g,,,towny.chat.global,-1
+	        or a local channel that covers 100 blocks range
+	        /l,&f[local],&f,towny.chat.local,100
+	        
+	- Added a 'spleef' plot type (for future development).
+	- Added a spam filter to TownyChat so players can only send one message every two seconds.
