@@ -27,13 +27,13 @@ public class WarTimerTask extends TownyTimerTask {
 		if (!warEvent.isWarTime()) {
 			warEvent.end();
 			universe.clearWarEvent();
-			universe.getPlugin().updateCache();
+			TownyUniverse.getPlugin().updateCache();
 			TownyMessaging.sendDebugMsg("War ended.");
 			return;
 		}
 		
 		int numPlayers = 0;
-		for (Player player : universe.getOnlinePlayers()) {
+		for (Player player : TownyUniverse.getOnlinePlayers()) {
 			numPlayers += 1;
 			TownyMessaging.sendDebugMsg("[War] "+player.getName()+": ");
 			try {

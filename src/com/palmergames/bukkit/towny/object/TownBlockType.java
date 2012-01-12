@@ -29,18 +29,20 @@ public enum TownBlockType {
     },
     WILDS(4, "wilds"){	//Follows wilderness protection settings, but town owned.
     },
+    SPLEEF(5, "spleef"){	//Follows wilderness protection settings, but town owned.
+    },
     // These are subject to change:
 /*
-    PUBLIC(5, "") {  // Will have it's own permission set
+    PUBLIC(6, "") {  // Will have it's own permission set
     },
 
-    MINE(6, "") {  // Will have it's own permission set within a y range
+    MINE(7, "") {  // Will have it's own permission set within a y range
     },
 
-    HOTEL(7, "") {  // Will stack multiple y-ranges and function like a micro town
+    HOTEL(8, "") {  // Will stack multiple y-ranges and function like a micro town
     },
 
-    JAIL(8, "") {  // Where people will spawn when they die in enemy (neutral) towns
+    JAIL(9, "") {  // Where people will spawn when they die in enemy (neutral) towns
     },*/
     ;
 

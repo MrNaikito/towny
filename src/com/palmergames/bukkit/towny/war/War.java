@@ -162,7 +162,7 @@ public class War {
         }
         
         public void end() {
-                for (Player player : universe.getOnlinePlayers())
+                for (Player player : TownyUniverse.getOnlinePlayers())
                         sendStats(player);
                 double halfWinnings;
                 try {

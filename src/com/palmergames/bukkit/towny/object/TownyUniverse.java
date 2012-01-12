@@ -58,7 +58,7 @@ import com.palmergames.util.TimeMgmt;
 
 public class TownyUniverse extends TownyObject {
 	
-	public static Towny plugin;
+	private static Towny plugin;
 	
 	protected Hashtable<String, Resident> residents = new Hashtable<String, Resident>();
 	protected Hashtable<String, Town> towns = new Hashtable<String, Town>();
@@ -283,18 +283,18 @@ public class TownyUniverse extends TownyObject {
 		return out;
 	}	
 
-	public Player getPlayer(Resident resident) throws TownyException {
+	public static Player getPlayer(Resident resident) throws TownyException {
 		for (Player player : getOnlinePlayers())
 			if (player.getName().equals(resident.getName()))
 				return player;
 		throw new TownyException("Resident is not online");
 	}
 
-	public Player[] getOnlinePlayers() {
+	public static Player[] getOnlinePlayers() {
 		return plugin.getServer().getOnlinePlayers();
 	}
 
-	public List<Player> getOnlinePlayers(ResidentList residents) {
+	public static List<Player> getOnlinePlayers(ResidentList residents) {
 		ArrayList<Player> players = new ArrayList<Player>();
 		for (Player player : getOnlinePlayers())
 			if (residents.hasResident(player.getName()))
@@ -302,7 +302,7 @@ public class TownyUniverse extends TownyObject {
 		return players;
 	}
 
-	public List<Player> getOnlinePlayers(Town town) {
+	public static List<Player> getOnlinePlayers(Town town) {
 		ArrayList<Player> players = new ArrayList<Player>();
 		for (Player player : getOnlinePlayers())
 			if (town.hasResident(player.getName()))
@@ -310,7 +310,7 @@ public class TownyUniverse extends TownyObject {
 		return players;
 	}
 
-	public List<Player> getOnlinePlayers(Nation nation) {
+	public static List<Player> getOnlinePlayers(Nation nation) {
 		ArrayList<Player> players = new ArrayList<Player>();
 		for (Town town : nation.getTowns())
 			players.addAll(getOnlinePlayers(town));
@@ -665,7 +665,7 @@ public class TownyUniverse extends TownyObject {
 		setChangedNotify(WAR_SET);
 	}
 
-	public Towny getPlugin() {
+	public static Towny getPlugin() {
 		return plugin;
 	}
 

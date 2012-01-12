@@ -211,14 +211,14 @@ public class TownyWar {
 	
 	public static void checkIfTownHasMinOnlineForWar(TownyUniverse universe, Town town) throws TownyException {
 		int requiredOnline = TownyWarConfig.getMinPlayersOnlineInTownForWar();
-		int onlinePlayerCount = universe.getOnlinePlayers(town).size();
+		int onlinePlayerCount = TownyUniverse.getOnlinePlayers(town).size();
 		if (onlinePlayerCount < requiredOnline)
 			throw new TownyException(String.format(TownySettings.getLangString("msg_err_enemy_war_require_online"), requiredOnline, town.getFormattedName()));
 	}
 	
 	public static void checkIfNationHasMinOnlineForWar(TownyUniverse universe, Nation nation) throws TownyException {
 		int requiredOnline = TownyWarConfig.getMinPlayersOnlineInNationForWar();
-		int onlinePlayerCount = universe.getOnlinePlayers(nation).size();
+		int onlinePlayerCount = TownyUniverse.getOnlinePlayers(nation).size();
 		if (onlinePlayerCount < requiredOnline)
 			throw new TownyException(String.format(TownySettings.getLangString("msg_err_enemy_war_require_online"), requiredOnline, nation.getFormattedName()));
 	}

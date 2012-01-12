@@ -186,7 +186,7 @@ public class PEXSource extends TownyPermissionSource {
 							PermissionGroup group = (PermissionGroup)entity;
 							
 							// Update all players who are in this group.
-							for (Player toUpdate : plugin.getTownyUniverse().getOnlinePlayers()) {
+							for (Player toUpdate : TownyUniverse.getOnlinePlayers()) {
 								if (Arrays.asList(getPlayerGroups(toUpdate)).contains(group)) {
 									//setup default modes
 									String[] modes = getPlayerPermissionStringNode(toUpdate.getName(), PermissionNodes.TOWNY_DEFAULT_MODES.getNode()).split(",");
@@ -212,7 +212,7 @@ public class PEXSource extends TownyPermissionSource {
 				} else if (event instanceof PermissionSystemEvent) {
 					if (PermissionEventEnums.PEXSystem_Action.valueOf(event.getEventName()) != null) {
 						// Update all players.
-						for (Player toUpdate : plugin.getTownyUniverse().getOnlinePlayers()) {
+						for (Player toUpdate : TownyUniverse.getOnlinePlayers()) {
 							//setup default modes
 							String[] modes = getPlayerPermissionStringNode(toUpdate.getName(), PermissionNodes.TOWNY_DEFAULT_MODES.getNode()).split(",");
 							plugin.setPlayerMode(player, modes, false);
