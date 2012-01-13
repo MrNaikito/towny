@@ -79,7 +79,7 @@ public class ChatTools {
 
 	public static String stripColour(String s) {
 		String out = "";
-		for (int i = 0; i < s.length() - 1; i++) {
+		for (int i = 0; i < s.length(); i++) {
 			String c = s.substring(i, i + 1);
 			if (c.equals("§"))
 				i += 1;
