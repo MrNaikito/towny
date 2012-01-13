@@ -312,6 +312,7 @@ public class TownyMessaging {
         	TownyLogger.log.info(ChatTools.stripColour("[Town Msg] " + town.getName() + ": " + line));
         }
         for (Player player : TownyUniverse.getOnlinePlayers(town)){
+        	if (!TownyUniverse.getPlugin().hasPlayerMode(player, "spy"))
                 for (String line : lines)
                         player.sendMessage(line);
         }
@@ -338,6 +339,7 @@ public class TownyMessaging {
 	public static void sendTownMessage(Town town, String line) {
 		TownyLogger.log.info(ChatTools.stripColour("[Town Msg] " + town.getName() + ": " + line));
         for (Player player : TownyUniverse.getOnlinePlayers(town))
+        	if (!TownyUniverse.getPlugin().hasPlayerMode(player, "spy"))
                 player.sendMessage(line);
 	}
 
@@ -352,6 +354,7 @@ public class TownyMessaging {
         	TownyLogger.log.info(ChatTools.stripColour("[Nation Msg] " + nation.getName() + ": " + line));
         }
         for (Player player : TownyUniverse.getOnlinePlayers(nation))
+        	if (!TownyUniverse.getPlugin().hasPlayerMode(player, "spy"))
                 for (String line : lines)
                         player.sendMessage(line);
 	}
@@ -365,6 +368,7 @@ public class TownyMessaging {
 	public static void sendNationMessage(Nation nation, String line) {
 		TownyLogger.log.info(ChatTools.stripColour("[Nation Msg] " + nation.getName() + ": " + line));
         for (Player player : TownyUniverse.getOnlinePlayers(nation))
+        	if (!TownyUniverse.getPlugin().hasPlayerMode(player, "spy"))
                 player.sendMessage(line);
 	}
 	

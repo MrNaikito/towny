@@ -1085,3 +1085,8 @@ v0.78.0.9:
 	- Added a 'spleef' plot type (for future development).
 	- Added a spam filter to TownyChat so players can only send one message every two seconds.
 	- Update players cache properly when teleporting, so '/town claim' etc get the right location if you then don't move.
+v0.78.0.10:
+	- Added a new mode '/towny spy', or '/res set mode spy'.
+	  This requires you have the permission node 'towny.chat.spy' and be using TownyChat.
+	  If you toggle this mode on you will be able to see all town/nation/global, and all custom channel chat.
+	- If a player doesn't have the 'towny.chat.global' permission node, any open chat will pass through for any other plugins to handle.

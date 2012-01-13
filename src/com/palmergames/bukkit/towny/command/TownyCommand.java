@@ -164,6 +164,16 @@ public class TownyCommand implements CommandExecutor {
                                 sendErrorMsg(player, "The world isn't currently at war.");
                         
                         towny_war.clear();
+                } else if (split[0].equalsIgnoreCase("spy")) {
+                	
+                	if (plugin.isPermissions() && TownyUniverse.getPermissionSource().hasPermission(player, PermissionNodes.TOWNY_CHAT_SPY.getNode())) {
+	                	if (plugin.hasPlayerMode(player, "spy"))
+	                		plugin.removePlayerMode(player);
+	                	else
+	                		plugin.setPlayerMode(player, split, true);
+                	} else
+                		TownyMessaging.sendErrorMsg(player, TownySettings.getLangString("msg_err_command_disable"));
+                	
                 } else
                         sendErrorMsg(player, "Invalid sub command.");
                         

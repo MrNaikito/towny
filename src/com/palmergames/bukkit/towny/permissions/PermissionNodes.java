@@ -83,6 +83,7 @@ public enum PermissionNodes {
 			TOWNY_CHAT_ADMIN("towny.chat.admin"),
 			TOWNY_CHAT_MOD("towny.chat.mod"),
 			TOWNY_CHAT_GLOBAL("towny.chat.global"),
+			TOWNY_CHAT_SPY("towny.chat.spy"),
 		
 		// Info nodes
 			

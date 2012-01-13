@@ -1,6 +1,7 @@
 package com.palmergames.bukkit.towny.command;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.command.Command;
@@ -17,6 +18,7 @@ import com.palmergames.bukkit.towny.TownyMessaging;
 import com.palmergames.bukkit.towny.TownySettings;
 import com.palmergames.bukkit.towny.object.Resident;
 import com.palmergames.bukkit.towny.object.TownyUniverse;
+import com.palmergames.bukkit.towny.permissions.PermissionNodes;
 import com.palmergames.bukkit.util.ChatTools;
 import com.palmergames.bukkit.util.Colors;
 import com.palmergames.util.StringMgmt;
@@ -176,10 +178,32 @@ public class ResidentCommand implements CommandExecutor {
 			//String warFlagMaterial = (TownyWarConfig.getFlagBaseMaterial() == null ? "flag" : TownyWarConfig.getFlagBaseMaterial().name().toLowerCase());
 			//player.sendMessage(ChatTools.formatCommand("Mode", "warflag", "", String.format(TownySettings.getLangString("mode_6"), warFlagMaterial)));
 			player.sendMessage(ChatTools.formatCommand("Eg", "/resident set mode", "map townclaim tc nc", ""));
-		} else if (split[0].equalsIgnoreCase("reset") || split[0].equalsIgnoreCase("clear"))
+			
+			return;
+		}
+		
+		if (split[0].equalsIgnoreCase("reset") || split[0].equalsIgnoreCase("clear")) {
 			plugin.removePlayerMode(player);
-		else
-			plugin.setPlayerMode(player, split, true);
+			return;
+		}
+
+		List<String> list = Arrays.asList(split);
+		if ((list.contains("spy")) && (plugin.isPermissions() && !TownyUniverse.getPermissionSource().hasPermission(player, PermissionNodes.TOWNY_CHAT_SPY.getNode()))) {
+			TownyMessaging.sendErrorMsg(player, TownySettings.getLangString("msg_err_command_disable"));
+			return;
+		}
+		
+		for (String channel : TownySettings.getChatChannels()) {
+			if (list.contains(channel.replace("/", ""))) {
+				if (plugin.isPermissions() && !TownyUniverse.getPermissionSource().hasPermission(player, TownySettings.getChatChannelPermission(channel))) {
+					TownyMessaging.sendErrorMsg(player, TownySettings.getLangString("msg_err_command_disable"));
+					return;
+				}
+			}
+		}
+		
+		plugin.setPlayerMode(player, split, true);
+
 	}
 
 	public void residentFriend(Player player, String[] split) {

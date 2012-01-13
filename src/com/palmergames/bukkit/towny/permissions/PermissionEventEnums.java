@@ -34,16 +34,16 @@ public class PermissionEventEnums {
 	
 	// PermissionsEX Event Enums
 	public enum PEXEntity_Action {
-        //PERMISSIONS_CHANGED,
+        PERMISSIONS_CHANGED,
         OPTIONS_CHANGED,
         INHERITANCE_CHANGED,
         INFO_CHANGED,
         TIMEDPERMISSION_EXPIRED,
-        //RANK_CHANGED,
+        RANK_CHANGED,
         DEFAULTGROUP_CHANGED,
-        //WEIGHT_CHANGED,
-        //SAVED,
-        //REMOVED,
+        WEIGHT_CHANGED,
+        SAVED,
+        REMOVED,
     }
 	
 	public enum PEXSystem_Action {
