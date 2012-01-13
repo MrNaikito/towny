@@ -361,6 +361,7 @@ public class TownyPlayerListener extends PlayerListener {
 		}
 
 		plugin.getCache(player).setLastLocation(to);
+		plugin.updateCache();
 		//plugin.sendDebugMsg("onBlockMove: " + player.getName() + ": ");
 		//plugin.sendDebugMsg("        " + from.toString());
 		//plugin.sendDebugMsg("        " + to.toString());

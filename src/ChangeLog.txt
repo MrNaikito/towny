@@ -1084,3 +1084,4 @@ v0.78.0.9:
 	        
 	- Added a 'spleef' plot type (for future development).
 	- Added a spam filter to TownyChat so players can only send one message every two seconds.
+	- Update players cache properly when teleporting, so '/town claim' etc get the right location if you then don't move.
