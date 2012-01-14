@@ -29,7 +29,7 @@ public class CachePermissions extends TownyUniverse {
 	 * @param player
 	 * @param location
 	 * @param action
-	 * @return
+	 * @return true if the player has permission.
 	 */
 	public boolean getCachePermission(Player player, Location location, ActionType action) {
 

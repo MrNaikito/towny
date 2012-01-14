@@ -605,6 +605,7 @@ public class Towny extends JavaPlugin {
 		}
 	}
 
+	/*
 	public void setPlayerChatMode(Player player, String newMode) {
 
 		List<String> modes = new ArrayList<String>();
@@ -635,6 +636,7 @@ public class Towny extends JavaPlugin {
 		else
 			setPlayerMode(player, modes.toArray(new String[modes.size()]), true);
 	}
+	*/
 
 	public void removePlayerMode(Player player) {
 		playerMode.remove(player.getName());

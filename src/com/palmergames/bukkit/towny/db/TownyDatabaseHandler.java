@@ -167,8 +167,8 @@ public abstract class TownyDatabaseHandler extends TownyDataSource {
 	/**
 	 * Returns the world a town belongs to
 	 * 
-	 * @param town
-	 * @return
+	 * @param townName
+	 * @return TownyWorld for this town.
 	 */
 	@Override
 	public TownyWorld getTownWorld(String townName) {

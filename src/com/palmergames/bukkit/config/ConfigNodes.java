@@ -72,12 +72,6 @@ public enum ConfigNodes {
 				                    "#        towny.town.spawn.ally : Ability to spawn to towns in nations allied with yours.",
 				                    "#        towny.town.spawn.public : Ability to spawn to unaffilated public towns.",
 				                    "#",
-				                    "#    towny.chat.* : user is able to talk in all chat channels.",
-				                    "#        towny.chat.town : user is able to talk in town chat.",
-				                    "#        towny.chat.nation",
-				                    "#        towny.chat.global : user is able to talk in global chat (/g)",
-				                    "#        towny.chat.admin",
-				                    "#        towny.chat.mod",
 				                    "# these will be moved to permissions nodes at a later date"),
             PERMS_TOWN_CREATION_ADMIN_ONLY("permissions.town_creation_admin_only","false"),
             PERMS_NATION_CREATION_ADMIN_ONLY("permissions.nation_creation_admin_only","false"),
@@ -342,10 +336,6 @@ public enum ConfigNodes {
         		"{channelTag}{towntagoverride}{townycolor}{permprefix}{townyprefix}{playername}{townypostfix}{permsuffix}&f:{msgcolour} {msg}"),
         	FILTERS_MODIFY_CHAT_CHANNEL_FORMAT_DEFAULT("filters_colour_chat.modify_chat.channel_format.default",
                 "{channelTag} {permprefix}{playername}{permsuffix}&f:{msgcolour} {msg}"),
-            
-            FILTERS_MODIFY_CHAT_CHANNELS("filters_colour_chat.modify_chat.channels","", "",
-            		"# Channels are in the format: command, channel-tag, chat-colour, permission-node (to use channel).",
-            		"# Do ***NOT*** alter the commands for /tc and /nc."),
             
             FILTERS_COLOUR("filters_colour_chat.colour","",
             		"",

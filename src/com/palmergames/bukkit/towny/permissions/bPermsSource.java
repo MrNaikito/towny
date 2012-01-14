@@ -26,7 +26,7 @@ public class bPermsSource extends TownyPermissionSource {
      * 
      * @param resident
      * @param node
-     * @return
+     * @return String of the prefix/suffix
      */
     @Override
 	public String getPrefixSuffix(Resident resident, String node) {
@@ -104,7 +104,7 @@ public class bPermsSource extends TownyPermissionSource {
      * 
      * @param player
      * @param node
-     * @return
+     * @return true is Op or has the permission node
      */
     @Override
 	public boolean hasPermission(Player player, String node) {
@@ -134,7 +134,7 @@ public class bPermsSource extends TownyPermissionSource {
      * Returns the players Group name.
      * 
      * @param player
-     * @return
+     * @return String name of this players group.
      */
     @Override
 	public String getPlayerGroup(Player player) {

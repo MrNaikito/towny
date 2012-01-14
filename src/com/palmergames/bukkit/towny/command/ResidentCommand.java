@@ -177,7 +177,7 @@ public class ResidentCommand implements CommandExecutor {
 			player.sendMessage(ChatTools.formatCommand("Mode", "nc", "", TownySettings.getLangString("mode_5")));
 			//String warFlagMaterial = (TownyWarConfig.getFlagBaseMaterial() == null ? "flag" : TownyWarConfig.getFlagBaseMaterial().name().toLowerCase());
 			//player.sendMessage(ChatTools.formatCommand("Mode", "warflag", "", String.format(TownySettings.getLangString("mode_6"), warFlagMaterial)));
-			player.sendMessage(ChatTools.formatCommand("Eg", "/resident set mode", "map townclaim tc nc", ""));
+			player.sendMessage(ChatTools.formatCommand("Eg", "/resident set mode", "map townclaim town nation general", ""));
 			
 			return;
 		}
@@ -191,15 +191,6 @@ public class ResidentCommand implements CommandExecutor {
 		if ((list.contains("spy")) && (plugin.isPermissions() && !TownyUniverse.getPermissionSource().hasPermission(player, PermissionNodes.TOWNY_CHAT_SPY.getNode()))) {
 			TownyMessaging.sendErrorMsg(player, TownySettings.getLangString("msg_err_command_disable"));
 			return;
-		}
-		
-		for (String channel : TownySettings.getChatChannels()) {
-			if (list.contains(channel.replace("/", ""))) {
-				if (plugin.isPermissions() && !TownyUniverse.getPermissionSource().hasPermission(player, TownySettings.getChatChannelPermission(channel))) {
-					TownyMessaging.sendErrorMsg(player, TownySettings.getLangString("msg_err_command_disable"));
-					return;
-				}
-			}
 		}
 		
 		plugin.setPlayerMode(player, split, true);
