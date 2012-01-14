@@ -37,10 +37,8 @@ public class PlotClaim extends Thread {
     /**
      * @param plugin reference to towny
      * @param player Doing the claiming, or null
-     * @param town The claiming town
      * @param selection List of WoorldCoords to claim/unclaim
      * @param claim or unclaim
-     * @param forced admin forced claim/unclaim
      */
     public PlotClaim(Towny plugin, Player player, Resident resident, List<WorldCoord> selection, boolean claim) {
         super();

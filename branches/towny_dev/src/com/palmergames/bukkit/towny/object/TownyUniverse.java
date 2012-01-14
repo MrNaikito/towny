@@ -323,7 +323,7 @@ public class TownyUniverse extends TownyObject {
 	 * returns true if this block is in the wilderness
 	 * 
 	 * @param block
-	 * @return
+	 * @return true is in wilderness
 	 */
 	public boolean isWilderness(Block block) {
 
@@ -352,7 +352,7 @@ public class TownyUniverse extends TownyObject {
 	 * registered it returns null
 	 * 
 	 * @param loc
-	 * @return
+	 * @return name of any town at this location, or null for none.
 	 */
 	public String getTownName(Location loc) {
 
@@ -373,7 +373,7 @@ public class TownyUniverse extends TownyObject {
 	 * returns null
 	 * 
 	 * @param loc
-	 * @return
+	 * @return TownBlock at this location, or null for none.
 	 */
 	public TownBlock getTownBlock(Location loc) {
 
@@ -529,25 +529,25 @@ public class TownyUniverse extends TownyObject {
 	
 
 	/**
-	 * @return
+	 * @return Hashtable of residents
 	 */
 	public Hashtable<String, Resident> getResidentMap() {
 		return this.residents;
 	}
 	/**
-	 * @return
+	 * @return HashTable of Towns
 	 */
 	public Hashtable<String, Town> getTownsMap() {
 		return this.towns;
 	}
 	/**
-	 * @return
+	 * @return Hashtable of all nations
 	 */
 	public Hashtable<String, Nation> getNationsMap() {
 		return this.nations;
 	}
 	/**
-	 * @return
+	 * @return Map of TownyWorlds
 	 */
 	public Hashtable<String, TownyWorld> getWorldMap() {
 		return this.worlds;
@@ -974,8 +974,8 @@ public class TownyUniverse extends TownyObject {
 	/**
 	 * Deprecated - Use TownyUniverse.getDataSource().getTownWorld(name)
 	 * 
-	 * @param town
-	 * @return
+	 * @param townName
+	 * @return TownyWorld
 	 */
 	@Deprecated
 	public static TownyWorld getTownWorld(String townName) {
@@ -1010,7 +1010,7 @@ public class TownyUniverse extends TownyObject {
 	 * Deprecated - use TownyUniverse.getDataSource().hasResident(name)
 	 * 
 	 * @param name
-	 * @return
+	 * @return true if resident exists
 	 */
 	@Deprecated
 	public boolean hasResident(String name) {
@@ -1021,7 +1021,7 @@ public class TownyUniverse extends TownyObject {
 	 * Deprecated - use TownyUniverse.getDataSource().hasTown(name)
 	 * 
 	 * @param name
-	 * @return
+	 * @return true if town exists
 	 */
 	@Deprecated
 	public boolean hasTown(String name) {
@@ -1032,7 +1032,7 @@ public class TownyUniverse extends TownyObject {
 	 * Deprecated - use TownyUniverse.getDataSource().hasNation(name)
 	 * 
 	 * @param name
-	 * @return
+	 * @return true if nation exists
 	 */
 	@Deprecated
 	public boolean hasNation(String name) {
@@ -1070,7 +1070,7 @@ public class TownyUniverse extends TownyObject {
 	 * Deprecated - use TownyUniverse.getDataSource().getResident(name)
 	 * 
 	 * @param name
-	 * @return
+	 * @return Resident with this name
 	 * @throws NotRegisteredException
 	 */
 	@Deprecated
@@ -1081,7 +1081,7 @@ public class TownyUniverse extends TownyObject {
 	/**
 	 * Deprecated - use TownyUniverse.getDataSource().getResidents()
 	 * 
-	 * @return
+	 * @return List of all residents
 	 */
 	@Deprecated
 	public List<Resident> getResidents() {
@@ -1091,7 +1091,7 @@ public class TownyUniverse extends TownyObject {
 	/**
 	 * Deprecated - use TownyUniverse.getDataSource().getResidentKeys()
 	 * 
-	 * @return
+	 * @return Set of all residents
 	 */
 	@Deprecated
 	public Set<String> getResidentKeys() {
@@ -1101,7 +1101,7 @@ public class TownyUniverse extends TownyObject {
 	/**
 	 * Deprecated - use TownyUniverse.getDataSource().getTownsKeys()
 	 * 
-	 * @return
+	 * @return Set of Town names
 	 */
 	@Deprecated
 	public Set<String> getTownsKeys() {
@@ -1111,7 +1111,7 @@ public class TownyUniverse extends TownyObject {
 	/**
 	 * Deprecated - use TownyUniverse.getDataSource().getNationsKeys()
 	 * 
-	 * @return
+	 * @return Set of all nation names
 	 */
 	@Deprecated
 	public Set<String> getNationsKeys() {
@@ -1121,7 +1121,7 @@ public class TownyUniverse extends TownyObject {
 	/**
 	 * Deprecated - use TownyUniverse.getDataSource().getTowns()
 	 * 
-	 * @return
+	 * @return List of all towns
 	 */
 	@Deprecated
 	public List<Town> getTowns() {
@@ -1131,7 +1131,7 @@ public class TownyUniverse extends TownyObject {
 	/**
 	 * Deprecated - use TownyUniverse.getDataSource().getNations()
 	 * 
-	 * @return
+	 * @return List of all nations
 	 */
 	@Deprecated
 	public List<Nation> getNations() {
@@ -1141,7 +1141,7 @@ public class TownyUniverse extends TownyObject {
 	/**
 	 * Deprecated - use TownyUniverse.getDataSource().getWorlds()
 	 * 
-	 * @return
+	 * @return List of TownyWorlds
 	 */
 	@Deprecated
 	public List<TownyWorld> getWorlds() {
@@ -1151,7 +1151,7 @@ public class TownyUniverse extends TownyObject {
 	/**
 	 * Deprecated - use TownyUniverse.getDataSource().getTownsWithoutNation()
 	 * 
-	 * @return
+	 * @return List of towns without a nation
 	 */
 	@Deprecated
 	public List<Town> getTownsWithoutNation() {
@@ -1161,7 +1161,7 @@ public class TownyUniverse extends TownyObject {
 	/**
 	 * Deprecated - use TownyUniverse.getDataSource().getResidentsWithoutTown()
 	 * 
-	 * @return
+	 * @return List of residents with no town.
 	 */
 	@Deprecated
 	public List<Resident> getResidentsWithoutTown() {
@@ -1172,7 +1172,7 @@ public class TownyUniverse extends TownyObject {
 	 * Deprecated - use TownyUniverse.getDataSource().getResidents()
 	 * 
 	 * @param names
-	 * @return
+	 * @return List of residents matching these names
 	 */
 	@Deprecated
 	public List<Resident> getResidents(String[] names) {
@@ -1183,7 +1183,7 @@ public class TownyUniverse extends TownyObject {
 	 * Deprecated - use TownyUniverse.getDataSource().getTowns()
 	 * 
 	 * @param names
-	 * @return
+	 * @return List of names matching towns
 	 */
 	@Deprecated
 	public List<Town> getTowns(String[] names) {
@@ -1194,7 +1194,7 @@ public class TownyUniverse extends TownyObject {
 	 * Deprecated - use TownyUniverse.getDataSource().getNations()
 	 * 
 	 * @param names
-	 * @return
+	 * @return List of nations matching these names
 	 */
 	@Deprecated
 	public List<Nation> getNations(String[] names) {
@@ -1205,7 +1205,7 @@ public class TownyUniverse extends TownyObject {
 	 * Deprecated - use TownyUniverse.getDataSource().getTown()
 	 * 
 	 * @param name
-	 * @return
+	 * @return Town with this name
 	 * @throws NotRegisteredException
 	 */
 	@Deprecated
@@ -1217,7 +1217,7 @@ public class TownyUniverse extends TownyObject {
 	 * Deprecated - use TownyUniverse.getDataSource().getNation()
 	 * 
 	 * @param name
-	 * @return
+	 * @return Nation matching this name
 	 * @throws NotRegisteredException
 	 */
 	@Deprecated
@@ -1229,7 +1229,7 @@ public class TownyUniverse extends TownyObject {
 	 * Deprecated - use TownyUniverse.getDataSource().getWorld()
 	 * 
 	 * @param name
-	 * @return
+	 * @return TownyWorld
 	 * @throws NotRegisteredException
 	 */
 	@Deprecated
@@ -1313,7 +1313,7 @@ public class TownyUniverse extends TownyObject {
 	/**
 	 * Deprecated - use TownyUniverse.getDataSource().getAllTownBlocks()
 	 * 
-	 * @return
+	 * @return List all townblocks
 	 */
 	@Deprecated
 	public List<TownBlock> getAllTownBlocks() {
@@ -1325,7 +1325,7 @@ public class TownyUniverse extends TownyObject {
 	 * 
 	 * @param player
 	 * @param names
-	 * @return
+	 * @return List
 	 */
 	@Deprecated
 	public List<Resident> getResidents(Player player, String[] names) {

@@ -1367,7 +1367,7 @@ public class TownCommand implements CommandExecutor  {
          * with online players and invite them to town. Command: /town add
          * [resident] .. [resident]
          * 
-         * @param player
+         * @param sender
          * @param specifiedTown to add to if not null
          * @param names
          */

@@ -116,7 +116,7 @@ public class TownyMessaging {
 	 * and to the named Dev if DevMode is enabled.
 	 * Uses default_towny_prefix
 	 * 
-	 * @param sender
+	 * @param player
 	 * @param msg
 	 */
 	public static void sendMsg(Player player, String[] msg) {
@@ -173,7 +173,7 @@ public class TownyMessaging {
 	/**
 	 * Send a message to a player
 	 * 
-	 * @param player
+	 * @param sender
 	 * @param lines
 	 */
 	public static void sendMessage(Object sender, List<String> lines) {
@@ -183,7 +183,7 @@ public class TownyMessaging {
 	/**
 	 * Send a message to a player
 	 * 
-	 * @param player
+	 * @param sender
 	 * @param line
 	 */
 	public static void sendMessage(Object sender, String line) {
@@ -200,7 +200,7 @@ public class TownyMessaging {
 	/**
 	 * Send a message to a player
 	 * 
-	 * @param player
+	 * @param sender
 	 * @param lines
 	 */
 	public static void sendMessage(Object sender, String[] lines) {
@@ -292,7 +292,7 @@ public class TownyMessaging {
 	 * Send a message to a specific resident
 	 * 
 	 * @param resident
-	 * @param lines
+	 * @param line
 	 * @throws TownyException
 	 */
 	public static void sendResidentMessage(Resident resident, String line) throws TownyException {
@@ -312,9 +312,8 @@ public class TownyMessaging {
         	TownyLogger.log.info(ChatTools.stripColour("[Town Msg] " + town.getName() + ": " + line));
         }
         for (Player player : TownyUniverse.getOnlinePlayers(town)){
-        	if (!TownyUniverse.getPlugin().hasPlayerMode(player, "spy"))
-                for (String line : lines)
-                        player.sendMessage(line);
+            for (String line : lines)
+                player.sendMessage(line);
         }
 	}
 	
@@ -322,7 +321,7 @@ public class TownyMessaging {
 	 * Send a message to All online residents of a town and log
 	 * 
 	 * @param town
-	 * @param lines
+	 * @param line
 	 */
 	public static void sendTownMessagePrefixed(Town town, String line) {
 		TownyLogger.log.info(ChatTools.stripColour(line));
@@ -334,13 +333,12 @@ public class TownyMessaging {
 	 * Send a message to All online residents of a town and log
 	 * 
 	 * @param town
-	 * @param lines
+	 * @param line
 	 */
 	public static void sendTownMessage(Town town, String line) {
 		TownyLogger.log.info(ChatTools.stripColour("[Town Msg] " + town.getName() + ": " + line));
         for (Player player : TownyUniverse.getOnlinePlayers(town))
-        	if (!TownyUniverse.getPlugin().hasPlayerMode(player, "spy"))
-                player.sendMessage(line);
+        	player.sendMessage(line);
 	}
 
 	/**
@@ -354,29 +352,27 @@ public class TownyMessaging {
         	TownyLogger.log.info(ChatTools.stripColour("[Nation Msg] " + nation.getName() + ": " + line));
         }
         for (Player player : TownyUniverse.getOnlinePlayers(nation))
-        	if (!TownyUniverse.getPlugin().hasPlayerMode(player, "spy"))
-                for (String line : lines)
-                        player.sendMessage(line);
+        	for (String line : lines)
+                player.sendMessage(line);
 	}
 
 	/**
 	 * Send a message to All online residents of a nation and log
 	 * 
 	 * @param nation
-	 * @param lines
+	 * @param line
 	 */
 	public static void sendNationMessage(Nation nation, String line) {
 		TownyLogger.log.info(ChatTools.stripColour("[Nation Msg] " + nation.getName() + ": " + line));
         for (Player player : TownyUniverse.getOnlinePlayers(nation))
-        	if (!TownyUniverse.getPlugin().hasPlayerMode(player, "spy"))
-                player.sendMessage(line);
+        	player.sendMessage(line);
 	}
 	
 	/**
 	 * Send a message to All online residents of a nation and log
 	 * 
 	 * @param nation
-	 * @param lines
+	 * @param line
 	 */
 	public static void sendNationMessagePrefixed(Nation nation, String line) {
 		TownyLogger.log.info(ChatTools.stripColour("[Nation Msg] " + nation.getName() + ": " + line));

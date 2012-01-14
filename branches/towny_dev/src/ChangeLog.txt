@@ -1090,3 +1090,13 @@ v0.78.0.10:
 	  This requires you have the permission node 'towny.chat.spy' and be using TownyChat.
 	  If you toggle this mode on you will be able to see all town/nation/global, and all custom channel chat.
 	- If a player doesn't have the 'towny.chat.global' permission node, any open chat will pass through for any other plugins to handle.
+v0.78.0.11:
+	- ***** BEFORE USING THIS VERSION BACKUP YOUR CHANNELS (from config) AS THEY WILL be WIPED *****
+	- Added a spanish translation.
+	- Fixed an error when trying to create a language file which doesn't exist (non english).
+	- Moved all chat code to TownyChat (chat formats are still in config and world files).
+	- All chat channels are now defined in their own file 'Channels.yml' found in the Towny/Settings folder.
+	- Range limits can now be applied to town and nation chat.
+	- You can create two identical channels, one with a range limit and one without. The player will use whichever they have permission for.
+	- towny_default_modes now uses the full chat channel name. To allow use of the default channel it would be towny_default_modes: 'general'
+	- Fixed up javadocs - http://palmergames.com/javadoc

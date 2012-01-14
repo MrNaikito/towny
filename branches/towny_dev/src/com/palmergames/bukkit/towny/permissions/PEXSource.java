@@ -43,7 +43,7 @@ public class PEXSource extends TownyPermissionSource {
      * 
      * @param resident
      * @param node
-     * @return
+     * @return String of the prefix or suffix
      */
     @Override
 	public String getPrefixSuffix(Resident resident, String node) {
@@ -124,7 +124,7 @@ public class PEXSource extends TownyPermissionSource {
      * 
      * @param player
      * @param node
-     * @return
+     * @return true if Op or has the permission node.
      */
     @Override
 	public boolean hasPermission(Player player, String node) {
@@ -141,7 +141,7 @@ public class PEXSource extends TownyPermissionSource {
      * Returns the players Group name.
      * 
      * @param player
-     * @return
+     * @return Name of the players group
      */
     @Override
 	public String getPlayerGroup(Player player) {
@@ -156,7 +156,7 @@ public class PEXSource extends TownyPermissionSource {
      * Returns an array of Groups this player is a member of.
      * 
      * @param player
-     * @return
+     * @return Array of groups for this player
      */
     public PermissionGroup[] getPlayerGroups(Player player) {
 

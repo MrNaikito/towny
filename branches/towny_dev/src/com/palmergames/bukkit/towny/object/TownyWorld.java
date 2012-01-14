@@ -477,7 +477,7 @@ public class TownyWorld extends TownyObject {
 	 * Checks the distance from a another town's homeblock.
 	 * 
 	 * @param key
-	 * @param town Players town
+	 * @param homeTown Players town
 	 * @return the closest distance to another towns homeblock.
 	 */
 	public int getMinDistanceFromOtherTowns(Coord key, Town homeTown) {

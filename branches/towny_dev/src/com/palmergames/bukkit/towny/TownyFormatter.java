@@ -252,7 +252,7 @@ public class TownyFormatter {
 	/**
 	 * Returns the tax info this resident will have to pay at the next new day.
 	 * @param resident
-	 * @return
+	 * @return tax status message
 	 */
 	public static List<String> getTaxStatus(Resident resident) {
 		List<String> out = new ArrayList<String>();

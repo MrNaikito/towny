@@ -77,7 +77,7 @@ public class TownyRegenAPI extends TownyUniverse {
 	/**
 	 * Removes a Plot Chunk from the regeneration Hashtable
 	 * 
-	 * @param PlotBlockData
+	 * @param plotChunk
 	 */
 	public static void deletePlotChunk(PlotBlockData plotChunk) {
 		if (PlotChunks.containsKey(getPlotKey(plotChunk))) {
@@ -89,7 +89,8 @@ public class TownyRegenAPI extends TownyUniverse {
 	/**
 	 * Adds a Plot Chunk to the regeneration Hashtable
 	 * 
-	 * @param plotChunks
+	 * @param plotChunk
+	 * @param save
 	 */
 	public static void addPlotChunk(PlotBlockData plotChunk, boolean save) {
 		if (!PlotChunks.containsKey(getPlotKey(plotChunk))) {
@@ -102,7 +103,7 @@ public class TownyRegenAPI extends TownyUniverse {
 	/**
 	 * Saves a Plot Chunk snapshot to the datasource
 	 * 
-	 * @param PlotBlockData
+	 * @param plotChunk
 	 */
 	public static void addPlotChunkSnapshot(PlotBlockData plotChunk) {
 		if (TownyUniverse.getDataSource().loadPlotData(plotChunk.getWorldName(),plotChunk.getX(),plotChunk.getZ()) == null) {
@@ -113,7 +114,7 @@ public class TownyRegenAPI extends TownyUniverse {
 	/**
 	 * Deletes a Plot Chunk snapshot from the datasource
 	 * 
-	 * @param PlotBlockData
+	 * @param plotChunk
 	 */
 	public static void deletePlotChunkSnapshot(PlotBlockData plotChunk) {
 		TownyUniverse.getDataSource().deletePlotData(plotChunk);
@@ -122,7 +123,7 @@ public class TownyRegenAPI extends TownyUniverse {
 	/**
 	 * Loads a Plot Chunk snapshot from the datasource
 	 * 
-	 * @param TownBlock
+	 * @param townBlock
 	 */
 	public static PlotBlockData getPlotChunkSnapshot(TownBlock townBlock) {
 		return TownyUniverse.getDataSource().loadPlotData(townBlock);
@@ -131,7 +132,7 @@ public class TownyRegenAPI extends TownyUniverse {
 	/**
 	 * Gets a Plot Chunk from the regeneration Hashtable
 	 * 
-	 * @param plotChunks
+	 * @param townBlock
 	 */
 	public static PlotBlockData getPlotChunk(TownBlock townBlock) {
 		if (PlotChunks.containsKey(getPlotKey(townBlock))) {
