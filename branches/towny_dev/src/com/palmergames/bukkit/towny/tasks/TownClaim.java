@@ -82,7 +82,7 @@ public class TownClaim extends Thread {
 					// Invalid world
 					TownyMessaging.sendMsg(player, TownySettings.getLangString("msg_err_not_configured"));
 				} catch (TownyException x) {
-					TownyMessaging.sendErrorMsg(player, x.getError());
+					TownyMessaging.sendErrorMsg(player, x.getMessage());
 				}
 
 			}

@@ -1,17 +1,6 @@
 package com.palmergames.bukkit.towny.object;
 
-import static com.palmergames.bukkit.towny.object.TownyObservableType.NEW_DAY;
-import static com.palmergames.bukkit.towny.object.TownyObservableType.PLAYER_LOGIN;
-import static com.palmergames.bukkit.towny.object.TownyObservableType.PLAYER_LOGOUT;
-import static com.palmergames.bukkit.towny.object.TownyObservableType.TELEPORT_REQUEST;
-import static com.palmergames.bukkit.towny.object.TownyObservableType.TOGGLE_DAILY_TIMER;
-import static com.palmergames.bukkit.towny.object.TownyObservableType.TOGGLE_HEALTH_REGEN;
-import static com.palmergames.bukkit.towny.object.TownyObservableType.TOGGLE_MOB_REMOVAL;
-import static com.palmergames.bukkit.towny.object.TownyObservableType.TOGGLE_TELEPORT_WARMUP;
-import static com.palmergames.bukkit.towny.object.TownyObservableType.WAR_CLEARED;
-import static com.palmergames.bukkit.towny.object.TownyObservableType.WAR_END;
-import static com.palmergames.bukkit.towny.object.TownyObservableType.WAR_SET;
-import static com.palmergames.bukkit.towny.object.TownyObservableType.WAR_START;
+import static com.palmergames.bukkit.towny.object.TownyObservableType.*;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -25,6 +14,7 @@ import java.util.Set;
 
 import javax.naming.InvalidNameException;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -287,11 +277,11 @@ public class TownyUniverse extends TownyObject {
 		for (Player player : getOnlinePlayers())
 			if (player.getName().equals(resident.getName()))
 				return player;
-		throw new TownyException("Resident is not online");
+		throw new TownyException(String.format("%s is not online", resident.getName()));
 	}
 
 	public static Player[] getOnlinePlayers() {
-		return plugin.getServer().getOnlinePlayers();
+		return Bukkit.getOnlinePlayers();
 	}
 
 	public static List<Player> getOnlinePlayers(ResidentList residents) {
@@ -813,7 +803,7 @@ public class TownyUniverse extends TownyObject {
 					Resident target = getDataSource().getResident(matches.get(0).getName());
 					invited.add(target);
 				} catch (TownyException x) {
-					TownyMessaging.sendErrorMsg(sender, x.getError());
+					TownyMessaging.sendErrorMsg(sender, x.getMessage());
 				}
 			} else {
 				// No online matches so test for offline.
@@ -822,7 +812,7 @@ public class TownyUniverse extends TownyObject {
 					target = getDataSource().getResident(name);
 					invited.add(target);
 				} catch (NotRegisteredException x) {
-					TownyMessaging.sendErrorMsg(sender, x.getError());
+					TownyMessaging.sendErrorMsg(sender, x.getMessage());
 				}
 			}
 		}
@@ -843,7 +833,7 @@ public class TownyUniverse extends TownyObject {
 					Resident target = getDataSource().getResident(matches.get(0).getName());
 					invited.add(target);
 				} catch (TownyException x) {
-					TownyMessaging.sendErrorMsg(player, x.getError());
+					TownyMessaging.sendErrorMsg(player, x.getMessage());
 				}
 		}
 		return invited;
@@ -865,7 +855,7 @@ public class TownyUniverse extends TownyObject {
 		try {
 			TeleportWarmupTimerTask.requestTeleport(getDataSource().getResident(player.getName().toLowerCase()), town, cost);
 		} catch (TownyException x) {
-			TownyMessaging.sendErrorMsg(player, x.getError());
+			TownyMessaging.sendErrorMsg(player, x.getMessage());
 		}
 
 		setChangedNotify(TELEPORT_REQUEST);

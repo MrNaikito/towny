@@ -27,7 +27,7 @@ public class Town extends TownBlockOwner implements Walled, ResidentList {
 	private double taxes, plotTax, commercialPlotTax, embassyPlotTax,
 		plotPrice, commercialPlotPrice, embassyPlotPrice;
 	private Nation nation;
-	private boolean hasUpkeep, isPublic, isTaxPercentage;
+	private boolean hasUpkeep, isPublic, isTaxPercentage, isOpen;
 	private String townBoard = "/town set board [msg]", tag;
 	private TownBlock homeBlock;
 	private TownyWorld world;
@@ -45,6 +45,7 @@ public class Town extends TownBlockOwner implements Walled, ResidentList {
 		hasUpkeep = true;
 		isPublic = TownySettings.getTownDefaultPublic();
 		isTaxPercentage = false;
+		isOpen = false;
 		permissions.loadDefault(this);
 	}
 
@@ -158,11 +159,11 @@ public class Town extends TownBlockOwner implements Walled, ResidentList {
 
 	public void addResidentCheck(Resident resident) throws AlreadyRegisteredException {
 		if (hasResident(resident))
-			throw new AlreadyRegisteredException(resident.getName() + " already belongs to town.");
+			throw new AlreadyRegisteredException(String.format(TownySettings.getLangString("msg_err_already_in_town"), resident.getName(), getFormattedName()));
 		else if (resident.hasTown())
 			try {
 				if (!resident.getTown().equals(this))
-					throw new AlreadyRegisteredException(resident.getName() + " already belongs to another town.");
+					throw new AlreadyRegisteredException(String.format(TownySettings.getLangString("msg_err_already_in_town"), resident.getName(), getFormattedName()));
 			} catch (NotRegisteredException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -632,6 +633,14 @@ public class Town extends TownBlockOwner implements Walled, ResidentList {
 
 	public double getEmbassyPlotTax() {
 		return embassyPlotTax;
+	}
+	
+	public void setOpen(boolean isOpen) {
+		this.isOpen = isOpen;
+	}
+	
+	public boolean isOpen() {
+		return isOpen;
 	}
 
 	public void withdrawFromBank(Resident resident, int amount) throws EconomyException, TownyException {

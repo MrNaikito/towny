@@ -39,7 +39,6 @@ import com.palmergames.bukkit.towny.event.TownyEntityListener;
 import com.palmergames.bukkit.towny.event.TownyEntityMonitorListener;
 import com.palmergames.bukkit.towny.event.TownyPlayerListener;
 import com.palmergames.bukkit.towny.event.TownyWeatherListener;
-//import com.palmergames.bukkit.towny.event.TownyPlayerLowListener;
 import com.palmergames.bukkit.towny.event.TownyWorldListener;
 import com.palmergames.bukkit.towny.object.Coord;
 import com.palmergames.bukkit.towny.object.Town;
@@ -138,7 +137,7 @@ public class Towny extends JavaPlugin {
 				try {
 					getTownyUniverse().onLogin(player);
 				} catch (TownyException x) {
-					TownyMessaging.sendErrorMsg(player, x.getError());
+					TownyMessaging.sendErrorMsg(player, x.getMessage());
 				}
 		}
 		//setupDatabase();
@@ -428,7 +427,6 @@ public class Towny extends JavaPlugin {
 		
 		pluginManager.registerEvent(Event.Type.PAINTING_BREAK, entityListener, Priority.Normal, this);
 		pluginManager.registerEvent(Event.Type.PAINTING_PLACE, entityListener, Priority.Normal, this);
-
 	}
 
 	private void update() {

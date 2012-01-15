@@ -1100,3 +1100,15 @@ v0.78.0.11:
 	- You can create two identical channels, one with a range limit and one without. The player will use whichever they have permission for.
 	- towny_default_modes now uses the full chat channel name. To allow use of the default channel it would be towny_default_modes: 'general'
 	- Fixed up javadocs - http://palmergames.com/javadoc
+v0.78.0.12:
+	- Fixed typo in comments.
+	- Code cleanup: Plot Types AsciiMap Keys are now in the right class. More specific error messages. Refactored error class to use standard variable.
+	- Added option for town respawn to only happen when the player dies in the same world as the spawn point.
+	- Added option for a town to open it's gates and let players join without needing to be invited.
+	  /town join [town] (Console: town join [resident] [town]). (Open) is shown in the town's status as well as in '/town list'.
+	  To set a town as open '/town set open'.
+	- New Lang: msg_err_already_in_town, msg_changed_open, msg_toggle_open_on_warning, msg_err_not_open
+	
+	***** WARNING BACKUP YOUR CHANNEL SETTINGS AS THEY WILL BE WIPED *****
+	
+	- Moved all chat settings to townyChat's own 'ChatConfig.yml' and removed all remaining chat functions from Towny.

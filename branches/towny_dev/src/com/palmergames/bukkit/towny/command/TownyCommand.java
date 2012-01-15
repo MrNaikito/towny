@@ -132,7 +132,7 @@ public class TownyCommand implements CommandExecutor {
                                 try {
                                         town = TownyUniverse.getDataSource().getTown(split[1]);
                                 } catch (NotRegisteredException x) {
-                                        sendErrorMsg(player, x.getError());
+                                        sendErrorMsg(player, x.getMessage());
                                         return;
                                 }
                         } else if (split.length == 1)

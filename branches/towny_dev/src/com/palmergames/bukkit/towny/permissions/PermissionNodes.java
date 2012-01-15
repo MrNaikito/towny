@@ -33,6 +33,7 @@ public enum PermissionNodes {
 			TOWNY_TOGGLE_EXPLOSION("towny.town.toggle.explosions"),
 			TOWNY_TOGGLE_FIRE("towny.town.toggle.fire"),
 			TOWNY_TOGGLE_MOBS("towny.town.toggle.mobs"),
+			TOWNY_TOGGLE_OPEN("towny.town.toggle.open"),
 		
 		TOWNY_NATION_ALL("towny.nation.*"),
 			

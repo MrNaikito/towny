@@ -633,6 +633,13 @@ public class TownyFlatFileSource extends TownyDatabaseHandler {
 					} catch (Exception e) {
 					}
 				*/
+				line = kvFile.get("open");
+				if (line != null)
+					try {
+						town.setOpen(Boolean.parseBoolean(line));
+					} catch (NumberFormatException nfe) {
+					} catch (Exception e) {
+					}
 				line = kvFile.get("public");
 				if (line != null)
 					try {
@@ -1056,38 +1063,7 @@ public class TownyFlatFileSource extends TownyDatabaseHandler {
 					try {
 						world.setPlotManagementWildRevertDelay(Long.parseLong(line));
 					} catch (Exception e) {
-					}
-				
-				// Chat channel format
-				
-				line = kvFile.get("GlobalChatChannelFormat");
-				if (line != null)
-					try {
-						world.setChatGlobalChannelFormat(line);
-					} catch (Exception e) {
-					}
-				
-				line = kvFile.get("TownChatChannelFormat");
-				if (line != null)
-					try {
-						world.setChatTownChannelFormat(line);
-					} catch (Exception e) {
-					}
-				
-				line = kvFile.get("NationChatChannelFormat");
-				if (line != null)
-					try {
-						world.setChatNationChannelFormat(line);
-					} catch (Exception e) {
-					}
-				
-				line = kvFile.get("DefaultChatChannelFormat");
-				if (line != null)
-					try {
-						world.setChatDefaultChannelFormat(line);
-					} catch (Exception e) {
-					}
-				
+					}				
 				
 				line = kvFile.get("usingTowny");
 				if (line != null)
@@ -1365,6 +1341,8 @@ public class TownyFlatFileSource extends TownyDatabaseHandler {
             fout.write("embassyPlotTax=" + Double.toString(town.getEmbassyPlotTax()) + newLine);
 			// Upkeep
 			fout.write("hasUpkeep=" + Boolean.toString(town.hasUpkeep()) + newLine);
+			// Open
+			fout.write("open=" + Boolean.toString(town.isOpen()) + newLine);
 			/*
 			// PVP
 			fout.write("pvp=" + Boolean.toString(town.isPVP()) + newLine);
@@ -1558,25 +1536,6 @@ public class TownyFlatFileSource extends TownyDatabaseHandler {
 			fout.write("usingPlotManagementWildRegen=" + Boolean.toString(world.isUsingPlotManagementWildRevert()) + newLine);
 			// Using PlotManagement Wild Regen Delay
 			fout.write("usingPlotManagementWildRegenDelay=" + Long.toString(world.getPlotManagementWildRevertDelay()) + newLine);
-			
-			
-			// World independent chat formatting
-			fout.write(newLine);
-			fout.write("# These are used to format each worlds chat if per_world is enabled in the Towny config." + newLine);
-			fout.write(newLine);
-			
-			// Global Chat
-			fout.write("# This formatting is used for all Global chat." + newLine);
-			fout.write("GlobalChatChannelFormat=" + world.getChatGlobalChannelFormat() + newLine);
-			// Town Chat
-			fout.write("# This formatting is used for all Town chat." + newLine);
-			fout.write("TownChatChannelFormat=" + world.getChatTownChannelFormat() + newLine);
-			// Nation Chat
-			fout.write("# This formatting is used for all Nation chat." + newLine);
-			fout.write("NationChatChannelFormat=" + world.getChatNationChannelFormat() + newLine);
-			// Default Chat
-			fout.write("# This formatting is used for all other custom chat channels." + newLine);
-			fout.write("DefaultChatChannelFormat=" + world.getChatDefaultChannelFormat() + newLine);
 			
 			// Using Towny
 			fout.write(newLine);
