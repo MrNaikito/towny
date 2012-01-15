@@ -50,7 +50,7 @@ public class TownyAsciiMap {
 			if (resident.hasTown())
 				hasTown = true;
 		} catch (TownyException x) {
-			TownyMessaging.sendErrorMsg(player, x.getError());
+			TownyMessaging.sendErrorMsg(player, x.getMessage());
 			return;
 		}
 
@@ -120,16 +120,8 @@ public class TownyAsciiMap {
 						townyMap[y][x] += "$";
 					} else if (townblock.isHomeBlock())
 						townyMap[y][x] += "H";
-					else if (townblock.getType().equals(TownBlockType.EMBASSY))
-						townyMap[y][x] += "E";
-					else if (townblock.getType().equals(TownBlockType.WILDS))
-						townyMap[y][x] += "W";
-					else if (townblock.getType().equals(TownBlockType.COMMERCIAL))
-						townyMap[y][x] += "C";
-					else if (townblock.getType().equals(TownBlockType.ARENA))
-						townyMap[y][x] += "A";
 					else
-						townyMap[y][x] += "+";
+						townyMap[y][x] += townblock.getType().getAsciiMapKey();
 				} catch (TownyException e) {
 					if (x == halfLineHeight && y == halfLineWidth)
 						townyMap[y][x] = Colors.Gold;

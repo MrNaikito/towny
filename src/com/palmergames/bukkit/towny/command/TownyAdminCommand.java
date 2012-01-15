@@ -182,7 +182,7 @@ public class TownyAdminCommand implements CommandExecutor {
 			}
 			TownyUniverse.getDataSource().saveTown(town);
 		} catch (TownyException e) {
-			throw new TownyException(e.getError());
+			throw new TownyException(e.getMessage());
 		}
 
 	}
@@ -238,7 +238,7 @@ public class TownyAdminCommand implements CommandExecutor {
 				new TownClaim(plugin, player, null, selection, false, true).start();
 
 			} catch (TownyException x) {
-				TownyMessaging.sendErrorMsg(player, x.getError());
+				TownyMessaging.sendErrorMsg(player, x.getMessage());
 				return;
 			}
 		}
@@ -280,9 +280,9 @@ public class TownyAdminCommand implements CommandExecutor {
 				}
 
 			} catch (NotRegisteredException e) {
-				TownyMessaging.sendErrorMsg(getSender(), e.getError());
+				TownyMessaging.sendErrorMsg(getSender(), e.getMessage());
 			} catch (TownyException e) {
-				TownyMessaging.sendErrorMsg(getSender(), e.getError());
+				TownyMessaging.sendErrorMsg(getSender(), e.getMessage());
 			}
 		}
 	}
@@ -320,9 +320,9 @@ public class TownyAdminCommand implements CommandExecutor {
 				}
 
 			} catch (NotRegisteredException e) {
-				TownyMessaging.sendErrorMsg(getSender(), e.getError());
+				TownyMessaging.sendErrorMsg(getSender(), e.getMessage());
 			} catch (AlreadyRegisteredException e) {
-				TownyMessaging.sendErrorMsg(getSender(), e.getError());
+				TownyMessaging.sendErrorMsg(getSender(), e.getMessage());
 			}
 		}
 	}
@@ -393,7 +393,7 @@ public class TownyAdminCommand implements CommandExecutor {
 					TownyMessaging.sendTownMessage(town, msg);
 					//TownyMessaging.sendMessage(player, msg);
 				} catch (TownyException e) {
-					TownyMessaging.sendErrorMsg(getSender(), e.getError());
+					TownyMessaging.sendErrorMsg(getSender(), e.getMessage());
 				}
 		} else {
 			TownyMessaging.sendErrorMsg(getSender(), String.format(TownySettings.getLangString("msg_err_invalid_property"), "administrative"));

@@ -64,7 +64,7 @@ public class TownyPlayerListener extends PlayerListener {
 		try {
 			plugin.getTownyUniverse().onLogin(player);
 		} catch (TownyException x) {
-			TownyMessaging.sendErrorMsg(player, x.getError());
+			TownyMessaging.sendErrorMsg(player, x.getMessage());
 		}
 	}
 
@@ -96,13 +96,21 @@ public class TownyPlayerListener extends PlayerListener {
 		
 		Player player = event.getPlayer();
 		TownyMessaging.sendDebugMsg("onPlayerDeath: " + player.getName());
-		if (TownySettings.isTownRespawning())
-			try {
-				Location respawn = plugin.getTownyUniverse().getTownSpawnLocation(player);
-				event.setRespawnLocation(respawn);
-			} catch (TownyException e) {
-				// Not set will make it default.
-			}
+		
+		if (!TownySettings.isTownRespawning())
+			return;
+		
+		try {
+			Location respawn = plugin.getTownyUniverse().getTownSpawnLocation(player);
+			
+			// Check if only respawning in the same world as the town's spawn.
+			if (TownySettings.isTownRespawningInOtherWorlds() && !player.getWorld().equals(respawn.getWorld()))
+				return;
+			
+			event.setRespawnLocation(respawn);
+		} catch (TownyException e) {
+			// Town has not set respawn location. Using default.
+		}
 	}
 
 	@Override
@@ -357,7 +365,7 @@ public class TownyPlayerListener extends PlayerListener {
 				//plugin.sendDebugMsg("        " + to.toString());
 			}
 		} catch (NotRegisteredException e) {
-			TownyMessaging.sendErrorMsg(player, e.getError());
+			TownyMessaging.sendErrorMsg(player, e.getMessage());
 		}
 
 		plugin.getCache(player).setLastLocation(to);

@@ -146,7 +146,7 @@ public class ResidentCommand implements CommandExecutor {
 			try {
 				resident = TownyUniverse.getDataSource().getResident(player.getName());
 			} catch (TownyException x) {
-				TownyMessaging.sendErrorMsg(player, x.getError());
+				TownyMessaging.sendErrorMsg(player, x.getMessage());
 				return;
 			}
 
@@ -207,7 +207,7 @@ public class ResidentCommand implements CommandExecutor {
 			try {
 				resident = TownyUniverse.getDataSource().getResident(player.getName());
 			} catch (TownyException x) {
-				TownyMessaging.sendErrorMsg(player, x.getError());
+				TownyMessaging.sendErrorMsg(player, x.getMessage());
 				return;
 			}
 
@@ -238,7 +238,7 @@ public class ResidentCommand implements CommandExecutor {
 				Resident target = TownyUniverse.getDataSource().getResident(name);
 				invited.add(target);
 			} catch (TownyException x) {
-				TownyMessaging.sendErrorMsg(player, x.getError());
+				TownyMessaging.sendErrorMsg(player, x.getMessage());
 			}
 		return invited;
 	}
@@ -338,7 +338,7 @@ public class ResidentCommand implements CommandExecutor {
 				}
 			} catch (TownyException x) {
 				// Admin only escape
-				TownyMessaging.sendErrorMsg(player, x.getError());
+				TownyMessaging.sendErrorMsg(player, x.getMessage());
 				return;
 			}
 	}

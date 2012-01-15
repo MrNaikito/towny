@@ -74,7 +74,7 @@ public class PlotCommand implements CommandExecutor {
 					parsePlotCommand(player, args);
 				} catch (TownyException x) {
 					// No permisisons
-					TownyMessaging.sendErrorMsg(player, x.getError());
+					TownyMessaging.sendErrorMsg(player, x.getMessage());
 				}
 			}
 
@@ -102,7 +102,7 @@ public class PlotCommand implements CommandExecutor {
 				world = TownyUniverse.getDataSource().getWorld(player.getWorld().getName());
 				town = resident.getTown();
 			} catch (TownyException x) {
-				TownyMessaging.sendErrorMsg(player, x.getError());
+				TownyMessaging.sendErrorMsg(player, x.getMessage());
 				return;
 			}
 
@@ -303,9 +303,9 @@ public class PlotCommand implements CommandExecutor {
 
 				}
 			} catch (TownyException x) {
-				TownyMessaging.sendErrorMsg(player, x.getError());
+				TownyMessaging.sendErrorMsg(player, x.getMessage());
 			} catch (EconomyException x) {
-				TownyMessaging.sendErrorMsg(player, x.getError());
+				TownyMessaging.sendErrorMsg(player, x.getMessage());
 			}
 		}
 	}

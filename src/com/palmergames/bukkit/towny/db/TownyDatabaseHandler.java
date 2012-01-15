@@ -1,15 +1,6 @@
 package com.palmergames.bukkit.towny.db;
 
-import static com.palmergames.bukkit.towny.object.TownyObservableType.NEW_NATION;
-import static com.palmergames.bukkit.towny.object.TownyObservableType.NEW_RESIDENT;
-import static com.palmergames.bukkit.towny.object.TownyObservableType.NEW_TOWN;
-import static com.palmergames.bukkit.towny.object.TownyObservableType.NEW_WORLD;
-import static com.palmergames.bukkit.towny.object.TownyObservableType.REMOVE_NATION;
-import static com.palmergames.bukkit.towny.object.TownyObservableType.REMOVE_RESIDENT;
-import static com.palmergames.bukkit.towny.object.TownyObservableType.REMOVE_TOWN;
-import static com.palmergames.bukkit.towny.object.TownyObservableType.REMOVE_TOWN_BLOCK;
-import static com.palmergames.bukkit.towny.object.TownyObservableType.RENAME_NATION;
-import static com.palmergames.bukkit.towny.object.TownyObservableType.RENAME_TOWN;
+import static com.palmergames.bukkit.towny.object.TownyObservableType.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,7 +58,7 @@ public abstract class TownyDatabaseHandler extends TownyDataSource {
 	            Resident target = getResident(name);
 	            invited.add(target);
 	        } catch (TownyException x) {
-	            TownyMessaging.sendErrorMsg(player, x.getError());
+	            TownyMessaging.sendErrorMsg(player, x.getMessage());
 	        }
 	    return invited;
 	}
@@ -96,7 +87,7 @@ public abstract class TownyDatabaseHandler extends TownyDataSource {
 		} catch (InvalidNameException e) {
 		}
 		if (resident == null)
-			throw new NotRegisteredException(name + " is not registered.");
+			throw new NotRegisteredException(String.format("The resident '%s' is not registered.", name));
 
 		return resident;
 	}
@@ -121,7 +112,7 @@ public abstract class TownyDatabaseHandler extends TownyDataSource {
 	public Town getTown(String name) throws NotRegisteredException {
 		Town town = universe.getTownsMap().get(name.toLowerCase());
 		if (town == null)
-			throw new NotRegisteredException(name + " is not registered.");
+			throw new NotRegisteredException(String.format("The town '%s' is not registered.", name));
 		return town;
 	}
 
@@ -145,7 +136,7 @@ public abstract class TownyDatabaseHandler extends TownyDataSource {
 	public Nation getNation(String name) throws NotRegisteredException {
 		Nation nation = universe.getNationsMap().get(name.toLowerCase());
 		if (nation == null)
-			throw new NotRegisteredException(name + " is not registered.");
+			throw new NotRegisteredException(String.format("The nation '%s' is not registered.", name));
 		return nation;
 	}
 	

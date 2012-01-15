@@ -79,7 +79,7 @@ public class PlotClaim extends Thread {
 					 */
 					TownyMessaging.sendErrorMsg(player, e.getError());
 				} catch (TownyException x) {
-					TownyMessaging.sendErrorMsg(player, x.getError());
+					TownyMessaging.sendErrorMsg(player, x.getMessage());
 				}
 
 			}
@@ -211,7 +211,7 @@ public class PlotClaim extends Thread {
     		try {
 				residentUnclaim(townBlock.getWorldCoord());
 			} catch (TownyException e) {
-				TownyMessaging.sendErrorMsg(player, e.getError());
+				TownyMessaging.sendErrorMsg(player, e.getMessage());
 			}
     		
     		
