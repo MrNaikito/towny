@@ -1106,7 +1106,7 @@ v0.78.0.12:
 	- Added option for town respawn to only happen when the player dies in the same world as the spawn point.
 	- Added option for a town to open it's gates and let players join without needing to be invited.
 	  /town join [town] (Console: town join [resident] [town]). (Open) is shown in the town's status as well as in '/town list'.
-	  To set a town as open '/town set open'.
+	  To set a town as open '/town toggle open'.
 	- New Lang: msg_err_already_in_town, msg_changed_open, msg_toggle_open_on_warning, msg_err_not_open
 	
 	***** WARNING BACKUP YOUR CHANNEL SETTINGS AS THEY WILL BE WIPED *****
