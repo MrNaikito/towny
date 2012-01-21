@@ -376,9 +376,10 @@ public class TownySettings {
     private static void setDefaultLevels() {
         addComment(ConfigNodes.LEVELS_TOWN_LEVEL.getRoot(), "",
                 "# default Town levels.");
-        List<Map<String, Object>> townLevels = config.getMapList(ConfigNodes.LEVELS_TOWN_LEVEL.getRoot());
-        
-        if (townLevels == null || townLevels.isEmpty() || townLevels.size() == 0) {
+        if (!config.isConfigurationSection(ConfigNodes.LEVELS_TOWN_LEVEL.getRoot())) {
+        //List<Map<String, Object>> townLevels = config.getMapList(ConfigNodes.LEVELS_TOWN_LEVEL.getRoot());
+        	
+        //if (townLevels == null || townLevels.isEmpty() || townLevels.size() == 0) {
             List<Map<String, Object>> levels = new ArrayList<Map<String, Object>>();
             Map<String, Object> level = new HashMap<String, Object>();
             level.put("numResidents", 0);
@@ -463,14 +464,18 @@ public class TownySettings {
             levels.add(new HashMap<String, Object>(level));
             level.clear();
             newConfig.set(ConfigNodes.LEVELS_TOWN_LEVEL.getRoot(), levels);
-        } else
+        } else {
         	newConfig.set(ConfigNodes.LEVELS_TOWN_LEVEL.getRoot(), config.get(ConfigNodes.LEVELS_TOWN_LEVEL.getRoot()));
+        }
+        	
         
         addComment(ConfigNodes.LEVELS_NATION_LEVEL.getRoot(), "",
         		"# default Nation levels.");
-        List<Map<String, Object>> nationLevels = config.getMapList(ConfigNodes.LEVELS_NATION_LEVEL.getRoot());
         
-        if (nationLevels == null || nationLevels.isEmpty() || nationLevels.size() == 0) {
+        if (!config.isConfigurationSection(ConfigNodes.LEVELS_NATION_LEVEL.getRoot())) {
+        //List<Map<String, Object>> nationLevels = config.getMapList(ConfigNodes.LEVELS_NATION_LEVEL.getRoot());
+        
+        //if (nationLevels == null || nationLevels.isEmpty() || nationLevels.size() == 0) {
             List<Map<String, Object>> levels = new ArrayList<Map<String, Object>>();
             Map<String, Object> level = new HashMap<String, Object>();
             level.put("numResidents", 0);

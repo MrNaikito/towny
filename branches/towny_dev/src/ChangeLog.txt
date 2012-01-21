@@ -1116,3 +1116,5 @@ v0.78.0.13:
 	- Updated to support Dev CraftBukkit for 1.1 with new event system.
 	- Updated minimum CraftBukkit version to 1792.
 	- Implement new Bukkit event system supporting new GroupManager and PEX (if they update).
+v0.78.0.14:
+	- Fix for new installs failing to create a new config due to a bukkit bug in getMapList.
