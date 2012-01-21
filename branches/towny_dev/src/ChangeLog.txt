@@ -1118,3 +1118,4 @@ v0.78.0.13:
 	- Implement new Bukkit event system supporting new GroupManager and PEX (if they update).
 v0.78.0.14:
 	- Fix for new installs failing to create a new config due to a bukkit bug in getMapList.
+	- Fix for handling GM System Events.
