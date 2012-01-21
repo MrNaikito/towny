@@ -185,7 +185,7 @@ public class GroupManagerSource extends TownyPermissionSource {
 
 			Player player = null;
 			
-					if (PermissionEventEnums.GMGroup_Action.valueOf(event.getEventName()) != null) {
+					if (PermissionEventEnums.GMSystem_Action.valueOf(event.getEventName()) != null) {
 						// Update all players.
 						for (Player toUpdate : TownyUniverse.getOnlinePlayers()) {
 							//setup default modes
