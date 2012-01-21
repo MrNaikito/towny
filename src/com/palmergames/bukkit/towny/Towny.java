@@ -13,8 +13,6 @@ import java.util.regex.Pattern;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
-import org.bukkit.event.Event.Priority;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -384,49 +382,22 @@ public class Towny extends JavaPlugin {
 
 		if (!isError()) {
 			// Have War Events get launched before regular events.
-			pluginManager.registerEvent(Event.Type.BLOCK_BREAK, townyWarBlockListener, Priority.Lowest, this);
-			pluginManager.registerEvent(Event.Type.BLOCK_BURN, townyWarBlockListener, Priority.Lowest, this);
-			pluginManager.registerEvent(Event.Type.BLOCK_PISTON_EXTEND, townyWarBlockListener, Priority.Lowest, this);
-			pluginManager.registerEvent(Event.Type.ENTITY_EXPLODE, townyWarEntityListener, Priority.Lowest, this);
+			pluginManager.registerEvents(townyWarBlockListener, this);
+			pluginManager.registerEvents(townyWarEntityListener, this);
 			
 			// Manage player deaths and death payments
-			pluginManager.registerEvent(Event.Type.ENTITY_DEATH, entityMonitorListener, Priority.Lowest, this);
+			pluginManager.registerEvents(entityMonitorListener, this);
+			pluginManager.registerEvents(weatherListener, this);
+			pluginManager.registerEvents(customListener, this);
+			pluginManager.registerEvents(worldListener, this);
 			
-			pluginManager.registerEvent(Event.Type.LIGHTNING_STRIKE, weatherListener, Priority.Lowest, this);
-	
-			pluginManager.registerEvent(Event.Type.CUSTOM_EVENT, customListener, Priority.Normal, this);
-			
-			pluginManager.registerEvent(Event.Type.WORLD_INIT, worldListener, Priority.Normal, this);
-			pluginManager.registerEvent(Event.Type.WORLD_LOAD, worldListener, Priority.Normal, this);
 		}
 	
-		pluginManager.registerEvent(Event.Type.PLAYER_JOIN, playerListener, Priority.Normal, this);
-		pluginManager.registerEvent(Event.Type.PLAYER_QUIT, playerListener, Priority.Normal, this);
+		// Always register these events.
+		pluginManager.registerEvents(playerListener, this);
+		pluginManager.registerEvents(blockListener, this);
+		pluginManager.registerEvents(entityListener, this);
 
-		pluginManager.registerEvent(Event.Type.PLAYER_MOVE, playerListener, Priority.Normal, this);
-		pluginManager.registerEvent(Event.Type.PLAYER_TELEPORT, playerListener, Priority.Normal, this);
-
-		pluginManager.registerEvent(Event.Type.PLAYER_RESPAWN, playerListener, Priority.Normal, this);
-		pluginManager.registerEvent(Event.Type.PLAYER_INTERACT, playerListener, Priority.Normal, this);
-		pluginManager.registerEvent(Event.Type.BLOCK_PLACE, blockListener, Priority.Lowest, this);
-		pluginManager.registerEvent(Event.Type.BLOCK_BREAK, blockListener, Priority.Lowest, this);
-		pluginManager.registerEvent(Event.Type.BLOCK_PHYSICS, blockListener, Priority.Lowest, this);
-		pluginManager.registerEvent(Event.Type.BLOCK_IGNITE, blockListener, Priority.Lowest, this);
-		pluginManager.registerEvent(Event.Type.BLOCK_BURN, blockListener, Priority.Lowest, this);
-		pluginManager.registerEvent(Event.Type.BLOCK_PISTON_EXTEND, blockListener, Priority.Lowest, this);
-		pluginManager.registerEvent(Event.Type.BLOCK_PISTON_RETRACT, blockListener, Priority.Lowest, this);
-		//getServer().getPluginManager().registerEvent(Event.Type.BLOCK_INTERACT, blockListener, Priority.Normal, this);
-
-		pluginManager.registerEvent(Event.Type.ENTITY_DAMAGE, entityListener, Priority.Lowest, this);
-		pluginManager.registerEvent(Event.Type.ENTITY_EXPLODE, entityListener, Priority.Lowest, this);
-		pluginManager.registerEvent(Event.Type.ENDERMAN_PICKUP, entityListener, Priority.Lowest, this);
-		pluginManager.registerEvent(Event.Type.ENDERMAN_PLACE, entityListener, Priority.Lowest, this);
-		pluginManager.registerEvent(Event.Type.ENTITY_INTERACT, entityListener, Priority.Lowest, this);
-		pluginManager.registerEvent(Event.Type.ENTITY_DEATH, entityListener, Priority.Lowest, this);
-		pluginManager.registerEvent(Event.Type.CREATURE_SPAWN, entityListener, Priority.Lowest, this);
-		
-		pluginManager.registerEvent(Event.Type.PAINTING_BREAK, entityListener, Priority.Normal, this);
-		pluginManager.registerEvent(Event.Type.PAINTING_PLACE, entityListener, Priority.Normal, this);
 	}
 
 	private void update() {

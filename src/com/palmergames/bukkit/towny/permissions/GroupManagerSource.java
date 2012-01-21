@@ -7,9 +7,10 @@ import org.anjocaido.groupmanager.events.GMSystemEvent;
 import org.anjocaido.groupmanager.events.GMUserEvent;
 import org.anjocaido.groupmanager.permissions.AnjoPermissionsHandler;
 import org.bukkit.entity.Player;
-import org.bukkit.event.CustomEventListener;
-import org.bukkit.event.Event;
-import org.bukkit.event.Event.Priority;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
+import org.bukkit.plugin.IllegalPluginAccessException;
 import org.bukkit.plugin.Plugin;
 
 import com.palmergames.bukkit.towny.NotRegisteredException;
@@ -27,8 +28,12 @@ public class GroupManagerSource extends TownyPermissionSource {
 	public GroupManagerSource(Towny towny, Plugin test) {
 		this.groupManager = (GroupManager) test;
 		this.plugin = towny;
-
-		plugin.getServer().getPluginManager().registerEvent(Event.Type.CUSTOM_EVENT, new GMCustomEventListener(), Priority.High, plugin);
+		try {
+			plugin.getServer().getPluginManager().registerEvents(new GMCustomEventListener(), plugin);
+		} catch (IllegalPluginAccessException e) {
+			System.out.print("Your Version of GroupManager is out of date. Please update.");
+		}
+		
 	}
 
 	/**
@@ -127,24 +132,21 @@ public class GroupManagerSource extends TownyPermissionSource {
 		return handler.getGroup(player.getName());
 	}
 
-	protected class GMCustomEventListener extends CustomEventListener {
+	protected class GMCustomEventListener implements Listener {
 
 		public GMCustomEventListener() {
 		}
 
-		@Override
-		public void onCustomEvent(Event event) {
+		@EventHandler(priority = EventPriority.HIGH)
+		public void onGMUserEvent(GMUserEvent event) {
 
 			Resident resident = null;
 			Player player = null;
 
-			try {
-				if (event instanceof GMUserEvent) {
-					
 					if (PermissionEventEnums.GMUser_Action.valueOf(event.getEventName()) != null) {
-						GMUserEvent UserEvent = (GMUserEvent) event;
+
 						try {
-							resident = TownyUniverse.getDataSource().getResident(UserEvent.getUserName());
+							resident = TownyUniverse.getDataSource().getResident(event.getUserName());
 							player = plugin.getServer().getPlayerExact(resident.getName());
 							if (player != null) {
 								//setup default modes for this player.
@@ -155,10 +157,17 @@ public class GroupManagerSource extends TownyPermissionSource {
 						}
 	
 					}
-				} else if (event instanceof GMGroupEvent) {
+					
+		}
+		
+		@EventHandler(priority = EventPriority.HIGH)
+		public void onGMGroupEvent(GMGroupEvent event) {
+
+			Player player = null;
+			
 					if (PermissionEventEnums.GMGroup_Action.valueOf(event.getEventName()) != null) {
-						GMGroupEvent GroupEvent = (GMGroupEvent) event;
-						Group group = GroupEvent.getGroup();
+
+						Group group = event.getGroup();
 						// Update all players who are in this group.
 						for (Player toUpdate : TownyUniverse.getOnlinePlayers()) {
 							if (group.equals(getPlayerGroup(toUpdate))) {
@@ -169,8 +178,13 @@ public class GroupManagerSource extends TownyPermissionSource {
 						}
 	
 					}
-	
-				} else if (event instanceof GMSystemEvent) {
+		}
+		
+		@EventHandler(priority = EventPriority.HIGH)
+		public void onGMSystemEvent(GMSystemEvent event) {
+
+			Player player = null;
+			
 					if (PermissionEventEnums.GMGroup_Action.valueOf(event.getEventName()) != null) {
 						// Update all players.
 						for (Player toUpdate : TownyUniverse.getOnlinePlayers()) {
@@ -182,10 +196,7 @@ public class GroupManagerSource extends TownyPermissionSource {
 					}
 	
 				}
-			} catch (IllegalArgumentException ex) {
-				// We are not looking for this event type.
-			}
+
 
 		}
 	}
-}

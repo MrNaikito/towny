@@ -2,9 +2,11 @@ package com.palmergames.bukkit.townywar.listener;
 
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockBurnEvent;
-import org.bukkit.event.block.BlockListener;
 import org.bukkit.event.block.BlockPistonExtendEvent;
 import org.bukkit.event.block.BlockPistonRetractEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
@@ -15,7 +17,7 @@ import com.palmergames.bukkit.townywar.TownyWar;
 import com.palmergames.bukkit.townywar.TownyWarConfig;
 import com.palmergames.bukkit.townywar.event.CellAttackEvent;
 
-public class TownyWarBlockListener extends BlockListener {
+public class TownyWarBlockListener implements Listener {
 	private Towny plugin;
 	
 	public TownyWarBlockListener(Towny plugin) {
@@ -25,7 +27,7 @@ public class TownyWarBlockListener extends BlockListener {
 	/**
 	 * For Testing purposes only.
 	 */
-	@Override
+	@EventHandler(priority = EventPriority.LOWEST)
 	public void onBlockPlace(BlockPlaceEvent event) {
 		Player player = event.getPlayer();
 		Block block = event.getBlockPlaced();
@@ -46,17 +48,17 @@ public class TownyWarBlockListener extends BlockListener {
 		}
 	}
 	
-	@Override
+	@EventHandler(priority = EventPriority.LOWEST)
 	public void onBlockBreak(BlockBreakEvent event) {
 		TownyWar.checkBlock(event.getPlayer(), event.getBlock(), event);
 	}
 	
-	@Override
+	@EventHandler(priority = EventPriority.LOWEST)
 	public void onBlockBurn(BlockBurnEvent event) {
 		TownyWar.checkBlock(null, event.getBlock(), event);
 	}
 	
-	@Override
+	@EventHandler(priority = EventPriority.LOWEST)
 	public void onBlockPistonExtend(BlockPistonExtendEvent event) {
 		for (Block block : event.getBlocks())
 			TownyWar.checkBlock(null, block, event);
@@ -65,7 +67,7 @@ public class TownyWarBlockListener extends BlockListener {
 	/**
 	 * TODO: Need to check if a immutable block is being moved with a sticky piston.
 	 */
-	@Override
+	@EventHandler(priority = EventPriority.LOWEST)
 	public void onBlockPistonRetract(BlockPistonRetractEvent event) {
 
 	}

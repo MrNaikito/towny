@@ -3,10 +3,12 @@ package com.palmergames.bukkit.towny.event;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 //import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.EntityListener;
 
 import com.palmergames.bukkit.towny.EconomyException;
 import com.palmergames.bukkit.towny.NotRegisteredException;
@@ -27,7 +29,7 @@ import com.palmergames.bukkit.towny.war.WarSpoils;
  * This class handles Player deaths and associated costs.
  *
  */
-public class TownyEntityMonitorListener extends EntityListener {
+public class TownyEntityMonitorListener implements Listener {
 
 	private final Towny plugin;
 
@@ -35,7 +37,7 @@ public class TownyEntityMonitorListener extends EntityListener {
 		plugin = instance;
 	}
 
-	@Override
+	@EventHandler(priority = EventPriority.LOWEST)
 	public void onEntityDeath(EntityDeathEvent event) {
 
 		Entity defenderEntity = event.getEntity();

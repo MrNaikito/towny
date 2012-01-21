@@ -7,10 +7,12 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerListener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
@@ -44,14 +46,14 @@ import com.palmergames.bukkit.util.Colors;
  * @author Shade
  * 
  */
-public class TownyPlayerListener extends PlayerListener {
+public class TownyPlayerListener implements Listener {
 	private final Towny plugin;
 
 	public TownyPlayerListener(Towny instance) {
 		plugin = instance;
 	}
 
-	@Override
+	@EventHandler(priority = EventPriority.NORMAL)
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		
 		Player player = event.getPlayer();
@@ -68,7 +70,7 @@ public class TownyPlayerListener extends PlayerListener {
 		}
 	}
 
-	@Override
+	@EventHandler(priority = EventPriority.NORMAL)
 	public void onPlayerQuit(PlayerQuitEvent event) {
 		
 		if (plugin.isError()) {
@@ -87,7 +89,7 @@ public class TownyPlayerListener extends PlayerListener {
 		plugin.deleteCache(event.getPlayer());
 	}
 
-	@Override
+	@EventHandler(priority = EventPriority.NORMAL)
 	public void onPlayerRespawn(PlayerRespawnEvent event) {
 		
 		if (plugin.isError()) {
@@ -113,7 +115,7 @@ public class TownyPlayerListener extends PlayerListener {
 		}
 	}
 
-	@Override
+	@EventHandler(priority = EventPriority.NORMAL)
 	public void onPlayerInteract(PlayerInteractEvent event) {
 		
 		if (plugin.isError()) {
@@ -182,6 +184,80 @@ public class TownyPlayerListener extends PlayerListener {
 			}
 		//plugin.sendDebugMsg("onPlayerItemEvent took " + (System.currentTimeMillis() - start) + "ms");
 		//}
+	}
+	
+	@EventHandler(priority = EventPriority.NORMAL)
+	public void onPlayerMove(PlayerMoveEvent event) {
+		
+		if (plugin.isError()) {
+			event.setCancelled(true);
+			return;
+		}
+		
+		Player player = event.getPlayer();
+		Location from;
+		try {
+			from = plugin.getCache(player).getLastLocation();
+		} catch (NullPointerException e) {
+			from = event.getFrom();
+		}
+		Location to = event.getTo();
+
+		if (from.getBlockX() == to.getBlockX() && from.getBlockY() == to.getBlockY() && from.getBlockZ() == to.getBlockZ())
+			return;
+
+		// Prevent fly/double jump cheats
+		try {
+			if (TownyUniverse.getDataSource().getWorld(player.getWorld().getName()).isUsingTowny())
+				if (TownySettings.isUsingCheatProtection() && !TownyUniverse.getPermissionSource().hasPermission(player, PermissionNodes.CHEAT_BYPASS.getNode()) && (player.getGameMode() != GameMode.CREATIVE))
+					if (event.getEventName() != "PLAYER_TELEPORT" && from.getBlock().getRelative(BlockFace.DOWN).getType() == Material.AIR && player.getFallDistance() == 0 && player.getVelocity().getY() <= -0.6 && (player.getLocation().getY() > 0)) {
+						//plugin.sendErrorMsg(player, "Cheat Detected!");
+
+						Location blockLocation = from;
+
+						//find the first non air block below us
+						while ((blockLocation.getBlock().getType() == Material.AIR) && (blockLocation.getY() > 0))
+							blockLocation.setY(blockLocation.getY() - 1);
+
+						// set to 1 block up so we are not sunk in the ground
+						blockLocation.setY(blockLocation.getY() + 1);
+
+						plugin.getCache(player).setLastLocation(blockLocation);
+						player.teleport(blockLocation);
+						return;
+					}
+		} catch (NotRegisteredException e1) {
+			TownyMessaging.sendErrorMsg(player, TownySettings.getLangString("msg_err_not_configured"));
+			return;
+		}
+
+		try {
+			TownyWorld fromWorld = TownyUniverse.getDataSource().getWorld(from.getWorld().getName());
+			WorldCoord fromCoord = new WorldCoord(fromWorld, Coord.parseCoord(from));
+			TownyWorld toWorld = TownyUniverse.getDataSource().getWorld(to.getWorld().getName());
+			WorldCoord toCoord = new WorldCoord(toWorld, Coord.parseCoord(to));
+			if (!fromCoord.equals(toCoord))
+				onPlayerMoveChunk(player, fromCoord, toCoord, from, to);
+			else {
+				//plugin.sendDebugMsg("    From: " + fromCoord);
+				//plugin.sendDebugMsg("    To:   " + toCoord);
+				//plugin.sendDebugMsg("        " + from.toString());
+				//plugin.sendDebugMsg("        " + to.toString());
+			}
+		} catch (NotRegisteredException e) {
+			TownyMessaging.sendErrorMsg(player, e.getMessage());
+		}
+
+		plugin.getCache(player).setLastLocation(to);
+		plugin.updateCache();
+		//plugin.sendDebugMsg("onBlockMove: " + player.getName() + ": ");
+		//plugin.sendDebugMsg("        " + from.toString());
+		//plugin.sendDebugMsg("        " + to.toString());
+	}
+
+	@EventHandler(priority = EventPriority.NORMAL)
+	public void onPlayerTeleport(PlayerTeleportEvent event) {
+		onPlayerMove(event);
 	}
 
 	public void onPlayerInteractEvent(PlayerInteractEvent event) {
@@ -304,80 +380,6 @@ public class TownyPlayerListener extends PlayerListener {
 		}
 		if (cache.hasBlockErrMsg()) // && (status != TownBlockStatus.UNCLAIMED_ZONE))
 			TownyMessaging.sendErrorMsg(player, cache.getBlockErrMsg());
-	}
-
-	@Override
-	public void onPlayerMove(PlayerMoveEvent event) {
-		
-		if (plugin.isError()) {
-			event.setCancelled(true);
-			return;
-		}
-		
-		Player player = event.getPlayer();
-		Location from;
-		try {
-			from = plugin.getCache(player).getLastLocation();
-		} catch (NullPointerException e) {
-			from = event.getFrom();
-		}
-		Location to = event.getTo();
-
-		if (from.getBlockX() == to.getBlockX() && from.getBlockY() == to.getBlockY() && from.getBlockZ() == to.getBlockZ())
-			return;
-
-		// Prevent fly/double jump cheats
-		try {
-			if (TownyUniverse.getDataSource().getWorld(player.getWorld().getName()).isUsingTowny())
-				if (TownySettings.isUsingCheatProtection() && !TownyUniverse.getPermissionSource().hasPermission(player, PermissionNodes.CHEAT_BYPASS.getNode()) && (player.getGameMode() != GameMode.CREATIVE))
-					if (event.getEventName() != "PLAYER_TELEPORT" && from.getBlock().getRelative(BlockFace.DOWN).getType() == Material.AIR && player.getFallDistance() == 0 && player.getVelocity().getY() <= -0.6 && (player.getLocation().getY() > 0)) {
-						//plugin.sendErrorMsg(player, "Cheat Detected!");
-
-						Location blockLocation = from;
-
-						//find the first non air block below us
-						while ((blockLocation.getBlock().getType() == Material.AIR) && (blockLocation.getY() > 0))
-							blockLocation.setY(blockLocation.getY() - 1);
-
-						// set to 1 block up so we are not sunk in the ground
-						blockLocation.setY(blockLocation.getY() + 1);
-
-						plugin.getCache(player).setLastLocation(blockLocation);
-						player.teleport(blockLocation);
-						return;
-					}
-		} catch (NotRegisteredException e1) {
-			TownyMessaging.sendErrorMsg(player, TownySettings.getLangString("msg_err_not_configured"));
-			return;
-		}
-
-		try {
-			TownyWorld fromWorld = TownyUniverse.getDataSource().getWorld(from.getWorld().getName());
-			WorldCoord fromCoord = new WorldCoord(fromWorld, Coord.parseCoord(from));
-			TownyWorld toWorld = TownyUniverse.getDataSource().getWorld(to.getWorld().getName());
-			WorldCoord toCoord = new WorldCoord(toWorld, Coord.parseCoord(to));
-			if (!fromCoord.equals(toCoord))
-				onPlayerMoveChunk(player, fromCoord, toCoord, from, to);
-			else {
-				//plugin.sendDebugMsg("    From: " + fromCoord);
-				//plugin.sendDebugMsg("    To:   " + toCoord);
-				//plugin.sendDebugMsg("        " + from.toString());
-				//plugin.sendDebugMsg("        " + to.toString());
-			}
-		} catch (NotRegisteredException e) {
-			TownyMessaging.sendErrorMsg(player, e.getMessage());
-		}
-
-		plugin.getCache(player).setLastLocation(to);
-		plugin.updateCache();
-		//plugin.sendDebugMsg("onBlockMove: " + player.getName() + ": ");
-		//plugin.sendDebugMsg("        " + from.toString());
-		//plugin.sendDebugMsg("        " + to.toString());
-	}
-
-	@Override
-	public void onPlayerTeleport(PlayerTeleportEvent event) {
-		onPlayerMove(event);
 	}
 
 	public void onPlayerMoveChunk(Player player, WorldCoord from, WorldCoord to, Location fromLoc, Location toLoc) {
