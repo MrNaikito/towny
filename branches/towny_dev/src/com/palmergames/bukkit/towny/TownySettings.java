@@ -17,7 +17,6 @@ import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
 import org.bukkit.Material;
-import org.bukkit.configuration.ConfigurationSection;
 
 import com.palmergames.bukkit.config.CommentedConfiguration;
 import com.palmergames.bukkit.config.ConfigNodes;
@@ -107,8 +106,8 @@ public class TownySettings {
 	 */
 	public static void loadTownLevelConfig() throws IOException {
 		
-		List<HashMap<String, Object>> levels = config.getList("levels.town_level", null);
-		for (HashMap<String, Object> level : levels) {	
+		List<Map<String, Object>> levels = config.getMapList("levels.town_level");
+		for (Map<String, Object> level : levels) {	
 			
 			newTownLevel((Integer) level.get("numResidents"), (String) level.get("namePrefix"),
 					(String) level.get("namePostfix"), (String) level.get("mayorPrefix"),
@@ -129,8 +128,8 @@ public class TownySettings {
 
     public static void loadNationLevelConfig() throws IOException {
     	
-        List<HashMap<String, Object>> levels = config.getList("levels.nation_level", null);
-        for (HashMap<String, Object> level : levels) {	
+        List<Map<String, Object>> levels = config.getMapList("levels.nation_level");
+        for (Map<String, Object> level : levels) {	
 			
 			newNationLevel((Integer) level.get("numResidents"), (String) level.get("namePrefix"),
 					(String) level.get("namePostfix"), (String) level.get("capitalPrefix"),
@@ -377,11 +376,11 @@ public class TownySettings {
     private static void setDefaultLevels() {
         addComment(ConfigNodes.LEVELS_TOWN_LEVEL.getRoot(), "",
                 "# default Town levels.");
-        List<ConfigurationSection> townLevels = config.getList(ConfigNodes.LEVELS_TOWN_LEVEL.getRoot());
+        List<Map<String, Object>> townLevels = config.getMapList(ConfigNodes.LEVELS_TOWN_LEVEL.getRoot());
         
         if (townLevels == null || townLevels.isEmpty() || townLevels.size() == 0) {
-            List<HashMap<String, Object>> levels = new ArrayList<HashMap<String, Object>>();
-            HashMap<String, Object> level = new HashMap<String, Object>();
+            List<Map<String, Object>> levels = new ArrayList<Map<String, Object>>();
+            Map<String, Object> level = new HashMap<String, Object>();
             level.put("numResidents", 0);
             level.put("namePrefix", "");
             level.put("namePostfix", " Ruins");
@@ -469,11 +468,11 @@ public class TownySettings {
         
         addComment(ConfigNodes.LEVELS_NATION_LEVEL.getRoot(), "",
         		"# default Nation levels.");
-        List<ConfigurationSection> nationLevels = config.getList(ConfigNodes.LEVELS_NATION_LEVEL.getRoot());
+        List<Map<String, Object>> nationLevels = config.getMapList(ConfigNodes.LEVELS_NATION_LEVEL.getRoot());
         
         if (nationLevels == null || nationLevels.isEmpty() || nationLevels.size() == 0) {
-            List<HashMap<String, Object>> levels = new ArrayList<HashMap<String, Object>>();
-            HashMap<String, Object> level = new HashMap<String, Object>();
+            List<Map<String, Object>> levels = new ArrayList<Map<String, Object>>();
+            Map<String, Object> level = new HashMap<String, Object>();
             level.put("numResidents", 0);
             level.put("namePrefix", "Land of ");
             level.put("namePostfix", " (Nation)");

@@ -20,6 +20,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.entity.ThrownPotion;
 import org.bukkit.entity.Wolf;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EndermanPickupEvent;
 import org.bukkit.event.entity.EndermanPlaceEvent;
@@ -28,7 +31,6 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.EntityInteractEvent;
-import org.bukkit.event.entity.EntityListener;
 import org.bukkit.event.painting.PaintingBreakByEntityEvent;
 import org.bukkit.event.painting.PaintingBreakEvent;
 import org.bukkit.event.painting.PaintingPlaceEvent;
@@ -54,7 +56,7 @@ import com.palmergames.bukkit.towny.tasks.ProtectionRegenTask;
 import com.palmergames.bukkit.townywar.TownyWarConfig;
 import com.palmergames.bukkit.util.ArraySort;
 
-public class TownyEntityListener extends EntityListener {
+public class TownyEntityListener implements Listener {
 
 	private final Towny plugin;
 
@@ -62,7 +64,7 @@ public class TownyEntityListener extends EntityListener {
 		plugin = instance;
 	}
 
-	@Override
+	@EventHandler(priority = EventPriority.LOWEST)
 	public void onEntityDamage(EntityDamageEvent event) {
 
 		if (event.isCancelled() || plugin.isError()) {
@@ -119,7 +121,7 @@ public class TownyEntityListener extends EntityListener {
 		}
 	}
 
-	@Override
+	@EventHandler(priority = EventPriority.LOWEST)
 	public void onEntityDeath(EntityDeathEvent event) {
 		
 		if (plugin.isError()) {
@@ -148,7 +150,7 @@ public class TownyEntityListener extends EntityListener {
 		}
 	}
 
-	@Override
+	@EventHandler(priority = EventPriority.LOWEST)
 	public void onCreatureSpawn(CreatureSpawnEvent event) {
 		
 		if (event.isCancelled() || plugin.isError()) {
@@ -192,7 +194,7 @@ public class TownyEntityListener extends EntityListener {
 		}
 	}
 
-	@Override
+	@EventHandler(priority = EventPriority.LOWEST)
 	public void onEntityInteract(EntityInteractEvent event) {
 
 		if (event.isCancelled() || plugin.isError()) {
@@ -222,7 +224,7 @@ public class TownyEntityListener extends EntityListener {
 
 	}
 
-	@Override
+	@EventHandler(priority = EventPriority.LOWEST)
 	public void onEndermanPickup(EndermanPickupEvent event) {
 		
 		if (event.isCancelled() || plugin.isError()) {
@@ -255,7 +257,7 @@ public class TownyEntityListener extends EntityListener {
 		}
 	}
 
-	@Override
+	@EventHandler(priority = EventPriority.LOWEST)
 	public void onEndermanPlace(EndermanPlaceEvent event) {
 		
 		if (event.isCancelled() || plugin.isError()) {
@@ -286,7 +288,7 @@ public class TownyEntityListener extends EntityListener {
 		}
 	}
 
-	@Override
+	@EventHandler(priority = EventPriority.LOWEST)
 	public void onEntityExplode(EntityExplodeEvent event) {
 		
 		if (event.isCancelled() || plugin.isError()) {
@@ -386,7 +388,7 @@ public class TownyEntityListener extends EntityListener {
 		}
 	}
 
-	@Override
+	@EventHandler(priority = EventPriority.LOWEST)
 	public void onPaintingBreak(PaintingBreakEvent event) {
 		
 		if (event.isCancelled() || plugin.isError()) {
@@ -453,7 +455,7 @@ public class TownyEntityListener extends EntityListener {
 		TownyMessaging.sendDebugMsg("onPaintingBreak took " + (System.currentTimeMillis() - start) + "ms (" + event.getCause().name() + ", " + event.isCancelled() + ")");
 	}
 
-	@Override
+	@EventHandler(priority = EventPriority.LOWEST)
 	public void onPaintingPlace(PaintingPlaceEvent event) {
 
 		if (event.isCancelled() || plugin.isError()) {

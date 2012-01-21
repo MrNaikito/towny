@@ -1112,3 +1112,7 @@ v0.78.0.12:
 	***** WARNING BACKUP YOUR CHANNEL SETTINGS AS THEY WILL BE WIPED *****
 	
 	- Moved all chat settings to townyChat's own 'ChatConfig.yml' and removed all remaining chat functions from Towny.
+v0.78.0.13:
+	- Updated to support Dev CraftBukkit for 1.1 with new event system.
+	- Updated minimum CraftBukkit version to 1792.
+	- Implement new Bukkit event system supporting new GroupManager and PEX (if they update).

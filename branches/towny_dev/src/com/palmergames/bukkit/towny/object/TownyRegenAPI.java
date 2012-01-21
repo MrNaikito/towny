@@ -150,7 +150,7 @@ public class TownyRegenAPI extends TownyUniverse {
 	}
 	
 	/**
-	 * Restore the relevant chunk using the snapshot data.
+	 * Restore the relevant chunk using the snapshot data stored in the resident object.
 	 * 
 	 * @param snapshot
 	 * @param resident

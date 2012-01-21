@@ -7,10 +7,12 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockBurnEvent;
 import org.bukkit.event.block.BlockIgniteEvent;
-import org.bukkit.event.block.BlockListener;
 import org.bukkit.event.block.BlockPhysicsEvent;
 import org.bukkit.event.block.BlockPistonExtendEvent;
 import org.bukkit.event.block.BlockPistonRetractEvent;
@@ -37,14 +39,14 @@ import com.palmergames.bukkit.townywar.TownyWar;
 import com.palmergames.bukkit.townywar.TownyWarConfig;
 
 
-public class TownyBlockListener extends BlockListener {
+public class TownyBlockListener implements Listener {
 	private final Towny plugin;
 
 	public TownyBlockListener(Towny instance) {
 		plugin = instance;
 	}
 
-	@Override
+	@EventHandler(priority = EventPriority.LOWEST)
 	public void onBlockPhysics(BlockPhysicsEvent event) {
 		
 
@@ -86,7 +88,7 @@ public class TownyBlockListener extends BlockListener {
 		//plugin.sendDebugMsg("onBlockPhysics took " + (System.currentTimeMillis() - start) + "ms ("+event.isCancelled() +")");
 	}
 	
-	@Override
+	@EventHandler(priority = EventPriority.LOWEST)
 	public void onBlockBreak(BlockBreakEvent event) {
 
 		if (event.isCancelled() || plugin.isError()) {
@@ -160,7 +162,7 @@ public class TownyBlockListener extends BlockListener {
 		//plugin.sendDebugMsg("onBlockBreakEvent took " + (System.currentTimeMillis() - start) + "ms ("+event.getPlayer().getName()+", "+event.isCancelled() +")");
 	}
 
-	@Override
+	@EventHandler(priority = EventPriority.LOWEST)
 	public void onBlockPlace(BlockPlaceEvent event) {
 		
 		if (event.isCancelled() || plugin.isError()) {
@@ -235,7 +237,7 @@ public class TownyBlockListener extends BlockListener {
 	}
 	
 	// prevent blocks igniting if within a protected town area when fire spread is set to off.
-	@Override
+	@EventHandler(priority = EventPriority.LOWEST)
 	public void onBlockBurn(BlockBurnEvent event) {
 		
 		if (event.isCancelled() || plugin.isError()) {
@@ -247,7 +249,7 @@ public class TownyBlockListener extends BlockListener {
 			event.setCancelled(true);
 	}
 			
-	@Override
+	@EventHandler(priority = EventPriority.LOWEST)
 	public void onBlockIgnite(BlockIgniteEvent event) {
 		
 		if (event.isCancelled() || plugin.isError()) {
@@ -260,7 +262,7 @@ public class TownyBlockListener extends BlockListener {
 		
 	}
 	
-	@Override
+	@EventHandler(priority = EventPriority.LOWEST)
 	public void onBlockPistonRetract(BlockPistonRetractEvent event) {
 		
 		if (event.isCancelled() || plugin.isError()) {
@@ -285,7 +287,7 @@ public class TownyBlockListener extends BlockListener {
 		}		
 	}
 	
-	@Override
+	@EventHandler(priority = EventPriority.LOWEST)
 	public void onBlockPistonExtend(BlockPistonExtendEvent event) {
 		
 		if (event.isCancelled() || plugin.isError()) {
