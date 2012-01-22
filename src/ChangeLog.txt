@@ -1122,3 +1122,5 @@ v0.78.0.14:
 v0.78.0.15:
 	- Fixed Error reporting when trying to add a non resident as a town assistant.
 	- Fix flag war to correctly observe it's config enable setting.
+v0.78.0.16:
+	- Fix for my fix for the Bukkti bug mentioned in 0.78.0.14.

@@ -376,7 +376,7 @@ public class TownySettings {
     private static void setDefaultLevels() {
         addComment(ConfigNodes.LEVELS_TOWN_LEVEL.getRoot(), "",
                 "# default Town levels.");
-        if (!config.isConfigurationSection(ConfigNodes.LEVELS_TOWN_LEVEL.getRoot())) {
+        if (!config.contains(ConfigNodes.LEVELS_TOWN_LEVEL.getRoot())) {
         //List<Map<String, Object>> townLevels = config.getMapList(ConfigNodes.LEVELS_TOWN_LEVEL.getRoot());
         	
         //if (townLevels == null || townLevels.isEmpty() || townLevels.size() == 0) {
@@ -472,7 +472,7 @@ public class TownySettings {
         addComment(ConfigNodes.LEVELS_NATION_LEVEL.getRoot(), "",
         		"# default Nation levels.");
         
-        if (!config.isConfigurationSection(ConfigNodes.LEVELS_NATION_LEVEL.getRoot())) {
+        if (!config.contains(ConfigNodes.LEVELS_NATION_LEVEL.getRoot())) {
         //List<Map<String, Object>> nationLevels = config.getMapList(ConfigNodes.LEVELS_NATION_LEVEL.getRoot());
         
         //if (nationLevels == null || nationLevels.isEmpty() || nationLevels.size() == 0) {
