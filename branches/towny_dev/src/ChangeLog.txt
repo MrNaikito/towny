@@ -1119,3 +1119,6 @@ v0.78.0.13:
 v0.78.0.14:
 	- Fix for new installs failing to create a new config due to a bukkit bug in getMapList.
 	- Fix for handling GM System Events.
+v0.78.0.15:
+	- Fixed Error reporting when trying to add a non resident as a town assistant.
+	- Fix flag war to correctly observe it's config enable setting.
