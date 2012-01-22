@@ -1,7 +1,7 @@
 package com.palmergames.bukkit.townywar.listener;
 
 import org.bukkit.block.Block;
-import org.bukkit.entity.Player;
+//import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -9,24 +9,25 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockBurnEvent;
 import org.bukkit.event.block.BlockPistonExtendEvent;
 import org.bukkit.event.block.BlockPistonRetractEvent;
-import org.bukkit.event.block.BlockPlaceEvent;
+//import org.bukkit.event.block.BlockPlaceEvent;
 
 
 import com.palmergames.bukkit.towny.Towny;
 import com.palmergames.bukkit.townywar.TownyWar;
-import com.palmergames.bukkit.townywar.TownyWarConfig;
-import com.palmergames.bukkit.townywar.event.CellAttackEvent;
+//import com.palmergames.bukkit.townywar.TownyWarConfig;
+//import com.palmergames.bukkit.townywar.event.CellAttackEvent;
 
 public class TownyWarBlockListener implements Listener {
-	private Towny plugin;
+	//private Towny plugin;
 	
 	public TownyWarBlockListener(Towny plugin) {
-		this.plugin = plugin;
+		//this.plugin = plugin;
 	}
 	
 	/**
 	 * For Testing purposes only.
 	 */
+	/*
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onBlockPlace(BlockPlaceEvent event) {
 		Player player = event.getPlayer();
@@ -47,6 +48,7 @@ public class TownyWarBlockListener implements Listener {
 			}
 		}
 	}
+	*/
 	
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onBlockBreak(BlockBreakEvent event) {
