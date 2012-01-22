@@ -196,8 +196,8 @@ public class TownyBlockListener implements Listener {
 				|| ((status == TownBlockStatus.OUTSIDER) && (TownyUniverse.getPermissionSource().hasAllTownOverride(player, event.getBlock().getTypeId(), TownyPermission.ActionType.BUILD))))
 				return;
 
-			if ((status == TownBlockStatus.ENEMY && TownyWarConfig.isAllowingAttacks())
-					&& event.getBlock().getType() == TownyWarConfig.getFlagBaseMaterial()) {
+			if (((status == TownBlockStatus.ENEMY) && TownyWarConfig.isAllowingAttacks())
+					&& (event.getBlock().getType() == TownyWarConfig.getFlagBaseMaterial())) {
 					//&& plugin.hasPlayerMode(player, "warflag")) {
 				try {
 					if (TownyWar.callAttackCellEvent(plugin, player, block, worldCoord))
@@ -334,8 +334,8 @@ public class TownyBlockListener implements Listener {
 		if (CurrentTownBlock != destinationTownBlock) {
 
 			// Cancel if either is not null, but other is (wild to town).
-			if ((CurrentTownBlock == null && destinationTownBlock != null)
-			|| (CurrentTownBlock != null && destinationTownBlock == null)) {
+			if (((CurrentTownBlock == null) && (destinationTownBlock != null))
+			|| ((CurrentTownBlock != null) && (destinationTownBlock == null))) {
 				//event.setCancelled(true);
 				return true;
 			}
@@ -386,8 +386,8 @@ public class TownyBlockListener implements Listener {
 				}
 				
 				TownBlock townBlock = townyWorld.getTownBlock(coord);
-				if ((block.getRelative(BlockFace.DOWN).getType() != Material.OBSIDIAN && !townBlock.getTown().isFire() && !townyWorld.isForceFire() && !townBlock.getPermissions().fire)
-						|| (block.getRelative(BlockFace.DOWN).getType() != Material.OBSIDIAN && plugin.getTownyUniverse().isWarTime() && TownySettings.isAllowWarBlockGriefing() && !townBlock.getTown().hasNation())) {
+				if (((block.getRelative(BlockFace.DOWN).getType() != Material.OBSIDIAN) && !townBlock.getTown().isFire() && !townyWorld.isForceFire() && !townBlock.getPermissions().fire)
+						|| ((block.getRelative(BlockFace.DOWN).getType() != Material.OBSIDIAN) && plugin.getTownyUniverse().isWarTime() && TownySettings.isAllowWarBlockGriefing() && !townBlock.getTown().hasNation())) {
 					TownyMessaging.sendDebugMsg("onBlockIgnite: Canceled " + block.getTypeId() + " from igniting within "+coord.toString()+".");
 					return true;
 				}

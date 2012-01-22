@@ -1286,34 +1286,34 @@ public class TownCommand implements CommandExecutor  {
                 townAssistantsAdd(player, town, plugin.getTownyUniverse().getValidatedResidents(player, names));
         }
 
-        public void townAssistantsAdd(Player player, Town town, List<Resident> invited) {
-                //TODO: change variable names from townAdd copypasta
-                ArrayList<Resident> remove = new ArrayList<Resident>();
-                for (Resident newMember : invited)
-                        try {
-                                town.addAssistant(newMember);
-                                plugin.deleteCache(newMember.getName());
-								TownyUniverse.getDataSource().saveResident(newMember);
-                        } catch (AlreadyRegisteredException e) {
-                                remove.add(newMember);
-                        } catch (NotRegisteredException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-                for (Resident newMember : remove)
-                        invited.remove(newMember);
+	public void townAssistantsAdd(Player player, Town town, List<Resident> invited) {
+		//TODO: change variable names from townAdd copypasta
+		ArrayList<Resident> remove = new ArrayList<Resident>();
+		for (Resident newMember : invited)
+			try {
+				town.addAssistant(newMember);
+				plugin.deleteCache(newMember.getName());
+				TownyUniverse.getDataSource().saveResident(newMember);
+			} catch (AlreadyRegisteredException e) {
+				remove.add(newMember);
+			} catch (NotRegisteredException e) {
+				remove.add(newMember);
+				TownyMessaging.sendErrorMsg(player, e.getMessage());
+			}
+		for (Resident newMember : remove)
+			invited.remove(newMember);
 
-                if (invited.size() > 0) {
-                        String msg = "";
+		if (invited.size() > 0) {
+			String msg = "";
 
-                        for (Resident newMember : invited)
-                                msg += newMember.getName() + ", ";
-                        msg = String.format(TownySettings.getLangString("msg_raised_ass"), player.getName(), msg, "town");
-                        TownyMessaging.sendTownMessage(town, ChatTools.color(msg));
-						TownyUniverse.getDataSource().saveTown(town);
-                } else
-                        TownyMessaging.sendErrorMsg(player, TownySettings.getLangString("msg_invalid_name"));
-        }
+			for (Resident newMember : invited)
+				msg += newMember.getName() + ", ";
+			msg = String.format(TownySettings.getLangString("msg_raised_ass"), player.getName(), msg, "town");
+			TownyMessaging.sendTownMessage(town, ChatTools.color(msg));
+			TownyUniverse.getDataSource().saveTown(town);
+		} else
+			TownyMessaging.sendErrorMsg(player, TownySettings.getLangString("msg_invalid_name"));
+	}
 
         /**
          * Confirm player is a mayor or assistant, then get list of filter names
