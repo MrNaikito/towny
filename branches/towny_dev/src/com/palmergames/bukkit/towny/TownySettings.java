@@ -846,6 +846,10 @@ public class TownySettings {
         return getInt(ConfigNodes.FILTERS_MODIFY_CHAT_MAX_LGTH);
     }
     
+    public static int getMaxNameLength() {
+        return getInt(ConfigNodes.FILTERS_MAX_NAME_LGTH);
+    }
+    
     public static long getDeleteTime() {
         return getSeconds(ConfigNodes.RES_SETTING_DELETE_OLD_RESIDENTS_TIME);
 	}
@@ -1525,7 +1529,7 @@ public class TownySettings {
 
     public static boolean isValidRegionName(String name) {
     	// Max name length
-        if (name.length() > 20)
+        if (name.length() > getMaxNameLength())
         	return false;
         // Banned names
         if ((name.equalsIgnoreCase("spawn"))

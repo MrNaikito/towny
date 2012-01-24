@@ -273,6 +273,8 @@ public enum ConfigNodes {
             FILTERS_REGEX_NAME_REMOVE_REGEX("filters_colour_chat.regex.name_remove_regex","[^a-zA-Z0-9._-]"),
             
             FILTERS_MODIFY_CHAT("filters_colour_chat.modify_chat","", ""),
+            FILTERS_MAX_NAME_LGTH("filters_colour_chat.modify_chat.max_name_length","20",
+        		"# Maximum length of Town and Nation names."),
             FILTERS_MODIFY_CHAT_MAX_LGTH("filters_colour_chat.modify_chat.max_title_length","10",
             		"# Maximum length of titles and surnames."),
 
