@@ -7,6 +7,7 @@ import static com.palmergames.bukkit.towny.object.TownyObservableType.UPKEEP_TOW
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.palmergames.bukkit.towny.EconomyException;
 import com.palmergames.bukkit.towny.EmptyNationException;
@@ -246,11 +247,13 @@ public class DailyTimerTask extends TownyTimerTask {
 					// Negative upkeep
 					if (TownySettings.isUpkeepPayingPlots()) {
 						// Pay each plot owner a share of the negative upkeep
-						for (TownBlock townBlock : new ArrayList<TownBlock>(town.getTownBlocks())) {
+						List<TownBlock> plots = new ArrayList<TownBlock>(town.getTownBlocks());
+						
+						for (TownBlock townBlock :plots) {
 							if (townBlock.hasResident())
-								townBlock.getResident().pay((upkeep / town.getTotalBlocks()), "Negative Town Upkeep - Plot income");
+								townBlock.getResident().pay((upkeep / plots.size()), "Negative Town Upkeep - Plot income");
 							else
-								town.pay((upkeep / town.getTotalBlocks()), "Negative Town Upkeep - Plot income");
+								town.pay((upkeep / plots.size()), "Negative Town Upkeep - Plot income");
 						}
 
 					} else {

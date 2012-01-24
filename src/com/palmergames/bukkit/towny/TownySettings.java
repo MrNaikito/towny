@@ -1102,19 +1102,17 @@ public class TownySettings {
 	
 	public static double getTownUpkeepCost(Town town) {
 		double multiplier;
-        
+
 		if (town != null) {
 			if (isUpkeepByPlot()) {
 				multiplier = town.getTownBlocks().size(); //town.getTotalBlocks();
-			}
-			else {
+			} else {
 				multiplier = Double.valueOf(getTownLevel(town).get(TownySettings.TownLevel.UPKEEP_MULTIPLIER).toString());
 			}
-		}
-        else
-        	multiplier = 1.0;
-                
-        return getTownUpkeep() * multiplier;
+		} else
+			multiplier = 1.0;
+
+		return getTownUpkeep() * multiplier;
 	}
 
     public static double getTownUpkeep() {

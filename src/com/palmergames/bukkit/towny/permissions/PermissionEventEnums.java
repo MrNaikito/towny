@@ -21,15 +21,15 @@ public class PermissionEventEnums {
         GROUP_PERMISSIONS_CHANGED,
         GROUP_INHERITANCE_CHANGED,
         GROUP_INFO_CHANGED,
-        GROUP_ADDED,
+        //GROUP_ADDED,
         GROUP_REMOVED,
     }
 	
 	public enum GMSystem_Action {
         RELOADED,
-        SAVED,
+        //SAVED,
         DEFAULT_GROUP_CHANGED,
-        VALIDATE_TOGGLE,
+        //VALIDATE_TOGGLE,
     }
 	
 	// PermissionsEX Event Enums
@@ -41,17 +41,17 @@ public class PermissionEventEnums {
         TIMEDPERMISSION_EXPIRED,
         RANK_CHANGED,
         DEFAULTGROUP_CHANGED,
-        WEIGHT_CHANGED,
-        SAVED,
+        //WEIGHT_CHANGED,
+        //SAVED,
         REMOVED,
     }
 	
 	public enum PEXSystem_Action {
-        BACKEND_CHANGED,
+        //BACKEND_CHANGED,
         RELOADED,
         WORLDINHERITANCE_CHANGED,
         DEFAULTGROUP_CHANGED,
-        DEBUGMODE_TOGGLE,
+        //DEBUGMODE_TOGGLE,
     }
 	
 	

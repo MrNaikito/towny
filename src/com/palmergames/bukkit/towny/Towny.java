@@ -567,11 +567,17 @@ public class Towny extends JavaPlugin {
 
 	public void setPlayerMode(Player player, String[] modes, boolean notify) {
 
-		if (!modes[0].isEmpty()) {
+		if (player == null)
+			return;
+		
+		if ((modes != null) && !modes[0].isEmpty()) {
+			playerMode.remove(player.getName());
+			
 			playerMode.put(player.getName(), Arrays.asList(modes));
 			if (notify)
 				TownyMessaging.sendMsg(player, ("Modes set: " + StringMgmt.join(modes, ",")));
-		}
+		} else
+			playerMode.remove(player.getName());
 	}
 
 	/*
