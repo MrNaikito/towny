@@ -51,6 +51,11 @@ public class RepeatingTimerTask extends TownyTimerTask {
 			}
 			
 		}
+		
+		// Perform the next plot_management block_delete
+		if (TownyRegenAPI.hasDeleteTownBlockIdQueue()) {
+			TownyRegenAPI.doDeleteTownBlockIds(TownyRegenAPI.getDeleteTownBlockIdQueue());
+		}
 	}
 	
 }

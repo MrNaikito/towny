@@ -1129,3 +1129,7 @@ v0.78.0.17:
 	- Fixed Upkeep plot payments to pay on the current size of the town.
 	- Fix PEX out of date message.
 	- Trap errors for GM/PEX events we don't want to track.
+v0.78.0.18:
+	- plot_management block_delete items are now queued and processed one TownBlock at a time, upon a Town unclaiming a plot.
+	- New Day code has been returned to an Asyncronous thread now that the block delete has it's own queue.
+	- Added a new config setting for town open status of new towns 'default_open' in 'Town Claim/new defaults'.
