@@ -1524,8 +1524,11 @@ public class TownySettings {
     }
 
     public static boolean isValidRegionName(String name) {
-        
-        if ((name.toLowerCase() == "spawn")
+    	// Max name length
+        if (name.length() > 20)
+        	return false;
+        // Banned names
+        if ((name.equalsIgnoreCase("spawn"))
                         || (name.equalsIgnoreCase("list"))
                         || (name.equalsIgnoreCase("new"))
                         || (name.equalsIgnoreCase("here"))

@@ -1133,3 +1133,4 @@ v0.78.0.18:
 	- plot_management block_delete items are now queued and processed one TownBlock at a time, upon a Town unclaiming a plot.
 	- New Day code has been returned to an Asyncronous thread now that the block delete has it's own queue.
 	- Added a new config setting for town open status of new towns 'default_open' in 'Town Claim/new defaults'.
+	- Added a limit on town and nation names to 20 characters.
