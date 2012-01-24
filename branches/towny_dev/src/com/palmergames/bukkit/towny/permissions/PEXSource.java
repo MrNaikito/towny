@@ -38,7 +38,7 @@ public class PEXSource extends TownyPermissionSource {
 		try {
 			plugin.getServer().getPluginManager().registerEvents(new PEXCustomEventListener(), plugin);
     	} catch (IllegalPluginAccessException e) {
-			System.out.print("Your Version of GroupManager is out of date. Please update.");
+			System.out.print("Your Version of PEX is out of date. Please update.");
 		}
 	}
 	
@@ -182,34 +182,38 @@ public class PEXSource extends TownyPermissionSource {
 			Resident resident = null;
 			Player player = null;
 
-			if (PermissionEventEnums.PEXEntity_Action.valueOf(event.getEventName()) != null) {
-				PermissionEntityEvent EntityEvent = (PermissionEntityEvent) event;
-				PermissionEntity entity = EntityEvent.getEntity();
-				if (entity instanceof PermissionGroup) {
-					PermissionGroup group = (PermissionGroup) entity;
+			try {
+				if (PermissionEventEnums.PEXEntity_Action.valueOf(event.getEventName()) != null) {
+					PermissionEntityEvent EntityEvent = (PermissionEntityEvent) event;
+					PermissionEntity entity = EntityEvent.getEntity();
+					if (entity instanceof PermissionGroup) {
+						PermissionGroup group = (PermissionGroup) entity;
 
-					// Update all players who are in this group.
-					for (Player toUpdate : TownyUniverse.getOnlinePlayers()) {
-						if (Arrays.asList(getPlayerGroups(toUpdate)).contains(group)) {
-							//setup default modes
-							String[] modes = getPlayerPermissionStringNode(toUpdate.getName(), PermissionNodes.TOWNY_DEFAULT_MODES.getNode()).split(",");
-							plugin.setPlayerMode(player, modes, false);
+						// Update all players who are in this group.
+						for (Player toUpdate : TownyUniverse.getOnlinePlayers()) {
+							if (Arrays.asList(getPlayerGroups(toUpdate)).contains(group)) {
+								//setup default modes
+								String[] modes = getPlayerPermissionStringNode(toUpdate.getName(), PermissionNodes.TOWNY_DEFAULT_MODES.getNode()).split(",");
+								plugin.setPlayerMode(player, modes, false);
+							}
 						}
-					}
 
-				} else if (entity instanceof PermissionUser) {
+					} else if (entity instanceof PermissionUser) {
 
-					try {
-						resident = TownyUniverse.getDataSource().getResident(((PermissionUser) entity).getName());
-						player = plugin.getServer().getPlayerExact(resident.getName());
-						if (player != null) {
-							//setup default modes for this player.
-							String[] modes = getPlayerPermissionStringNode(player.getName(), PermissionNodes.TOWNY_DEFAULT_MODES.getNode()).split(",");
-							plugin.setPlayerMode(player, modes, false);
+						try {
+							resident = TownyUniverse.getDataSource().getResident(((PermissionUser) entity).getName());
+							player = plugin.getServer().getPlayerExact(resident.getName());
+							if (player != null) {
+								//setup default modes for this player.
+								String[] modes = getPlayerPermissionStringNode(player.getName(), PermissionNodes.TOWNY_DEFAULT_MODES.getNode()).split(",");
+								plugin.setPlayerMode(player, modes, false);
+							}
+						} catch (NotRegisteredException x) {
 						}
-					} catch (NotRegisteredException x) {
 					}
 				}
+			} catch (IllegalArgumentException e) {
+				// Not tracking this event type
 			}
 		}
 
@@ -218,17 +222,20 @@ public class PEXSource extends TownyPermissionSource {
 
 			Player player = null;
 
-			if (PermissionEventEnums.PEXSystem_Action.valueOf(event.getEventName()) != null) {
-				// Update all players.
-				for (Player toUpdate : TownyUniverse.getOnlinePlayers()) {
-					//setup default modes
-					String[] modes = getPlayerPermissionStringNode(toUpdate.getName(), PermissionNodes.TOWNY_DEFAULT_MODES.getNode()).split(",");
-					plugin.setPlayerMode(player, modes, false);
+			try {
+				if (PermissionEventEnums.PEXSystem_Action.valueOf(event.getEventName()) != null) {
+					// Update all players.
+					for (Player toUpdate : TownyUniverse.getOnlinePlayers()) {
+						//setup default modes
+						String[] modes = getPlayerPermissionStringNode(toUpdate.getName(), PermissionNodes.TOWNY_DEFAULT_MODES.getNode()).split(",");
+						plugin.setPlayerMode(player, modes, false);
+					}
 				}
+			} catch (IllegalArgumentException e) {
+				// Not tracking this event type
 			}
 
 		}
-
 	}
 }
 	

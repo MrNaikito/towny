@@ -143,60 +143,71 @@ public class GroupManagerSource extends TownyPermissionSource {
 			Resident resident = null;
 			Player player = null;
 
-					if (PermissionEventEnums.GMUser_Action.valueOf(event.getEventName()) != null) {
+			try {
+				if (PermissionEventEnums.GMUser_Action.valueOf(event.getEventName()) != null) {
 
-						try {
-							resident = TownyUniverse.getDataSource().getResident(event.getUserName());
-							player = plugin.getServer().getPlayerExact(resident.getName());
-							if (player != null) {
-								//setup default modes for this player.
-								String[] modes = getPlayerPermissionStringNode(player.getName(), PermissionNodes.TOWNY_DEFAULT_MODES.getNode()).split(",");
-								plugin.setPlayerMode(player, modes, false);
-							}
-						} catch (NotRegisteredException x) {
+					try {
+						resident = TownyUniverse.getDataSource().getResident(event.getUserName());
+						player = plugin.getServer().getPlayerExact(resident.getName());
+						if (player != null) {
+							//setup default modes for this player.
+							String[] modes = getPlayerPermissionStringNode(player.getName(), PermissionNodes.TOWNY_DEFAULT_MODES.getNode()).split(",");
+							plugin.setPlayerMode(player, modes, false);
 						}
-	
+					} catch (NotRegisteredException x) {
 					}
-					
+
+				}
+			} catch (IllegalArgumentException e) {
+				// Not tracking this event type
+			}
+
 		}
-		
+
 		@EventHandler(priority = EventPriority.HIGH)
 		public void onGMGroupEvent(GMGroupEvent event) {
 
 			Player player = null;
-			
-					if (PermissionEventEnums.GMGroup_Action.valueOf(event.getEventName()) != null) {
 
-						Group group = event.getGroup();
-						// Update all players who are in this group.
-						for (Player toUpdate : TownyUniverse.getOnlinePlayers()) {
-							if (group.equals(getPlayerGroup(toUpdate))) {
-								//setup default modes
-								String[] modes = getPlayerPermissionStringNode(toUpdate.getName(), PermissionNodes.TOWNY_DEFAULT_MODES.getNode()).split(",");
-								plugin.setPlayerMode(player, modes, false);
-							}
-						}
-	
-					}
-		}
-		
-		@EventHandler(priority = EventPriority.HIGH)
-		public void onGMSystemEvent(GMSystemEvent event) {
+			try {
+				if (PermissionEventEnums.GMGroup_Action.valueOf(event.getEventName()) != null) {
 
-			Player player = null;
-			
-					if (PermissionEventEnums.GMSystem_Action.valueOf(event.getEventName()) != null) {
-						// Update all players.
-						for (Player toUpdate : TownyUniverse.getOnlinePlayers()) {
+					Group group = event.getGroup();
+					// Update all players who are in this group.
+					for (Player toUpdate : TownyUniverse.getOnlinePlayers()) {
+						if (group.equals(getPlayerGroup(toUpdate))) {
 							//setup default modes
 							String[] modes = getPlayerPermissionStringNode(toUpdate.getName(), PermissionNodes.TOWNY_DEFAULT_MODES.getNode()).split(",");
 							plugin.setPlayerMode(player, modes, false);
 						}
-	
 					}
-	
-				}
 
+				}
+			} catch (IllegalArgumentException e) {
+				// Not tracking this event type
+			}
+		}
+
+		@EventHandler(priority = EventPriority.HIGH)
+		public void onGMSystemEvent(GMSystemEvent event) {
+
+			Player player = null;
+
+			try {
+				if (PermissionEventEnums.GMSystem_Action.valueOf(event.getEventName()) != null) {
+					// Update all players.
+					for (Player toUpdate : TownyUniverse.getOnlinePlayers()) {
+						//setup default modes
+						String[] modes = getPlayerPermissionStringNode(toUpdate.getName(), PermissionNodes.TOWNY_DEFAULT_MODES.getNode()).split(",");
+						plugin.setPlayerMode(player, modes, false);
+					}
+
+				}
+			} catch (IllegalArgumentException e) {
+				// Not tracking this event type
+			}
 
 		}
+
+	}
 	}
