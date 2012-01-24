@@ -7,7 +7,9 @@ import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.ChunkSnapshot;
+import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.block.Block;
 
 import com.palmergames.bukkit.towny.TownyMessaging;
 import com.palmergames.bukkit.towny.TownySettings;
@@ -23,6 +25,9 @@ public class TownyRegenAPI extends TownyUniverse {
 	
 	// table containing snapshot data of active reversions.
 	private static Hashtable<String, PlotBlockData> PlotChunks = new Hashtable<String, PlotBlockData>();
+	
+	// List of all old plots still to be processed for Block removal
+	private static List<WorldCoord> deleteTownBlockIdQueue = new ArrayList<WorldCoord>();
 	
 	// A list of worldCoords which are needing snapshots
 	private static List<WorldCoord> worldCoords = new ArrayList<WorldCoord>();
@@ -175,6 +180,105 @@ public class TownyRegenAPI extends TownyUniverse {
 			
 			TownyMessaging.sendMessage(Bukkit.getPlayerExact(resident.getName()), TownySettings.getLangString("msg_undo_complete"));
 
+	}
+	
+	/////////////////////////////////
+	
+	/**
+	 * @return true if there are any chunks being processed.
+	 */
+	public static boolean hasDeleteTownBlockIdQueue() {
+		return !deleteTownBlockIdQueue.isEmpty();
+	}
+	
+	public static boolean isDeleteTownBlockIdQueue(WorldCoord plot) {
+		return deleteTownBlockIdQueue.contains(plot);
+	}
+
+	public static void addDeleteTownBlockIdQueue(WorldCoord plot) {
+		if (!deleteTownBlockIdQueue.contains(plot))
+			deleteTownBlockIdQueue.add(plot);
+	}
+
+	public static WorldCoord getDeleteTownBlockIdQueue() {
+		if (!deleteTownBlockIdQueue.isEmpty()) {
+			WorldCoord wc = deleteTownBlockIdQueue.get(0);
+			deleteTownBlockIdQueue.remove(0);
+			return wc;
+		}
+		return null;
+	}
+
+	/**
+	 * Deletes all of a specified block type from a TownBlock
+	 * 
+	 * @param townBlock
+	 * @param material
+	 */
+	public static void doDeleteTownBlockIds(WorldCoord worldCoord) {
+
+		//Block block = null;
+		World world = null;
+		int plotSize = TownySettings.getTownBlockSize();
+
+		TownyMessaging.sendDebugMsg("Processing deleteTownBlockIds");
+
+		world = Bukkit.getWorld(worldCoord.getWorld().getName());
+		
+		if (world != null) {
+			/*
+			if (!world.isChunkLoaded(MinecraftTools.calcChunk(townBlock.getX()), MinecraftTools.calcChunk(townBlock.getZ())))
+				return;
+			*/
+			int height = world.getMaxHeight() - 1;
+			int worldx = worldCoord.getX() * plotSize, worldz = worldCoord.getZ() * plotSize;
+
+			for (int z = 0; z < plotSize; z++)
+				for (int x = 0; x < plotSize; x++)
+					for (int y = height; y > 0; y--) { //Check from bottom up else minecraft won't remove doors
+						Block block = world.getBlockAt(worldx + x, y, worldz + z);
+						if (worldCoord.getWorld().isPlotManagementDeleteIds(block.getTypeId())) {
+							block.setType(Material.AIR);
+						}
+						block = null;
+					}
+		}
+
+	}
+	
+	/**
+	 * Deletes all of a specified block type from a TownBlock
+	 * 
+	 * @param townBlock
+	 * @param material
+	 */
+	public static void deleteTownBlockMaterial(TownBlock townBlock, int material) {
+
+		//Block block = null;
+		int plotSize = TownySettings.getTownBlockSize();
+
+		TownyMessaging.sendDebugMsg("Processing deleteTownBlockMaterial");
+
+		World world = Bukkit.getWorld(townBlock.getWorld().getName());
+		
+		if (world != null) {
+			/*
+			if (!world.isChunkLoaded(MinecraftTools.calcChunk(townBlock.getX()), MinecraftTools.calcChunk(townBlock.getZ())))
+				return;
+			*/
+			int height = world.getMaxHeight() - 1;
+			int worldx = townBlock.getX() * plotSize, worldz = townBlock.getZ() * plotSize;
+
+			for (int z = 0; z < plotSize; z++)
+				for (int x = 0; x < plotSize; x++)
+					for (int y = height; y > 0; y--) { //Check from bottom up else minecraft won't remove doors
+						Block block = world.getBlockAt(worldx + x, y, worldz + z);
+						if (block.getTypeId() == material) {
+							block.setType(Material.AIR);
+						}
+						block = null;
+					}
+		}
 	}
 
 	

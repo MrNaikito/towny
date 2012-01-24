@@ -16,7 +16,6 @@ import javax.naming.InvalidNameException;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
@@ -57,6 +56,8 @@ public class TownyUniverse extends TownyObject {
 	
 	private Hashtable<BlockLocation, ProtectionRegenTask> protectionRegenTasks = new Hashtable<BlockLocation, ProtectionRegenTask>();
 	private Set<Block> protectionPlaceholders = new HashSet<Block>();
+	
+	
 	//private static Hashtable<String, PlotBlockData> PlotChunks = new Hashtable<String, PlotBlockData>();
 
 	// private List<Election> elections;
@@ -91,7 +92,7 @@ public class TownyUniverse extends TownyObject {
 		if (!isDailyTimerRunning())
 			toggleDailyTimer(true);
 		//dailyTimer.schedule(new DailyTimerTask(this), 0);
-		if (getPlugin().getServer().getScheduler().scheduleSyncDelayedTask(getPlugin(), new DailyTimerTask(this)) == -1)
+		if (getPlugin().getServer().getScheduler().scheduleAsyncDelayedTask(getPlugin(), new DailyTimerTask(this)) == -1)
 			TownyMessaging.sendErrorMsg("Could not schedule newDay.");
 		setChangedNotify(NEW_DAY);
 	}
@@ -124,7 +125,7 @@ public class TownyUniverse extends TownyObject {
 		if (on && !isDailyTimerRunning()) {
 			long timeTillNextDay = TownyUtil.townyTime();
 			TownyMessaging.sendMsg("Time until a New Day: " + TimeMgmt.formatCountdownTime(timeTillNextDay));
-			dailyTask = getPlugin().getServer().getScheduler().scheduleSyncRepeatingTask(getPlugin(), new DailyTimerTask(this), MinecraftTools.convertToTicks(timeTillNextDay), MinecraftTools.convertToTicks(TownySettings.getDayInterval()));
+			dailyTask = getPlugin().getServer().getScheduler().scheduleAsyncRepeatingTask(getPlugin(), new DailyTimerTask(this), MinecraftTools.convertToTicks(timeTillNextDay), MinecraftTools.convertToTicks(TownySettings.getDayInterval()));
 			if (dailyTask == -1)
 				TownyMessaging.sendErrorMsg("Could not schedule new day loop.");
 		} else if (!on && isDailyTimerRunning()) {
@@ -662,79 +663,6 @@ public class TownyUniverse extends TownyObject {
 	public void setPlugin(Towny plugin) {
 		TownyUniverse.plugin = plugin;
 	}	
-
-	public void deleteTownBlockIds(TownBlock townBlock) {
-
-		//Block block = null;
-		World world = null;
-		int plotSize = TownySettings.getTownBlockSize();
-
-		TownyMessaging.sendDebugMsg("Processing deleteTownBlockIds");
-
-		try {
-			world = plugin.getServerWorld(townBlock.getWorld().getName());
-			/*
-			if (!world.isChunkLoaded(MinecraftTools.calcChunk(townBlock.getX()), MinecraftTools.calcChunk(townBlock.getZ())))
-				return;
-			*/
-			int height = world.getMaxHeight() - 1;
-			int worldx = townBlock.getX() * plotSize, worldz = townBlock.getZ() * plotSize;
-
-			for (int z = 0; z < plotSize; z++)
-				for (int x = 0; x < plotSize; x++)
-					for (int y = height; y > 0; y--) { //Check from bottom up else minecraft won't remove doors
-						Block block = world.getBlockAt(worldx + x, y, worldz + z);
-						if (townBlock.getWorld().isPlotManagementDeleteIds(block.getTypeId())) {
-							block.setType(Material.AIR);
-						}
-						block = null;
-					}
-		} catch (NotRegisteredException e1) {
-			// Failed to get world.
-			e1.printStackTrace();
-		}
-
-		//block = null;
-		world = null;
-	}
-
-	/**
-	 * Deletes all of a specified block type from a TownBlock
-	 * 
-	 * @param townBlock
-	 * @param material
-	 */
-	public void deleteTownBlockMaterial(TownBlock townBlock, int material) {
-
-		//Block block = null;
-		int plotSize = TownySettings.getTownBlockSize();
-
-		TownyMessaging.sendDebugMsg("Processing deleteTownBlockId");
-
-		try {
-			World world = plugin.getServerWorld(townBlock.getWorld().getName());
-			/*
-			if (!world.isChunkLoaded(MinecraftTools.calcChunk(townBlock.getX()), MinecraftTools.calcChunk(townBlock.getZ())))
-				return;
-			*/
-			int height = world.getMaxHeight() - 1;
-			int worldx = townBlock.getX() * plotSize, worldz = townBlock.getZ() * plotSize;
-
-			for (int z = 0; z < plotSize; z++)
-				for (int x = 0; x < plotSize; x++)
-					for (int y = height; y > 0; y--) { //Check from bottom up else minecraft won't remove doors
-						Block block = world.getBlockAt(worldx + x, y, worldz + z);
-						if (block.getTypeId() == material) {
-							block.setType(Material.AIR);
-						}
-						block = null;
-					}
-		} catch (NotRegisteredException e1) {
-			// Failed to get world.
-			e1.printStackTrace();
-		}
-
-	}
 
 	public void sendUniverseTree(CommandSender sender) {
 		for (String line : getTreeString(0))
@@ -1320,6 +1248,17 @@ public class TownyUniverse extends TownyObject {
 	@Deprecated
 	public List<Resident> getResidents(Player player, String[] names) {
 	    return getDataSource().getResidents(player, names);
+	}
+	
+	/**
+	 * (Please use addDeleteTownBlockIdQueue in TownyRegenAPI)
+	 * 
+	 * @param townBlock
+	 */
+	@Deprecated
+	public void deleteTownBlockIds(TownBlock townBlock) {
+		WorldCoord worldCoord = townBlock.getWorldCoord();
+		TownyRegenAPI.addDeleteTownBlockIdQueue(worldCoord);
 	}
 	
 	/*

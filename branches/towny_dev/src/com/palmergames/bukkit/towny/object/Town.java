@@ -45,7 +45,7 @@ public class Town extends TownBlockOwner implements Walled, ResidentList {
 		hasUpkeep = true;
 		isPublic = TownySettings.getTownDefaultPublic();
 		isTaxPercentage = false;
-		isOpen = false;
+		isOpen = TownySettings.getTownDefaultOpen();
 		permissions.loadDefault(this);
 	}
 

@@ -24,6 +24,7 @@ import com.palmergames.bukkit.towny.object.TownBlock;
 import com.palmergames.bukkit.towny.object.TownBlockOwner;
 import com.palmergames.bukkit.towny.object.TownBlockType;
 import com.palmergames.bukkit.towny.object.TownyEconomyObject;
+import com.palmergames.bukkit.towny.object.TownyRegenAPI;
 import com.palmergames.bukkit.towny.object.TownyUniverse;
 import com.palmergames.bukkit.towny.object.TownyWorld;
 import com.palmergames.bukkit.towny.object.WorldCoord;
@@ -289,7 +290,7 @@ public class PlotCommand implements CommandExecutor {
 						if (townBlock.isOwner(town) && (!townBlock.hasResident())) {
 							for (String material : world.getPlotManagementMayorDelete())
 								if (Material.matchMaterial(material) != null) {
-									plugin.getTownyUniverse().deleteTownBlockMaterial(townBlock, Material.getMaterial(material).getId());
+									TownyRegenAPI.deleteTownBlockMaterial(townBlock, Material.getMaterial(material).getId());
 									player.sendMessage(String.format(TownySettings.getLangString("msg_clear_plot_material"), material));
 								} else
 									throw new TownyException(String.format(TownySettings.getLangString("msg_err_invalid_property"), material));

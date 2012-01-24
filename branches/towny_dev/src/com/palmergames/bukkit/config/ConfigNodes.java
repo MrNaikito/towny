@@ -91,6 +91,7 @@ public enum ConfigNodes {
 		                    "############################################################", ""),
 		                    
 		    TOWN_DEF_PUBLIC("town.default_public","true", "# Default public status of the town (used for /town spawn)"),
+		    TOWN_DEF_OPEN("town.default_open","false", "# Default Open status of the town (are new towns open and joinable by anyone at creation?)"),
 		    TOWN_MAX_PURCHASED_BLOCKS("town.max_purchased_blocks", "0", "# Limits the maximum amount of bonus blocks a town can buy."),
             TOWN_MAX_PLOTS_PER_RESIDENT("town.max_plots_per_resident","100", "# maximum number of plots any single resident can own"),
             TOWN_LIMIT("town.town_limit","3000", "# Maximum number of towns allowed on the server."),

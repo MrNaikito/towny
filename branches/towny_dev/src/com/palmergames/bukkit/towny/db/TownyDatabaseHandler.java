@@ -227,7 +227,7 @@ public abstract class TownyDatabaseHandler extends TownyDataSource {
 			saveTown(town);
 
 		if (townBlock.getWorld().isUsingPlotManagementDelete())
-			universe.deleteTownBlockIds(townBlock);
+			TownyRegenAPI.addDeleteTownBlockIdQueue(townBlock.getWorldCoord());
 
 		// Move the plot to be restored
 		if (townBlock.getWorld().isUsingPlotManagementRevert()) {

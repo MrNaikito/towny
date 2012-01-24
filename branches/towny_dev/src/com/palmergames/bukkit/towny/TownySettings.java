@@ -927,6 +927,10 @@ public class TownySettings {
 		return getBoolean(ConfigNodes.TOWN_DEF_PUBLIC);
 	}
 	
+	public static boolean getTownDefaultOpen() {
+		return getBoolean(ConfigNodes.TOWN_DEF_OPEN);
+	}
+	
 	public static boolean hasTownLimit() {
 		return getTownLimit() == 0;
 	}
