@@ -1134,3 +1134,10 @@ v0.78.0.18:
 	- New Day code has been returned to an Asyncronous thread now that the block delete has it's own queue.
 	- Added a new config setting for town open status of new towns 'default_open' in 'Town Claim/new defaults'.
 	- Added a character limit on town and nation names 'max_name_length'. Defaults to 20 characters.
+v0.78.0.19:
+	- Added potion splash protection for non PvP areas.
+	- Nation tax now follow the 'max_tax_amount' cap.
+	- Outposts can now have their own spawns.
+	  The plot you claim as an outpost is the plot which can contain a spawn. It cannot be moved to another plot.
+	  Outpost spawns can be set with '/town set outpost'
+	  Outpost spawns can be used via '/town outpost x' (With x being a number 1 - however many outposts you own).

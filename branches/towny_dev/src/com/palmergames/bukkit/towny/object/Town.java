@@ -2,6 +2,7 @@ package com.palmergames.bukkit.towny.object;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.bukkit.Location;
@@ -21,6 +22,7 @@ import com.palmergames.bukkit.wallgen.Walled;
 public class Town extends TownBlockOwner implements Walled, ResidentList {
 	private List<Resident> residents = new ArrayList<Resident>();
 	private List<Resident> assistants = new ArrayList<Resident>();
+	private List<Location> outpostSpawns = new ArrayList<Location>();
 	private Wall wall = new Wall();
 	private Resident mayor;
 	private int bonusBlocks, purchasedBlocks;
@@ -305,9 +307,11 @@ public class Town extends TownBlockOwner implements Walled, ResidentList {
 			setWorld(homeBlock.getWorld());
 		}
 
+		// Attempt to reset the spawn to make sure it's in the homeblock
 		try {
 			setSpawn(spawn);
 		} catch (TownyException e) {
+			// Spawn is not in the homeblock so null.
 			spawn = null;
 		} catch (NullPointerException e) {
 			// In the event that spawn is already null
@@ -494,6 +498,7 @@ public class Town extends TownBlockOwner implements Walled, ResidentList {
 		residents.clear();
 		assistants.clear();
 		homeBlock = null;
+		outpostSpawns.clear();
 
 		try {
 			if (hasWorld()) {
@@ -518,12 +523,87 @@ public class Town extends TownBlockOwner implements Walled, ResidentList {
 		if (!hasTownBlock(townBlock))
 			throw new NotRegisteredException();
 		else {
+			// Remove the spawn point for this outpost.
+			if (townBlock.isOutpost())
+				removeOutpostSpawn(townBlock.getCoord());
+			
+			// Clear the towns homeblock if this is it.
 			try {
 				if (getHomeBlock() == townBlock)
 					setHomeBlock(null);
 			} catch (TownyException e) {
 			}
 			townBlocks.remove(townBlock);
+		}
+	}
+	
+	/**
+	 * Add or update an outpost spawn
+	 * 
+	 * @param spawn
+	 * @throws TownyException 
+	 */
+	public void addOutpostSpawn(Location spawn) throws TownyException {
+		
+		removeOutpostSpawn(Coord.parseCoord(spawn));
+		
+		Coord spawnBlock = Coord.parseCoord(spawn);
+		
+		try {
+			TownBlock outpost = TownyUniverse.getDataSource().getWorld(spawn.getWorld().getName()).getTownBlock(spawnBlock);
+			if (outpost.getX() == spawnBlock.getX() && outpost.getZ() == spawnBlock.getZ()) {
+				if (!outpost.isOutpost())
+					throw new TownyException("Location is not within an outpost plot.");
+				
+				outpostSpawns.add(spawn);
+			}
+			
+		} catch (NotRegisteredException e) {
+			throw new TownyException("Location is not within a Town.");
+		}
+		
+		
+				
+	}
+	
+	/**
+	 * Return the Location for this Outpost index.
+	 * 
+	 * @param index
+	 * @return Location of outpost spawn
+	 * @throws TownyException 
+	 */
+	public Location getOutpostSpawn(Integer index) throws TownyException {
+		if (getMaxOutpostSpawn() == 0)
+			throw new TownyException("Town has no outpost spawns set.");
+		
+		return outpostSpawns.get(Math.min(getMaxOutpostSpawn()-1, Math.max(0, index-1)));
+	}
+
+	public int getMaxOutpostSpawn() {
+		return outpostSpawns.size();
+	}
+	
+	public boolean hasOutpostSpawn() {
+		return (outpostSpawns.size() > 0);
+	}
+	
+	/**
+	 * Get an unmodifiable List of all outpost spawns.
+	 * 
+	 * @return List of outpostSpawns
+	 */
+	public List<Location> getAllOutpostSpawns() {
+		return Collections.unmodifiableList(outpostSpawns);
+	}
+	
+	private void removeOutpostSpawn(Coord coord) {
+		
+		for (Location spawn : new ArrayList<Location>(outpostSpawns)) {
+			Coord spawnBlock = Coord.parseCoord(spawn);
+			if ((coord.getX() == spawnBlock.getX()) && (coord.getZ() == coord.getZ())) {
+				outpostSpawns.remove(spawn);
+			}			
 		}
 	}
 

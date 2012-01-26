@@ -235,7 +235,7 @@ public class TownyAdminCommand implements CommandExecutor {
 				List<WorldCoord> selection;
 				selection = TownyUtil.selectWorldCoordArea(null, new WorldCoord(world, Coord.parseCoord(player)), split);
 
-				new TownClaim(plugin, player, null, selection, false, true).start();
+				new TownClaim(plugin, player, null, selection, false, false, true).start();
 
 			} catch (TownyException x) {
 				TownyMessaging.sendErrorMsg(player, x.getMessage());

@@ -158,7 +158,9 @@ public class TownCommand implements CommandExecutor  {
                         else if (split[0].equalsIgnoreCase("assistant"))
                                 townAssistant(player, newSplit);
                         else if (split[0].equalsIgnoreCase("spawn"))
-                     			townSpawn(player, newSplit);
+                     			townSpawn(player, newSplit, false);
+                        else if (split[0].equalsIgnoreCase("outpost"))
+                 				townSpawn(player, newSplit, true);
                         else if (split[0].equalsIgnoreCase("delete"))
                                 townDelete(player, newSplit);
                         else if (split[0].equalsIgnoreCase("join"))
@@ -403,7 +405,7 @@ public class TownCommand implements CommandExecutor  {
                         player.sendMessage(ChatTools.formatCommand("", "/town set", "board [message ... ]", ""));
                         player.sendMessage(ChatTools.formatCommand("", "/town set", "mayor " + TownySettings.getLangString("town_help_2"), ""));
                         player.sendMessage(ChatTools.formatCommand("", "/town set", "homeblock", ""));
-                        player.sendMessage(ChatTools.formatCommand("", "/town set", "spawn", ""));
+                        player.sendMessage(ChatTools.formatCommand("", "/town set", "spawn/outpost", ""));
                         player.sendMessage(ChatTools.formatCommand("", "/town set", "perm ...", "'/town set perm' " + TownySettings.getLangString("res_5")));
                         //player.sendMessage(ChatTools.formatCommand("", "/town set", "pvp [on/off]", ""));
                         player.sendMessage(ChatTools.formatCommand("", "/town set", "taxes [$]", ""));
@@ -653,7 +655,7 @@ public class TownCommand implements CommandExecutor  {
                                         TownyMessaging.sendErrorMsg(player, e.getMessage());
                                         return;
                                 }
-                        } else if (split[0].equalsIgnoreCase("spawn"))
+                        } else if (split[0].equalsIgnoreCase("spawn")) {
                                 try {
                                         town.setSpawn(player.getLocation());
                                         TownyMessaging.sendMsg(player, TownySettings.getLangString("msg_set_town_spawn"));
@@ -661,7 +663,15 @@ public class TownCommand implements CommandExecutor  {
                                         TownyMessaging.sendErrorMsg(player, e.getMessage());
                                         return;
                                 }
-                        else if (split[0].equalsIgnoreCase("perm")) {
+                        } else if (split[0].equalsIgnoreCase("outpost")) {
+                            try {
+                                town.addOutpostSpawn(player.getLocation());
+                                TownyMessaging.sendMsg(player, TownySettings.getLangString("msg_set_outpost_spawn"));
+                            } catch (TownyException e) {
+                                TownyMessaging.sendErrorMsg(player, e.getMessage());
+                                return;
+                            }
+                        } else if (split[0].equalsIgnoreCase("perm")) {
                         	//Make sure we are allowed to set these permissions.
                         	try {
                         		toggleTest(player,town,StringMgmt.join(split, " "));
@@ -915,16 +925,17 @@ public class TownCommand implements CommandExecutor  {
                 TownyMessaging.sendMsg(player, String.format(TownySettings.getLangString("msg_left_town"), resident.getName()));
         }
         
-        public static void townSpawn(Player player, String[] split) {
+        public static void townSpawn(Player player, String[] split, Boolean outpost) {
         	try {
                 boolean isTownyAdmin = TownyUniverse.getPermissionSource().isTownyAdmin(player);
                 Resident resident = TownyUniverse.getDataSource().getResident(player.getName());
                 Town town;
+                Location spawnLoc;
                 String notAffordMSG;
                 TownSpawnLevel townSpawnPermission;
                 
                 // Set target town and affiliated messages.
-                if (split.length == 0) {
+                if ((split.length == 0) || ((split.length > 0) && (outpost))) {
                 	town = resident.getTown();
                     notAffordMSG = TownySettings.getLangString("msg_err_cant_afford_tp");
             	} else {
@@ -932,6 +943,25 @@ public class TownCommand implements CommandExecutor  {
             		town = TownyUniverse.getDataSource().getTown(split[0]);
                 	notAffordMSG = String.format(TownySettings.getLangString("msg_err_cant_afford_tp_town"), town.getName());
             	}
+                
+                if (outpost) {
+                	
+                	if (!town.hasOutpostSpawn())
+                		throw new TownyException(TownySettings.getLangString("msg_err_outpost_spawn"));
+                	
+                	Integer index;
+                	try {
+                		index = Integer.parseInt(split[split.length-1]);
+                	} catch (NumberFormatException e) {
+                		// invalid entry so assume the first outpost
+                		index = 1;
+                	} catch (ArrayIndexOutOfBoundsException i) {
+                		// Number not present so assume the first outpost.
+                		index = 1;
+                	}
+                	spawnLoc = town.getOutpostSpawn(Math.max(1, index));
+                } else
+                	spawnLoc = town.getSpawn();
                 
                 // Determine conditions
                 if (isTownyAdmin) {
@@ -1002,7 +1032,7 @@ public class TownCommand implements CommandExecutor  {
                 	throw new TownyException(notAffordMSG);
                 
                 // Used later to make sure the chunk we teleport to is loaded.
-                Chunk chunk = town.getSpawn().getWorld().getChunkAt(town.getSpawn().getBlock());
+                Chunk chunk = spawnLoc.getChunk();
                 
                 // Essentials tests
                 boolean UsingESS = plugin.isEssentials();
@@ -1017,7 +1047,7 @@ public class TownCommand implements CommandExecutor  {
                                 if (!chunk.isLoaded()) chunk.load();
                                 // Cause an essentials exception if in cooldown.
                                 teleport.cooldown(true);
-                                teleport.teleport(town.getSpawn(),null);
+                                teleport.teleport(spawnLoc, null);
                             }
                         } catch (Exception e) {
                             TownyMessaging.sendErrorMsg(player, "Error: " + e.getMessage());
@@ -1038,7 +1068,7 @@ public class TownCommand implements CommandExecutor  {
                 	if (player.getVehicle() != null)
                 		player.getVehicle().eject();
                 	if (!chunk.isLoaded()) chunk.load();
-                    player.teleport(town.getSpawn());
+                    player.teleport(spawnLoc);
                     return;
                 }
                 
@@ -1053,7 +1083,7 @@ public class TownCommand implements CommandExecutor  {
                     	if (player.getVehicle() != null)
                     		player.getVehicle().eject();
                     	if (!chunk.isLoaded()) chunk.load();
-                        player.teleport(town.getSpawn());
+                        player.teleport(spawnLoc);
                     }
                 }
             } catch (TownyException e) {
@@ -1636,7 +1666,7 @@ public class TownCommand implements CommandExecutor  {
 
 				double blockCost = 0;
 				List<WorldCoord> selection;
-				boolean attachedToEdge = true;
+				boolean attachedToEdge = true, outpost = false;
 				Coord key = Coord.parseCoord(plugin.getCache(player).getLastLocation());
 
 				if (split.length == 1 && split[0].equalsIgnoreCase("outpost")) {
@@ -1653,6 +1683,7 @@ public class TownCommand implements CommandExecutor  {
 						selection.add(new WorldCoord(world, key));
 						blockCost = TownySettings.getOutpostCost();
 						attachedToEdge = false;
+						outpost = true;
 					} else
 						throw new TownyException(TownySettings.getLangString("msg_outpost_disable"));
 				} else {
@@ -1673,7 +1704,7 @@ public class TownCommand implements CommandExecutor  {
 					throw new TownyException("Economy Error");
 				}
 
-				new TownClaim(plugin, player, town, selection, true, false).start();
+				new TownClaim(plugin, player, town, selection, outpost, true, false).start();
 
 				//for (WorldCoord worldCoord : selection)
 				//        townClaim(town, worldCoord);
@@ -1714,14 +1745,14 @@ public class TownCommand implements CommandExecutor  {
                                 
                                 List<WorldCoord> selection;
                                 if (split.length == 1 && split[0].equalsIgnoreCase("all"))
-                                	new TownClaim(plugin, player, town, null, false, false).start();
+                                	new TownClaim(plugin, player, town, null, false, false, false).start();
                                         //townUnclaimAll(town);
                                 else {
                                         selection = TownyUtil.selectWorldCoordArea(town, new WorldCoord(world, Coord.parseCoord(plugin.getCache(player).getLastLocation())), split);
                                         selection = TownyUtil.filterOwnedBlocks(town, selection);
                                         
                                         // Set the area to unclaim
-                                        new TownClaim(plugin, player, town, selection, false, false).start();
+                                        new TownClaim(plugin, player, town, selection, false, false, false).start();
                                         
                                         //for (WorldCoord worldCoord : selection)
                                         //        townUnclaim(town, worldCoord, false);

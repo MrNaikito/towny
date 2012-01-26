@@ -10,7 +10,7 @@
 	<classpathentry kind="lib" path="../../lib/PermissionsEx.jar"/>
 	<classpathentry kind="lib" path="../../lib/Questioner.jar"/>
 	<classpathentry kind="lib" path="../../lib/Register.jar"/>
-	<classpathentry kind="lib" path="../../lib/bukkit-1.1-R1-20120119.234317-45.jar"/>
-	<classpathentry kind="lib" path="../../lib/craftbukkit-1.1-R1-20120120.104802-76.jar"/>
+	<classpathentry kind="lib" path="../../lib/bukkit-1.1-R2-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="../../lib/craftbukkit-1.1-R2-SNAPSHOT.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

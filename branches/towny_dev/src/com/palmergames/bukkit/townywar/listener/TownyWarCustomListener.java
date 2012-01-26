@@ -105,7 +105,7 @@ public class TownyWarCustomListener implements Listener {
 					List<WorldCoord> selection = new ArrayList<WorldCoord>();
 					selection.add(worldCoord);
 					TownCommand.checkIfSelectionIsValid(town, selection, false, 0, false);
-					new TownClaim(plugin, null, town, selection, true, false).start();
+					new TownClaim(plugin, null, town, selection, false, true, false).start();
 					
 					//TownCommand.townClaim(town, worldCoord);
 					//TownyUniverse.getDataSource().saveTown(town);

@@ -188,12 +188,12 @@ public class TownyPlayerListener implements Listener {
 	
 	@EventHandler(priority = EventPriority.NORMAL)
 	public void onPlayerMove(PlayerMoveEvent event) {
-		
+
 		if (plugin.isError()) {
 			event.setCancelled(true);
 			return;
 		}
-		
+
 		Player player = event.getPlayer();
 		Location from;
 		try {
@@ -207,28 +207,34 @@ public class TownyPlayerListener implements Listener {
 			return;
 
 		// Prevent fly/double jump cheats
-		try {
-			if (TownyUniverse.getDataSource().getWorld(player.getWorld().getName()).isUsingTowny())
-				if (TownySettings.isUsingCheatProtection() && !TownyUniverse.getPermissionSource().hasPermission(player, PermissionNodes.CHEAT_BYPASS.getNode()) && (player.getGameMode() != GameMode.CREATIVE))
-					if (event.getEventName() != "PLAYER_TELEPORT" && from.getBlock().getRelative(BlockFace.DOWN).getType() == Material.AIR && player.getFallDistance() == 0 && player.getVelocity().getY() <= -0.6 && (player.getLocation().getY() > 0)) {
-						//plugin.sendErrorMsg(player, "Cheat Detected!");
-
-						Location blockLocation = from;
-
-						//find the first non air block below us
-						while ((blockLocation.getBlock().getType() == Material.AIR) && (blockLocation.getY() > 0))
-							blockLocation.setY(blockLocation.getY() - 1);
-
-						// set to 1 block up so we are not sunk in the ground
-						blockLocation.setY(blockLocation.getY() + 1);
-
-						plugin.getCache(player).setLastLocation(blockLocation);
-						player.teleport(blockLocation);
-						return;
-					}
-		} catch (NotRegisteredException e1) {
-			TownyMessaging.sendErrorMsg(player, TownySettings.getLangString("msg_err_not_configured"));
-			return;
+		if (!(event instanceof PlayerTeleportEvent)) {
+			if (TownySettings.isUsingCheatProtection() && !TownyUniverse.getPermissionSource().hasPermission(player, PermissionNodes.CHEAT_BYPASS.getNode()) && (player.getGameMode() != GameMode.CREATIVE)) {
+				try {
+					if (TownyUniverse.getDataSource().getWorld(player.getWorld().getName()).isUsingTowny())
+						if ((from.getBlock().getRelative(BlockFace.DOWN).getType() == Material.AIR)
+							&& (player.getFallDistance() == 0)
+							&& (player.getVelocity().getY() <= -0.6)
+							&& (player.getLocation().getY() > 0)) {
+							//plugin.sendErrorMsg(player, "Cheat Detected!");
+	
+							Location blockLocation = from;
+	
+							//find the first non air block below us
+							while ((blockLocation.getBlock().getType() == Material.AIR) && (blockLocation.getY() > 0))
+								blockLocation.setY(blockLocation.getY() - 1);
+	
+							// set to 1 block up so we are not sunk in the ground
+							blockLocation.setY(blockLocation.getY() + 1);
+	
+							plugin.getCache(player).setLastLocation(blockLocation);
+							player.teleport(blockLocation);
+							return;
+						}
+				} catch (NotRegisteredException e1) {
+					TownyMessaging.sendErrorMsg(player, TownySettings.getLangString("msg_err_not_configured"));
+					return;
+				}
+			}
 		}
 
 		try {
