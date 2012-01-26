@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import com.palmergames.bukkit.towny.AlreadyRegisteredException;
@@ -29,9 +30,10 @@ public class TownClaim extends Thread {
 	
 	Towny plugin;
 	volatile Player player;
+	protected Location outpostLocation;
 	volatile Town town;
 	List<WorldCoord> selection;
-	boolean claim, forced;
+	boolean outpost, claim, forced;
 	
     /**
      * @param plugin reference to towny
@@ -41,12 +43,14 @@ public class TownClaim extends Thread {
      * @param claim or unclaim
      * @param forced admin forced claim/unclaim
      */
-    public TownClaim(Towny plugin, Player player, Town town, List<WorldCoord> selection, boolean claim, boolean forced) {
+    public TownClaim(Towny plugin, Player player, Town town, List<WorldCoord> selection, boolean isOutpost, boolean claim, boolean forced) {
         super();
         this.plugin = plugin;
         this.player = player;
+        this.outpostLocation = player.getLocation();
         this.town = town;
         this.selection = selection;
+        this.outpost = isOutpost;
         this.claim = claim;
         this.forced = forced;
         this.setPriority(MIN_PRIORITY);
@@ -69,14 +73,21 @@ public class TownClaim extends Thread {
 					world = TownyUniverse.getDataSource().getWorld(worldCoord.getWorld().getName());
 					if (!worlds.contains(world)) worlds.add(world);
 				
-					if (claim)
-						townClaim(town, worldCoord);
-					else {
+					if (claim) {
+						// Claim
+						townClaim(town, worldCoord, outpost);
+						// Reset so we only flag the first plot as an outpost.
+						outpost = false;
+					} else {
+						// Unclaim
 						this.town = worldCoord.getTownBlock().getTown();
 						townUnclaim(town, worldCoord, forced);
 					}
 					
+					// Mark this town as modified for saving.
 					if (!towns.contains(town)) towns.add(town);
+					
+					
 					
 				} catch (NotRegisteredException e) {
 					// Invalid world
@@ -117,7 +128,7 @@ public class TownClaim extends Thread {
 
     }
     
-    private void townClaim(Town town, WorldCoord worldCoord) throws TownyException {               
+    private void townClaim(Town town, WorldCoord worldCoord, boolean isOutpost) throws TownyException {               
         try {
                 TownBlock townBlock = worldCoord.getTownBlock();
                 try {
@@ -133,6 +144,10 @@ public class TownClaim extends Thread {
                 
                 // Set the plot permissions to mirror the towns.
                 townBlock.setType(townBlock.getType());
+                if (isOutpost) {
+                	townBlock.setOutpost(isOutpost);
+                	town.addOutpostSpawn(outpostLocation);
+                }
                 TownyUniverse.getDataSource().saveTownBlock(townBlock);
                 
                 if (town.getWorld().isUsingPlotManagementRevert()) {

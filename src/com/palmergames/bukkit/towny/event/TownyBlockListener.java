@@ -186,12 +186,12 @@ public class TownyBlockListener implements Listener {
 			PlayerCache cache = plugin.getCache(player);
 			TownBlockStatus status = cache.getStatus();
 			
-			// Allow build if in wilds and we have an override
+			// Allow build if in wilds/wilderness and we have an override
 			if (((status == TownBlockStatus.UNCLAIMED_ZONE) && (wildOverride))
 				|| ((status == TownBlockStatus.TOWN_RESIDENT) && (plugin.getTownyUniverse().getTownBlock(block.getLocation()).getType() == TownBlockType.WILDS) && (wildOverride)))
 				return;
 			
-			// Allow build if we have an override
+			// Allow build if we have a town override
 			if (((status == TownBlockStatus.TOWN_RESIDENT) && (TownyUniverse.getPermissionSource().hasOwnTownOverride(player, event.getBlock().getTypeId(), TownyPermission.ActionType.BUILD)))
 				|| ((status == TownBlockStatus.OUTSIDER) && (TownyUniverse.getPermissionSource().hasAllTownOverride(player, event.getBlock().getTypeId(), TownyPermission.ActionType.BUILD))))
 				return;

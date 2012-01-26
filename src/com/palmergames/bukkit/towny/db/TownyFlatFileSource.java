@@ -716,6 +716,33 @@ public class TownyFlatFileSource extends TownyDatabaseHandler {
 							System.out.println("[Towny] [Warning] " + town.getName() + " does not have a spawn point.");
 						}
 				}
+				
+				// Load outpost spawns
+				line = kvFile.get("outpostspawns");
+				if (line != null) {
+					String[] outposts = line.split(";");
+					for (String spawn : outposts) {
+					tokens = spawn.split(",");
+						if (tokens.length >= 4)
+							try {
+								World world = plugin.getServerWorld(tokens[0]);
+								double x = Double.parseDouble(tokens[1]);
+								double y = Double.parseDouble(tokens[2]);
+								double z = Double.parseDouble(tokens[3]);
+								
+								Location loc = new Location(world, x, y, z);
+								if (tokens.length == 6) {
+									loc.setPitch(Float.parseFloat(tokens[4]));
+									loc.setYaw(Float.parseFloat(tokens[5]));
+								}
+								town.addOutpostSpawn(loc);
+							} catch (NumberFormatException e) {
+							} catch (NotRegisteredException e) {
+							} catch (NullPointerException e) {
+							} catch (TownyException e) {
+							}
+					}
+				}
 
 			} catch (Exception e) {
 				System.out.println("[Towny] Loading Error: Exception while reading town file " + town.getName());
@@ -1372,6 +1399,17 @@ public class TownyFlatFileSource extends TownyDatabaseHandler {
 						+ Double.toString(town.getSpawn().getZ()) + ","
 						+ Float.toString(town.getSpawn().getPitch()) + ","
 						+ Float.toString(town.getSpawn().getYaw()) + newLine);
+			
+			// Outpost Spawns
+			if (town.hasOutpostSpawn())
+				for (Location spawn : new ArrayList<Location>(town.getAllOutpostSpawns())) {
+					fout.write("outpostspawns=" + spawn.getWorld().getName() + ","
+						+ Double.toString(spawn.getX()) + ","
+						+ Double.toString(spawn.getY()) + ","
+						+ Double.toString(spawn.getZ()) + ","
+						+ Float.toString(spawn.getPitch()) + ","
+						+ Float.toString(spawn.getYaw()) + ";");
+				}
 
 			fout.close();
 		} catch (Exception e) {
@@ -1678,7 +1716,15 @@ public class TownyFlatFileSource extends TownyDatabaseHandler {
 	}
 
     public void utilLoadTownBlockTypeData(TownBlock townBlock, String data) {
-        townBlock.setType(Integer.valueOf(data));
+    	String[] tokens = data.split(",");
+
+    	// Plot Type
+    	if (tokens.length >= 1)
+    		townBlock.setType(Integer.valueOf(tokens[0]));
+    	
+    	// Outpost or normal plot.
+        if (tokens.length >= 2)
+        	townBlock.setOutpost(tokens[1].equalsIgnoreCase("1")? true : false);
     }
 
 	public String utilSaveTownBlocks(List<TownBlock> townBlocks) {
@@ -1695,9 +1741,13 @@ public class TownyFlatFileSource extends TownyDatabaseHandler {
 
 		for (TownyWorld world : worlds.keySet()) {
 			out += world.getName() + ":";
-			for (TownBlock townBlock : worlds.get(world))
-				out += "[" + townBlock.getType().getId() + "]" + townBlock.getX() + "," + townBlock.getZ() +  "," + townBlock.getPlotPrice() + ";";
+			for (TownBlock townBlock : worlds.get(world)) {
+				out += "[" + townBlock.getType().getId();
+				out += "," + (townBlock.isOutpost()? "1" : "0");
+				out += "]" + townBlock.getX() + "," + townBlock.getZ() +  "," + townBlock.getPlotPrice() + ";";
+			}
 			out += "|";
+			
 		}
 
 		return out;

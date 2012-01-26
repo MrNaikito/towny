@@ -31,6 +31,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.EntityInteractEvent;
+import org.bukkit.event.entity.PotionSplashEvent;
 import org.bukkit.event.painting.PaintingBreakByEntityEvent;
 import org.bukkit.event.painting.PaintingBreakEvent;
 import org.bukkit.event.painting.PaintingPlaceEvent;
@@ -148,6 +149,57 @@ public class TownyEntityListener implements Listener {
 				// Unknown world or not in a town
 			}
 		}
+	}
+	
+	/**
+	 * Prevent potion damage on players in non PVP areas
+	 * 
+	 * @param event
+	 */
+	@EventHandler(priority = EventPriority.LOWEST)
+	public void onPotionSplashEvent(PotionSplashEvent event) {
+		
+		List<LivingEntity> affectedEntities = (List<LivingEntity>) event.getAffectedEntities();
+		ThrownPotion potion = event.getPotion();
+		
+		Entity attacker = potion.getShooter();
+		
+		Player a = null;
+		if (attacker instanceof Player)
+			a = (Player) attacker;
+		
+		TownyUniverse universe = plugin.getTownyUniverse();
+		
+		try {
+			TownyWorld world = TownyUniverse.getDataSource().getWorld(potion.getWorld().getName());
+			
+			for (LivingEntity defender : affectedEntities) {
+				
+				try {
+					// Wartime
+					if (universe.isWarTime()) {
+						event.setCancelled(false);
+						throw new Exception();
+					}
+					
+					Player b = null;
+					
+					if (defender instanceof Player)
+						b = (Player) defender;
+
+					if (preventDamageCall(world, attacker, defender, a, b))
+						event.setIntensity(defender, -1.0);
+
+				} catch (Exception e) {
+					//do nothing as this is war.
+				}
+
+			}
+		} catch (NotRegisteredException e1) {
+			// Not a registered world
+		}
+		
+		
 	}
 
 	@EventHandler(priority = EventPriority.LOWEST)

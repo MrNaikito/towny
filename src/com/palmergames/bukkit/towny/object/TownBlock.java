@@ -15,6 +15,7 @@ public class TownBlock {
 	private int x, z;
 	private double plotPrice = -1;
 	private boolean locked = false;
+	private boolean outpost = false;
 	
 	//Plot level permissions
     protected TownyPermission permissions = new TownyPermission();
@@ -130,6 +131,20 @@ public class TownBlock {
 	 */
 	public void setChanged(boolean isChanged) {
 		this.isChanged = isChanged;
+	}
+
+	/**
+	 * @return the outpost
+	 */
+	public boolean isOutpost() {
+		return outpost;
+	}
+
+	/**
+	 * @param outpost the outpost to set
+	 */
+	public void setOutpost(boolean outpost) {
+		this.outpost = outpost;
 	}
 
 	public TownBlockType getType() {

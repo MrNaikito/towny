@@ -1,5 +1,5 @@
 name: Towny
-version: 0.16
+version: 0.17
 language: english
 author: ElgarL
 website: 'http://code.google.com/a/eclipselabs.org/p/towny/'
@@ -271,6 +271,7 @@ msg_err_deposit_capped: 'Unable to desposit money. This bank is capped at %s.'
 
 msg_set_town_home: '&bSuccessfully changed town''s home block to %s'
 msg_set_town_spawn: '&bSuccessfully changed town''s spawn.'
+msg_set_outpost_spawn: '&bSuccessfully changed outpost''s spawn.'
 msg_set_title: '&b%s was granted the title of ''%s''.'
 msg_set_surname: '&b%s was granted the surname of ''%s''.'
 msg_clear_title_surname: '&bThe %s for ''%s'' was cleared.'
@@ -357,6 +358,7 @@ msg_err_town_spawn_ally_forbidden: '&cTown spawn travel to towns allied with you
 msg_err_public_spawn_forbidden: '&cPublic spawn travel to other towns is forbidden.'
 msg_err_public_spawn_enemy: '&cPublic spawn travel is forbidden for enemies.'
 msg_err_town_spawn_disallowed_from: '&cTown spawn is not allowed from %s.'
+msg_err_outpost_spawn: '&cThere are no outpost spawns set for this town.'
 
 msg_err_cant_afford_tp: '&bCannot afford to teleport to your town''s spawn.'
 msg_err_plot_nfs: '&cThis plot is not for sale.'
