@@ -8,7 +8,7 @@
 
   * [UsingDevBuilds Using Dev Builds]
 
-  * [http://code.google.com/a/eclipselabs.org/p/towny/source/browse/trunk/Towny/src/ChangeLog.txt Full Changelog]
+  * [https://github.com/ElgarL/Towny/blob/master/src/ChangeLog.txt Full Changelog]
 
   * [HowTownyWorks How Towny Works]
 
