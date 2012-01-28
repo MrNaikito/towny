@@ -446,7 +446,7 @@ If you want Towny’s variables in chat, or the town/nation channels, you must d
 
   === Using TownyChat with Other Chat Plugins ===
   To use Towny and another Chat plugin follow these instructions:
-    * Go into the Towny config.yml and locate: {{{filters_colour_chat.modify_chat.enable:}}} and be sure to set it to false like this: {{{filters_colour_chat.modify_chat.enable: 'false'}}}
+    * Go into the Towny ChatConfig.yml and locate: {{{modify_chat.enable:}}} and be sure to set it to false like this: {{{modify_chat.enable: 'false'}}}
     * Now add Towny’s chat variables to your chat plugins config. The variables can be found in the comments just above filters_colour_chat.modify_chat or below this text in the Chat Modifications section.
   
   Examples:
@@ -459,14 +459,14 @@ If you want Towny’s variables in chat, or the town/nation channels, you must d
       
   === Using TownyChat Without Another Chat Plugin ===
   To use Towny as your sole chat plugin follow these instructions:
-    * Go into the Towny config.yml and locate: {{{filters_colour_chat.modify_chat.enable:}}} and be sure to set it to true like this: {{{filters_colour_chat.modify_chat.enable: 'true'}}}
+    * Go into the Towny ChatConfig.yml and locate: {{{modify_chat.enable:}}} and be sure to set it to true like this: {{{modify_chat.enable: 'true'}}}
     * Configure the chat lines using the information found in the section below.
 
 == Chat Modifications == 
 
 Towny modifies the in-game chat appearance of town mayors and nation leaders only.
 
-The various chat modification can be turned on in [DefaultConfig config.yml] at {{{modify_chat.format: '{townytagoverride}{townycolor}{permprefix}{townyprefix}{playername}{townypostfix}{permsuffix}&f:'}}}
+The various chat modification can be turned on in ChatConfig.yml at {{{modify_chat.format: '{townytagoverride}{townycolor}{permprefix}{townyprefix}{playername}{townypostfix}{permsuffix}&f:'}}}
 The globalchat line can be modified in the worldname.txt's located in \towny\data\worlds\ so that different worlds have different globalchat lines.
 These are also the bits you will add to another chat plugin's config.
   * {nation} - Displays nation name if a member of a nation.
@@ -485,7 +485,9 @@ These are also the bits you will add to another chat plugin's config.
   * {nationtagoverride} - Displays the formated nation tag if a member of a nation (if present or full name fallback - using modify_chat.tag_format.nation).
   * {towntagoverride} - Displays the formated town tag if a member of a town (if present or full name fallback - using modify_chat.tag_format.town).
   * {townycolor} - Towny name colour for king/mayor/resident
-  * {world} - Add worldname to chat line.
+  * {worldname} - Add worldname to chat line.
+  * {channelTag} - Defined in the channels entry in Channels.yml
+  * {msgcolour} - Defined in the channels entry in Channels.yml
  
 The following keys are for use in modify_chat.format for if you don't have/want to use another plugin that changes the chat. They are also used for town/nation chat.
   * {permprefix} - Permission group prefix
@@ -494,9 +496,9 @@ The following keys are for use in modify_chat.format for if you don't have/want 
   * {modplayername} - Modified player name (use if Towny is over writing some other plugins changes).
   * {msg} - The message sent.
 
-Mayors chat name appears as blue by default (but can be configured in the config.yml @ colour_mayor: ) and includes the mayorPrefix and mayorPostfix found in the townLevel section of the config.yml.
+Mayors chat name appears as blue by default (but can be configured in the ChatConfig.yml @ colour_mayor: ) and includes the mayorPrefix and mayorPostfix found in the townLevel section of the config.yml.
 
-Nation Leader's chat name appears as gold by default (but can be configured in the config.yml @ colour_king: ) and includes the kingPrefix and kingPostfix found in the townLevel section of the config.yml.
+Nation Leader's chat name appears as gold by default (but can be configured in the ChatConfig.yml @ colour_king: ) and includes the kingPrefix and kingPostfix found in the townLevel section of the config.yml.
 
 Kings of nations can use two commands to change the displayed chat names of their minions:
   * {{{/nation set title {resident} title}}}
