@@ -201,6 +201,9 @@ In the default setting an outpost cannot be claimed within 5 townblocks of any o
 Outposts have two settings in [DefaultConfig config.yml] 
   * By setting {{{allow_outposts: false}}} you can disable outposts completely.
   * You can also set the cost of claiming an outpost with {{{price_outpost: 500.0}}}
+  
+Outposts can be teleported to, mayors set the spawn point of the outpost when they claim it or using '/town set outpost'. Players teleport to the outpost using '/town outpost x' (with x being a number 1 - however many outposts the town has.)
+ 
 
 == Selling Land ==
 Land is sold by Mayors to Residents that are a part of their town. {{{using_iconomy: true}}} must be set in [DefaultConfig config.yml] in order for costs to be applied.
@@ -589,6 +592,12 @@ Kings of nations can use two commands to change the displayed chat names of thei
   * {{{/nation set surname {resident} {text of suffix} }}}
     * Adds a suffix to the player.
   * A title/surname given to a mayor will override the MayorPrefix/MayorPostfix set in the townLevels of the config. He will still retain the colouring set on mayor names (default is light blue.)  
+  
+== Spying on chat channels ==
+Admins can spy on all chat channels by using the command /towny spy or /res set mode spy.
+
+Any player can be given the ability to spy by being given the permission node towny.chat.spy
+
 
 ----
 
