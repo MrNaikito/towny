@@ -447,7 +447,7 @@ If you want Towny’s variables in chat, or the town/nation channels, you must d
   === Using TownyChat with Other Chat Plugins ===
   To use Towny and another Chat plugin follow these instructions:
     * Go into the Towny ChatConfig.yml and locate: {{{modify_chat.enable:}}} and be sure to set it to false like this: {{{modify_chat.enable: 'false'}}}
-    * Now add Towny’s chat variables to your chat plugins config. The variables can be found in the comments just above filters_colour_chat.modify_chat or below this text in the Chat Modifications section.
+    * Now add Towny’s chat variables to your chat plugins config. The variables can be found in the comments of the ChatConfig.yml
   
   Examples:
     * iChat:
@@ -462,74 +462,127 @@ If you want Towny’s variables in chat, or the town/nation channels, you must d
     * Go into the Towny ChatConfig.yml and locate: {{{modify_chat.enable:}}} and be sure to set it to true like this: {{{modify_chat.enable: 'true'}}}
     * Configure the chat lines using the information found in the section below.
 
-== Chat Modifications == 
+== ChatConfig.yml == 
 
-Towny modifies the in-game chat appearance of town mayors and nation leaders only.
+The first config file for Towny's chat is the ChatConfig.yml found at \plugins\towny\settings\ChatConfig.yml
 
-The various chat modification can be turned on in ChatConfig.yml at {{{modify_chat.format: '{townytagoverride}{townycolor}{permprefix}{townyprefix}{playername}{townypostfix}{permsuffix}&f:'}}}
-The globalchat line can be modified in the worldname.txt's located in \towny\data\worlds\ so that different worlds have different globalchat lines.
-These are also the bits you will add to another chat plugin's config.
-  * {nation} - Displays nation name if a member of a nation.
-  * {town} - Displays town name if a member of a town.
-  * {townynameprefix} - Towny name prefix taken from the townLevel/nationLevels
-  * {townynamepostfix} - Towny name postfix taken from the townLevel/nationLevels.
-  * {townyprefix} - Towny name prefix (title)
-  * {townypostfix} - Towny name postfix (surname)
-  * {townyformatted} - Displays the formated town/nation names as specified in modify_chat.tag_format.both.
-  * {townformatted} - Displays town name if a member of a town (using tag_format.town).
-  * {nationformatted} - Displays nation name if a member of a nation (using tag_format.nation).
-  * {townytag} - Displays the formated tag as specified in modify_chat.tag_format.both.
-  * {townytagoverride} - Displays the formated tag (if present) or falls back to the full names (using modify_chat.tag_format.both).
-  * {nationtag} - Displays the formated nation tag if a member of a nation (using modify_chat.tag_format.nation).
-  * {towntag} - Displays the formated town tag if a member of a town (using modify_chat.tag_format.town).
-  * {nationtagoverride} - Displays the formated nation tag if a member of a nation (if present or full name fallback - using modify_chat.tag_format.nation).
-  * {towntagoverride} - Displays the formated town tag if a member of a town (if present or full name fallback - using modify_chat.tag_format.town).
-  * {townycolor} - Towny name colour for king/mayor/resident
-  * {worldname} - Add worldname to chat line.
-  * {channelTag} - Defined in the channels entry in Channels.yml
-  * {msgcolour} - Defined in the channels entry in Channels.yml
- 
-The following keys are for use in modify_chat.format for if you don't have/want to use another plugin that changes the chat. They are also used for town/nation chat.
-  * {permprefix} - Permission group prefix
-  * {permsuffix} - Permission group suffix.
-  * {playername} - Default player name.
-  * {modplayername} - Modified player name (use if Towny is over writing some other plugins changes).
-  * {msg} - The message sent.
-
-Mayors chat name appears as blue by default (but can be configured in the ChatConfig.yml @ colour_mayor: ) and includes the mayorPrefix and mayorPostfix found in the townLevel section of the config.yml.
-
-Nation Leader's chat name appears as gold by default (but can be configured in the ChatConfig.yml @ colour_king: ) and includes the kingPrefix and kingPostfix found in the townLevel section of the config.yml.
-
-Kings of nations can use two commands to change the displayed chat names of their minions:
-  * {{{/nation set title {resident} title}}}
-    Adds a prefix to the player.
-  * {{{/nation set surname {resident} text}}}
-    Adds a suffix to the player.
-  * A title/surname given to a mayor will override the MayorPrefix/MayorPostfix set in the townLevels of the config. He will still retain the colouring set on mayor names (default is light blue.)  
-
-== Chat Modes ==
-
-There are five chat channels by default in Towny, although an admin can create as many chat channels as they'd like in the config.
+  === Towny chat formats ===
+  These are the pieces which can be used to make the Channel_format lines.
   {{{
-  channels:
-      - /tc,&f[&3TC&f],&b,towny.chat.town
-      - /nc,&f[&6NC&f],&e,towny.chat.nation
-      - /a,&f[&4ADMIN&f],&c,towny.chat.admin
-      - /m,&f[&9MOD&f],&5,towny.chat.mod
+  {worldname} - Displays the world the player is currently in.
+  
+  {town} - Displays town name if a member of a town.
+  {townformatted} - Displays town name (if a member of a town) using tag_format.town.
+  {towntag} - Displays the formated town tag (if a member of a town) using modify_chat.tag_format.town.
+  {towntagoverride} - Displays the formated town tag (if a member of a town and present) or falls back to the full name (using modify_chat.tag_format.town).
+   
+  {nation} - Displays nation name if a member of a nation.
+  {nationformatted} - Displays nation name (if a member of a nation) using tag_format.town.
+  {nationtag} - Displays the formated nation tag (if a member of a nation) using modify_chat.tag_format.nation.
+  {nationtagoverride} - Displays the formated nation tag (if a member of a nation and present) or falls back to the full name (using modify_chat.tag_format.nation).
+   
+  {townytag} - Displays the formated town/nation tag as specified in modify_chat.tag_format.both.
+  {townyformatted} - Displays the formated full town/nation names as specified in modify_chat.tag_format.both.
+  {townytagoverride} - Displays the formated town/nation tag (if present) or falls back to the full names (using modify_chat.tag_format.both).
+   
+  {title} - Towny resident Title
+  {surname} - Towny resident surname
+  {townynameprefix} - Towny name prefix taken from the townLevel/nationLevels
+  {townynamepostfix} - Towny name postfix taken from the townLevel/nationLevels.
+  {townyprefix} - Towny resident title, or townynameprefix if no title exists
+  {townypostfix} - Towny resident surname, or townynamepostfix if no surname exists
+   
+  {townycolor} - Towny name colour for king/mayor/resident
+  {group} - Players group name pulled from your permissions plugin
+  {permprefix} - Permission group prefix
+  {permsuffix} - Permission group suffix.
+   
+  {playername} - Default player name.
+  {modplayername} - Modified player name (use if Towny is over writing some other plugins changes).
+  {msg} - The message sent.
+
+  {channelTag} - Defined in the channels entry in Channels.yml
+  {msgcolour} - Defined in the channels entry in Channels.yml
   }}}
 
-  * /townchat, /tc
+  Message spam control is set at spam_time: 0.5
+  
+  The channel_formats section determines what each chat channel will look like.
+  
+  The tag_formats section determines what the tags will appear as.
+  
+  The colour section determines colours applied with {townycolor} for mayors, kings and residents.
+  
+  The modify_chat section is where you can disable all chat additions from Towny. You can also set per_world to true if you'd like to use the worlds: section to change chat lines' channels on a per-world basis.
+
+== Chat Channels ==
+
+Chat Channels are set in Channels.yml found at \plugins\towny\settings\Channels.yml
+
+There are six chat channels by default in Towny, although an admin can create as many chat channels as they'd like in Channels.yml
+
+Channels.yml allows you to set commands for joining and using each channel:
+  * /g
+    * Put in from of text to speak in general/global chat, or without text afterwards to enter the channel.
+  * /l or /lc
+    * Put in from of text to speak in local chat, or without text afterwards to enter the channel.
+  * /tc
     * Put in from of text to speak with members of your town only, or without text afterwards to enter the channel.
-  * /nationchat, /nc
+  * /nc
     * Put in from of text to speak with members of your nation only, or without text afterwards to enter the channel.
-  * /global, /g
-    * Put in from of text to speak in globalchat, or without text afterwards to enter the channel.
+  * /a or /admin
+    * Put in from of text to speak in adminchat, or without text afterwards to enter the channel.
+  * /m or /mod
+    * Put in from of text to speak in modchat, or without text afterwards to enter the channel.
   * /res set mode reset
     * Reset chat mode to default chat.
-  * /a 
-    * Put in from of text to speak in adminchat, or without text afterwards to enter the channel.
-  * /m 
-    * Put in from of text to speak in modchat, or without text afterwards to enter the channel.
+The tags for each channel can be set, these are used in the ChatConfig.yml for {channelTag}.
+Permission nodes for each channel can be set.
+Ranges for each channel can be set:
+  * -1 = no limits
+  * 0 = same world only
+  * any positive value = limited range in the same world.
+
+  === Putting players into channels on join ===
+  Using the [http://code.google.com/a/eclipselabs.org/p/towny/wiki/PermissionNodes#Info/Option_Nodes info|option|meta nodes] provided by GroupManger, PEX and bPermissions it is possible to put users into chat channels upon joining the server.
+  In the same section as prefix: and suffix: add a node towny_default_modes: ''
+  Possible channels are general, town, nation, admin, mod and local.
+  Example in group manager:
+  {{{
+                groups:
+                  Default:
+                    default: true
+                    permissions:
+                    - general.spawn
+                    inheritance: []
+                    info:
+                      prefix: ''
+                      build: true
+                      suffix: ''
+                      towny_maxplots: 1
+                      towny_default_modes: 'local'
+                  Admins:
+                    default: false
+                    permissions:
+                    - '*'
+                    inheritance:
+                    info:
+                      prefix: ''
+                      build: true
+                      suffix: ''
+                      towny_maxplots: -1  
+                      towny_default_modes: 'admin'
+  }}}
+ 
+
+  
+== Kings' nation-title and nation-prefix ==
+Kings of nations can use two commands to change the displayed chat names of their minions:
+* {{{/nation set title {resident} title}}}
+  Adds a prefix to the player.
+* {{{/nation set surname {resident} text}}}
+  Adds a suffix to the player.
+* A title/surname given to a mayor will override the MayorPrefix/MayorPostfix set in the townLevels of the config. He will still retain the colouring set on mayor names (default is light blue.)  
 
 ----
 
