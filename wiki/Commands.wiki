@@ -103,6 +103,7 @@
       * pvp
       * taxpercent
       * open
+    * join {townname}
   
 == /plot ==
   * /plot 
