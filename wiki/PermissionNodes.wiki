@@ -40,12 +40,13 @@ Add a description of which nodes and when towny uses its nodes.
       * towny.town.spawn.nation : Ability to spawn to other towns in your nation.
       * towny.town.spawn.ally : Ability to spawn to towns in nations allied with yours.
       * towny.town.spawn.public : Ability to spawn to unaffilated public towns.    
-    * towny.town.toggle.{{{*}}} : User has access to all town toggle commands (if a mayor or assistant).
+    * towny.town.toggle.{{{*}}} : User has access to all town toggle commands (if a mayor or assistant, residents can toggle on their personal land.)
       * towny.town.toggle.pvp : If a mayor or assistant, the user is able to toggle pvp on/off in their town.
       * towny.town.toggle.public : If a mayor or assistant....
       * towny.town.toggle.explosions : If a mayor or assistant....
       * towny.town.toggle.fire : If a mayor or assistant....
       * towny.town.toggle.mobs :  If a mayor or assistant....
+      * towny.town.toggle.open :  If a mayor or assistant, the user can toggle their town to Open status so other players can join the town without an invite.
 
   * towny.nation.{{{*}}} : Grants all Nation permission nodes.
     * towny.nation.delete : player can delete their nation
@@ -57,7 +58,9 @@ Add a description of which nodes and when towny uses its nodes.
   * towny.chat.town : Allows a player to use townchat
   * towny.chat.nation : Allows a player to use nationchat
   * towny.chat.mod : Allows a player to use moderatorchat
-  * towny.chat.admin : Allows a playr to use adminchat
+  * towny.chat.admin : Allows a player to use adminchat
+  * towny.chat.local : Allows a player to use localchat channel
+  * towny.chat.spy : Allows a player to see all chat in all channels
 
   * towny.top : Gives users access to /towny top command.
 
