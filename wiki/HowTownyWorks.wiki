@@ -120,6 +120,28 @@ This is done with two sections in the [DefaultConfig config.yml]
 
 ----
 
+= How Towns Grow =
+
+== Starting a Town ==
+
+Mayors start towns using the command /town new {townname}. The townblock they are standing in will be the home block for the town, the exact spot/position will be the spawn point for the town.
+
+More townblocks can be claimed using /town claim. These townblocks need to be directly adjacent to already claimed townblocks.
+
+
+== Joining Towns ==
+
+There are two ways to join towns, the first is by being invited by a Mayor or a Town assistant. The second it by joining an open town.
+
+Mayors and assistants can add players to their town with the command /town add {playername}. If the server has Questioner.jar and using_questioner: true in the Towny config.yml then the player will receive a prompt to either /accept or /deny the invitation.
+
+Mayors can set their towns to open using /town toggle open. A player who isn't in a town already can use the command /town join {townname} to join open towns.
+
+When residents join towns they increase the number of townblocks accessible to the mayor for claiming.
+
+
+----
+
 = Plot System of Land Ownership =
 
 == Town Blocks == 
