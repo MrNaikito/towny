@@ -254,6 +254,7 @@
     * purge {# as in days} 
 
 == Chat Commands ==
+  * /townychat reload - Reloads chatconfig.yml and channels.yml
   * /townchat, /tc
     * Put in from of text to speak with members of your town only, or without text afterwards to enter the channel.
   * /nationchat, /nc
