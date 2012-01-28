@@ -2,7 +2,7 @@
 
 = Introduction =
 
-Here are instructions for upgrading to Towny 0.76.3.0:
+Here are instructions for upgrading from an older version of Towny:
 
 
 = Upgrade Instructions =
@@ -39,8 +39,10 @@ Here are instructions for upgrading to Towny 0.76.3.0:
       * Stop your server and configure any new flags in config.yml, your old settings will remain but any new settings will be added and set to their defaults.
       * Save config.yml.    
 
+    * Upgrade from pre-0.79.0.0
+      * The chat section of config.yml has been move to a new file, channels.yml. Edit the new channels.yml to your liking.
+
   * *If you use a permissions plugin you MUST configure your [PermissionNodes permission nodes], Check for any new nodes added in the current version.*
 
-Your server is ready to use Towny 0.76.3.0!
 
   * Start your server.
