@@ -37,6 +37,13 @@ There are a few steps so follow them all carefully.
       * If you use no permissions plugin change using_permissions: to false.
       * *If you use a permissions plugin you MUST configure your [PermissionNodes permission nodes]*
     * Save config.yml and start your server, you are now ready to found your first town.
+
+= Step Four - Configuring Towny's channels.yml (Optional) =
+
+  * If using townychat.jar, 
+  * Navigate to \Plugins\Towny\Settings\
+    * Open *channels.yml*
+    * Carefully configure channels.yml to your liking. 
   
 
 
