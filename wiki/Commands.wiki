@@ -30,6 +30,7 @@
        * townchat, tc
        * nationchat, nc
        * townclaim
+       * spy
        * reset  _(This turns off all modes that are active.)_
      * perm 
        * {on/off}
@@ -70,12 +71,15 @@
     * buy
       * bonus {amount}
     * delete {town name}
+    * outpost
+      * # - where # equals the corresponding outpost's number.
     * set 
       * board {message}
       * mayor {resident}
       * homeblock
       * spawn
       * name {name}
+      * outpost
       * perm 
         * {on/off}
         * {resident/ally/outsider} {on/off}
@@ -98,6 +102,7 @@
       * public
       * pvp
       * taxpercent
+      * open
   
 == /plot ==
   * /plot 
@@ -194,6 +199,8 @@
       * wildperm {perm} .. {perm}
       * wildignore {id} .. {id}
       * usedefault
+    * regen 
+    * undo
 
 == /towny ==  
   * /towny 
@@ -206,6 +213,7 @@
       * money {all/resident/town/nation}
       * residents {all/town/nation}
       * land {all/resident/town}
+    * spy
     * universe
     * v
     * war 
@@ -220,7 +228,10 @@
       * add {resident} .. {resident}
       * remove {resident} .. {resident}
       * kick {resident}
-    * nation {nation} add {town}
+      * {townname} rename {newname}      
+    * nation 
+      * {nationname} add {town}
+      * {nationname} rename {newname}
     * reset
     * toggle
       * war
