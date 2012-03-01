@@ -1,14 +1,15 @@
 #summary The Default Config.yml
 {{{
+ 
 version:
   # This is the current version of Towny.  Please do not edit.
-  version: 0.77.1.33
+  version: 0.79.1.0
   # This is for showing the changelog on updates.  Please do not edit.
-  last_run_version: 0.77.1.33
+  last_run_version: 0.79.1.0
   # Minimum required version of CraftBukkit.  Please do not edit.
-  bukkit_version: '1597'
+  bukkit_version: '1988'
   # If enabled we will not check the CraftBukkit version at startup.
-  bypass_version_check: 'true'
+  bypass_version_check: 'false'
  
 # The language file you wish to use
 language: english.yml
@@ -36,7 +37,7 @@ language: english.yml
 #        towny.town.toggle.explosions
 #        towny.town.toggle.fire
 #        towny.town.toggle.mobs
-#    towny.town.* : User has access to all town permission nodes.
+#    towny.nation.* : User has access to all town permission nodes.
 #        towny.nation.new :User is able to create a nation
 #        towny.nation.delete :User is able to delete their nation (if king)
 #        towny.nation.rename :User is able to rename their nation (if king/assistant)
@@ -74,12 +75,6 @@ language: english.yml
 #        towny.town.spawn.ally : Ability to spawn to towns in nations allied with yours.
 #        towny.town.spawn.public : Ability to spawn to unaffilated public towns.
 #
-#    towny.chat.* : user is able to talk in all chat channels.
-#        towny.chat.town : user is able to talk in town chat.
-#        towny.chat.nation
-#        towny.chat.global : user is able to talk in global chat (/g)
-#        towny.chat.admin
-#        towny.chat.mod
 # these will be moved to permissions nodes at a later date
 permissions:
   town_creation_admin_only: 'false'
@@ -165,6 +160,7 @@ levels:
     upkeepModifier: 1.0
     namePostfix: ' (Nation)'
     kingPrefix: 'Leader '
+    townBlockLimitBonus: 10
     namePrefix: 'Land of '
     numResidents: 0
     capitalPrefix: ''
@@ -173,6 +169,7 @@ levels:
     upkeepModifier: 1.0
     namePostfix: ' (Nation)'
     kingPrefix: 'Count '
+    townBlockLimitBonus: 20
     namePrefix: 'Federation of '
     numResidents: 10
     capitalPrefix: ''
@@ -181,6 +178,7 @@ levels:
     upkeepModifier: 1.0
     namePostfix: ' (Nation)'
     kingPrefix: 'Duke '
+    townBlockLimitBonus: 40
     namePrefix: 'Dominion of '
     numResidents: 20
     capitalPrefix: ''
@@ -189,6 +187,7 @@ levels:
     upkeepModifier: 1.0
     namePostfix: ' (Nation)'
     kingPrefix: 'King '
+    townBlockLimitBonus: 60
     namePrefix: 'Kingdom of '
     numResidents: 30
     capitalPrefix: ''
@@ -197,6 +196,7 @@ levels:
     upkeepModifier: 1.0
     namePostfix: ' Empire'
     kingPrefix: 'Emperor '
+    townBlockLimitBonus: 100
     namePrefix: 'The '
     numResidents: 40
     capitalPrefix: ''
@@ -205,6 +205,7 @@ levels:
     upkeepModifier: 1.0
     namePostfix: ' Realm'
     kingPrefix: 'God Emperor '
+    townBlockLimitBonus: 140
     namePrefix: 'The '
     numResidents: 60
     capitalPrefix: ''
@@ -219,6 +220,8 @@ levels:
 town:
   # Default public status of the town (used for /town spawn)
   default_public: 'true'
+  # Default Open status of the town (are new towns open and joinable by anyone at creation?)
+  default_open: 'false'
   # Limits the maximum amount of bonus blocks a town can buy.
   max_purchased_blocks: '0'
   # maximum number of plots any single resident can own
@@ -322,6 +325,7 @@ new_world_settings:
       # Enabling this will slowly regenerate holes created in the
       # wilderness by monsters exploding.
       enabled: 'true'
+      entities: Creeper,EnderCrystal,EnderDragon,Fireball,SmallFireball,TNTPrimed
       delay: 20s
  
  
@@ -352,6 +356,8 @@ global_town_settings:
   teleport_warmup_time: '0'
   # Respawn the player at his town spawn point when he/she dies
   town_respawn: 'false'
+  # Town respawn only happens when the player dies in the same world as the town's spawn point.
+  town_respawn_same_world_only: 'false'
   # Prevent players from using /town spawn while within unclaimed areas and/or enemy/neutral towns.
   # Allowed options: unclaimed,enemy,neutral
   prevent_town_spawn_in: enemy
@@ -437,96 +443,11 @@ filters_colour_chat:
     name_check_regex: ^[a-zA-Z0-9._-]*$
     name_remove_regex: '[^a-zA-Z0-9._-]'
  
-  # The format below will specify the changes made to the player name when chatting.
-  # These keys can be used in other plugins that modify the chat format like iChat.
- 
-  # {worldname} - Displays the world the player is currently in.
-  # {town} - Displays town name if a member of a town.
-  # {townformatted} - Displays town name (if a member of a town) using tag_format.town.
-  # {towntag} - Displays the formated town tag (if a member of a town) using modify_chat.tag_format.town.
-  # {towntagoverride} - Displays the formated town tag (if a member of a town and present) or falls back to the full name (using modify_chat.tag_format.town).
- 
-  # {nation} - Displays nation name if a member of a nation.
-  # {nationformatted} - Displays nation name (if a member of a nation) using tag_format.town.
-  # {nationtag} - Displays the formated nation tag (if a member of a nation) using modify_chat.tag_format.nation.
-  # {nationtagoverride} - Displays the formated nation tag (if a member of a nation and present) or falls back to the full name (using modify_chat.tag_format.nation).
- 
-  # {townytag} - Displays the formated town/nation tag as specified in modify_chat.tag_format.both.
-  # {townyformatted} - Displays the formated full town/nation names as specified in modify_chat.tag_format.both.
-  # {townytagoverride} - Displays the formated town/nation tag (if present) or falls back to the full names (using modify_chat.tag_format.both).
- 
-  # {title} - Towny resident Title
-  # {surname} - Towny resident surname
-  # {townynameprefix} - Towny name prefix taken from the townLevel/nationLevels
-  # {townynamepostfix} - Towny name postfix taken from the townLevel/nationLevels.
-  # {townyprefix} - Towny resident title, or townynameprefix if no title exists
-  # {townypostfix} - Towny resident surname, or townynamepostfix if no surname exists
- 
-  # {townycolor} - Towny name colour for king/mayor/resident
-  # {group} - Players group name pulled from your permissions plugin
-  # {permprefix} - Permission group prefix
-  # {permsuffix} - Permission group suffix.
- 
-  # The following keys are for use in modify_chat.format for if you don't have/want to use another
-  # plugin that changes the chat.
- 
-  # {playername} - Default player name.
-  # {modplayername} - Modified player name (use if Towny is over writing some other plugins changes).
-  # {msg} - The message sent.
- 
-  # NOTICE: The config will automatically wrap really long strings. The long formats will be displayed ignoring
-  # the line break. This will hopefully be fixed soon.
   modify_chat:
-    # This is used for when you don't have another plugin to format chat.
-    # It will cause Towny to overwrite any other plugins alterations to the format.
-    enable: 'true'
-    # If true the chat formats will be copied to each worlds data file
-    # These can then be altered individually.
-    per_world: 'false'
-    # This is the format for when you are not using another plugin to set the format and modify_chat.format is true.
-    # This is the format which will be used for Global Chat
-    # You can use text colouring shown in filters.colour as well.
-    chat_format: '{worldname}{townytagoverride}{townycolor}{permprefix}{group} {townyprefix}{modplayername}{townypostfix}{permsuffix}&f:
-      {msg}'
- 
-    tag_format:
-      world: '&f[&f%s&f] '
-      town: '&f[&3%s&f] '
-      nation: '&f[&e%s&f] '
-      # First %s is the nation tag, second is the town tag.
-      both: '&f[&6%s&f|&3%s&f] '
- 
-    channel_format:
-      town: '{channelTag} {townycolor}{permprefix}{townyprefix}{playername}{townypostfix}{permsuffix}&f:{msgcolour}
-        {msg}'
-      nation: '{channelTag}{towntagoverride}{townycolor}{permprefix}{townyprefix}{playername}{townypostfix}{permsuffix}&f:{msgcolour}
-        {msg}'
-      default: '{channelTag} {permprefix}{playername}{permsuffix}&f:{msgcolour} {msg}'
- 
-    # Channels are in the format: command, channel-tag, chat-colour, permission-node (to use channel).
-    # Do ***NOT*** alter the commands for /tc and /nc.
-    channels:
-    - /g,,,towny.chat.global
-    - /tc,&f[&3TC&f],&b,towny.chat.town
-    - /nc,&f[&6NC&f],&e,towny.chat.nation
-    - /a,&f[&4ADMIN&f],&c,towny.chat.admin
-    - /m,&f[&9MOD&f],&5,towny.chat.mod
- 
+    # Maximum length of Town and Nation names.
+    max_name_length: '20'
     # Maximum length of titles and surnames.
     max_title_length: '10'
- 
-  # Text colouring
-  # --------------
-  # Black = &0, Navy = &1, Green = &2, Blue = &3, Red = &4
-  # Purple = &5, Gold = &6, LightGray = &7, Gray = &8
-  # DarkPurple = &9, LightGreen = &a, LightBlue = &b
-  # Rose = &c, LightPurple = &d, Yellow = &e, White = &f
- 
-  # Chat colours
-  colour:
-    king: '&6'
-    mayor: '&b'
-    resident: '&f'
  
  
 ############################################################
@@ -627,6 +548,7 @@ notification:
     splitter: ' '
     format: '%s'
     homeblock: '&b[Home]'
+    outpostblock: '&b[Outpost]'
     forsale: '&e[For Sale: %s]'
     type: '&6[%s]'
  
