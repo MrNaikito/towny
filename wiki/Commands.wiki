@@ -195,6 +195,8 @@
       * fire
       * townmobs
       * worldmobs
+      * revertunclaim
+      * revertexpl
     * set
       * wildname {name}
       * wildperm {perm} .. {perm}
