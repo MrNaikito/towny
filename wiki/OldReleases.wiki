@@ -5,6 +5,47 @@
 
 Here you can find information on old releases of Towny.
 
+== New in 0.79.0.0 ==
+
+    * New commands:
+      * /tw regen - Regens full chunks back to the current seed. Not to be used if your plot_size is anything other than 16
+      * /tw undo - Undoes regen command, holds up to 5 undos in memory.
+      * /ta town {name} rename {newname} - Admins can change town's name.
+      * /ta nation {nation} rename {newname} - Admins can change a nation's name.
+      * /towny spy or /res set mode spy - Requires towny.chat.spy and TownyChat. Used to see all chat channels.
+      * /town toggle open - Set your town to Open status, so anyone can join your town without an invite.
+      * /town join {townname} - Used to join an open town.
+      * /town set outpost - Set an outpost's spawn.
+      * /town outpost x - Teleport to an outpost's spawn, where x is the number of the outpost.
+      
+      
+    * New permission nodes:
+      * towny.chat.spy - To spy on chat channels.
+      * towny.chat.local - To speak in local chat.
+      * towny.town.toggle.open - To be able to set a town to Open status.
+      
+      
+    * Added:
+      * This version contains quite a few additions to Townychat.jar
+        * First you will notice two new files Channels.yml and ChatConfig.yml
+        * Chat section of the config.yml has been moved to these new files.
+      * Local Chat added.
+      * Chat spying added.
+      * Added a spam filter to TownyChat so players can only send one message every two seconds.
+      * Open/Free-to-join towns are now possible.
+        * Mayors use /town toggle open and players use /town join {townname} to join a town without being invited.
+      * Added potion splash protection for non PvP areas.
+      * Outposts can now have their own spawns.
+        * The plot you claim as an outpost is the plot which can contain a spawn. It cannot be moved to another plot.
+      * Added a spanish translation.
+      * Added SAFEMODE
+        * If Towny fails to load from data corruption it 'should' now lock everything into safe mode until it's fixed.
+        * No one will be able to do anything at all until the fault is cleared.
+      
+      
+    * Bug Fixes!
+      * The number of bug fixes in this release are HUGE, it is recommended you look over the complete changelog to see what has been fixed.
+
 
 == New in 0.78.0.0 ==
 
