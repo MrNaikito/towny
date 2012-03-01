@@ -94,6 +94,7 @@ This is done with two sections in the [DefaultConfig config.yml]
             upkeepModifier: 1.0
             namePostfix: ' (Nation)'
             kingPrefix: 'Count '
+            townBlockLimitBonus: 10
             namePrefix: 'Federation of '
             numResidents: 10
             capitalPrefix: ''
@@ -102,6 +103,7 @@ This is done with two sections in the [DefaultConfig config.yml]
             upkeepModifier: 1.0
             namePostfix: ' (Nation)'
             kingPrefix: 'Duke '
+            townBlockLimitBonus: 20
             namePrefix: 'Dominion of '
             numResidents: 20
             capitalPrefix: ''
@@ -112,6 +114,7 @@ This is done with two sections in the [DefaultConfig config.yml]
       * upkeepModifier: 1.0 - Use a higher multiplier to increase the upkeep as nations get more residents (unless you use {{{town_plotbased_upkeep:true}}} in which case it is based off of plot-count rather than resident-count.)
       * namePostfix: ' (Nation)' - This is added to the end of the nation name.
       * kingPrefix: 'Count ' - This is added to the front of the nation-leader.
+      * townBlockLimitBonus: 10 - This is the number of bonus townblocks given to a town when they join a nation.
       * namePrefix: 'Federation of ' - This is added to the front of the nation name.
       * numResidents: 10 - This is how many residents a nation must have to receive the prefixes and postfixes of the nation level.
       * capitalPrefix: '' - This is added to the front of the capital city of the nation.
@@ -248,6 +251,7 @@ There are 4 options for affecting townblocks/plots.
 
   When a town plot is unclaimed (by a player or through upkeep) it will slowly begin to revert to a pre town state. Blocks will slowly change back to whatever blocks we're present at the moment the town block was claimed. A townblock must revert completely before the snapshot of the townblock is removed. If townblock is reclaimed mid-revert, a new snapshot is not taken and if the townblock is unclaimed again it will revert to the original snapshot.
     * Disabling this feature is done in the towny\data\worlds\worldname.txt @ {{{usingPlotManagementRevert=false}}}
+    * or by using '/tw toggle revertunclaim' while standing in the world you want to toggle it in.
     * Disabling this feature for new worlds is done in the config at new_world_settings.plot_management.revert_on_unclaim.enabled
   You can configure certain block types you don't want restored to prevent players exploiting regen for diamond ores.
     * Block types to not restore are configured in block_ignore in the worlds txt file data/worlds/worldname.txt
@@ -262,7 +266,7 @@ There are 4 options for affecting townblocks/plots.
     * The blockIDs listed in the towny\data\worlds\worldname.txt @ {{{plotManagementDeleteIds=}}} will be removed from the townblock.
     * Defaults for new worlds are set in the config at new_world_settings.plot_management.block_delete.unclaim_delete
 
-  === Mayors' /plot clear command ===
+  === Plot-Owners' and Mayors' /plot clear command ===
   
   A feature available only to Town Mayors on public town land: /plot clear. This command is meant to be used after a plot was personally owned by a resident, who either moved to another plot or left town. By default this list includes only signs, useful for mayors to remove sign-protection on doors, chests, furnaces, dispensers and trapdoors given via Lockette or Deadbolt.
     * Disabling this feature is done in the in the towny\data\worlds\worldname.txt @ {{{usingPlotManagementMayorDelete=false}}} 
@@ -270,11 +274,15 @@ There are 4 options for affecting townblocks/plots.
   You configure the list of blockIDs to be removed when this command is used.
     * The list of blockIDs is listed in the towny\data\worlds\worldname.txt @ {{{plotManagementMayorDelete=WALL_SIGN,SIGN_POST}}}
     * Defaults for new worlds are set in the config.yml at new_world_settings.plot_management.mayor_plotblock_delete.mayor_plot_delete
+  As of Towny 0.79.1.0, players can use this command within plots they personally own.
   
   === Wilderness Regeneration ===
   
-  A simple wild_revert_on_mob_explosion option. Will regenerate creeper explosions on a timer.
+  A simple wild_revert_on_mob_explosion option. Will regenerate explosions on a timer. 
+  As of Towny 0.79.1.0 You can now add any entities here you want explosions to revent for in the wilderness (includes Creeper,EnderCrystal,EnderDragon,Fireball,SmallFireball,TNTPrimed).
+  These settings are copied to the individual world files, so you must make changes per world.
     * Disabling this feature is done in the in the towny\data\worlds\worldname.txt @ {{{usingPlotManagementWildRegen=true}}} 
+    * or by using '/tw toggle revertexpl' while standing in the world you want to toggle it in.
     * Disabling this feature for new worlds is done in the config at new_world_settings.plot_management.wild_revert_on_mob_explosion.enabled
   You can configure how quickly the blocks will regenerate, specifically how much time in between each block being reverted.
     * The timer is changed in the towny\data\worlds\worldname.txt @ {{{usingPlotManagementWildRegenDelay=5}}}
@@ -638,21 +646,17 @@ Other toggles:
   * fire - Used to force firespread on in towns.
   * townmobs - Used to turn off mobremoval in all towns. Restricted mobs are listed in the config.yml.
   * worldmobs - Toggles mobremoval in the wilderness. Restricted mobs are listed in the config.yml.
+  * usingtowny - Turns towny off in a world.
+  * revertunclaim - toggles the revert-on-unclaim setting for that world.
+  * revertexpl - toggles the revert-on-explosion in the wilderness setting for that world.
       
 ----
 
 = Towny War =
 
-Towny war as it is now is:
-  * A brutal device that induces server-rage-quitting, 
-  * is buggy and,
-  * should probably not be used.
-  
-== Current Towny War ==
+There are two distinct towny war modes. They are both receiving updates.
 
-*This description may not be accurate! Towny War should really not be used until it's been fixed.*
-
-Fixing and making Towny War more configurable is a very high priority. 
+== /ta toggle war ==
 
 Towny war is activated by a server admin using {{{/townyadmin toggle war}}}, there is a 30 second countdown and then War begins.
 
@@ -672,17 +676,9 @@ Points in war given for the following:
   * A nation knocked out of the war: 100
 
 Towny war ends when there is only one nation who's Home Block has not been conquered or when the admin toggles war off.
+Although the townblocks are restored at the end of war, the damage from any griefing is permanent.
 
-*This description may not be accurate! Towny War should really not be used until it's been fixed.*
 
-Known Towny War Issues: 
-  * War spoils is not calculated correctly, will flood your economy with money.
-  * During Towny war, nations which do not paid for neutrality each day, have all of their towns' townblocks subject to griefing.
-    * Although the townblocks are restored at the end of war, the damage from any griefing is permanent.
+== flag-war mode ==
 
-Additions to Towny War so far:
-  * Neutrality fixed.
-  * Entries in [DefaultConfig config.yml] added:
-    * {{{wartime_nation_can_be_neutral: true}}} setting to false prevents nations from being neutral during wartime, will turn off a nation's neutrality mid-war if changed.
-  * During war, firespread and explosions protections are turned off, enabling TNT Cannons to be used. PVP can be enabled in all towns by using {{{force_pvp_on: true}}} in the [DefaultConfig config.yml].
- 
+Developed on the side by Shadeness, the original author of Towny. See his explanation [http://xshade.ca/projects/towny/tutorial/war/ here.]
