@@ -11,6 +11,61 @@
 
 = Master List =
 
+== /towny ==  
+  * /towny 
+    * - Shows basic towny commands.
+    * ? - Shows more towny commands.
+    * map - Shows the towny map.
+    * prices - Shows taxes/costs associated with running a town.
+    * time - Shows time until next new-day (tax/upkeep collection.)
+    * top 
+      * money {all/resident/town/nation} - Shows top money-hoarders.
+      * residents {all/town/nation} - Shows top residents.
+      * land {all/resident/town} - Shows top land owners.
+    * spy - Admin command to spy on all chat channels
+    * universe - Shows full towny stats, resident/town/nation/world counts as well as townblocks claimed.
+    * v - Shows towny version.
+    * war 
+      * stats
+      * scores
+
+== /plot ==
+  * /plot 
+    * - Shows the /plot commands.
+    * claim - Resident command to personally claims a plot that are for sale.
+      * auto - Resident command to personally claim an area of plots that are for sale, around the player typing the command.
+    * unclaim - Resident command to unclaim personally owned plots.
+      * circle/rect - Resident command to unclaim personally owned plots in a circle or rectangle shape.
+        * {# (radius around current position)} - Radius of the area to unclaim.
+    * {forsale/fs} - Set a plot for sale.
+      * circle/rect - Set a shape.
+        * {# (radius around current position)} - Radius of the area to set forsale.
+      * $$ - Cost of plot.
+        * circle/rect - Set a shape.
+          * {# (radius around current position)} - Radius of the area to set forsale.
+    * {notforsale/nfs} - Set a plot to not be for sale.
+      * circle/rect - Set a shape.
+        * {# (radius around current position)} - Radius of the area to set notforsale.
+    * perm - Shows the perm line of the plot in which the player stands.
+    * set
+      * reset - Sets a shop/embassy/arena/wilds plot back to a normal plot.
+      * shop - Sets a plot to a shop plot.
+      * embassy - Sets a plot to an embassy plot.
+      * arena - Sets a plot to an arena plot.
+      * wilds - Sets a plot to a wilds plot.
+      * perm 
+        * {on/off} - Edits the perm line of the single plot in which the player is standing. [http://code.google.com/a/eclipselabs.org/p/towny/wiki/HowTownyWorks#Towny_Perms See here for details.]
+        * {resident/ally/outsider} {on/off}
+        * {build/destroy/switch/itemuse} {on/off}
+        * {resident/ally/outsider} {build/destroy/switch/itemuse} {on/off}
+        * reset - Resets the plot in which you stand to the default perm line of the /town or /resident screen (depending on if the plot is owned personally or by the town.)
+    * toggle
+      * fire - Turn on/off firespread in the plot in which you stand.
+      * pvp - Turn on/off pvp in the plot in which you stand.
+      * explosion - Turn on/off explosions in the plot in which you stand.
+      * mob - Turn on/off hostile mobspawning in the plot in which you stand.
+    * clear - Command to remove list of block id's from a plot, used by a mayor on town-owned land, or by a plot-owner on their personal plots.
+
 == /resident ==
   * /resident 
     * - Shows a player their resident screen.  
@@ -104,43 +159,6 @@
       * open - Turn on/off public joining to your town.
     * join {townname} - Command to join a town that doesn't require invites.
   
-== /plot ==
-  * /plot 
-    * - Shows the /plot commands.
-    * claim - Resident command to personally claims a plot that are for sale.
-      * auto - Resident command to personally claim an area of plots that are for sale, around the player typing the command.
-    * unclaim - Resident command to unclaim personally owned plots.
-      * circle/rect - Resident command to unclaim personally owned plots in a circle or rectangle shape.
-        * {# (radius around current position)} - Radius of the area to unclaim.
-    * {forsale/fs} - Set a plot for sale.
-      * circle/rect - Set a shape.
-        * {# (radius around current position)} - Radius of the area to set forsale.
-      * $$ - Cost of plot.
-        * circle/rect - Set a shape.
-          * {# (radius around current position)} - Radius of the area to set forsale.
-    * {notforsale/nfs} - Set a plot to not be for sale.
-      * circle/rect - Set a shape.
-        * {# (radius around current position)} - Radius of the area to set notforsale.
-    * perm - Shows the perm line of the plot in which the player stands.
-    * set
-      * reset - Sets a shop/embassy/arena/wilds plot back to a normal plot.
-      * shop - Sets a plot to a shop plot.
-      * embassy - Sets a plot to an embassy plot.
-      * arena - Sets a plot to an arena plot.
-      * wilds - Sets a plot to a wilds plot.
-      * perm 
-        * {on/off} - Edits the perm line of the single plot in which the player is standing. [http://code.google.com/a/eclipselabs.org/p/towny/wiki/HowTownyWorks#Towny_Perms See here for details.]
-        * {resident/ally/outsider} {on/off}
-        * {build/destroy/switch/itemuse} {on/off}
-        * {resident/ally/outsider} {build/destroy/switch/itemuse} {on/off}
-        * reset - Resets the plot in which you stand to the default perm line of the /town or /resident screen (depending on if the plot is owned personally or by the town.)
-    * toggle
-      * fire - Turn on/off firespread in the plot in which you stand.
-      * pvp - Turn on/off pvp in the plot in which you stand.
-      * explosion - Turn on/off explosions in the plot in which you stand.
-      * mob - Turn on/off hostile mobspawning in the plot in which you stand.
-    * clear - Command to remove list of block id's from a plot, used by a mayor on town-owned land, or by a plot-owner on their personal plots.
-
 == /nation ==  
   * /nation 
     * - Shows a player their nation's nation screen.
@@ -178,49 +196,6 @@
     * toggle
       * neutral - Sets whether your nation will pay daily to be neutral during towny war.
 
-== /townyworld ==  
-  * /townyworld 
-    * - Shows world settings for the world in which you stand.
-    * ? - Shows /tw commands.
-    * list - Lists worlds.
-    * {world} - Show settings for world.
-    * toggle 
-      * claimable - Turn on/off whether mayors can claim townblocks in the world.
-      * usingtowny - Turn on/off whether towny is used in the world.
-      * pvp - Turn on/off pvp in the world.
-      * forcepvp - Turn on/off whether pvp is forced on in all towns in the world.
-      * explosion - Turn on/off whether explosions are on in the wilderness/towns in the world.
-      * fire - Turn on/off whether firespread is on in the wilderness/towns in the world.
-      * townmobs - Turn on/off hostile mobspawning in towns in the world.
-      * worldmobs - Turn on/off the mobs listed in the world mobs in the world.
-      * revertunclaim - Turn on/off the revert on unclaim feature for that world.
-      * revertexpl - Turn on/off the reverting explosions in the wilderness feature for that world.
-    * set
-      * wildname {name} - Sets name of the wilderness.
-      * wildperm {perm} .. {perm} - Deprecated.
-      * wildignore {id} .. {id} - Deprecated.
-      * usedefault - Deprecated.
-    * regen - Regenerates the MC chunk in which back to the seed.
-    * undo - Undoes /tw regen.
-
-== /towny ==  
-  * /towny 
-    * - Shows basic towny commands.
-    * ? - Shows more towny commands.
-    * map - Shows the towny map.
-    * prices - Shows taxes/costs associated with running a town.
-    * time - Shows time until next new-day (tax/upkeep collection.)
-    * top 
-      * money {all/resident/town/nation} - Shows top money-hoarders.
-      * residents {all/town/nation} - Shows top residents.
-      * land {all/resident/town} - Shows top land owners.
-    * spy - Admin command to spy on all chat channels
-    * universe - Shows full towny stats, resident/town/nation/world counts as well as townblocks claimed.
-    * v - Shows towny version.
-    * war 
-      * stats
-      * scores
-
 == /townyadmin  ==
   * /townyadmin 
     * - Shows Memory, Threads, War status, Health regen setting, Time, Whether daily-timer/taxes are on.
@@ -252,6 +227,31 @@
       * rect {radius} - Admin command to unclaim an area.
     * tree - Shows lots of stuff.
     * purge {# as in days} - Deletes old residents.
+
+== /townyworld ==  
+  * /townyworld 
+    * - Shows world settings for the world in which you stand.
+    * ? - Shows /tw commands.
+    * list - Lists worlds.
+    * {world} - Show settings for world.
+    * toggle 
+      * claimable - Turn on/off whether mayors can claim townblocks in the world.
+      * usingtowny - Turn on/off whether towny is used in the world.
+      * pvp - Turn on/off pvp in the world.
+      * forcepvp - Turn on/off whether pvp is forced on in all towns in the world.
+      * explosion - Turn on/off whether explosions are on in the wilderness/towns in the world.
+      * fire - Turn on/off whether firespread is on in the wilderness/towns in the world.
+      * townmobs - Turn on/off hostile mobspawning in towns in the world.
+      * worldmobs - Turn on/off the mobs listed in the world mobs in the world.
+      * revertunclaim - Turn on/off the revert on unclaim feature for that world.
+      * revertexpl - Turn on/off the reverting explosions in the wilderness feature for that world.
+    * set
+      * wildname {name} - Sets name of the wilderness.
+      * wildperm {perm} .. {perm} - Deprecated.
+      * wildignore {id} .. {id} - Deprecated.
+      * usedefault - Deprecated.
+    * regen - Regenerates the MC chunk in which back to the seed.
+    * undo - Undoes /tw regen.
 
 == Chat Commands ==
   * /townychat reload - Reloads chatconfig.yml and channels.yml
