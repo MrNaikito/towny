@@ -11,7 +11,7 @@ There are a few steps so follow them all carefully.
   # Download the following and copy to your Plugins folder:
     * [http://www.palmergames.com/downloads/tarel/Towny_Advanced.zip Download Towny Advanced.zip] (Includes Towny, TownyChat and Questioner.)
       * Towny.jar is required at all times,
-      * TownyChat.jar is required if you want to have Towny modify chatting in any way. (Adding prefixes and suffixes to chat, adding chat channels.)
+      * TownyChat.jar is required if you want to have Towny modify chatting in any way. (Adding prefixes and suffixes from your permissions plugin to chat, adding town/nation/world to chat, adding chat channels.)
       * Questioner.jar is required if you want players to receive invites to towns, instead of being added automatically.
     * If you use any economy plugin other than iConomy 5.01 you will be required to download [http://www.palmergames.com/downloads/registerrel/Register.jar Register.jar] and put it in your plugins folder.
   # Start your server.
@@ -44,7 +44,13 @@ There are a few steps so follow them all carefully.
   * Navigate to \Plugins\Towny\Settings\
     * Open *channels.yml*
     * Carefully configure channels.yml to your liking. 
+    * Type '/townychat reload' ingame to reload the channels.yml.
   
+= Step Five - Configuring Towny's chatconfig.yml (Optional) =
 
-
-  
+  * If using townychat.jar,
+  * Navigate to \Plugins\Towny\Settings\
+    * Open *chatconfig.yml*
+    * Carefull configure chatconfig.yml to your liking.
+    * Explanations of the chat-tags can be found in the comments section of chatconfig.yml or on the wiki [http://code.google.com/a/eclipselabs.org/p/towny/wiki/HowTownyWorks#Townychat.jar here]
+    * Type '/townychat reload' ingame to reload the chatconfig.yml.
