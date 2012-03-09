@@ -2,7 +2,10 @@
 
 = Introduction to Permission Nodes =
 
-Add a description of which nodes and when towny uses its nodes.
+Towny makes use of Permission nodes to customize the Towny experience to different player-ranks.
+
+Using a permission plugin such as Group Manager, Pex, bPerms is highly recommended. If you do not use a permissions plugin make sure that Towny's config has using_permissions: false. (It is not recommended to not use a permissions plugin, there are some very useful parts of towny which cannot be customized without using a permissions plugin.
+
 
 = Permission Nodes =
 
