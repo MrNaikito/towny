@@ -240,6 +240,7 @@
       * pvp - Turn on/off pvp in the world.
       * forcepvp - Turn on/off whether pvp is forced on in all towns in the world.
       * explosion - Turn on/off whether explosions are on in the wilderness/towns in the world.
+      * forceexplosion - Force explosions on in that world.
       * fire - Turn on/off whether firespread is on in the wilderness/towns in the world.
       * townmobs - Turn on/off hostile mobspawning in towns in the world.
       * worldmobs - Turn on/off the mobs listed in the world mobs in the world.
