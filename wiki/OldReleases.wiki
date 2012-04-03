@@ -5,6 +5,36 @@
 
 Here you can find information on old releases of Towny.
 
+== New in 0.79.1.0 ==
+
+    * New commands:
+      * /tw toggle revertunclaim - toggles the revert-on-unclaim setting for that world.
+      * /tw toggle revertexpl - toggles the revert-on-explosion in the wilderness setting for that world.
+            
+      
+    * New permission nodes:
+      * None
+      
+      
+    * Added:
+      * Added a new entry in Nation levels 'townBlockLimitBonus'.
+        * Joining a nation can now net you bonus TownBlocks.
+        * (Configs will not update for this. To enable, delete the nation_level entries and Towny will add a fresh set of data upon startup)
+      * Added Unclaim revert and explosion revert settings to the '/tw' status display.
+      * Added an entities list to wild_revert_on_mob_explosion.
+        * You can now add any entities here you want explosions to revent for in the wilderness (including TNTPrimed).
+        * These settings are copied to the individual world files, so you must make changes per world.
+      * Added 'My Worlds' the the plugin depends list of multiworld plugins.
+      * Expand '/plot clear' usage to plot owners.
+      * Update to support the new bpermissions api.
+      * Don't allow players to kill animals in plots they don't have destroy permissions in.
+
+      
+    * Bug Fixes!
+      * There are a lot of bugs which were fixed, see the full changelog.
+      
+    * [https://github.com/ElgarL/Towny/blob/master/src/ChangeLog.txt Click here for a full changelog.]
+
 == New in 0.79.0.0 ==
 
     * New commands:
