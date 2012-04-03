@@ -682,3 +682,52 @@ Although the townblocks are restored at the end of war, the damage from any grie
 == flag-war mode ==
 
 Developed on the side by Shadeness, the original author of Towny. See his explanation [http://xshade.ca/projects/towny/tutorial/war/ here.]
+
+----
+
+= Using SQL instead of Flatfile =
+
+As of Towny 0.80.0.0 admins can choose to use an SQL database instead of flatfile.
+
+== Configuring SQL ==
+
+3 Data base types are supported:
+
+  === MySQL ===
+    * Open the \towny\settings\config.yml and find the Plugin Interfacing section.
+    * Navigate to the sql: section.
+    * Configure towny with your mysql database hostname/port/username and password.
+    * Save the config and read below for conversion instructions.
+  
+  === H2 ===
+    * Download [http://mirror.nexua.org/Dependencies/h2.jar h2.jar] and place it in the lib folder in your server's root folder.
+    * Read below for conversion instructions.
+  
+  === sqlite ===
+    * Follow the same instructions as H2
+
+== Converting Flatfile to SQL ==
+
+  # Stop your server
+  # Open the \towny\settings\config.yml and find the Plugin Interfacing section.
+  # Find the database_load, make sure it's set to flatfile.
+  # Find the database_save, set it to either mysql, sqlite or h2.
+  # Save the config and start your server.
+  # While your server is running:
+    * Set the database_load to mysql, sqlite or h2.
+    * Type /ta reload ingame.
+  # Since you don't need it anymore, go to \towny\ and remove/rename the DATA folder. Leaving the data folder will cause Towny to back up the old data folder.
+  # It is important to note that Towny does not back up the sql database. It is up to you to do this.
+  
+== Converting SQL to Flatfile ==
+
+  # Stop your server
+  # Open the \towny\settings\config.yml and find the Plugin Interfacing section.
+  # Find the database_load, make sure it's set to your database type (mysql, sqlite or h2.
+  # Find the database_save, set it to flatfile
+  # Save the config and start your server.
+  # While your server is running:
+    * Set the database_load to flatfile
+    * Type /ta reload ingame.
+  
+  
