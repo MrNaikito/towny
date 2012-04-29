@@ -204,7 +204,7 @@ As of now there are:
   A mayor can use /town set embassyprice {$$} to set how much embassy plots are sold at by default. This can be overriden when a mayor puts the actual plot up for sale with /plot forsale {$$}.
   A mayor can also charge an additional embassytax with /town set embassytax {$$}. This tax is charged in addition to the normal plottax.
 
-  An embassy plot can be bought by any allied player, including players in your nation or players in a nation allied to your nation. The townblock remains owned by the host-town and a mayor from the host-town can take the plot from the owner at any time. If the player who owns the embassy plot becomes an enemy of the host-town they lose their embassy.
+  An embassy plot can be bought by any player. The townblock remains owned by the host-town and a mayor from the host-town can take the plot from the owner at any time. 
   Embassy plots can also be changed into shop plots, allowing for larger shop towns, where many different towns' players can set up shops.
   
   === Wilds Plots ===
