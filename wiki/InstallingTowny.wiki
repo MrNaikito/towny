@@ -32,6 +32,8 @@ There are a few steps so follow them all carefully.
       * Set townblock size, default 16x16 (Cannot be changed later!)
       * Set settings for new default worlds. (Anything you saw in your worldname.txt files.)
       * Set settings for new towns.
+    * Economy settings:
+      * If you do not use an eco plugin find using_economy and set it to false.
     * Permissions setting:
       * Your permissions plugin should automatically be detected and using_permissions: should be set to true.
       * If you use no permissions plugin change using_permissions: to false.
