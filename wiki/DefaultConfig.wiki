@@ -1,9 +1,9 @@
-{{{ 
+{{{
 version:
   # This is the current version of Towny.  Please do not edit.
-  version: 0.80.0.0
+  version: 0.80.1.0
   # This is for showing the changelog on updates.  Please do not edit.
-  last_run_version: 0.80.0.0
+  last_run_version: 0.80.1.0
   # Minimum required version of CraftBukkit.  Please do not edit.
   bukkit_version: '2126'
   # If enabled we will not check the CraftBukkit version at startup.
