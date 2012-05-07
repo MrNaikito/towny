@@ -23,10 +23,15 @@ Using a permission plugin such as Group Manager, Pex, bPerms is highly recommend
     * towny.admin.unclaim Force unclaim of a town plot (any town)
 
   * towny.claimed.{{{*}}} : User can build/destroy/switch/item_use in all towns.
-    * towny.claimed.build : User can build in all towns.
-    * towny.claimed.destroy : User can destroy in all towns.
-    * towny.claimed.switch : User can switch in all towns.
-    * towny.claimed.item_use : User can use use items in all towns. 
+    * towny.claimed.owntown.build.{{{*}}} : User can build in their town.
+    * towny.claimed.owntown.destroy.{{{*}}} : User can destroy in their town.
+    * towny.claimed.owntown.switch.{{{*}}} : User can switch in their town.
+    * towny.claimed.owntown.item_use.{{{*}}} : User can use use items in their town.
+    * towny.claimed.alltown.build.{{{*}}} : User can build in all towns.
+    * towny.claimed.alltown.destroy.{{{*}}} : User can destroy in all towns.
+    * towny.claimed.alltown.switch.{{{*}}} : User can switch in all towns.
+    * towny.claimed.alltown.item_use.{{{*}}} : User can use use items in all towns. 
+
 
     * towny.claimed.alltown.{{{*}}} : User is able to edit specified/all block types in all towns. Use a block ID number instead of {{{*}}} to disallow/allows single blocks.
       * towny.claimed.alltown.build.{{{*}}}
@@ -90,10 +95,10 @@ Using a permission plugin such as Group Manager, Pex, bPerms is highly recommend
   * towny.top : Gives users access to /towny top command.
 
   * towny.wild.{{{*}}}
-    * towny.wild.build
-    * towny.wild.destroy
-    * towny.wild.switch
-    * towny.wild.item_use
+    * towny.wild.build.{{{*}}}
+    * towny.wild.destroy.{{{*}}}
+    * towny.wild.switch.{{{*}}}
+    * towny.wild.item_use.{{{*}}}
     * towny.wild.block.{block id}.{{{*}}}
       * towny.wild.build.{block id}
       * towny.wild.destroy.{block id}
