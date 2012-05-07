@@ -5,7 +5,7 @@ version:
   # This is for showing the changelog on updates.  Please do not edit.
   last_run_version: 0.80.1.0
   # Minimum required version of CraftBukkit.  Please do not edit.
-  bukkit_version: '2126'
+  bukkit_version: '2149'
   # If enabled we will not check the CraftBukkit version at startup.
   bypass_version_check: 'false'
  
