@@ -73,25 +73,26 @@
     * {resident} - Shows a player another player's resident screen.
     * delete {resident} - Admin command that deletes a resident from the towny data folder's files.
     * friend 
-     * add {resident} .. {resident} - Resident adds online player to their friends list.
-     * add+ {resident} .. {resident} - Resident adds offline player to their friends list.
-     * remove {resident} .. {resident} - Resident removes online player from their friends list.
-     * remove+ {resident} .. {resident} - Resident removes offline player from their friends list.
-     * clearlist - Removes all friends from a resident's friend list.
+      * add {resident} .. {resident} - Resident adds online player to their friends list.
+      * add+ {resident} .. {resident} - Resident adds offline player to their friends list.
+      * remove {resident} .. {resident} - Resident removes online player from their friends list.
+      * remove+ {resident} .. {resident} - Resident removes offline player from their friends list.
+      * clearlist - Removes all friends from a resident's friend list.
     * list - Lists residents in towny's data folder.
-    * set 
-     * mode
-       * map - Turns on map which refreshes when moving across plot borders.
-       * townclaim - Turns on mode where /town claim is automatically used when moving across plot borders.
-       * spy - Admins can turn on chat-channel spying.
-       * reset - This turns off all modes that are active.
-     * perm 
-       * {on/off} - Edits the perm line on the resident screen. [http://code.google.com/a/eclipselabs.org/p/towny/wiki/HowTownyWorks#Towny_Perms See here for details.]
-       * {friend/ally/outsider} {on/off}
-       * {build/destroy/switch/itemuse} {on/off}
-       * {friend/ally/outsider} {build/destroy/switch/itemuse} {on/off}
-       * reset - This takes the perm line seen in the /resident screen and applies it to all plots personally owned by the player typing it.
-     * tax - Shows taxes a player pays.
+    * toggle
+      * map - Turns on map which refreshes when moving across plot borders.
+      * townclaim - Turns on mode where /town claim is automatically used when moving across plot borders.
+      * plotborder - Turns on smokey plot-border view. Border shows when players cross to different townblocks.
+      * spy - Admins can turn on chat-channel spying.
+      * reset - This turns off all modes that are active.
+    * set
+      * perm 
+        * {on/off} - Edits the perm line on the resident screen. [http://code.google.com/a/eclipselabs.org/p/towny/wiki/HowTownyWorks#Towny_Perms See here for details.]
+        * {friend/ally/outsider} {on/off}
+        * {build/destroy/switch/itemuse} {on/off}
+        * {friend/ally/outsider} {build/destroy/switch/itemuse} {on/off}
+        * reset - This takes the perm line seen in the /resident screen and applies it to all plots personally owned by the player typing it.
+      * tax - Shows taxes a player pays.
 
     
 == /town ==  
@@ -205,9 +206,11 @@
       * remove {resident} .. {resident} - Admin command to remove a resident from a town.
       * kick {resident} - Admin command to remove a resident from a town.
       * rename {newname} - Admin command to rename a town.
+      * delete - Admin command to delete a town.
     * nation 
       * {nationname} add {town} - Admin command to invite/add a town to a nation.
       * {nationname} rename {newname} - Admin command to rename a nation.
+      * {nationname} delete - Admin command to delete a town.
     * reset
     * toggle
       * war - Turn on/off towny war.
