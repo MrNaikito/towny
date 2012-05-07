@@ -5,6 +5,89 @@
 
 Here you can find information on old releases of Towny.
 
+== New in 0.80.0.0 ==
+
+    * New commands:
+      * None
+      
+      
+    * New permission nodes:
+      * towny.town.spawn.outpost - Allows a player to teleport to the outposts of his town. This node is given as a childnode of towny.town.spawn.town, if you want to disallow teleporting to outpost you must give players the negated node (ex in Groupmanager: - -towny.town.spawn.outpost)
+      * Broke admin permissions into seperate nodes. They are all children of 'towny.admin'.
+        * towny.admin.town: Allows a player to use '/ta town add/kick'
+        * towny.admin.nation: Allows a player to use '/ta nation add/kick'
+        * towny.admin.set: Grants access to '/ta set' allowing a player to set and remove NPC mayors.
+        * towny.admin.reload: Reload all towny settings and data.
+        * towny.admin.reset: Generate a fresh config.yml and perform a full reload of Towny.
+        * towny.admin.toggle: Allows a player to toggle any adming settings using '/ta toggle'
+        * towny.admin.givebonus: granting of bonus plots to a player/town
+        * towny.admin.backup: perform a backup
+        * towny.admin.newday: run a new day event for taxes
+        * towny.admin.purge: Remove old residents '/ta purge 30'
+        * towny.admin.unclaim: Force unclaim of a town plot (any town)
+      * Expanded the plot command permission into child nodes.
+        * towny.town.plot.claim: Allows use of '/plot claim'
+        * towny.town.plot.unclaim: Allows use of '/plot unclaim'
+        * towny.town.plot.notforsale: Allows use of '/plot notforsale'
+        * towny.town.plot.nfs: Allows use of '/plot nfs'
+        * towny.town.plot.forsale: Allows use of '/plot forsale'
+        * towny.town.plot.fs: Allows use of '/plot fs'
+        * towny.town.plot.perm: Allows use of '/plot perm'
+        * towny.town.plot.toggle: Allows use of '/plot toggle...'
+        * towny.town.plot.set: Allows use of '/plot set...'
+        * towny.town.plot.clear: Allows use of '/plot clear' (mainly for mayors).
+
+    
+    * Changed permissions nodes:
+      * 'towny.wild.block.[id].build' is now 'towny.wild.build.[id]'
+      * 'towny.wild.block.[id].destroy' is now 'towny.wild.destroy.[id]'
+      * 'towny.wild.block.[id].switch' is now 'towny.wild.switch.[id]'
+      * 'towny.wild.block.[id].item_use' is now 'towny.wild.item_use.[id]'
+      * 'towny.claimed.owntown.block.[id].build' is now 'towny.claimed.owntown.build.[id]'
+      * 'towny.claimed.owntown.block.[id].destroy' is now 'towny.claimed.owntown.destroy.[id]'
+      * 'towny.claimed.owntown.block.[id].switch' is now 'towny.claimed.owntown.switch.[id]'
+      * 'towny.claimed.owntown.block.[id].item_use' is now 'towny.claimed.owntown.item_use.[id]'
+      * 'towny.claimed.alltown.block.[id].build' is now 'towny.claimed.alltown.build.[id]'
+      * 'towny.claimed.alltown.block.[id].destroy' is now 'towny.claimed.alltown.destroy.[id]'
+      * 'towny.claimed.alltown.block.[id].switch' is now 'towny.claimed.alltown.switch.[id]'
+      * 'towny.claimed.alltown.block.[id].item_use' is now 'towny.claimed.alltown.item_use.[id]'
+      
+    * Added:
+      * Updated to support Register 1.7 and Craftconomy.
+      * Rework permission inheritances to reduce lag.
+      * SQL SUPPORT
+        * MySQL, H2, sqlite supported.
+      * Traditional /ta toggle war event:
+        * Added a new setting under War events 'towns_are_neutral'. If set to false, all towns not in nations are attackable during a war event.
+      * Shadeness' Flag War Additions:
+        * Flag war mode now supports economy payments for specific events. Those being:
+        * Payment to server -  to place a warflag.
+        * Attacking flagbearer -  pays the defender who broke the flag during a successful defend.
+        * Pillage fund - from defending town during a succesfuly attack. A different amount can be set for the homeblock.
+          * (Using a negative amount for pillaging will instead cause the attacker to pay a 'rebuilding cost'.)
+      * Block 'fire charge' from lighting fires if firespread is disabled (added to item_use_ids).
+      * Plots lost due to taxes are no longer put up for sale and have their permissions correctly set for their type as per the town settings.
+      * You can no longer stand in a non-pvp area and safely shoot players outside in pvp areas.
+
+      
+    * Bug Fixes!
+      * Fix saving World lists and world data.
+      * Fix world setting checks when not using permissions.
+      * Death events in non-towny worlds are no longer tracked for war or death payments.
+      * Fixed a bug where you could bypass a toggle permission (plot and town) by using an upper case letter.
+      * Creating a new town now correctly sets the plot permissions for the homeblock at creation.\
+      * '/plot clear' works again on plots lost due to taxes and all other unowned plots.
+      * Fix updating the nation file if the renamed town was the Capital.
+      * Fix deleting of nations at newday.
+      * Fix saving a towns setting for tax percentage (SQL).
+      * Change default permissions on 'shop' plots to follow the owners permissions.
+      * Fix for me breaking op's wild override.
+      * Fix Admin commands from the console.
+      * Fix Wild perms so it will follow the world settings if no permissions are found.
+      * There are a lot more bugs which were fixed, see the full changelog.
+      
+    * [https://github.com/ElgarL/Towny/blob/master/src/ChangeLog.txt Click here for a full changelog.]
+
 == New in 0.79.1.0 ==
 
     * New commands:
