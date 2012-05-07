@@ -29,7 +29,7 @@ Here are instructions for upgrading from an older version of Towny:
           * In the Plugin Interfacing section of the config.yml set:
             * using_economy: true
         * Using iConomy 6, BOSEconomy or EssentialsEco:
-          * Download [http://mirror.nexua.org/Register/latest/edge/Register.jar Register.jar] and place into your plugins folder.
+          * Download [http://mirror.nexua.org/Register/latest/edge/Register.jar Register.jar] or Vault and place into your plugins folder.
           * In the Plugin Interfacing section of the config.yml set:
             * using_economy: true
       * Save config.yml.    
