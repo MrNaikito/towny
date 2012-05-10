@@ -22,7 +22,7 @@ Using a permission plugin such as Group Manager, Pex, bPerms is highly recommend
     * towny.admin.purge Remove old residents '/ta purge 30'
     * towny.admin.unclaim Force unclaim of a town plot (any town)
 
-  * towny.claimed.{{{*}}} : User can build/destroy/switch/item_use in all towns.
+  * towny.claimed.{{{*}}} : User can build/destroy/switch/item_use in all towns. *These should be given to moderator ranks only in most cases.*
     * towny.claimed.owntown.build.{{{*}}} : User can build in their town.
     * towny.claimed.owntown.destroy.{{{*}}} : User can destroy in their town.
     * towny.claimed.owntown.switch.{{{*}}} : User can switch in their town.
@@ -32,18 +32,6 @@ Using a permission plugin such as Group Manager, Pex, bPerms is highly recommend
     * towny.claimed.alltown.switch.{{{*}}} : User can switch in all towns.
     * towny.claimed.alltown.item_use.{{{*}}} : User can use use items in all towns. 
 
-
-    * towny.claimed.alltown.{{{*}}} : User is able to edit specified/all block types in all towns. Use a block ID number instead of {{{*}}} to disallow/allows single blocks.
-      * towny.claimed.alltown.build.{{{*}}}
-      * towny.claimed.alltown.block.destroy.{{{*}}}
-      * towny.claimed.alltown.switch.{{{*}}}
-      * towny.claimed.alltown.item_use.{{{*}}}
-
-    * towny.claimed.owntown.{{{*}}} : User is able to edit specified/all block types in their own town. Use a block ID number instead of {{{*}}} to disallow/allows single blocks.
-      * towny.claimed.owntown.build.{{{*}}}
-      * towny.claimed.owntown.destroy.{{{*}}} : (handy to allow clearing of snow '78')
-      * towny.claimed.owntown.switch.{{{*}}}
-      * towny.claimed.owntown.item_use.{{{*}}}
 
   * towny.town.{{{*}}} : User has access to all .town permission nodes.
     * towny.town.claim : User is able to expand his town with /town claim (used when world is set as unclaimable in /townyworld)
