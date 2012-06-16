@@ -14,7 +14,3 @@ If you have usingiConomy:true in your [DefaultConfig config.yml] then you need t
   Because the server does not have Questioner enabled the resident or town is not prompted about whether they want to join, they are just added.
   Miner Steve is feeling devious so he sets his town's tax or nation's tax incredibly high! When the next 'Towny Day' rolls around, all the residents/towns in Steve's town/nation are charged the immense tax, bankrupting them instantly! This can also lead to deleted towns.
   
-= New to Questioner 0.4 =
-
-Using Question 0.4+ and Towny 0.72.0+, town mayors are now prompted to join a nation. This prompt was never coded, so if you are running an older build of Questioner, update!
-You can find the most up-to-date Questioner and Towny on the [http://code.google.com/a/eclipselabs.org/p/towny/downloads/list Downloads Page.]
