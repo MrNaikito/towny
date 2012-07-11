@@ -5,6 +5,78 @@
 
 Here you can find information on old releases of Towny.
 
+== New in 0.80.1.0 ==
+
+    * New commands:
+      * Moved all player modes under the resident object.
+        * Modes can now be toggled using the command '/res toggle [mode]', as well as the already existing '/res set mode [mode]'.
+        * An example would be '/res toggle map townclaim'. This would change the state for both of these modes to the opposite of what they were (on/off).
+        * Issuing a command of '/res toggle' will clear all modes and set the defaults.
+      * Added a new mode '/res toggle plotborder'.
+        * This will puff smoke along the plot boundary when you enter a plot to show it's edges. Ideal for marking out plots.
+      * Added two new Admin commands...
+        * '/townyadmin town [name] delete'
+        * '/townyadmin nation [name] delete'
+      
+    * New permission nodes:
+      * None
+    
+    * Changed permissions nodes:
+      * Simplify Wild and claimed permission nodes to reduce confusion and make the permission tests faster.
+        * towny.wild.build.{{{*}}}
+        * towny.wild.switch.{{{*}}}
+        * towny.wild.destroy.{{{*}}}
+        * towny.wild.item_use.{{{*}}}
+        * towny.claimed.owntown.build.{{{*}}}
+        * towny.claimed.alltown.build.{{{*}}}
+        * towny.claimed.owntown.item_use.{{{*}}}
+        * towny.claimed.alltown.item_use.{{{*}}}
+        * towny.claimed.owntown.destroy.{{{*}}}
+        * towny.claimed.alltown.destroy.{{{*}}}
+        * towny.claimed.owntown.switch.{{{*}}}
+        * towny.claimed.alltown.switch.{{{*}}}
+    
+    * Removed permission nodes:
+      * 'towny.claimed.build'
+      * 'towny.claimed.destroy'
+      * 'towny.claimed.switch'
+      * 'towny.claimed.item_use'
+      * 'towny.claimed.owntown.{{{*}}}'
+      * 'towny.claimed.alltown.{{{*}}}'
+      
+    * Added:
+      * Added a new economy handler with support for...
+        * Register 1.8+
+        * Vault (will require a build newer than 1.2.15-b172)
+        * Native iConomy 5.01
+      * Add tentative support for Citizens2 to prevent removing NPC created as monsters.
+      * Move all Combat test functions to their own class. All now available via 'CombatUtil' (for other plugin devs).
+      * Players will now receive a warning message if their town or nation is due for deletion at the next new day tax period.
+      * Added Villagers to be protected the same as animals when in a town.
+      * Major rewrite of the player caching system. Should make things faster when handling most events.
+      * Towny now removes old zip backups when using SQL as well as flatfile.
+            
+    * Bug Fixes!
+      * Fix monster spawning to obey the 'Force Town Mobs' world setting.
+      * Remove the UnclaimedZoneIgnoreId's test when using permissions. 
+      * Fix Enderman protection block move to follow the world toggle and ignore all other settings.
+      * Update the TownBlock data when a plot is taken/given back to the town so it will correctly follow the towns permissions once again.
+      * Save the town data to preserve the 'for sale' status when a townblock is put up, or taken off sale.
+      * Outposts can no longer be claimed in worlds which are set as unclaimable.
+      * Rework all PvP and PvM code to properly prevent damage where approriate.
+      * Fix resident purge so it correctly filters up when updating towns/nations.
+      * Fix Towny time to count properly with non standard day cycles.
+      * Recode Towny time to work with different time zones and daylight savings.
+      * Fix an error in the player cache when the player attempting the action has no town.
+      * Stop giving point for allied kills in Event War.
+      * Fix Arena plots so they are useable by players with friendly fire off.
+      * Make war the war results page a little more understandable (event war).
+      * Fix sending attack update messages to town defenders as well as attackers (event war).
+      * Fix the error with world height on some systems for plot regen (thanks Peewi96).
+      
+    * [https://github.com/ElgarL/Towny/blob/master/src/ChangeLog.txt Click here for a full changelog.]
+  
+
 == New in 0.80.0.0 ==
 
     * New commands:
