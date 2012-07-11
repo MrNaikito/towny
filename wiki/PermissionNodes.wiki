@@ -87,7 +87,6 @@ Using a permission plugin such as Group Manager, Pex, bPerms is highly recommend
     * towny.wild.destroy.{{{*}}}
     * towny.wild.switch.{{{*}}}
     * towny.wild.item_use.{{{*}}}
-    * towny.wild.block.{block id}.{{{*}}}
       * towny.wild.build.{block id}
       * towny.wild.destroy.{block id}
       * towny.wild.switch.{block id}
@@ -98,7 +97,7 @@ Using a permission plugin such as Group Manager, Pex, bPerms is highly recommend
   * For superperms users only:
     * prefix.prefixhere 
     * suffix.suffixhere
-      * Used for the towny chat configuration's {permprefix} and {permsuffix}.
+      * Used for the towny chat configuration's {permprefix} and {permsuffix} when using a permission plugin without prefix: and suffix: sections.
     * towny_maxplots.x {with x being a number eg towny_maxplots.2}
 
 = Info/Option Nodes =
@@ -106,9 +105,9 @@ Using a permission plugin such as Group Manager, Pex, bPerms is highly recommend
   This is similar to a permission node as it is added to your permission nodes file(s). Added to the info: section of Groupmanagers' groups or the options: section of PEX's groups.
   
   * Setting default chat channels/modes on join to the server.
-    * towny_default_modes: 'tc,nc,a,m,map,townclaim'
+    * towny_default_modes: 'map,townclaim,plotborder,global,local,town,nation,mod,admin'
       * sets the default modes on residents, found in the /res set mode command stub.
-  
+      * puts players into a townychat chatchannel when they join the server.  
   
   * towny_maxplots: {number}
     This info node is used to limit the number of plots a player can own based on what permissions group they are in. If a group doesn't have this node or the node is set to -1 Towny will default back to the max_plots_per_resident in config.
