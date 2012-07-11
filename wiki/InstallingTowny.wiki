@@ -17,14 +17,25 @@ There are a few steps so follow them all carefully.
   # Start your server.
   # Stop your server.
 
-= Step Two - Configuring your existing worlds. =
+= Step Two - Bypass Craftbukkit Version Check (Optional) =
+  
+  * If you are not using the Recommended Build of Craftbukkit meant for your current version of Towny, (if you are using a craftbukkit made for Tekkit, or Craftbukkit++)
+  # Navigate to the newly-created \plugins\Towny\Settings\ folder.
+    * Open *config.yml*
+    * Set bypass_version_check: true
+    * Save the config 
+  # Start your server.
+  # Stop your server.
+
+= Step Three - Configuring your existing worlds. =
   
   * Navigate to the newly-created \plugins\Towny\Data\Worlds\ folder.
   * You will find worldname.txt files created for all your existing worlds.
   * Open each worldname.txt file and carefully read the comments and settings. These are settings which are not altered by changing the config, the config is only used to make settings for newly-made worlds.
   * Edit the files accordingly, of note are the regeneration settings used in each world, it is here you will turn off plots regenerating if a townblock is unclaimed/lost by a town. For an explanation on how regenerations work read the [http://code.google.com/a/eclipselabs.org/p/towny/wiki/HowTownyWorks#Plot_Regeneration_&_Unclaimed_Plots Plot Regeneration section] of the How Towny Works wikipage.
     
-= Step Three - Configuring Towny's config.yml =
+
+= Step Four - Configuring Towny's config.yml =
 
   * Navigate to \Plugins\Towny\Settings\
     * Open *config.yml*
@@ -40,7 +51,7 @@ There are a few steps so follow them all carefully.
       * *If you use a permissions plugin you MUST configure your [PermissionNodes permission nodes]*
     * Save config.yml and start your server, you are now ready to found your first town.
 
-= Step Four - Configuring Towny's channels.yml (Optional) =
+= Step Five - Configuring Towny's channels.yml (Optional) =
 
   * If using townychat.jar, 
   * Navigate to \Plugins\Towny\Settings\
@@ -48,7 +59,7 @@ There are a few steps so follow them all carefully.
     * Carefully configure channels.yml to your liking. 
     * Type '/townychat reload' ingame to reload the channels.yml.
   
-= Step Five - Configuring Towny's chatconfig.yml (Optional) =
+= Step Six - Configuring Towny's chatconfig.yml (Optional) =
 
   * If using townychat.jar,
   * Navigate to \Plugins\Towny\Settings\
