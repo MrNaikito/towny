@@ -16,7 +16,7 @@ Nomads are simply players who are not part of any town. They are landless and th
 
 == Residents ==
 
-Every person who joins your server can become a resident. Residents have their own [Commands command] {{{/resident}}} which used by itself outputs a Resident Screen, displaying Money, Town, Plots owned and Friends. 
+Every person who joins your server can become a resident (the are given the towny.town.resident permission node in townyperms.yml's nomad section.) Residents have their own [Commands command] {{{/resident}}} which used by itself outputs a Resident Screen, displaying Money, Town, Plots owned and Friends. 
 
 Residents can join towns or choose to start a town of their own. Residents can also be put into one town automatically when they join the server for the first time by setting {{{default_town_name: ''}}} in [DefaultConfig config.yml].
 
@@ -64,7 +64,7 @@ Kings have the ability to set titles (prefixes) and surnames (postfixes) to the 
   * /nation set surname {name} surnamegoeshere
 Typing the commands with nothing after the player's name resets the title or surname to blank.
 
-== Configuring TownyPerms.yml and the Roles of the Ranks Within ==
+== Configuring Townyperms.yml and the Roles of the Ranks Within ==
 
 New to Towny 0.82.0.0 and onwards towny has a new configuration file, townyperms.yml, located in the towny\settings\ folder.
 
@@ -341,7 +341,7 @@ Default permissions are viewable by typing either {{{/resident}}} for personal p
 
   === Perm-Types ===
   The 4 permission-types available are Build, Destroy, Switch and Itemuse.
-    
+
     * Build allows players to add blocks in your town/plot.  
     
     * Destroy allows players to remove blocks in your town/plot. 
@@ -436,6 +436,38 @@ Firespread protection stops all fires from spreading, including lava, lightning 
 
 Piston-protection allows pistons to operate between similarly owned townblocks or wild areas.
 
+----
+
+= How Towny Controls PVP Combat =
+
+Towny affects PVP combat, deciding who can be damaged where and by whom.
+
+== Friendly-fire == 
+
+By default Towny disables friendly-fire between townmembers, nationmembers and residents whose nation considers the attacker's nations an ally. Friendly fire can be disabled in the config.yml {{{friendly_fire: 'true'}}} by setting it to false. The friendly-fire settings affects all worlds in which towny is enabled.
+
+== Plot, Town and World PVP Settings ==
+
+Plots, Towns and Worlds all have PVP settings, here is how they work.
+
+  === World PVP Settings ===
+  World settings for PVP are controlled using in-game commands
+    * /townyworld toggle pvp 
+      * This command disables and enables PVP world-wide. If you type {{{/tw}}} you will see will see a red {PVP} next to the name of the world at the top of the output. If PVP is off in the world, no pvp combat can occur, even in Arena plots.
+    * /townyworld toggle forcepvp
+      * This command forces pvp on world-wide, disregarding any plot or town pvp settings. Friendly-fire is still obeyed.
+      *- There is a way to override forcing pvp on in towns. Navigate to the Towny\Data\Towns\ folder and open the townname.txt file. Find the adminDisabledPvP flag and set it to {{{adminDisabledPvP=true}}} This is useful for forcing pvp on worldwide but leaving it off in a spawn-town.
+  
+  === Town PVP Settings ===
+  Towns pvp settings are controlled using this in-game command
+    * /town toggle pvp 
+      * This toggles pvp on and off town-wide.
+  
+  === Plot PVP Settings ===
+  Plots can have their pvp status controlled individually with this in-game command
+    * /plot toggle pvp
+      * This toggles a single plot's pvp status.
+  
 ----
 
 = Money =
