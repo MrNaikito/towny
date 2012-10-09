@@ -10,22 +10,31 @@ Use this page to learn how Towny works, how various settings affect the gameplay
 
 = The Hierarchy =
 
+== Nomads ==
+
+Nomads are simply players who are not part of any town. They are landless and their permission nodes are configurable via TownyPerms.yml.
+
 == Residents ==
 
-Every person who joins your server becomes a resident. Residents have their own [Commands command] {{{/resident}}} which used by itself outputs a Resident Screen, displaying Money, Town, Plots owned and Friends. 
+Every person who joins your server can become a resident. Residents have their own [Commands command] {{{/resident}}} which used by itself outputs a Resident Screen, displaying Money, Town, Plots owned and Friends. 
 
 Residents can join towns or choose to start a town of their own. Residents can also be put into one town automatically when they join the server for the first time by setting {{{default_town_name: ''}}} in [DefaultConfig config.yml].
 
 Residents who join towns can claim plots that the Mayor of the town has set for sale. When a resident owns 1 or more plots, they will see a new line on their Resident Screen, showing plots owned and a perm line showing the [HowTownyWorks#Towny_Perms plot perms] given on all plots that resident owns.
 
+Residents have their permission nodes configurable via TownyPerms.yml.
+
 == Towns ==
 
 A town is a collection of residents (or just one resident) with one resident as the mayor. A town also has a bank which the mayor can withdraw from. A mayor can also have assistants who have the same powers as him/herself. Towns can have taxes that will be taken at the end of each day interval.
+
 Towns usually grow outwards from their home block, the townblock the mayor stood in during town creation. Townblocks need to be claimed beside other townblocks, unless the mayor claims an outpost in the wilderness.
 
 == Mayors ==
 
-Mayors run towns and with the help of their assistants, manage a town and its residents.
+Mayors run towns and with the help of their assistants, manage a town and its residents. Mayors have their permission nodes configurable via TownyPerms.yml.
+
+Mayors can decide which ranks their residents fall into, in their town. This can be a Town Assistant or any other custom ranks created by the server admin in the townyperms.yml file. Mayors can see the available ranks using '/town ranklist' command. Players are ranked using '/town rank {add|remove} {playername} {rankname}'. A player can have more than one rank assigned, allowing admins to create diverse town-roles such as bankers, builders, inviters for the mayor to choose for their trusted residents.
 
 It is not possible to run two towns unless you are also an admin. An admin can do the following to manage two or more towns:
 
@@ -46,12 +55,37 @@ A nation is a collection of towns (or just one town) with one town as the capita
 
 == Kings==
 
-Kings lead Nations and are the mayor of the capital city.
+Kings lead Nations and are the mayor of the capital city. Kings have their permission nodes configurable via TownyPerms.yml.
+
+Kings can decide which ranks their residents fall into, in their nation. This can be a Nation Assistant or any other custom ranks created by the server admin in the townyperms.yml file. Kings can see the available ranks using '/nation ranklist' command. Players are ranked using '/nation rank {add|remove} {playername} {rankname}'. A player can have more than one rank assigned, allowing admins to create diverse nation-roles such as bankers, inviters for the king to choose for their trusted residents.
 
 Kings have the ability to set titles (prefixes) and surnames (postfixes) to the residents of the towns they have in their nation. This is done with:
   * /nation set title {name} titlegoeshere
   * /nation set surname {name} surnamegoeshere
 Typing the commands with nothing after the player's name resets the title or surname to blank.
+
+== Configuring TownyPerms.yml and the Roles of the Ranks Within ==
+
+New to Towny 0.82.0.0 and onwards towny has a new configuration file, townyperms.yml, located in the towny\settings\ folder.
+
+This system pushes permissions directly to Bukkit and works along side all other perms plugins. It allows you to define sets of permissions based upon a players status (nomad/resident/mayor/king). You can also assign additional permissions based upon any assigned town/nation ranks (assistant/vip etc). This system is not limited to Towny permission nodes. You can assign any permissions for any plugins in it's groups.
+
+This file allows admins to decide what each player-rank can do. Some ranks are assigned automatically:
+  * Players without towns are Nomads.
+  * Players in towns are Residents.
+  * Owners of towns are Mayors.
+  * Owners of nations are Kings.
+
+Some ranks are assigned by Mayors or Kings, and supplement the ranks the players already have:
+  * Mayors can make a resident a Town Assistant.
+  * Kings can make a resident a Nation Assistant.
+  * Mayors and kings can grant admin-created ranks, allowing for diverse customization.
+    * A player can attain many Supplemental ranks from their mayor or king, allowing for diverse nation/town-roles. 
+    * Examples of this would be town-builders, town-bankers, nation-bankers, town-inviters, etc.
+    
+A resident of a town can see the ranks within their town using '/town ranklist'.
+A mayor can use '/town rank {add|remove} {playername} {rankname}' to give a player a new rank within their town.
+A king can use '/nation rank {add|remove} {playername} {rankname}' to give a player a new rank within their nation.
 
 == Configuring Mayor and King Titles, Town and Nation Names ==
 
@@ -297,7 +331,7 @@ Towny's genius is the way it lets players protect themselves. An admin doesn't n
 
 The first concept you need to digest are the 4 perm-types and 3 groups. 
 
-== Towny Perms ==
+== Towny Plot Perms ==
 
 There are 4 permission-type values, which can be set for personal plots and for town plots as well (town permissions can be set by the mayor and affect plots who are not owned by any player.) The basic command for this is either {{{/resident set perm}}} or {{{/town set perm}}} followed by the proper flags for each permission.
 
@@ -461,13 +495,16 @@ The time of a 'Towny Day' can be set in [DefaultConfig config.yml] at {{{day_int
 == Town and Nation Banks ==
 
 Towns and Nations both have banks, to which any resident can deposit money but only town mayors and nation kings (and assistants) can withdraw from.
+
 Any money collected via taxes is deposited to the nation/town bank. When a town needs money, to claim a townblock or an outpost, it is taken from the townbank.
 
 Since mayors and kings can deposit money to their respective banks, some servers will find that mayors and kings shield their wealth from plugins that take a players money for dying from pvp combat.
+
 To prevent townbanks from being exploited an admin can use two options:
   * Admins can set a cap on a town/nation banks at town_bank_cap and nation_bank_cap in the config.yml.
   * Admins can use '/ta toggle withdraw' to prevent mayors and kings from removing money from their bank.
-The cap on banks does not affect taxes which will still be put into the bank. 
+
+As of Towny 0.82.0.0 and onwards the cap on banks is a hard cap and does not allow any money to be added to the town/nation banks if it would put the bank over the limit. This does not remove money from town/nation banks which are already over the limit.
 
 ----
 
@@ -495,7 +532,7 @@ If you want Towny’s variables in chat, or the town/nation channels, you must d
     * Go into the Towny ChatConfig.yml and locate: {{{modify_chat.enable:}}} and be sure to set it to true like this: {{{modify_chat.enable: 'true'}}}
     * Configure the chat lines using the information found in the section below.
 
-== ChatConfig.yml == 
+== Chatconfig.yml == 
 
 The first config file for Towny's chat is the ChatConfig.yml found at \plugins\towny\settings\ChatConfig.yml
 
