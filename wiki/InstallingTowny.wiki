@@ -48,18 +48,27 @@ There are a few steps so follow them all carefully.
     * Permissions setting:
       * Your permissions plugin should automatically be detected and using_permissions: should be set to true.
       * If you use no permissions plugin change using_permissions: to false.
-      * *If you use a permissions plugin you MUST configure your [PermissionNodes permission nodes]*
     * Save config.yml and start your server, you are now ready to found your first town.
 
-= Step Five - Configuring Towny's channels.yml (Optional) =
+= Step Five - Configuring Towny's townyperms.yml (Semi-Optional) =
+  
+  * Navigate to \Plugins\Towny\Settings\
+    * Open *townyperms.yml*  
+    * Carefully read over the groups/ranks that are included by default.
+    * Add and remove permission nodes from the ranks as you see fit. See the wiki's list of [PermissionNodes permission nodes] to understand what each node is doing.
+    * Optionally, add your own ranks to towns and nations, allowing mayors to place their residents into these roles as they see fit.
+  * Save townyperms.yml and while ingame type '/townyadmin reload' to reload the townyperms settings.
+
+= Step Six - Configuring Towny's channels.yml (Optional) =
 
   * If using townychat.jar, 
   * Navigate to \Plugins\Towny\Settings\
     * Open *channels.yml*
     * Carefully configure channels.yml to your liking. 
+    * Save channels.yml.
     * Type '/townychat reload' ingame to reload the channels.yml.
   
-= Step Six - Configuring Towny's chatconfig.yml (Optional) =
+= Step Seven - Configuring Towny's chatconfig.yml (Optional) =
 
   * If using townychat.jar,
   * Navigate to \Plugins\Towny\Settings\
