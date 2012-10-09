@@ -23,4 +23,8 @@
 
   * [TownyPerms Default townyperms.yml]
 
+  * [ChatConfig Default chatconfig.yml]
+
+  * [Channels Default channels.yml]
+
   * [OldReleases Previous Releases]
