@@ -21,4 +21,6 @@
 
   * [DefaultConfig Default config.yml]
 
+  * [TownyPerms Default townyperms.yml]
+
   * [OldReleases Previous Releases]
