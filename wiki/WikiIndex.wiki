@@ -13,7 +13,7 @@
   * [HowTownyWorks How Towny Works]
 
   * [Questioner Questioner]
- 
+
   * [Commands Commands]
 
   * [PermissionNodes Permission Nodes]
