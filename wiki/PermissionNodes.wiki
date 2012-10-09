@@ -7,6 +7,8 @@ Towny makes use of Permission nodes to customize the Towny experience to differe
 
 By default the townyperms.yml will have all the nodes given to the necessary players. You can customize it as you like. For more info on configuring townyperms.yml see the How Towny Works wikipage.
 
+Since townyperms handles most of Towny's permission nodes the only ones you will probably have to add to your permission plugin's node file will be the nodes in the admin/moderator section found below.
+
 Using a permission plugin such as Group Manager or bPerms is highly recommended. If you do not use a permissions plugin make sure that Towny's config has using_permissions: false. (It is not recommended to not use a permissions plugin, there are some very useful parts of towny which cannot be customized without using a permissions plugin.
 
 = Permission Nodes =
