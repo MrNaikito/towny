@@ -1,11 +1,11 @@
-{{{
+{{{ 
 version:
   # This is the current version of Towny.  Please do not edit.
-  version: 0.80.1.0
+  version: 0.82.0.0
   # This is for showing the changelog on updates.  Please do not edit.
-  last_run_version: 0.80.1.0
+  last_run_version: 0.82.0.0
   # Minimum required version of CraftBukkit.  Please do not edit.
-  bukkit_version: '2149'
+  bukkit_version: '2377'
   # If enabled we will not check the CraftBukkit version at startup.
   bypass_version_check: 'false'
  
@@ -395,6 +395,10 @@ plugin:
  
   interfacing:
  
+    tekkit:
+      # Add any fake players for client/server mods (aka Tekkit) here
+      fake_residents: '[IndustrialCraft],[BuildCraft],[Redpower],[Forestry],[Turtle]'
+ 
     # Enable using_essentials if you are using cooldowns in essentials for teleports.
     using_essentials: 'false'
  
@@ -476,8 +480,11 @@ protection:
   # 326 - water bucket
   # 327 - lava bucket
   # 351 - bone/bonemeal
+  # 359 - shears
+  # 368 - ender pearl
+  # 374 - glass bottle
   # 385 - fire charge
-  item_use_ids: 259,325,326,327,351,385
+  item_use_ids: 259,325,326,327,351,359,368,374,385
  
   # Items which can be blocked or enabled via town/plot flags
   # 25 - noteblock
@@ -502,8 +509,14 @@ protection:
   # Remove living entities within a town's boundaries, if the town has the mob removal flag set.
   town_mob_removal_entities: Monster,WaterMob,Flying,Slime
  
+  # Prevent the spawning of villager babies in towns.
+  town_prevent_villager_breeding: 'false'
+ 
   # Globally remove living entities in all worlds that have their flag set.
-  world_mob_removal_entities: WaterMob,Flying,Slime
+  world_mob_removal_entities: Monster,WaterMob,Flying,Slime
+ 
+  # Prevent the spawning of villager babies in the world.
+  world_prevent_villager_breeding: 'false'
  
   # The maximum amount of time a mob could be inside a town's boundaries before being sent to the void.
   # Lower values will check all entities more often at the risk of heavier burden and resource use.
@@ -816,6 +829,8 @@ war:
   enemy:
     # If false, players won't be able to place war flags, effectively disabling warzones.
     allow_attacks: 'false'
+    # If true, enemy's can only attack the edge plots of a town with war flags.
+    only_attack_borders: 'true'
     # This many people must be online in target town in order to place a war flag in their domain.
     min_players_online_in_town: '2'
     # This many people must be online in target nation in order to place a war flag in their domain.
