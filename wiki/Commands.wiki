@@ -19,7 +19,6 @@
     * prices - Shows taxes/costs associated with running a town.
     * time - Shows time until next new-day (tax/upkeep collection.)
     * top 
-      * money {all/resident/town/nation} - Shows top money-hoarders.
       * residents {all/town/nation} - Shows top residents.
       * land {all/resident/town} - Shows top land owners.
     * spy - Admin command to spy on all chat channels
@@ -72,7 +71,6 @@
     * - Shows a player their resident screen.  
     * ? - Shows /res commands available.
     * {resident} - Shows a player another player's resident screen.
-    * delete {resident} - Admin command that deletes a resident from the towny data folder's files.
     * friend 
       * add {resident} .. {resident} - Resident adds online player to their friends list.
       * add+ {resident} .. {resident} - Resident adds offline player to their friends list.
@@ -93,7 +91,7 @@
         * {build/destroy/switch/itemuse} {on/off}
         * {friend/ally/outsider} {build/destroy/switch/itemuse} {on/off}
         * reset - This takes the perm line seen in the /resident screen and applies it to all plots personally owned by the player typing it.
-      * tax - Shows taxes a player pays.
+    * tax - Shows taxes a player pays.
 
     
 == /town ==  
@@ -129,6 +127,8 @@
     * delete {town name} - Admin/Mayor command to delete a town from towny's data folder's files.
     * outpost
       * {# (where # equals the corresponding outpost's number)} - Teleports to an outpost.
+    * ranklist - Displays residents and their ranks.
+    * rank {add|remove} {playername} {rankname} - Grants or removes a rank to a resident of the town.
     * set 
       * board {message} - Sets message seen by residents upon logging in.
       * mayor {resident} - Mayor command to give mayor status to another resident.
@@ -186,6 +186,7 @@
     * enemy 
       * add {nation} .. {nation} - Add a nation to your nation's enemy list.
       * remove {nation} .. {nation} - Removes a nation from your nation's enemy list.
+    * rank {add|remove} {playername} {rankname} - Grants or removes a rank to a resident of the nation.
     * set 
       * king {resident} - King command to change the king of the nation.
       * captial {town} - Sets the capitol and king of the nation.
