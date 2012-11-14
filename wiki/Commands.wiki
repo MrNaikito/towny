@@ -203,6 +203,7 @@
   * /townyadmin 
     * - Shows Memory, Threads, War status, Health regen setting, Time, Whether daily-timer/taxes are on.
     * ? - Shows /ta commands.
+    * delete {playername} - Deletes a player's towny data.
     * town {town} 
       * add {resident} .. {resident} - Admin command to invite/add a resident to a town.
       * remove {resident} .. {resident} - Admin command to remove a resident from a town.
