@@ -1,0 +1,4 @@
+#summary Helpful Infographics
+
+<img scr=http://towny.eclipselabs.org.codespot.com/files/TownyInfographic1.jpg>
+source: chato258 and Kruffles
