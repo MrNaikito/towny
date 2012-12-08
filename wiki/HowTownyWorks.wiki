@@ -548,8 +548,9 @@ If you want Towny’s variables in chat, or the town/nation channels, you must d
 
   === Using TownyChat with Other Chat Plugins ===
   To use Towny and another Chat plugin follow these instructions:
-    * Go into the Towny ChatConfig.yml and locate: {{{modify_chat.enable:}}} and be sure to set it to false like this: {{{modify_chat.enable: 'false'}}}
+    * Go into the Towny ChatConfig.yml and locate: {{{modify_chat.enable:}}} and be sure to set it to true like this: {{{modify_chat.enable: 'true'}}}
     * Now add Towny’s chat variables to your chat plugins config. The variables can be found in the comments of the ChatConfig.yml
+    * Make sure that no players have the towny.chat.general node or they'll be talking in the towny channel and not your other chat plugins default chat channel. You might need to negate the permission node for your admins if they have the '*' in their permission nodes.
   
   Examples:
     * iChat:
