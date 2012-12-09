@@ -108,9 +108,6 @@
       * {townname} {mayor} - Admin command to create town.
     * add {resident} .. {resident} - Mayor command to add residents to your town.
     * kick {resident} .. {resident} - Mayor command to remove residents from your town.
-    * assistant 
-      * add {resident} .. {resident} - Mayor command to add assistants to your town.
-      * remove {resident} .. {resident} - Mayor command to remove assistants from your town.
     * spawn - Teleports you to your town's spawn.
     * spawn {town} - Teleports you to another town's spawn.
     * claim - Mayor command to claim the townblock in which you stand for your town.
