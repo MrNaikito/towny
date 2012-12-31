@@ -19,7 +19,7 @@ There are a few steps so follow them all carefully.
 
 = Step Two - Bypass Craftbukkit Version Check (Optional) =
   
-  * If you are not using the Recommended Build of Craftbukkit meant for your current version of Towny, (if you are using a craftbukkit made for Tekkit, or Craftbukkit++)
+  * If you are not using the Recommended Build of Craftbukkit meant for your current version of Towny, (if you are using a craftbukkit made for Tekkit, Spigot, Libigot or Craftbukkit++)
   # Navigate to the newly-created \plugins\Towny\Settings\ folder.
     * Open *config.yml*
     * Set bypass_version_check: true
