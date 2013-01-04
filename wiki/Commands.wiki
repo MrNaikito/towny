@@ -171,9 +171,7 @@
     * new 
       * {nationname} - Mayor command to create a nation.
       * {nationname} {capitaltown} - Admin command to create a new nation, set capitol.
-    * assistant 
-      * add {resident} .. {resident} - King command to add assistants to your nation.
-      * remove {resident} .. {resident} - King command to remove assistants from your nation.
+    * rank - Command to set assistant/custom ranks in the nation.
     * add {town} .. {town} - Invites/Adds a town to your nation.
     * kick {town} .. {town} - Removes a town from your nation.
     * delete {nation} - Deletes your nation.
