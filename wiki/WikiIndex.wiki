@@ -1,7 +1,8 @@
 #labels Featured
 #sidebar TableOfContents
 [Main Wiki Home Page]
-  *
+
+Installations:
 
   * [InstallingTowny Fresh Install]
 
@@ -11,7 +12,11 @@
 
   * [https://github.com/ElgarL/Towny/blob/master/src/ChangeLog.txt Full Changelog]
 
+Information:
+
   * [HowTownyWorks How Towny Works]
+
+  * [Troubleshooting Troubleshooting]
 
   * [Questioner Questioner]
 
@@ -21,6 +26,8 @@
 
   * [PermissionNodes Permission Nodes]
 
+Configuration Files:
+
   * [DefaultConfig Default config.yml]
 
   * [TownyPerms Default townyperms.yml]
@@ -28,5 +35,7 @@
   * [ChatConfig Default chatconfig.yml]
 
   * [Channels Default channels.yml]
+
+Misc:
 
   * [OldReleases Previous Releases]
