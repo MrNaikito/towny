@@ -227,6 +227,12 @@ Using a permission plugin such as Group Manager or bPerms is highly recommended.
   * towny.chat.admin : Allows a player to use adminchat
   * towny.chat.local : Allows a player to use localchat channel
   * towny.chat.spy : Allows a player to see all chat in all channels
+  
+  * towny.chat.join.{channelname} : Allows a player to /join {channelname}
+  * towny.chat.leave.{channelname} : Allows a player to /leave {channelname}
+  
+  * townychat.mod.mute : Allows a moderator to /chmute {channel} {player}, muting another player in a channel.
+  * townychat.mod.unmute: Allows a moderator to /chunmute {channel} {player}, un-muting another player in a channel.
 
 
 == Wilderness Nodes ==
