@@ -9,11 +9,10 @@ Here are instructions for upgrading from an older version of Towny:
 
   * Stop your server completely.
   * *Backup your entire server!*
-  * Download Towny.jar and save/copy it to your Plugins folder. (Optionally, Download Questioner as well.)
+  * Download Towny_Advanced.zip and extract the 4 .jar files into your plugins folder. Register is not required if your server already uses Vault.jar.
   * If you are upgrading from a Dev Build read [UsingDevBuilds here] for possible extra instructions. 
   * Start your server.
   * Stop your server.
-  * Navigate to /Plugins/Towny/Settings/
 
     * Upgrade from pre-0.72
       * Open *config.properties* (unused now) and *config.yml*
