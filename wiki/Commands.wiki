@@ -266,6 +266,13 @@
     * Reset chat mode to default chat.
   * /a - admin chat.
   * /m - moderator chat.
+  
+  * /channel leave|join {channel} - Channel leaving and joining.
+  * /leave {channel} - Leaves a channel.
+  * /join {channel} - Joins a channel.
+  * /chmute {channel} {player} - Mutes a player in a channel.
+  * /mutelist {channel} - Displays mute list for a channel.
+  * /chunmute {channel} {player} - Unmutes a player in a channel.
 ----
 
 Source: Original Author, Shade: [http://www.xshade.ca/towny/commands http://www.xshade.ca/towny/commands] with small additions.
