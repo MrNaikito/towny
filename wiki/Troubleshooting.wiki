@@ -6,7 +6,12 @@ This page lists common problems and their solutions.
 
 <wiki:toc max_depth="2" />
 
+----
+----
+
 = Admin-solvable Problems =
+
+----
 
 == Towny locked in safe mode ==
 
@@ -69,7 +74,38 @@ There can be 4 types of things wrong with the data. Usually there is something i
 
 6. After editing the data files manually start the server and check the server.log's Towny section to see if the corruption is fixed. It may list a new-found piece of bad data. Repeat the above trouble-shooting steps to attempt to fix this new-found corruption.
 
+----
+
+== Multiple Prefixes Seen on the Chatline ==
+
+If you find that your chat line looks like this: {{{[Owner]Owner[Owner]Steve}}} with 2 or more prefixes you need to change your chatconfig.yml to work with your settings.
+
+Three chat tags can be at fault here. 
+  * {group} which is the group name from your permission plugin.
+  * {permprefix} which is the prefix sections of your permission plugin.
+  * {modplayername} which would contain parts added by other plugins altering chat.
+  
+To fix this follow these steps:
+
+
+1. In the \towny\settings\chatconfig.yml
+
+2. Find the 'channel_formats:' section and the 'global:' line. 
+
+3. Change {modplayername} to {playername}.
+
+4. Remove {group}.
+
+5. In-game type '/townychat reload'. This should solve your problem.
+
+Doing these steps make townychat use the {permprefix} chat tag only, pulling the coloured prefix from your permission plugin.
+
+----
+----
+
 = Player-solvable Problems = 
+
+----
 
 == Residents can build/destroy in town plots they do not own ==
 
