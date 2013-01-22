@@ -14,30 +14,6 @@ Here are instructions for upgrading from an older version of Towny:
   * Start your server.
   * Stop your server.
 
-    * Upgrade from pre-0.72
-      * Open *config.properties* (unused now) and *config.yml*
-      * Carefully configure config.yml to the settings you used in config.properties, [http://code.google.com/a/eclipselabs.org/p/towny/source/browse/trunk/Towny/src/plugin.yml using this as a guide.]
-      * NOTE: The .csv files are no longer being used. Instead the entries in config.yml are used.
-      * Save config.yml and optionally, discard config.properties.
-      
-    * Upgrade from pre-0.76.2.0
-      * Start your server and let the config.yml + english.yml update themselves
-      * Stop your server and configure any new flags in config.yml, your old settings will remain but any new settings will be added and set to their defaults.
-      * Economy Settings: 
-        * Using iConomy 5.01:
-          * In the Plugin Interfacing section of the config.yml set:
-            * using_economy: true
-        * Using iConomy 6, BOSEconomy or EssentialsEco:
-          * Download [http://mirror.nexua.org/Register/latest/edge/Register.jar Register.jar] or Vault and place into your plugins folder.
-          * In the Plugin Interfacing section of the config.yml set:
-            * using_economy: true
-      * Save config.yml.    
-
-    * Upgrade from post-0.76.2.0 to a new version (Extra info for dev builds [UsingDevBuilds here.])
-      * Start your server and let the config.yml + english.yml update themselves
-      * Stop your server and configure any new flags in config.yml, your old settings will remain but any new settings will be added and set to their defaults.
-      * Save config.yml.    
-
     * Upgrade from pre-0.79.0.0
       * The chat section of config.yml has been move to a new file, channels.yml. Edit the new channels.yml to your liking.
 
