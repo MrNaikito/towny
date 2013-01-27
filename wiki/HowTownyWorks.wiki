@@ -266,9 +266,9 @@ Outposts can be teleported to, mayors set the spawn point of the outpost when th
 
 == Selling Land ==
 Land is sold by Mayors to Residents that are a part of their town. {{{using_iconomy: true}}} must be set in [DefaultConfig config.yml] in order for costs to be applied.
-Mayors have a command used in game to set the cost of all the plots in their town that are for sale.
+Mayors have a command used in game to set the cost of all the plots that are set for sale hence-forth.
   * {{{/town set plotprice {$} }}}
-    * This sets the cost of plots which are set for sale, alreay set for sale plots remain their costs.  If it is not set, the plots will cost $0 by default.
+    * This sets the cost of newly-set-for-sale plots, already set-for-sale plots keep their costs.  If it is not set, the plots will cost $0 by default.
 To put a plot up for sale a mayor, while standing in the plot, type /plot forsale {optional cost}
 The resident would then type /plot claim while standing in the plot to buy it. 
 
