@@ -14,6 +14,7 @@ There are a few steps so follow them all carefully.
       * TownyChat.jar is required if you want to have Towny modify chatting in any way. (Adding prefixes and suffixes from your permissions plugin to chat, adding town/nation/world to chat, adding chat channels.)
       * Questioner.jar is required if you want players to receive invites to towns, instead of being added automatically.
     * If you use any economy plugin other than iConomy 5.01 you will be required to download [http://www.palmergames.com/downloads/registerrel/Register.jar Register.jar] or Vault and put it in your plugins folder.
+      * If your economy plugin is supported by Vault, do not use Register.jar, instead use only Vault.
   # Start your server.
   # Stop your server.
 
