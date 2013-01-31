@@ -1,5 +1,5 @@
 #summary How Towny works, mechanics, concepts.
-[http://palmergames.com Towny Homepage].
+[http://palmergames.com/towny/ Towny Homepage].
 = How Towny Works =
 
 Use this page to learn how Towny works, how various settings affect the gameplay, what you can do to customize Towny to your liking.
