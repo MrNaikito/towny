@@ -1,5 +1,5 @@
 #summary Towny Commands Master List
-[http://palmergames.com Towny Homepage].
+[http://palmergames.com/towny/ Towny Homepage].
 = Introduction to Towny Commands=
 <wiki:toc max_depth="2" />
   * This list breaks each command down by word. Eg: /resident set perm {on/off}.
