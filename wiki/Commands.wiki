@@ -213,6 +213,7 @@
     * toggle
       * war - Turn on/off towny war.
       * neutral - Turn on/off a nation's ability to declare neutrality.
+      * npc {residentname} - Toggles a player's resident file to isNPC=true, this exempts the player from taxes/upkeep.
       * debug - Turns on/off debug mode.
       * devmode - Turns on/off special devmode for when towny's devs join your server to find a bug.
       * withdraw - Turns on/off town/nation's ability to withdraw money from their town/nation banks.
