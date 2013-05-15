@@ -33,6 +33,7 @@ Using a permission plugin such as Group Manager or bPerms is highly recommended.
     * towny.command.townyadmin.toggle.{{{*}}} - Allows use of '/ta toggle ...'
       * towny.command.townyadmin.toggle.war
       * towny.command.townyadmin.toggle.neutral
+      * towny.command.townyadmin.toggle.npc
       * towny.command.townyadmin.toggle.devmode
       * towny.command.townyadmin.toggle.debug
       * towny.command.townyadmin.toggle.townwithdraw
@@ -265,6 +266,9 @@ Using a permission plugin such as Group Manager or bPerms is highly recommended.
       * sets the default modes on residents, found in the /res set mode command stub.
       * puts players into a townychat chatchannel when they join the server.  
   
+  * towny_maxoutposts: {number}
+    This info node is used to limit the number of outposts a player can claim based on what permission group they are in.
+  
   * towny_maxplots: {number}
     This info node is used to limit the number of plots a player can own based on what permissions group they are in. If a group doesn't have this node or the node is set to -1 Towny will default back to the max_plots_per_resident in config.
     Setting max_plots_per_resident to -1 with no permission node, or a node set to -1 will allow infinite plots.
@@ -282,6 +286,9 @@ Using a permission plugin such as Group Manager or bPerms is highly recommended.
   		      build: true
   		      suffix: ''
   		      towny_maxplots: 1
+  		      towny_default_modes: 'local'
+  		      towny_maxoutposts: 2
+  		      
   		  Admins:
   		    default: false
   		    permissions:
