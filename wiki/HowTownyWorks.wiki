@@ -12,7 +12,7 @@ Use this page to learn how Towny works, how various settings affect the gameplay
 
 == Nomads ==
 
-Nomads are simply players who are not part of any town. They are landless and their permission nodes are configurable via TownyPerms.yml.
+Nomads are simply players who are not part of any town. They are landless and their permission nodes are configurable via TownyPerms.yml. Nomads can purchase Embassy plots if they have been given towny.command.plot.claim in the Townyperms.yml
 
 == Residents ==
 
@@ -238,8 +238,10 @@ As of now there are:
   A mayor can use /town set embassyprice {$$} to set how much embassy plots are sold at by default. This can be overriden when a mayor puts the actual plot up for sale with /plot forsale {$$}.
   A mayor can also charge an additional embassytax with /town set embassytax {$$}. This tax is charged in addition to the normal plottax.
 
-  An embassy plot can be bought by any player. The townblock remains owned by the host-town and a mayor from the host-town can take the plot from the owner at any time. 
+  An embassy plot can be bought by any player, whether they are in a town or not. The townblock remains owned by the host-town and a mayor from the host-town can take the plot from the owner at any time. 
   Embassy plots can also be changed into shop plots, allowing for larger shop towns, where many different towns' players can set up shops.
+  
+  When a player leaves a town they do not lose ownership of their plots if those plots are set to be Embassy plots.
   
   === Wilds Plots ===
   
@@ -253,6 +255,8 @@ As of now there are:
 Normally townblocks are claimed around the home block, always connected to the town. To claim a townblock out in the wilderness, a mayor or assistant must claim an outpost.
 
 In order for players to claim outposts, the config must be set to {{{allow_outposts: true}}} and players require towny.town.claim.outpost in their permission node group.
+
+An admin can configure how many outposts a player can claim, this is set in your permissions plugin's info/option/meta node section using the towny_maxoutposts: {number} info node. [PermissionNodes See here.]
 
 Outposts cannot be claimed too close to other home blocks, just like when a mayor starts a town they cannot be too close. The exact number is set in the [DefaultConfig config.yml] at {{{min_distance_from_town_homeblock: 5}}}. 
 In the default setting an outpost cannot be claimed within 5 townblocks of any other homeblock.
@@ -347,22 +351,37 @@ Default permissions are viewable by typing either {{{/resident}}} for personal p
     * Destroy allows players to remove blocks in your town/plot. 
 
     * Switch covers the use of:
+      * dispensers,
+      * noteblocks,
+      * chests,
+      * furnaces,
       * wooden and iron doors,
       * levers,
-      * wooden and stone pressure plates,
-      * buttons,
+      * gold, iron, stone and wood pressure plates,
+      * stone buttons,
       * trapdoors,
-      * noteblocks,
       * jukeboxes,
       * redstone repeaters,
-      * dispensers,
-      * gates.
+      * gates,
+      * trapped chests,
+      * redstone comparators,
+      * beacon blocks,
+      * hoppers,
+      * droppers,
+      * getting into and out of Minecarts,
+      * Accessing minecart hoppers, minecart chests, minecart furnaces.
       
     * Itemuse covers the use of:
       * water and lava buckets, 
       * empty buckets,
       * lighters,
-      * bonemeal.
+      * bonemeal and other dyes,
+      * enderpearls,
+      * placing/destroying all minecart types,
+      * firecharges,
+      * using bottles.
+      
+      
    
   === Perm-Groups ===
   Each permission-type has 3 perm-groups to which the pemissions can be set for, these are displayed on your {{{/resident}}} perm line as FAO and stand for Friend, Ally, Outsider. 
