@@ -5,6 +5,78 @@
 
 Here you can find information on old releases of Towny.
 
+== New in 0.82.1.0 ==
+
+    * New commands:
+      * *TownyChat* Added new channel handling support:
+        * 
+        {{{
+        channel:
+        aliases: [ch]
+        description: Channel leaving and joining
+        usage: /channel leave|join {channel}
+
+        leave:
+        description: Leaves a channel
+        usage: /leave {channel}
+        permission: Requires a permissions per channel to use - towny.chat.leave.{channelname}
+		        
+        join:
+        description: Joins a channel
+        usage: /join {channel}
+        permission: Requires a permissions per channel to use - towny.chat.join.{channelname}
+
+        chmute:
+        aliases: [mute]
+        description: Mutes a player in a channel
+        usage: /chmute {channel} {player}
+        permission: townychat.mod.mute
+		        
+        mutelist:
+        description: Displays mute list for a channel
+        usage: /mutelist channel
+		        
+        chunmute:
+        aliases: [unmute]
+        description: Unmutes a player in a channel
+        usage: /chunmute channel player
+        permission: townychat.mod.unmute
+        }}}
+     
+    * New Permission nodes:
+      {{{
+      towny.chat.leave.{channelname}
+      towny.chat.join.{channelname}
+      townychat.mod.mute
+      townychat.mod.unmute
+      }}}
+      
+    * Added:
+      * Add support for Wither explosion protection.
+      * Add protection for Hanging object protection.
+      * Add missing getHandlersList() to Towny events.
+      * '/town leave' now triggers a TownRemoveResidentEvent.
+      * Resident purges and admin deletion of residents now trigger a TownRemoveResidentEvent.
+      * Town status now shows all player ranks, not just assistants (for testing to see if it's too much spam).
+      * Players with no destroy perms for crops/soil can no longer trample even if the feature is disabled.
+      * Added cancellable mob-removal event.
+      * Added events for towns leaving and joining nations.
+      * Added Shade's Closed economy system. You can now define an account in the config where any deleted money goes (needs serious testing).
+            
+    * Bug Fixes!
+      * Prevent players with no build permissions from rotating item frames.
+      * Stop throwing NPE's on '/ta unclaim x'.
+      * Correctly select townblocks to unclaim when using '/ta unclaim x'.
+      * Fix Ender pearl teleports into protected areas. (Only when enderpearl is in the item_use id list in the config.)
+      * Prevent monsters breaking frames unless explosions are enabled.
+      * Protect Hanging items from explosions per plot settings.
+      * Attach PlayerMoveEvent to its related PlayerMoveChunkEvent (andre).
+      * Fix outpost spawns to correctly use the outpost spawn permission when using no outpost number.
+      * Fix town and outpost claiming to use the correct permission child nodes.
+      * Fix saving a change of plot type.
+      * *TownyChat* Fix chat spy.
+      * *TownyChat* Only modify the chat format if modify_chat = true for all channels.
+
 == New in 0.82.0.0 ==
 
     * Important Change *MUST READ* :
