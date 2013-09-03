@@ -247,9 +247,19 @@ As of now there are:
   
   Wilds plots are designated with /plot set wilds
   
-  A wilds plot allows residents to destroy the blocks found on the wild ignore ID list. This includes ores, trees, flowers, mushrooms and other harvestable blocks.
+  A wilds plot allows residents to destroy the blocks found on the wild ignore ID list. This includes ores, trees, flowers, mushrooms and other harvestable blocks by default. It does not include stone, dirt, grass and other terrain blocks.
   It is useful for creating tree farms, and protecting the terrain around a town, while still allowing residents to cut trees and explore caves.
   
+  Setting up wilds plots can be slightly complex, here are instructions.
+    # Navigate to your towny\data\worlds\WORLDNAME.txt file
+    # Set:
+      * unclaimedZoneBuild=false
+      * unclaimedZoneDestroy=false
+    # Configure the unclaimedZoneIgnoreIds line to include the blocks you would like players to break/build.
+    # Go to the Wilds plots you can set using /plot set wilds
+    # Use '/plot set perm resident build on' and '/plot set perm resident destroy on' to enable residents to break/build using only the blocks in the ignoreIDs list.
+    You can also set allies or outsiders perms if you want non-town-members to use the Wilds plots
+      
   
 == Outposts ==
 Normally townblocks are claimed around the home block, always connected to the town. To claim a townblock out in the wilderness, a mayor or assistant must claim an outpost.
