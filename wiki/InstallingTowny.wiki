@@ -8,7 +8,7 @@ There are a few steps so follow them all carefully.
 = Step One - Preparing your server. =
 
   # Stop your server completely.
-  # Download the following and copy to your Plugins folder:
+  # Download the following and copy to your Plugins folder (Place .jar files in the plugins folder, not the actual .zip):
     * [http://www.palmergames.com/downloads/tarel/Towny_Advanced.zip Download Towny Advanced.zip] (Includes Towny, TownyChat and Questioner.)
       * Towny.jar is required at all times,
       * TownyChat.jar is required if you want to have Towny modify chatting in any way. (Adding prefixes and suffixes from your permissions plugin to chat, adding town/nation/world to chat, adding chat channels.)
