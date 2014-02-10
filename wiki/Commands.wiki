@@ -209,7 +209,7 @@
       * {nationname} add {town} - Admin command to invite/add a town to a nation.
       * {nationname} rename {newname} - Admin command to rename a nation.
       * {nationname} delete - Admin command to delete a town.
-    * reset - resets the plot you are standing in to the default generation, using your world's seed and the current MC terrain generation.
+    * reset - resets the towny config.yml to its current default.
     * toggle
       * war - Turn on/off towny war.
       * neutral - Turn on/off a nation's ability to declare neutrality.
