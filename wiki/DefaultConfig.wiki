@@ -1,13 +1,12 @@
 {{{ 
+ 
 version:
   # This is the current version of Towny.  Please do not edit.
-  version: 0.82.0.0
+  version: 0.85.0.0
   # This is for showing the changelog on updates.  Please do not edit.
-  last_run_version: 0.82.0.0
+  last_run_version: 0.85.0.0
   # Minimum required version of CraftBukkit.  Please do not edit.
-  bukkit_version: '2377'
-  # If enabled we will not check the CraftBukkit version at startup.
-  bypass_version_check: 'false'
+  bukkit_version: '3020'
  
 # The language file you wish to use
 language: english.yml
@@ -227,6 +226,10 @@ town:
   # Maximum number of towns allowed on the server.
   town_limit: '3000'
  
+  # Minimum number of plots any towns plot must be from the next town's own plots.
+  # This will prevent town encasement to a certain degree.
+  min_plot_distance_from_town_plot: '5'
+ 
   # Minimum number of plots any towns home plot must be from the next town.
   # This will prevent someone founding a town right on your doorstep
   min_distance_from_town_homeblock: '5'
@@ -257,12 +260,18 @@ town:
 # using '/townyworld toggle'
  
 new_world_settings:
+  # Default for new worlds to have towny enabled.
+  using_towny: 'true'
  
   pvp:
     # Set if PVP is enabled in this world
     world_pvp: 'true'
     # force_pvp_on is a global flag and overrides any towns flag setting
     force_pvp_on: 'false'
+  town:
+    prefix: Town-
+  nation:
+    prefix: Nation-
  
   mobs:
     # world_monsters_on is a global flag setting per world.
@@ -323,7 +332,7 @@ new_world_settings:
       # Enabling this will slowly regenerate holes created in the
       # wilderness by monsters exploding.
       enabled: 'true'
-      entities: Creeper,EnderCrystal,EnderDragon,Fireball,SmallFireball,TNTPrimed
+      entities: Creeper,EnderCrystal,EnderDragon,Fireball,SmallFireball,PrimedTNT,MinecartTNT
       delay: 20s
  
  
@@ -484,23 +493,12 @@ protection:
   # 368 - ender pearl
   # 374 - glass bottle
   # 385 - fire charge
-  item_use_ids: 259,325,326,327,351,359,368,374,385
+  item_use_ids: 259,325,326,327,328,342,351,359,368,374,385
  
   # Items which can be blocked or enabled via town/plot flags
   # 25 - noteblock
-  # 54 - chest
-  # 61 - furnace
-  # 62 - lit furnace
-  # 64 - wooden door
-  # 69 - lever
-  # 70 - stone pressure plate
-  # 71 - iron door
-  # 72 - wooden pressure plate
-  # 77 - stone button
-  # 96 - trap door
-  # 84 - jukebox
-  # 93/94 - redstone repeater
-  switch_ids: 23,25,54,61,62,64,69,70,71,72,77,96,84,93,94,107
+  # 54 - chest ...etc
+  switch_ids: 23,25,54,61,62,64,69,70,71,72,77,96,84,93,94,107,146,147,148,149,150,138,154,158,328,342,343,389,407,408
  
   # permitted entities http://jd.bukkit.org/apidocs/org/bukkit/entity/package-summary.html
   # Animals, Chicken, Cow, Creature, Creeper, Flying, Ghast, Giant, Monster, Pig, 
@@ -511,6 +509,8 @@ protection:
  
   # Prevent the spawning of villager babies in towns.
   town_prevent_villager_breeding: 'false'
+  # Disable creatures triggering stone pressure plates
+  disable_creature_pressureplate_stone: 'true'
  
   # Globally remove living entities in all worlds that have their flag set.
   world_mob_removal_entities: Monster,WaterMob,Flying,Slime
@@ -522,6 +522,13 @@ protection:
   # Lower values will check all entities more often at the risk of heavier burden and resource use.
   # NEVER set below 1.
   mob_removal_speed: 5s
+ 
+  # permitted entities http://jd.bukkit.org/apidocs/org/bukkit/entity/package-summary.html
+  # Animals, Chicken, Cow, Creature, Creeper, Flying, Ghast, Giant, Monster, Pig, 
+  # PigZombie, Sheep, Skeleton, Slime, Spider, Squid, WaterMob, Wolf, Zombie
+ 
+  # Protect living entities within a town's boundaries from being killed by players.
+  mob_types: Animals
  
   # Prevent fly and double block jump cheats.
   cheat_protection: 'true'
@@ -567,7 +574,9 @@ notification:
   format: '&6 ~ %s'
   splitter: '&7 - '
   area_wilderness: '&2%s'
+  area_wilderness_pvp: '%s'
   area_town: '&6%s'
+  area_town_pvp: '%s'
   owner: '&a%s'
   no_owner: '&a%s'
   plot:
@@ -662,6 +671,8 @@ resident_settings:
     delete_economy_account: 'true'
   # The name of the town a resident will automatically join when he first registers.
   default_town_name: ''
+  # If true, players can only use beds in plots they personally own.
+  deny_bed_use: 'false'
  
  
 ############################################################
@@ -671,6 +682,9 @@ resident_settings:
 ############################################################
  
 economy:
+  # By default it is set to true.
+  # Rarely set to false. Set to false if you get concurrent modification errors on timers for daily tax collections.
+  use_async: 'true'
  
   spawn_travel:
     # Cost to use /town spawn
@@ -697,6 +711,8 @@ economy:
     price_claim_townblock: '25.0'
     # How much it costs a player to buy extra blocks.
     price_purchased_bonus_townblock: '25.0'
+    # How much every extra bonus block costs more. Set to 1 to deactivate this. 1.2 means +20% to every bonus claim block cost.
+    price_purchased_bonus_townblock_increase: '1.0'
  
   price_death: '1.0'
  
@@ -711,6 +727,13 @@ economy:
     nation_bank_cap: '0.0'
     # Set to true to allow withdrawls from nation banks
     nation_allow_withdrawls: 'true'
+  closed_economy:
+    # The name of the account that all money that normally disappears goes into.
+    server_account: towny-server
+    # Turn on/off whether all transactions that normally don't have a second party are to be done with a certain account.
+    # Eg: The money taken during Daily Taxes is just removed. With this on, the amount taken would be funneled into an account.
+    #     This also applies when a player collects money, like when the player is refunded money when a delayed teleport fails.
+    enabled: 'false'
  
   daily_taxes:
     # Enables taxes to be collected daily by town/nation
@@ -873,4 +896,5 @@ war:
     # TODO: Blocks will not regen as of yet. Stay tuned for later changes.
     # Only under affect when explosions_break_blocks is true.
     explosions_regen_blocks: 'true'
+
 }}}
