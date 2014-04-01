@@ -53,6 +53,7 @@
       * embassy - Sets a plot to an embassy plot.
       * arena - Sets a plot to an arena plot.
       * wilds - Sets a plot to a wilds plot.
+      * name - allows a mayor or plot-owner to rename plots they own, overwriting the ~Unowned message. Personal-plots display both the plot's given name and the name of the plot-owner.
       * perm 
         * {on/off} - Edits the perm line of the single plot in which the player is standing. [http://code.google.com/a/eclipselabs.org/p/towny/wiki/HowTownyWorks#Towny_Perms See here for details.]
         * {resident/ally/outsider} {on/off}
@@ -78,6 +79,7 @@
       * remove+ {resident} .. {resident} - Resident removes offline player from their friends list.
       * clearlist - Removes all friends from a resident's friend list.
     * list - Lists residents in towny's data folder.
+    * spawn - If deny_bed_use: true in the config.yml and player has a current bed spawn, command will teleport player to their bed.
     * toggle
       * map - Turns on map which refreshes when moving across plot borders.
       * townclaim - Turns on mode where /town claim is automatically used when moving across plot borders.
@@ -126,6 +128,7 @@
       * {# (where # equals the corresponding outpost's number)} - Teleports to an outpost.
     * ranklist - Displays residents and their ranks.
     * rank {add|remove} {playername} {rankname} - Grants or removes a rank to a resident of the town.
+    * reslist - Displays a full list of residents in the town.
     * set 
       * board {message} - Sets message seen by residents upon logging in.
       * mayor {resident} - Mayor command to give mayor status to another resident.
@@ -218,6 +221,7 @@
       * devmode - Turns on/off special devmode for when towny's devs join your server to find a bug.
       * withdraw - Turns on/off town/nation's ability to withdraw money from their town/nation banks.
     * set 
+      * capital {townname} - A command for admins to be able to change a nations capital. Town to be set must already be a member of the nation.
       * mayor 
         * {town} {resident} - Admin command to set a resident as mayor of a town.
         * {town} npc - Admin command to set a town to have an npc mayor.
