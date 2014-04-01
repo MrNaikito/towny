@@ -378,9 +378,9 @@ Default permissions are viewable by typing either {{{/resident}}} for personal p
       * beacon blocks,
       * hoppers,
       * droppers,
-      * getting into and out of Minecarts,
-      * Accessing minecart hoppers, minecart chests, minecart furnaces.
-      
+      * Accessing minecart hoppers, minecart chests, minecart 
+furnaces.
+      * item frames.
     * Itemuse covers the use of:
       * water and lava buckets, 
       * empty buckets,
