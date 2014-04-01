@@ -5,6 +5,29 @@
 
 Here you can find information on old releases of Towny.
 
+== New in 0.84.0.0 ==
+
+    * New commands:
+      * None
+     
+    * Changes to Permission nodes:
+      * None
+      
+    * New Permission Nodes:
+      * None
+      
+    * Added:
+      * Towny will now always try to run no matter what version of CraftBukkit you are running. Instead of disabling it will output a warning message.
+            
+    * Bug Fixes!
+      * Stop Item_use perms overriding Switch perms.
+      * Regen health in town only upto the maximum (allows for modded health levels).
+      * TownyChat: Allow global chat to pass through un-changed if there are no channels to talk in (requires setting modify_chat: false).
+      
+   
+    * [https://raw.github.com/ElgarL/Towny/master/src/ChangeLog.txt Click here for a full changelog.]
+
+
 == New in 0.83.0.0 ==
 
     * New commands:
