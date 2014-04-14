@@ -207,8 +207,8 @@
       * remove {resident} .. {resident} - Admin command to remove a resident from a town.
       * kick {resident} - Admin command to remove a resident from a town.
       * rename {newname} - Admin command to rename a town.
-      * spawn {townname} spawn - Admin command to spawn at at town spawn.
-      * spawn {townname} outpost # - Admin command to spawn at any towns outposts.
+      *spawn - Admin command to spawn at at town spawn.
+      *outpost # - Admin command to spawn at any towns outposts.
       * delete - Admin command to delete a town.
     * nation 
       * {nationname} add {town} - Admin command to invite/add a town to a nation.
