@@ -132,7 +132,7 @@
     * set 
       * board {message} - Sets message seen by residents upon logging in.
       * mayor {resident} - Mayor command to give mayor status to another resident.
-      * homeblock - Sets the homeblock of your town.
+      * homeblock - Sets the homeblock and spawn of your town.
       * spawn - Sets the town spawn, must be done inside the homeblock.
       * name {name} - Change your town's name.
       * outpost - Sets a townblock as an outpost.
@@ -207,6 +207,8 @@
       * remove {resident} .. {resident} - Admin command to remove a resident from a town.
       * kick {resident} - Admin command to remove a resident from a town.
       * rename {newname} - Admin command to rename a town.
+      * spawn {townname} spawn - Admin command to spawn at at town spawn.
+      * spawn {townname} outpost # - Admin command to spawn at any towns outposts.
       * delete - Admin command to delete a town.
     * nation 
       * {nationname} add {town} - Admin command to invite/add a town to a nation.
