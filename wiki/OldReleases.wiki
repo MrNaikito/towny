@@ -1289,4 +1289,28 @@ Here you can find information on old releases of Towny.
       
     * [http://code.google.com/a/eclipselabs.org/p/towny/source/browse/trunk/Towny/src/ChangeLog.txt#781 Click here for a full changelog.]
   
-  
+  {{{
+    -Towny Advanced 0.84.0.0 received 14705 downloads.
+    -Towny Advanced 0.83.0.0 received 9768 downloads.
+    -Towny Advanced 0.82.1.0 received 28039 downloads.
+    -Towny Advanced 0.82.0.0 received 56295 downloads.
+    -Towny Advanced 0.81.0.0 received 37155 downloads.    
+    -Towny Advanced 0.80.1.0 received 36524 downloads.    
+    -Towny Advanced 0.80.0.0 received 21928 downloads.    
+    -Towny Advanced 0.79.1.0 received 17072 downloads.    
+    -Towny Advanced 0.79.0.0 received 16258 downloads.
+    -Towny Advanced 0.78.0.0 received 8748 downloads.
+    -Towny Advanced 0.77.1.0 received 18204 downloads.
+    -Towny Advanced 0.77.0.0 received 5004 downloads.
+    -Towny Advanced 0.76.3.1 received 2627 downloads.
+    -Towny Advanced 0.76.2.0 received 1809 downloads.
+    -Towny Advanced 0.76.1.0 received 1758 downloads.
+    -Towny Advanced 0.76.0 received 2784 downloads.
+    -Towny Advanced 0.75.1 received 1644 downloads.
+    -Towny Advanced 0.75.0 received  126 downloads.
+    -Towny Advanced 0.74.0 received 3012 downloads.
+    -Towny Advanced 0.73.2 received 2580 downloads.
+    -Towny Advanced 0.73.1 recieved 1501 downloads.
+    -Towny Advanced 0.73.0 received  412 downloads.
+    -Towny Advanced 0.72.1 received 1230 downloads.
+}}}
