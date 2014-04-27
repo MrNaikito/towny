@@ -5,6 +5,67 @@
 
 Here you can find information on old releases of Towny.
 
+== New in 0.85.0.0 ==
+
+    * New commands:
+      * /resident spawn - If deny_bed_use: true and player has a current bed spawn, command will teleport player to their bed. Behaves according to town spawn command's costs and rules.
+      * /ta set capital [town name] - A command for admins to be able to change a nations capital. Town to be set must already be a member of the nation.
+      * /town reslist - a command  to obtain a FULL list of all residents in a town.
+      * /plot set name - allows a mayor or plot-owner to rename plots they own, overwriting the ~Unowned message. Personal-plots display both the plot's given name and the name of the plot-owner.
+     
+    * Changes to Permission nodes:
+      * None
+      
+    * New Permission Nodes:
+      * towny.command.resident.spawn - Allows players to use /resident spawn command. Add this node to the resident section of the townyperms.yml.
+      * towny_maxplots.# - Use this to limit how many plots a player can personally own.
+      * towny.tax_exempt - Grant this permisison to any rank you do not want to pay taxes. ** ONLY works in TownyPerms **. Will not work in external permission plugins. WARNING: Mayors without this permission will now be taxed along with the rest, add it to the Mayor section of your townyperms.yml.
+      * towny.command.plot.asmayor - For town plot management, grant this to any ranks you want to have the ability to...
+        * reclaim plots from players for the town.
+        * Toggle perms and plot settings on any plot in the town.
+        * Put plots up for sale and take them down again.
+        * Mayors and Assistants can still set plots for sale without the node.
+     
+    * Added:
+      * Allow negative upkeep on nations.
+      * Add TownyPermissionSource implementation that uses Vault Chat API (ZerothAngel).
+      * Incremental price change for bonus plots (by Slind).
+      * Add config setting to restrict bed-use to personally-owned plots only. Found in Resident Settings @ Deny_Bed_Use. It is false by default.
+        * If deny_bed_use is true and town_respawn is true, a player will respawn at their bed if there is a bed spawn set.
+      * Added cancellable DisallowedPVPEvent.
+      * Expand GroupManager/PEX/bPerms and any other Permission plugin recognised by Vault to handle towny_maxplots.X as a valid permission node. It is now possible to create ranks within townyperms.yml so mayors can limit how many plots their players can own personally. You can also let different ranks in your permission plugin have the ability to own a set number of plots.
+      * Add tab Auto Complete on all commands for Town/Nation names. Any place a town or nation name can be used in a command it is possible to being typing the name and have it autocomplete.
+      * Added protected Mobs setting for town animal protection (coaster3000). You can now define which mobs are protected by towny in the config.
+      * Added settings to make economy daily tax timer async or synced (coaster3000).
+      * Adding the ability to change the Economy prefix from the config (dadealus).
+      * Added minimal claim distance from other town plots (coaster3000).
+            
+    * Bug Fixes!
+      * Fire interact events for players when riding horses/carts/pigs.
+      * Fix possible error when a picture is removed by a projectile.
+      * Change health regen to implement Bukkits new method for health measurement.
+      * Zero Economy accounts when renaming/deleting Towns/Nation as Vault doesn't support deleting them.
+      * Minor performance changes to plot regen code.
+      * Fix permission check to use nation.kick command.
+      * Grammar fix in english.yml.
+      * Exclude NPC's from all Tax and upkeep checks.
+      * Temporary fix for ItemFrames and Minecart protection (need to rewrite major code to implement the new block naming system).
+        * To protect ItemFrames from right click in town add id 389 to the Switch list.
+        * To prevent/allow breaking/emptying either deny or grant the perm for 'towny.wild.destroy.389' or relevant town perm.
+        * For other items use the following codes...
+          * Painting = 321
+          * StorageMinecart = 342
+          * HopperMinecart = 408
+          * PoweredMinecart = 343 (furnace)
+          * RideableMinecart = 328
+      * Fix negative nation upkeep problems when using Vault.
+      * Force shoptax, plottax and embassytax to obey the max tax setting in the config.
+      * Fix a bug where you could create new towns in unclaimable worlds.
+      * Hide players from '/res list' Who can't be seen (graywolf336).
+      * Fix an issue with public town spawns.
+      * Fix '/res friend add/remove' to work on offline players.
+      
+
 == New in 0.84.0.0 ==
 
     * New commands:
