@@ -257,6 +257,7 @@
       * wildname {name} - Sets name of the wilderness.
       * wildperm {perm} .. {perm} - Deprecated.
       * wildignore {id} .. {id} - Deprecated.
+      * wildregen {Creeper,EnderCrystal,EnderDragon,Fireball,SmallFireball,LargeFireball,TNTPrimed,ExplosiveMinecart} - Sets what explosions are reverted in the wilderness.
       * usedefault - Deprecated.
     * regen - Regenerates the MC chunk in which back to the seed.
     * undo - Undoes /tw regen.
