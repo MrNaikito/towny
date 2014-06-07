@@ -132,6 +132,7 @@ Using a permission plugin such as Group Manager or bPerms is highly recommended.
     * towny.command.town.withdraw
     * towny.command.town.deposit
     * towny.command.town.rank.{{{*}}}
+    * towny.command.town.reslist
     * towny.command.town.set.{{{*}}}
       * towny.command.town.set.board
       * towny.command.town.set.mayor
