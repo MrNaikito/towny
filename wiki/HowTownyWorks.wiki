@@ -260,6 +260,14 @@ As of now there are:
     # Use '/plot set perm resident build on' and '/plot set perm resident destroy on' to enable residents to break/build using only the blocks in the ignoreIDs list.
     You can also set allies or outsiders perms if you want non-town-members to use the Wilds plots
       
+  === Inn Plots ===
+  
+  Inn plots are designated with /plot set inn
+  
+  An Inn plot allows anyone to use a bed to set their '/res spawn' and spawn on death. The Inn plot will still deny a player who is in a nation declared as an enemy by your nation.
+  
+  For them to function deny_bed_use: 'true' must be set in the config.yml
+  
   
 == Outposts ==
 Normally townblocks are claimed around the home block, always connected to the town. To claim a townblock out in the wilderness, a mayor or assistant must claim an outpost.
@@ -755,9 +763,11 @@ Other toggles:
 
 There are two distinct towny war modes. They are both receiving updates.
 
-== /ta toggle war ==
+== /ta toggle war (Event War) ==
 
 Towny war is activated by a server admin using {{{/townyadmin toggle war}}}, there is a 30 second countdown and then War begins.
+
+Using_economy must be set to true in the config.yml for an event war to begin.
 
 During war Nations fight each other. Towns without a nation are not included, cannot score points and cannot have their townblocks griefed.
 
