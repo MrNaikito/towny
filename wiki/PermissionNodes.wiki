@@ -59,11 +59,11 @@ Using a permission plugin such as Group Manager or bPerms is highly recommended.
       * towny.claimed.alltown.destroy.{{{*}}} : User can destroy in all towns.
       * towny.claimed.alltown.switch.{{{*}}} : User can switch in all towns.
       * towny.claimed.alltown.item_use.{{{*}}} : User can use use items in all towns.
-    * towny.claimed.townowned.{{{*}}} : User is able to edit specified/all block types in their towns owned plots (Town only, not resident owned).
+    * towny.claimed.townowned.{{{*}}} : User is able to edit specified/all block types in their town's owned plots (Town only, not resident owned).
       * towny.claimed.townowned.build.{{{*}}} : User can build in their town.
       * towny.claimed.townowned.destroy.{{{*}}} : User can destroy in their town.
       * towny.claimed.townowned.switch.{{{*}}} : User can switch in their town.
-      * towny.claimed.townowned.item_use.{{{*}}} : User can use use items in their town. 
+      * towny.claimed.townowned.item_use.{{{*}}} : User can use items in their town. 
 
 
 == /Plot Nodes == 
